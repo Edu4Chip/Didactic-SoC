@@ -10,7 +10,7 @@ This repository contains ipxact models of interfaces.
 || Clock control? ||
 | UART |||
 | GPIO |||
-| SPI | ||
+| SPI |||
 | SDIO |||
 | JTAG |||
 | IRQ |||
@@ -23,5 +23,5 @@ Initial aim is to have minimal setup of definitions to be able to create simple 
 This repository includes source files as wrappers to integratable modules.
 
 | module name | integrates | description|
-|axi2apb|converter module|pulp axi to apb converter|
-||||
+|axi2apb|converter module||
+|axi-icn|axi protocol xbar||

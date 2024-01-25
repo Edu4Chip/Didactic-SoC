@@ -1,1 +1,2 @@
 src/sv/axi_to_apb.sv
+src/sv/axi_xbar.sv
