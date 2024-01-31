@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:abstractionDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2022" xmlns:kactus2="http://kactus2.cs.tut.fi" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2022 http://www.accellera.org/XMLSchema/IPXACT/1685-2022/index.xsd">
+	<ipxact:vendor>tuni.fi</ipxact:vendor>
+	<ipxact:library>interface</ipxact:library>
+	<ipxact:name>GPIO.absDef</ipxact:name>
+	<ipxact:version>1.0</ipxact:version>
+	<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
+	<ipxact:ports>
+		<ipxact:port>
+			<ipxact:logicalName>gpo</ipxact:logicalName>
+			<ipxact:wire>
+				<ipxact:onInitiator>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
+			</ipxact:wire>
+		</ipxact:port>
+		<ipxact:port>
+			<ipxact:logicalName>gpi</ipxact:logicalName>
+			<ipxact:wire>
+				<ipxact:onInitiator>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
+			</ipxact:wire>
+		</ipxact:port>
+		<ipxact:port>
+			<ipxact:logicalName>gpio</ipxact:logicalName>
+			<ipxact:wire>
+				<ipxact:onSystem>
+					<ipxact:group>external_io</ipxact:group>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:direction>inout</ipxact:direction>
+				</ipxact:onSystem>
+			</ipxact:wire>
+		</ipxact:port>
+	</ipxact:ports>
+	<ipxact:vendorExtensions>
+		<kactus2:version>3,13,0,0</kactus2:version>
+	</ipxact:vendorExtensions>
+</ipxact:abstractionDefinition>
