@@ -7,10 +7,9 @@
 	<ipxact:componentInstances>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>SystemControl_SS</ipxact:instanceName>
-			<ipxact:componentRef vendor="" library="" name="" version=""/>
+			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="SysCtrl_SS_wrapper" version="1.0"/>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{1b2f10de-b1b3-480c-a12a-4664c7b6e58b}</kactus2:uuid>
-				<kactus2:draft/>
 				<kactus2:position x="280" y="60"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="UART" x="-110" y="40"/>
