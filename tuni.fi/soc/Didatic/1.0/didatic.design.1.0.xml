@@ -23,7 +23,6 @@
 					<kactus2:portPosition busRef="IRQ1" x="110" y="390"/>
 					<kactus2:portPosition busRef="IRQ2" x="110" y="410"/>
 					<kactus2:portPosition busRef="IRQ3" x="110" y="430"/>
-					<kactus2:portPosition busRef="JATG" x="-110" y="160"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="320"/>
 					<kactus2:portPosition busRef="Reset_int" x="110" y="70"/>
 					<kactus2:portPosition busRef="SDIO" x="-110" y="80"/>
@@ -33,6 +32,7 @@
 					<kactus2:portPosition busRef="SS_2_Ctrl" x="110" y="300"/>
 					<kactus2:portPosition busRef="SS_3_Ctrl" x="110" y="330"/>
 					<kactus2:portPosition busRef="UART" x="-110" y="40"/>
+					<kactus2:portPosition busRef="JTAG" x="-110" y="160"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -131,11 +131,6 @@
 			<ipxact:name>SystemControl_SS_SPI_to_SPI</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="SPI"/>
 			<ipxact:hierInterface busRef="SPI"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_JATG_to_JTAG</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="JATG"/>
-			<ipxact:hierInterface busRef="JTAG"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
 			<ipxact:name>SystemControl_SS_FetchEn_to_FetchEn</ipxact:name>
@@ -262,6 +257,11 @@
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="IRQ2"/>
 			<ipxact:activeInterface componentInstanceRef="Student_SS_2" busRef="IRQ"/>
 		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>SystemControl_SS_JTAG_to_JTAG</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="JTAG"/>
+			<ipxact:hierInterface busRef="JTAG"/>
+		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
@@ -288,10 +288,6 @@
 				<kactus2:position x="170" y="180"/>
 				<kactus2:position x="60" y="180"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_JATG_to_JTAG" kactus2:offPage="false">
-				<kactus2:position x="170" y="220"/>
-				<kactus2:position x="60" y="220"/>
-			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_FetchEn_to_FetchEn" kactus2:offPage="false">
 				<kactus2:position x="170" y="260"/>
 				<kactus2:position x="60" y="260"/>
@@ -313,19 +309,23 @@
 				<kactus2:position x="60" y="420"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Clock_int_to_ICN_SS_Clock" kactus2:offPage="false">
-				<kactus2:position x="390" y="110"/>
+				<kactus2:position x="390" y="120"/>
+				<kactus2:position x="470" y="120"/>
+				<kactus2:position x="470" y="110"/>
 				<kactus2:position x="490" y="110"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Clock_int_to_Student_SS_0_Clock" kactus2:offPage="true">
-				<kactus2:position x="420" y="110"/>
+				<kactus2:position x="420" y="120"/>
 				<kactus2:position x="780" y="100"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Reset_int_to_ICN_SS_Reset" kactus2:offPage="false">
-				<kactus2:position x="390" y="130"/>
+				<kactus2:position x="390" y="140"/>
+				<kactus2:position x="470" y="140"/>
+				<kactus2:position x="470" y="130"/>
 				<kactus2:position x="490" y="130"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Reset_int_to_Student_SS_0_Reset" kactus2:offPage="true">
-				<kactus2:position x="420" y="130"/>
+				<kactus2:position x="420" y="140"/>
 				<kactus2:position x="780" y="120"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Reset_int_to_ICN_SS_Reset" kactus2:offPage="false">
@@ -333,7 +333,9 @@
 				<kactus2:position x="490" y="130"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_ICN_SS_Ctrl_to_ICN_SS_SS_Ctrl" kactus2:offPage="false">
-				<kactus2:position x="390" y="150"/>
+				<kactus2:position x="390" y="160"/>
+				<kactus2:position x="470" y="160"/>
+				<kactus2:position x="470" y="150"/>
 				<kactus2:position x="490" y="150"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_AXI_to_ICN_SS_AXI" kactus2:offPage="false">
@@ -353,11 +355,11 @@
 				<kactus2:position x="810" y="170"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Clock_int_to_Student_SS_1_Clock" kactus2:offPage="true">
-				<kactus2:position x="420" y="110"/>
+				<kactus2:position x="420" y="120"/>
 				<kactus2:position x="780" y="290"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Reset_int_to_Student_SS_1_Reset" kactus2:offPage="true">
-				<kactus2:position x="420" y="130"/>
+				<kactus2:position x="420" y="140"/>
 				<kactus2:position x="780" y="310"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ICN_SS_APB1_to_Student_SS_1_APB" kactus2:offPage="false">
@@ -373,11 +375,11 @@
 				<kactus2:position x="780" y="390"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Clock_int_to_Student_SS_2_Clock" kactus2:offPage="true">
-				<kactus2:position x="420" y="110"/>
+				<kactus2:position x="420" y="120"/>
 				<kactus2:position x="780" y="480"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Reset_int_to_Student_SS_2_Reset" kactus2:offPage="true">
-				<kactus2:position x="420" y="130"/>
+				<kactus2:position x="420" y="140"/>
 				<kactus2:position x="780" y="500"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ICN_SS_APB2_to_Student_SS_2_APB" kactus2:offPage="false">
@@ -391,6 +393,10 @@
 			<kactus2:route kactus2:connRef="SystemControl_SS_IRQ2_to_Student_SS_2_IRQ" kactus2:offPage="true">
 				<kactus2:position x="420" y="470"/>
 				<kactus2:position x="780" y="580"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="SystemControl_SS_JTAG_to_JTAG" kactus2:offPage="false">
+				<kactus2:position x="170" y="220"/>
+				<kactus2:position x="60" y="220"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:interfaceGraphics>
