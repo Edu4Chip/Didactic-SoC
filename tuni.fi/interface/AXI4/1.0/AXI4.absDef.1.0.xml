@@ -13,6 +13,10 @@
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -23,6 +27,11 @@
 					<ipxact:width>2</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>2</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -33,6 +42,11 @@
 					<ipxact:width>4</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>4</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -43,6 +57,11 @@
 					<ipxact:width>3</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>3</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -52,6 +71,10 @@
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -62,6 +85,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -71,6 +99,10 @@
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -80,6 +112,10 @@
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -90,6 +126,11 @@
 					<ipxact:width>8</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>8</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -100,6 +141,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -110,6 +156,11 @@
 					<ipxact:width>3</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>3</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -119,6 +170,10 @@
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -129,6 +184,11 @@
 					<ipxact:width>8</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>8</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -139,6 +199,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -149,6 +214,11 @@
 					<ipxact:width>3</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>3</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -159,6 +229,11 @@
 					<ipxact:width>4</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>4</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -169,6 +244,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -179,6 +259,11 @@
 					<ipxact:width>4</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>4</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -189,6 +274,11 @@
 					<ipxact:width>6</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>6</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -199,6 +289,11 @@
 					<ipxact:width>2</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>2</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -209,6 +304,11 @@
 					<ipxact:width>4</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>4</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -219,6 +319,11 @@
 					<ipxact:width>4</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>4</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -229,6 +334,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -239,6 +349,11 @@
 					<ipxact:width>4</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>4</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -248,6 +363,10 @@
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -258,6 +377,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -268,6 +392,11 @@
 					<ipxact:width>2</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>2</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -277,6 +406,10 @@
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -287,6 +420,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -296,6 +434,10 @@
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -305,6 +447,10 @@
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -315,6 +461,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -325,6 +476,11 @@
 					<ipxact:width>3</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>3</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -334,6 +490,10 @@
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -344,6 +504,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -354,6 +519,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -364,6 +534,11 @@
 					<ipxact:width>2</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>2</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -373,6 +548,10 @@
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -382,6 +561,10 @@
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -392,6 +575,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -402,6 +590,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -411,6 +604,10 @@
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>illegal</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -420,6 +617,10 @@
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -430,6 +631,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -440,6 +646,11 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 	</ipxact:ports>
