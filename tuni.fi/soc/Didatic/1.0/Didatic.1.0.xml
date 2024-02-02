@@ -14,21 +14,11 @@
 					<ipxact:portMaps>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>xtal_in</ipxact:name>
+								<ipxact:name>clock_in</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>xtal_in</ipxact:name>
+								<ipxact:name>clk_in</ipxact:name>
 							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>xtal_out</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>xtal_out</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -471,30 +461,6 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>xtal_in</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>xtal_out</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
 				<ipxact:name>gpio</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>inout</ipxact:direction>
@@ -615,6 +581,12 @@
 							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>clk_in</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>inout</ipxact:direction>
 				</ipxact:wire>
 			</ipxact:port>
 		</ipxact:ports>

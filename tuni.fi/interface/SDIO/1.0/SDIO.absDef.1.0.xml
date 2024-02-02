@@ -52,6 +52,24 @@
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
+			<ipxact:logicalName>data_i</ipxact:logicalName>
+			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
+				<ipxact:onInitiator>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>4</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>4</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onTarget>
+			</ipxact:wire>
+		</ipxact:port>
+		<ipxact:port>
 			<ipxact:logicalName>data</ipxact:logicalName>
 			<ipxact:wire>
 				<ipxact:qualifier>
@@ -63,15 +81,23 @@
 					<ipxact:width>4</ipxact:width>
 					<ipxact:direction>inout</ipxact:direction>
 				</ipxact:onSystem>
+			</ipxact:wire>
+		</ipxact:port>
+		<ipxact:port>
+			<ipxact:logicalName>data_o</ipxact:logicalName>
+			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>4</ipxact:width>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>4</ipxact:width>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
