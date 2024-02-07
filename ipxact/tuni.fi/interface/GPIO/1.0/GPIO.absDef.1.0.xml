@@ -42,6 +42,19 @@
 				</ipxact:onSystem>
 			</ipxact:wire>
 		</ipxact:port>
+		<ipxact:port>
+			<ipxact:logicalName>gpio_oe</ipxact:logicalName>
+			<ipxact:wire>
+				<ipxact:onInitiator>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
+			</ipxact:wire>
+		</ipxact:port>
 	</ipxact:ports>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>

@@ -769,6 +769,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>clock</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -1300,6 +1301,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>reset_ss_0</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -1320,6 +1322,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>reset_ss_1</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -1340,6 +1343,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>reset_ss_2</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -1360,6 +1364,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>reset_ss_3</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>

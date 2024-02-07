@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2022" xmlns:kactus2="http://kactus2.cs.tut.fi" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2022 http://www.accellera.org/XMLSchema/IPXACT/1685-2022/index.xsd">
+	<ipxact:vendor>tuni.fi</ipxact:vendor>
+	<ipxact:library>ip</ipxact:library>
+	<ipxact:name>SysCtrl_peripherals.design</ipxact:name>
+	<ipxact:version>1.0</ipxact:version>
+	<ipxact:componentInstances>
+		<ipxact:componentInstance>
+			<ipxact:instanceName>APB_UART</ipxact:instanceName>
+			<ipxact:componentRef vendor="tuni.fi" library="pulp.peripheral" name="apb_uart" version="1.0"/>
+			<ipxact:vendorExtensions>
+				<kactus2:uuid>{8b4210be-3281-49ed-be03-4b704a244534}</kactus2:uuid>
+				<kactus2:position x="600" y="60"/>
+				<kactus2:portPositions>
+					<kactus2:portPosition busRef="apb" x="-110" y="130"/>
+					<kactus2:portPosition busRef="clk" x="-110" y="60"/>
+					<kactus2:portPosition busRef="irq" x="110" y="100"/>
+					<kactus2:portPosition busRef="rst_n" x="-110" y="40"/>
+					<kactus2:portPosition busRef="uart" x="110" y="60"/>
+				</kactus2:portPositions>
+			</ipxact:vendorExtensions>
+		</ipxact:componentInstance>
+		<ipxact:componentInstance>
+			<ipxact:instanceName>APB_SPI</ipxact:instanceName>
+			<ipxact:componentRef vendor="tuni.fi" library="pulp.peripheral" name="APB_SPI_master" version="1.0"/>
+			<ipxact:vendorExtensions>
+				<kactus2:uuid>{e84426bc-90c2-433e-bd36-5c4d4418ec52}</kactus2:uuid>
+				<kactus2:position x="600" y="240"/>
+				<kactus2:portPositions>
+					<kactus2:portPosition busRef="APB" x="-110" y="130"/>
+					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
+					<kactus2:portPosition busRef="Reset_n" x="-110" y="80"/>
+					<kactus2:portPosition busRef="SPI" x="110" y="40"/>
+				</kactus2:portPositions>
+			</ipxact:vendorExtensions>
+		</ipxact:componentInstance>
+		<ipxact:componentInstance>
+			<ipxact:instanceName>APB_GPIO</ipxact:instanceName>
+			<ipxact:componentRef vendor="tuni.fi" library="pulp.peripheral" name="APB_GPIO" version="1.0"/>
+			<ipxact:vendorExtensions>
+				<kactus2:uuid>{f07f9e54-23e3-4875-a946-57f8100c0fb8}</kactus2:uuid>
+				<kactus2:position x="600" y="420"/>
+				<kactus2:portPositions>
+					<kactus2:portPosition busRef="APB" x="-110" y="150"/>
+					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
+					<kactus2:portPosition busRef="GPIO" x="110" y="60"/>
+					<kactus2:portPosition busRef="IRQ" x="110" y="100"/>
+					<kactus2:portPosition busRef="Reset_n" x="-110" y="70"/>
+				</kactus2:portPositions>
+			</ipxact:vendorExtensions>
+		</ipxact:componentInstance>
+		<ipxact:componentInstance>
+			<ipxact:instanceName>APB_SDIO</ipxact:instanceName>
+			<ipxact:componentRef vendor="tuni.fi" library="pulp.peripheral" name="APB_SDIO" version="1.0"/>
+			<ipxact:vendorExtensions>
+				<kactus2:uuid>{38f92343-be5a-47ae-820b-0da4112d818c}</kactus2:uuid>
+				<kactus2:position x="600" y="620"/>
+			</ipxact:vendorExtensions>
+		</ipxact:componentInstance>
+		<ipxact:componentInstance>
+			<ipxact:instanceName>AX4LITE_APB_converter</ipxact:instanceName>
+			<ipxact:componentRef vendor="" library="" name="" version=""/>
+			<ipxact:vendorExtensions>
+				<kactus2:uuid>{dab89cb6-6e21-43c5-81c7-8b4ef867b2e3}</kactus2:uuid>
+				<kactus2:draft/>
+				<kactus2:position x="280" y="60"/>
+				<kactus2:portPositions>
+					<kactus2:portPosition busRef="APB_GPIO" x="110" y="80"/>
+					<kactus2:portPosition busRef="APB_SDIO" x="110" y="100"/>
+					<kactus2:portPosition busRef="APB_SPI" x="110" y="60"/>
+					<kactus2:portPosition busRef="APB_UART" x="110" y="40"/>
+					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
+					<kactus2:portPosition busRef="Reset_n" x="-110" y="60"/>
+				</kactus2:portPositions>
+			</ipxact:vendorExtensions>
+		</ipxact:componentInstance>
+	</ipxact:componentInstances>
+	<ipxact:interconnections>
+		<ipxact:interconnection>
+			<ipxact:name>APB_UART_clk_to_Clock</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_UART" busRef="clk"/>
+			<ipxact:hierInterface busRef="Clock"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_UART_rst_n_to_Reset</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_UART" busRef="rst_n"/>
+			<ipxact:hierInterface busRef="Reset"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_UART_uart_to_UART</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_UART" busRef="uart"/>
+			<ipxact:hierInterface busRef="UART"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_SPI_SPI_to_SPI</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_SPI" busRef="SPI"/>
+			<ipxact:hierInterface busRef="SPI"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_SPI_IRQ_to_IRQ_SPI</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_SPI" busRef="IRQ"/>
+			<ipxact:hierInterface busRef="IRQ_SPI"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_UART_irq_to_IRQ_UART</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_UART" busRef="irq"/>
+			<ipxact:hierInterface busRef="IRQ_UART"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_SPI_Clock_to_Clock</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_SPI" busRef="Clock"/>
+			<ipxact:hierInterface busRef="Clock"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_SPI_Reset_n_to_Reset</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_SPI" busRef="Reset_n"/>
+			<ipxact:hierInterface busRef="Reset"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>AX4LITE_APB_converter_Clock_to_Clock</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="AX4LITE_APB_converter" busRef="Clock"/>
+			<ipxact:hierInterface busRef="Clock"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>AX4LITE_APB_converter_Reset_n_to_Reset</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="AX4LITE_APB_converter" busRef="Reset_n"/>
+			<ipxact:hierInterface busRef="Reset"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>AX4LITE_APB_converter_APB_UART_to_APB_UART_apb</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="AX4LITE_APB_converter" busRef="APB_UART"/>
+			<ipxact:activeInterface componentInstanceRef="APB_UART" busRef="apb"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>AX4LITE_APB_converter_APB_SPI_to_APB_SPI_APB</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="AX4LITE_APB_converter" busRef="APB_SPI"/>
+			<ipxact:activeInterface componentInstanceRef="APB_SPI" busRef="APB"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_GPIO_Clock_to_Clock</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_GPIO" busRef="Clock"/>
+			<ipxact:hierInterface busRef="Clock"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_GPIO_Reset_n_to_Reset</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_GPIO" busRef="Reset_n"/>
+			<ipxact:hierInterface busRef="Reset"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>AX4LITE_APB_converter_APB_GPIO_to_APB_GPIO_APB</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="AX4LITE_APB_converter" busRef="APB_GPIO"/>
+			<ipxact:activeInterface componentInstanceRef="APB_GPIO" busRef="APB"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_GPIO_GPIO_to_GPIO</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_GPIO" busRef="GPIO"/>
+			<ipxact:hierInterface busRef="GPIO"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_GPIO_IRQ_to_IRQ_GPIO</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_GPIO" busRef="IRQ"/>
+			<ipxact:hierInterface busRef="IRQ_GPIO"/>
+		</ipxact:interconnection>
+	</ipxact:interconnections>
+	<ipxact:vendorExtensions>
+		<kactus2:version>3,13,0,0</kactus2:version>
+		<kactus2:kts_attributes>
+			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
+		</kactus2:kts_attributes>
+		<kactus2:columnLayout>
+			<kactus2:column name="Components" contentType="2" allowedItems="2" minWidth="319" width="319" x="440"/>
+			<kactus2:column name="IO" contentType="0" allowedItems="1" minWidth="119" width="119" x="0"/>
+			<kactus2:column name="IO" contentType="0" allowedItems="1" minWidth="119" width="119" x="760"/>
+			<kactus2:column name="Protocol Conversion" contentType="2" allowedItems="2" minWidth="119" width="319" x="120"/>
+		</kactus2:columnLayout>
+		<kactus2:routes>
+			<kactus2:route kactus2:connRef="APB_UART_clk_to_Clock" kactus2:offPage="false">
+				<kactus2:position x="490" y="120"/>
+				<kactus2:position x="80" y="120"/>
+				<kactus2:position x="80" y="210"/>
+				<kactus2:position x="60" y="210"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_UART_rst_n_to_Reset" kactus2:offPage="false">
+				<kactus2:position x="490" y="100"/>
+				<kactus2:position x="90" y="100"/>
+				<kactus2:position x="90" y="260"/>
+				<kactus2:position x="60" y="260"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_UART_uart_to_UART" kactus2:offPage="false">
+				<kactus2:position x="710" y="120"/>
+				<kactus2:position x="820" y="120"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_SPI_SPI_to_SPI" kactus2:offPage="false">
+				<kactus2:position x="710" y="280"/>
+				<kactus2:position x="820" y="280"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_SPI_IRQ_to_IRQ_SPI" kactus2:offPage="false">
+				<kactus2:position x="710" y="310"/>
+				<kactus2:position x="800" y="310"/>
+				<kactus2:position x="800" y="330"/>
+				<kactus2:position x="820" y="330"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_UART_irq_to_IRQ_UART" kactus2:offPage="false">
+				<kactus2:position x="710" y="160"/>
+				<kactus2:position x="820" y="160"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_SPI_Clock_to_Clock" kactus2:offPage="false">
+				<kactus2:position x="490" y="280"/>
+				<kactus2:position x="100" y="280"/>
+				<kactus2:position x="100" y="210"/>
+				<kactus2:position x="60" y="210"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_SPI_Reset_n_to_Reset" kactus2:offPage="false">
+				<kactus2:position x="490" y="320"/>
+				<kactus2:position x="90" y="320"/>
+				<kactus2:position x="90" y="260"/>
+				<kactus2:position x="60" y="260"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_Clock_to_Clock" kactus2:offPage="false">
+				<kactus2:position x="170" y="100"/>
+				<kactus2:position x="150" y="100"/>
+				<kactus2:position x="150" y="210"/>
+				<kactus2:position x="60" y="210"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_Reset_n_to_Reset" kactus2:offPage="false">
+				<kactus2:position x="170" y="120"/>
+				<kactus2:position x="140" y="120"/>
+				<kactus2:position x="140" y="260"/>
+				<kactus2:position x="60" y="260"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_APB_UART_to_APB_UART_apb" kactus2:offPage="false">
+				<kactus2:position x="390" y="100"/>
+				<kactus2:position x="470" y="100"/>
+				<kactus2:position x="470" y="190"/>
+				<kactus2:position x="490" y="190"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_APB_SPI_to_APB_SPI_APB" kactus2:offPage="false">
+				<kactus2:position x="390" y="120"/>
+				<kactus2:position x="460" y="120"/>
+				<kactus2:position x="460" y="370"/>
+				<kactus2:position x="490" y="370"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_GPIO_Clock_to_Clock" kactus2:offPage="false">
+				<kactus2:position x="490" y="460"/>
+				<kactus2:position x="470" y="460"/>
+				<kactus2:position x="470" y="210"/>
+				<kactus2:position x="60" y="210"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_GPIO_Reset_n_to_Reset" kactus2:offPage="false">
+				<kactus2:position x="490" y="490"/>
+				<kactus2:position x="450" y="490"/>
+				<kactus2:position x="450" y="260"/>
+				<kactus2:position x="60" y="260"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_APB_GPIO_to_APB_GPIO_APB" kactus2:offPage="false">
+				<kactus2:position x="390" y="140"/>
+				<kactus2:position x="440" y="140"/>
+				<kactus2:position x="440" y="570"/>
+				<kactus2:position x="490" y="570"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_GPIO_GPIO_to_GPIO" kactus2:offPage="false">
+				<kactus2:position x="710" y="480"/>
+				<kactus2:position x="820" y="480"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_GPIO_IRQ_to_IRQ_GPIO" kactus2:offPage="false">
+				<kactus2:position x="710" y="520"/>
+				<kactus2:position x="820" y="520"/>
+			</kactus2:route>
+		</kactus2:routes>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>Clock</kactus2:name>
+			<kactus2:position x="60" y="210"/>
+			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>GPIO</kactus2:name>
+			<kactus2:position x="820" y="480"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>Reset</kactus2:name>
+			<kactus2:position x="60" y="260"/>
+			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>SDIO</kactus2:name>
+			<kactus2:position x="820" y="610"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>SPI</kactus2:name>
+			<kactus2:position x="820" y="280"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>UART</kactus2:name>
+			<kactus2:position x="820" y="120"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>IRQ</kactus2:name>
+			<kactus2:position x="500" y="160"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>bus</kactus2:name>
+			<kactus2:position x="500" y="260"/>
+			<kactus2:direction x="0" y="-1"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>bus_1</kactus2:name>
+			<kactus2:position x="500" y="470"/>
+			<kactus2:direction x="0" y="-1"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>bus_2</kactus2:name>
+			<kactus2:position x="500" y="520"/>
+			<kactus2:direction x="0" y="-1"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>IRQ_UART</kactus2:name>
+			<kactus2:position x="820" y="160"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>IRQ_SPI</kactus2:name>
+			<kactus2:position x="820" y="330"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>IRQ_GPIO</kactus2:name>
+			<kactus2:position x="820" y="520"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:adHocVisibilities/>
+	</ipxact:vendorExtensions>
+</ipxact:design>

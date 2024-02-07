@@ -13,52 +13,39 @@
 				<kactus2:draft/>
 				<kactus2:position x="600" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="clk" x="-110" y="60"/>
-					<kactus2:portPosition busRef="reset" x="110" y="60"/>
 					<kactus2:portPosition busRef="APB" x="110" y="140"/>
 					<kactus2:portPosition busRef="IRQ" x="-110" y="210"/>
+					<kactus2:portPosition busRef="clk" x="-110" y="60"/>
+					<kactus2:portPosition busRef="reset" x="110" y="60"/>
+					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="160"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
-			<ipxact:instanceName>tech_cg_0</ipxact:instanceName>
+			<ipxact:instanceName>SS_cg</ipxact:instanceName>
 			<ipxact:componentRef vendor="tuni.fi" library="tech" name="tech_cg" version="1.0"/>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{b648d335-1686-4480-9978-0b0be9f8d440}</kactus2:uuid>
 				<kactus2:position x="280" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="clk_out" x="110" y="60"/>
 					<kactus2:portPosition busRef="clk_in" x="-110" y="50"/>
+					<kactus2:portPosition busRef="clk_out" x="110" y="60"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="en" x="-110" y="100"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
-		<ipxact:componentInstance>
-			<ipxact:instanceName>tech_mux_irq</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="tech" name="tech_mux" version="1.0"/>
-			<ipxact:vendorExtensions>
-				<kactus2:uuid>{78bab580-bd30-47c3-ada1-26e6317a5d4b}</kactus2:uuid>
-				<kactus2:position x="280" y="210"/>
-				<kactus2:adHocVisibilities>
-					<kactus2:adHocVisible portName="a" x="110" y="90"/>
-					<kactus2:adHocVisible portName="b" x="110" y="70"/>
-					<kactus2:adHocVisible portName="z" x="-110" y="150"/>
-					<kactus2:adHocVisible portName="s" x="-110" y="110"/>
-				</kactus2:adHocVisibilities>
-			</ipxact:vendorExtensions>
-		</ipxact:componentInstance>
 	</ipxact:componentInstances>
 	<ipxact:interconnections>
 		<ipxact:interconnection>
-			<ipxact:name>tech_cg_0_clk_in_to_Clock</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="tech_cg_0" busRef="clk_in"/>
+			<ipxact:name>SS_cg_clk_in_to_Clock</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="SS_cg" busRef="clk_in"/>
 			<ipxact:hierInterface busRef="Clock"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>tech_cg_0_clk_out_to_Student_area_0_clk</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="tech_cg_0" busRef="clk_out"/>
+			<ipxact:name>SS_cg_clk_out_to_Student_area_0_clk</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="SS_cg" busRef="clk_out"/>
 			<ipxact:activeInterface componentInstanceRef="Student_area_0" busRef="clk"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
@@ -71,48 +58,70 @@
 			<ipxact:activeInterface componentInstanceRef="Student_area_0" busRef="reset"/>
 			<ipxact:hierInterface busRef="Reset"/>
 		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>Student_area_0_IRQ_to_IRQ</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="Student_area_0" busRef="IRQ"/>
+			<ipxact:hierInterface busRef="IRQ"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>Student_area_0_SS_Ctrl_to_SS_Ctrl</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="Student_area_0" busRef="SS_Ctrl"/>
+			<ipxact:hierInterface busRef="SS_Ctrl"/>
+		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
 		<ipxact:adHocConnection>
-			<ipxact:name>tech_mux_irq_a_to_tiedValue</ipxact:name>
-			<ipxact:tiedValue>0</ipxact:tiedValue>
+			<ipxact:name>SS_cg_en_to_clk_ctrl</ipxact:name>
 			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="tech_mux_irq" portRef="a"/>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
-		<ipxact:adHocConnection>
-			<ipxact:name>tech_mux_irq_s_to_irq_en</ipxact:name>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="tech_mux_irq" portRef="s"/>
-				<ipxact:externalPortReference portRef="irq_en"/>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
-		<ipxact:adHocConnection>
-			<ipxact:name>tech_mux_irq_z_to_irq</ipxact:name>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="tech_mux_irq" portRef="z"/>
-				<ipxact:externalPortReference portRef="irq"/>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
-		<ipxact:adHocConnection>
-			<ipxact:name>tech_cg_0_en_to_clk_ctrl</ipxact:name>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="tech_cg_0" portRef="en"/>
+				<ipxact:internalPortReference componentInstanceRef="SS_cg" portRef="en"/>
 				<ipxact:externalPortReference portRef="clk_ctrl"/>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>
 	<ipxact:vendorExtensions>
+		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 		</kactus2:kts_attributes>
-		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:columnLayout>
 			<kactus2:column name="IO" contentType="0" allowedItems="1" minWidth="119" width="119" x="760"/>
 			<kactus2:column name="Student" contentType="2" allowedItems="2" minWidth="319" width="319" x="440"/>
 			<kactus2:column name="Components" contentType="2" allowedItems="2" minWidth="319" width="319" x="120"/>
 			<kactus2:column name="IO" contentType="0" allowedItems="1" minWidth="119" width="119" x="0"/>
 		</kactus2:columnLayout>
+		<kactus2:routes>
+			<kactus2:route kactus2:connRef="SS_cg_en_to_clk_ctrl" kactus2:offPage="false">
+				<kactus2:position x="60" y="160"/>
+				<kactus2:position x="170" y="160"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="SS_cg_clk_in_to_Clock" kactus2:offPage="false">
+				<kactus2:position x="170" y="110"/>
+				<kactus2:position x="60" y="110"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="SS_cg_clk_out_to_Student_area_0_clk" kactus2:offPage="false">
+				<kactus2:position x="390" y="120"/>
+				<kactus2:position x="490" y="120"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_area_0_APB_to_APB" kactus2:offPage="false">
+				<kactus2:position x="710" y="200"/>
+				<kactus2:position x="820" y="200"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_area_0_reset_to_Reset" kactus2:offPage="false">
+				<kactus2:position x="710" y="120"/>
+				<kactus2:position x="820" y="120"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_area_0_IRQ_to_IRQ" kactus2:offPage="false">
+				<kactus2:position x="490" y="270"/>
+				<kactus2:position x="60" y="270"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_area_0_SS_Ctrl_to_SS_Ctrl" kactus2:offPage="false">
+				<kactus2:position x="490" y="220"/>
+				<kactus2:position x="60" y="220"/>
+			</kactus2:route>
+		</kactus2:routes>
+		<kactus2:adHocVisibilities>
+			<kactus2:adHocVisible portName="clk_ctrl" x="60" y="160"/>
+		</kactus2:adHocVisibilities>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>APB</kactus2:name>
 			<kactus2:position x="820" y="200"/>
@@ -125,7 +134,7 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>IRQ</kactus2:name>
-			<kactus2:position x="60" y="430"/>
+			<kactus2:position x="60" y="270"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -135,43 +144,8 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>SS_Ctrl</kactus2:name>
-			<kactus2:position x="60" y="250"/>
+			<kactus2:position x="60" y="220"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
-		<kactus2:adHocVisibilities>
-			<kactus2:adHocVisible portName="irq_en" x="60" y="320"/>
-			<kactus2:adHocVisible portName="irq" x="60" y="360"/>
-			<kactus2:adHocVisible portName="clk_ctrl" x="60" y="160"/>
-		</kactus2:adHocVisibilities>
-		<kactus2:routes>
-			<kactus2:route kactus2:connRef="tech_mux_irq_s_to_irq_en" kactus2:offPage="false">
-				<kactus2:position x="60" y="320"/>
-				<kactus2:position x="170" y="320"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="tech_mux_irq_z_to_irq" kactus2:offPage="false">
-				<kactus2:position x="60" y="360"/>
-				<kactus2:position x="170" y="360"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="tech_cg_0_en_to_clk_ctrl" kactus2:offPage="false">
-				<kactus2:position x="60" y="160"/>
-				<kactus2:position x="170" y="160"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="tech_cg_0_clk_in_to_Clock" kactus2:offPage="false">
-				<kactus2:position x="170" y="110"/>
-				<kactus2:position x="60" y="110"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="tech_cg_0_clk_out_to_Student_area_0_clk" kactus2:offPage="false">
-				<kactus2:position x="390" y="120"/>
-				<kactus2:position x="490" y="120"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_area_0_APB_to_APB" kactus2:offPage="false">
-				<kactus2:position x="710" y="200"/>
-				<kactus2:position x="820" y="200"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_area_0_reset_to_Reset" kactus2:offPage="false">
-				<kactus2:position x="710" y="120"/>
-				<kactus2:position x="820" y="120"/>
-			</kactus2:route>
-		</kactus2:routes>
 	</ipxact:vendorExtensions>
 </ipxact:design>

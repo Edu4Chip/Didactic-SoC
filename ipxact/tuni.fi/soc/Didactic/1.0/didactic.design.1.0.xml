@@ -25,6 +25,10 @@
 					<kactus2:portPosition busRef="IRQ3" x="110" y="430"/>
 					<kactus2:portPosition busRef="JTAG" x="-110" y="160"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="320"/>
+					<kactus2:portPosition busRef="Reset_SS_0" x="110" y="460"/>
+					<kactus2:portPosition busRef="Reset_SS_1" x="110" y="480"/>
+					<kactus2:portPosition busRef="Reset_SS_2" x="110" y="500"/>
+					<kactus2:portPosition busRef="Reset_SS_3" x="110" y="520"/>
 					<kactus2:portPosition busRef="SDIO" x="-110" y="80"/>
 					<kactus2:portPosition busRef="SPI" x="-110" y="120"/>
 					<kactus2:portPosition busRef="SS_0_Ctrl" x="110" y="240"/>
@@ -32,10 +36,6 @@
 					<kactus2:portPosition busRef="SS_2_Ctrl" x="110" y="280"/>
 					<kactus2:portPosition busRef="SS_3_Ctrl" x="110" y="300"/>
 					<kactus2:portPosition busRef="UART" x="-110" y="40"/>
-					<kactus2:portPosition busRef="Reset_SS_3" x="110" y="520"/>
-					<kactus2:portPosition busRef="Reset_SS_2" x="110" y="500"/>
-					<kactus2:portPosition busRef="Reset_SS_1" x="110" y="480"/>
-					<kactus2:portPosition busRef="Reset_SS_0" x="110" y="460"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>

@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ipxact:component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2022" xmlns:kactus2="http://kactus2.cs.tut.fi" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2022 http://www.accellera.org/XMLSchema/IPXACT/1685-2022/index.xsd">
 	<ipxact:vendor>tuni.fi</ipxact:vendor>
-	<ipxact:library>subsystem.wrapper</ipxact:library>
-	<ipxact:name>Student_SS_0</ipxact:name>
+	<ipxact:library>pulp.peripheral</ipxact:library>
+	<ipxact:name>apb_uart</ipxact:name>
 	<ipxact:version>1.0</ipxact:version>
 	<ipxact:busInterfaces>
 		<ipxact:busInterface>
-			<ipxact:name>APB</ipxact:name>
+			<ipxact:name>uart</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="UART" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="UART.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>uart_rx</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>rx_i</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>uart_tx</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>tx_o</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:initiator/>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>apb</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="APB" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
@@ -33,95 +63,45 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PRDATA</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>31</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PRDATA</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>31</ipxact:left>
-										<ipxact:right>0</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PREADY</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>0</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PREADY</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>0</ipxact:left>
-										<ipxact:right>0</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PSEL</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>0</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PSEL</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>0</ipxact:left>
-										<ipxact:right>0</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PSLVERR</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>0</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>PSELERR</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>0</ipxact:left>
-										<ipxact:right>0</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
+								<ipxact:name>PSLVERR</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PWDATA</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>31</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PWDATA</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>31</ipxact:left>
-										<ipxact:right>0</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -140,7 +120,7 @@
 			<ipxact:target/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
-			<ipxact:name>Clock</ipxact:name>
+			<ipxact:name>clk</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="clock" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
@@ -151,7 +131,7 @@
 								<ipxact:name>clk</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>clk</ipxact:name>
+								<ipxact:name>CLK</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -161,28 +141,7 @@
 			<ipxact:target/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
-			<ipxact:name>IRQ</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="IRQ" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="IRQ.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>irq</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>irq</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>Reset</ipxact:name>
+			<ipxact:name>rst_n</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="reset" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
@@ -193,7 +152,7 @@
 								<ipxact:name>reset</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>rst</ipxact:name>
+								<ipxact:name>RSTN</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -203,50 +162,64 @@
 			<ipxact:target/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
-			<ipxact:name>SS_Ctrl</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="SS_Ctrl" version="1.0"/>
+			<ipxact:name>irq</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="IRQ" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="SS_Ctrl.absDef" version="1.0"/>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="IRQ.absDef" version="1.0"/>
 					<ipxact:portMaps>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>clk_ctrl</ipxact:name>
+								<ipxact:name>irq</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>clk_ctrl</ipxact:name>
+								<ipxact:name>event_o</ipxact:name>
 							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>irq_en</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>irq_en</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target/>
+			<ipxact:initiator/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
-		<ipxact:views>
-			<ipxact:view>
-				<ipxact:name>hierarchical</ipxact:name>
-				<ipxact:designConfigurationInstantiationRef>_design_configuration</ipxact:designConfigurationInstantiationRef>
-			</ipxact:view>
-		</ipxact:views>
-		<ipxact:instantiations>
-			<ipxact:designConfigurationInstantiation>
-				<ipxact:name>_design_configuration</ipxact:name>
-				<ipxact:designConfigurationRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_0.designcfg" version="1.0"/>
-			</ipxact:designConfigurationInstantiation>
-		</ipxact:instantiations>
 		<ipxact:ports>
+			<ipxact:port>
+				<ipxact:name>rx_i</ipxact:name>
+				<ipxact:description>receiver input</ipxact:description>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>tx_o</ipxact:name>
+				<ipxact:description>transmitter output</ipxact:description>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>PADDR</ipxact:name>
 				<ipxact:wire>
@@ -333,7 +306,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>PSELERR</ipxact:name>
+				<ipxact:name>PSLVERR</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
@@ -384,47 +357,62 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>clk</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>rst</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>irq</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>irq_en</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>clk_ctrl</ipxact:name>
+				<ipxact:name>CLK</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>RSTN</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>event_o</ipxact:name>
+				<ipxact:description>irq/event output</ipxact:description>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:vendorExtensions>
-		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>
-			<kactus2:kts_productHier>IP</kactus2:kts_productHier>
+			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ipxact:component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2022" xmlns:kactus2="http://kactus2.cs.tut.fi" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2022 http://www.accellera.org/XMLSchema/IPXACT/1685-2022/index.xsd">
 	<ipxact:vendor>tuni.fi</ipxact:vendor>
-	<ipxact:library>soc</ipxact:library>
-	<ipxact:name>Didactic</ipxact:name>
+	<ipxact:library>ip</ipxact:library>
+	<ipxact:name>SysCtrl_peripherals</ipxact:name>
 	<ipxact:version>1.0</ipxact:version>
 	<ipxact:busInterfaces>
 		<ipxact:busInterface>
@@ -14,19 +14,47 @@
 					<ipxact:portMaps>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>clock_in</ipxact:name>
+								<ipxact:name>clk</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>clk_in</ipxact:name>
+								<ipxact:name>clk</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
+			<ipxact:target/>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>GPIO</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gpo</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>gpio_from_core</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gpi</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>gpio_to_core</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:initiator/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>Reset</ipxact:name>
@@ -40,185 +68,14 @@
 								<ipxact:name>reset</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>reset</ipxact:name>
+								<ipxact:name>rst_n</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>GPIO</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>gpio</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>gpio</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>BootSel</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>gpio</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>boot_sel</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>FetchEn</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>gpio</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>fetch_en</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>JTAG</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="JTAG" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="JTAG.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>tck</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>jtag_tck</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>tdi</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>jtag_tdi</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>tdo</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>jtag_tdo</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>tms</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>jtag_tms</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>trst</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>jtag_trst</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>SPI</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="SPI" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="SPI.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>csn</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>spi_csn</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>sck</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>spi_sck</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>data</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>spi_data</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
+			<ipxact:target/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>SDIO</ipxact:name>
@@ -232,7 +89,7 @@
 								<ipxact:name>clk</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>sdio_clk</ipxact:name>
+								<ipxact:name>sdio_clk_internal</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -241,25 +98,80 @@
 								<ipxact:name>cmd</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>sdio_cmd</ipxact:name>
+								<ipxact:name>sdio_cmd_internal</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>data</ipxact:name>
+								<ipxact:name>data_i</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>sdio_data</ipxact:name>
+								<ipxact:name>sdio_data_i_internal</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>data_o</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>sdio_data_o_internal</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
+			<ipxact:initiator/>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>SPI</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="SPI" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="SPI.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>csn</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>spim_csn_internal</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>sck</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>spim_sck_internal</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>miso</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>spim_miso_internal</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>mosi</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>spim_mosi_internal</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:initiator/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>UART</ipxact:name>
@@ -273,7 +185,7 @@
 								<ipxact:name>uart_rx</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>uart_rx</ipxact:name>
+								<ipxact:name>uart_rx_internal</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -282,16 +194,77 @@
 								<ipxact:name>uart_tx</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>uart_tx</ipxact:name>
+								<ipxact:name>uart_tx_internal</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
+			<ipxact:initiator/>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>IRQ_UART</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="IRQ" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="IRQ.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>irq</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>irq_uart</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:initiator/>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>IRQ_SPI</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="IRQ" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="IRQ.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>irq</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>irq_spi</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:initiator/>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>IRQ_GPIO</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="IRQ" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="IRQ.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>irq</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>irq_gpio</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:initiator/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
@@ -304,17 +277,17 @@
 		<ipxact:instantiations>
 			<ipxact:designConfigurationInstantiation>
 				<ipxact:name>_design_configuration</ipxact:name>
-				<ipxact:designConfigurationRef vendor="tuni.fi" library="soc" name="didactic.designcfg" version="1.0"/>
+				<ipxact:designConfigurationRef vendor="tuni.fi" library="ip" name="SysCtrl_peripherals.designcfg" version="1.0"/>
 			</ipxact:designConfigurationInstantiation>
 		</ipxact:instantiations>
 		<ipxact:ports>
 			<ipxact:port>
-				<ipxact:name>uart_rx</ipxact:name>
+				<ipxact:name>gpio_from_core</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
+							<ipxact:left>3</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -326,12 +299,12 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>uart_tx</ipxact:name>
+				<ipxact:name>gpio_to_core</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
+							<ipxact:left>3</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -343,9 +316,77 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>spi_csn</ipxact:name>
+				<ipxact:name>sdio_clk_internal</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>sdio_cmd_internal</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>sdio_data_i_internal</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>3</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>sdio_data_o_internal</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>3</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>spim_csn_internal</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -360,13 +401,13 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>spi_sck</ipxact:name>
+				<ipxact:name>spim_sck_internal</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -377,9 +418,9 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>spi_data</ipxact:name>
+				<ipxact:name>spim_miso_internal</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>3</ipxact:left>
@@ -394,43 +435,9 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>sdio_clk</ipxact:name>
+				<ipxact:name>spim_mosi_internal</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>sdio_cmd</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>sdio_data</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>3</ipxact:left>
@@ -445,13 +452,13 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>reset</ipxact:name>
+				<ipxact:name>uart_rx_internal</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -462,49 +469,13 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>gpio</ipxact:name>
+				<ipxact:name>uart_tx_internal</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>fetch_en</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>boot_sel</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>jtag_tck</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -515,91 +486,49 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>jtag_tdi</ipxact:name>
-				<ipxact:description>Data can be daisy chained or routed directly back</ipxact:description>
+				<ipxact:name>rst_n</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
+					<ipxact:direction>in</ipxact:direction>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>jtag_tdo</ipxact:name>
-				<ipxact:description>Data can be daisy chained or routed directly back</ipxact:description>
+				<ipxact:name>clk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
+					<ipxact:direction>in</ipxact:direction>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>jtag_tms</ipxact:name>
+				<ipxact:name>irq_uart</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
+					<ipxact:direction>out</ipxact:direction>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>jtag_trst</ipxact:name>
+				<ipxact:name>irq_spi</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
+							<ipxact:left>1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>clk_in</ipxact:name>
+				<ipxact:name>irq_gpio</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 				</ipxact:wire>
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
-	<ipxact:description>Edu4Chip top level example SoC.</ipxact:description>
 	<ipxact:vendorExtensions>
-		<kactus2:author>Matti Käyrä</kactus2:author>
 		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>
-			<kactus2:kts_productHier>SoC</kactus2:kts_productHier>
+			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
-			<kactus2:kts_firmness>Fixed</kactus2:kts_firmness>
+			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
 	</ipxact:vendorExtensions>
 </ipxact:component>
