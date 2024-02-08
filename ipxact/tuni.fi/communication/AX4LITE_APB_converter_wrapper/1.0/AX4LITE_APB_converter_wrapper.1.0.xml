@@ -1632,6 +1632,15 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:fileSets>
+		<ipxact:fileSet>
+			<ipxact:name>fileSet</ipxact:name>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+			</ipxact:file>
+		</ipxact:fileSet>
+	</ipxact:fileSets>
 	<ipxact:vendorExtensions>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
