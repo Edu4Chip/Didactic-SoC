@@ -100,6 +100,9 @@
 							<ipxact:logicalPort>
 								<ipxact:name>clk</ipxact:name>
 							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>periph_clk_i</ipxact:name>
+							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
@@ -118,6 +121,9 @@
 							<ipxact:logicalPort>
 								<ipxact:name>reset</ipxact:name>
 							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>sys_clk_i</ipxact:name>
+							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
@@ -184,6 +190,10 @@
 							<ipxact:logicalPort>
 								<ipxact:name>clk</ipxact:name>
 							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>periph_clk_i</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>

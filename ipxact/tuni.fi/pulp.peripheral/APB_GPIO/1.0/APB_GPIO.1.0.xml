@@ -163,6 +163,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>gpio_dir</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -191,6 +192,368 @@
 			<ipxact:initiator/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
+	<ipxact:memoryMaps>
+		<ipxact:memoryMap>
+			<ipxact:name>apb_gpio</ipxact:name>
+			<ipxact:addressBlock>
+				<ipxact:name>addressBlock</ipxact:name>
+				<ipxact:baseAddress>'h0</ipxact:baseAddress>
+				<ipxact:range>112</ipxact:range>
+				<ipxact:width>32</ipxact:width>
+				<ipxact:register>
+					<ipxact:name>REG_PADDIR_00_31</ipxact:name>
+					<ipxact:description>Pad Direction.
+Control the direction of each of the GPIO pads. A value of 1 means it is configured as
+an output, while 0 configures it as an input.</ipxact:description>
+					<ipxact:addressOffset>'h0</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADDIR_00_31</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_GPIOEN_00_31</ipxact:name>
+					<ipxact:description>Input Values.
+</ipxact:description>
+					<ipxact:addressOffset>'h4</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_GPIOEN_00_31</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADIN_00_31</ipxact:name>
+					<ipxact:description>Output Values.
+</ipxact:description>
+					<ipxact:addressOffset>'h8</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADIN_00_31</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADOUT_00_31</ipxact:name>
+					<ipxact:description>Interrupt Enable.
+Interrupt enable per input bit. INTTYPE0 and INTTYPE1 control the interrupt
+triggering behavior.</ipxact:description>
+					<ipxact:addressOffset>'hC</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADOUT_00_31</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADOUTSET_00_31</ipxact:name>
+					<ipxact:description>Interrupt Type 0.
+Controls the interrupt trigger behavior together with INTTYPE1. Use INTEN to
+enable interrupts first.</ipxact:description>
+					<ipxact:addressOffset>'h10</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADOUTSET_00_31</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADOUTCLR_00_31</ipxact:name>
+					<ipxact:description>Interrupt Type 1.
+Controls the interrupt trigger behavior together with INTTYPE0. Use INTEN to
+enable interrupts first.
+</ipxact:description>
+					<ipxact:addressOffset>'h14</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADOUTCLR_00_31</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_INTEN_00_31</ipxact:name>
+					<ipxact:description>Interrupt Status.
+Contains interrupt status per GPIO line. The status register is cleared when read.
+Similarly the interrupt line is high while a bit is set in interrupt status and will be
+deasserted when the status register is read.
+</ipxact:description>
+					<ipxact:addressOffset>'h18</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_INTEN_00_31</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_INTTYPE_00_15</ipxact:name>
+					<ipxact:addressOffset>'h1C</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_INTTYPE_00_15</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_INTTYPE_16_31</ipxact:name>
+					<ipxact:description>Pad Configuration Registers.
+The pad configuration registers control various aspects of the pads that are typically
+used in ASICs, e.g. drive strength, Schmitt-Triggers, Slew Rate, etc. Since those
+configuration parameters depend on the exact pads used, each implementation is free
+to use the PADCFG0-7 registers in every way it wants and also leave them unconnected,
+if unneeded.</ipxact:description>
+					<ipxact:addressOffset>'h20</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_INTTYPE_16_31_0</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_INTSTATUS_00_31</ipxact:name>
+					<ipxact:description>Pad Configuration Registers.
+The pad configuration registers control various aspects of the pads that are typically
+used in ASICs, e.g. drive strength, Schmitt-Triggers, Slew Rate, etc. Since those
+configuration parameters depend on the exact pads used, each implementation is free
+to use the PADCFG0-7 registers in every way it wants and also leave them unconnected,
+if unneeded.</ipxact:description>
+					<ipxact:addressOffset>'h24</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_INTSTATUS_00_31</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADCFG_00_07</ipxact:name>
+					<ipxact:description>Pad Configuration Registers.
+The pad configuration registers control various aspects of the pads that are typically
+used in ASICs, e.g. drive strength, Schmitt-Triggers, Slew Rate, etc. Since those
+configuration parameters depend on the exact pads used, each implementation is free
+to use the PADCFG0-7 registers in every way it wants and also leave them unconnected,
+if unneeded.</ipxact:description>
+					<ipxact:addressOffset>'h28</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADCFG_00_07</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADCFG_08_15</ipxact:name>
+					<ipxact:description>Pad Configuration Registers.
+The pad configuration registers control various aspects of the pads that are typically
+used in ASICs, e.g. drive strength, Schmitt-Triggers, Slew Rate, etc. Since those
+configuration parameters depend on the exact pads used, each implementation is free
+to use the PADCFG0-7 registers in every way it wants and also leave them unconnected,
+if unneeded.</ipxact:description>
+					<ipxact:addressOffset>'h2C</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADCFG_08_15</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADCFG_16_23</ipxact:name>
+					<ipxact:description>Pad Configuration Registers.
+The pad configuration registers control various aspects of the pads that are typically
+used in ASICs, e.g. drive strength, Schmitt-Triggers, Slew Rate, etc. Since those
+configuration parameters depend on the exact pads used, each implementation is free
+to use the PADCFG0-7 registers in every way it wants and also leave them unconnected,
+if unneeded.</ipxact:description>
+					<ipxact:addressOffset>'h30</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADCFG_16_23</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADCFG_24_31</ipxact:name>
+					<ipxact:description>Pad Configuration Registers.
+The pad configuration registers control various aspects of the pads that are typically
+used in ASICs, e.g. drive strength, Schmitt-Triggers, Slew Rate, etc. Since those
+configuration parameters depend on the exact pads used, each implementation is free
+to use the PADCFG0-7 registers in every way it wants and also leave them unconnected,
+if unneeded.</ipxact:description>
+					<ipxact:addressOffset>'h34</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADCFG_24_31</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADDIR_32_63</ipxact:name>
+					<ipxact:description>Pad Configuration Registers.
+The pad configuration registers control various aspects of the pads that are typically
+used in ASICs, e.g. drive strength, Schmitt-Triggers, Slew Rate, etc. Since those
+configuration parameters depend on the exact pads used, each implementation is free
+to use the PADCFG0-7 registers in every way it wants and also leave them unconnected,
+if unneeded.</ipxact:description>
+					<ipxact:addressOffset>'h38</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADDIR_32_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADCFG_56_63</ipxact:name>
+					<ipxact:addressOffset>'h6c</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADCFG_56_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADCFG_48_55</ipxact:name>
+					<ipxact:addressOffset>'h68</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADCFG_48_55</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADCFG_40_47</ipxact:name>
+					<ipxact:addressOffset>'h64</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADCFG_40_47</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADCFG_32_39</ipxact:name>
+					<ipxact:addressOffset>'h60</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADCFG_32_39</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_INTSTATUS_32_63</ipxact:name>
+					<ipxact:addressOffset>'h5c</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_INTSTATUS_32_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_INTTYPE_48_63</ipxact:name>
+					<ipxact:addressOffset>'h58</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_INTTYPE_48_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_INTTYPE_32_47</ipxact:name>
+					<ipxact:addressOffset>'h54</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_INTTYPE_32_47</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_INTEN_32_63</ipxact:name>
+					<ipxact:addressOffset>'h50</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_INTEN_32_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADOUTCLR_32_63</ipxact:name>
+					<ipxact:addressOffset>'h4c</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADOUTCLR_32_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADOUTSET_32_63</ipxact:name>
+					<ipxact:addressOffset>'h48</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADOUTSET_32_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADOUT_32_63</ipxact:name>
+					<ipxact:addressOffset>'h44</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADOUT_32_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_PADIN_32_63</ipxact:name>
+					<ipxact:addressOffset>'h40</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_PADIN_32_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>REG_GPIOEN_32_63</ipxact:name>
+					<ipxact:description>Pad Configuration Registers.
+The pad configuration registers control various aspects of the pads that are typically
+used in ASICs, e.g. drive strength, Schmitt-Triggers, Slew Rate, etc. Since those
+configuration parameters depend on the exact pads used, each implementation is free
+to use the PADCFG0-7 registers in every way it wants and also leave them unconnected,
+if unneeded.</ipxact:description>
+					<ipxact:addressOffset>'h3C</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>REG_GPIOEN_32_63</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+			</ipxact:addressBlock>
+			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+		</ipxact:memoryMap>
+	</ipxact:memoryMaps>
 	<ipxact:model>
 		<ipxact:ports>
 			<ipxact:port>
