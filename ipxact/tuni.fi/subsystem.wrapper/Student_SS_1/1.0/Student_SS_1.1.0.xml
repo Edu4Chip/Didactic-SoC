@@ -33,19 +33,9 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PRDATA</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>31</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PRDATA</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>63</ipxact:left>
-										<ipxact:right>32</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -55,12 +45,6 @@
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PREADY</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>1</ipxact:left>
-										<ipxact:right>1</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -70,12 +54,6 @@
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PSEL</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>1</ipxact:left>
-										<ipxact:right>1</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -85,12 +63,6 @@
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PSELERR</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>1</ipxact:left>
-										<ipxact:right>1</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -253,7 +225,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>127</ipxact:left>
+							<ipxact:left>31</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -270,8 +242,8 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -287,8 +259,8 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -304,8 +276,8 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
