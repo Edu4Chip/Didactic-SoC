@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ipxact:component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2022" xmlns:kactus2="http://kactus2.cs.tut.fi" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2022 http://www.accellera.org/XMLSchema/IPXACT/1685-2022/index.xsd">
 	<ipxact:vendor>tuni.fi</ipxact:vendor>
-	<ipxact:library>memory.simulation</ipxact:library>
-	<ipxact:name>sp_sram</ipxact:name>
+	<ipxact:library>ip</ipxact:library>
+	<ipxact:name>BootRom</ipxact:name>
 	<ipxact:version>1.0</ipxact:version>
 	<ipxact:busInterfaces>
 		<ipxact:busInterface>
@@ -19,6 +19,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>clk_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -39,6 +40,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>rst_ni</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -78,6 +80,14 @@
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
+								<ipxact:name>WDATA</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>wdata_i</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
 								<ipxact:name>BE</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
@@ -96,22 +106,22 @@
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
 			<ipxact:target>
-				<ipxact:memoryMapRef memoryMapRef="sram"/>
+				<ipxact:memoryMapRef memoryMapRef="spRom"/>
 			</ipxact:target>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:memoryMaps>
 		<ipxact:memoryMap>
-			<ipxact:name>sram</ipxact:name>
-			<ipxact:addressBlock>
-				<ipxact:name>ram</ipxact:name>
+			<ipxact:name>spRom</ipxact:name>
+			<ipxact:addressBlock misalignmentAllowed="true">
+				<ipxact:name>rom</ipxact:name>
 				<ipxact:baseAddress>'h0</ipxact:baseAddress>
-				<ipxact:range>uuid_55d6171d_2137_4f9e_b780_12fe7c36b023*4</ipxact:range>
-				<ipxact:width>uuid_dea62a38_7143_4438_be39_585a2e4998e7</ipxact:width>
+				<ipxact:range>uuid_62e55c4c_67aa_4d9f_92bf_7e4b42596304*4</ipxact:range>
+				<ipxact:width>uuid_4f248d9a_18c3_4077_9b30_370ee12ba4d4</ipxact:width>
 				<ipxact:usage>memory</ipxact:usage>
 				<ipxact:accessPolicies>
 					<ipxact:accessPolicy>
-						<ipxact:access>read-write</ipxact:access>
+						<ipxact:access>read-only</ipxact:access>
 					</ipxact:accessPolicy>
 				</ipxact:accessPolicies>
 			</ipxact:addressBlock>
@@ -124,6 +134,12 @@
 				<ipxact:name>clk_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>0</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -135,6 +151,12 @@
 				<ipxact:name>rst_ni</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>0</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -146,6 +168,12 @@
 				<ipxact:name>req_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>0</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -157,6 +185,12 @@
 				<ipxact:name>we_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>0</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -170,24 +204,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>uuid_008db832_6edc_42fe_9220_4130ce9524fe-1</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>be_i</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>(uuid_dea62a38_7143_4438_be39_585a2e4998e7+7)/8-1</ipxact:left>
+							<ipxact:left>uuid_c6ab777f_1607_4265_9e4b_9e2d3fb6d2d3-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -204,7 +221,41 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>uuid_dea62a38_7143_4438_be39_585a2e4998e7-1</ipxact:left>
+							<ipxact:left>uuid_4f248d9a_18c3_4077_9b30_370ee12ba4d4-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>wdata_i</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_4f248d9a_18c3_4077_9b30_370ee12ba4d4-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>be_i</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>(uuid_4f248d9a_18c3_4077_9b30_370ee12ba4d4/8)-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -218,15 +269,15 @@
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_008db832_6edc_42fe_9220_4130ce9524fe">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_c6ab777f_1607_4265_9e4b_9e2d3fb6d2d3">
 			<ipxact:name>CONNECTED_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_dea62a38_7143_4438_be39_585a2e4998e7">
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_4f248d9a_18c3_4077_9b30_370ee12ba4d4">
 			<ipxact:name>DATA_WIDTH</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_55d6171d_2137_4f9e_b780_12fe7c36b023">
+		<ipxact:parameter parameterId="uuid_62e55c4c_67aa_4d9f_92bf_7e4b42596304">
 			<ipxact:name>NUM_WORDS</ipxact:name>
 			<ipxact:value>1024</ipxact:value>
 		</ipxact:parameter>

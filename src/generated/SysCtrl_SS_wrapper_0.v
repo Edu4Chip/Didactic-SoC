@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 08.02.2024
-// Creation time : 15:31:52
+// Creation date : 12.02.2024
+// Creation time : 14:45:20
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.0 64-bit
@@ -661,7 +661,9 @@ module SysCtrl_SS_wrapper_0(
         .uart_rx_internal    (SysCtrl_SS_uart_rx_internal),
         .uart_tx_internal    (SysCtrl_SS_uart_tx_internal),
         // Interface: io_cell_cfg
-        .cell_cfg            (SysCtrl_SS_cell_cfg));
+        .cell_cfg            (SysCtrl_SS_cell_cfg),
+        // These ports are not in any interface
+        .irq_4_14            (10'h0));
 
     // IP-XACT VLNV: tuni.fi:subsystem.io:i_io_cell_frame:1.0
     i_io_cell_frame i_io_cell_frame(

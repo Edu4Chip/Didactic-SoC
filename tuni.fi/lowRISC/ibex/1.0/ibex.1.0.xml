@@ -19,6 +19,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>clk_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -39,6 +40,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>rst_ni</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -59,6 +61,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>fetch_enable_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -79,6 +82,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>irq_fast_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -99,6 +103,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>instr_addr_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -107,6 +112,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>instr_rdata_intg_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -115,6 +121,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>instr_req_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -123,6 +130,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>instr_rvalid_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -131,6 +139,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>instr_err_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -139,6 +148,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>instr_gnt_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -147,11 +157,14 @@
 							<ipxact:physicalPort>
 								<ipxact:name>instr_rdata_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:initiator>
+				<ipxact:addressSpaceRef addressSpaceRef="ibex_dmem"/>
+			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>imem</ipxact:name>
@@ -167,6 +180,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_addr_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -175,6 +189,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_be_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -183,6 +198,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_err_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -191,6 +207,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_gnt_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -199,6 +216,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_rdata_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -207,6 +225,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_rdata_intg_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -215,6 +234,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_req_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -223,6 +243,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_rvalid_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -231,6 +252,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_wdata_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -239,6 +261,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_wdata_intg_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -247,13 +270,50 @@
 							<ipxact:physicalPort>
 								<ipxact:name>data_we_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:initiator>
+				<ipxact:addressSpaceRef addressSpaceRef="ibex_imem"/>
+			</ipxact:initiator>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>Debug</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="debug_req" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="debug_req.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>debug_req</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>debug_req_i</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:target/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
+	<ipxact:addressSpaces>
+		<ipxact:addressSpace>
+			<ipxact:name>ibex_dmem</ipxact:name>
+			<ipxact:range>4096</ipxact:range>
+			<ipxact:width>32</ipxact:width>
+			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+		</ipxact:addressSpace>
+		<ipxact:addressSpace>
+			<ipxact:name>ibex_imem</ipxact:name>
+			<ipxact:range>4069</ipxact:range>
+			<ipxact:width>32</ipxact:width>
+			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+		</ipxact:addressSpace>
+	</ipxact:addressSpaces>
 	<ipxact:model>
 		<ipxact:views>
 			<ipxact:view>

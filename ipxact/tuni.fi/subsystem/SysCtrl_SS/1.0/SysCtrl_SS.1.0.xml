@@ -2802,6 +2802,26 @@
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>irq_4_14</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>9</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue>10'h0</ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+				<ipxact:vendorExtensions>
+					<kactus2:adHocVisible/>
+				</ipxact:vendorExtensions>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:vendorExtensions>

@@ -25,12 +25,12 @@
 			<ipxact:logicalName>WE</ipxact:logicalName>
 			<ipxact:wire>
 				<ipxact:onInitiator>
-					<ipxact:presence>required</ipxact:presence>
+					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
-					<ipxact:presence>required</ipxact:presence>
+					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
@@ -53,11 +53,11 @@
 			<ipxact:logicalName>WDATA</ipxact:logicalName>
 			<ipxact:wire>
 				<ipxact:onInitiator>
-					<ipxact:presence>required</ipxact:presence>
+					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
-					<ipxact:presence>required</ipxact:presence>
+					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
