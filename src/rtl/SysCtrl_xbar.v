@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_xbar.v
 // Creation date : 13.02.2024
-// Creation time : 11:04:32
+// Creation time : 11:21:36
 // Description   : SysCtrl internal XBAR.
 // Created by    : 
 // Tool : Kactus2 3.13.0 64-bit
@@ -34,7 +34,7 @@ module SysCtrl_xbar #(
     output logic                        BootRom_b_ready_out,
     output logic                        BootRom_r_ready_out,
     output logic         [AXI4LITE_DW-1:0] BootRom_w_data_out,
-    output logic         [(AXI4LITE_AW/8)-1:0] BootRom_w_strb_out,
+    output logic         [(AXI4LITE_DW/8)-1:0] BootRom_w_strb_out,
     output logic                        BootRom_w_valid_out,
 
     // Interface: AXI4LITE_CORE_DMEM
@@ -45,7 +45,7 @@ module SysCtrl_xbar #(
     input  logic                        CoreIMEM_b_ready_in,
     input  logic                        CoreIMEM_r_ready_in,
     input  logic         [AXI4LITE_DW-1:0] CoreIMEM_w_data_in,
-    input  logic         [(AXI4LITE_DW-1)/8:0] CoreIMEM_w_strb_in,
+    input  logic         [(AXI4LITE_DW/8)-1:0] CoreIMEM_w_strb_in,
     input  logic                        CoreIMEM_w_valid_in,
     output logic                        CoreIMEM_ar_ready_out,
     output logic                        CoreIMEM_aw_ready_out,
@@ -64,7 +64,7 @@ module SysCtrl_xbar #(
     input  logic                        CoreDMEM_b_ready_in,
     input  logic                        CoreDMEM_r_ready_in,
     input  logic         [AXI4LITE_DW-1:0] CoreDMEM_w_data_in,
-    input  logic         [(AXI4LITE_DW-1)/8:0] CoreDMEM_w_strb_in,
+    input  logic         [(AXI4LITE_DW/8)-1:0] CoreDMEM_w_strb_in,
     input  logic                        CoreDMEM_w_valid_in,
     output logic                        CoreDMEM_ar_ready_out,
     output logic                        CoreDMEM_aw_ready_out,
@@ -91,7 +91,7 @@ module SysCtrl_xbar #(
     output logic                        CtrlReg_b_ready_out,
     output logic                        CtrlReg_r_ready_out,
     output logic         [AXI4LITE_DW-1:0] CtrlReg_w_data_out,
-    output logic         [(AXI4LITE_DW-1)/8:0] CtrlReg_w_strb_out,
+    output logic         [(AXI4LITE_DW/8)-1:0] CtrlReg_w_strb_out,
     output logic                        CtrlReg_w_valid_out,
 
     // Interface: AXI4LITE_DBG_I
@@ -104,7 +104,7 @@ module SysCtrl_xbar #(
     input                               DbgI_b_ready,
     input                               DbgI_r_ready,
     input                [AXI4LITE_DW-1:0] DbgI_w_data,
-    input                [(AXI4LITE_DW-1)/8:0] DbgI_w_strb,
+    input                [(AXI4LITE_DW/8)-1:0] DbgI_w_strb,
     input                               DbgI_w_valid,
     output                              DbgI_ar_ready,
     output                              DbgI_aw_ready,
@@ -131,7 +131,7 @@ module SysCtrl_xbar #(
     output logic                        DbgT_b_ready_out,
     output logic                        DbgT_r_ready_out,
     output logic         [AXI4LITE_DW-1:0] DbgT_w_data_out,
-    output logic         [(AXI4LITE_DW-1)/8:0] DbgT_w_strb_out,
+    output logic         [(AXI4LITE_DW/8)-1:0] DbgT_w_strb_out,
     output logic                        DbgT_w_valid_out,
 
     // Interface: AXI4LITE_DMEM
@@ -150,7 +150,7 @@ module SysCtrl_xbar #(
     output                              DMEM_b_ready_out,
     output                              DMEM_r_ready_out,
     output               [AXI4LITE_DW-1:0] DMEM_w_data_out,
-    output               [(AXI4LITE_DW-1)/8:0] DMEM_w_strb_out,
+    output               [(AXI4LITE_DW/8)-1:0] DMEM_w_strb_out,
     output                              DMEM_w_valid_out,
 
     // Interface: AXI4LITE_IMEM
@@ -169,7 +169,7 @@ module SysCtrl_xbar #(
     output                              IMEM_b_ready_out,
     output                              IMEM_r_ready_out,
     output               [AXI4LITE_DW-1:0] IMEM_w_data_out,
-    output               [(AXI4LITE_DW-1)/8:0] IMEM_w_strb_out,
+    output               [(AXI4LITE_DW/8)-1:0] IMEM_w_strb_out,
     output                              IMEM_w_valid_out,
 
     // Interface: AXI4LITE_periph
@@ -188,7 +188,7 @@ module SysCtrl_xbar #(
     output logic                        periph_b_ready_out,
     output logic                        periph_r_ready_out,
     output logic         [AXI4LITE_DW-1:0] periph_w_data_out,
-    output logic         [(AXI4LITE_DW-1)/8:0] periph_w_strb_out,
+    output logic         [(AXI4LITE_DW/8)-1:0] periph_w_strb_out,
     output logic                        periph_w_valid_out,
 
     // Interface: AXI_ICN
