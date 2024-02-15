@@ -293,6 +293,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>debug_req_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -314,6 +315,22 @@
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:addressSpace>
 	</ipxact:addressSpaces>
+	<ipxact:memoryMaps>
+		<ipxact:memoryMap>
+			<ipxact:name>memoryMap</ipxact:name>
+			<ipxact:addressBlock>
+				<ipxact:name>addressBlock</ipxact:name>
+				<ipxact:baseAddress>'h0</ipxact:baseAddress>
+				<ipxact:range>4</ipxact:range>
+				<ipxact:width>32</ipxact:width>
+			</ipxact:addressBlock>
+			<ipxact:subspaceMap initiatorRef="dmem">
+				<ipxact:name>subspaceMap</ipxact:name>
+				<ipxact:baseAddress>'h4</ipxact:baseAddress>
+			</ipxact:subspaceMap>
+			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+		</ipxact:memoryMap>
+	</ipxact:memoryMaps>
 	<ipxact:model>
 		<ipxact:views>
 			<ipxact:view>
@@ -1206,6 +1223,14 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:cpus>
+		<ipxact:cpu>
+			<ipxact:name>ibex_core</ipxact:name>
+			<ipxact:range>8</ipxact:range>
+			<ipxact:width>32</ipxact:width>
+			<ipxact:memoryMapRef>memoryMap</ipxact:memoryMapRef>
+		</ipxact:cpu>
+	</ipxact:cpus>
 	<ipxact:description>IBEX cpu top ipxact interface model. Core by lowRISC. IPXACT by TUNI.
 
 ibex commit sha: 1774cbbbe334dff1e762c8308c911a33b3bda515</ipxact:description>

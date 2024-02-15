@@ -176,6 +176,10 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PREADY</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PREADY</ipxact:name>
@@ -191,6 +195,10 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PSEL</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PSEL</ipxact:name>
@@ -206,6 +214,10 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PSLVERR</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PSELERR</ipxact:name>
@@ -288,6 +300,10 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PREADY</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PREADY</ipxact:name>
@@ -303,6 +319,10 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PSEL</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PSEL</ipxact:name>
@@ -318,6 +338,10 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PSLVERR</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PSELERR</ipxact:name>
@@ -400,6 +424,10 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PREADY</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PREADY</ipxact:name>
@@ -415,6 +443,10 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PSEL</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PSEL</ipxact:name>
@@ -430,6 +462,10 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>PSLVERR</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>PSELERR</ipxact:name>
@@ -1190,7 +1226,12 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target/>
+			<ipxact:target>
+				<ipxact:transparentBridge initiatorRef="APB0"/>
+				<ipxact:transparentBridge initiatorRef="APB1"/>
+				<ipxact:transparentBridge initiatorRef="APB2"/>
+				<ipxact:transparentBridge initiatorRef="APB3"/>
+			</ipxact:target>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>Clock</ipxact:name>
@@ -2104,7 +2145,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>32*4-1</ipxact:left>
+							<ipxact:left>(32*4)-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2166,6 +2207,17 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:fileSets>
+		<ipxact:fileSet>
+			<ipxact:name>rtl</ipxact:name>
+			<ipxact:group>generatedFiles</ipxact:group>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/rtl/ICN_SS.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 09:30:21 on 14.02.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+		</ipxact:fileSet>
+	</ipxact:fileSets>
 	<ipxact:vendorExtensions>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>IP</kactus2:kts_productHier>

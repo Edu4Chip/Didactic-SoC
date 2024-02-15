@@ -64,6 +64,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>wdata_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -395,7 +396,9 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target/>
+			<ipxact:target>
+				<ipxact:transparentBridge initiatorRef="Mem"/>
+			</ipxact:target>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>

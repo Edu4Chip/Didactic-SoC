@@ -605,7 +605,7 @@
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
-					<ipxact:presence>illegal</ipxact:presence>
+					<ipxact:presence>required</ipxact:presence>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>

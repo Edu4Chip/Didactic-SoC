@@ -260,6 +260,11 @@
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="AXI"/>
 			<ipxact:activeInterface componentInstanceRef="ICN_SS" busRef="AXI"/>
 		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>Student_SS_1_GPIO_to_SS_1_GPO</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="Student_SS_1" busRef="GPIO"/>
+			<ipxact:hierInterface busRef="SS_1_GPO"/>
+		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
@@ -390,6 +395,10 @@
 				<kactus2:position x="390" y="180"/>
 				<kactus2:position x="490" y="180"/>
 			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_SS_1_GPIO_to_SS_1_GPO" kactus2:offPage="false">
+				<kactus2:position x="1030" y="290"/>
+				<kactus2:position x="1140" y="290"/>
+			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>Clock</kactus2:name>
@@ -437,5 +446,15 @@
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:adHocVisibilities/>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>bus</kactus2:name>
+			<kactus2:position x="1140" y="310"/>
+			<kactus2:direction x="0" y="-1"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>SS_1_GPO</kactus2:name>
+			<kactus2:position x="1140" y="290"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>

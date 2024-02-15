@@ -1,0 +1,8 @@
+sprom_rom: Memory.MappedMemory @ sysbus 0x0000
+    size: 0x1000
+
+sram_ram: Memory.MappedMemory @ sysbus 0x0000
+    size: 0x1000
+
+sram_ram0: Memory.MappedMemory @ sysbus 0x0000
+    size: 0x1000

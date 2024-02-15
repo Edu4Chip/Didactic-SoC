@@ -7,17 +7,16 @@
 	<ipxact:componentInstances>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Student_area_0</ipxact:instanceName>
-			<ipxact:componentRef vendor="" library="" name="" version=""/>
+			<ipxact:componentRef vendor="tuni.fi" library="ip" name="Student_area_0" version="1.0"/>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{9fed10e1-75ca-4f39-a46d-c61d222953a3}</kactus2:uuid>
-				<kactus2:draft/>
 				<kactus2:position x="600" y="60"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="APB" x="110" y="140"/>
 					<kactus2:portPosition busRef="IRQ" x="-110" y="210"/>
+					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="160"/>
 					<kactus2:portPosition busRef="clk" x="-110" y="60"/>
 					<kactus2:portPosition busRef="reset" x="110" y="60"/>
-					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="160"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -74,7 +73,14 @@
 			<ipxact:name>SS_cg_en_to_clk_ctrl</ipxact:name>
 			<ipxact:portReferences>
 				<ipxact:internalPortReference componentInstanceRef="SS_cg" portRef="en"/>
-				<ipxact:externalPortReference portRef="clk_ctrl"/>
+				<ipxact:externalPortReference portRef="clk_ctrl">
+					<ipxact:partSelect>
+						<ipxact:range>
+							<ipxact:left>0</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:range>
+					</ipxact:partSelect>
+				</ipxact:externalPortReference>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>

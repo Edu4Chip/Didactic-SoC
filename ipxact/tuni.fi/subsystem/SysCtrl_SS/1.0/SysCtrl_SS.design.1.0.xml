@@ -88,7 +88,7 @@
 					<kactus2:portPosition busRef="AXI4LITE_I" x="110" y="150"/>
 					<kactus2:portPosition busRef="AXI4LITE_T" x="110" y="130"/>
 					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
-					<kactus2:portPosition busRef="Debug" x="110" y="70"/>
+					<kactus2:portPosition busRef="Debug" x="110" y="60"/>
 					<kactus2:portPosition busRef="JTAG" x="-110" y="90"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="core_reset" x="110" y="40"/>
@@ -632,7 +632,7 @@
 		<kactus2:columnLayout>
 			<kactus2:column name="IO" contentType="0" allowedItems="1" minWidth="119" width="119" x="1720"/>
 			<kactus2:column name="Bridges" contentType="4" allowedItems="14" minWidth="319" width="319" x="760"/>
-			<kactus2:column name="SS_Ctrl" contentType="2" allowedItems="2" minWidth="319" width="319" x="120"/>
+			<kactus2:column name="SS_Ctrl" contentType="4" allowedItems="10" minWidth="319" width="319" x="120"/>
 			<kactus2:column name="IO" contentType="0" allowedItems="1" minWidth="119" width="119" x="0"/>
 			<kactus2:column name="Peripherals" contentType="2" allowedItems="2" minWidth="319" width="319" x="1400"/>
 			<kactus2:column name="Core" contentType="2" allowedItems="2" minWidth="319" width="319" x="440"/>
@@ -948,8 +948,8 @@
 				<kactus2:position x="490" y="450"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug" kactus2:offPage="false">
-				<kactus2:position x="390" y="650"/>
-				<kactus2:position x="470" y="650"/>
+				<kactus2:position x="390" y="640"/>
+				<kactus2:position x="470" y="640"/>
 				<kactus2:position x="470" y="610"/>
 				<kactus2:position x="490" y="610"/>
 			</kactus2:route>

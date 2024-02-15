@@ -293,6 +293,28 @@
 				<ipxact:group>external_io</ipxact:group>
 			</ipxact:system>
 		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>SS_1_GPO</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gpio</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ss_1_gpio</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:system>
+				<ipxact:group>external_io</ipxact:group>
+			</ipxact:system>
+		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
 		<ipxact:views>
@@ -590,9 +612,26 @@
 					<ipxact:direction>inout</ipxact:direction>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>ss_1_gpio</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+				</ipxact:wire>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
-	<ipxact:description>Edu4Chip top level example SoC.</ipxact:description>
+	<ipxact:description>Edu4Chip top level example SoC.
+
+Spec: 
+* RiscV core
+* 28 signal IO
+</ipxact:description>
 	<ipxact:vendorExtensions>
 		<kactus2:author>Matti Käyrä</kactus2:author>
 		<kactus2:version>3,13,0,0</kactus2:version>
