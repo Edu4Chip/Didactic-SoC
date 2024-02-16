@@ -9,30 +9,36 @@
 // This file was generated based on IP-XACT component tuni.fi:ip:Student_area_0:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/tuni.fi/ip/Student_area_0/1.0/Student_area_0.1.0.xml
 //-----------------------------------------------------------------------------
-
+/*
+  Contributors:
+    * Matti Käyrä (matti.kayra@tuni.fi)
+  Description:
+    * example student area rtl code without io cells
+    * original interface created with kactus2. Do not rewrite from kactus.
+*/
 module Student_area_0(
     // Interface: APB
-    input                [31:0]         PADDR,
-    input                               PENABLE,
-    input                               PSEL,
-    input                [31:0]         PWDATA,
-    input                               PWRITE,
-    output               [31:0]         PRDATA,
-    output                              PREADY,
-    output                              PSELERR,
+    input     logic           [31:0]         PADDR,
+    input     logic                        PENABLE,
+    input      logic                         PSEL,
+    input       logic         [31:0]         PWDATA,
+    input     logic                          PWRITE,
+    output     logic          [31:0]         PRDATA,
+    output     logic                         PREADY,
+    output    logic                          PSELERR,
 
     // Interface: IRQ
-    output                              irq,
+    output     logic                         irq,
 
     // Interface: SS_Ctrl
-    input                [7:0]          clk_ctrl,
-    input                               irq_en,
+    input    logic            [7:0]          clk_ctrl,
+    input    logic                           irq_en,
 
     // Interface: clk
     input  logic                        clk_in,
 
     // Interface: reset
-    input                               rst
+    input   logic                            rst
 );
 
   always_ff @(posedge clk or negedge rst_n)

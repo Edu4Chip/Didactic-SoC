@@ -9,7 +9,12 @@
 // This file was generated based on IP-XACT component tuni.fi:ip:SysCtrl_xbar:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/ipxact/tuni.fi/ip/SysCtrl_xbar/1.0/SysCtrl_xbar.1.0.xml
 //-----------------------------------------------------------------------------
-
+/*
+  Contributors:
+    * Matti Käyrä (matti.kayra@tuni.fi)
+  Description:
+    * controller cpu internal interconnect, xbar topology
+*/
 module SysCtrl_xbar #(
     parameter                              AXI4LITE_AW      = 32,
     parameter                              AXI4LITE_DW      = 32,

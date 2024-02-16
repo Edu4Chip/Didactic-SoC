@@ -22,6 +22,6 @@ module tech_cg
     end
   end
 
-  assign clk_out = clk & cken_latched;
+  assign clk_out = clk & en_latched;
 
 endmodule

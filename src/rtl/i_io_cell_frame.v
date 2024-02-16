@@ -24,82 +24,82 @@ module i_io_cell_frame#(
   )
   (
     // Interface: BootSel
-    inout                               boot_sel,
+    inout     wire                         boot_sel,
 
     // Interface: BootSel_internal
-    output                              BootSel_internal,
+    output    logic                          BootSel_internal,
 
     // Interface: Cfg
-    input                [49:0]         cell_cfg,
+    input      logic          [49:0]         cell_cfg,
 
     // Interface: Clock
-    inout                               clk_in,
+    inout     wire                          clk_in,
 
     // Interface: Clock_internal
-    output                              clk_internal,
+    output   logic                           clk_internal,
 
     // Interface: FetchEn
-    inout                               fetch_en,
+    inout     wire                          fetch_en,
 
     // Interface: FetchEn_internal
-    output                              fetchEn_internal,
+    output     logic                         fetchEn_internal,
 
     // Interface: GPIO
-    inout                [3:0]          gpio,
+    inout     wire           [3:0]          gpio,
 
     // Interface: GPIO_internal
-    input                [3:0]          gpio_from_core,
-    output               [3:0]          gpio_to_core,
+    input     logic           [3:0]          gpio_from_core,
+    output    logic           [3:0]          gpio_to_core,
 
     // Interface: JTAG
-    inout                               jtag_tck,
-    inout                               jtag_tdi,    // Data can be daisy chained or routed directly back
-    inout                               jtag_tdo,    // Data can be daisy chained or routed directly back
-    inout                               jtag_tms,
-    inout                               jtag_trst,
+    inout         wire                      jtag_tck,
+    inout        wire                       jtag_tdi,    // Data can be daisy chained or routed directly back
+    inout        wire                       jtag_tdo,    // Data can be daisy chained or routed directly back
+    inout       wire                        jtag_tms,
+    inout       wire                        jtag_trst,
 
     // Interface: JTAG_internal
-    input                               jtag_tdo_internal,
-    output                              jtag_tck_internal,
-    output                              jtag_tdi_internal,
-    output                              jtag_tms_internal,
-    output                              jtag_trst_internal,
+    input        logic                       jtag_tdo_internal,
+    output       logic                       jtag_tck_internal,
+    output       logic                       jtag_tdi_internal,
+    output       logic                       jtag_tms_internal,
+    output       logic                       jtag_trst_internal,
 
     // Interface: Reset
-    inout                               reset,
+    inout          wire                     reset,
 
     // Interface: Reset_internal
-    output                              reset_internal,
+    output       logic                       reset_internal,
 
     // Interface: SDIO
-    inout                               sdio_clk,
-    inout                               sdio_cmd,
-    inout                [3:0]          sdio_data,
+    inout         wire                      sdio_clk,
+    inout         wire                      sdio_cmd,
+    inout        wire        [3:0]          sdio_data,
 
     // Interface: SDIO_internal
-    input                               sdio_clk_internal,
-    input                               sdio_cmd_internal,
-    input                [3:0]          sdio_data_o_internal,
-    output               [3:0]          sdio_data_i_internal,
+    input         logic                      sdio_clk_internal,
+    input         logic                      sdio_cmd_internal,
+    input        logic        [3:0]          sdio_data_o_internal,
+    output        logic       [3:0]          sdio_data_i_internal,
 
     // Interface: SPI
-    inout                [1:0]          spi_csn,
-    inout                [3:0]          spi_data,
-    inout                               spi_sck,
+    inout         wire       [1:0]          spi_csn,
+    inout         wire       [3:0]          spi_data,
+    inout         wire                      spi_sck,
 
     // Interface: SPI_internal
-    input                [1:0]          spim_csn_internal,
-    input                [3:0]          spim_mosi_internal,
-    input                               spim_sck_internal,
-    output               [3:0]          spim_miso_internal,
+    input       logic         [1:0]          spim_csn_internal,
+    input      logic          [3:0]          spim_mosi_internal,
+    input      logic                         spim_sck_internal,
+    output      logic         [3:0]          spim_miso_internal,
 
     // Interface: UART
-    inout                               uart_rx,
-    inout                               uart_tx,
+    inout          wire                     uart_rx,
+    inout          wire                     uart_tx,
 
     // Interface: UART_internal
-    input                               uart_tx_internal,
-    output                              uart_rx_internal
+    input      logic                         uart_tx_internal,
+    output     logic                         uart_rx_internal
 );
 
 // bootSel

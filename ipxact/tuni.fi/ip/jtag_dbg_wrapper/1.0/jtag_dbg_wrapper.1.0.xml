@@ -589,6 +589,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>clk_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -666,6 +667,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>rst_ni</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -686,6 +688,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>debug_reg_irq_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -706,6 +709,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>core_reset</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>

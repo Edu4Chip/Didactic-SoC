@@ -9,36 +9,45 @@
 // This file was generated based on IP-XACT component tuni.fi:subsystem:student_ss_1:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/tuni.fi/subsystem/student_ss_1/1.0/student_ss_1.1.0.xml
 //-----------------------------------------------------------------------------
-
+/*
+  Contributors:
+    * Matti Käyrä (matti.kayra@tuni.fi)
+  Description:
+    * example student area rtl code with off chip gpio interface 
+    * original interface created with kactus2. Do not rewrite from kactus.
+*/
 module student_ss_1(
     // Interface: APB
-    input                [31:0]         PADDR,
-    input                               PENABLE,
-    input                               PSEL,
-    input                [31:0]         PWDATA,
-    input                               PWRITE,
-    output               [31:0]         PRDATA,
-    output                              PREADY,
-    output                              PSELERR,
+    input    logic            [31:0]         PADDR,
+    input    logic                           PENABLE,
+    input     logic                          PSEL,
+    input    logic            [31:0]         PWDATA,
+    input     logic                          PWRITE,
+    output    logic          [31:0]         PRDATA,
+    output    logic                          PREADY,
+    output    logic                          PSELERR,
 
     // Interface: Clock
     input  logic                        clk_in,
 
     // Interface: IRQ
-    output                              irq_1,
+    output   logic                           irq_1,
 
     // Interface: Reset
-    input                               reset_int,
+    input    logic                           reset_int,
 
     // Interface: gpio
-    input                [1:0]          gpi_i,
-    output               [1:0]          gpio_oe,
-    output               [1:0]          gpo_o,
+    input     logic           [1:0]          gpi_i,
+    output    logic           [1:0]          gpio_oe,
+    output     logic          [1:0]          gpo_o,
 
     // Interface: ss_ctrl
-    input                               irq_en_1,
-    input                [7:0]          ss_ctrl_1
+    input     logic                          irq_en_1,
+    input      logic          [7:0]          ss_ctrl_1
 );
+
+  logic [31:0] field_0;
+  logic [31:0] field_1;
 
   always_ff @(posedge clk or negedge rst_n)
   output_w_r: begin

@@ -9,7 +9,12 @@
 // This file was generated based on IP-XACT component tuni.fi:subsystem.io:io_cell_frame_ss_1:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/tuni.fi/subsystem.io/io_cell_frame_ss_1/1.0/io_cell_frame_ss_1.1.0.xml
 //-----------------------------------------------------------------------------
-
+/*
+  Contributors:
+    * Matti Käyrä (matti.kayra@tuni.fi)
+  Description:
+    * example student area io cell file
+*/
 module io_cell_frame_ss_1(
     // Interface: GPIO_external
     inout                [1:0]          gpio,
