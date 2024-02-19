@@ -23,7 +23,8 @@
 module jtag_dbg_wrapper #(
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32,
-    parameter                              DM_BASE_ADDRESS  = 'h1000
+    parameter                              DM_BASE_ADDRESS  = 'h1000,
+    parameter                              DM_ID_VALUE  =  32'hf007ba11
 ) (
     // Interface: AXI4LITE_I
     input  logic                        init_ar_ready,
@@ -36,8 +37,10 @@ module jtag_dbg_wrapper #(
     input  logic                        init_w_ready,
     output logic         [AXI_AW-1:0]   init_ar_addr,
     output logic                        init_ar_valid,
+    output logic         [3:0]          init_ar_prot,
     output logic         [AXI_AW-1:0]   init_aw_addr,
     output logic                        init_aw_valid,
+    output logic         [3:0]          init_aw_prot,
     output logic                        init_b_ready,
     output logic                        init_r_ready,
     output logic         [AXI_DW-1:0]     init_w_data,
@@ -46,7 +49,7 @@ module jtag_dbg_wrapper #(
 
     // Interface: AXI4LITE_T
     input  logic          [AXI_AW-1:0]  target_ar_addr,
-    input logic                         target_ar_valid,
+    input  logic                        target_ar_valid,
     input  logic         [AXI_AW-1:0]   target_aw_addr,
     input  logic                        target_aw_valid,
     input  logic                        target_b_ready,
@@ -64,26 +67,26 @@ module jtag_dbg_wrapper #(
     output logic                        target_w_ready,
 
     // Interface: Clock
-    input                               clk_i,
+    input     logic                          clk_i,
 
     // Interface: Debug
-    output                              debug_reg_irq_o,
+    output    logic                          debug_reg_irq_o,
 
     // Interface: JTAG
-    input                               jtag_tck_i,
-    input                               jtag_td_i,
-    input                               jtag_tms_i,
-    input                               jtag_trst_ni,
-    output                              jtag_td_o,
+    input     logic                          jtag_tck_i,
+    input     logic                          jtag_td_i,
+    input     logic                          jtag_tms_i,
+    input     logic                          jtag_trst_ni,
+    output     logic                         jtag_td_o,
 
     // Interface: Reset
-    input                               rstn_i,
+    input      logic                         rstn_i,
 
     // Interface: core_reset
-    output                              core_reset,
+    output      logic                        core_reset,
 
     // These ports are not in any interface
-    output                              ndmreset_o
+    output        logic                      ndmreset_o
 );
 
 /****** LOCAL VARIABLES AND CONSTANTS *****************************************/
@@ -202,7 +205,7 @@ logic [DBG_BUS_WIDTH-1:0]     dbg_m_rdata_s;
 
 
   dmi_jtag #(
-    .IdcodeValue ( 32'hf007ba11 )
+    .IdcodeValue (DM_ID_VALUE)
   ) i_dmi_jtag (
     .clk_i                ( clk_i            ),
     .rst_ni               ( rstn_i           ),
@@ -259,5 +262,8 @@ logic [DBG_BUS_WIDTH-1:0]     dbg_m_rdata_s;
     .dmi_resp_ready_i     ( dmi_resp_ready_s    ),             
     .dmi_resp_o           ( dmi_resp_s          )      
   );
+
+  // ibex core reset control with debug module
+  assign core_reset =  (~ndmreset_o) & rstn_i;
 
 endmodule
