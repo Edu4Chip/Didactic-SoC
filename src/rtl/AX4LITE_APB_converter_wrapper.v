@@ -60,7 +60,60 @@ module AX4LITE_APB_converter_wrapper #(
     output logic                        PWRITE
 );
 
-// WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
+
+  AXI_LITE #(
+   .AXI_ADDR_WIDTH(),
+   .AXI_DATA_WIDTH()
+  ) axi4lite_bus ();
+
+
+  // todo assign axi4lite to interface
+
+
+  // TODO: APB addr configs
+  localparam APB_TARGETS=4;
+  localparam NoAddrRules =4;
+  localparam ADDR_BASE=32'h1300_0000
+  localparam APB_SIZE='h1000;
+
+  typedef axi_pkg::xbar_rule_32_t rule_t;
+
+  rule_t [NoAddrRules-1:0] AddrMapAPB;
+  // TODO: finalize Address table based on APB Subsystems
+  assign AddrMapAPB = '{
+                         '{idx: 32'd3, start_addr: ADDR_BASE+APB_SIZE*3, end_addr: ADDR_BASE+APB_SIZE*4-1},
+                         '{idx: 32'd2, start_addr: ADDR_BASE+APB_SIZE*2, end_addr: ADDR_BASE+APB_SIZE*3-1},
+                         '{idx: 32'd1, start_addr: ADDR_BASE+APB_SIZE*1, end_addr: ADDR_BASE+APB_SIZE*2-1},
+                         '{idx: 32'd0, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1-1}
+                         };
+
+  // TODO: fill parameters
+  axi_lite_to_apb_intf #(
+    .NoApbSlaves(),
+    .NoRules(),
+    .AddrWidth(),
+    .DataWidth(),
+    .rule_t(rule_t)
+    )
+  i_axi_lite_to_apb_intf(
+    .clk_i(clk),
+    .rst_ni(rst_n),
+
+    .slv(axi4lite_bus),
+
+    .paddr_o(PADDR),
+    .pprot_o(),
+    .pselx_o(PSEL),
+    .penable_o(PENABLE),
+    .pwrite_o(PWRITE),
+    .pwdata_o(PWDATA),
+    .pstrb_o(),
+    .pready_i(PREADY),
+    .prdata_i(PRDATA),
+    .pslverr_i(PSLVERR),
+
+    .addr_map_i(AddrMapAPB)
+  );
 
 
 endmodule

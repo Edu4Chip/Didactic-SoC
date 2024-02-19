@@ -252,6 +252,58 @@ module SysCtrl_xbar #(
 );
 
 
+  // TODO: check numbers
+  localparam AXI4LITE_TARGETS = 7;
+  localparam AXI4LITE_INITIATORS = 3;
+
+
+  // TODO: FIll parameters
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH(), 
+    .AXI_DATA_WIDTH(), 
+    .AXI_ID_WIDTH(), 
+    .AXI_USER_WIDTH()
+  ) axi4bus ();
+
+  AXI_LITE #(
+   .AXI_ADDR_WIDTH(),
+   .AXI_DATA_WIDTH()
+  ) axi4lite_target_bus [AXI4LITE_TARGETS-1:0]();
+
+  AXI_LITE #(
+   .AXI_ADDR_WIDTH(),
+   .AXI_DATA_WIDTH()
+  ) axi4lite_init_bus [AXI4LITE_INITIATORS-1:0]();
+
+// TODO: Fill parameters
+axi_lite_to_axi_intf #(
+  .AXI_DATA_WIDTH()
+) i_axi_lite_to_axi(
+  .in(),
+  .slv_aw_cache_i(),
+  .slv_ar_cache_i(),
+  .out()
+);
+
+  // TODO: create rule_t for lite xbar
+axi_lite_xbar_intf #(
+  .Cfg(),
+  .rule_t()
+) i_axi_lite_xbar(
+  .clk_i(),
+  .rst_ni(),
+  .test_i(),
+  .slv_ports(),
+  .mst_ports(),
+  .addr_map_i(),
+  .en_default_mst_port_i(),
+  .default_mst_port_i()
+);
+
+// TODO: Assign ports to interfaces
+// e.g.
+assign axi4lite_init_bus[0].ar_addr = CoreDMEM_ar_addr_in;
+
 
 
 endmodule
