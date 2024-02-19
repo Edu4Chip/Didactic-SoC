@@ -19,7 +19,7 @@ module sram #(
   input  logic                         wuser_i
 );
 
-`ifndef FPGA /************************* ASIC MODEL ****************************/
+`ifndef FPGA /************************* ASIC SIM MODEL ****************************/
 
   localparam ADDR_WIDTH = $clog2(NUM_WORDS);
 

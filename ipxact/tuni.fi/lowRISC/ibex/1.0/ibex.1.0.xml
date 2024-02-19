@@ -318,7 +318,7 @@
 	<ipxact:memoryMaps>
 		<ipxact:memoryMap>
 			<ipxact:name>memoryMap</ipxact:name>
-			<ipxact:addressBlock>
+			<ipxact:addressBlock misalignmentAllowed="true">
 				<ipxact:name>addressBlock</ipxact:name>
 				<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				<ipxact:range>4</ipxact:range>

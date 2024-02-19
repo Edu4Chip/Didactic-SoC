@@ -19,6 +19,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>clk_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -39,6 +40,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>rst_ni</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -59,6 +61,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>req_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -67,6 +70,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>we_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -75,6 +79,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>addr_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -83,6 +88,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>be_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -91,6 +97,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>rdata_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -103,7 +110,7 @@
 	<ipxact:memoryMaps>
 		<ipxact:memoryMap>
 			<ipxact:name>sram</ipxact:name>
-			<ipxact:addressBlock>
+			<ipxact:addressBlock misalignmentAllowed="true">
 				<ipxact:name>ram</ipxact:name>
 				<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				<ipxact:range>uuid_55d6171d_2137_4f9e_b780_12fe7c36b023*4</ipxact:range>
@@ -170,7 +177,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>uuid_008db832_6edc_42fe_9220_4130ce9524fe-1</ipxact:left>
+							<ipxact:left>$clog2(uuid_55d6171d_2137_4f9e_b780_12fe7c36b023)-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -217,16 +224,23 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:fileSets>
+		<ipxact:fileSet>
+			<ipxact:name>rtl</ipxact:name>
+			<ipxact:group>simulation</ipxact:group>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/reuse/sram.sv</ipxact:name>
+				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
+				<ipxact:description>Sram sim model. Supports memory preloading.</ipxact:description>
+			</ipxact:file>
+		</ipxact:fileSet>
+	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_008db832_6edc_42fe_9220_4130ce9524fe">
-			<ipxact:name>CONNECTED_AW</ipxact:name>
-			<ipxact:value>32</ipxact:value>
-		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_dea62a38_7143_4438_be39_585a2e4998e7">
 			<ipxact:name>DATA_WIDTH</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_55d6171d_2137_4f9e_b780_12fe7c36b023">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_55d6171d_2137_4f9e_b780_12fe7c36b023">
 			<ipxact:name>NUM_WORDS</ipxact:name>
 			<ipxact:value>1024</ipxact:value>
 		</ipxact:parameter>

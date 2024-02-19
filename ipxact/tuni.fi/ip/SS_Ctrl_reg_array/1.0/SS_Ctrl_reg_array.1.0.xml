@@ -19,6 +19,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>bootsel</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -39,6 +40,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>clk</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -59,6 +61,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>reset</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -124,6 +127,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>wdata_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -807,6 +811,17 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:parameters>
+		<ipxact:parameter parameterId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b">
+			<ipxact:name>IOCELL_COUNT</ipxact:name>
+			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
+			<ipxact:value>28</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960">
+			<ipxact:name>IOCELL_CFG_W</ipxact:name>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>

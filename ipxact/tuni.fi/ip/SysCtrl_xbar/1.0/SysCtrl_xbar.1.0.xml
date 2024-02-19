@@ -3493,7 +3493,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>uuid_4242053c_02ba_49b3_87da_94390d743b46</ipxact:left>
+							<ipxact:left>uuid_4242053c_02ba_49b3_87da_94390d743b46-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -6145,8 +6145,8 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>uuid_eb1ad1e6_d30b_4600_8063_c83e32219a10-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -6315,8 +6315,8 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>uuid_eb1ad1e6_d30b_4600_8063_c83e32219a10-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>

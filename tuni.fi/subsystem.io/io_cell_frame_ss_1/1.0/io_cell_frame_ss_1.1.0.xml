@@ -19,6 +19,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>gpio</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -41,6 +42,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>gpo_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -49,6 +51,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>gpi_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -57,6 +60,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>gpio_oe</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -140,7 +144,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>4</ipxact:left>
+							<ipxact:left>uuid_ba2b3046_53c9_455d_8dd1_c251787b4b66-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -151,6 +155,28 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:fileSets>
+		<ipxact:fileSet>
+			<ipxact:name>rtl</ipxact:name>
+			<ipxact:group>generatedFiles</ipxact:group>
+			<ipxact:file>
+				<ipxact:name>../../../../src/rtl/io_cell_frame_ss_1.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 10:18:08 on 19.02.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+		</ipxact:fileSet>
+	</ipxact:fileSets>
+	<ipxact:parameters>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_ba2b3046_53c9_455d_8dd1_c251787b4b66">
+			<ipxact:name>IOCELL_CFG_W_1</ipxact:name>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_c5f4f54b_b05b_4328_8925_3ea412f54188">
+			<ipxact:name>IOCELL_COUNT</ipxact:name>
+			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
+			<ipxact:value>2</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>

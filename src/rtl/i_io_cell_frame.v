@@ -18,9 +18,9 @@
 
 
 module i_io_cell_frame#(
-    parameter CONF_WIDTH = 5
+    parameter IOCELL_CFG_W = 5
     // count and modify according to cells
-    localparam NUMBER_OF_CELLS = 25
+    localparam IOCELL_COUNT = 25
   )
   (
     // Interface: BootSel
@@ -30,7 +30,7 @@ module i_io_cell_frame#(
     output    logic                          BootSel_internal,
 
     // Interface: Cfg
-    input      logic          [49:0]         cell_cfg,
+    input      logic          [(IOCELL_CFG_W*IOCELL_COUNT)-1:0]         cell_cfg,
 
     // Interface: Clock
     inout     wire                          clk_in,
@@ -103,49 +103,49 @@ module i_io_cell_frame#(
 );
 
 // bootSel
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*IOCELL_CFG_W-1:0*IOCELL_CFG_W]));
 
 // clk
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[2*IOCELL_CFG_W-1:1*IOCELL_CFG_W]));
 
 // fetchEn
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[3*IOCELL_CFG_W-1:2*IOCELL_CFG_W]));
 
 // gpio
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[4*IOCELL_CFG_W-1:3*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[5*IOCELL_CFG_W-1:4*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[6*IOCELL_CFG_W-1:5*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[7*IOCELL_CFG_W-1:6*IOCELL_CFG_W]));
 
 // jtag
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[8*IOCELL_CFG_W-1:7*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[9*IOCELL_CFG_W-1:8*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[10*IOCELL_CFG_W-1:9*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[11*IOCELL_CFG_W-1:10*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[12*IOCELL_CFG_W-1:11*IOCELL_CFG_W]));
 
 // reset
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[13*IOCELL_CFG_W-1:12*IOCELL_CFG_W]));
 
 // sdio
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[14*IOCELL_CFG_W-1:13*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[15*IOCELL_CFG_W-1:14*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[16*IOCELL_CFG_W-1:15*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[17*IOCELL_CFG_W-1:16*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[18*IOCELL_CFG_W-1:17*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[19*IOCELL_CFG_W-1:18*IOCELL_CFG_W]));
 
 // spi
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[20*IOCELL_CFG_W-1:19*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[21*IOCELL_CFG_W-1:20*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[22*IOCELL_CFG_W-1:21*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[23*IOCELL_CFG_W-1:22*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[24*IOCELL_CFG_W-1:23*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[25*IOCELL_CFG_W-1:24*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_(.FROM_CORE(), .TO_CORE(), .PAD(), .io_cell_cfg(cell_cfg[26*IOCELL_CFG_W-1:25*IOCELL_CFG_W]));
 
 // uart
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_uart_rx(.FROM_CORE(1'b0), .TO_CORE(uart_rx_internal), .PAD(uart_rx), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
-io_cell_wrapper#(.CELL_TYPE(0), .CONF_WIDTH(CONF_WIDTH)) i_io_cell_uart_tx(.FROM_CORE(uart_tx_internal), .TO_CORE(), .PAD(uart_tx), .io_cell_cfg(cell_cfg[1*CONF_WIDTH-1:0*CONF_WIDTH]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_uart_rx(.FROM_CORE(1'b0), .TO_CORE(uart_rx_internal), .PAD(uart_rx), .io_cell_cfg(cell_cfg[27*IOCELL_CFG_W-1:26*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_uart_tx(.FROM_CORE(uart_tx_internal), .TO_CORE(), .PAD(uart_tx), .io_cell_cfg(cell_cfg[28*IOCELL_CFG_W-1:27*IOCELL_CFG_W]));
 
 endmodule

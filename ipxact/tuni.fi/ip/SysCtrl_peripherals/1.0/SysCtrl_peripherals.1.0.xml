@@ -280,6 +280,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>ar_addr</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -298,6 +299,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -316,6 +318,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -324,6 +327,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>aw_addr</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -342,6 +346,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -360,6 +365,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -378,6 +384,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -396,6 +403,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -404,6 +412,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>r_data</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -422,6 +431,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -440,6 +450,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -458,6 +469,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -476,6 +488,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -484,6 +497,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>w_data</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -502,6 +516,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -510,6 +525,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>w_strb</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -528,6 +544,7 @@
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -536,6 +553,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>ar_prot</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -544,11 +562,12 @@
 							<ipxact:physicalPort>
 								<ipxact:name>aw_prot</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredInitiator/>
+			<ipxact:target/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
@@ -811,7 +830,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_d5310ef8_5f7b_4872_b1b9_587a6c57e6ea-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -835,7 +854,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_d5310ef8_5f7b_4872_b1b9_587a6c57e6ea-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -883,7 +902,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_88b2b498_66ba_44c6_9c72_f14b9ed61a80-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -919,7 +938,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_88b2b498_66ba_44c6_9c72_f14b9ed61a80-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -931,7 +950,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
+							<ipxact:left>(uuid_88b2b498_66ba_44c6_9c72_f14b9ed61a80/8)-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -975,6 +994,16 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:parameters>
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_88b2b498_66ba_44c6_9c72_f14b9ed61a80">
+			<ipxact:name>AXI4LITE_DW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_d5310ef8_5f7b_4872_b1b9_587a6c57e6ea">
+			<ipxact:name>AXI4LITE_AW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>

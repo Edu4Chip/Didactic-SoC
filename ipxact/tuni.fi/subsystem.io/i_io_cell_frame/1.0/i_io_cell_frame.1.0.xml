@@ -238,6 +238,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>spim_csn_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -246,6 +247,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>spim_sck_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -254,6 +256,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>spim_miso_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -262,6 +265,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>spim_mosi_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -282,6 +286,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>gpio_from_core</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -290,6 +295,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>gpio_to_core</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -310,6 +316,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>uart_rx_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -318,6 +325,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>uart_tx_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -338,6 +346,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_tck_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -346,6 +355,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_tdi_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -354,6 +364,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_tdo_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -362,6 +373,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_tms_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -370,6 +382,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_trst_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -436,6 +449,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>clk_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -458,6 +472,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>reset_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -478,6 +493,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>sdio_clk_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -486,6 +502,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>sdio_cmd_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -494,6 +511,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>sdio_data_i_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -502,6 +520,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>sdio_data_o_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -522,6 +541,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>clk_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -542,6 +562,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>fetchEn_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -562,6 +583,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>BootSel_internal</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -582,6 +604,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>cell_cfg</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -929,7 +952,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>49</ipxact:left>
+							<ipxact:left>uuid_da8e681e_1406_4c24_bcdc_06c71f86277e*uuid_a8d0dbda_8922_41dc_b974_8d3fb4f682c4-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1081,6 +1104,17 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:parameters>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_a8d0dbda_8922_41dc_b974_8d3fb4f682c4">
+			<ipxact:name>IOCELL_CFG_W</ipxact:name>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_da8e681e_1406_4c24_bcdc_06c71f86277e">
+			<ipxact:name>IOCELL_COUNT</ipxact:name>
+			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
+			<ipxact:value>28</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>IP</kactus2:kts_productHier>

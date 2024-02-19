@@ -307,6 +307,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>ss_1_gpio</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -632,6 +633,23 @@ Spec:
 * RiscV core
 * 28 signal IO
 </ipxact:description>
+	<ipxact:parameters>
+		<ipxact:parameter parameterId="uuid_c4cec312_f229_44eb_8372_8f6373078891" resolve="immediate">
+			<ipxact:name>AW</ipxact:name>
+			<ipxact:description>Global SoC address width</ipxact:description>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_69987c4d_cb9f_4633_a85c_1cbe5c7ff83b" resolve="immediate">
+			<ipxact:name>DW</ipxact:name>
+			<ipxact:description>Global SoC data width</ipxact:description>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_e026d445_c096_414c_aa35_13289dd72403" resolve="immediate">
+			<ipxact:name>IO_CFG_W</ipxact:name>
+			<ipxact:description>Global SoC io cell cfg width</ipxact:description>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:author>Matti Käyrä</kactus2:author>
 		<kactus2:version>3,13,0,0</kactus2:version>

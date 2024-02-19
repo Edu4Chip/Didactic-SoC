@@ -18,12 +18,12 @@
 */
 module Student_area_0(
     // Interface: APB
-    input     logic           [31:0]         PADDR,
+    input     logic           [APB_AW-1:0]         PADDR,
     input     logic                        PENABLE,
     input      logic                         PSEL,
-    input       logic         [31:0]         PWDATA,
+    input       logic         [APB_DW-1:0]         PWDATA,
     input     logic                          PWRITE,
-    output     logic          [31:0]         PRDATA,
+    output     logic          [APB_DW-1:0]         PRDATA,
     output     logic                         PREADY,
     output    logic                          PSELERR,
 

@@ -944,6 +944,16 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:fileSets>
+		<ipxact:fileSet>
+			<ipxact:name>rtl</ipxact:name>
+			<ipxact:group>sourceFiles</ipxact:group>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/reuse/mem_axi_bridge.sv</ipxact:name>
+				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
+			</ipxact:file>
+		</ipxact:fileSet>
+	</ipxact:fileSets>
 	<ipxact:parameters>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_2c57dccd_6ea8_49fc_8012_ed08dafda914">
 			<ipxact:name>MEM_AW</ipxact:name>

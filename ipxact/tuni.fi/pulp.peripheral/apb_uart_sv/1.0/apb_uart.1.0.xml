@@ -2,51 +2,11 @@
 <ipxact:component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2022" xmlns:kactus2="http://kactus2.cs.tut.fi" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2022 http://www.accellera.org/XMLSchema/IPXACT/1685-2022/index.xsd">
 	<ipxact:vendor>tuni.fi</ipxact:vendor>
 	<ipxact:library>pulp.peripheral</ipxact:library>
-	<ipxact:name>apb_uart</ipxact:name>
+	<ipxact:name>apb_uart_sv</ipxact:name>
 	<ipxact:version>1.0</ipxact:version>
 	<ipxact:busInterfaces>
 		<ipxact:busInterface>
-			<ipxact:name>Clock</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="clock" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="clock.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>clk</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>CLK</ipxact:name>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:target/>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>Reset</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="reset" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="reset.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>reset</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>RSTN</ipxact:name>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:target/>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>UART</ipxact:name>
+			<ipxact:name>uart</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="UART" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
@@ -57,16 +17,18 @@
 								<ipxact:name>uart_rx</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>SIN</ipxact:name>
+								<ipxact:name>rx_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>uart_tx</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>SOUT</ipxact:name>
+								<ipxact:name>tx_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -74,7 +36,7 @@
 			<ipxact:initiator/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
-			<ipxact:name>APB</ipxact:name>
+			<ipxact:name>apb</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="APB" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
@@ -87,6 +49,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>PADDR</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -95,6 +58,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>PENABLE</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -103,6 +67,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>PRDATA</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -111,6 +76,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>PREADY</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -119,6 +85,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>PSEL</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -127,6 +94,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>PSLVERR</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -135,6 +103,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>PWDATA</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -143,6 +112,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>PWRITE</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -150,7 +120,49 @@
 			<ipxact:target/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
-			<ipxact:name>IRQ</ipxact:name>
+			<ipxact:name>clk</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="clock" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="clock.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>clk</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>CLK</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:target/>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>rst_n</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="reset" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="reset.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>reset</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>RSTN</ipxact:name>
+							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:target/>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>irq</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="IRQ" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
@@ -161,8 +173,9 @@
 								<ipxact:name>irq</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>INT</ipxact:name>
+								<ipxact:name>event_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -303,23 +316,10 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 		</ipxact:memoryMap>
 	</ipxact:memoryMaps>
 	<ipxact:model>
-		<ipxact:views>
-			<ipxact:view>
-				<ipxact:name>flat_verilog</ipxact:name>
-				<ipxact:envIdentifier>Verilog:kactus2.cs.tut.fi:</ipxact:envIdentifier>
-				<ipxact:componentInstantiationRef>verilog_implementation</ipxact:componentInstantiationRef>
-			</ipxact:view>
-		</ipxact:views>
-		<ipxact:instantiations>
-			<ipxact:componentInstantiation>
-				<ipxact:name>verilog_implementation</ipxact:name>
-				<ipxact:language>Verilog</ipxact:language>
-				<ipxact:moduleName>apb_uart</ipxact:moduleName>
-			</ipxact:componentInstantiation>
-		</ipxact:instantiations>
 		<ipxact:ports>
 			<ipxact:port>
-				<ipxact:name>CLK</ipxact:name>
+				<ipxact:name>rx_i</ipxact:name>
+				<ipxact:description>receiver input</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -328,45 +328,46 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>RSTN</ipxact:name>
+				<ipxact:name>tx_o</ipxact:name>
+				<ipxact:description>transmitter output</ipxact:description>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>PSEL</ipxact:name>
+				<ipxact:name>PADDR</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>31</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -379,62 +380,11 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>PWRITE</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>PADDR</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>2</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>PWDATA</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -447,11 +397,11 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -464,11 +414,28 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>PSEL</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -481,145 +448,32 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>INT</ipxact:name>
-				<ipxact:description>Interrupt</ipxact:description>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>OUT1N</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>OUT2N</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>RTSN</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>DTRN</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>CTSN</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>DSRN</ipxact:name>
+				<ipxact:name>PWDATA</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>31</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>DCDN</ipxact:name>
+				<ipxact:name>PWRITE</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -628,20 +482,15 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>RIN</ipxact:name>
+				<ipxact:name>CLK</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -650,21 +499,15 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>SIN</ipxact:name>
-				<ipxact:description>uart rx in</ipxact:description>
+				<ipxact:name>RSTN</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -673,16 +516,16 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>SOUT</ipxact:name>
-				<ipxact:description>uart tx out</ipxact:description>
+				<ipxact:name>event_o</ipxact:name>
+				<ipxact:description>irq/event output</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
@@ -691,78 +534,21 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
-	<ipxact:fileSets>
-		<ipxact:fileSet>
-			<ipxact:name>rtl</ipxact:name>
-			<ipxact:group>sourceFiles</ipxact:group>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/apb_uart.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-				<ipxact:description>top level uart module</ipxact:description>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_clock_div.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_counter.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_edge_detect.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_fifo.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_input_filter.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_input_sync.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_mv_filter.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/uart_baudgen.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/uart_interrupt.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/uart_receiver.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/uart_transmitter.sv</ipxact:name>
-				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-			</ipxact:file>
-		</ipxact:fileSet>
-	</ipxact:fileSets>
-	<ipxact:description>Ipxact packaging for pulp platform uart module: https://github.com/pulp-platform/apb_uart</ipxact:description>
+	<ipxact:description>Ipxact definition for pulp platform uart module from https://github.com/pulp-platform/apb_uart_sv.</ipxact:description>
 	<ipxact:vendorExtensions>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
-			<kactus2:kts_firmness>Fixed</kactus2:kts_firmness>
+			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
-		<kactus2:version>3,13,1,0</kactus2:version>
-		<kactus2:author>Matti Käyrä</kactus2:author>
 	</ipxact:vendorExtensions>
 </ipxact:component>

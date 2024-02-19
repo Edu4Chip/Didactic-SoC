@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : ICN_SS.v
-// Creation date : 14.02.2024
-// Creation time : 09:30:15
+// Creation date : 19.02.2024
+// Creation time : 11:40:39
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -15,73 +15,81 @@
   Description:
     * example "interconnect"
 */
-module ICN_SS(
+module ICN_SS #(
+    parameter                              APB_AW           = 32,
+    parameter                              APB_DW           = 32,
+    parameter                              APB_TARGETS      = 4,
+    parameter                              AXI_AW           = 32,
+    parameter                              AXI_DW           = 32,
+    parameter                              AXI_IDW          = 10,
+    parameter                              AXI_USERW        = 1
+) (
     // Interface: AXI
-    input logic             [31:0]         AR_ADDR,
-    input logic             [1:0]          AR_BURST,
-    input logic             [3:0]          AR_CACHE,
-    input logic             [9:0]          AR_ID,
-    input logic             [7:0]          AR_LEN,
-    input logic                            AR_LOCK,
-    input logic             [2:0]          AR_PROT,
-    input logic             [3:0]          AR_QOS,
-    input logic             [2:0]          AR_REGION,
-    input logic             [2:0]          AR_SIZE,
-    input logic                            AR_USER,
-    input logic                            AR_VALID,
-    input logic             [31:0]         AW_ADDR,
-    input logic             [5:0]          AW_ATOP,
-    input logic             [1:0]          AW_BURST,
-    input logic             [3:0]          AW_CACHE,
-    input logic             [9:0]          AW_ID,
-    input logic             [7:0]          AW_LEN,
-    input logic                            AW_LOCK,
-    input logic             [2:0]          AW_PROT,
-    input logic             [3:0]          AW_QOS,
-    input logic             [3:0]          AW_REGION,
-    input logic             [2:0]          AW_SIZE,
-    input logic                            AW_USER,
-    input logic                            AW_VALID,
-    input logic                            B_READY,
-    input logic                            R_READY,
-    input logic             [31:0]         W_DATA,
-    input logic                            W_LAST,
-    input logic             [3:0]          W_STROBE,
-    input logic                            W_USER,
-    input logic                            W_VALID,
-    output logic                              AR_READY,
-    output logic                              AW_READY,
-    output logic               [10:0]         B_ID,
-    output logic               [1:0]          B_RESP,
-    output logic                              B_USER,
-    output logic                              B_VALID,
-    output logic               [31:0]         R_DATA,
-    output logic               [10:0]         R_ID,
-    output logic                              R_LAST,
-    output logic               [1:0]          R_RESP,
-    output logic                              R_USER,
-    output logic                              R_VALID,
-    output logic                              W_READY,
+    input                [31:0]         AR_ADDR,
+    input                [1:0]          AR_BURST,
+    input                [3:0]          AR_CACHE,
+    input                [9:0]          AR_ID,
+    input                [7:0]          AR_LEN,
+    input                               AR_LOCK,
+    input                [2:0]          AR_PROT,
+    input                [3:0]          AR_QOS,
+    input                [2:0]          AR_REGION,
+    input                [2:0]          AR_SIZE,
+    input                               AR_USER,
+    input                               AR_VALID,
+    input                [31:0]         AW_ADDR,
+    input                [5:0]          AW_ATOP,
+    input                [1:0]          AW_BURST,
+    input                [3:0]          AW_CACHE,
+    input                [9:0]          AW_ID,
+    input                [7:0]          AW_LEN,
+    input                               AW_LOCK,
+    input                [2:0]          AW_PROT,
+    input                [3:0]          AW_QOS,
+    input                [3:0]          AW_REGION,
+    input                [2:0]          AW_SIZE,
+    input                               AW_USER,
+    input                               AW_VALID,
+    input                               B_READY,
+    input                               R_READY,
+    input                [31:0]         W_DATA,
+    input                               W_LAST,
+    input                [3:0]          W_STROBE,
+    input                               W_USER,
+    input                               W_VALID,
+    output                              AR_READY,
+    output                              AW_READY,
+    output               [10:0]         B_ID,
+    output               [1:0]          B_RESP,
+    output                              B_USER,
+    output                              B_VALID,
+    output               [31:0]         R_DATA,
+    output               [10:0]         R_ID,
+    output                              R_LAST,
+    output               [1:0]          R_RESP,
+    output                              R_USER,
+    output                              R_VALID,
+    output                              W_READY,
 
     // Interface: Clock
-    input logic                            clk,
+    input                               clk,
 
     // Interface: Reset
-    input logic                            reset_int,
+    input                               reset_int,
 
     // Interface: SS_Ctrl
-    input logic             [7:0]          ss_ctrl_icn,
+    input                [7:0]          ss_ctrl_icn,
 
     // There ports are contained in many interfaces
-    input logic             [32*4-1:0]     PRDATA,
-    input logic             [3:0]          PREADY,
-    input logic             [3:0]          PSELERR,
-    output logic               [31:0]         PADDR,
-    output logic                              PENABLE,
-    output logic               [3:0]          PSEL,
-    output logic               [31:0]         PWDATA,
-    output logic                              PWRITE
+    input                [(32*4)-1:0]   PRDATA,
+    input                [3:0]          PREADY,
+    input                [3:0]          PSLVERR,
+    output               [31:0]         PADDR,
+    output                              PENABLE,
+    output               [3:0]          PSEL,
+    output               [31:0]         PWDATA,
+    output                              PWRITE
 );
 
-// WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
+// WARNING: Do
 endmodule

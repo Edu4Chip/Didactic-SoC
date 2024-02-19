@@ -16,14 +16,17 @@
     * example student area rtl code with off chip gpio interface 
     * original interface created with kactus2. Do not rewrite from kactus.
 */
-module student_ss_1(
+module student_ss_1 #(
+    parameter                              APB_AW           = 10,
+    parameter                              APB_DW           = 32
+) (
     // Interface: APB
-    input    logic            [31:0]         PADDR,
+    input    logic            [APB_AW-1:0]         PADDR,
     input    logic                           PENABLE,
     input     logic                          PSEL,
-    input    logic            [31:0]         PWDATA,
+    input    logic            [APB_DW-1:0]         PWDATA,
     input     logic                          PWRITE,
-    output    logic          [31:0]         PRDATA,
+    output    logic          [APB_DW-1:0]         PRDATA,
     output    logic                          PREADY,
     output    logic                          PSELERR,
 

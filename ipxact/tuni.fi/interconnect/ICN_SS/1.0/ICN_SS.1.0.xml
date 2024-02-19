@@ -96,7 +96,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>PSELERR</ipxact:name>
+								<ipxact:name>PSLVERR</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>0</ipxact:left>
@@ -220,7 +220,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>PSELERR</ipxact:name>
+								<ipxact:name>PSLVERR</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>1</ipxact:left>
@@ -344,7 +344,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>PSELERR</ipxact:name>
+								<ipxact:name>PSLVERR</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>2</ipxact:left>
@@ -468,7 +468,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>PSELERR</ipxact:name>
+								<ipxact:name>PSLVERR</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>3</ipxact:left>
@@ -1305,7 +1305,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_225decbf_1961_44a0_98d4_cd235959bd92-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1373,8 +1373,8 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -1407,7 +1407,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_225decbf_1961_44a0_98d4_cd235959bd92-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1424,7 +1424,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>9</ipxact:left>
+							<ipxact:left>uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1492,7 +1492,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>9</ipxact:left>
+							<ipxact:left>uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1713,7 +1713,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>10</ipxact:left>
+							<ipxact:left>uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1764,8 +1764,8 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -1798,7 +1798,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_5d59a72d_f159_4e8d_8c80_3bde42abf5ab-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1815,7 +1815,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>10</ipxact:left>
+							<ipxact:left>uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1866,8 +1866,8 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -1934,8 +1934,8 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -1951,7 +1951,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_5d59a72d_f159_4e8d_8c80_3bde42abf5ab-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2002,7 +2002,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
+							<ipxact:left>(uuid_5d59a72d_f159_4e8d_8c80_3bde42abf5ab/8)-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2019,8 +2019,8 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:drivers>
@@ -2121,7 +2121,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_43badc9f_5035_4aaf_999f_e5eae3b3af1e-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2145,7 +2145,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>(32*4)-1</ipxact:left>
+							<ipxact:left>(uuid_4821f764_9140_40bb_9660_7efce3fe7b59*uuid_e4622e71_1ded_4bf0_9635_ed555c5f3ba3)-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2157,7 +2157,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
+							<ipxact:left>uuid_e4622e71_1ded_4bf0_9635_ed555c5f3ba3-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2169,19 +2169,19 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
+							<ipxact:left>uuid_e4622e71_1ded_4bf0_9635_ed555c5f3ba3-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>PSELERR</ipxact:name>
+				<ipxact:name>PSLVERR</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
+							<ipxact:left>uuid_e4622e71_1ded_4bf0_9635_ed555c5f3ba3-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2193,7 +2193,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>uuid_4821f764_9140_40bb_9660_7efce3fe7b59-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2214,10 +2214,40 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/rtl/ICN_SS.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:30:21 on 14.02.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 11:40:54 on 19.02.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
+	<ipxact:parameters>
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_5d59a72d_f159_4e8d_8c80_3bde42abf5ab">
+			<ipxact:name>AXI_DW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_225decbf_1961_44a0_98d4_cd235959bd92">
+			<ipxact:name>AXI_AW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967">
+			<ipxact:name>AXI_USERW</ipxact:name>
+			<ipxact:value>1</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d">
+			<ipxact:name>AXI_IDW</ipxact:name>
+			<ipxact:value>10</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_e4622e71_1ded_4bf0_9635_ed555c5f3ba3">
+			<ipxact:name>APB_TARGETS</ipxact:name>
+			<ipxact:value>4</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_4821f764_9140_40bb_9660_7efce3fe7b59">
+			<ipxact:name>APB_DW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_43badc9f_5035_4aaf_999f_e5eae3b3af1e">
+			<ipxact:name>APB_AW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>IP</kactus2:kts_productHier>
