@@ -1,3 +1,0 @@
-cpu: CPU.IbexRiscV32 @ sysbus
-    cpuType: "rv64gc"
-    timeProvider: empty
