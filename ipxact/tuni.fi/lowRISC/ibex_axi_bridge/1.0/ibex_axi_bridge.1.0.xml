@@ -883,6 +883,16 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:fileSets>
+		<ipxact:fileSet>
+			<ipxact:name>rtl</ipxact:name>
+			<ipxact:group>sourceFiles</ipxact:group>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/reuse/ibex_axi_bridge.sv</ipxact:name>
+				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
+			</ipxact:file>
+		</ipxact:fileSet>
+	</ipxact:fileSets>
 	<ipxact:parameters>
 		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_d0fb64e5_7e7c_492c_bfe9_8525cdb3d06b">
 			<ipxact:name>AXI_DW</ipxact:name>

@@ -868,6 +868,12 @@
 			</ipxact:abstractionTypes>
 			<ipxact:target>
 				<ipxact:transparentBridge initiatorRef="AXI4LITE_IMEM"/>
+				<ipxact:transparentBridge initiatorRef="AXI4LITE_CTRL"/>
+				<ipxact:transparentBridge initiatorRef="AXI4LITE_periph"/>
+				<ipxact:transparentBridge initiatorRef="AXI4LITE_DBG_T"/>
+				<ipxact:transparentBridge initiatorRef="AXI4LITE_DMEM"/>
+				<ipxact:transparentBridge initiatorRef="AXI_ICN"/>
+				<ipxact:transparentBridge initiatorRef="AXI4LITE_BootRom"/>
 			</ipxact:target>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
@@ -1505,6 +1511,7 @@
 			<ipxact:target>
 				<ipxact:transparentBridge initiatorRef="AXI4LITE_CTRL"/>
 				<ipxact:transparentBridge initiatorRef="AXI4LITE_DBG_T"/>
+				<ipxact:transparentBridge initiatorRef="AXI4LITE_BootRom"/>
 				<ipxact:transparentBridge initiatorRef="AXI4LITE_DMEM"/>
 				<ipxact:transparentBridge initiatorRef="AXI_ICN"/>
 				<ipxact:transparentBridge initiatorRef="AXI4LITE_IMEM"/>
