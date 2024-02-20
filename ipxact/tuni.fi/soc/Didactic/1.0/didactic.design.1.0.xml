@@ -501,5 +501,21 @@
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:adHocVisibilities/>
+		<kactus2:note>
+			<kactus2:position x="540" y="210"/>
+			<kactus2:content>Memory maps should be passed through ICN to cpu.</kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>20.02.2024 11:13</kactus2:timestamp>
+		</kactus2:note>
+		<kactus2:note>
+			<kactus2:position x="1120" y="370"/>
+			<kactus2:content>3 subsystems showcase different stages and styles to create it: 
+* hierarchical diagram 
+* hierarchical diagram with IOs
+* HDL component instance
+* Draft component to be replaced with hierarchical block or HDL instance</kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>20.02.2024 11:15</kactus2:timestamp>
+		</kactus2:note>
 	</ipxact:vendorExtensions>
 </ipxact:design>

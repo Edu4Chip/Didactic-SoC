@@ -1168,5 +1168,11 @@
 			<kactus2:position x="60" y="110"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
+		<kactus2:note>
+			<kactus2:position x="1150" y="270"/>
+			<kactus2:content>XBAR address rules need to be defined. AXI icn should pass mem maps from SS. Peripheral maps, too. Likely mirrored interfaces required.</kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>20.02.2024 11:11</kactus2:timestamp>
+		</kactus2:note>
 	</ipxact:vendorExtensions>
 </ipxact:design>

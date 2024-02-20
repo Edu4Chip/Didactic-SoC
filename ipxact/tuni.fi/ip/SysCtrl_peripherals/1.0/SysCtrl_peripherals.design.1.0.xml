@@ -12,11 +12,11 @@
 				<kactus2:uuid>{8b4210be-3281-49ed-be03-4b704a244534}</kactus2:uuid>
 				<kactus2:position x="600" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
-					<kactus2:portPosition busRef="Reset" x="-110" y="80"/>
 					<kactus2:portPosition busRef="APB" x="-110" y="110"/>
-					<kactus2:portPosition busRef="UART" x="110" y="60"/>
+					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
 					<kactus2:portPosition busRef="IRQ" x="110" y="100"/>
+					<kactus2:portPosition busRef="Reset" x="-110" y="80"/>
+					<kactus2:portPosition busRef="UART" x="110" y="60"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -384,5 +384,17 @@
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:adHocVisibilities/>
+		<kactus2:note>
+			<kactus2:position x="900" y="610"/>
+			<kactus2:content>TODO: find out whether we should include SDIO. </kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>20.02.2024 10:56</kactus2:timestamp>
+		</kactus2:note>
+		<kactus2:note>
+			<kactus2:position x="200" y="270"/>
+			<kactus2:content>Converter acts like XBAR, mem map should be remapped + passed through here</kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>20.02.2024 11:11</kactus2:timestamp>
+		</kactus2:note>
 	</ipxact:vendorExtensions>
 </ipxact:design>
