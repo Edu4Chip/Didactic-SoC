@@ -730,7 +730,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>BootSel</ipxact:name>

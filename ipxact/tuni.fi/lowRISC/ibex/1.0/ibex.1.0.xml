@@ -163,7 +163,9 @@
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
-				<ipxact:addressSpaceRef addressSpaceRef="ibex_dmem"/>
+				<ipxact:addressSpaceRef addressSpaceRef="ibex_dmem">
+					<ipxact:baseAddress>'h20000</ipxact:baseAddress>
+				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
@@ -276,7 +278,9 @@
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
-				<ipxact:addressSpaceRef addressSpaceRef="ibex_imem"/>
+				<ipxact:addressSpaceRef addressSpaceRef="ibex_imem">
+					<ipxact:baseAddress>'h10000</ipxact:baseAddress>
+				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>

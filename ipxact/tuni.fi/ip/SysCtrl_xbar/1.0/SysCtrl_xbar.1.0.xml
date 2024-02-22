@@ -288,7 +288,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_CORE_DMEM</ipxact:name>
@@ -573,15 +573,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_BootRom"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_periph"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_CTRL"/>
-				<ipxact:transparentBridge initiatorRef="AXI_ICN"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_DBG_T"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_DMEM"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_IMEM"/>
-			</ipxact:target>
+			<ipxact:mirroredInitiator/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_CORE_IMEM</ipxact:name>
@@ -866,15 +858,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_IMEM"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_CTRL"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_periph"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_DBG_T"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_DMEM"/>
-				<ipxact:transparentBridge initiatorRef="AXI_ICN"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_BootRom"/>
-			</ipxact:target>
+			<ipxact:mirroredInitiator/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_CTRL</ipxact:name>
@@ -1185,7 +1169,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_DBG_I</ipxact:name>
@@ -1508,15 +1492,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_CTRL"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_DBG_T"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_BootRom"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_DMEM"/>
-				<ipxact:transparentBridge initiatorRef="AXI_ICN"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_IMEM"/>
-				<ipxact:transparentBridge initiatorRef="AXI4LITE_periph"/>
-			</ipxact:target>
+			<ipxact:mirroredInitiator/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_DBG_T</ipxact:name>
@@ -1827,7 +1803,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_DMEM</ipxact:name>
@@ -2112,7 +2088,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_IMEM</ipxact:name>
@@ -2397,7 +2373,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_periph</ipxact:name>
@@ -2720,7 +2696,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI_ICN</ipxact:name>
@@ -3447,7 +3423,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>Clock</ipxact:name>
@@ -3492,6 +3468,41 @@
 			<ipxact:target/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
+	<ipxact:channels>
+		<ipxact:channel>
+			<ipxact:name>full_xbar</ipxact:name>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE_CORE_DMEM</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE_CORE_IMEM</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE_DBG_I</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI_ICN</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE_BootRom</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE_CTRL</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE_DBG_T</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE_DMEM</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE_IMEM</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE_periph</ipxact:localName>
+			</ipxact:busInterfaceRef>
+		</ipxact:channel>
+	</ipxact:channels>
 	<ipxact:model>
 		<ipxact:ports>
 			<ipxact:port>

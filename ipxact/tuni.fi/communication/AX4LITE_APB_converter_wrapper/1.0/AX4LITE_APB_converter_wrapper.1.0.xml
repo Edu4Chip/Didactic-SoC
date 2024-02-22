@@ -137,7 +137,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>APB_SDIO</ipxact:name>
@@ -261,7 +261,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>APB_SPI</ipxact:name>
@@ -385,7 +385,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>APB_UART</ipxact:name>
@@ -509,7 +509,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
+			<ipxact:mirroredTarget/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>Clock</ipxact:name>
@@ -854,14 +854,29 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target>
-				<ipxact:transparentBridge initiatorRef="APB_UART"/>
-				<ipxact:transparentBridge initiatorRef="APB_GPIO"/>
-				<ipxact:transparentBridge initiatorRef="APB_SDIO"/>
-				<ipxact:transparentBridge initiatorRef="APB_SPI"/>
-			</ipxact:target>
+			<ipxact:mirroredInitiator/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
+	<ipxact:channels>
+		<ipxact:channel>
+			<ipxact:name>mem_channel</ipxact:name>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>APB_GPIO</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>APB_SDIO</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>APB_SPI</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>APB_UART</ipxact:localName>
+			</ipxact:busInterfaceRef>
+			<ipxact:busInterfaceRef>
+				<ipxact:localName>AXI4LITE</ipxact:localName>
+			</ipxact:busInterfaceRef>
+		</ipxact:channel>
+	</ipxact:channels>
 	<ipxact:model>
 		<ipxact:ports>
 			<ipxact:port>
