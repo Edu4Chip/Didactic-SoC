@@ -292,6 +292,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>init_ar_prot</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -300,6 +301,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>init_aw_prot</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -626,6 +628,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_tck_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -634,6 +637,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_td_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -642,6 +646,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_td_o</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -650,6 +655,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_tms_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -658,6 +664,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>jtag_trst_ni</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -1551,7 +1558,7 @@
 			<ipxact:name>rtl</ipxact:name>
 			<ipxact:group>sourceFiles</ipxact:group>
 			<ipxact:file>
-				<ipxact:name>../../../../../src/reuse/jtag_dbg_wrapper.v</ipxact:name>
+				<ipxact:name>../../../../../src/reuse/jtag_dbg_wrapper.sv</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 			</ipxact:file>
 		</ipxact:fileSet>
