@@ -137,7 +137,11 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:initiator>
+				<ipxact:addressSpaceRef addressSpaceRef="spacee">
+					<ipxact:baseAddress>0</ipxact:baseAddress>
+				</ipxact:addressSpaceRef>
+			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>APB_SDIO</ipxact:name>
@@ -261,7 +265,9 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:initiator>
+				<ipxact:addressSpaceRef addressSpaceRef="spacee"/>
+			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>APB_SPI</ipxact:name>
@@ -385,7 +391,9 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:initiator>
+				<ipxact:addressSpaceRef addressSpaceRef="spacee"/>
+			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>APB_UART</ipxact:name>
@@ -509,7 +517,9 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:initiator>
+				<ipxact:addressSpaceRef addressSpaceRef="spacee"/>
+			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>Clock</ipxact:name>
@@ -854,29 +864,44 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredInitiator/>
+			<ipxact:target>
+				<ipxact:transparentBridge initiatorRef="APB_UART"/>
+				<ipxact:transparentBridge initiatorRef="APB_GPIO"/>
+				<ipxact:transparentBridge initiatorRef="APB_SDIO"/>
+				<ipxact:transparentBridge initiatorRef="APB_SPI"/>
+			</ipxact:target>
+			<ipxact:connectionRequired>false</ipxact:connectionRequired>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
-	<ipxact:channels>
-		<ipxact:channel>
-			<ipxact:name>mem_channel</ipxact:name>
-			<ipxact:busInterfaceRef>
-				<ipxact:localName>APB_GPIO</ipxact:localName>
-			</ipxact:busInterfaceRef>
-			<ipxact:busInterfaceRef>
-				<ipxact:localName>APB_SDIO</ipxact:localName>
-			</ipxact:busInterfaceRef>
-			<ipxact:busInterfaceRef>
-				<ipxact:localName>APB_SPI</ipxact:localName>
-			</ipxact:busInterfaceRef>
-			<ipxact:busInterfaceRef>
-				<ipxact:localName>APB_UART</ipxact:localName>
-			</ipxact:busInterfaceRef>
-			<ipxact:busInterfaceRef>
-				<ipxact:localName>AXI4LITE</ipxact:localName>
-			</ipxact:busInterfaceRef>
-		</ipxact:channel>
-	</ipxact:channels>
+	<ipxact:addressSpaces>
+		<ipxact:addressSpace>
+			<ipxact:name>spacee</ipxact:name>
+			<ipxact:range>'hFFFF</ipxact:range>
+			<ipxact:width>32</ipxact:width>
+			<ipxact:segments>
+				<ipxact:segment>
+					<ipxact:name>GPIO</ipxact:name>
+					<ipxact:addressOffset>'h0</ipxact:addressOffset>
+					<ipxact:range>'hFF</ipxact:range>
+				</ipxact:segment>
+				<ipxact:segment>
+					<ipxact:name>SDIO</ipxact:name>
+					<ipxact:addressOffset>'h100</ipxact:addressOffset>
+					<ipxact:range>'hFF</ipxact:range>
+				</ipxact:segment>
+				<ipxact:segment>
+					<ipxact:name>SPI</ipxact:name>
+					<ipxact:addressOffset>'h200</ipxact:addressOffset>
+					<ipxact:range>'hFF</ipxact:range>
+				</ipxact:segment>
+				<ipxact:segment>
+					<ipxact:name>UART</ipxact:name>
+					<ipxact:addressOffset>'h300</ipxact:addressOffset>
+					<ipxact:range>'hFF</ipxact:range>
+				</ipxact:segment>
+			</ipxact:segments>
+		</ipxact:addressSpace>
+	</ipxact:addressSpaces>
 	<ipxact:model>
 		<ipxact:ports>
 			<ipxact:port>

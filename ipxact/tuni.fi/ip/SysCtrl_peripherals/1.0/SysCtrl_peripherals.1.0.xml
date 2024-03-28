@@ -567,7 +567,7 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredInitiator/>
+			<ipxact:target/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>

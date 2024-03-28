@@ -383,7 +383,6 @@
 			<kactus2:position x="60" y="180"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
-		<kactus2:adHocVisibilities/>
 		<kactus2:note>
 			<kactus2:position x="900" y="610"/>
 			<kactus2:content>TODO: find out whether we should include SDIO. </kactus2:content>
@@ -396,5 +395,6 @@
 			<kactus2:associations/>
 			<kactus2:timestamp>20.02.2024 11:11</kactus2:timestamp>
 		</kactus2:note>
+		<kactus2:adHocVisibilities/>
 	</ipxact:vendorExtensions>
 </ipxact:design>
