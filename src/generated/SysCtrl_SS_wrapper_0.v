@@ -1,28 +1,33 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 13.02.2024
-// Creation time : 11:05:42
+// Creation date : 03.04.2024
+// Creation time : 11:36:14
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.0 64-bit
+// Tool : Kactus2 3.13.1 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/ipxact/tuni.fi/subsystem.wrapper/SysCtrl_SS_wrapper/1.0/SysCtrl_SS_wrapper.1.0.xml
+// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem.wrapper/SysCtrl_SS_wrapper/1.0/SysCtrl_SS_wrapper.1.0.xml
 //-----------------------------------------------------------------------------
 
-module SysCtrl_SS_wrapper_0(
+module SysCtrl_SS_wrapper_0 #(
+    parameter                              AXI_AW           = 32,
+    parameter                              AXI_DW           = 32,
+    parameter                              AXI_IDW          = 10,
+    parameter                              AXI_USERW        = 1
+) (
     // Interface: AXI
     input                               AR_READY,
     input                               AW_READY,
-    input                [10:0]         B_ID,
+    input                [9:0]          B_ID,
     input                [1:0]          B_RESP,
     input                               B_USER,
     input                               B_VALID,
     input                [31:0]         R_DATA,
-    input                [10:0]         R_ID,
+    input                [9:0]          R_ID,
     input                               R_LAST,
     input                [1:0]          R_RESP,
-    input                               R_USER,
+    input                [1:0]          R_USER,
     input                               R_VALID,
     input                               W_READY,
     output               [31:0]         AR_ADDR,
@@ -188,17 +193,17 @@ module SysCtrl_SS_wrapper_0(
     wire [2:0] SysCtrl_SS_AXI_to_AXI_AW_SIZE;
     wire       SysCtrl_SS_AXI_to_AXI_AW_USER;
     wire       SysCtrl_SS_AXI_to_AXI_AW_VALID;
-    wire [10:0] SysCtrl_SS_AXI_to_AXI_B_ID;
+    wire [9:0] SysCtrl_SS_AXI_to_AXI_B_ID;
     wire       SysCtrl_SS_AXI_to_AXI_B_READY;
     wire [1:0] SysCtrl_SS_AXI_to_AXI_B_RESP;
     wire       SysCtrl_SS_AXI_to_AXI_B_USER;
     wire       SysCtrl_SS_AXI_to_AXI_B_VALID;
     wire [31:0] SysCtrl_SS_AXI_to_AXI_R_DATA;
-    wire [10:0] SysCtrl_SS_AXI_to_AXI_R_ID;
+    wire [9:0] SysCtrl_SS_AXI_to_AXI_R_ID;
     wire       SysCtrl_SS_AXI_to_AXI_R_LAST;
     wire       SysCtrl_SS_AXI_to_AXI_R_READY;
     wire [1:0] SysCtrl_SS_AXI_to_AXI_R_RESP;
-    wire       SysCtrl_SS_AXI_to_AXI_R_USER;
+    wire [1:0] SysCtrl_SS_AXI_to_AXI_R_USER;
     wire       SysCtrl_SS_AXI_to_AXI_R_VALID;
     wire [31:0] SysCtrl_SS_AXI_to_AXI_W_DATA;
     wire       SysCtrl_SS_AXI_to_AXI_W_LAST;
@@ -244,7 +249,7 @@ module SysCtrl_SS_wrapper_0(
     // i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn wires:
     wire       i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn_gpo;
     // i_io_cell_frame_Cfg_to_SysCtrl_SS_io_cell_cfg wires:
-    wire [49:0] i_io_cell_frame_Cfg_to_SysCtrl_SS_io_cell_cfg_cfg;
+    wire [139:0] i_io_cell_frame_Cfg_to_SysCtrl_SS_io_cell_cfg_cfg;
     // i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset wires:
     wire       i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
     // SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl wires:
@@ -292,14 +297,14 @@ module SysCtrl_SS_wrapper_0(
     wire [2:0] SysCtrl_SS_AW_SIZE;
     wire       SysCtrl_SS_AW_USER;
     wire       SysCtrl_SS_AW_VALID;
-    wire [10:0] SysCtrl_SS_B_ID;
+    wire [9:0] SysCtrl_SS_B_ID;
     wire       SysCtrl_SS_B_READY;
     wire [1:0] SysCtrl_SS_B_RESP;
     wire       SysCtrl_SS_B_USER;
     wire       SysCtrl_SS_B_VALID;
     wire       SysCtrl_SS_BootSel_internal;
     wire [31:0] SysCtrl_SS_R_DATA;
-    wire [10:0] SysCtrl_SS_R_ID;
+    wire [9:0] SysCtrl_SS_R_ID;
     wire       SysCtrl_SS_R_LAST;
     wire       SysCtrl_SS_R_READY;
     wire [1:0] SysCtrl_SS_R_RESP;
@@ -311,7 +316,7 @@ module SysCtrl_SS_wrapper_0(
     wire [3:0] SysCtrl_SS_W_STROBE;
     wire       SysCtrl_SS_W_USER;
     wire       SysCtrl_SS_W_VALID;
-    wire [49:0] SysCtrl_SS_cell_cfg;
+    wire [139:0] SysCtrl_SS_cell_cfg;
     wire       SysCtrl_SS_clk_internal;
     wire       SysCtrl_SS_fetchEn_internal;
     wire [3:0] SysCtrl_SS_gpio_from_core;
@@ -352,7 +357,7 @@ module SysCtrl_SS_wrapper_0(
     wire       SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame port wires:
     wire       i_io_cell_frame_BootSel_internal;
-    wire [49:0] i_io_cell_frame_cell_cfg;
+    wire [139:0] i_io_cell_frame_cell_cfg;
     wire       i_io_cell_frame_clk_internal;
     wire       i_io_cell_frame_fetchEn_internal;
     wire [3:0] i_io_cell_frame_gpio_from_core;
@@ -479,7 +484,7 @@ module SysCtrl_SS_wrapper_0(
     assign SysCtrl_SS_R_LAST = SysCtrl_SS_AXI_to_AXI_R_LAST;
     assign SysCtrl_SS_AXI_to_AXI_R_READY = SysCtrl_SS_R_READY;
     assign SysCtrl_SS_R_RESP = SysCtrl_SS_AXI_to_AXI_R_RESP;
-    assign SysCtrl_SS_R_USER = SysCtrl_SS_AXI_to_AXI_R_USER;
+    assign SysCtrl_SS_R_USER = SysCtrl_SS_AXI_to_AXI_R_USER[0];
     assign SysCtrl_SS_R_VALID = SysCtrl_SS_AXI_to_AXI_R_VALID;
     assign SysCtrl_SS_AXI_to_AXI_W_DATA = SysCtrl_SS_W_DATA;
     assign SysCtrl_SS_AXI_to_AXI_W_LAST = SysCtrl_SS_W_LAST;
@@ -551,7 +556,7 @@ module SysCtrl_SS_wrapper_0(
     assign i_io_cell_frame_uart_tx_internal = i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_tx;
 
     // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.0
-    SysCtrl_SS_0 SysCtrl_SS(
+    SysCtrl_SS_0     SysCtrl_SS(
         // Interface: AXI
         .AR_READY            (SysCtrl_SS_AR_READY),
         .AW_READY            (SysCtrl_SS_AW_READY),
@@ -663,10 +668,10 @@ module SysCtrl_SS_wrapper_0(
         // Interface: io_cell_cfg
         .cell_cfg            (SysCtrl_SS_cell_cfg),
         // These ports are not in any interface
-        .irq_4_14            (10'h0));
+        .irq_upper_tieoff    (14'h0));
 
     // IP-XACT VLNV: tuni.fi:subsystem.io:i_io_cell_frame:1.0
-    i_io_cell_frame i_io_cell_frame(
+    i_io_cell_frame     i_io_cell_frame(
         // Interface: BootSel
         .boot_sel            (boot_sel),
         // Interface: BootSel_internal

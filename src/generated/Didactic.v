@@ -1,16 +1,25 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 13.02.2024
-// Creation time : 11:05:42
+// Creation date : 03.04.2024
+// Creation time : 11:36:14
 // Description   : Edu4Chip top level example SoC.
+//                 
+//                 Spec: 
+//                 * RiscV core
+//                 * 28 signal IO
+//                 
 // Created by    : 
-// Tool : Kactus2 3.13.0 64-bit
+// Tool : Kactus2 3.13.1 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:soc:Didactic:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/ipxact/tuni.fi/soc/Didactic/1.0/Didactic.1.0.xml
+// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/soc/Didactic/1.0/Didactic.1.0.xml
 //-----------------------------------------------------------------------------
 
-module Didactic(
+module Didactic #(
+    parameter                              AW               = 32,    // Global SoC address width
+    parameter                              DW               = 32,    // Global SoC data width
+    parameter                              IO_CFG_W         = 5    // Global SoC io cell cfg width
+) (
     // Interface: BootSel
     inout                               boot_sel,
 
@@ -42,6 +51,9 @@ module Didactic(
     inout                [1:0]          spi_csn,
     inout                [3:0]          spi_data,
     inout                               spi_sck,
+
+    // Interface: SS_1_GPO
+    inout                [1:0]          ss_1_gpio,
 
     // Interface: UART
     inout                               uart_rx,
@@ -139,17 +151,17 @@ module Didactic(
     wire [2:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_SIZE;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AW_USER;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AW_VALID;
-    wire [10:0] SystemControl_SS_AXI_to_ICN_SS_AXI_B_ID;
+    wire [9:0] SystemControl_SS_AXI_to_ICN_SS_AXI_B_ID;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_B_READY;
     wire [1:0] SystemControl_SS_AXI_to_ICN_SS_AXI_B_RESP;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_B_USER;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_B_VALID;
     wire [31:0] SystemControl_SS_AXI_to_ICN_SS_AXI_R_DATA;
-    wire [10:0] SystemControl_SS_AXI_to_ICN_SS_AXI_R_ID;
+    wire [9:0] SystemControl_SS_AXI_to_ICN_SS_AXI_R_ID;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_R_LAST;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_R_READY;
     wire [1:0] SystemControl_SS_AXI_to_ICN_SS_AXI_R_RESP;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_R_USER;
+    wire [1:0] SystemControl_SS_AXI_to_ICN_SS_AXI_R_USER;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_R_VALID;
     wire [31:0] SystemControl_SS_AXI_to_ICN_SS_AXI_W_DATA;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_LAST;
@@ -157,6 +169,7 @@ module Didactic(
     wire [3:0] SystemControl_SS_AXI_to_ICN_SS_AXI_W_STROBE;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_USER;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_VALID;
+    // Student_SS_1_GPIO_to_SS_1_GPO wires:
 
     // ICN_SS port wires:
     wire [31:0] ICN_SS_AR_ADDR;
@@ -186,7 +199,7 @@ module Didactic(
     wire [2:0] ICN_SS_AW_SIZE;
     wire       ICN_SS_AW_USER;
     wire       ICN_SS_AW_VALID;
-    wire [10:0] ICN_SS_B_ID;
+    wire [9:0] ICN_SS_B_ID;
     wire       ICN_SS_B_READY;
     wire [1:0] ICN_SS_B_RESP;
     wire       ICN_SS_B_USER;
@@ -196,11 +209,11 @@ module Didactic(
     wire [127:0] ICN_SS_PRDATA;
     wire [3:0] ICN_SS_PREADY;
     wire [3:0] ICN_SS_PSEL;
-    wire [3:0] ICN_SS_PSELERR;
+    wire [3:0] ICN_SS_PSLVERR;
     wire [31:0] ICN_SS_PWDATA;
     wire       ICN_SS_PWRITE;
     wire [31:0] ICN_SS_R_DATA;
-    wire [10:0] ICN_SS_R_ID;
+    wire [9:0] ICN_SS_R_ID;
     wire       ICN_SS_R_LAST;
     wire       ICN_SS_R_READY;
     wire [1:0] ICN_SS_R_RESP;
@@ -285,17 +298,17 @@ module Didactic(
     wire [2:0] SystemControl_SS_AW_SIZE;
     wire       SystemControl_SS_AW_USER;
     wire       SystemControl_SS_AW_VALID;
-    wire [10:0] SystemControl_SS_B_ID;
+    wire [9:0] SystemControl_SS_B_ID;
     wire       SystemControl_SS_B_READY;
     wire [1:0] SystemControl_SS_B_RESP;
     wire       SystemControl_SS_B_USER;
     wire       SystemControl_SS_B_VALID;
     wire [31:0] SystemControl_SS_R_DATA;
-    wire [10:0] SystemControl_SS_R_ID;
+    wire [9:0] SystemControl_SS_R_ID;
     wire       SystemControl_SS_R_LAST;
     wire       SystemControl_SS_R_READY;
     wire [1:0] SystemControl_SS_R_RESP;
-    wire       SystemControl_SS_R_USER;
+    wire [1:0] SystemControl_SS_R_USER;
     wire       SystemControl_SS_R_VALID;
     wire [31:0] SystemControl_SS_W_DATA;
     wire       SystemControl_SS_W_LAST;
@@ -369,9 +382,9 @@ module Didactic(
     assign ICN_SS_APB2_to_Student_SS_2_APB_PSEL = ICN_SS_PSEL[2];
     assign ICN_SS_APB1_to_Student_SS_1_APB_PSEL = ICN_SS_PSEL[1];
     assign ICN_SS_APB0_to_Student_SS_0_APB_PSEL = ICN_SS_PSEL[0];
-    assign ICN_SS_PSELERR[2] = ICN_SS_APB2_to_Student_SS_2_APB_PSLVERR;
-    assign ICN_SS_PSELERR[1] = ICN_SS_APB1_to_Student_SS_1_APB_PSLVERR;
-    assign ICN_SS_PSELERR[0] = ICN_SS_APB0_to_Student_SS_0_APB_PSLVERR;
+    assign ICN_SS_PSLVERR[2] = ICN_SS_APB2_to_Student_SS_2_APB_PSLVERR;
+    assign ICN_SS_PSLVERR[1] = ICN_SS_APB1_to_Student_SS_1_APB_PSLVERR;
+    assign ICN_SS_PSLVERR[0] = ICN_SS_APB0_to_Student_SS_0_APB_PSLVERR;
     assign ICN_SS_APB2_to_Student_SS_2_APB_PWDATA = ICN_SS_PWDATA;
     assign ICN_SS_APB1_to_Student_SS_1_APB_PWDATA = ICN_SS_PWDATA;
     assign ICN_SS_APB0_to_Student_SS_0_APB_PWDATA = ICN_SS_PWDATA;
@@ -383,7 +396,7 @@ module Didactic(
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_LAST = ICN_SS_R_LAST;
     assign ICN_SS_R_READY = SystemControl_SS_AXI_to_ICN_SS_AXI_R_READY;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_RESP = ICN_SS_R_RESP;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_USER = ICN_SS_R_USER;
+    assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_USER[0] = ICN_SS_R_USER;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_VALID = ICN_SS_R_VALID;
     assign ICN_SS_W_DATA = SystemControl_SS_AXI_to_ICN_SS_AXI_W_DATA;
     assign ICN_SS_W_LAST = SystemControl_SS_AXI_to_ICN_SS_AXI_W_LAST;
@@ -499,7 +512,7 @@ module Didactic(
     assign SystemControl_SS_ICN_SS_Ctrl_to_ICN_SS_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_icn;
 
     // IP-XACT VLNV: tuni.fi:interconnect:ICN_SS:1.0
-    ICN_SS ICN_SS(
+    ICN_SS     ICN_SS(
         // Interface: AXI
         .AR_ADDR             (ICN_SS_AR_ADDR),
         .AR_BURST            (ICN_SS_AR_BURST),
@@ -555,7 +568,7 @@ module Didactic(
         // There ports are contained in many interfaces
         .PRDATA              (ICN_SS_PRDATA),
         .PREADY              (ICN_SS_PREADY),
-        .PSELERR             (ICN_SS_PSELERR),
+        .PSLVERR             (ICN_SS_PSLVERR),
         .PADDR               (ICN_SS_PADDR),
         .PENABLE             (ICN_SS_PENABLE),
         .PSEL                (ICN_SS_PSEL),
@@ -563,7 +576,10 @@ module Didactic(
         .PWRITE              (ICN_SS_PWRITE));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_0:1.0
-    Student_SS_0_0 Student_SS_0(
+    Student_SS_0_0 #(
+        .APB_DW              (32),
+        .APB_AW              (32))
+    Student_SS_0(
         // Interface: APB
         .PADDR               (Student_SS_0_PADDR),
         .PENABLE             (Student_SS_0_PENABLE),
@@ -584,7 +600,7 @@ module Didactic(
         .irq_en              (Student_SS_0_irq_en));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_1:1.0
-    Student_SS_1 Student_SS_1(
+    Student_SS_1_0 Student_SS_1(
         // Interface: APB
         .PADDR               (Student_SS_1_PADDR),
         .PENABLE             (Student_SS_1_PENABLE),
@@ -596,6 +612,8 @@ module Didactic(
         .PSELERR             (Student_SS_1_PSELERR),
         // Interface: Clock
         .clk                 (Student_SS_1_clk),
+        // Interface: GPIO
+        .gpio                (ss_1_gpio[1:0]),
         // Interface: IRQ
         .irq_1               (Student_SS_1_irq_1),
         // Interface: Reset
@@ -626,7 +644,12 @@ module Didactic(
         .ss_ctrl_2           (Student_SS_2_ss_ctrl_2));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.0
-    SysCtrl_SS_wrapper_0 SystemControl_SS(
+    SysCtrl_SS_wrapper_0 #(
+        .AXI_AW              (32),
+        .AXI_DW              (32),
+        .AXI_IDW             (10),
+        .AXI_USERW           (1))
+    SystemControl_SS(
         // Interface: AXI
         .AR_READY            (SystemControl_SS_AR_READY),
         .AW_READY            (SystemControl_SS_AW_READY),
@@ -692,7 +715,7 @@ module Didactic(
         // Interface: IRQ2
         .irq_2               (SystemControl_SS_irq_2),
         // Interface: IRQ3
-        .irq_3               (),
+        .irq_3               (1'b0),
         // Interface: JTAG
         .jtag_tck            (jtag_tck),
         .jtag_tdi            (jtag_tdi),

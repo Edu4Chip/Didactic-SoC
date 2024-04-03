@@ -1,6 +1,6 @@
 // Description: SRAM Behavioral Model
 
-module sram #(
+module sp_sram #(
   parameter              INIT_FILE  = "",
   parameter int unsigned DATA_WIDTH = 64,
   parameter int unsigned NUM_WORDS  = 1024

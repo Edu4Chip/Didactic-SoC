@@ -1,6 +1,6 @@
 // Description: 
 // This is not actual bootrom, but a placeholder.
-// it is direct copy of sram.sv present in this folder.
+// it is direct copy of sp_sram.sv present in this folder.
 // once architecture and boot details are designed
 // this will be replaced by actual bootrom or removed in
 //case we want to only rely on the jtag based boot

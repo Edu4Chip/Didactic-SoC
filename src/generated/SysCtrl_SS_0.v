@@ -1,25 +1,32 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 13.02.2024
-// Creation time : 11:05:42
+// Creation date : 03.04.2024
+// Creation time : 11:36:14
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.0 64-bit
+// Tool : Kactus2 3.13.1 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem:SysCtrl_SS:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/ipxact/tuni.fi/subsystem/SysCtrl_SS/1.0/SysCtrl_SS.1.0.xml
+// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem/SysCtrl_SS/1.0/SysCtrl_SS.1.0.xml
 //-----------------------------------------------------------------------------
 
-module SysCtrl_SS_0(
+module SysCtrl_SS_0 #(
+    parameter                              AXI_AW           = 32,
+    parameter                              AXI_DW           = 32,
+    parameter                              AXI_IDW          = 10,
+    parameter                              AXI_USERW        = 1,
+    parameter                              IOCELL_CFG_W     = 5,
+    parameter                              IOCELL_COUNT     = 28    // update this value manually to match cell numbers
+) (
     // Interface: AXI
     input                               AR_READY,
     input                               AW_READY,
-    input                [10:0]         B_ID,
+    input                [9:0]          B_ID,
     input                [1:0]          B_RESP,
     input                               B_USER,
     input                               B_VALID,
     input                [31:0]         R_DATA,
-    input                [10:0]         R_ID,
+    input                [9:0]          R_ID,
     input                               R_LAST,
     input                [1:0]          R_RESP,
     input                               R_USER,
@@ -144,10 +151,10 @@ module SysCtrl_SS_0(
     output                              uart_tx_internal,
 
     // Interface: io_cell_cfg
-    output               [49:0]         cell_cfg,
+    output               [139:0]        cell_cfg,
 
     // These ports are not in any interface
-    input                [9:0]          irq_4_14
+    input                [14:0]         irq_upper_tieoff
 );
 
     // i_SysCtrl_peripherals_GPIO_to_GPIO wires:
@@ -218,13 +225,13 @@ module SysCtrl_SS_0(
     wire [2:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_SIZE;
     wire       Ctrl_xbar_AXI_ICN_to_AXI_AW_USER;
     wire       Ctrl_xbar_AXI_ICN_to_AXI_AW_VALID;
-    wire [10:0] Ctrl_xbar_AXI_ICN_to_AXI_B_ID;
+    wire [9:0] Ctrl_xbar_AXI_ICN_to_AXI_B_ID;
     wire       Ctrl_xbar_AXI_ICN_to_AXI_B_READY;
     wire [1:0] Ctrl_xbar_AXI_ICN_to_AXI_B_RESP;
     wire       Ctrl_xbar_AXI_ICN_to_AXI_B_USER;
     wire       Ctrl_xbar_AXI_ICN_to_AXI_B_VALID;
     wire [31:0] Ctrl_xbar_AXI_ICN_to_AXI_R_DATA;
-    wire [10:0] Ctrl_xbar_AXI_ICN_to_AXI_R_ID;
+    wire [9:0] Ctrl_xbar_AXI_ICN_to_AXI_R_ID;
     wire       Ctrl_xbar_AXI_ICN_to_AXI_R_LAST;
     wire       Ctrl_xbar_AXI_ICN_to_AXI_R_READY;
     wire [1:0] Ctrl_xbar_AXI_ICN_to_AXI_R_RESP;
@@ -261,7 +268,7 @@ module SysCtrl_SS_0(
     wire [7:0] SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
     wire       SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
     // SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg wires:
-    wire [49:0] SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
+    wire [139:0] SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
     // jtag_dbg_wrapper_JTAG_to_JTAG wires:
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tck;
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tdi;
@@ -390,7 +397,7 @@ module SysCtrl_SS_0(
     wire [31:0] axi_imem_bridge_Mem_to_i_imem_mem_WDATA;
     wire       axi_imem_bridge_Mem_to_i_imem_mem_WE;
     // BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom wires:
-    wire [32:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_ADDR;
+    wire [31:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_ADDR;
     wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_READY;
     wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_VALID;
     wire [31:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_ADDR;
@@ -446,11 +453,11 @@ module SysCtrl_SS_0(
     wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_VALID;
     // jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I wires:
     wire [31:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_ADDR;
-    wire [2:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT;
+    wire [3:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT;
     wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_READY;
     wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_VALID;
     wire [31:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_ADDR;
-    wire [2:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_PROT;
+    wire [3:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_PROT;
     wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_READY;
     wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_VALID;
     wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_READY;
@@ -462,7 +469,7 @@ module SysCtrl_SS_0(
     wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_VALID;
     wire [31:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_DATA;
     wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_READY;
-    wire [31:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_STRB;
+    wire [3:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_STRB;
     wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_VALID;
     // jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset wires:
     wire       jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset_reset;
@@ -480,8 +487,11 @@ module SysCtrl_SS_0(
     wire       Ibex_Core_irq_fast_i_to_irq_1;
     wire       Ibex_Core_irq_fast_i_to_irq_0;
     wire       Ibex_Core_irq_fast_i_to_irq_3;
-    wire [10:0] Ibex_Core_irq_fast_i_to_irq_4_14;
     wire       Ibex_Core_irq_fast_i_to_irq_2;
+    wire       i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i;
+    wire       i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
+    wire [1:0] i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
+    wire [0:-6] Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
 
     // BootRom port wires:
     wire [31:0] BootRom_addr_i;
@@ -577,7 +587,7 @@ module SysCtrl_SS_0(
     wire [1:0] Ctrl_xbar_B_RESP;
     wire       Ctrl_xbar_B_USER;
     wire       Ctrl_xbar_B_VALID;
-    wire [32:0] Ctrl_xbar_BootRom_ar_addr_out;
+    wire [31:0] Ctrl_xbar_BootRom_ar_addr_out;
     wire       Ctrl_xbar_BootRom_ar_ready_in;
     wire       Ctrl_xbar_BootRom_ar_valid_out;
     wire [31:0] Ctrl_xbar_BootRom_aw_addr_out;
@@ -663,9 +673,11 @@ module SysCtrl_SS_0(
     wire [3:0] Ctrl_xbar_DMEM_w_strb_out;
     wire       Ctrl_xbar_DMEM_w_valid_out;
     wire [31:0] Ctrl_xbar_DbgI_ar_addr;
+    wire [2:0] Ctrl_xbar_DbgI_ar_prot;
     wire       Ctrl_xbar_DbgI_ar_ready;
     wire       Ctrl_xbar_DbgI_ar_valid;
     wire [31:0] Ctrl_xbar_DbgI_aw_addr;
+    wire [2:0] Ctrl_xbar_DbgI_aw_prot;
     wire       Ctrl_xbar_DbgI_aw_ready;
     wire       Ctrl_xbar_DbgI_aw_valid;
     wire       Ctrl_xbar_DbgI_b_ready;
@@ -911,6 +923,9 @@ module SysCtrl_SS_0(
     wire       i_SysCtrl_peripherals_clk;
     wire [3:0] i_SysCtrl_peripherals_gpio_from_core;
     wire [3:0] i_SysCtrl_peripherals_gpio_to_core;
+    wire       i_SysCtrl_peripherals_irq_gpio;
+    wire [1:0] i_SysCtrl_peripherals_irq_spi;
+    wire       i_SysCtrl_peripherals_irq_uart;
     wire [31:0] i_SysCtrl_peripherals_r_data;
     wire       i_SysCtrl_peripherals_r_ready;
     wire [1:0] i_SysCtrl_peripherals_r_resp;
@@ -931,7 +946,7 @@ module SysCtrl_SS_0(
     wire [3:0] i_SysCtrl_peripherals_w_strb;
     wire       i_SysCtrl_peripherals_w_valid;
     // i_dmem port wires:
-    wire [31:0] i_dmem_addr_i;
+    wire [9:0] i_dmem_addr_i;
     wire [3:0] i_dmem_be_i;
     wire       i_dmem_clk_i;
     wire [31:0] i_dmem_rdata_o;
@@ -939,7 +954,7 @@ module SysCtrl_SS_0(
     wire       i_dmem_rst_ni;
     wire       i_dmem_we_i;
     // i_imem port wires:
-    wire [31:0] i_imem_addr_i;
+    wire [9:0] i_imem_addr_i;
     wire [3:0] i_imem_be_i;
     wire       i_imem_clk_i;
     wire [31:0] i_imem_rdata_o;
@@ -950,44 +965,48 @@ module SysCtrl_SS_0(
     wire       jtag_dbg_wrapper_clk_i;
     wire       jtag_dbg_wrapper_core_reset;
     wire       jtag_dbg_wrapper_debug_reg_irq_o;
-    wire [31:0] jtag_dbg_wrapper_init_ar_addr_out;
-    wire       jtag_dbg_wrapper_init_ar_ready_in;
-    wire       jtag_dbg_wrapper_init_ar_valid_out;
-    wire [31:0] jtag_dbg_wrapper_init_aw_addr_out;
-    wire       jtag_dbg_wrapper_init_aw_ready_in;
-    wire       jtag_dbg_wrapper_init_aw_valid_out;
-    wire       jtag_dbg_wrapper_init_b_ready_out;
-    wire [1:0] jtag_dbg_wrapper_init_b_resp_in;
-    wire       jtag_dbg_wrapper_init_b_valid_in;
-    wire [31:0] jtag_dbg_wrapper_init_r_data_in;
-    wire       jtag_dbg_wrapper_init_r_ready_out;
-    wire [1:0] jtag_dbg_wrapper_init_r_resp_in;
-    wire       jtag_dbg_wrapper_init_r_valid_in;
-    wire [31:0] jtag_dbg_wrapper_init_w_data_out;
-    wire       jtag_dbg_wrapper_init_w_ready_in;
-    wire       jtag_dbg_wrapper_init_w_valid_out;
-    wire       jtag_dbg_wrapper_jtag_tck_internal;
-    wire       jtag_dbg_wrapper_jtag_tdi_internal;
-    wire       jtag_dbg_wrapper_jtag_tdo_internal;
-    wire       jtag_dbg_wrapper_jtag_tms_internal;
-    wire       jtag_dbg_wrapper_jtag_trst_internal;
-    wire       jtag_dbg_wrapper_rst_ni;
-    wire [31:0] jtag_dbg_wrapper_target_ar_addr_in;
-    wire       jtag_dbg_wrapper_target_ar_ready_out;
-    wire [31:0] jtag_dbg_wrapper_target_aw_addr_in;
-    wire       jtag_dbg_wrapper_target_aw_ready_out;
-    wire       jtag_dbg_wrapper_target_aw_valid_in;
-    wire       jtag_dbg_wrapper_target_b_ready_in;
-    wire [1:0] jtag_dbg_wrapper_target_b_resp_out;
-    wire       jtag_dbg_wrapper_target_b_valid_out;
-    wire [31:0] jtag_dbg_wrapper_target_r_data_out;
-    wire       jtag_dbg_wrapper_target_r_ready_in;
-    wire [1:0] jtag_dbg_wrapper_target_r_resp_out;
-    wire       jtag_dbg_wrapper_target_r_valid_out;
-    wire [31:0] jtag_dbg_wrapper_target_w_data_in;
-    wire       jtag_dbg_wrapper_target_w_ready_out;
-    wire [3:0] jtag_dbg_wrapper_target_w_strb_in;
-    wire       jtag_dbg_wrapper_target_w_valid_in;
+    wire [31:0] jtag_dbg_wrapper_init_ar_addr;
+    wire [3:0] jtag_dbg_wrapper_init_ar_prot;
+    wire       jtag_dbg_wrapper_init_ar_ready;
+    wire       jtag_dbg_wrapper_init_ar_valid;
+    wire [31:0] jtag_dbg_wrapper_init_aw_addr;
+    wire [3:0] jtag_dbg_wrapper_init_aw_prot;
+    wire       jtag_dbg_wrapper_init_aw_ready;
+    wire       jtag_dbg_wrapper_init_aw_valid;
+    wire       jtag_dbg_wrapper_init_b_ready;
+    wire [1:0] jtag_dbg_wrapper_init_b_resp;
+    wire       jtag_dbg_wrapper_init_b_valid;
+    wire [31:0] jtag_dbg_wrapper_init_r_data;
+    wire       jtag_dbg_wrapper_init_r_ready;
+    wire [1:0] jtag_dbg_wrapper_init_r_resp;
+    wire       jtag_dbg_wrapper_init_r_valid;
+    wire [31:0] jtag_dbg_wrapper_init_w_data;
+    wire       jtag_dbg_wrapper_init_w_ready;
+    wire [3:0] jtag_dbg_wrapper_init_w_strb;
+    wire       jtag_dbg_wrapper_init_w_valid;
+    wire       jtag_dbg_wrapper_jtag_tck_i;
+    wire       jtag_dbg_wrapper_jtag_td_i;
+    wire       jtag_dbg_wrapper_jtag_td_o;
+    wire       jtag_dbg_wrapper_jtag_tms_i;
+    wire       jtag_dbg_wrapper_jtag_trst_ni;
+    wire       jtag_dbg_wrapper_rstn_i;
+    wire [31:0] jtag_dbg_wrapper_target_ar_addr;
+    wire       jtag_dbg_wrapper_target_ar_ready;
+    wire       jtag_dbg_wrapper_target_ar_valid;
+    wire [31:0] jtag_dbg_wrapper_target_aw_addr;
+    wire       jtag_dbg_wrapper_target_aw_ready;
+    wire       jtag_dbg_wrapper_target_aw_valid;
+    wire       jtag_dbg_wrapper_target_b_ready;
+    wire [1:0] jtag_dbg_wrapper_target_b_resp;
+    wire       jtag_dbg_wrapper_target_b_valid;
+    wire [31:0] jtag_dbg_wrapper_target_r_data;
+    wire       jtag_dbg_wrapper_target_r_ready;
+    wire [1:0] jtag_dbg_wrapper_target_r_resp;
+    wire       jtag_dbg_wrapper_target_r_valid;
+    wire [31:0] jtag_dbg_wrapper_target_w_data;
+    wire       jtag_dbg_wrapper_target_w_ready;
+    wire [3:0] jtag_dbg_wrapper_target_w_strb;
+    wire       jtag_dbg_wrapper_target_w_valid;
 
     // Assignments for the ports of the encompassing component:
     assign AR_ADDR = Ctrl_xbar_AXI_ICN_to_AXI_AR_ADDR;
@@ -1045,11 +1064,11 @@ module SysCtrl_SS_0(
     assign Ibex_Core_irq_fast_i_to_irq_1 = irq_1;
     assign Ibex_Core_irq_fast_i_to_irq_2 = irq_2;
     assign Ibex_Core_irq_fast_i_to_irq_3 = irq_3;
-    assign Ibex_Core_irq_fast_i_to_irq_4_14[9:0] = irq_4_14;
     assign irq_en_0 = SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en;
     assign irq_en_1 = SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
     assign irq_en_2 = SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
     assign irq_en_3 = SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
+    assign Ibex_Core_irq_fast_i_to_irq_upper_tieoff[-6:0] = irq_upper_tieoff[8:14];
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tck = jtag_tck_internal;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tdi = jtag_tdi_internal;
     assign jtag_tdo_internal = jtag_dbg_wrapper_JTAG_to_JTAG_tdo;
@@ -1088,7 +1107,7 @@ module SysCtrl_SS_0(
     assign BootRom_we_i = BootRom_axi_bridge_Mem_to_BootRom_mem_WE;
     // BootRom_axi_bridge assignments:
     assign BootRom_axi_bridge_Mem_to_BootRom_mem_ADDR = BootRom_axi_bridge_addr_o;
-    assign BootRom_axi_bridge_ar_addr_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_ADDR[31:0];
+    assign BootRom_axi_bridge_ar_addr_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_ADDR;
     assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_READY = BootRom_axi_bridge_ar_ready_o;
     assign BootRom_axi_bridge_ar_valid_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_VALID;
     assign BootRom_axi_bridge_aw_addr_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_ADDR;
@@ -1166,7 +1185,7 @@ module SysCtrl_SS_0(
     assign Ctrl_xbar_AXI_ICN_to_AXI_AW_SIZE = Ctrl_xbar_AW_SIZE;
     assign Ctrl_xbar_AXI_ICN_to_AXI_AW_USER = Ctrl_xbar_AW_USER;
     assign Ctrl_xbar_AXI_ICN_to_AXI_AW_VALID = Ctrl_xbar_AW_VALID;
-    assign Ctrl_xbar_B_ID = Ctrl_xbar_AXI_ICN_to_AXI_B_ID[9:0];
+    assign Ctrl_xbar_B_ID = Ctrl_xbar_AXI_ICN_to_AXI_B_ID;
     assign Ctrl_xbar_AXI_ICN_to_AXI_B_READY = Ctrl_xbar_B_READY;
     assign Ctrl_xbar_B_RESP = Ctrl_xbar_AXI_ICN_to_AXI_B_RESP;
     assign Ctrl_xbar_B_USER = Ctrl_xbar_AXI_ICN_to_AXI_B_USER;
@@ -1257,9 +1276,11 @@ module SysCtrl_SS_0(
     assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_STRB = Ctrl_xbar_DMEM_w_strb_out;
     assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_VALID = Ctrl_xbar_DMEM_w_valid_out;
     assign Ctrl_xbar_DbgI_ar_addr = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_ADDR;
+    assign Ctrl_xbar_DbgI_ar_prot = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT[2:0];
     assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_READY = Ctrl_xbar_DbgI_ar_ready;
     assign Ctrl_xbar_DbgI_ar_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_VALID;
     assign Ctrl_xbar_DbgI_aw_addr = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_ADDR;
+    assign Ctrl_xbar_DbgI_aw_prot = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_PROT[2:0];
     assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_READY = Ctrl_xbar_DbgI_aw_ready;
     assign Ctrl_xbar_DbgI_aw_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_VALID;
     assign Ctrl_xbar_DbgI_b_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_READY;
@@ -1271,7 +1292,7 @@ module SysCtrl_SS_0(
     assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_VALID = Ctrl_xbar_DbgI_r_valid;
     assign Ctrl_xbar_DbgI_w_data = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_DATA;
     assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_READY = Ctrl_xbar_DbgI_w_ready;
-    assign Ctrl_xbar_DbgI_w_strb = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_STRB[3:0];
+    assign Ctrl_xbar_DbgI_w_strb = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_STRB;
     assign Ctrl_xbar_DbgI_w_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_VALID;
     assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_ADDR = Ctrl_xbar_DbgT_ar_addr_out;
     assign Ctrl_xbar_DbgT_ar_ready_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_READY;
@@ -1308,7 +1329,7 @@ module SysCtrl_SS_0(
     assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_STRB = Ctrl_xbar_IMEM_w_strb_out;
     assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_VALID = Ctrl_xbar_IMEM_w_valid_out;
     assign Ctrl_xbar_R_DATA = Ctrl_xbar_AXI_ICN_to_AXI_R_DATA;
-    assign Ctrl_xbar_R_ID = Ctrl_xbar_AXI_ICN_to_AXI_R_ID[9:0];
+    assign Ctrl_xbar_R_ID = Ctrl_xbar_AXI_ICN_to_AXI_R_ID;
     assign Ctrl_xbar_R_LAST = Ctrl_xbar_AXI_ICN_to_AXI_R_LAST;
     assign Ctrl_xbar_AXI_ICN_to_AXI_R_READY = Ctrl_xbar_R_READY;
     assign Ctrl_xbar_R_RESP = Ctrl_xbar_AXI_ICN_to_AXI_R_RESP;
@@ -1360,18 +1381,21 @@ module SysCtrl_SS_0(
     assign Ibex_Core_instr_rdata_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_RDATA;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_REQ = Ibex_Core_instr_req_o;
     assign Ibex_Core_instr_rvalid_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_RVALID;
-    assign Ibex_Core_irq_fast_i[0] = Ibex_Core_irq_fast_i_to_irq_0;
-    assign Ibex_Core_irq_fast_i[1] = Ibex_Core_irq_fast_i_to_irq_1;
-    assign Ibex_Core_irq_fast_i[2] = Ibex_Core_irq_fast_i_to_irq_2;
-    assign Ibex_Core_irq_fast_i[3] = Ibex_Core_irq_fast_i_to_irq_3;
-    assign Ibex_Core_irq_fast_i[14:4] = Ibex_Core_irq_fast_i_to_irq_4_14;
+    assign Ibex_Core_irq_fast_i[4] = Ibex_Core_irq_fast_i_to_irq_0;
+    assign Ibex_Core_irq_fast_i[5] = Ibex_Core_irq_fast_i_to_irq_1;
+    assign Ibex_Core_irq_fast_i[6] = Ibex_Core_irq_fast_i_to_irq_2;
+    assign Ibex_Core_irq_fast_i[7] = Ibex_Core_irq_fast_i_to_irq_3;
+    assign Ibex_Core_irq_fast_i[8:14] = Ibex_Core_irq_fast_i_to_irq_upper_tieoff[-6:0];
+    assign Ibex_Core_irq_fast_i[1] = i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
+    assign Ibex_Core_irq_fast_i[3:2] = i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
+    assign Ibex_Core_irq_fast_i[0] = i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i;
     assign Ibex_Core_irq_fast_i = 0;
     assign Ibex_Core_rst_ni = jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset_reset;
     // SS_Ctrl_reg_array assignments:
     assign SS_Ctrl_reg_array_addr_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_ADDR;
     assign SS_Ctrl_reg_array_be_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_BE;
     assign SS_Ctrl_reg_array_bootsel = SS_Ctrl_reg_array_BootSel_to_BootSel_gpo;
-    assign SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg = SS_Ctrl_reg_array_cell_cfg;
+    assign SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg[49:0] = SS_Ctrl_reg_array_cell_cfg;
     assign SS_Ctrl_reg_array_clk = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en = SS_Ctrl_reg_array_irq_en_0;
     assign SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en = SS_Ctrl_reg_array_irq_en_1;
@@ -1512,6 +1536,9 @@ module SysCtrl_SS_0(
     assign i_SysCtrl_peripherals_clk = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign i_SysCtrl_peripherals_GPIO_to_GPIO_gpo = i_SysCtrl_peripherals_gpio_from_core;
     assign i_SysCtrl_peripherals_gpio_to_core = i_SysCtrl_peripherals_GPIO_to_GPIO_gpi;
+    assign i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i = i_SysCtrl_peripherals_irq_gpio;
+    assign i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i = i_SysCtrl_peripherals_irq_spi;
+    assign i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i = i_SysCtrl_peripherals_irq_uart;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_DATA = i_SysCtrl_peripherals_r_data;
     assign i_SysCtrl_peripherals_r_ready = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_READY;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_RESP = i_SysCtrl_peripherals_r_resp;
@@ -1532,7 +1559,7 @@ module SysCtrl_SS_0(
     assign i_SysCtrl_peripherals_w_strb = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB[3:0];
     assign i_SysCtrl_peripherals_w_valid = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID;
     // i_dmem assignments:
-    assign i_dmem_addr_i = i_dmem_mem_to_axi_dmem_bridge_Mem_ADDR;
+    assign i_dmem_addr_i = i_dmem_mem_to_axi_dmem_bridge_Mem_ADDR[9:0];
     assign i_dmem_be_i = i_dmem_mem_to_axi_dmem_bridge_Mem_BE;
     assign i_dmem_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign i_dmem_mem_to_axi_dmem_bridge_Mem_RDATA = i_dmem_rdata_o;
@@ -1540,7 +1567,7 @@ module SysCtrl_SS_0(
     assign i_dmem_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     assign i_dmem_we_i = i_dmem_mem_to_axi_dmem_bridge_Mem_WE;
     // i_imem assignments:
-    assign i_imem_addr_i = axi_imem_bridge_Mem_to_i_imem_mem_ADDR;
+    assign i_imem_addr_i = axi_imem_bridge_Mem_to_i_imem_mem_ADDR[9:0];
     assign i_imem_be_i = axi_imem_bridge_Mem_to_i_imem_mem_BE;
     assign i_imem_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign axi_imem_bridge_Mem_to_i_imem_mem_RDATA = i_imem_rdata_o;
@@ -1551,46 +1578,48 @@ module SysCtrl_SS_0(
     assign jtag_dbg_wrapper_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset_reset = jtag_dbg_wrapper_core_reset;
     assign jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req = jtag_dbg_wrapper_debug_reg_irq_o;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_ADDR = jtag_dbg_wrapper_init_ar_addr_out;
-    assign jtag_dbg_wrapper_init_ar_ready_in = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_VALID = jtag_dbg_wrapper_init_ar_valid_out;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_ADDR = jtag_dbg_wrapper_init_aw_addr_out;
-    assign jtag_dbg_wrapper_init_aw_ready_in = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_VALID = jtag_dbg_wrapper_init_aw_valid_out;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_READY = jtag_dbg_wrapper_init_b_ready_out;
-    assign jtag_dbg_wrapper_init_b_resp_in = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_RESP;
-    assign jtag_dbg_wrapper_init_b_valid_in = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_VALID;
-    assign jtag_dbg_wrapper_init_r_data_in = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_DATA;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_READY = jtag_dbg_wrapper_init_r_ready_out;
-    assign jtag_dbg_wrapper_init_r_resp_in = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_RESP;
-    assign jtag_dbg_wrapper_init_r_valid_in = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_VALID;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_DATA = jtag_dbg_wrapper_init_w_data_out;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_STRB = jtag_dbg_wrapper_init_w_data_out;
-    assign jtag_dbg_wrapper_init_w_ready_in = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_VALID = jtag_dbg_wrapper_init_w_valid_out;
-    assign jtag_dbg_wrapper_jtag_tck_internal = jtag_dbg_wrapper_JTAG_to_JTAG_tck;
-    assign jtag_dbg_wrapper_jtag_tdi_internal = jtag_dbg_wrapper_JTAG_to_JTAG_tdi;
-    assign jtag_dbg_wrapper_JTAG_to_JTAG_tdo = jtag_dbg_wrapper_jtag_tdo_internal;
-    assign jtag_dbg_wrapper_jtag_tms_internal = jtag_dbg_wrapper_JTAG_to_JTAG_tms;
-    assign jtag_dbg_wrapper_jtag_trst_internal = jtag_dbg_wrapper_JTAG_to_JTAG_trst;
-    assign jtag_dbg_wrapper_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign jtag_dbg_wrapper_target_ar_addr_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_ADDR;
-    assign jtag_dbg_wrapper_target_ar_addr_in[0] = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_VALID;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_READY = jtag_dbg_wrapper_target_ar_ready_out;
-    assign jtag_dbg_wrapper_target_aw_addr_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_ADDR;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_READY = jtag_dbg_wrapper_target_aw_ready_out;
-    assign jtag_dbg_wrapper_target_aw_valid_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_VALID;
-    assign jtag_dbg_wrapper_target_b_ready_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_RESP = jtag_dbg_wrapper_target_b_resp_out;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_VALID = jtag_dbg_wrapper_target_b_valid_out;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_DATA = jtag_dbg_wrapper_target_r_data_out;
-    assign jtag_dbg_wrapper_target_r_ready_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_RESP = jtag_dbg_wrapper_target_r_resp_out;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_VALID = jtag_dbg_wrapper_target_r_valid_out;
-    assign jtag_dbg_wrapper_target_w_data_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_DATA;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_READY = jtag_dbg_wrapper_target_w_ready_out;
-    assign jtag_dbg_wrapper_target_w_strb_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_STRB;
-    assign jtag_dbg_wrapper_target_w_valid_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_VALID;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_ADDR = jtag_dbg_wrapper_init_ar_addr;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT = jtag_dbg_wrapper_init_ar_prot;
+    assign jtag_dbg_wrapper_init_ar_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_READY;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_VALID = jtag_dbg_wrapper_init_ar_valid;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_ADDR = jtag_dbg_wrapper_init_aw_addr;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_PROT = jtag_dbg_wrapper_init_aw_prot;
+    assign jtag_dbg_wrapper_init_aw_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_READY;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_VALID = jtag_dbg_wrapper_init_aw_valid;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_READY = jtag_dbg_wrapper_init_b_ready;
+    assign jtag_dbg_wrapper_init_b_resp = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_RESP;
+    assign jtag_dbg_wrapper_init_b_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_VALID;
+    assign jtag_dbg_wrapper_init_r_data = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_DATA;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_READY = jtag_dbg_wrapper_init_r_ready;
+    assign jtag_dbg_wrapper_init_r_resp = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_RESP;
+    assign jtag_dbg_wrapper_init_r_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_VALID;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_DATA = jtag_dbg_wrapper_init_w_data;
+    assign jtag_dbg_wrapper_init_w_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_READY;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_STRB = jtag_dbg_wrapper_init_w_strb;
+    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_VALID = jtag_dbg_wrapper_init_w_valid;
+    assign jtag_dbg_wrapper_jtag_tck_i = jtag_dbg_wrapper_JTAG_to_JTAG_tck;
+    assign jtag_dbg_wrapper_jtag_td_i = jtag_dbg_wrapper_JTAG_to_JTAG_tdi;
+    assign jtag_dbg_wrapper_JTAG_to_JTAG_tdo = jtag_dbg_wrapper_jtag_td_o;
+    assign jtag_dbg_wrapper_jtag_tms_i = jtag_dbg_wrapper_JTAG_to_JTAG_tms;
+    assign jtag_dbg_wrapper_jtag_trst_ni = jtag_dbg_wrapper_JTAG_to_JTAG_trst;
+    assign jtag_dbg_wrapper_rstn_i = i_SysCtrl_peripherals_Reset_to_Reset_reset;
+    assign jtag_dbg_wrapper_target_ar_addr = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_ADDR;
+    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_READY = jtag_dbg_wrapper_target_ar_ready;
+    assign jtag_dbg_wrapper_target_ar_valid = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_VALID;
+    assign jtag_dbg_wrapper_target_aw_addr = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_ADDR;
+    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_READY = jtag_dbg_wrapper_target_aw_ready;
+    assign jtag_dbg_wrapper_target_aw_valid = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_VALID;
+    assign jtag_dbg_wrapper_target_b_ready = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_READY;
+    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_RESP = jtag_dbg_wrapper_target_b_resp;
+    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_VALID = jtag_dbg_wrapper_target_b_valid;
+    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_DATA = jtag_dbg_wrapper_target_r_data;
+    assign jtag_dbg_wrapper_target_r_ready = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_READY;
+    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_RESP = jtag_dbg_wrapper_target_r_resp;
+    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_VALID = jtag_dbg_wrapper_target_r_valid;
+    assign jtag_dbg_wrapper_target_w_data = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_DATA;
+    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_READY = jtag_dbg_wrapper_target_w_ready;
+    assign jtag_dbg_wrapper_target_w_strb = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_STRB;
+    assign jtag_dbg_wrapper_target_w_valid = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_VALID;
 
     // IP-XACT VLNV: tuni.fi:ip:BootRom:1.0
     BootRom     BootRom(
@@ -1746,10 +1775,10 @@ module SysCtrl_SS_0(
         .CtrlReg_w_valid_out (Ctrl_xbar_CtrlReg_w_valid_out),
         // Interface: AXI4LITE_DBG_I
         .DbgI_ar_addr        (Ctrl_xbar_DbgI_ar_addr),
-        .DbgI_ar_prot        (),
+        .DbgI_ar_prot        (Ctrl_xbar_DbgI_ar_prot),
         .DbgI_ar_valid       (Ctrl_xbar_DbgI_ar_valid),
         .DbgI_aw_addr        (Ctrl_xbar_DbgI_aw_addr),
-        .DbgI_aw_prot        (),
+        .DbgI_aw_prot        (Ctrl_xbar_DbgI_aw_prot),
         .DbgI_aw_valid       (Ctrl_xbar_DbgI_aw_valid),
         .DbgI_b_ready        (Ctrl_xbar_DbgI_b_ready),
         .DbgI_r_ready        (Ctrl_xbar_DbgI_r_ready),
@@ -1941,7 +1970,7 @@ module SysCtrl_SS_0(
         .scramble_req_o      ());
 
     // IP-XACT VLNV: tuni.fi:ip:SS_Ctrl_reg_array:1.0
-    SS_Ctrl_reg_array SS_Ctrl_reg_array(
+    SS_Ctrl_reg_array     SS_Ctrl_reg_array(
         // Interface: BootSel
         .bootsel             (SS_Ctrl_reg_array_bootsel),
         // Interface: Clock
@@ -2117,7 +2146,7 @@ module SysCtrl_SS_0(
         .rvalid_o            (core_imem_bridge_rvalid_o));
 
     // IP-XACT VLNV: tuni.fi:ip:SysCtrl_peripherals:1.0
-    SysCtrl_peripherals_0 i_SysCtrl_peripherals(
+    SysCtrl_peripherals_0     i_SysCtrl_peripherals(
         // Interface: AXI4LITE
         .ar_addr             (i_SysCtrl_peripherals_ar_addr),
         .ar_prot             (i_SysCtrl_peripherals_ar_prot),
@@ -2144,11 +2173,11 @@ module SysCtrl_SS_0(
         .gpio_to_core        (i_SysCtrl_peripherals_gpio_to_core),
         .gpio_from_core      (i_SysCtrl_peripherals_gpio_from_core),
         // Interface: IRQ_GPIO
-        .irq_gpio            (),
+        .irq_gpio            (i_SysCtrl_peripherals_irq_gpio),
         // Interface: IRQ_SPI
-        .irq_spi             (),
+        .irq_spi             (i_SysCtrl_peripherals_irq_spi),
         // Interface: IRQ_UART
-        .irq_uart            (),
+        .irq_uart            (i_SysCtrl_peripherals_irq_uart),
         // Interface: Reset
         .rst_n               (i_SysCtrl_peripherals_rst_n),
         // Interface: SDIO
@@ -2192,58 +2221,65 @@ module SysCtrl_SS_0(
         .rdata_o             (i_imem_rdata_o));
 
     // IP-XACT VLNV: tuni.fi:ip:jtag_dbg_wrapper:1.0
-    jtag_dbg_wrapper     jtag_dbg_wrapper(
+    jtag_dbg_wrapper #(
+        .AXI_AW              (32),
+        .DM_BASE_ADDRESS     (4096),
+        .AXI_DW              (32),
+        .DM_ID_VALUE         (4027038225))
+    jtag_dbg_wrapper(
         // Interface: AXI4LITE_I
-        .init_ar_ready_in    (jtag_dbg_wrapper_init_ar_ready_in),
-        .init_aw_ready_in    (jtag_dbg_wrapper_init_aw_ready_in),
-        .init_b_resp_in      (jtag_dbg_wrapper_init_b_resp_in),
-        .init_b_valid_in     (jtag_dbg_wrapper_init_b_valid_in),
-        .init_r_data_in      (jtag_dbg_wrapper_init_r_data_in),
-        .init_r_resp_in      (jtag_dbg_wrapper_init_r_resp_in),
-        .init_r_valid_in     (jtag_dbg_wrapper_init_r_valid_in),
-        .init_w_ready_in     (jtag_dbg_wrapper_init_w_ready_in),
-        .init_ar_addr_out    (jtag_dbg_wrapper_init_ar_addr_out),
-        .init_ar_valid_out   (jtag_dbg_wrapper_init_ar_valid_out),
-        .init_aw_addr_out    (jtag_dbg_wrapper_init_aw_addr_out),
-        .init_aw_valid_out   (jtag_dbg_wrapper_init_aw_valid_out),
-        .init_b_ready_out    (jtag_dbg_wrapper_init_b_ready_out),
-        .init_r_ready_out    (jtag_dbg_wrapper_init_r_ready_out),
-        .init_w_data_out     (jtag_dbg_wrapper_init_w_data_out),
-        .init_w_valid_out    (jtag_dbg_wrapper_init_w_valid_out),
+        .init_ar_ready       (jtag_dbg_wrapper_init_ar_ready),
+        .init_aw_ready       (jtag_dbg_wrapper_init_aw_ready),
+        .init_b_resp         (jtag_dbg_wrapper_init_b_resp),
+        .init_b_valid        (jtag_dbg_wrapper_init_b_valid),
+        .init_r_data         (jtag_dbg_wrapper_init_r_data),
+        .init_r_resp         (jtag_dbg_wrapper_init_r_resp),
+        .init_r_valid        (jtag_dbg_wrapper_init_r_valid),
+        .init_w_ready        (jtag_dbg_wrapper_init_w_ready),
+        .init_ar_addr        (jtag_dbg_wrapper_init_ar_addr),
+        .init_ar_prot        (jtag_dbg_wrapper_init_ar_prot),
+        .init_ar_valid       (jtag_dbg_wrapper_init_ar_valid),
+        .init_aw_addr        (jtag_dbg_wrapper_init_aw_addr),
+        .init_aw_prot        (jtag_dbg_wrapper_init_aw_prot),
+        .init_aw_valid       (jtag_dbg_wrapper_init_aw_valid),
+        .init_b_ready        (jtag_dbg_wrapper_init_b_ready),
+        .init_r_ready        (jtag_dbg_wrapper_init_r_ready),
+        .init_w_data         (jtag_dbg_wrapper_init_w_data),
+        .init_w_strb         (jtag_dbg_wrapper_init_w_strb),
+        .init_w_valid        (jtag_dbg_wrapper_init_w_valid),
         // Interface: AXI4LITE_T
-        .target_ar_addr_in   (jtag_dbg_wrapper_target_ar_addr_in),
-        .target_aw_addr_in   (jtag_dbg_wrapper_target_aw_addr_in),
-        .target_aw_valid_in  (jtag_dbg_wrapper_target_aw_valid_in),
-        .target_b_ready_in   (jtag_dbg_wrapper_target_b_ready_in),
-        .target_r_ready_in   (jtag_dbg_wrapper_target_r_ready_in),
-        .target_w_data_in    (jtag_dbg_wrapper_target_w_data_in),
-        .target_w_strb_in    (jtag_dbg_wrapper_target_w_strb_in),
-        .target_w_valid_in   (jtag_dbg_wrapper_target_w_valid_in),
-        .target_ar_ready_out (jtag_dbg_wrapper_target_ar_ready_out),
-        .target_aw_ready_out (jtag_dbg_wrapper_target_aw_ready_out),
-        .target_b_resp_out   (jtag_dbg_wrapper_target_b_resp_out),
-        .target_b_valid_out  (jtag_dbg_wrapper_target_b_valid_out),
-        .target_r_data_out   (jtag_dbg_wrapper_target_r_data_out),
-        .target_r_resp_out   (jtag_dbg_wrapper_target_r_resp_out),
-        .target_r_valid_out  (jtag_dbg_wrapper_target_r_valid_out),
-        .target_w_ready_out  (jtag_dbg_wrapper_target_w_ready_out),
+        .target_ar_addr      (jtag_dbg_wrapper_target_ar_addr),
+        .target_ar_valid     (jtag_dbg_wrapper_target_ar_valid),
+        .target_aw_addr      (jtag_dbg_wrapper_target_aw_addr),
+        .target_aw_valid     (jtag_dbg_wrapper_target_aw_valid),
+        .target_b_ready      (jtag_dbg_wrapper_target_b_ready),
+        .target_r_ready      (jtag_dbg_wrapper_target_r_ready),
+        .target_w_data       (jtag_dbg_wrapper_target_w_data),
+        .target_w_strb       (jtag_dbg_wrapper_target_w_strb),
+        .target_w_valid      (jtag_dbg_wrapper_target_w_valid),
+        .target_ar_ready     (jtag_dbg_wrapper_target_ar_ready),
+        .target_aw_ready     (jtag_dbg_wrapper_target_aw_ready),
+        .target_b_resp       (jtag_dbg_wrapper_target_b_resp),
+        .target_b_valid      (jtag_dbg_wrapper_target_b_valid),
+        .target_r_data       (jtag_dbg_wrapper_target_r_data),
+        .target_r_resp       (jtag_dbg_wrapper_target_r_resp),
+        .target_r_valid      (jtag_dbg_wrapper_target_r_valid),
+        .target_w_ready      (jtag_dbg_wrapper_target_w_ready),
         // Interface: Clock
         .clk_i               (jtag_dbg_wrapper_clk_i),
         // Interface: Debug
         .debug_reg_irq_o     (jtag_dbg_wrapper_debug_reg_irq_o),
         // Interface: JTAG
-        .jtag_tck_internal   (jtag_dbg_wrapper_jtag_tck_internal),
-        .jtag_tdi_internal   (jtag_dbg_wrapper_jtag_tdi_internal),
-        .jtag_tms_internal   (jtag_dbg_wrapper_jtag_tms_internal),
-        .jtag_trst_internal  (jtag_dbg_wrapper_jtag_trst_internal),
-        .jtag_tdo_internal   (jtag_dbg_wrapper_jtag_tdo_internal),
+        .jtag_tck_i          (jtag_dbg_wrapper_jtag_tck_i),
+        .jtag_td_i           (jtag_dbg_wrapper_jtag_td_i),
+        .jtag_tms_i          (jtag_dbg_wrapper_jtag_tms_i),
+        .jtag_trst_ni        (jtag_dbg_wrapper_jtag_trst_ni),
+        .jtag_td_o           (jtag_dbg_wrapper_jtag_td_o),
         // Interface: Reset
-        .rst_ni              (jtag_dbg_wrapper_rst_ni),
+        .rstn_i              (jtag_dbg_wrapper_rstn_i),
         // Interface: core_reset
         .core_reset          (jtag_dbg_wrapper_core_reset),
         // These ports are not in any interface
-        .target_valid_in     (),
-        .init_w_strb_out     (),
         .ndmreset_o          ());
 
 

@@ -1,16 +1,19 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 13.02.2024
-// Creation time : 11:05:42
+// Creation date : 03.04.2024
+// Creation time : 11:36:14
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.0 64-bit
+// Tool : Kactus2 3.13.1 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:ip:SysCtrl_peripherals:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/ipxact/tuni.fi/ip/SysCtrl_peripherals/1.0/SysCtrl_peripherals.1.0.xml
+// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/ip/SysCtrl_peripherals/1.0/SysCtrl_peripherals.1.0.xml
 //-----------------------------------------------------------------------------
 
-module SysCtrl_peripherals_0(
+module SysCtrl_peripherals_0 #(
+    parameter                              AXI4LITE_DW      = 32,
+    parameter                              AXI4LITE_AW      = 32
+) (
     // Interface: AXI4LITE
     input                [31:0]         ar_addr,
     input                [2:0]          ar_prot,
@@ -68,13 +71,6 @@ module SysCtrl_peripherals_0(
     output                              uart_tx_internal
 );
 
-    // APB_UART_clk_to_Clock wires:
-    wire       APB_UART_clk_to_Clock_clk;
-    // APB_UART_rst_n_to_Reset wires:
-    wire       APB_UART_rst_n_to_Reset_reset;
-    // APB_UART_uart_to_UART wires:
-    wire       APB_UART_uart_to_UART_uart_rx;
-    wire       APB_UART_uart_to_UART_uart_tx;
     // APB_SPI_SPI_to_SPI wires:
     wire [3:0] APB_SPI_SPI_to_SPI_csn;
     wire [1:0] APB_SPI_SPI_to_SPI_data_oe;
@@ -83,17 +79,10 @@ module SysCtrl_peripherals_0(
     wire       APB_SPI_SPI_to_SPI_sck;
     // APB_SPI_IRQ_to_IRQ_SPI wires:
     wire [1:0] APB_SPI_IRQ_to_IRQ_SPI_irq;
-    // APB_UART_irq_to_IRQ_UART wires:
-    wire       APB_UART_irq_to_IRQ_UART_irq;
-    // AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb wires:
-    wire [31:0] AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PADDR;
-    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PENABLE;
-    wire [31:0] AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PRDATA;
-    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PREADY;
-    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PSEL;
-    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PSLVERR;
-    wire [31:0] AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PWDATA;
-    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PWRITE;
+    // APB_SPI_Clock_to_Clock wires:
+    wire       APB_SPI_Clock_to_Clock_clk;
+    // APB_SPI_Reset_n_to_Reset wires:
+    wire       APB_SPI_Reset_n_to_Reset_reset;
     // AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB wires:
     wire [31:0] AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PADDR;
     wire       AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PENABLE;
@@ -152,11 +141,25 @@ module SysCtrl_peripherals_0(
     wire       AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_READY;
     wire [3:0] AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_STRB;
     wire       AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_VALID;
+    // AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB wires:
+    wire [31:0] AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PADDR;
+    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PENABLE;
+    wire [31:0] AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PRDATA;
+    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PREADY;
+    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PSEL;
+    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PSLVERR;
+    wire [31:0] AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PWDATA;
+    wire       AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PWRITE;
+    // APB_UART_UART_to_UART wires:
+    wire       APB_UART_UART_to_UART_uart_rx;
+    wire       APB_UART_UART_to_UART_uart_tx;
+    // APB_UART_IRQ_to_IRQ_UART wires:
+    wire       APB_UART_IRQ_to_IRQ_UART_irq;
 
     // APB_GPIO port wires:
     wire       APB_GPIO_HCLK;
     wire       APB_GPIO_HRESETn;
-    wire [31:0] APB_GPIO_PADDR;
+    wire [11:0] APB_GPIO_PADDR;
     wire       APB_GPIO_PENABLE;
     wire [31:0] APB_GPIO_PRDATA;
     wire       APB_GPIO_PREADY;
@@ -184,7 +187,7 @@ module SysCtrl_peripherals_0(
     // APB_SPI port wires:
     wire       APB_SPI_HCLK;
     wire       APB_SPI_HRSETn;
-    wire [31:0] APB_SPI_PADDR;
+    wire [11:0] APB_SPI_PADDR;
     wire       APB_SPI_PENABLE;
     wire [31:0] APB_SPI_PRDATA;
     wire       APB_SPI_PREADY;
@@ -208,7 +211,8 @@ module SysCtrl_peripherals_0(
     wire       APB_SPI_spi_sdo3;
     // APB_UART port wires:
     wire       APB_UART_CLK;
-    wire [31:0] APB_UART_PADDR;
+    wire       APB_UART_INT;
+    wire [2:0] APB_UART_PADDR;
     wire       APB_UART_PENABLE;
     wire [31:0] APB_UART_PRDATA;
     wire       APB_UART_PREADY;
@@ -217,42 +221,17 @@ module SysCtrl_peripherals_0(
     wire [31:0] APB_UART_PWDATA;
     wire       APB_UART_PWRITE;
     wire       APB_UART_RSTN;
-    wire       APB_UART_event_o;
-    wire       APB_UART_rx_i;
-    wire       APB_UART_tx_o;
+    wire       APB_UART_SIN;
+    wire       APB_UART_SOUT;
     // AX4LITE_APB_converter_wrapper port wires:
     wire [31:0] AX4LITE_APB_converter_wrapper_PADDR;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PADDR_1;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PADDR_2;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PADDR_3;
     wire       AX4LITE_APB_converter_wrapper_PENABLE;
-    wire       AX4LITE_APB_converter_wrapper_PENABLE_1;
-    wire       AX4LITE_APB_converter_wrapper_PENABLE_2;
-    wire       AX4LITE_APB_converter_wrapper_PENABLE_3;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PRDATA;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PRDATA_1;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PRDATA_2;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PRDATA_3;
-    wire       AX4LITE_APB_converter_wrapper_PREADY;
-    wire       AX4LITE_APB_converter_wrapper_PREADY_1;
-    wire       AX4LITE_APB_converter_wrapper_PREADY_2;
-    wire       AX4LITE_APB_converter_wrapper_PREADY_3;
-    wire       AX4LITE_APB_converter_wrapper_PSEL;
-    wire       AX4LITE_APB_converter_wrapper_PSEL_1;
-    wire       AX4LITE_APB_converter_wrapper_PSEL_2;
-    wire       AX4LITE_APB_converter_wrapper_PSEL_3;
-    wire       AX4LITE_APB_converter_wrapper_PSLVERR;
-    wire       AX4LITE_APB_converter_wrapper_PSLVERR_1;
-    wire       AX4LITE_APB_converter_wrapper_PSLVERR_2;
-    wire       AX4LITE_APB_converter_wrapper_PSLVERR_3;
+    wire [127:0] AX4LITE_APB_converter_wrapper_PRDATA;
+    wire [3:0] AX4LITE_APB_converter_wrapper_PREADY;
+    wire [3:0] AX4LITE_APB_converter_wrapper_PSEL;
+    wire [3:0] AX4LITE_APB_converter_wrapper_PSLVERR;
     wire [31:0] AX4LITE_APB_converter_wrapper_PWDATA;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PWDATA_1;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PWDATA_2;
-    wire [31:0] AX4LITE_APB_converter_wrapper_PWDATA_3;
     wire       AX4LITE_APB_converter_wrapper_PWRITE;
-    wire       AX4LITE_APB_converter_wrapper_PWRITE_1;
-    wire       AX4LITE_APB_converter_wrapper_PWRITE_2;
-    wire       AX4LITE_APB_converter_wrapper_PWRITE_3;
     wire [31:0] AX4LITE_APB_converter_wrapper_ar_addr;
     wire [2:0] AX4LITE_APB_converter_wrapper_ar_prot;
     wire       AX4LITE_APB_converter_wrapper_ar_ready;
@@ -287,17 +266,17 @@ module SysCtrl_peripherals_0(
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_B_READY = b_ready;
     assign b_resp = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_B_RESP;
     assign b_valid = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_B_VALID;
-    assign APB_UART_clk_to_Clock_clk = clk;
+    assign APB_SPI_Clock_to_Clock_clk = clk;
     assign gpio_from_core = APB_GPIO_GPIO_to_GPIO_gpo;
     assign APB_GPIO_GPIO_to_GPIO_gpi = gpio_to_core;
     assign irq_gpio = APB_GPIO_IRQ_to_IRQ_GPIO_irq;
     assign irq_spi = APB_SPI_IRQ_to_IRQ_SPI_irq;
-    assign irq_uart = APB_UART_irq_to_IRQ_UART_irq;
+    assign irq_uart = APB_UART_IRQ_to_IRQ_UART_irq;
     assign r_data = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_R_DATA;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_R_READY = r_ready;
     assign r_resp = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_R_RESP;
     assign r_valid = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_R_VALID;
-    assign APB_UART_rst_n_to_Reset_reset = rst_n;
+    assign APB_SPI_Reset_n_to_Reset_reset = rst_n;
     assign sdio_clk_internal = APB_SDIO_SDIO_to_SDIO_clk;
     assign sdio_cmd_internal = APB_SDIO_SDIO_to_SDIO_cmd;
     assign APB_SDIO_SDIO_to_SDIO_data_i = sdio_data_i_internal;
@@ -306,17 +285,17 @@ module SysCtrl_peripherals_0(
     assign APB_SPI_SPI_to_SPI_miso = spim_miso_internal;
     assign spim_mosi_internal = APB_SPI_SPI_to_SPI_mosi;
     assign spim_sck_internal = APB_SPI_SPI_to_SPI_sck;
-    assign APB_UART_uart_to_UART_uart_rx = uart_rx_internal;
-    assign uart_tx_internal = APB_UART_uart_to_UART_uart_tx;
+    assign APB_UART_UART_to_UART_uart_rx = uart_rx_internal;
+    assign uart_tx_internal = APB_UART_UART_to_UART_uart_tx;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_DATA = w_data;
     assign w_ready = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_READY;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_STRB = w_strb;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_VALID = w_valid;
 
     // APB_GPIO assignments:
-    assign APB_GPIO_HCLK = APB_UART_clk_to_Clock_clk;
-    assign APB_GPIO_HRESETn = APB_UART_rst_n_to_Reset_reset;
-    assign APB_GPIO_PADDR = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PADDR;
+    assign APB_GPIO_HCLK = APB_SPI_Clock_to_Clock_clk;
+    assign APB_GPIO_HRESETn = APB_SPI_Reset_n_to_Reset_reset;
+    assign APB_GPIO_PADDR = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PADDR[11:0];
     assign APB_GPIO_PENABLE = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PENABLE;
     assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PRDATA = APB_GPIO_PRDATA;
     assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PREADY = APB_GPIO_PREADY;
@@ -340,11 +319,11 @@ module SysCtrl_peripherals_0(
     assign APB_SDIO_SDIO_to_SDIO_cmd = APB_SDIO_sdio_cmd_internal;
     assign APB_SDIO_sdio_data_i_internal = APB_SDIO_SDIO_to_SDIO_data_i;
     assign APB_SDIO_SDIO_to_SDIO_data_o = APB_SDIO_sdio_data_o_internal;
-    assign APB_SDIO_sys_clk_i = APB_UART_rst_n_to_Reset_reset;
+    assign APB_SDIO_sys_clk_i = APB_SPI_Reset_n_to_Reset_reset;
     // APB_SPI assignments:
-    assign APB_SPI_HCLK = APB_UART_clk_to_Clock_clk;
-    assign APB_SPI_HRSETn = APB_UART_rst_n_to_Reset_reset;
-    assign APB_SPI_PADDR = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PADDR;
+    assign APB_SPI_HCLK = APB_SPI_Clock_to_Clock_clk;
+    assign APB_SPI_HRSETn = APB_SPI_Reset_n_to_Reset_reset;
+    assign APB_SPI_PADDR = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PADDR[11:0];
     assign APB_SPI_PENABLE = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PENABLE;
     assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PRDATA = APB_SPI_PRDATA;
     assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PREADY = APB_SPI_PREADY;
@@ -367,52 +346,52 @@ module SysCtrl_peripherals_0(
     assign APB_SPI_SPI_to_SPI_mosi[2] = APB_SPI_spi_sdo2;
     assign APB_SPI_SPI_to_SPI_mosi[3] = APB_SPI_spi_sdo3;
     // APB_UART assignments:
-    assign APB_UART_CLK = APB_UART_clk_to_Clock_clk;
-    assign APB_UART_PADDR = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PADDR;
-    assign APB_UART_PENABLE = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PENABLE;
-    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PRDATA = APB_UART_PRDATA;
-    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PREADY = APB_UART_PREADY;
-    assign APB_UART_PSEL = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PSEL;
-    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PSLVERR = APB_UART_PSLVERR;
-    assign APB_UART_PWDATA = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PWDATA;
-    assign APB_UART_PWRITE = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PWRITE;
-    assign APB_UART_RSTN = APB_UART_rst_n_to_Reset_reset;
-    assign APB_UART_irq_to_IRQ_UART_irq = APB_UART_event_o;
-    assign APB_UART_rx_i = APB_UART_uart_to_UART_uart_rx;
-    assign APB_UART_uart_to_UART_uart_tx = APB_UART_tx_o;
+    assign APB_UART_CLK = APB_SPI_Clock_to_Clock_clk;
+    assign APB_UART_IRQ_to_IRQ_UART_irq = APB_UART_INT;
+    assign APB_UART_PADDR = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PADDR[2:0];
+    assign APB_UART_PENABLE = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PENABLE;
+    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PRDATA = APB_UART_PRDATA;
+    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PREADY = APB_UART_PREADY;
+    assign APB_UART_PSEL = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PSEL;
+    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PSLVERR = APB_UART_PSLVERR;
+    assign APB_UART_PWDATA = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PWDATA;
+    assign APB_UART_PWRITE = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PWRITE;
+    assign APB_UART_RSTN = APB_SPI_Reset_n_to_Reset_reset;
+    assign APB_UART_SIN = APB_UART_UART_to_UART_uart_rx;
+    assign APB_UART_UART_to_UART_uart_tx = APB_UART_SOUT;
     // AX4LITE_APB_converter_wrapper assignments:
+    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PADDR = AX4LITE_APB_converter_wrapper_PADDR;
+    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PADDR = AX4LITE_APB_converter_wrapper_PADDR;
+    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PADDR = AX4LITE_APB_converter_wrapper_PADDR;
     assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PADDR = AX4LITE_APB_converter_wrapper_PADDR;
-    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PADDR = AX4LITE_APB_converter_wrapper_PADDR_1;
-    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PADDR = AX4LITE_APB_converter_wrapper_PADDR_2;
-    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PADDR = AX4LITE_APB_converter_wrapper_PADDR_3;
+    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PENABLE = AX4LITE_APB_converter_wrapper_PENABLE;
+    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PENABLE = AX4LITE_APB_converter_wrapper_PENABLE;
+    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PENABLE = AX4LITE_APB_converter_wrapper_PENABLE;
     assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PENABLE = AX4LITE_APB_converter_wrapper_PENABLE;
-    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PENABLE = AX4LITE_APB_converter_wrapper_PENABLE_1;
-    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PENABLE = AX4LITE_APB_converter_wrapper_PENABLE_2;
-    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PENABLE = AX4LITE_APB_converter_wrapper_PENABLE_3;
-    assign AX4LITE_APB_converter_wrapper_PRDATA = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PRDATA;
-    assign AX4LITE_APB_converter_wrapper_PRDATA_1 = AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PRDATA;
-    assign AX4LITE_APB_converter_wrapper_PRDATA_2 = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PRDATA;
-    assign AX4LITE_APB_converter_wrapper_PRDATA_3 = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PRDATA;
-    assign AX4LITE_APB_converter_wrapper_PREADY = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PREADY;
-    assign AX4LITE_APB_converter_wrapper_PREADY_1 = AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PREADY;
-    assign AX4LITE_APB_converter_wrapper_PREADY_2 = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PREADY;
-    assign AX4LITE_APB_converter_wrapper_PREADY_3 = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PREADY;
-    assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PSEL = AX4LITE_APB_converter_wrapper_PSEL;
-    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PSEL = AX4LITE_APB_converter_wrapper_PSEL_1;
-    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PSEL = AX4LITE_APB_converter_wrapper_PSEL_2;
-    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PSEL = AX4LITE_APB_converter_wrapper_PSEL_3;
-    assign AX4LITE_APB_converter_wrapper_PSLVERR = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PSLVERR;
-    assign AX4LITE_APB_converter_wrapper_PSLVERR_1 = AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PSLVERR;
-    assign AX4LITE_APB_converter_wrapper_PSLVERR_2 = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PSLVERR;
-    assign AX4LITE_APB_converter_wrapper_PSLVERR_3 = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PSLVERR;
+    assign AX4LITE_APB_converter_wrapper_PRDATA[127:96] = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PRDATA;
+    assign AX4LITE_APB_converter_wrapper_PRDATA[64:95] = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PRDATA;
+    assign AX4LITE_APB_converter_wrapper_PRDATA[63:32] = AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PRDATA;
+    assign AX4LITE_APB_converter_wrapper_PRDATA[31:0] = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PRDATA;
+    assign AX4LITE_APB_converter_wrapper_PREADY[3] = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PREADY;
+    assign AX4LITE_APB_converter_wrapper_PREADY[2] = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PREADY;
+    assign AX4LITE_APB_converter_wrapper_PREADY[1] = AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PREADY;
+    assign AX4LITE_APB_converter_wrapper_PREADY[0] = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PREADY;
+    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PSEL = AX4LITE_APB_converter_wrapper_PSEL[3];
+    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PSEL = AX4LITE_APB_converter_wrapper_PSEL[2];
+    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PSEL = AX4LITE_APB_converter_wrapper_PSEL[1];
+    assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PSEL = AX4LITE_APB_converter_wrapper_PSEL[0];
+    assign AX4LITE_APB_converter_wrapper_PSLVERR[3] = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PSLVERR;
+    assign AX4LITE_APB_converter_wrapper_PSLVERR[2] = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PSLVERR;
+    assign AX4LITE_APB_converter_wrapper_PSLVERR[1] = AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PSLVERR;
+    assign AX4LITE_APB_converter_wrapper_PSLVERR[0] = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PSLVERR;
+    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PWDATA = AX4LITE_APB_converter_wrapper_PWDATA;
+    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PWDATA = AX4LITE_APB_converter_wrapper_PWDATA;
+    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PWDATA = AX4LITE_APB_converter_wrapper_PWDATA;
     assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PWDATA = AX4LITE_APB_converter_wrapper_PWDATA;
-    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PWDATA = AX4LITE_APB_converter_wrapper_PWDATA_1;
-    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PWDATA = AX4LITE_APB_converter_wrapper_PWDATA_2;
-    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PWDATA = AX4LITE_APB_converter_wrapper_PWDATA_3;
+    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PWRITE = AX4LITE_APB_converter_wrapper_PWRITE;
+    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PWRITE = AX4LITE_APB_converter_wrapper_PWRITE;
+    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PWRITE = AX4LITE_APB_converter_wrapper_PWRITE;
     assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PWRITE = AX4LITE_APB_converter_wrapper_PWRITE;
-    assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PWRITE = AX4LITE_APB_converter_wrapper_PWRITE_1;
-    assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PWRITE = AX4LITE_APB_converter_wrapper_PWRITE_2;
-    assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_apb_PWRITE = AX4LITE_APB_converter_wrapper_PWRITE_3;
     assign AX4LITE_APB_converter_wrapper_ar_addr = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AR_ADDR;
     assign AX4LITE_APB_converter_wrapper_ar_prot = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AR_PROT;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AR_READY = AX4LITE_APB_converter_wrapper_ar_ready;
@@ -424,19 +403,22 @@ module SysCtrl_peripherals_0(
     assign AX4LITE_APB_converter_wrapper_b_ready = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_B_READY;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_B_RESP = AX4LITE_APB_converter_wrapper_b_resp;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_B_VALID = AX4LITE_APB_converter_wrapper_b_valid;
-    assign AX4LITE_APB_converter_wrapper_clk = APB_UART_clk_to_Clock_clk;
+    assign AX4LITE_APB_converter_wrapper_clk = APB_SPI_Clock_to_Clock_clk;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_R_DATA = AX4LITE_APB_converter_wrapper_r_data;
     assign AX4LITE_APB_converter_wrapper_r_ready = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_R_READY;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_R_RESP = AX4LITE_APB_converter_wrapper_r_resp;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_R_VALID = AX4LITE_APB_converter_wrapper_r_valid;
-    assign AX4LITE_APB_converter_wrapper_rst_n = APB_UART_rst_n_to_Reset_reset;
+    assign AX4LITE_APB_converter_wrapper_rst_n = APB_SPI_Reset_n_to_Reset_reset;
     assign AX4LITE_APB_converter_wrapper_w_data = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_DATA;
     assign AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_READY = AX4LITE_APB_converter_wrapper_w_ready;
     assign AX4LITE_APB_converter_wrapper_w_strb = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_STRB;
     assign AX4LITE_APB_converter_wrapper_w_valid = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_W_VALID;
 
     // IP-XACT VLNV: tuni.fi:pulp.peripheral:APB_GPIO:1.0
-    APB_GPIO APB_GPIO(
+    apb_gpio #(
+        .PAD_NUM             (4),
+        .NBIT_PADCFG         (5))
+    APB_GPIO(
         // Interface: APB
         .PADDR               (APB_GPIO_PADDR),
         .PENABLE             (APB_GPIO_PENABLE),
@@ -458,6 +440,7 @@ module SysCtrl_peripherals_0(
         .HRESETn             (APB_GPIO_HRESETn),
         // These ports are not in any interface
         .dft_cg_enable_i     (1'b0),
+        .gpio_in_sync        (),
         .gpio_padcfg         ());
 
     // IP-XACT VLNV: tuni.fi:pulp.peripheral:APB_SDIO:1.0
@@ -494,7 +477,9 @@ module SysCtrl_peripherals_0(
         .sddata_oen_o        ());
 
     // IP-XACT VLNV: tuni.fi:pulp.peripheral:APB_SPI_master:1.0
-    APB_SPI_master APB_SPI(
+    apb_spi_master #(
+        .APB_ADDR_WIDTH      (12))
+    APB_SPI(
         // Interface: APB
         .PADDR               (APB_SPI_PADDR),
         .PENABLE             (APB_SPI_PENABLE),
@@ -528,7 +513,7 @@ module SysCtrl_peripherals_0(
 
     // IP-XACT VLNV: tuni.fi:pulp.peripheral:apb_uart:1.0
     apb_uart APB_UART(
-        // Interface: apb
+        // Interface: APB
         .PADDR               (APB_UART_PADDR),
         .PENABLE             (APB_UART_PENABLE),
         .PSEL                (APB_UART_PSEL),
@@ -537,54 +522,27 @@ module SysCtrl_peripherals_0(
         .PRDATA              (APB_UART_PRDATA),
         .PREADY              (APB_UART_PREADY),
         .PSLVERR             (APB_UART_PSLVERR),
-        // Interface: clk
+        // Interface: Clock
         .CLK                 (APB_UART_CLK),
-        // Interface: irq
-        .event_o             (APB_UART_event_o),
-        // Interface: rst_n
+        // Interface: IRQ
+        .INT                 (APB_UART_INT),
+        // Interface: Reset
         .RSTN                (APB_UART_RSTN),
-        // Interface: uart
-        .rx_i                (APB_UART_rx_i),
-        .tx_o                (APB_UART_tx_o));
+        // Interface: UART
+        .SIN                 (APB_UART_SIN),
+        .SOUT                (APB_UART_SOUT),
+        // These ports are not in any interface
+        .CTSN                (1'b0),
+        .DCDN                (1'b0),
+        .DSRN                (1'b0),
+        .RIN                 (1'b0),
+        .DTRN                (),
+        .OUT1N               (),
+        .OUT2N               (),
+        .RTSN                ());
 
     // IP-XACT VLNV: tuni.fi:communication:AX4LITE_APB_converter_wrapper:1.0
-    AX4LITE_APB_converter_wrapper AX4LITE_APB_converter_wrapper(
-        // Interface: APB_GPIO
-        .PRDATA              (AX4LITE_APB_converter_wrapper_PRDATA),
-        .PREADY              (AX4LITE_APB_converter_wrapper_PREADY),
-        .PSLVERR             (AX4LITE_APB_converter_wrapper_PSLVERR),
-        .PADDR               (AX4LITE_APB_converter_wrapper_PADDR),
-        .PENABLE             (AX4LITE_APB_converter_wrapper_PENABLE),
-        .PSEL                (AX4LITE_APB_converter_wrapper_PSEL),
-        .PWDATA              (AX4LITE_APB_converter_wrapper_PWDATA),
-        .PWRITE              (AX4LITE_APB_converter_wrapper_PWRITE),
-        // Interface: APB_SDIO
-        .PRDATA_1            (AX4LITE_APB_converter_wrapper_PRDATA_1),
-        .PREADY_1            (AX4LITE_APB_converter_wrapper_PREADY_1),
-        .PSLVERR_1           (AX4LITE_APB_converter_wrapper_PSLVERR_1),
-        .PADDR_1             (AX4LITE_APB_converter_wrapper_PADDR_1),
-        .PENABLE_1           (AX4LITE_APB_converter_wrapper_PENABLE_1),
-        .PSEL_1              (AX4LITE_APB_converter_wrapper_PSEL_1),
-        .PWDATA_1            (AX4LITE_APB_converter_wrapper_PWDATA_1),
-        .PWRITE_1            (AX4LITE_APB_converter_wrapper_PWRITE_1),
-        // Interface: APB_SPI
-        .PRDATA_2            (AX4LITE_APB_converter_wrapper_PRDATA_2),
-        .PREADY_2            (AX4LITE_APB_converter_wrapper_PREADY_2),
-        .PSLVERR_2           (AX4LITE_APB_converter_wrapper_PSLVERR_2),
-        .PADDR_2             (AX4LITE_APB_converter_wrapper_PADDR_2),
-        .PENABLE_2           (AX4LITE_APB_converter_wrapper_PENABLE_2),
-        .PSEL_2              (AX4LITE_APB_converter_wrapper_PSEL_2),
-        .PWDATA_2            (AX4LITE_APB_converter_wrapper_PWDATA_2),
-        .PWRITE_2            (AX4LITE_APB_converter_wrapper_PWRITE_2),
-        // Interface: APB_UART
-        .PRDATA_3            (AX4LITE_APB_converter_wrapper_PRDATA_3),
-        .PREADY_3            (AX4LITE_APB_converter_wrapper_PREADY_3),
-        .PSLVERR_3           (AX4LITE_APB_converter_wrapper_PSLVERR_3),
-        .PADDR_3             (AX4LITE_APB_converter_wrapper_PADDR_3),
-        .PENABLE_3           (AX4LITE_APB_converter_wrapper_PENABLE_3),
-        .PSEL_3              (AX4LITE_APB_converter_wrapper_PSEL_3),
-        .PWDATA_3            (AX4LITE_APB_converter_wrapper_PWDATA_3),
-        .PWRITE_3            (AX4LITE_APB_converter_wrapper_PWRITE_3),
+    AX4LITE_APB_converter_wrapper     AX4LITE_APB_converter_wrapper(
         // Interface: AXI4LITE
         .ar_addr             (AX4LITE_APB_converter_wrapper_ar_addr),
         .ar_prot             (AX4LITE_APB_converter_wrapper_ar_prot),
@@ -608,7 +566,16 @@ module SysCtrl_peripherals_0(
         // Interface: Clock
         .clk                 (AX4LITE_APB_converter_wrapper_clk),
         // Interface: Reset_n
-        .rst_n               (AX4LITE_APB_converter_wrapper_rst_n));
+        .rst_n               (AX4LITE_APB_converter_wrapper_rst_n),
+        // There ports are contained in many interfaces
+        .PRDATA              (AX4LITE_APB_converter_wrapper_PRDATA),
+        .PREADY              (AX4LITE_APB_converter_wrapper_PREADY),
+        .PSLVERR             (AX4LITE_APB_converter_wrapper_PSLVERR),
+        .PADDR               (AX4LITE_APB_converter_wrapper_PADDR),
+        .PENABLE             (AX4LITE_APB_converter_wrapper_PENABLE),
+        .PSEL                (AX4LITE_APB_converter_wrapper_PSEL),
+        .PWDATA              (AX4LITE_APB_converter_wrapper_PWDATA),
+        .PWRITE              (AX4LITE_APB_converter_wrapper_PWRITE));
 
 
 endmodule
