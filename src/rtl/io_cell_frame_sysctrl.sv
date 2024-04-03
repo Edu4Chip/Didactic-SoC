@@ -18,7 +18,7 @@
 */
 
 
-module i_io_cell_frame #(
+module io_cell_frame_sysctrl #(
     parameter IOCELL_CFG_W = 5,
     // count and modify according to cells
     localparam IOCELL_COUNT = 25

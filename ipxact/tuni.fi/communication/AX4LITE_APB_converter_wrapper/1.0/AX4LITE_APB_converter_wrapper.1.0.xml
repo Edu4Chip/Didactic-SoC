@@ -138,7 +138,7 @@
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
-				<ipxact:addressSpaceRef addressSpaceRef="spacee">
+				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
 					<ipxact:baseAddress>0</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
@@ -266,7 +266,9 @@
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
-				<ipxact:addressSpaceRef addressSpaceRef="spacee"/>
+				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
+					<ipxact:baseAddress>100</ipxact:baseAddress>
+				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
@@ -392,7 +394,9 @@
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
-				<ipxact:addressSpaceRef addressSpaceRef="spacee"/>
+				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
+					<ipxact:baseAddress>200</ipxact:baseAddress>
+				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
@@ -518,7 +522,9 @@
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
-				<ipxact:addressSpaceRef addressSpaceRef="spacee"/>
+				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
+					<ipxact:baseAddress>300</ipxact:baseAddress>
+				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
@@ -875,29 +881,29 @@
 	</ipxact:busInterfaces>
 	<ipxact:addressSpaces>
 		<ipxact:addressSpace>
-			<ipxact:name>spacee</ipxact:name>
+			<ipxact:name>peripherals</ipxact:name>
 			<ipxact:range>'hFFFF</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:segments>
 				<ipxact:segment>
 					<ipxact:name>GPIO</ipxact:name>
 					<ipxact:addressOffset>'h0</ipxact:addressOffset>
-					<ipxact:range>'hFF</ipxact:range>
+					<ipxact:range>'h100</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>SDIO</ipxact:name>
 					<ipxact:addressOffset>'h100</ipxact:addressOffset>
-					<ipxact:range>'hFF</ipxact:range>
+					<ipxact:range>'h100</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>SPI</ipxact:name>
 					<ipxact:addressOffset>'h200</ipxact:addressOffset>
-					<ipxact:range>'hFF</ipxact:range>
+					<ipxact:range>'h100</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>UART</ipxact:name>
 					<ipxact:addressOffset>'h300</ipxact:addressOffset>
-					<ipxact:range>'hFF</ipxact:range>
+					<ipxact:range>'h100</ipxact:range>
 				</ipxact:segment>
 			</ipxact:segments>
 		</ipxact:addressSpace>
@@ -1549,11 +1555,11 @@
 			<ipxact:name>rtl</ipxact:name>
 			<ipxact:group>sourceFiles</ipxact:group>
 			<ipxact:file>
-				<ipxact:name>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.v</ipxact:name>
+				<ipxact:name>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 10:07:47 on 19.02.2024 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
-					<kactus2:hash>53a3d2fe3824f0a703cc0e8a92bfa605b702aa63</kactus2:hash>
+					<kactus2:hash>1ed3250c5758269e8ba9a00ac8fd702c935792af</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
@@ -1586,5 +1592,17 @@
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
+		<kactus2:fileDependencies>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/AXI_LITE.sv</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module AXI_LITE</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/axi_lite_to_apb_intf.sv</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module axi_lite_to_apb_intf</ipxact:description>
+			</kactus2:fileDependency>
+		</kactus2:fileDependencies>
 	</ipxact:vendorExtensions>
 </ipxact:component>

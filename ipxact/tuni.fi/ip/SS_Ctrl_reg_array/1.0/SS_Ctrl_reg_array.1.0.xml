@@ -811,6 +811,15 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
+	<ipxact:fileSets>
+		<ipxact:fileSet>
+			<ipxact:name>rtl</ipxact:name>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/rtl/SS_Ctrl_reg_array.sv</ipxact:name>
+				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
+			</ipxact:file>
+		</ipxact:fileSet>
+	</ipxact:fileSets>
 	<ipxact:parameters>
 		<ipxact:parameter parameterId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
