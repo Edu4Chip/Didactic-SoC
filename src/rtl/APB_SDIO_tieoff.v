@@ -2,8 +2,8 @@
 // File          : APB_SDIO.v
 // Creation date : 23.02.2024
 // Creation time : 12:29:34
-// Description   : 
-// Created by    : 
+// Description   :
+// Created by    :
 // Tool : Kactus2 3.13.1 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:pulp.peripheral:APB_SDIO:1.0
@@ -45,12 +45,12 @@ module APB_SDIO(
     output                              sdcmd_oen_o,
     output               [3:0]          sddata_o,
     output               [3:0]          sddata_oen_o
-);
+  );
 
 
-// WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
+  // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
 
-// assign all outputs here as 0 for placeholder desing to compile.
+  // assign all outputs here as 0 for placeholder desing to compile.
 
 
 endmodule
