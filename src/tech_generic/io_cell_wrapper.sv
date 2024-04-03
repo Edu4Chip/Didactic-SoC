@@ -13,17 +13,17 @@ module io_cell_wrapper #(
   )(
     input  logic [CONF_WIDTH-1:0] io_cell_cfg,
     input  logic FROM_CORE,
-    output logic TO_CORE
+    output logic TO_CORE,
     inout  wire  PAD 
-  )
+  );
 
   generate
     if (CELL_TYPE == 0) begin: gen_io_cell
 
-      io_cell i_io_cell#(
+      io_cell #(
           .CONF_WIDTH(CONF_WIDTH)
-      )(
-          .io_cell_cfg(io_cell_cfg)
+      ) i_io_cell(
+          .io_cell_cfg(io_cell_cfg),
           .FROM_CORE(FROM_CORE),
           .TO_CORE(TO_CORE),
           .PAD(PAD)

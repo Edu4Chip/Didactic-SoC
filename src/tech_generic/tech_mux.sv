@@ -4,7 +4,7 @@
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
   Description:
-    * sim model for multiplexer
+    * simulation model for multiplexer
 */
 
 module tech_mux (

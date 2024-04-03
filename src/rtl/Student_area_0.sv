@@ -18,36 +18,36 @@
 */
 module Student_area_0(
     // Interface: APB
-    input     logic           [APB_AW-1:0]         PADDR,
-    input     logic                        PENABLE,
-    input      logic                         PSEL,
-    input       logic         [APB_DW-1:0]         PWDATA,
-    input     logic                          PWRITE,
-    output     logic          [APB_DW-1:0]         PRDATA,
-    output     logic                         PREADY,
-    output    logic                          PSELERR,
+    input  logic [APB_AW-1:0] PADDR,
+    input  logic              PENABLE,
+    input  logic              PSEL,
+    input  logic [APB_DW-1:0] PWDATA,
+    input  logic              PWRITE,
+    output logic [APB_DW-1:0] PRDATA,
+    output logic              PREADY,
+    output logic              PSELERR,
 
     // Interface: IRQ
-    output     logic                         irq,
+    output logic              irq,
 
     // Interface: SS_Ctrl
-    input    logic            [7:0]          clk_ctrl,
-    input    logic                           irq_en,
+    input  logic [7:0]        clk_ctrl,
+    input  logic              irq_en,
 
     // Interface: clk
-    input  logic                        clk_in,
+    input  logic              clk_in,
 
     // Interface: reset
-    input   logic                            rst
+    input  logic              rst
 );
 
   always_ff @(posedge clk or negedge rst_n)
   output_w_r: begin
     if (~rst_n) begin
-      PSLVERR_reg <=1'b0;
-      PRDATA_reg  <='d0;
-      PREADY_reg  <=1'b0;
-      field_0 <= 32'd0;
+      PSLVERR_reg <=  1'b0;
+      PRDATA_reg  <=   'd0;
+      PREADY_reg  <=  1'b0;
+      field_0     <= 32'd0;
 
     end
     else begin
