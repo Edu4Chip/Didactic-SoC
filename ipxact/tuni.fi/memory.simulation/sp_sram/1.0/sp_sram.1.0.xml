@@ -229,7 +229,7 @@
 			<ipxact:name>rtl</ipxact:name>
 			<ipxact:group>simulation</ipxact:group>
 			<ipxact:file>
-				<ipxact:name>../../../../../src/reuse/sram.sv</ipxact:name>
+				<ipxact:name>../../../../../src/reuse/sp_sram.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:description>Sram sim model. Supports memory preloading.</ipxact:description>
 			</ipxact:file>
