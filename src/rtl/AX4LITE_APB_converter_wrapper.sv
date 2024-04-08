@@ -68,7 +68,26 @@ module AX4LITE_APB_converter_wrapper #(
 
 
   // todo assign axi4lite to interface
-
+  assign axi4lite_bus.ar_addr = ar_addr;
+  assign axi4lite_bus.ar_prot = ar_prot;
+  assign axi4lite_bus.ar_valid = ar_valid;
+  assign axi4lite_bus.aw_addr = aw_addr;
+  assign axi4lite_bus.aw_prot = aw_prot;
+  assign axi4lite_bus.aw_valid = aw_valid;
+  assign axi4lite_bus.b_ready = b_ready;
+  assign axi4lite_bus.r_ready = r_ready;
+  assign axi4lite_bus.w_data = w_data;
+  assign axi4lite_bus.w_strb = w_strb;
+  assign axi4lite_bus.w_valid = w_valid;
+  //
+  assign ar_ready = axi4lite_bus.ar_ready;
+  assign aw_ready = axi4lite_bus.aw_ready;
+  assign b_resp = axi4lite_bus.b_resp;
+  assign b_valid = axi4lite_bus.b_valid;
+  assign r_data = axi4lite_bus.r_data;
+  assign r_resp = axi4lite_bus.r_resp;
+  assign r_valid = axi4lite_bus.r_valid;
+  assign w_ready = axi4lite_bus.w_ready;
 
   // TODO: Finalize APB addr configs
   localparam APB_TARGETS = 4;

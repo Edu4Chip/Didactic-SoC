@@ -93,6 +93,18 @@ module ICN_SS #(
     output                                          PWRITE
 );
 
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH(AXI_AW), 
+    .AXI_DATA_WIDTH(AXI_DW), 
+    .AXI_ID_WIDTH(AXI_IDW), 
+    .AXI_USER_WIDTH(AXI_USERW)
+  ) axi4bus ();
+  
+  AXI_LITE #(
+   .AXI_ADDR_WIDTH(AXI_AW),
+   .AXI_DATA_WIDTH(AXI_DW)
+  ) axi4lite_bus ();
+
   // Assign axi to sv interface
   assign axi4bus.ar_addr = AR_ADDR;
   assign axi4bus.ar_burst = AR_BURST;
@@ -140,18 +152,6 @@ module ICN_SS #(
   assign R_USER = axi4bus.r_user;
   assign R_VALID = axi4bus.r_valid;
   assign W_READY = axi4bus.wready;
-
-  AXI_BUS #(
-    .AXI_ADDR_WIDTH(AXI_AW), 
-    .AXI_DATA_WIDTH(AXI_DW), 
-    .AXI_ID_WIDTH(AXI_IDW), 
-    .AXI_USER_WIDTH(AXI_USERW)
-  ) axi4bus ();
-
-  AXI_LITE #(
-   .AXI_ADDR_WIDTH(AXI_AW),
-   .AXI_DATA_WIDTH(AXI_DW)
-  ) axi4lite_bus ();
 
   axi_to_axi_lite_intf #(
 
