@@ -13,7 +13,7 @@
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
   Description:
-    * example wrapper code for instantiating pulp axi converter module
+    * example wrapper code for instantiating pulp axi->apb converter module
 */
 module AX4LITE_APB_converter_wrapper #(
     parameter                              APB_AW           = 32,
@@ -62,19 +62,19 @@ module AX4LITE_APB_converter_wrapper #(
 
 
   AXI_LITE #(
-   .AXI_ADDR_WIDTH(),
-   .AXI_DATA_WIDTH()
+   .AXI_ADDR_WIDTH(AXI_AW),
+   .AXI_DATA_WIDTH(AXI_DW)
   ) axi4lite_bus ();
 
 
   // todo assign axi4lite to interface
 
 
-  // TODO: APB addr configs
-  localparam APB_TARGETS=4;
-  localparam NoAddrRules =4;
-  localparam ADDR_BASE=32'h1300_0000
-  localparam APB_SIZE='h1000;
+  // TODO: Finalize APB addr configs
+  localparam APB_TARGETS = 4;
+  localparam NoAddrRules = APB_TARGETS;
+  localparam ADDR_BASE   = 32'h1300_0000
+  localparam APB_SIZE    = 'h100;
 
   typedef axi_pkg::xbar_rule_32_t rule_t;
 
@@ -87,20 +87,19 @@ module AX4LITE_APB_converter_wrapper #(
                          '{idx: 32'd0, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1-1}
                          };
 
-  // TODO: fill parameters
   axi_lite_to_apb_intf #(
-    .NoApbSlaves(),
-    .NoRules(),
-    .AddrWidth(),
-    .DataWidth(),
+    .NoApbSlaves(APB_TARGETS),
+    .NoRules(NoAddrRules),
+    .AddrWidth(AXI_AW),
+    .DataWidth(AXI_DW),
     .rule_t(rule_t)
     )
   i_axi_lite_to_apb_intf(
     .clk_i(clk),
     .rst_ni(rst_n),
-
+    // axi4lite
     .slv(axi4lite_bus),
-
+    // apb
     .paddr_o(PADDR),
     .pprot_o(),
     .pselx_o(PSEL),
@@ -111,7 +110,7 @@ module AX4LITE_APB_converter_wrapper #(
     .pready_i(PREADY),
     .prdata_i(PRDATA),
     .pslverr_i(PSLVERR),
-
+    // address rules
     .addr_map_i(AddrMapAPB)
   );
 
