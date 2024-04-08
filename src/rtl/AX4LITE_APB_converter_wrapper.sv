@@ -67,7 +67,7 @@ module AX4LITE_APB_converter_wrapper #(
   ) axi4lite_bus ();
 
 
-  // todo assign axi4lite to interface
+  // Assign axi4lite to interface
   assign axi4lite_bus.ar_addr = ar_addr;
   assign axi4lite_bus.ar_prot = ar_prot;
   assign axi4lite_bus.ar_valid = ar_valid;
