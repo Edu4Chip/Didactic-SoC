@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 03.04.2024
-// Creation time : 11:36:14
+// Creation date : 09.04.2024
+// Creation time : 14:15:23
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -477,7 +477,7 @@ module SysCtrl_peripherals_0 #(
         .sddata_oen_o        ());
 
     // IP-XACT VLNV: tuni.fi:pulp.peripheral:APB_SPI_master:1.0
-    apb_spi_master #(
+    APB_SPI_master #(
         .APB_ADDR_WIDTH      (12))
     APB_SPI(
         // Interface: APB
