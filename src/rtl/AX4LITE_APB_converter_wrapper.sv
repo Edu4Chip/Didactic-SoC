@@ -90,9 +90,8 @@ module AX4LITE_APB_converter_wrapper #(
   assign w_ready = axi4lite_bus.w_ready;
 
   // TODO: Finalize APB addr configs
-  localparam APB_TARGETS = 4;
   localparam NoAddrRules = APB_TARGETS;
-  localparam ADDR_BASE   = 32'h1300_0000
+  localparam ADDR_BASE   = 32'h1300_0000;
   localparam APB_SIZE    = 'h100;
 
   typedef axi_pkg::xbar_rule_32_t rule_t;

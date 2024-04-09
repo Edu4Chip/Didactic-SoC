@@ -165,9 +165,8 @@ module ICN_SS #(
   );
 
   // TODO: Finalize APB addr decoding
-  localparam APB_TARGETS=4;
   localparam NoAddrRules =APB_TARGETS;
-  localparam ADDR_BASE=32'h1900_0000
+  localparam ADDR_BASE=32'h1900_0000;
   localparam APB_SIZE='h100;
 
   typedef axi_pkg::xbar_rule_32_t rule_t;
