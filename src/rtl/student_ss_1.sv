@@ -28,7 +28,7 @@ module student_ss_1 #(
     input     logic                          PWRITE,
     output    logic          [APB_DW-1:0]         PRDATA,
     output    logic                          PREADY,
-    output    logic                          PSELERR,
+    output    logic                          PSLVERR,
 
     // Interface: Clock
     input  logic                        clk_in,
@@ -51,10 +51,13 @@ module student_ss_1 #(
 
   logic [31:0] field_0;
   logic [31:0] field_1;
+  logic PSLVERR_reg;
+  logic [31:0] PRDATA_reg;
+  logic PREADY_reg;
 
-  always_ff @(posedge clk or negedge rst_n)
+  always_ff @(posedge clk_in or negedge reset_int)
   output_w_r: begin
-    if (~rst_n) begin
+    if (~reset_int) begin
       PSLVERR_reg <=1'b0;
       PRDATA_reg  <='d0;
       PREADY_reg  <=1'b0;

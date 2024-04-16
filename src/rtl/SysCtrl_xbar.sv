@@ -312,8 +312,8 @@ axi_lite_to_axi_intf #(
     FallThrough:        1'b0,
     LatencyMode:        axi_pkg::CUT_ALL_AX,
     PipelineStages:     0,
-    AxiIdWidthSlvPorts: 11,
-    AxiIdUsedSlvPorts:  0,
+    AxiIdWidthSlvPorts: 10,
+    AxiIdUsedSlvPorts:  8,
     UniqueIds:          1,
     AxiAddrWidth:       AXI_AW,
     AxiDataWidth:       AXI_DW,
@@ -395,24 +395,24 @@ assign CoreDMEM_r_valid_out  = axi4lite_init_bus[0].r_valid;
 assign CoreDMEM_w_ready_out  = axi4lite_init_bus[0].w_ready;
 
 // Interface: AXI4LITE_CTRL
-assign CtrlReg_ar_addr_out  = axi4_lite_target_bus[5].ar_addr;
-assign CtrlReg_ar_valid_out = axi4_lite_target_bus[5].ar_valid;
-assign CtrlReg_aw_addr_out  = axi4_lite_target_bus[5].aw_addr;
-assign CtrlReg_aw_valid_out = axi4_lite_target_bus[5].aw_valid;
-assign CtrlReg_b_ready_out  = axi4_lite_target_bus[5].b_ready;
-assign CtrlReg_r_ready_out  = axi4_lite_target_bus[5].r_ready;
-assign CtrlReg_w_data_out   = axi4_lite_target_bus[5].w_data;
-assign CtrlReg_w_strb_out   = axi4_lite_target_bus[5].w_strb;
-assign CtrlReg_w_valid_out  = axi4_lite_target_bus[5].w_valid;
+assign CtrlReg_ar_addr_out  = axi4lite_target_bus[5].ar_addr;
+assign CtrlReg_ar_valid_out = axi4lite_target_bus[5].ar_valid;
+assign CtrlReg_aw_addr_out  = axi4lite_target_bus[5].aw_addr;
+assign CtrlReg_aw_valid_out = axi4lite_target_bus[5].aw_valid;
+assign CtrlReg_b_ready_out  = axi4lite_target_bus[5].b_ready;
+assign CtrlReg_r_ready_out  = axi4lite_target_bus[5].r_ready;
+assign CtrlReg_w_data_out   = axi4lite_target_bus[5].w_data;
+assign CtrlReg_w_strb_out   = axi4lite_target_bus[5].w_strb;
+assign CtrlReg_w_valid_out  = axi4lite_target_bus[5].w_valid;
 //
-assign axi4_lite_target_bus[5].ar_ready = CtrlReg_ar_ready_in;
-assign axi4_lite_target_bus[5].aw_ready = CtrlReg_aw_ready_in;
-assign axi4_lite_target_bus[5].b_resp   = CtrlReg_b_resp_in;
-assign axi4_lite_target_bus[5].b_valid  = CtrlReg_b_valid_in;
-assign axi4_lite_target_bus[5].r_data   = CtrlReg_r_data_in;
-assign axi4_lite_target_bus[5].r_resp   = CtrlReg_r_resp_in;
-assign axi4_lite_target_bus[5].r_valid  = CtrlReg_r_valid_in;
-assign axi4_lite_target_bus[5].w_ready  = CtrlReg_w_ready_in;
+assign axi4lite_target_bus[5].ar_ready = CtrlReg_ar_ready_in;
+assign axi4lite_target_bus[5].aw_ready = CtrlReg_aw_ready_in;
+assign axi4lite_target_bus[5].b_resp   = CtrlReg_b_resp_in;
+assign axi4lite_target_bus[5].b_valid  = CtrlReg_b_valid_in;
+assign axi4lite_target_bus[5].r_data   = CtrlReg_r_data_in;
+assign axi4lite_target_bus[5].r_resp   = CtrlReg_r_resp_in;
+assign axi4lite_target_bus[5].r_valid  = CtrlReg_r_valid_in;
+assign axi4lite_target_bus[5].w_ready  = CtrlReg_w_ready_in;
 //
 
 // Interface: AXI4LITE_DBG_I
@@ -548,7 +548,7 @@ assign B_READY   = axi4bus.b_ready;
 assign R_READY   = axi4bus.r_ready;
 assign W_DATA    = axi4bus.w_data;
 assign W_LAST    = axi4bus.w_last;
-assign W_STROBE  = axi4bus.w_strobe;
+assign W_STROBE  = axi4bus.w_strb;
 assign W_USER    = axi4bus.w_user;
 assign W_VALID   = axi4bus.w_valid;
 //

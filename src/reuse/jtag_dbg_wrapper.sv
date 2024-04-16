@@ -131,8 +131,8 @@ logic [DBG_BUS_WIDTH-1:0]     dbg_m_rdata_s;
 /****** COMPONENT + INTERFACE INSTANTIATIONS **********************************/
 
   ibex_axi_bridge #(
-    .AXI_AW ( AXI_ADDR_WIDTH ),
-    .AXI_DW ( AXI_DATA_WIDTH ),
+    .AXI_AW ( AXI_AW ),
+    .AXI_DW ( AXI_DW ),
     .IBEX_AW( DBG_BUS_WIDTH  ),
     .IBEX_DW( DBG_BUS_WIDTH  )
   ) i_debug2axi_lite_bridge (
@@ -172,8 +172,8 @@ logic [DBG_BUS_WIDTH-1:0]     dbg_m_rdata_s;
   mem_axi_bridge #(
     .MEM_AW    ( DBG_BUS_WIDTH  ),
     .MEM_DW    ( DBG_BUS_WIDTH  ),
-    .AXI_AW    ( AXI_ADDR_WIDTH ),
-    .AXI_DW    ( AXI_DATA_WIDTH ),
+    .AXI_AW    ( AXI_AW ),
+    .AXI_DW    ( AXI_DW ),
     .ADDR_MASK ( 'h0            )
   ) i_axi_lite2debug_bridge (
     .clk_i      ( clk_i                     ),

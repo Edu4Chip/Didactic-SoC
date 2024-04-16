@@ -16,7 +16,10 @@
     * example student area rtl code without io cells
     * original interface created with kactus2. Do not rewrite from kactus.
 */
-module Student_area_0(
+module Student_area_0 #(
+    parameter APB_AW = 32,
+    parameter APB_DW = 32
+  )(
     // Interface: APB
     input  logic [APB_AW-1:0] PADDR,
     input  logic              PENABLE,
@@ -25,7 +28,7 @@ module Student_area_0(
     input  logic              PWRITE,
     output logic [APB_DW-1:0] PRDATA,
     output logic              PREADY,
-    output logic              PSELERR,
+    output logic              PSLVERR,
 
     // Interface: IRQ
     output logic              irq,
@@ -41,9 +44,14 @@ module Student_area_0(
     input  logic              rst
 );
 
-  always_ff @(posedge clk or negedge rst_n)
+  logic PSLVERR_reg      ;
+  logic [31:0] PRDATA_reg;
+  logic PREADY_reg       ;
+  logic [31:0] field_0   ;
+
+  always_ff @(posedge clk_in or negedge rst)
   output_w_r: begin
-    if (~rst_n) begin
+    if (~rst) begin
       PSLVERR_reg <=  1'b0;
       PRDATA_reg  <=   'd0;
       PREADY_reg  <=  1'b0;

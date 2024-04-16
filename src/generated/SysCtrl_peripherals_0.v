@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 09.04.2024
-// Creation time : 14:15:23
+// Creation date : 16.04.2024
+// Creation time : 11:25:12
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -186,7 +186,7 @@ module SysCtrl_peripherals_0 #(
     wire       APB_SDIO_sys_clk_i;
     // APB_SPI port wires:
     wire       APB_SPI_HCLK;
-    wire       APB_SPI_HRSETn;
+    wire       APB_SPI_HRESETn;
     wire [11:0] APB_SPI_PADDR;
     wire       APB_SPI_PENABLE;
     wire [31:0] APB_SPI_PRDATA;
@@ -322,7 +322,7 @@ module SysCtrl_peripherals_0 #(
     assign APB_SDIO_sys_clk_i = APB_SPI_Reset_n_to_Reset_reset;
     // APB_SPI assignments:
     assign APB_SPI_HCLK = APB_SPI_Clock_to_Clock_clk;
-    assign APB_SPI_HRSETn = APB_SPI_Reset_n_to_Reset_reset;
+    assign APB_SPI_HRESETn = APB_SPI_Reset_n_to_Reset_reset;
     assign APB_SPI_PADDR = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PADDR[11:0];
     assign APB_SPI_PENABLE = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PENABLE;
     assign AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PRDATA = APB_SPI_PRDATA;
@@ -369,7 +369,7 @@ module SysCtrl_peripherals_0 #(
     assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PENABLE = AX4LITE_APB_converter_wrapper_PENABLE;
     assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PENABLE = AX4LITE_APB_converter_wrapper_PENABLE;
     assign AX4LITE_APB_converter_wrapper_PRDATA[127:96] = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PRDATA;
-    assign AX4LITE_APB_converter_wrapper_PRDATA[64:95] = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PRDATA;
+    assign AX4LITE_APB_converter_wrapper_PRDATA[95:64] = AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB_PRDATA;
     assign AX4LITE_APB_converter_wrapper_PRDATA[63:32] = AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PRDATA;
     assign AX4LITE_APB_converter_wrapper_PRDATA[31:0] = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PRDATA;
     assign AX4LITE_APB_converter_wrapper_PREADY[3] = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PREADY;
@@ -476,8 +476,8 @@ module SysCtrl_peripherals_0 #(
         .sddata_o            (),
         .sddata_oen_o        ());
 
-    // IP-XACT VLNV: tuni.fi:pulp.peripheral:APB_SPI_master:1.0
-    APB_SPI_master #(
+    // IP-XACT VLNV: tuni.fi:pulp.peripheral:apb_spi_master:1.0
+    apb_spi_master #(
         .APB_ADDR_WIDTH      (12))
     APB_SPI(
         // Interface: APB
@@ -494,7 +494,7 @@ module SysCtrl_peripherals_0 #(
         // Interface: IRQ
         .events_o            (APB_SPI_events_o),
         // Interface: Reset_n
-        .HRSETn              (APB_SPI_HRSETn),
+        .HRESETn             (APB_SPI_HRESETn),
         // Interface: SPI
         .spi_sdi0            (APB_SPI_spi_sdi0),
         .spi_sdi1            (APB_SPI_spi_sdi1),

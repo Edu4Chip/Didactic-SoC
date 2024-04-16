@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_0_0.v
-// Creation date : 09.04.2024
-// Creation time : 14:15:23
+// Creation date : 16.04.2024
+// Creation time : 11:25:12
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -72,7 +72,7 @@ module Student_SS_0_0 #(
     wire [31:0] Student_area_0_PRDATA;
     wire       Student_area_0_PREADY;
     wire       Student_area_0_PSEL;
-    wire       Student_area_0_PSELERR;
+    wire       Student_area_0_PSLVERR;
     wire [31:0] Student_area_0_PWDATA;
     wire       Student_area_0_PWRITE;
     wire [7:0] Student_area_0_clk_ctrl;
@@ -107,7 +107,7 @@ module Student_SS_0_0 #(
     assign Student_area_0_APB_to_APB_PRDATA = Student_area_0_PRDATA;
     assign Student_area_0_APB_to_APB_PREADY = Student_area_0_PREADY;
     assign Student_area_0_PSEL = Student_area_0_APB_to_APB_PSEL;
-    assign Student_area_0_APB_to_APB_PSLVERR = Student_area_0_PSELERR;
+    assign Student_area_0_APB_to_APB_PSLVERR = Student_area_0_PSLVERR;
     assign Student_area_0_PWDATA = Student_area_0_APB_to_APB_PWDATA;
     assign Student_area_0_PWRITE = Student_area_0_APB_to_APB_PWRITE;
     assign Student_area_0_clk_ctrl = Student_area_0_SS_Ctrl_to_SS_Ctrl_clk_ctrl;
@@ -138,7 +138,7 @@ module Student_SS_0_0 #(
         .PWRITE              (Student_area_0_PWRITE),
         .PRDATA              (Student_area_0_PRDATA),
         .PREADY              (Student_area_0_PREADY),
-        .PSELERR             (Student_area_0_PSELERR),
+        .PSLVERR             (Student_area_0_PSLVERR),
         // Interface: IRQ
         .irq                 (Student_area_0_irq),
         // Interface: SS_Ctrl

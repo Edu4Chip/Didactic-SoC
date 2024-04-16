@@ -16,7 +16,7 @@
     * example student area io cell file
 */
 module io_cell_frame_ss_1 #(
-    parameter                              IOCELL_CFG_W     = 5,
+    parameter                              IOCELL_CFG_W     = 3,
     parameter                              IOCELL_COUNT     = 2
 ) (
     // Interface: GPIO_external
@@ -34,7 +34,7 @@ module io_cell_frame_ss_1 #(
 // if desirable, combine oe from Student system here
 
 // gpio
-io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio0(.FROM_CORE(gpo_in[0]), .TO_CORE(gpi_out[0]), .PAD(gpio[0]), .io_cell_cfg(cell_cfg[1*IOCELL_CFG_W-1:0*IOCELL_CFG_W]));
-io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio1(.FROM_CORE(gpo_in[1]), .TO_CORE(gpi_out[1]), .PAD(gpio[1]), .io_cell_cfg(cell_cfg[2*IOCELL_CFG_W-1:1*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio0(.FROM_CORE(gpo_in[0]), .TO_CORE(gpi_out[0]), .PAD(gpio[0]), .io_cell_cfg(io_cell_cfg[1*IOCELL_CFG_W-1:0*IOCELL_CFG_W]));
+io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio1(.FROM_CORE(gpo_in[1]), .TO_CORE(gpi_out[1]), .PAD(gpio[1]), .io_cell_cfg(io_cell_cfg[2*IOCELL_CFG_W-1:1*IOCELL_CFG_W]));
 
 endmodule

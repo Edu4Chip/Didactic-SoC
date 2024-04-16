@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_1_0.v
-// Creation date : 09.04.2024
-// Creation time : 14:15:23
+// Creation date : 16.04.2024
+// Creation time : 11:25:12
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -66,20 +66,20 @@ module Student_SS_1_0(
 
     // Ad-hoc wires:
     wire       tech_cg_0_en_to_ss_ctrl_1;
-    wire [7:0] io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1;
+    wire [5:0] io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1;
 
     // io_cell_frame_1 port wires:
     wire [1:0] io_cell_frame_1_gpi_out;
     wire [1:0] io_cell_frame_1_gpio_oe;
     wire [1:0] io_cell_frame_1_gpo_in;
-    wire [4:0] io_cell_frame_1_io_cell_cfg;
+    wire [5:0] io_cell_frame_1_io_cell_cfg;
     // student_ss_1 port wires:
     wire [9:0] student_ss_1_PADDR;
     wire       student_ss_1_PENABLE;
     wire [31:0] student_ss_1_PRDATA;
     wire       student_ss_1_PREADY;
     wire       student_ss_1_PSEL;
-    wire       student_ss_1_PSELERR;
+    wire       student_ss_1_PSLVERR;
     wire [31:0] student_ss_1_PWDATA;
     wire       student_ss_1_PWRITE;
     wire       student_ss_1_clk_in;
@@ -109,21 +109,21 @@ module Student_SS_1_0(
     assign student_ss_1_ss_ctrl_to_SS_Ctrl_irq_en = irq_en_1;
     assign student_ss_1_Reset_to_Reset_reset = reset_int;
     assign student_ss_1_ss_ctrl_to_SS_Ctrl_clk_ctrl = ss_ctrl_1;
-    assign io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1 = ss_ctrl_1;
+    assign io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1 = ss_ctrl_1[6:1];
     assign tech_cg_0_en_to_ss_ctrl_1 = ss_ctrl_1[0];
 
     // io_cell_frame_1 assignments:
     assign io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpi = io_cell_frame_1_gpi_out;
     assign io_cell_frame_1_gpio_oe = io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpio_oe;
     assign io_cell_frame_1_gpo_in = io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpo;
-    assign io_cell_frame_1_io_cell_cfg[5:0] = io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1[5:0];
+    assign io_cell_frame_1_io_cell_cfg = io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1;
     // student_ss_1 assignments:
     assign student_ss_1_PADDR = student_ss_1_APB_to_APB_PADDR[9:0];
     assign student_ss_1_PENABLE = student_ss_1_APB_to_APB_PENABLE;
     assign student_ss_1_APB_to_APB_PRDATA = student_ss_1_PRDATA;
     assign student_ss_1_APB_to_APB_PREADY = student_ss_1_PREADY;
     assign student_ss_1_PSEL = student_ss_1_APB_to_APB_PSEL;
-    assign student_ss_1_APB_to_APB_PSLVERR = student_ss_1_PSELERR;
+    assign student_ss_1_APB_to_APB_PSLVERR = student_ss_1_PSLVERR;
     assign student_ss_1_PWDATA = student_ss_1_APB_to_APB_PWDATA;
     assign student_ss_1_PWRITE = student_ss_1_APB_to_APB_PWRITE;
     assign student_ss_1_clk_in = tech_cg_0_clk_out_to_student_ss_1_Clock_clk;
@@ -160,7 +160,7 @@ module Student_SS_1_0(
         .PWRITE              (student_ss_1_PWRITE),
         .PRDATA              (student_ss_1_PRDATA),
         .PREADY              (student_ss_1_PREADY),
-        .PSELERR             (student_ss_1_PSELERR),
+        .PSLVERR             (student_ss_1_PSLVERR),
         // Interface: Clock
         .clk_in              (student_ss_1_clk_in),
         // Interface: IRQ

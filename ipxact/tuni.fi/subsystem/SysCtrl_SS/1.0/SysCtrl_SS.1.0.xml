@@ -2814,7 +2814,7 @@
 					</ipxact:vectors>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>14'h0</ipxact:defaultValue>
+							<ipxact:defaultValue>15'h0</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>

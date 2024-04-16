@@ -47,25 +47,25 @@
 				<kactus2:uuid>{000629f8-2db9-473a-b490-db2c9586eb00}</kactus2:uuid>
 				<kactus2:position x="280" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="JTAG" x="-110" y="40"/>
-					<kactus2:portPosition busRef="UART" x="-110" y="80"/>
-					<kactus2:portPosition busRef="GPIO" x="-110" y="120"/>
-					<kactus2:portPosition busRef="SPI" x="-110" y="160"/>
-					<kactus2:portPosition busRef="SDIO" x="-110" y="200"/>
-					<kactus2:portPosition busRef="Reset" x="-110" y="240"/>
-					<kactus2:portPosition busRef="Clock" x="-110" y="280"/>
-					<kactus2:portPosition busRef="FetchEn" x="-110" y="320"/>
 					<kactus2:portPosition busRef="BootSel" x="-110" y="360"/>
-					<kactus2:portPosition busRef="JTAG_internal" x="110" y="60"/>
-					<kactus2:portPosition busRef="GPIO_internal" x="110" y="100"/>
-					<kactus2:portPosition busRef="Clock_internal" x="110" y="130"/>
 					<kactus2:portPosition busRef="BootSel_internal" x="110" y="160"/>
-					<kactus2:portPosition busRef="SPI_internal" x="110" y="230"/>
-					<kactus2:portPosition busRef="UART_internal" x="110" y="270"/>
-					<kactus2:portPosition busRef="SDIO_internal" x="110" y="310"/>
-					<kactus2:portPosition busRef="FetchEn_internal" x="110" y="340"/>
 					<kactus2:portPosition busRef="Cfg" x="110" y="530"/>
+					<kactus2:portPosition busRef="Clock" x="-110" y="280"/>
+					<kactus2:portPosition busRef="Clock_internal" x="110" y="130"/>
+					<kactus2:portPosition busRef="FetchEn" x="-110" y="320"/>
+					<kactus2:portPosition busRef="FetchEn_internal" x="110" y="340"/>
+					<kactus2:portPosition busRef="GPIO" x="-110" y="120"/>
+					<kactus2:portPosition busRef="GPIO_internal" x="110" y="100"/>
+					<kactus2:portPosition busRef="JTAG" x="-110" y="40"/>
+					<kactus2:portPosition busRef="JTAG_internal" x="110" y="60"/>
+					<kactus2:portPosition busRef="Reset" x="-110" y="240"/>
 					<kactus2:portPosition busRef="Reset_internal" x="110" y="190"/>
+					<kactus2:portPosition busRef="SDIO" x="-110" y="200"/>
+					<kactus2:portPosition busRef="SDIO_internal" x="110" y="310"/>
+					<kactus2:portPosition busRef="SPI" x="-110" y="160"/>
+					<kactus2:portPosition busRef="SPI_internal" x="110" y="230"/>
+					<kactus2:portPosition busRef="UART" x="-110" y="80"/>
+					<kactus2:portPosition busRef="UART_internal" x="110" y="270"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>

@@ -2,7 +2,7 @@
 <ipxact:component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2022" xmlns:kactus2="http://kactus2.cs.tut.fi" xsi:schemaLocation="http://www.accellera.org/XMLSchema/IPXACT/1685-2022 http://www.accellera.org/XMLSchema/IPXACT/1685-2022/index.xsd">
 	<ipxact:vendor>tuni.fi</ipxact:vendor>
 	<ipxact:library>pulp.peripheral</ipxact:library>
-	<ipxact:name>APB_SPI_master</ipxact:name>
+	<ipxact:name>apb_spi_master</ipxact:name>
 	<ipxact:version>1.0</ipxact:version>
 	<ipxact:busInterfaces>
 		<ipxact:busInterface>
@@ -122,7 +122,7 @@
 								<ipxact:name>reset</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>HRSETn</ipxact:name>
+								<ipxact:name>HRESETn</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -342,7 +342,7 @@
 	<ipxact:memoryMaps>
 		<ipxact:memoryMap>
 			<ipxact:name>apb_spi_master</ipxact:name>
-			<ipxact:addressBlock>
+			<ipxact:addressBlock misalignmentAllowed="true">
 				<ipxact:name>registers</ipxact:name>
 				<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				<ipxact:range>44</ipxact:range>
@@ -759,7 +759,7 @@ SPI address and writing the data.
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>HRSETn</ipxact:name>
+				<ipxact:name>HRESETn</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>

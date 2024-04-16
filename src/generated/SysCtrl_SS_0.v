@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 09.04.2024
-// Creation time : 14:15:23
+// Creation date : 16.04.2024
+// Creation time : 11:25:12
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -491,7 +491,7 @@ module SysCtrl_SS_0 #(
     wire       i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i;
     wire       i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
     wire [1:0] i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
-    wire [0:-6] Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
+    wire [6:0] Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
 
     // BootRom port wires:
     wire [31:0] BootRom_addr_i;
@@ -855,57 +855,57 @@ module SysCtrl_SS_0 #(
     wire       axi_imem_bridge_we_o;
     // core_dmem_bridge port wires:
     wire [31:0] core_dmem_bridge_addr_i;
-    wire [31:0] core_dmem_bridge_ar_addr_i;
-    wire       core_dmem_bridge_ar_ready_o;
-    wire       core_dmem_bridge_ar_valid_i;
-    wire [31:0] core_dmem_bridge_aw_addr_i;
-    wire       core_dmem_bridge_aw_ready_o;
-    wire       core_dmem_bridge_aw_valid_i;
-    wire       core_dmem_bridge_b_ready_i;
-    wire [1:0] core_dmem_bridge_b_resp_o;
-    wire       core_dmem_bridge_b_valid_o;
+    wire [31:0] core_dmem_bridge_ar_addr_o;
+    wire       core_dmem_bridge_ar_ready_i;
+    wire       core_dmem_bridge_ar_valid_o;
+    wire [31:0] core_dmem_bridge_aw_addr_o;
+    wire       core_dmem_bridge_aw_ready_i;
+    wire       core_dmem_bridge_aw_valid_o;
+    wire       core_dmem_bridge_b_ready_o;
+    wire [1:0] core_dmem_bridge_b_resp_i;
+    wire       core_dmem_bridge_b_valid_i;
     wire       core_dmem_bridge_clk_i;
     wire       core_dmem_bridge_err_o;
     wire       core_dmem_bridge_gnt_o;
-    wire [31:0] core_dmem_bridge_r_data_o;
-    wire       core_dmem_bridge_r_ready_i;
-    wire [1:0] core_dmem_bridge_r_resp_o;
-    wire       core_dmem_bridge_r_valid_o;
+    wire [31:0] core_dmem_bridge_r_data_i;
+    wire       core_dmem_bridge_r_ready_o;
+    wire [1:0] core_dmem_bridge_r_resp_i;
+    wire       core_dmem_bridge_r_valid_i;
     wire [31:0] core_dmem_bridge_rdata_o;
     wire       core_dmem_bridge_req_i;
     wire       core_dmem_bridge_rst_ni;
     wire       core_dmem_bridge_rvalid_o;
-    wire [31:0] core_dmem_bridge_w_data_i;
-    wire       core_dmem_bridge_w_ready_o;
-    wire [3:0] core_dmem_bridge_w_strb_i;
-    wire       core_dmem_bridge_w_valid_i;
+    wire [31:0] core_dmem_bridge_w_data_o;
+    wire       core_dmem_bridge_w_ready_i;
+    wire [3:0] core_dmem_bridge_w_strb_o;
+    wire       core_dmem_bridge_w_valid_o;
     // core_imem_bridge port wires:
     wire [31:0] core_imem_bridge_addr_i;
-    wire [31:0] core_imem_bridge_ar_addr_i;
-    wire       core_imem_bridge_ar_ready_o;
-    wire       core_imem_bridge_ar_valid_i;
-    wire [31:0] core_imem_bridge_aw_addr_i;
-    wire       core_imem_bridge_aw_ready_o;
-    wire       core_imem_bridge_aw_valid_i;
-    wire       core_imem_bridge_b_ready_i;
-    wire [1:0] core_imem_bridge_b_resp_o;
-    wire       core_imem_bridge_b_valid_o;
+    wire [31:0] core_imem_bridge_ar_addr_o;
+    wire       core_imem_bridge_ar_ready_i;
+    wire       core_imem_bridge_ar_valid_o;
+    wire [31:0] core_imem_bridge_aw_addr_o;
+    wire       core_imem_bridge_aw_ready_i;
+    wire       core_imem_bridge_aw_valid_o;
+    wire       core_imem_bridge_b_ready_o;
+    wire [1:0] core_imem_bridge_b_resp_i;
+    wire       core_imem_bridge_b_valid_i;
     wire [3:0] core_imem_bridge_be_i;
     wire       core_imem_bridge_clk_i;
     wire       core_imem_bridge_err_o;
     wire       core_imem_bridge_gnt_o;
-    wire [31:0] core_imem_bridge_r_data_o;
-    wire       core_imem_bridge_r_ready_i;
-    wire [1:0] core_imem_bridge_r_resp_o;
-    wire       core_imem_bridge_r_valid_o;
+    wire [31:0] core_imem_bridge_r_data_i;
+    wire       core_imem_bridge_r_ready_o;
+    wire [1:0] core_imem_bridge_r_resp_i;
+    wire       core_imem_bridge_r_valid_i;
     wire [31:0] core_imem_bridge_rdata_o;
     wire       core_imem_bridge_req_i;
     wire       core_imem_bridge_rst_ni;
     wire       core_imem_bridge_rvalid_o;
-    wire [31:0] core_imem_bridge_w_data_i;
-    wire       core_imem_bridge_w_ready_o;
-    wire [3:0] core_imem_bridge_w_strb_i;
-    wire       core_imem_bridge_w_valid_i;
+    wire [31:0] core_imem_bridge_w_data_o;
+    wire       core_imem_bridge_w_ready_i;
+    wire [3:0] core_imem_bridge_w_strb_o;
+    wire       core_imem_bridge_w_valid_o;
     wire [31:0] core_imem_bridge_wdata_i;
     wire       core_imem_bridge_we_i;
     // i_SysCtrl_peripherals port wires:
@@ -1068,7 +1068,7 @@ module SysCtrl_SS_0 #(
     assign irq_en_1 = SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
     assign irq_en_2 = SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
     assign irq_en_3 = SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
-    assign Ibex_Core_irq_fast_i_to_irq_upper_tieoff[-6:0] = irq_upper_tieoff[8:14];
+    assign Ibex_Core_irq_fast_i_to_irq_upper_tieoff = irq_upper_tieoff[14:8];
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tck = jtag_tck_internal;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tdi = jtag_tdi_internal;
     assign jtag_tdo_internal = jtag_dbg_wrapper_JTAG_to_JTAG_tdo;
@@ -1385,7 +1385,7 @@ module SysCtrl_SS_0 #(
     assign Ibex_Core_irq_fast_i[5] = Ibex_Core_irq_fast_i_to_irq_1;
     assign Ibex_Core_irq_fast_i[6] = Ibex_Core_irq_fast_i_to_irq_2;
     assign Ibex_Core_irq_fast_i[7] = Ibex_Core_irq_fast_i_to_irq_3;
-    assign Ibex_Core_irq_fast_i[8:14] = Ibex_Core_irq_fast_i_to_irq_upper_tieoff[-6:0];
+    assign Ibex_Core_irq_fast_i[14:8] = Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
     assign Ibex_Core_irq_fast_i[1] = i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
     assign Ibex_Core_irq_fast_i[3:2] = i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
     assign Ibex_Core_irq_fast_i[0] = i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i;
@@ -1468,57 +1468,57 @@ module SysCtrl_SS_0 #(
     assign axi_imem_bridge_Mem_to_i_imem_mem_WE = axi_imem_bridge_we_o;
     // core_dmem_bridge assignments:
     assign core_dmem_bridge_addr_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_ADDR;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_ADDR = core_dmem_bridge_ar_addr_i;
-    assign core_dmem_bridge_ar_ready_o = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_VALID = core_dmem_bridge_ar_valid_i;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_ADDR = core_dmem_bridge_aw_addr_i;
-    assign core_dmem_bridge_aw_ready_o = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_VALID = core_dmem_bridge_aw_valid_i;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_READY = core_dmem_bridge_b_ready_i;
-    assign core_dmem_bridge_b_resp_o = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_RESP;
-    assign core_dmem_bridge_b_valid_o = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_VALID;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_ADDR = core_dmem_bridge_ar_addr_o;
+    assign core_dmem_bridge_ar_ready_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_READY;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_VALID = core_dmem_bridge_ar_valid_o;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_ADDR = core_dmem_bridge_aw_addr_o;
+    assign core_dmem_bridge_aw_ready_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_READY;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_VALID = core_dmem_bridge_aw_valid_o;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_READY = core_dmem_bridge_b_ready_o;
+    assign core_dmem_bridge_b_resp_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_RESP;
+    assign core_dmem_bridge_b_valid_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_VALID;
     assign core_dmem_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_ERR = core_dmem_bridge_err_o;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_GNT = core_dmem_bridge_gnt_o;
-    assign core_dmem_bridge_r_data_o = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_DATA;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_READY = core_dmem_bridge_r_ready_i;
-    assign core_dmem_bridge_r_resp_o = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_RESP;
-    assign core_dmem_bridge_r_valid_o = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_VALID;
+    assign core_dmem_bridge_r_data_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_DATA;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_READY = core_dmem_bridge_r_ready_o;
+    assign core_dmem_bridge_r_resp_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_RESP;
+    assign core_dmem_bridge_r_valid_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_VALID;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_RDATA = core_dmem_bridge_rdata_o;
     assign core_dmem_bridge_req_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_REQ;
     assign core_dmem_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_RVALID = core_dmem_bridge_rvalid_o;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_DATA = core_dmem_bridge_w_data_i;
-    assign core_dmem_bridge_w_ready_o = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_STRB = core_dmem_bridge_w_strb_i;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_VALID = core_dmem_bridge_w_valid_i;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_DATA = core_dmem_bridge_w_data_o;
+    assign core_dmem_bridge_w_ready_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_READY;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_STRB = core_dmem_bridge_w_strb_o;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_VALID = core_dmem_bridge_w_valid_o;
     // core_imem_bridge assignments:
     assign core_imem_bridge_addr_i = Ibex_Core_imem_to_core_imem_bridge_mem_ADDR;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR = core_imem_bridge_ar_addr_i;
-    assign core_imem_bridge_ar_ready_o = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_VALID = core_imem_bridge_ar_valid_i;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_ADDR = core_imem_bridge_aw_addr_i;
-    assign core_imem_bridge_aw_ready_o = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_VALID = core_imem_bridge_aw_valid_i;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_READY = core_imem_bridge_b_ready_i;
-    assign core_imem_bridge_b_resp_o = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_RESP;
-    assign core_imem_bridge_b_valid_o = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_VALID;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR = core_imem_bridge_ar_addr_o;
+    assign core_imem_bridge_ar_ready_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_READY;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_VALID = core_imem_bridge_ar_valid_o;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_ADDR = core_imem_bridge_aw_addr_o;
+    assign core_imem_bridge_aw_ready_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_READY;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_VALID = core_imem_bridge_aw_valid_o;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_READY = core_imem_bridge_b_ready_o;
+    assign core_imem_bridge_b_resp_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_RESP;
+    assign core_imem_bridge_b_valid_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_VALID;
     assign core_imem_bridge_be_i = Ibex_Core_imem_to_core_imem_bridge_mem_BE;
     assign core_imem_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign Ibex_Core_imem_to_core_imem_bridge_mem_ERR = core_imem_bridge_err_o;
     assign Ibex_Core_imem_to_core_imem_bridge_mem_GNT = core_imem_bridge_gnt_o;
-    assign core_imem_bridge_r_data_o = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_DATA;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_READY = core_imem_bridge_r_ready_i;
-    assign core_imem_bridge_r_resp_o = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_RESP;
-    assign core_imem_bridge_r_valid_o = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_VALID;
+    assign core_imem_bridge_r_data_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_DATA;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_READY = core_imem_bridge_r_ready_o;
+    assign core_imem_bridge_r_resp_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_RESP;
+    assign core_imem_bridge_r_valid_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_VALID;
     assign Ibex_Core_imem_to_core_imem_bridge_mem_RDATA = core_imem_bridge_rdata_o;
     assign core_imem_bridge_req_i = Ibex_Core_imem_to_core_imem_bridge_mem_REQ;
     assign core_imem_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     assign Ibex_Core_imem_to_core_imem_bridge_mem_RVALID = core_imem_bridge_rvalid_o;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_DATA = core_imem_bridge_w_data_i;
-    assign core_imem_bridge_w_ready_o = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_STRB = core_imem_bridge_w_strb_i;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_VALID = core_imem_bridge_w_valid_i;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_DATA = core_imem_bridge_w_data_o;
+    assign core_imem_bridge_w_ready_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_READY;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_STRB = core_imem_bridge_w_strb_o;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_VALID = core_imem_bridge_w_valid_o;
     assign core_imem_bridge_wdata_i = Ibex_Core_imem_to_core_imem_bridge_mem_WDATA;
     assign core_imem_bridge_we_i = Ibex_Core_imem_to_core_imem_bridge_mem_WE;
     // i_SysCtrl_peripherals assignments:
@@ -2082,23 +2082,23 @@ module SysCtrl_SS_0 #(
         // Interface: Reset
         .rst_ni              (core_dmem_bridge_rst_ni),
         // Interface: axi4lite
-        .ar_ready_o          (core_dmem_bridge_ar_ready_o),
-        .aw_ready_o          (core_dmem_bridge_aw_ready_o),
-        .b_resp_o            (core_dmem_bridge_b_resp_o),
-        .b_valid_o           (core_dmem_bridge_b_valid_o),
-        .r_data_o            (core_dmem_bridge_r_data_o),
-        .r_resp_o            (core_dmem_bridge_r_resp_o),
-        .r_valid_o           (core_dmem_bridge_r_valid_o),
-        .w_ready_o           (core_dmem_bridge_w_ready_o),
-        .ar_addr_i           (core_dmem_bridge_ar_addr_i),
-        .ar_valid_i          (core_dmem_bridge_ar_valid_i),
-        .aw_addr_i           (core_dmem_bridge_aw_addr_i),
-        .aw_valid_i          (core_dmem_bridge_aw_valid_i),
-        .b_ready_i           (core_dmem_bridge_b_ready_i),
-        .r_ready_i           (core_dmem_bridge_r_ready_i),
-        .w_data_i            (core_dmem_bridge_w_data_i),
-        .w_strb_i            (core_dmem_bridge_w_strb_i),
-        .w_valid_i           (core_dmem_bridge_w_valid_i),
+        .ar_ready_i          (core_dmem_bridge_ar_ready_i),
+        .aw_ready_i          (core_dmem_bridge_aw_ready_i),
+        .b_resp_i            (core_dmem_bridge_b_resp_i),
+        .b_valid_i           (core_dmem_bridge_b_valid_i),
+        .r_data_i            (core_dmem_bridge_r_data_i),
+        .r_resp_i            (core_dmem_bridge_r_resp_i),
+        .r_valid_i           (core_dmem_bridge_r_valid_i),
+        .w_ready_i           (core_dmem_bridge_w_ready_i),
+        .ar_addr_o           (core_dmem_bridge_ar_addr_o),
+        .ar_valid_o          (core_dmem_bridge_ar_valid_o),
+        .aw_addr_o           (core_dmem_bridge_aw_addr_o),
+        .aw_valid_o          (core_dmem_bridge_aw_valid_o),
+        .b_ready_o           (core_dmem_bridge_b_ready_o),
+        .r_ready_o           (core_dmem_bridge_r_ready_o),
+        .w_data_o            (core_dmem_bridge_w_data_o),
+        .w_strb_o            (core_dmem_bridge_w_strb_o),
+        .w_valid_o           (core_dmem_bridge_w_valid_o),
         // Interface: mem
         .addr_i              (core_dmem_bridge_addr_i),
         .be_i                (),
@@ -2117,23 +2117,23 @@ module SysCtrl_SS_0 #(
         // Interface: Reset
         .rst_ni              (core_imem_bridge_rst_ni),
         // Interface: axi4lite
-        .ar_ready_o          (core_imem_bridge_ar_ready_o),
-        .aw_ready_o          (core_imem_bridge_aw_ready_o),
-        .b_resp_o            (core_imem_bridge_b_resp_o),
-        .b_valid_o           (core_imem_bridge_b_valid_o),
-        .r_data_o            (core_imem_bridge_r_data_o),
-        .r_resp_o            (core_imem_bridge_r_resp_o),
-        .r_valid_o           (core_imem_bridge_r_valid_o),
-        .w_ready_o           (core_imem_bridge_w_ready_o),
-        .ar_addr_i           (core_imem_bridge_ar_addr_i),
-        .ar_valid_i          (core_imem_bridge_ar_valid_i),
-        .aw_addr_i           (core_imem_bridge_aw_addr_i),
-        .aw_valid_i          (core_imem_bridge_aw_valid_i),
-        .b_ready_i           (core_imem_bridge_b_ready_i),
-        .r_ready_i           (core_imem_bridge_r_ready_i),
-        .w_data_i            (core_imem_bridge_w_data_i),
-        .w_strb_i            (core_imem_bridge_w_strb_i),
-        .w_valid_i           (core_imem_bridge_w_valid_i),
+        .ar_ready_i          (core_imem_bridge_ar_ready_i),
+        .aw_ready_i          (core_imem_bridge_aw_ready_i),
+        .b_resp_i            (core_imem_bridge_b_resp_i),
+        .b_valid_i           (core_imem_bridge_b_valid_i),
+        .r_data_i            (core_imem_bridge_r_data_i),
+        .r_resp_i            (core_imem_bridge_r_resp_i),
+        .r_valid_i           (core_imem_bridge_r_valid_i),
+        .w_ready_i           (core_imem_bridge_w_ready_i),
+        .ar_addr_o           (core_imem_bridge_ar_addr_o),
+        .ar_valid_o          (core_imem_bridge_ar_valid_o),
+        .aw_addr_o           (core_imem_bridge_aw_addr_o),
+        .aw_valid_o          (core_imem_bridge_aw_valid_o),
+        .b_ready_o           (core_imem_bridge_b_ready_o),
+        .r_ready_o           (core_imem_bridge_r_ready_o),
+        .w_data_o            (core_imem_bridge_w_data_o),
+        .w_strb_o            (core_imem_bridge_w_strb_o),
+        .w_valid_o           (core_imem_bridge_w_valid_o),
         // Interface: mem
         .addr_i              (core_imem_bridge_addr_i),
         .be_i                (core_imem_bridge_be_i),

@@ -9,9 +9,9 @@
 
 module io_cell_wrapper #(
     parameter CELL_TYPE = 0,
-    parameter CONF_WIDTH = 3
+    parameter IOCELL_CFG_W = 3
   )(
-    input  logic [CONF_WIDTH-1:0] io_cell_cfg,
+    input  logic [IOCELL_CFG_W-1:0] io_cell_cfg,
     input  logic FROM_CORE,
     output logic TO_CORE,
     inout  wire  PAD 
@@ -21,7 +21,7 @@ module io_cell_wrapper #(
     if (CELL_TYPE == 0) begin: gen_io_cell
 
       io_cell #(
-          .CONF_WIDTH(CONF_WIDTH)
+          .CONF_WIDTH(IOCELL_CFG_W)
       ) i_io_cell(
           .io_cell_cfg(io_cell_cfg),
           .FROM_CORE(FROM_CORE),

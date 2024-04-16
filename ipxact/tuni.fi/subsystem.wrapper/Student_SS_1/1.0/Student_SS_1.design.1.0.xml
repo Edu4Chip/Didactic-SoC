@@ -123,8 +123,8 @@
 				<ipxact:externalPortReference portRef="ss_ctrl_1">
 					<ipxact:partSelect>
 						<ipxact:range>
-							<ipxact:left>7</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left>6</ipxact:left>
+							<ipxact:right>1</ipxact:right>
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:externalPortReference>

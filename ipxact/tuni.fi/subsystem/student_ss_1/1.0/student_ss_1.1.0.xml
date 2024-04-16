@@ -104,7 +104,7 @@
 								<ipxact:name>PSLVERR</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>PSELERR</ipxact:name>
+								<ipxact:name>PSLVERR</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -455,7 +455,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>PSELERR</ipxact:name>
+				<ipxact:name>PSLVERR</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>

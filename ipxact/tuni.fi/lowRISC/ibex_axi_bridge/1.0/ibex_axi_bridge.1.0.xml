@@ -154,7 +154,7 @@
 								<ipxact:name>AR_ADDR</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>ar_addr_i</ipxact:name>
+								<ipxact:name>ar_addr_o</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -167,7 +167,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>ar_ready_o</ipxact:name>
+								<ipxact:name>ar_ready_i</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>0</ipxact:left>
@@ -186,7 +186,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>ar_valid_i</ipxact:name>
+								<ipxact:name>ar_valid_o</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>0</ipxact:left>
@@ -201,7 +201,7 @@
 								<ipxact:name>AW_ADDR</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>aw_addr_i</ipxact:name>
+								<ipxact:name>aw_addr_o</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -214,7 +214,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>aw_valid_i</ipxact:name>
+								<ipxact:name>aw_valid_o</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>0</ipxact:left>
@@ -233,7 +233,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>b_ready_i</ipxact:name>
+								<ipxact:name>b_ready_o</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>0</ipxact:left>
@@ -252,7 +252,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>b_resp_o</ipxact:name>
+								<ipxact:name>b_resp_i</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>1</ipxact:left>
@@ -271,7 +271,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>b_valid_o</ipxact:name>
+								<ipxact:name>b_valid_i</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>0</ipxact:left>
@@ -286,16 +286,26 @@
 								<ipxact:name>R_DATA</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>r_data_o</ipxact:name>
+								<ipxact:name>r_data_i</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>R_READY</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>r_ready_i</ipxact:name>
+								<ipxact:name>r_ready_o</ipxact:name>
+								<ipxact:partSelect>
+									<ipxact:range>
+										<ipxact:left>0</ipxact:left>
+										<ipxact:right>0</ipxact:right>
+									</ipxact:range>
+								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -308,7 +318,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>r_resp_o</ipxact:name>
+								<ipxact:name>r_resp_i</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>1</ipxact:left>
@@ -321,9 +331,19 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>R_VALID</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>r_valid_o</ipxact:name>
+								<ipxact:name>r_valid_i</ipxact:name>
+								<ipxact:partSelect>
+									<ipxact:range>
+										<ipxact:left>0</ipxact:left>
+										<ipxact:right>0</ipxact:right>
+									</ipxact:range>
+								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -336,7 +356,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>aw_ready_o</ipxact:name>
+								<ipxact:name>aw_ready_i</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>0</ipxact:left>
@@ -351,7 +371,7 @@
 								<ipxact:name>W_DATA</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>w_data_i</ipxact:name>
+								<ipxact:name>w_data_o</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -364,7 +384,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>w_ready_o</ipxact:name>
+								<ipxact:name>w_ready_i</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>0</ipxact:left>
@@ -379,7 +399,7 @@
 								<ipxact:name>W_STRB</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>w_strb_i</ipxact:name>
+								<ipxact:name>w_strb_o</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -392,7 +412,7 @@
 								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>w_valid_i</ipxact:name>
+								<ipxact:name>w_valid_o</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
 										<ipxact:left>0</ipxact:left>
@@ -653,7 +673,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>aw_addr_i</ipxact:name>
+				<ipxact:name>aw_addr_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
@@ -670,7 +690,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>aw_valid_i</ipxact:name>
+				<ipxact:name>aw_valid_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -681,7 +701,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>aw_ready_o</ipxact:name>
+				<ipxact:name>aw_ready_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -692,7 +712,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>w_data_i</ipxact:name>
+				<ipxact:name>w_data_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
@@ -709,7 +729,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>w_strb_i</ipxact:name>
+				<ipxact:name>w_strb_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
@@ -726,7 +746,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>w_valid_i</ipxact:name>
+				<ipxact:name>w_valid_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -737,7 +757,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>w_ready_o</ipxact:name>
+				<ipxact:name>w_ready_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -748,7 +768,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>b_resp_o</ipxact:name>
+				<ipxact:name>b_resp_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -765,7 +785,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>b_valid_o</ipxact:name>
+				<ipxact:name>b_valid_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -776,7 +796,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>b_ready_i</ipxact:name>
+				<ipxact:name>b_ready_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -787,7 +807,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>ar_addr_i</ipxact:name>
+				<ipxact:name>ar_addr_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
@@ -804,7 +824,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>ar_valid_i</ipxact:name>
+				<ipxact:name>ar_valid_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -815,7 +835,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>ar_ready_o</ipxact:name>
+				<ipxact:name>ar_ready_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -826,7 +846,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>r_data_o</ipxact:name>
+				<ipxact:name>r_data_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -843,7 +863,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>r_resp_o</ipxact:name>
+				<ipxact:name>r_resp_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -860,7 +880,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>r_valid_o</ipxact:name>
+				<ipxact:name>r_valid_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -871,7 +891,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>r_ready_i</ipxact:name>
+				<ipxact:name>r_ready_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:wireTypeDefs>
@@ -890,6 +910,9 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/reuse/ibex_axi_bridge.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>701a769717221645efc30c19b7122d409cc11684</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>

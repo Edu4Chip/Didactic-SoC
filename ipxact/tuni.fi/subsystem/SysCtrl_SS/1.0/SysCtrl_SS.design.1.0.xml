@@ -662,16 +662,16 @@
 				<ipxact:internalPortReference componentInstanceRef="Ibex_Core" portRef="irq_fast_i">
 					<ipxact:partSelect>
 						<ipxact:range>
-							<ipxact:left>8</ipxact:left>
-							<ipxact:right>14</ipxact:right>
+							<ipxact:left>14</ipxact:left>
+							<ipxact:right>8</ipxact:right>
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:internalPortReference>
 				<ipxact:externalPortReference portRef="irq_upper_tieoff">
 					<ipxact:partSelect>
 						<ipxact:range>
-							<ipxact:left>8</ipxact:left>
-							<ipxact:right>14</ipxact:right>
+							<ipxact:left>14</ipxact:left>
+							<ipxact:right>8</ipxact:right>
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:externalPortReference>

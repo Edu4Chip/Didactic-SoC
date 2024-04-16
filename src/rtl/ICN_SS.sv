@@ -135,7 +135,7 @@ module ICN_SS #(
   assign axi4bus.r_ready = R_READY;
   assign axi4bus.w_data = W_DATA;
   assign axi4bus.w_last = W_LAST;
-  assign axi4bus.w_strobe = W_STROBE;
+  assign axi4bus.w_strb = W_STROBE;
   assign axi4bus.w_user = W_USER;
   assign axi4bus.w_valid = W_VALID;
   //
@@ -151,10 +151,13 @@ module ICN_SS #(
   assign R_RESP = axi4bus.r_resp;
   assign R_USER = axi4bus.r_user;
   assign R_VALID = axi4bus.r_valid;
-  assign W_READY = axi4bus.wready;
+  assign W_READY = axi4bus.w_ready;
 
   axi_to_axi_lite_intf #(
-
+  .AXI_ADDR_WIDTH(AXI_AW),
+  .AXI_DATA_WIDTH(AXI_DW),
+  .AXI_ID_WIDTH(AXI_IDW),
+  .AXI_USER_WIDTH(AXI_USERW)
   )
   i_axi_to_axi_lite(
     .clk_i(clk),

@@ -19,3 +19,9 @@
 [submodule "ips/common_cells"]
 	path = ips/common_cells
 	url = https://github.com/pulp-platform/common_cells.git
+[submodule "ips/axi_spi_master"]
+	path = ips/axi_spi_master
+	url = https://github.com/pulp-platform/axi_spi_master.git
+[submodule "ips/tech_cells_generic"]
+	path = ips/tech_cells_generic
+	url = https://github.com/pulp-platform/tech_cells_generic.git
