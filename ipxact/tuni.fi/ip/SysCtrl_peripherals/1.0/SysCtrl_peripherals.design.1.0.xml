@@ -15,7 +15,7 @@
 					<kactus2:portPosition busRef="APB" x="-110" y="110"/>
 					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
 					<kactus2:portPosition busRef="IRQ" x="110" y="100"/>
-					<kactus2:portPosition busRef="Reset" x="-110" y="80"/>
+					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="UART" x="110" y="60"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
@@ -30,13 +30,13 @@
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{f07f9e54-23e3-4875-a946-57f8100c0fb8}</kactus2:uuid>
-				<kactus2:position x="600" y="410"/>
+				<kactus2:position x="600" y="390"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="APB" x="-110" y="150"/>
+					<kactus2:portPosition busRef="APB" x="-110" y="120"/>
 					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
 					<kactus2:portPosition busRef="GPIO" x="110" y="60"/>
 					<kactus2:portPosition busRef="IRQ" x="110" y="100"/>
-					<kactus2:portPosition busRef="Reset_n" x="-110" y="70"/>
+					<kactus2:portPosition busRef="Reset_n" x="-110" y="60"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -45,10 +45,10 @@
 			<ipxact:componentRef vendor="tuni.fi" library="pulp.peripheral" name="APB_SDIO" version="1.0"/>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{38f92343-be5a-47ae-820b-0da4112d818c}</kactus2:uuid>
-				<kactus2:position x="600" y="610"/>
+				<kactus2:position x="600" y="560"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="APB" x="-110" y="120"/>
-					<kactus2:portPosition busRef="Reset_n" x="-110" y="100"/>
+					<kactus2:portPosition busRef="APB" x="-110" y="150"/>
+					<kactus2:portPosition busRef="Reset_n" x="-110" y="80"/>
 					<kactus2:portPosition busRef="SDIO" x="110" y="110"/>
 					<kactus2:portPosition busRef="periph_clk" x="-110" y="60"/>
 					<kactus2:portPosition busRef="sys_clk" x="-110" y="40"/>
@@ -62,9 +62,9 @@
 				<kactus2:uuid>{dab89cb6-6e21-43c5-81c7-8b4ef867b2e3}</kactus2:uuid>
 				<kactus2:position x="280" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="APB_GPIO" x="110" y="150"/>
-					<kactus2:portPosition busRef="APB_SDIO" x="110" y="170"/>
-					<kactus2:portPosition busRef="APB_SPI" x="110" y="130"/>
+					<kactus2:portPosition busRef="APB_GPIO" x="110" y="450"/>
+					<kactus2:portPosition busRef="APB_SDIO" x="110" y="650"/>
+					<kactus2:portPosition busRef="APB_SPI" x="110" y="250"/>
 					<kactus2:portPosition busRef="APB_UART" x="110" y="110"/>
 					<kactus2:portPosition busRef="AXI4LITE" x="-110" y="120"/>
 					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
@@ -79,11 +79,11 @@
 				<kactus2:uuid>{63b91260-d402-4e76-9c93-980d68af5bad}</kactus2:uuid>
 				<kactus2:position x="600" y="220"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="SPI" x="110" y="120"/>
-					<kactus2:portPosition busRef="IRQ" x="110" y="100"/>
-					<kactus2:portPosition busRef="Clock" x="-110" y="70"/>
-					<kactus2:portPosition busRef="Reset_n" x="-110" y="40"/>
 					<kactus2:portPosition busRef="APB" x="-110" y="90"/>
+					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
+					<kactus2:portPosition busRef="IRQ" x="110" y="120"/>
+					<kactus2:portPosition busRef="Reset_n" x="-110" y="60"/>
+					<kactus2:portPosition busRef="SPI" x="110" y="80"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -194,6 +194,16 @@
 			<ipxact:activeInterface componentInstanceRef="APB_UART" busRef="IRQ"/>
 			<ipxact:hierInterface busRef="IRQ_UART"/>
 		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_SDIO_sys_clk_to_Clock</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_SDIO" busRef="sys_clk"/>
+			<ipxact:hierInterface busRef="Clock"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>APB_SDIO_periph_clk_to_Clock</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="APB_SDIO" busRef="periph_clk"/>
+			<ipxact:hierInterface busRef="Clock"/>
+		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
@@ -208,28 +218,20 @@
 		</kactus2:columnLayout>
 		<kactus2:routes>
 			<kactus2:route kactus2:connRef="APB_SPI_SPI_to_SPI" kactus2:offPage="false">
-				<kactus2:position x="710" y="360"/>
-				<kactus2:position x="800" y="360"/>
-				<kactus2:position x="800" y="350"/>
-				<kactus2:position x="820" y="350"/>
+				<kactus2:position x="710" y="300"/>
+				<kactus2:position x="820" y="300"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="APB_SPI_IRQ_to_IRQ_SPI" kactus2:offPage="false">
 				<kactus2:position x="710" y="340"/>
-				<kactus2:position x="790" y="340"/>
-				<kactus2:position x="790" y="310"/>
-				<kactus2:position x="820" y="310"/>
+				<kactus2:position x="820" y="340"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="APB_SPI_Clock_to_Clock" kactus2:offPage="false">
-				<kactus2:position x="490" y="290"/>
-				<kactus2:position x="80" y="290"/>
-				<kactus2:position x="80" y="100"/>
-				<kactus2:position x="60" y="100"/>
+			<kactus2:route kactus2:connRef="APB_SPI_Clock_to_Clock" kactus2:offPage="true">
+				<kactus2:position x="460" y="260"/>
+				<kactus2:position x="90" y="100"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="APB_SPI_Reset_n_to_Reset" kactus2:offPage="false">
-				<kactus2:position x="490" y="260"/>
-				<kactus2:position x="90" y="260"/>
+			<kactus2:route kactus2:connRef="APB_SPI_Reset_n_to_Reset" kactus2:offPage="true">
+				<kactus2:position x="460" y="280"/>
 				<kactus2:position x="90" y="140"/>
-				<kactus2:position x="60" y="140"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_wrapper_Clock_to_Clock" kactus2:offPage="false">
 				<kactus2:position x="170" y="100"/>
@@ -240,70 +242,52 @@
 				<kactus2:position x="60" y="140"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_wrapper_APB_SPI_to_APB_SPI_APB" kactus2:offPage="false">
-				<kactus2:position x="390" y="190"/>
-				<kactus2:position x="470" y="190"/>
-				<kactus2:position x="470" y="310"/>
+				<kactus2:position x="390" y="310"/>
 				<kactus2:position x="490" y="310"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="APB_GPIO_Clock_to_Clock" kactus2:offPage="false">
-				<kactus2:position x="490" y="450"/>
-				<kactus2:position x="420" y="450"/>
-				<kactus2:position x="420" y="100"/>
-				<kactus2:position x="60" y="100"/>
+			<kactus2:route kactus2:connRef="APB_GPIO_Clock_to_Clock" kactus2:offPage="true">
+				<kactus2:position x="460" y="430"/>
+				<kactus2:position x="90" y="100"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="APB_GPIO_Reset_n_to_Reset" kactus2:offPage="false">
-				<kactus2:position x="490" y="480"/>
-				<kactus2:position x="450" y="480"/>
-				<kactus2:position x="450" y="140"/>
-				<kactus2:position x="60" y="140"/>
+			<kactus2:route kactus2:connRef="APB_GPIO_Reset_n_to_Reset" kactus2:offPage="true">
+				<kactus2:position x="460" y="450"/>
+				<kactus2:position x="90" y="140"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB" kactus2:offPage="false">
-				<kactus2:position x="390" y="210"/>
-				<kactus2:position x="440" y="210"/>
-				<kactus2:position x="440" y="560"/>
-				<kactus2:position x="490" y="560"/>
+				<kactus2:position x="390" y="510"/>
+				<kactus2:position x="490" y="510"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="APB_GPIO_GPIO_to_GPIO" kactus2:offPage="false">
-				<kactus2:position x="710" y="470"/>
-				<kactus2:position x="800" y="470"/>
-				<kactus2:position x="800" y="460"/>
-				<kactus2:position x="820" y="460"/>
+				<kactus2:position x="710" y="450"/>
+				<kactus2:position x="820" y="450"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="APB_GPIO_IRQ_to_IRQ_GPIO" kactus2:offPage="false">
-				<kactus2:position x="710" y="510"/>
-				<kactus2:position x="800" y="510"/>
-				<kactus2:position x="800" y="500"/>
-				<kactus2:position x="820" y="500"/>
+				<kactus2:position x="710" y="490"/>
+				<kactus2:position x="820" y="490"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB" kactus2:offPage="false">
-				<kactus2:position x="390" y="230"/>
-				<kactus2:position x="460" y="230"/>
-				<kactus2:position x="460" y="730"/>
-				<kactus2:position x="490" y="730"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="APB_SDIO_Reset_n_to_Reset" kactus2:offPage="false">
+				<kactus2:position x="390" y="710"/>
 				<kactus2:position x="490" y="710"/>
-				<kactus2:position x="450" y="710"/>
-				<kactus2:position x="450" y="140"/>
-				<kactus2:position x="60" y="140"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_SDIO_Reset_n_to_Reset" kactus2:offPage="true">
+				<kactus2:position x="460" y="640"/>
+				<kactus2:position x="90" y="140"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="APB_SDIO_SDIO_to_SDIO" kactus2:offPage="false">
-				<kactus2:position x="710" y="720"/>
-				<kactus2:position x="800" y="720"/>
-				<kactus2:position x="800" y="710"/>
-				<kactus2:position x="820" y="710"/>
+				<kactus2:position x="710" y="670"/>
+				<kactus2:position x="820" y="670"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE" kactus2:offPage="false">
 				<kactus2:position x="170" y="180"/>
 				<kactus2:position x="60" y="180"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="APB_UART_Clock_to_Clock" kactus2:offPage="false">
-				<kactus2:position x="490" y="100"/>
-				<kactus2:position x="60" y="100"/>
+			<kactus2:route kactus2:connRef="APB_UART_Clock_to_Clock" kactus2:offPage="true">
+				<kactus2:position x="460" y="100"/>
+				<kactus2:position x="90" y="100"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="APB_UART_Reset_to_Reset" kactus2:offPage="false">
-				<kactus2:position x="490" y="140"/>
-				<kactus2:position x="60" y="140"/>
+			<kactus2:route kactus2:connRef="APB_UART_Reset_to_Reset" kactus2:offPage="true">
+				<kactus2:position x="460" y="120"/>
+				<kactus2:position x="90" y="140"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB" kactus2:offPage="false">
 				<kactus2:position x="390" y="170"/>
@@ -317,6 +301,14 @@
 				<kactus2:position x="710" y="160"/>
 				<kactus2:position x="820" y="160"/>
 			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_SDIO_sys_clk_to_Clock" kactus2:offPage="true">
+				<kactus2:position x="460" y="600"/>
+				<kactus2:position x="90" y="100"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="APB_SDIO_periph_clk_to_Clock" kactus2:offPage="true">
+				<kactus2:position x="460" y="620"/>
+				<kactus2:position x="90" y="100"/>
+			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>Clock</kactus2:name>
@@ -325,7 +317,7 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>GPIO</kactus2:name>
-			<kactus2:position x="820" y="460"/>
+			<kactus2:position x="820" y="450"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -335,12 +327,12 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>SDIO</kactus2:name>
-			<kactus2:position x="820" y="710"/>
+			<kactus2:position x="820" y="670"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>SPI</kactus2:name>
-			<kactus2:position x="820" y="350"/>
+			<kactus2:position x="820" y="300"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -375,12 +367,12 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>IRQ_SPI</kactus2:name>
-			<kactus2:position x="820" y="310"/>
+			<kactus2:position x="820" y="340"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>IRQ_GPIO</kactus2:name>
-			<kactus2:position x="820" y="500"/>
+			<kactus2:position x="820" y="490"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -400,7 +392,7 @@
 			<kactus2:timestamp>20.02.2024 10:56</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:note>
-			<kactus2:position x="200" y="270"/>
+			<kactus2:position x="200" y="360"/>
 			<kactus2:content>Converter acts like XBAR, mem map should be remapped + passed through here</kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>20.02.2024 11:11</kactus2:timestamp>
