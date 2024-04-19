@@ -75,12 +75,12 @@ module tb_didactic();
   initial
   begin
     //asserting global reset
-    rst_n = 1'b0;
+    reset = 1'b0;
     $display("[TB] Time %g ns - Reset on, start wait 3ms", $time);
     #3ms;
 
     $display("[TB] Time %g ns - Reset is about to be lifterd", $time);
-    rst_n = 1'b1;
+    reset = 1'b1;
 
     $display("[TB] Time %g ns - Reset lift", $time);
     #3ms;
@@ -112,7 +112,7 @@ module tb_didactic();
     .jtag_tms(dut_jtag_tms),
     .jtag_trst(dut_jtag_trstn),
     // Interface: Reset
-    .reset(),
+    .reset(reset),
     // Interface: SDIO
     .sdio_clk(dut_sdio_sck),
     .sdio_cmd({dut_sdio_cmd}),
