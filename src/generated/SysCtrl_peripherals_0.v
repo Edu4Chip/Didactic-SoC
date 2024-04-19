@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 16.04.2024
-// Creation time : 11:25:12
+// Creation date : 19.04.2024
+// Creation time : 13:16:00
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -179,6 +179,7 @@ module SysCtrl_peripherals_0 #(
     wire       APB_SDIO_PSLVERR;
     wire [31:0] APB_SDIO_PWDATA;
     wire       APB_SDIO_PWRITE;
+    wire       APB_SDIO_periph_clk_i;
     wire       APB_SDIO_sdio_clk_internal;
     wire       APB_SDIO_sdio_cmd_internal;
     wire [3:0] APB_SDIO_sdio_data_i_internal;
@@ -315,6 +316,8 @@ module SysCtrl_peripherals_0 #(
     assign AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PSLVERR = APB_SDIO_PSLVERR;
     assign APB_SDIO_PWDATA = AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PWDATA;
     assign APB_SDIO_PWRITE = AX4LITE_APB_converter_wrapper_APB_SDIO_to_APB_SDIO_APB_PWRITE;
+    assign APB_SDIO_periph_clk_i = APB_SPI_Clock_to_Clock_clk;
+    assign APB_SDIO_periph_clk_i = APB_SPI_Clock_to_Clock_clk;
     assign APB_SDIO_SDIO_to_SDIO_clk = APB_SDIO_sdio_clk_internal;
     assign APB_SDIO_SDIO_to_SDIO_cmd = APB_SDIO_sdio_cmd_internal;
     assign APB_SDIO_sdio_data_i_internal = APB_SDIO_SDIO_to_SDIO_data_i;
@@ -462,7 +465,7 @@ module SysCtrl_peripherals_0 #(
         .sdio_cmd_internal   (APB_SDIO_sdio_cmd_internal),
         .sdio_data_o_internal(APB_SDIO_sdio_data_o_internal),
         // There ports are contained in many interfaces
-        .periph_clk_i        (),
+        .periph_clk_i        (APB_SDIO_periph_clk_i),
         // These ports are not in any interface
         .rst_n_i             (),
         .sdcmd_i             (),

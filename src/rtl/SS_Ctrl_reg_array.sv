@@ -22,13 +22,13 @@ module SS_Ctrl_reg_array #(
     parameter                              IOCELL_COUNT     = 28    // update this value manually to match cell numbers
 ) (
     // Interface: BootSel
-    input logic bootsel,
+    input  logic bootsel,
 
     // Interface: Clock
-    input logic clk,
+    input  logic clk,
 
     // Interface: Reset
-    input logic reset,
+    input  logic reset,
 
     // Interface: icn_ss_ctrl
     output logic [7:0]          ss_ctrl_icn,
@@ -76,6 +76,25 @@ module SS_Ctrl_reg_array #(
     output logic [7:0]          ss_ctrl_3
 );
 
+  logic [31:0] bootSel_reg;
+  logic [31:0] ss_rst_reg;
+  logic [31:0] icn_rst_ctrl_reg;
+  logic [31:0] ss_0_ctrl_reg;
+  logic [31:0] ss_1_ctrl_reg;
+  logic [31:0] ss_2_ctrl_reg;
+  logic [31:0] ss_3_ctrl_reg;
+  logic [31:0] ss_ctrl_reserved_0_reg;
+  logic [31:0] ss_ctrl_reserved_1_reg;
+  logic [31:0] io_cell_cfg_reg;
+  logic [31:0] io_cell_cfg_1_reg;
+  logic [31:0] io_cell_cfg_2_reg;
+  logic [31:0] io_cell_cfg_3_reg;
+  logic [31:0] io_cell_cfg_4_reg;
+  logic [31:0] io_cell_cfg_5_reg;
+  logic [31:0] io_cell_cfg_6_reg;
+  logic [31:0] io_cell_cfg_7_reg;
+  logic [31:0] io_cell_cfg_8_reg;
+
     // FFs for write or read/write registers
     always_ff @( posedge clk or negedge reset )
     begin : control_register_ff
@@ -99,59 +118,59 @@ module SS_Ctrl_reg_array #(
         io_cell_cfg_7_reg <= 'h0;
         io_cell_cfg_8_reg <= 'h0;
     end
-    else if (we_i) begin 
-        case (addr_i)
+    else if (we_in) begin 
+        case (addr_in)
 
         'h0: begin
-            bootSel_reg <= wdata_i[ 31:0 ];
+            bootSel_reg[31:1] <= wdata_in[ 31:1 ];
         end
         'h4: begin
-            ss_rst_reg <= wdata_i[ 31:0 ];
+            ss_rst_reg <= wdata_in[ 31:0 ];
         end
         'h8: begin
-            ss_0_ctrl_reg <= wdata_i[ 31:0 ];
+            ss_0_ctrl_reg <= wdata_in[ 31:0 ];
         end
         'hC: begin
-            ss_1_ctrl_reg <= wdata_i[ 31:0 ];
+            ss_1_ctrl_reg <= wdata_in[ 31:0 ];
         end
         'h10: begin
-            ss_2_ctrl_reg <= wdata_i[ 31:0 ];
+            ss_2_ctrl_reg <= wdata_in[ 31:0 ];
         end
         'h18: begin
-            ss_3_ctrl_reg <= wdata_i[ 31:0 ];
+            ss_3_ctrl_reg <= wdata_in[ 31:0 ];
         end
         'h20: begin
-            ss_ctrl_reserved_0_reg <= wdata_i[ 31:0 ];
+            ss_ctrl_reserved_0_reg <= wdata_in[ 31:0 ];
         end
         'h24: begin
-            ss_ctrl_reserved_1_reg <= wdata_i[ 31:0 ];
+            ss_ctrl_reserved_1_reg <= wdata_in[ 31:0 ];
         end
         'h28: begin
-            io_cell_cfg_reg <= wdata_i[ 31:0 ];
+            io_cell_cfg_reg <= wdata_in[ 31:0 ];
         end
         'h30: begin
-            io_cell_cfg_1_reg <= wdata_i[ 31:0 ];
+            io_cell_cfg_1_reg <= wdata_in[ 31:0 ];
         end
         'h34: begin
-            io_cell_cfg_2_reg <= wdata_i[ 31:0 ];
+            io_cell_cfg_2_reg <= wdata_in[ 31:0 ];
         end
         'h38: begin
-            io_cell_cfg_3_reg <= wdata_i[ 31:0 ];
+            io_cell_cfg_3_reg <= wdata_in[ 31:0 ];
         end
         'h40: begin
-            io_cell_cfg_4_reg <= wdata_i[ 31:0 ];
+            io_cell_cfg_4_reg <= wdata_in[ 31:0 ];
         end
         'h44: begin
-            io_cell_cfg_5_reg <= wdata_i[ 31:0 ];
+            io_cell_cfg_5_reg <= wdata_in[ 31:0 ];
         end
         'h48: begin
-            io_cell_cfg_6_reg <= wdata_i[ 31:0 ];
+            io_cell_cfg_6_reg <= wdata_in[ 31:0 ];
         end
         'h50: begin
-            io_cell_cfg_7_reg <= wdata_i[ 31:0 ];
+            io_cell_cfg_7_reg <= wdata_in[ 31:0 ];
         end
         'h54: begin
-            io_cell_cfg_8_reg <= wdata_i[ 31:0 ];
+            io_cell_cfg_8_reg <= wdata_in[ 31:0 ];
         end
         endcase     
     end
@@ -159,59 +178,63 @@ module SS_Ctrl_reg_array #(
 
     always_comb // read process
     begin : read_logic
-      rdata_o = 0;
-      case(addr_i)
+      rdata_out = 0;
+      case(addr_in)
 
         'h0: begin
-            rdata_o =bootSel_reg;
+            rdata_out =bootSel_reg;
         end
         'h4: begin
-            rdata_o =ss_rst_reg;
+            rdata_out =ss_rst_reg;
         end
         'h8: begin
-            rdata_o =ss_0_ctrl_reg;
+            rdata_out =ss_0_ctrl_reg;
         end
         'h10: begin
-            rdata_o =ss_2_ctrl_reg;
+            rdata_out =ss_2_ctrl_reg;
         end
         'h18: begin
-            rdata_o =rdata_o =ss_3_ctrl_reg;
+            rdata_out =ss_3_ctrl_reg;
         end
         'h20: begin
-            rdata_o =ss_ctrl_reserved_0_reg;
+            rdata_out =ss_ctrl_reserved_0_reg;
         end
         'h24: begin
-            rdata_o =ss_ctrl_reserved_1_reg;
+            rdata_out =ss_ctrl_reserved_1_reg;
         end
         'h28: begin
-            rdata_o = io_cell_cfg_reg;
+            rdata_out = io_cell_cfg_reg;
         end
         'h30: begin
-            rdata_o =io_cell_cfg_1_reg;
+            rdata_out =io_cell_cfg_1_reg;
         end
         'h34: begin
-            rdata_o =io_cell_cfg_2_reg;
+            rdata_out =io_cell_cfg_2_reg;
         end
         'h38: begin
-            rdata_o =io_cell_cfg_3_reg;
+            rdata_out =io_cell_cfg_3_reg;
         end
         'h40: begin
-            rdata_o =io_cell_cfg_4_reg;
+            rdata_out =io_cell_cfg_4_reg;
         end
         'h44: begin
-            rdata_o =io_cell_cfg_5_reg;
+            rdata_out =io_cell_cfg_5_reg;
         end
         'h48: begin
-            rdata_o =io_cell_cfg_6_reg;
+            rdata_out =io_cell_cfg_6_reg;
         end
         'h50: begin
-            rdata_o =io_cell_cfg_7_reg;
+            rdata_out =io_cell_cfg_7_reg;
         end
         'h54: begin
-            rdata_o =io_cell_cfg_8_reg;
+            rdata_out =io_cell_cfg_8_reg;
         end
     endcase
 end // read_logic
+
+// assign ins
+
+assign boot_sel_reg[0] = boot_sel;
 
 // assign outs
 
@@ -232,8 +255,12 @@ assign ss_ctrl_3 = ss_3_ctrl_reg[7:0];
 assign ss_ctrl_icn = icn_rst_ctrl_reg[7:0];
 
 
-//  const for now
-assign cell_cfg  = 'h0;
+//  continuos reg assigns for now
+assign cell_cfg[31:0]  = io_cell_cfg_reg;
+assign cell_cfg[63:32]  = io_cell_cfg_1_reg;
+assign cell_cfg[95:64]  = io_cell_cfg_2_reg;
+assign cell_cfg[127:96]  = io_cell_cfg_3_reg;
+assign cell_cfg[139:128]  = io_cell_cfg_4_reg[10:0];
 
 
 // this can be created by kamel once memory design is finalized

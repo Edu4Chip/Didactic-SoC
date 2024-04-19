@@ -168,6 +168,7 @@
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_fast_i" x="-110" y="350"/>
+					<kactus2:adHocVisible portName="fetch_enable_i" x="110" y="80"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -677,6 +678,20 @@
 				</ipxact:externalPortReference>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
+		<ipxact:adHocConnection>
+			<ipxact:name>Ibex_Core_fetch_enable_i_to_tiedValue</ipxact:name>
+			<ipxact:tiedValue>'d0</ipxact:tiedValue>
+			<ipxact:portReferences>
+				<ipxact:internalPortReference componentInstanceRef="Ibex_Core" portRef="fetch_enable_i">
+					<ipxact:partSelect>
+						<ipxact:range>
+							<ipxact:left>3</ipxact:left>
+							<ipxact:right>1</ipxact:right>
+						</ipxact:range>
+					</ipxact:partSelect>
+				</ipxact:internalPortReference>
+			</ipxact:portReferences>
+		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
@@ -1170,9 +1185,9 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:note>
 			<kactus2:position x="1150" y="270"/>
-			<kactus2:content>XBAR address rules need to be defined. AXI icn should pass mem maps from SS. Peripheral maps, too. Likely mirrored interfaces required.</kactus2:content>
+			<kactus2:content>XBAR address rules need to be defined. This icn should pass mem maps from SS  via top icn and from Peripherals.</kactus2:content>
 			<kactus2:associations/>
-			<kactus2:timestamp>20.02.2024 11:11</kactus2:timestamp>
+			<kactus2:timestamp>19.04.2024 11:44</kactus2:timestamp>
 		</kactus2:note>
 	</ipxact:vendorExtensions>
 </ipxact:design>

@@ -57,9 +57,19 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>gpo</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>0</ipxact:left>
+									<ipxact:right>0</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>fetch_enable_i</ipxact:name>
+								<ipxact:partSelect>
+									<ipxact:range>
+										<ipxact:left>0</ipxact:left>
+										<ipxact:right>0</ipxact:right>
+									</ipxact:range>
+								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -650,6 +660,11 @@
 							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue>7'h0</ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -1103,17 +1118,18 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>fetch_enable_i</ipxact:name>
+				<ipxact:description>actual type and width are typecasted from ibex_mubi_t. Trialing now with set values for kactus2 integrability</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>3</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
-							<ipxact:typeName>ibex_mubi_t</ipxact:typeName>
+							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
@@ -1203,7 +1219,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue>1'b0</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -1223,6 +1239,11 @@
 							<ipxact:typeName>prim_ram_1p_pkg::ram_1p_cfg_t</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 		</ipxact:ports>

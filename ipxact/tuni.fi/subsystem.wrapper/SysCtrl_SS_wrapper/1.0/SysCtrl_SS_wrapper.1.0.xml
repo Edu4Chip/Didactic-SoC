@@ -2360,6 +2360,14 @@
 			<ipxact:name>AXI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_8ff74019_5833_4343_a8f8_226797e9637c" resolve="user">
+			<ipxact:name>IOCELL_CFG_W</ipxact:name>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_3c540ce4_53de_4e40_a627_b222bc6874a6" resolve="user">
+			<ipxact:name>IOCELL_COUNT</ipxact:name>
+			<ipxact:value>28</ipxact:value>
+		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>

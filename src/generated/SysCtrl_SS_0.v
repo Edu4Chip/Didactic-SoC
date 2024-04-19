@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 16.04.2024
-// Creation time : 11:25:12
+// Creation date : 19.04.2024
+// Creation time : 13:16:00
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -769,7 +769,7 @@ module SysCtrl_SS_0 #(
     wire [31:0] Ibex_Core_data_wdata_o;
     wire       Ibex_Core_data_we_o;
     wire       Ibex_Core_debug_req_i;
-    wire       Ibex_Core_fetch_enable_i;
+    wire [3:0] Ibex_Core_fetch_enable_i;
     wire [31:0] Ibex_Core_instr_addr_o;
     wire       Ibex_Core_instr_err_i;
     wire       Ibex_Core_instr_gnt_i;
@@ -782,7 +782,7 @@ module SysCtrl_SS_0 #(
     wire [31:0] SS_Ctrl_reg_array_addr_in;
     wire [3:0] SS_Ctrl_reg_array_be_in;
     wire       SS_Ctrl_reg_array_bootsel;
-    wire [49:0] SS_Ctrl_reg_array_cell_cfg;
+    wire [139:0] SS_Ctrl_reg_array_cell_cfg;
     wire       SS_Ctrl_reg_array_clk;
     wire       SS_Ctrl_reg_array_irq_en_0;
     wire       SS_Ctrl_reg_array_irq_en_1;
@@ -1374,7 +1374,8 @@ module SysCtrl_SS_0 #(
     assign Ibex_Core_imem_to_core_imem_bridge_mem_WDATA = Ibex_Core_data_wdata_o;
     assign Ibex_Core_imem_to_core_imem_bridge_mem_WE = Ibex_Core_data_we_o;
     assign Ibex_Core_debug_req_i = jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req;
-    assign Ibex_Core_fetch_enable_i = Ibex_Core_FetchEn_to_FetchEn_gpo;
+    assign Ibex_Core_fetch_enable_i[3:1] = 'd0;
+    assign Ibex_Core_fetch_enable_i[0] = Ibex_Core_FetchEn_to_FetchEn_gpo;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_ADDR = Ibex_Core_instr_addr_o;
     assign Ibex_Core_instr_err_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_ERR;
     assign Ibex_Core_instr_gnt_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_GNT;
@@ -1395,7 +1396,7 @@ module SysCtrl_SS_0 #(
     assign SS_Ctrl_reg_array_addr_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_ADDR;
     assign SS_Ctrl_reg_array_be_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_BE;
     assign SS_Ctrl_reg_array_bootsel = SS_Ctrl_reg_array_BootSel_to_BootSel_gpo;
-    assign SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg[49:0] = SS_Ctrl_reg_array_cell_cfg;
+    assign SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg = SS_Ctrl_reg_array_cell_cfg;
     assign SS_Ctrl_reg_array_clk = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en = SS_Ctrl_reg_array_irq_en_0;
     assign SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en = SS_Ctrl_reg_array_irq_en_1;
@@ -1932,7 +1933,7 @@ module SysCtrl_SS_0 #(
         .instr_err_i         (Ibex_Core_instr_err_i),
         .instr_gnt_i         (Ibex_Core_instr_gnt_i),
         .instr_rdata_i       (Ibex_Core_instr_rdata_i),
-        .instr_rdata_intg_i  (),
+        .instr_rdata_intg_i  (7'h0),
         .instr_rvalid_i      (Ibex_Core_instr_rvalid_i),
         .instr_addr_o        (Ibex_Core_instr_addr_o),
         .instr_req_o         (Ibex_Core_instr_req_o),
@@ -1955,8 +1956,8 @@ module SysCtrl_SS_0 #(
         .irq_nm_i            (1'b0),
         .irq_software_i      (1'b0),
         .irq_timer_i         (1'b0),
-        .ram_cfg_i           (),
-        .scan_rst_ni         (1'b1),
+        .ram_cfg_i           ('h0),
+        .scan_rst_ni         (1'b0),
         .scramble_key_i      (128'd0),
         .scramble_key_valid_i(1'b0),
         .scramble_nonce_i    (64'd0),

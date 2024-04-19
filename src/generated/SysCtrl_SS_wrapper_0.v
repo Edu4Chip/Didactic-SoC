@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 16.04.2024
-// Creation time : 11:25:12
+// Creation date : 19.04.2024
+// Creation time : 13:16:00
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -14,7 +14,9 @@ module SysCtrl_SS_wrapper_0 #(
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32,
     parameter                              AXI_IDW          = 10,
-    parameter                              AXI_USERW        = 1
+    parameter                              AXI_USERW        = 1,
+    parameter                              IOCELL_CFG_W     = 5,
+    parameter                              IOCELL_COUNT     = 28
 ) (
     // Interface: AXI
     input                               AR_READY,
