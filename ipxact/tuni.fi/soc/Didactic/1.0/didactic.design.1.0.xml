@@ -104,10 +104,9 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Student_SS_3</ipxact:instanceName>
-			<ipxact:componentRef vendor="" library="" name="" version=""/>
+			<ipxact:componentRef vendor="tuni.fi" library="subsystem" name="Student_SS_3" version="1.0"/>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{c757e49c-d542-4e62-a317-6aa63e5a4a37}</kactus2:uuid>
-				<kactus2:draft/>
 				<kactus2:position x="920" y="630"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="APB" x="-110" y="120"/>
@@ -501,20 +500,12 @@
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:note>
-			<kactus2:position x="540" y="210"/>
-			<kactus2:content>Memory maps should be passed through ICN to cpu.</kactus2:content>
+			<kactus2:position x="520" y="210"/>
+			<kactus2:content>Memory maps are passed through ICN to cpu.
+
+Address maps are to be finalized later.</kactus2:content>
 			<kactus2:associations/>
-			<kactus2:timestamp>20.02.2024 11:13</kactus2:timestamp>
-		</kactus2:note>
-		<kactus2:note>
-			<kactus2:position x="1120" y="370"/>
-			<kactus2:content>3 subsystems showcase different stages and styles to create it: 
-* hierarchical diagram 
-* hierarchical diagram with IOs
-* HDL component instance
-* Draft component to be replaced with hierarchical block or HDL instance</kactus2:content>
-			<kactus2:associations/>
-			<kactus2:timestamp>20.02.2024 11:15</kactus2:timestamp>
+			<kactus2:timestamp>22.04.2024 13:57</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:adHocVisibilities/>
 	</ipxact:vendorExtensions>

@@ -27,11 +27,11 @@
 				<kactus2:uuid>{3a79117f-6171-4227-ac62-b472c40f1f8a}</kactus2:uuid>
 				<kactus2:position x="600" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="clk" x="-110" y="60"/>
 					<kactus2:portPosition busRef="APB" x="110" y="120"/>
-					<kactus2:portPosition busRef="reset" x="110" y="40"/>
 					<kactus2:portPosition busRef="IRQ" x="110" y="160"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="180"/>
+					<kactus2:portPosition busRef="clk" x="-110" y="60"/>
+					<kactus2:portPosition busRef="reset" x="110" y="40"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>

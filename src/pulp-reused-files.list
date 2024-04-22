@@ -5,8 +5,8 @@
 
 # common cells
 # tool needs these 2 in include path
-#../ips/common_cells/include/common_cells 
-#../ips/common_cells/include  
+#../ips/common_cells/include/common_cells
+#../ips/common_cells/include
 ../ips/common-cells/src/binary_to_gray.sv
 ../ips/common-cells/src/cb_filter_pkg.sv
 ../ips/common-cells/src/cc_onehot.sv
@@ -106,21 +106,29 @@
 ../ips/axi/src/axi_multicut.sv
 ../ips/axi/src/axi_to_axi_lite.sv
 ../ips/axi/src/axi_xbar.sv
+
 # peripheral modules
 # uart
-../ips/apb_uart/src/apb_uart.sv        
-../ips/apb_uart/src/slib_edge_detect.sv   
+../ips/apb_uart/src/apb_uart.sv
+../ips/apb_uart/src/slib_edge_detect.sv
 ../ips/apb_uart/src/uart_baudgen.sv
-../ips/apb_uart/src/slib_fifo.sv          
+../ips/apb_uart/src/slib_fifo.sv
 ../ips/apb_uart/src/uart_interrupt.sv
-../ips/apb_uart/src/slib_input_filter.sv  
+../ips/apb_uart/src/slib_input_filter.sv
 ../ips/apb_uart/src/uart_receiver.sv
-../ips/apb_uart/src/slib_clock_div.sv  
-../ips/apb_uart/src/slib_input_sync.sv    
+../ips/apb_uart/src/slib_clock_div.sv
+../ips/apb_uart/src/slib_input_sync.sv
 ../ips/apb_uart/src/uart_transmitter.sv
-../ips/apb_uart/src/slib_counter.sv    
+../ips/apb_uart/src/slib_counter.sv
 ../ips/apb_uart/src/slib_mv_filter.sv
-# SPI    
+# SPI
+../ips/axi_spi_master/axi_spi_master.sv
+../ips/axi_spi_master/spi_master_axi_if.sv
+../ips/axi_spi_master/spi_master_clkgen.sv
+../ips/axi_spi_master/spi_master_controller.sv
+../ips/axi_spi_master/spi_master_fifo.sv
+../ips/axi_spi_master/spi_master_rx.sv
+../ips/axi_spi_master/spi_master_tx.sv
 ../ips/apb_spi_master/apb_spi_master.sv
 ../ips/apb_spi_master/spi_master_apb_if.sv
 ../ips/apb_spi_master/spi_master_clkgen.sv

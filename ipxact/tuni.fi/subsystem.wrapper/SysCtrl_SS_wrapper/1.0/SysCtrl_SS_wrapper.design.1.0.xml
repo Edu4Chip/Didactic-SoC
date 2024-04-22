@@ -552,5 +552,13 @@
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:adHocVisibilities/>
+		<kactus2:note>
+			<kactus2:position x="190" y="450"/>
+			<kactus2:content>This module contains tech IO cells. Insert if clauses to RTL file to get platform specific cells inserted.
+
+For ASIC, replace with tech files.</kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>22.04.2024 14:05</kactus2:timestamp>
+		</kactus2:note>
 	</ipxact:vendorExtensions>
 </ipxact:design>

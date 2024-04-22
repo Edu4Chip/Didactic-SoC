@@ -12,28 +12,36 @@
 
 module Student_SS_2(
     // Interface: APB
-    input                [31:0]         PADDR,
-    input                               PENABLE,
-    input                [3:0]          PSEL,
-    input                [31:0]         PWDATA,
-    input                               PWRITE,
-    output               [127:0]        PRDATA,
-    output               [3:0]          PREADY,
-    output               [3:0]          PSELERR,
+    input  logic [31:0] PADDR,
+    input  logic        PENABLE,
+    input  logic        PSEL,
+    input  logic [31:0] PWDATA,
+    input  logic        PWRITE,
+    output logic [31:0] PRDATA,
+    output logic        PREADY,
+    output logic        PSLVERR,
 
     // Interface: Clock
-    input                               clk,
+    input  logic        clk,
 
     // Interface: IRQ
-    output                              irq_2,
+    output logic        irq,
 
     // Interface: Reset
-    input                               reset_int,
+    input  logic        reset_int,
 
     // Interface: SS_Ctrl
-    input                               irq_en_2,
-    input                [7:0]          ss_ctrl_2
+    input logic        irq_en_2,
+    input logic [7:0]  ss_ctrl_2
 );
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
+
+// this file contains minimal functionality to avoid breaking anything in other ends of the chip.
+
+assign PSELERR = 'd0;
+assign PSREADY = 'd0;
+assign PRDATA  = 'd0;
+assign irq     = 'd0;
+
 endmodule

@@ -1,11 +1,15 @@
-# ibex files
+# ibex core related files
+
+# prim generic packages
 ../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv 
 ../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv 
 ../ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_clock_gating.sv 
 ../ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv 
+# these core common files probably need to be replaced with tech files
 ../ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv 
 ../ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv 
 ../ips/ibex/dv/uvm/core_ibex/common/prim/prim_clock_gating.sv 
+# actual ibex source files
 ../ips/ibex/rtl/ibex_pkg.sv 
 ../ips/ibex/rtl/ibex_csr.sv 
 ../ips/ibex/rtl/ibex_compressed_decoder.sv 

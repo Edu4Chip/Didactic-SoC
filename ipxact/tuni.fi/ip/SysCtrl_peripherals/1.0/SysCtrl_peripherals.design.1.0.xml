@@ -386,16 +386,16 @@
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:note>
-			<kactus2:position x="900" y="610"/>
+			<kactus2:position x="730" y="590"/>
 			<kactus2:content>TODO: find out whether we should include SDIO. </kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>20.02.2024 10:56</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:note>
 			<kactus2:position x="200" y="360"/>
-			<kactus2:content>Converter acts like XBAR, mem map should be remapped + passed through here</kactus2:content>
+			<kactus2:content>Converter acts like hierarchical XBAR. It passes APB target memory maps to controller XBAR.</kactus2:content>
 			<kactus2:associations/>
-			<kactus2:timestamp>20.02.2024 11:11</kactus2:timestamp>
+			<kactus2:timestamp>22.04.2024 14:02</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:adHocVisibilities/>
 	</ipxact:vendorExtensions>

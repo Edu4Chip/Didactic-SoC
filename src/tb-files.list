@@ -1,1 +1,2 @@
 # insert test files here, tb, jtag packages etc.
+tb/tb_didactic.sv

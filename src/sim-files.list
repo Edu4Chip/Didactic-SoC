@@ -1,6 +1,6 @@
 # sim files like sram models, io cells, tech cell inserts
 reuse/BootRom.sv
-reuse/sram.sv
+reuse/sp_sram.sv
 
 tech_generic/io_cell_wrapper.sv
 tech_generic/io_cell.sv

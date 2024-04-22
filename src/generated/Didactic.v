@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 19.04.2024
-// Creation time : 13:16:00
+// Creation date : 22.04.2024
+// Creation time : 15:04:14
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -170,6 +170,22 @@ module Didactic #(
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_USER;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_VALID;
     // Student_SS_1_GPIO_to_SS_1_GPO wires:
+    // SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset wires:
+    wire       SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset_reset;
+    // SystemControl_SS_IRQ3_to_Student_SS_3_IRQ wires:
+    wire       SystemControl_SS_IRQ3_to_Student_SS_3_IRQ_irq;
+    // SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl wires:
+    wire [7:0] SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_clk_ctrl;
+    wire       SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_irq_en;
+    // ICN_SS_APB3_to_Student_SS_3_APB wires:
+    wire [31:0] ICN_SS_APB3_to_Student_SS_3_APB_PADDR;
+    wire       ICN_SS_APB3_to_Student_SS_3_APB_PENABLE;
+    wire [31:0] ICN_SS_APB3_to_Student_SS_3_APB_PRDATA;
+    wire       ICN_SS_APB3_to_Student_SS_3_APB_PREADY;
+    wire       ICN_SS_APB3_to_Student_SS_3_APB_PSEL;
+    wire       ICN_SS_APB3_to_Student_SS_3_APB_PSLVERR;
+    wire [31:0] ICN_SS_APB3_to_Student_SS_3_APB_PWDATA;
+    wire       ICN_SS_APB3_to_Student_SS_3_APB_PWRITE;
 
     // ICN_SS port wires:
     wire [31:0] ICN_SS_AR_ADDR;
@@ -259,10 +275,10 @@ module Didactic #(
     // Student_SS_2 port wires:
     wire [31:0] Student_SS_2_PADDR;
     wire       Student_SS_2_PENABLE;
-    wire [127:0] Student_SS_2_PRDATA;
-    wire [3:0] Student_SS_2_PREADY;
-    wire [3:0] Student_SS_2_PSEL;
-    wire [3:0] Student_SS_2_PSELERR;
+    wire [31:0] Student_SS_2_PRDATA;
+    wire       Student_SS_2_PREADY;
+    wire       Student_SS_2_PSEL;
+    wire       Student_SS_2_PSELERR;
     wire [31:0] Student_SS_2_PWDATA;
     wire       Student_SS_2_PWRITE;
     wire       Student_SS_2_clk;
@@ -270,6 +286,20 @@ module Didactic #(
     wire       Student_SS_2_irq_en_2;
     wire       Student_SS_2_reset_int;
     wire [7:0] Student_SS_2_ss_ctrl_2;
+    // Student_SS_3 port wires:
+    wire [31:0] Student_SS_3_PADDR;
+    wire       Student_SS_3_PENABLE;
+    wire [31:0] Student_SS_3_PRDATA;
+    wire       Student_SS_3_PREADY;
+    wire       Student_SS_3_PSEL;
+    wire       Student_SS_3_PSLVERR;
+    wire [31:0] Student_SS_3_PWDATA;
+    wire       Student_SS_3_PWRITE;
+    wire       Student_SS_3_clk_in;
+    wire       Student_SS_3_irq_3;
+    wire       Student_SS_3_irq_en_3;
+    wire       Student_SS_3_reset_int;
+    wire [7:0] Student_SS_3_ss_ctrl_3;
     // SystemControl_SS port wires:
     wire [31:0] SystemControl_SS_AR_ADDR;
     wire [1:0] SystemControl_SS_AR_BURST;
@@ -320,16 +350,20 @@ module Didactic #(
     wire       SystemControl_SS_irq_0;
     wire       SystemControl_SS_irq_1;
     wire       SystemControl_SS_irq_2;
+    wire       SystemControl_SS_irq_3;
     wire       SystemControl_SS_irq_en_0;
     wire       SystemControl_SS_irq_en_1;
     wire       SystemControl_SS_irq_en_2;
+    wire       SystemControl_SS_irq_en_3;
     wire       SystemControl_SS_reset_int;
     wire       SystemControl_SS_reset_ss_0;
     wire       SystemControl_SS_reset_ss_1;
     wire       SystemControl_SS_reset_ss_2;
+    wire       SystemControl_SS_reset_ss_3;
     wire [7:0] SystemControl_SS_ss_ctrl_0;
     wire [7:0] SystemControl_SS_ss_ctrl_1;
     wire [7:0] SystemControl_SS_ss_ctrl_2;
+    wire [7:0] SystemControl_SS_ss_ctrl_3;
     wire [7:0] SystemControl_SS_ss_ctrl_icn;
 
     // Assignments for the ports of the encompassing component:
@@ -367,27 +401,35 @@ module Didactic #(
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_B_RESP = ICN_SS_B_RESP;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_B_USER = ICN_SS_B_USER;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_B_VALID = ICN_SS_B_VALID;
+    assign ICN_SS_APB3_to_Student_SS_3_APB_PADDR = ICN_SS_PADDR;
     assign ICN_SS_APB2_to_Student_SS_2_APB_PADDR = ICN_SS_PADDR;
     assign ICN_SS_APB1_to_Student_SS_1_APB_PADDR = ICN_SS_PADDR;
     assign ICN_SS_APB0_to_Student_SS_0_APB_PADDR = ICN_SS_PADDR;
+    assign ICN_SS_APB3_to_Student_SS_3_APB_PENABLE = ICN_SS_PENABLE;
     assign ICN_SS_APB2_to_Student_SS_2_APB_PENABLE = ICN_SS_PENABLE;
     assign ICN_SS_APB1_to_Student_SS_1_APB_PENABLE = ICN_SS_PENABLE;
     assign ICN_SS_APB0_to_Student_SS_0_APB_PENABLE = ICN_SS_PENABLE;
+    assign ICN_SS_PRDATA[127:96] = ICN_SS_APB3_to_Student_SS_3_APB_PRDATA;
     assign ICN_SS_PRDATA[95:64] = ICN_SS_APB2_to_Student_SS_2_APB_PRDATA;
     assign ICN_SS_PRDATA[63:32] = ICN_SS_APB1_to_Student_SS_1_APB_PRDATA;
     assign ICN_SS_PRDATA[31:0] = ICN_SS_APB0_to_Student_SS_0_APB_PRDATA;
+    assign ICN_SS_PREADY[3] = ICN_SS_APB3_to_Student_SS_3_APB_PREADY;
     assign ICN_SS_PREADY[2] = ICN_SS_APB2_to_Student_SS_2_APB_PREADY;
     assign ICN_SS_PREADY[1] = ICN_SS_APB1_to_Student_SS_1_APB_PREADY;
     assign ICN_SS_PREADY[0] = ICN_SS_APB0_to_Student_SS_0_APB_PREADY;
+    assign ICN_SS_APB3_to_Student_SS_3_APB_PSEL = ICN_SS_PSEL[3];
     assign ICN_SS_APB2_to_Student_SS_2_APB_PSEL = ICN_SS_PSEL[2];
     assign ICN_SS_APB1_to_Student_SS_1_APB_PSEL = ICN_SS_PSEL[1];
     assign ICN_SS_APB0_to_Student_SS_0_APB_PSEL = ICN_SS_PSEL[0];
+    assign ICN_SS_PSLVERR[3] = ICN_SS_APB3_to_Student_SS_3_APB_PSLVERR;
     assign ICN_SS_PSLVERR[2] = ICN_SS_APB2_to_Student_SS_2_APB_PSLVERR;
     assign ICN_SS_PSLVERR[1] = ICN_SS_APB1_to_Student_SS_1_APB_PSLVERR;
     assign ICN_SS_PSLVERR[0] = ICN_SS_APB0_to_Student_SS_0_APB_PSLVERR;
+    assign ICN_SS_APB3_to_Student_SS_3_APB_PWDATA = ICN_SS_PWDATA;
     assign ICN_SS_APB2_to_Student_SS_2_APB_PWDATA = ICN_SS_PWDATA;
     assign ICN_SS_APB1_to_Student_SS_1_APB_PWDATA = ICN_SS_PWDATA;
     assign ICN_SS_APB0_to_Student_SS_0_APB_PWDATA = ICN_SS_PWDATA;
+    assign ICN_SS_APB3_to_Student_SS_3_APB_PWRITE = ICN_SS_PWRITE;
     assign ICN_SS_APB2_to_Student_SS_2_APB_PWRITE = ICN_SS_PWRITE;
     assign ICN_SS_APB1_to_Student_SS_1_APB_PWRITE = ICN_SS_PWRITE;
     assign ICN_SS_APB0_to_Student_SS_0_APB_PWRITE = ICN_SS_PWRITE;
@@ -438,10 +480,10 @@ module Didactic #(
     // Student_SS_2 assignments:
     assign Student_SS_2_PADDR = ICN_SS_APB2_to_Student_SS_2_APB_PADDR;
     assign Student_SS_2_PENABLE = ICN_SS_APB2_to_Student_SS_2_APB_PENABLE;
-    assign ICN_SS_APB2_to_Student_SS_2_APB_PRDATA = Student_SS_2_PRDATA[95:64];
-    assign ICN_SS_APB2_to_Student_SS_2_APB_PREADY = Student_SS_2_PREADY[2];
-    assign Student_SS_2_PSEL[2] = ICN_SS_APB2_to_Student_SS_2_APB_PSEL;
-    assign ICN_SS_APB2_to_Student_SS_2_APB_PSLVERR = Student_SS_2_PSELERR[2];
+    assign ICN_SS_APB2_to_Student_SS_2_APB_PRDATA = Student_SS_2_PRDATA;
+    assign ICN_SS_APB2_to_Student_SS_2_APB_PREADY = Student_SS_2_PREADY;
+    assign Student_SS_2_PSEL = ICN_SS_APB2_to_Student_SS_2_APB_PSEL;
+    assign ICN_SS_APB2_to_Student_SS_2_APB_PSLVERR = Student_SS_2_PSELERR;
     assign Student_SS_2_PWDATA = ICN_SS_APB2_to_Student_SS_2_APB_PWDATA;
     assign Student_SS_2_PWRITE = ICN_SS_APB2_to_Student_SS_2_APB_PWRITE;
     assign Student_SS_2_clk = SystemControl_SS_Clock_int_to_ICN_SS_Clock_clk;
@@ -449,6 +491,20 @@ module Didactic #(
     assign Student_SS_2_irq_en_2 = SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl_irq_en;
     assign Student_SS_2_reset_int = SystemControl_SS_Reset_SS_2_to_Student_SS_2_Reset_reset;
     assign Student_SS_2_ss_ctrl_2 = SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl_clk_ctrl;
+    // Student_SS_3 assignments:
+    assign Student_SS_3_PADDR = ICN_SS_APB3_to_Student_SS_3_APB_PADDR;
+    assign Student_SS_3_PENABLE = ICN_SS_APB3_to_Student_SS_3_APB_PENABLE;
+    assign ICN_SS_APB3_to_Student_SS_3_APB_PRDATA = Student_SS_3_PRDATA;
+    assign ICN_SS_APB3_to_Student_SS_3_APB_PREADY = Student_SS_3_PREADY;
+    assign Student_SS_3_PSEL = ICN_SS_APB3_to_Student_SS_3_APB_PSEL;
+    assign ICN_SS_APB3_to_Student_SS_3_APB_PSLVERR = Student_SS_3_PSLVERR;
+    assign Student_SS_3_PWDATA = ICN_SS_APB3_to_Student_SS_3_APB_PWDATA;
+    assign Student_SS_3_PWRITE = ICN_SS_APB3_to_Student_SS_3_APB_PWRITE;
+    assign Student_SS_3_clk_in = SystemControl_SS_Clock_int_to_ICN_SS_Clock_clk;
+    assign SystemControl_SS_IRQ3_to_Student_SS_3_IRQ_irq = Student_SS_3_irq_3;
+    assign Student_SS_3_irq_en_3 = SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_irq_en;
+    assign Student_SS_3_reset_int = SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset_reset;
+    assign Student_SS_3_ss_ctrl_3 = SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_clk_ctrl;
     // SystemControl_SS assignments:
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ADDR = SystemControl_SS_AR_ADDR;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_BURST = SystemControl_SS_AR_BURST;
@@ -499,16 +555,20 @@ module Didactic #(
     assign SystemControl_SS_irq_0 = SystemControl_SS_IRQ0_to_Student_SS_0_IRQ_irq;
     assign SystemControl_SS_irq_1 = SystemControl_SS_IRQ1_to_Student_SS_1_IRQ_irq;
     assign SystemControl_SS_irq_2 = SystemControl_SS_IRQ2_to_Student_SS_2_IRQ_irq;
+    assign SystemControl_SS_irq_3 = SystemControl_SS_IRQ3_to_Student_SS_3_IRQ_irq;
     assign SystemControl_SS_SS_0_Ctrl_to_Student_SS_0_SS_Ctrl_irq_en = SystemControl_SS_irq_en_0;
     assign SystemControl_SS_SS_1_Ctrl_to_Student_SS_1_SS_Ctrl_irq_en = SystemControl_SS_irq_en_1;
     assign SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl_irq_en = SystemControl_SS_irq_en_2;
+    assign SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_irq_en = SystemControl_SS_irq_en_3;
     assign SystemControl_SS_Reset_icn_to_ICN_SS_Reset_reset = SystemControl_SS_reset_int;
     assign SystemControl_SS_Reset_SS_0_to_Student_SS_0_Reset_reset = SystemControl_SS_reset_ss_0;
     assign SystemControl_SS_Reset_SS_1_to_Student_SS_1_Reset_reset = SystemControl_SS_reset_ss_1;
     assign SystemControl_SS_Reset_SS_2_to_Student_SS_2_Reset_reset = SystemControl_SS_reset_ss_2;
+    assign SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset_reset = SystemControl_SS_reset_ss_3;
     assign SystemControl_SS_SS_0_Ctrl_to_Student_SS_0_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_0;
     assign SystemControl_SS_SS_1_Ctrl_to_Student_SS_1_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_1;
     assign SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_2;
+    assign SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_3;
     assign SystemControl_SS_ICN_SS_Ctrl_to_ICN_SS_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_icn;
 
     // IP-XACT VLNV: tuni.fi:interconnect:ICN_SS:1.0
@@ -623,7 +683,7 @@ module Didactic #(
         .ss_ctrl_1           (Student_SS_1_ss_ctrl_1));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_2:1.0
-    Student_SS_2 Student_SS_2(
+    Student_SS_2_0 Student_SS_2(
         // Interface: APB
         .PADDR               (Student_SS_2_PADDR),
         .PENABLE             (Student_SS_2_PENABLE),
@@ -642,6 +702,27 @@ module Didactic #(
         // Interface: SS_Ctrl
         .irq_en_2            (Student_SS_2_irq_en_2),
         .ss_ctrl_2           (Student_SS_2_ss_ctrl_2));
+
+    // IP-XACT VLNV: tuni.fi:subsystem:Student_SS_3:1.0
+    Student_SS_3_0 Student_SS_3(
+        // Interface: APB
+        .PADDR               (Student_SS_3_PADDR),
+        .PENABLE             (Student_SS_3_PENABLE),
+        .PSEL                (Student_SS_3_PSEL),
+        .PWDATA              (Student_SS_3_PWDATA),
+        .PWRITE              (Student_SS_3_PWRITE),
+        .PRDATA              (Student_SS_3_PRDATA),
+        .PREADY              (Student_SS_3_PREADY),
+        .PSLVERR             (Student_SS_3_PSLVERR),
+        // Interface: Clock
+        .clk_in              (Student_SS_3_clk_in),
+        // Interface: IRQ
+        .irq_3               (Student_SS_3_irq_3),
+        // Interface: Reset
+        .reset_int           (Student_SS_3_reset_int),
+        // Interface: SS_Ctrl
+        .irq_en_3            (Student_SS_3_irq_en_3),
+        .ss_ctrl_3           (Student_SS_3_ss_ctrl_3));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.0
     SysCtrl_SS_wrapper_0 #(
@@ -717,7 +798,7 @@ module Didactic #(
         // Interface: IRQ2
         .irq_2               (SystemControl_SS_irq_2),
         // Interface: IRQ3
-        .irq_3               (1'b0),
+        .irq_3               (SystemControl_SS_irq_3),
         // Interface: JTAG
         .jtag_tck            (jtag_tck),
         .jtag_tdi            (jtag_tdi),
@@ -733,7 +814,7 @@ module Didactic #(
         // Interface: Reset_SS_2
         .reset_ss_2          (SystemControl_SS_reset_ss_2),
         // Interface: Reset_SS_3
-        .reset_ss_3          (),
+        .reset_ss_3          (SystemControl_SS_reset_ss_3),
         // Interface: Reset_icn
         .reset_int           (SystemControl_SS_reset_int),
         // Interface: SDIO
@@ -754,8 +835,8 @@ module Didactic #(
         .irq_en_2            (SystemControl_SS_irq_en_2),
         .ss_ctrl_2           (SystemControl_SS_ss_ctrl_2),
         // Interface: SS_3_Ctrl
-        .irq_en_3            (),
-        .ss_ctrl_3           (),
+        .irq_en_3            (SystemControl_SS_irq_en_3),
+        .ss_ctrl_3           (SystemControl_SS_ss_ctrl_3),
         // Interface: UART
         .uart_rx             (uart_rx),
         .uart_tx             (uart_tx));
