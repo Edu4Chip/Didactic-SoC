@@ -12,14 +12,14 @@
 
 module student_ss_2(
     // Interface: APB
-    input  logic         [31:0]         PADDR,
-    input  logic                        PENABLE,
-    input  logic         [3:0]          PSEL,
-    input  logic         [31:0]         PWDATA,
-    input  logic                        PWRITE,
-    output logic         [31:0]         PRDATA,
-    output logic         [3:0]          PREADY,
-    output logic         [3:0]          PSELERR,
+    input  logic [31:0] PADDR,
+    input  logic        PENABLE,
+    input  logic        PSEL,
+    input  logic [31:0] PWDATA,
+    input  logic        PWRITE,
+    output logic [31:0] PRDATA,
+    output logic        PREADY,
+    output logic        PSELERR,
 
     // Interface: Clock
     input  logic                        clk_in,

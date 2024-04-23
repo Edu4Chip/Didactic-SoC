@@ -17,36 +17,36 @@
     * original interface created with kactus2. Do not rewrite from kactus.
 */
 module student_ss_1 #(
-    parameter                              APB_AW           = 10,
-    parameter                              APB_DW           = 32
+    parameter                 APB_AW  = 10,
+    parameter                 APB_DW  = 32
 ) (
     // Interface: APB
-    input    logic            [APB_AW-1:0]         PADDR,
-    input    logic                           PENABLE,
-    input     logic                          PSEL,
-    input    logic            [APB_DW-1:0]         PWDATA,
-    input     logic                          PWRITE,
-    output    logic          [APB_DW-1:0]         PRDATA,
-    output    logic                          PREADY,
-    output    logic                          PSLVERR,
+    input  logic [APB_AW-1:0] PADDR,
+    input  logic              PENABLE,
+    input  logic              PSEL,
+    input  logic [APB_DW-1:0] PWDATA,
+    input  logic              PWRITE,
+    output logic [APB_DW-1:0] PRDATA,
+    output logic              PREADY,
+    output logic              PSLVERR,
 
     // Interface: Clock
-    input  logic                        clk_in,
+    input  logic              clk_in,
 
     // Interface: IRQ
-    output   logic                           irq_1,
+    output logic              irq_1,
 
     // Interface: Reset
-    input    logic                           reset_int,
+    input  logic              reset_int,
 
     // Interface: gpio
-    input     logic           [1:0]          gpi_i,
-    output    logic           [1:0]          gpio_oe,
-    output     logic          [1:0]          gpo_o,
+    input  logic [1:0]        gpi_i,
+    output logic [1:0]        gpio_oe,
+    output logic [1:0]        gpo_o,
 
     // Interface: ss_ctrl
-    input     logic                          irq_en_1,
-    input      logic          [7:0]          ss_ctrl_1
+    input logic              irq_en_1,
+    input logic [7:0]        ss_ctrl_1
 );
 
   logic [31:0] field_0;
