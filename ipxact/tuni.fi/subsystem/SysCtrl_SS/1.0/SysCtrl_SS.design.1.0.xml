@@ -1213,5 +1213,15 @@
 			<kactus2:associations/>
 			<kactus2:timestamp>22.04.2024 14:04</kactus2:timestamp>
 		</kactus2:note>
+		<kactus2:note>
+			<kactus2:position x="1760" y="720"/>
+			<kactus2:content>The converter bridges could be removed if XBAR is updated to use OBI standard XBAR.
+
+Pulp project provides sample ips, but maturity not known currently.
+
+Reduces area if taken to use.</kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>23.04.2024 09:49</kactus2:timestamp>
+		</kactus2:note>
 	</ipxact:vendorExtensions>
 </ipxact:design>
