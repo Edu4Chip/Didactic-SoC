@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 22.04.2024
-// Creation time : 15:04:14
+// Creation date : 23.04.2024
+// Creation time : 13:25:40
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -703,7 +703,7 @@ module Didactic #(
         .irq_en_2            (Student_SS_2_irq_en_2),
         .ss_ctrl_2           (Student_SS_2_ss_ctrl_2));
 
-    // IP-XACT VLNV: tuni.fi:subsystem:Student_SS_3:1.0
+    // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_3:1.0
     Student_SS_3_0 Student_SS_3(
         // Interface: APB
         .PADDR               (Student_SS_3_PADDR),

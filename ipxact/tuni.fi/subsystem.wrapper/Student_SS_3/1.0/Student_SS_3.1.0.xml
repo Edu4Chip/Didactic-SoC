@@ -113,6 +113,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>clk_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -133,6 +134,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>irq_3</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -153,6 +155,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>reset_int</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -173,6 +176,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>ss_ctrl_3</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -181,6 +185,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>irq_en_3</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -198,7 +203,7 @@
 		<ipxact:instantiations>
 			<ipxact:designConfigurationInstantiation>
 				<ipxact:name>_design_configuration</ipxact:name>
-				<ipxact:designConfigurationRef vendor="tuni.fi" library="subsystem" name="Student_SS_3.designcfg" version="1.0"/>
+				<ipxact:designConfigurationRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_3.designcfg" version="1.0"/>
 			</ipxact:designConfigurationInstantiation>
 		</ipxact:instantiations>
 		<ipxact:ports>
@@ -466,11 +471,11 @@
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:vendorExtensions>
+		<kactus2:version>3,13,1,0</kactus2:version>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
-		<kactus2:version>3,13,1,0</kactus2:version>
 	</ipxact:vendorExtensions>
 </ipxact:component>

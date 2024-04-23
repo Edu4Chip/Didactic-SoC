@@ -104,9 +104,9 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Student_SS_3</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="subsystem" name="Student_SS_3" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_3" version="1.0"/>
 			<ipxact:vendorExtensions>
-				<kactus2:uuid>{c757e49c-d542-4e62-a317-6aa63e5a4a37}</kactus2:uuid>
+				<kactus2:uuid>{6a4140dd-b7da-4894-a2f5-30ade336f4c0}</kactus2:uuid>
 				<kactus2:position x="920" y="630"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="APB" x="-110" y="120"/>
@@ -437,6 +437,8 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ICN_SS_APB3_to_Student_SS_3_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="750"/>
+				<kactus2:position x="790" y="750"/>
+				<kactus2:position x="790" y="750"/>
 				<kactus2:position x="810" y="750"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Clock_int_to_Student_SS_3_Clock" kactus2:offPage="true">

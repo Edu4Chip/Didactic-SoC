@@ -163,7 +163,7 @@
 			<ipxact:target/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
-			<ipxact:name>SS_Ctrl</ipxact:name>
+			<ipxact:name>SS_CTRL</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="SS_Ctrl" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
@@ -194,18 +194,6 @@
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
-		<ipxact:views>
-			<ipxact:view>
-				<ipxact:name>hierarchical</ipxact:name>
-				<ipxact:designConfigurationInstantiationRef>_design_configuration</ipxact:designConfigurationInstantiationRef>
-			</ipxact:view>
-		</ipxact:views>
-		<ipxact:instantiations>
-			<ipxact:designConfigurationInstantiation>
-				<ipxact:name>_design_configuration</ipxact:name>
-				<ipxact:designConfigurationRef vendor="tuni.fi" library="subsystem" name="Student_SS_3.designcfg" version="1.0"/>
-			</ipxact:designConfigurationInstantiation>
-		</ipxact:instantiations>
 		<ipxact:ports>
 			<ipxact:port>
 				<ipxact:name>PADDR</ipxact:name>
@@ -384,6 +372,28 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
+				<ipxact:name>clk_in</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
 				<ipxact:name>irq_3</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
@@ -398,6 +408,11 @@
 							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -415,23 +430,11 @@
 							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>clk_in</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -449,6 +452,11 @@
 							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -466,12 +474,16 @@
 							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:vendorExtensions>
-		<kactus2:version>3,13,1,0</kactus2:version>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>

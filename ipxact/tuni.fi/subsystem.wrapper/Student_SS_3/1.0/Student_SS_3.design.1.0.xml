@@ -22,17 +22,16 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Student_SS_3</ipxact:instanceName>
-			<ipxact:componentRef vendor="" library="" name="" version=""/>
+			<ipxact:componentRef vendor="tuni.fi" library="subsystem" name="Student_SS_3" version="1.0"/>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{0c88db2b-9669-4ab9-869b-b80e3f1c1ccf}</kactus2:uuid>
-				<kactus2:draft/>
 				<kactus2:position x="600" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="IRQ" x="-110" y="300"/>
 					<kactus2:portPosition busRef="APB" x="-110" y="260"/>
-					<kactus2:portPosition busRef="SS_CTRL" x="-110" y="190"/>
-					<kactus2:portPosition busRef="Reset" x="-110" y="150"/>
 					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
+					<kactus2:portPosition busRef="IRQ" x="-110" y="300"/>
+					<kactus2:portPosition busRef="Reset" x="-110" y="150"/>
+					<kactus2:portPosition busRef="SS_CTRL" x="-110" y="190"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -79,16 +78,49 @@
 		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>
 	<ipxact:vendorExtensions>
+		<kactus2:version>3,13,1,0</kactus2:version>
 		<kactus2:kts_attributes>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 		</kactus2:kts_attributes>
-		<kactus2:version>3,13,1,0</kactus2:version>
 		<kactus2:columnLayout>
 			<kactus2:column name="IO" contentType="0" allowedItems="1" minWidth="119" width="119" x="760"/>
 			<kactus2:column name="SS" contentType="2" allowedItems="2" minWidth="319" width="319" x="440"/>
 			<kactus2:column name="Components" contentType="2" allowedItems="2" minWidth="319" width="319" x="120"/>
 			<kactus2:column name="IO" contentType="0" allowedItems="1" minWidth="119" width="119" x="0"/>
 		</kactus2:columnLayout>
+		<kactus2:routes>
+			<kactus2:route kactus2:connRef="SS_cg_clk_in_to_Clock" kactus2:offPage="false">
+				<kactus2:position x="170" y="100"/>
+				<kactus2:position x="60" y="100"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="SS_cg_en_to_ss_ctrl_3" kactus2:offPage="false">
+				<kactus2:position x="60" y="140"/>
+				<kactus2:position x="170" y="140"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_SS_3_IRQ_to_IRQ" kactus2:offPage="false">
+				<kactus2:position x="490" y="360"/>
+				<kactus2:position x="60" y="360"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_SS_3_APB_to_APB" kactus2:offPage="false">
+				<kactus2:position x="490" y="320"/>
+				<kactus2:position x="60" y="320"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_SS_3_SS_CTRL_to_SS_Ctrl" kactus2:offPage="false">
+				<kactus2:position x="490" y="250"/>
+				<kactus2:position x="60" y="250"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_SS_3_Reset_to_Reset" kactus2:offPage="false">
+				<kactus2:position x="490" y="210"/>
+				<kactus2:position x="60" y="210"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="SS_cg_clk_out_to_Student_SS_3_Clock" kactus2:offPage="false">
+				<kactus2:position x="390" y="100"/>
+				<kactus2:position x="490" y="100"/>
+			</kactus2:route>
+		</kactus2:routes>
+		<kactus2:adHocVisibilities>
+			<kactus2:adHocVisible portName="ss_ctrl_3" x="60" y="140"/>
+		</kactus2:adHocVisibilities>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>APB</kactus2:name>
 			<kactus2:position x="60" y="320"/>
@@ -114,38 +146,5 @@
 			<kactus2:position x="60" y="250"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
-		<kactus2:adHocVisibilities>
-			<kactus2:adHocVisible portName="ss_ctrl_3" x="60" y="140"/>
-		</kactus2:adHocVisibilities>
-		<kactus2:routes>
-			<kactus2:route kactus2:connRef="SS_cg_clk_in_to_Clock" kactus2:offPage="false">
-				<kactus2:position x="170" y="100"/>
-				<kactus2:position x="60" y="100"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SS_cg_en_to_ss_ctrl_3" kactus2:offPage="false">
-				<kactus2:position x="170" y="140"/>
-				<kactus2:position x="60" y="140"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_3_IRQ_to_IRQ" kactus2:offPage="false">
-				<kactus2:position x="490" y="360"/>
-				<kactus2:position x="60" y="360"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_3_APB_to_APB" kactus2:offPage="false">
-				<kactus2:position x="490" y="320"/>
-				<kactus2:position x="60" y="320"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_3_SS_CTRL_to_SS_Ctrl" kactus2:offPage="false">
-				<kactus2:position x="490" y="250"/>
-				<kactus2:position x="60" y="250"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_3_Reset_to_Reset" kactus2:offPage="false">
-				<kactus2:position x="490" y="210"/>
-				<kactus2:position x="60" y="210"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SS_cg_clk_out_to_Student_SS_3_Clock" kactus2:offPage="false">
-				<kactus2:position x="390" y="100"/>
-				<kactus2:position x="490" y="100"/>
-			</kactus2:route>
-		</kactus2:routes>
 	</ipxact:vendorExtensions>
 </ipxact:design>
