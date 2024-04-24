@@ -37,7 +37,7 @@ module Student_SS_3(
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
 
-// TODO: Replace this with your module impleemtnation
+// TODO: Replace this with your module implementation
 assign PSELERR = 'd0;
 assign PSREADY = 'd0;
 assign PRDATA  = 'd0;

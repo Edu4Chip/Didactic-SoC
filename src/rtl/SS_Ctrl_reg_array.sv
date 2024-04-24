@@ -234,7 +234,7 @@ end // read_logic
 
 // assign ins
 
-assign boot_sel_reg[0] = boot_sel;
+assign bootSel_reg[0] = bootsel;
 
 // assign outs
 

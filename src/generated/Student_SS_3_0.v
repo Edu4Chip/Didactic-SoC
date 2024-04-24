@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_3_0.v
-// Creation date : 23.04.2024
-// Creation time : 13:42:21
+// Creation date : 24.04.2024
+// Creation time : 10:52:33
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -12,27 +12,27 @@
 
 module Student_SS_3_0(
     // Interface: APB
-    input  logic         [31:0]         PADDR,
-    input  logic                        PENABLE,
-    input  logic                        PSEL,
-    input  logic         [31:0]         PWDATA,
-    input  logic                        PWRITE,
-    output logic         [31:0]         PRDATA,
-    output logic                        PREADY,
-    output logic                        PSLVERR,
+    input                [31:0]         PADDR,
+    input                               PENABLE,
+    input                               PSEL,
+    input                [31:0]         PWDATA,
+    input                               PWRITE,
+    output               [31:0]         PRDATA,
+    output                              PREADY,
+    output                              PSLVERR,
 
     // Interface: Clock
-    input  logic                        clk_in,
+    input                               clk_in,
 
     // Interface: IRQ
-    output logic                        irq_3,
+    output                              irq_3,
 
     // Interface: Reset
-    input  logic                        reset_int,
+    input                               reset_int,
 
     // Interface: SS_Ctrl
-    input  logic                        irq_en_3,
-    input  logic         [7:0]          ss_ctrl_3
+    input                               irq_en_3,
+    input                [7:0]          ss_ctrl_3
 );
 
     // SS_cg_clk_in_to_Clock wires:

@@ -22,17 +22,17 @@ module student_ss_2(
     output logic        PSELERR,
 
     // Interface: Clock
-    input  logic                        clk_in,
+    input  logic        clk_in,
 
     // Interface: IRQ
-    output logic                        irq_2,
+    output logic        irq_2,
 
     // Interface: Reset
-    input  logic                        reset_int,
+    input  logic        reset_int,
 
     // Interface: SS_Ctrl
-    input  logic                        irq_en_2,
-    input  logic         [7:0]          ss_ctrl_2
+    input  logic        irq_en_2,
+    input  logic [7:0]  ss_ctrl_2
 );
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
