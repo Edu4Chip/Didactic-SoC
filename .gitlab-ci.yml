@@ -1,0 +1,14 @@
+default:
+  image: u_verilator:latest
+
+test-verilator:
+  script:
+    - echo $PWD
+    - ls -l
+    - cat /etc/*-release
+    - which verilator
+    - verilator --version
+    - ls -l verification/verilator/run.sh
+    - chmod u+x verification/verilator/run.sh
+    - ls -l verification/verilator/run.sh
+    - verification/verilator/run.sh
