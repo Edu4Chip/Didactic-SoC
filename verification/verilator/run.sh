@@ -16,6 +16,11 @@ verilator \
     -I./src/tb \
     -I./src/tech_generic \
     -I./ips/riscv-dbg/src \
+    -I./ips/riscv-dbg/debug_rom \
+    -I./ips/common_cells \
+    -I./ips/common_cells/include \
+    -I./ips/common_cells/src \
+    -I./ips/common_cells/src/deprecated \
     src/generated/Didactic.v
 verilator_exit_code=$?
 echo ""
