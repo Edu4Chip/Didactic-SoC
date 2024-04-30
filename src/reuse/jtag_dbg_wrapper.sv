@@ -20,6 +20,9 @@
     * original module implementation by AN and TZS
     * tweaks for importing to kactus2 by MK
 */
+
+`include "dm_pkg.sv"
+
 module jtag_dbg_wrapper #(
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32,
