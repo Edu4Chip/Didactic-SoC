@@ -15,6 +15,7 @@ verilator \
     -I./src/reuse \
     -I./src/tb \
     -I./src/tech_generic \
+    -I./ips/riscv-dbg/src \
     src/generated/Didactic.v
 verilator_exit_code=$?
 echo ""
