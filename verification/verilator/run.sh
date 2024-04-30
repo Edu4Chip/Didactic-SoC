@@ -22,6 +22,9 @@ verilator \
     -I./ips/common_cells/src \
     -I./ips/common_cells/src/deprecated \
     -I./ips/axi/include \
+    -I./ips/ibex/vendor/lowrisc_ip/ip/prim/rtl \
+    -I./ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
+    -I./ips/ibex/rtl \
     ips/riscv-dbg/src/dm_pkg.sv \
     ips/common_cells/src/cdc_reset_ctrlr_pkg.sv \
     ips/common_cells/src/cdc_4phase.sv \
