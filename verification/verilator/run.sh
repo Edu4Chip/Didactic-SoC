@@ -21,6 +21,7 @@ verilator \
     -I./ips/common_cells/include \
     -I./ips/common_cells/src \
     -I./ips/common_cells/src/deprecated \
+    -I./ips/axi/include \
     ips/riscv-dbg/src/dm_pkg.sv \
     ips/common_cells/src/cdc_reset_ctrlr_pkg.sv \
     ips/common_cells/src/cdc_4phase.sv \
@@ -47,7 +48,16 @@ verilator \
     ips/apb_uart/src/slib_counter.sv \
     ips/apb_uart/src/slib_mv_filter.sv \
     ips/axi/src/axi_pkg.sv \
+    ips/axi/src/axi_intf.sv \
     src/rtl/AX4LITE_APB_converter_wrapper.sv \
+    ips/common_cells/src/cf_math_pkg.sv \
+    ips/axi/src/axi_lite_to_apb.sv \
+    src/rtl/SysCtrl_xbar.sv \
+    ips/axi/src/axi_lite_to_axi.sv \
+    ips/axi/src/axi_lite_xbar.sv \
+    ips/axi/src/axi_lite_demux.sv \
+    ips/axi/src/axi_err_slv.sv \
+    ips/axi/src/axi_lite_mux.sv \
     src/generated/Didactic.v
 verilator_exit_code=$?
 echo ""
