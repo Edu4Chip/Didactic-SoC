@@ -9,7 +9,12 @@ echo ""
 # No compilation is performed.
 # When this succeeds, implement more complex script.
 verilator \
+    -Wno-context \
+    -Wno-fatal \
+    -Wno-lint \
+    -Wno-style \
     --lint-only \
+    --no-timing \
     --top-module Didactic \
     -I./src/generated \
     -I./src/reuse \
@@ -22,6 +27,9 @@ verilator \
     -I./ips/common_cells/src \
     -I./ips/common_cells/src/deprecated \
     -I./ips/axi/include \
+    -I./ips/ibex/vendor/lowrisc_ip/ip/prim/rtl \
+    -I./ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
+    -I./ips/ibex/rtl \
     ips/riscv-dbg/src/dm_pkg.sv \
     ips/common_cells/src/cdc_reset_ctrlr_pkg.sv \
     ips/common_cells/src/cdc_4phase.sv \
@@ -58,6 +66,31 @@ verilator \
     ips/axi/src/axi_lite_demux.sv \
     ips/axi/src/axi_err_slv.sv \
     ips/axi/src/axi_lite_mux.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/src/rtl/Student_SS_3.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/src/rtl/Student_SS_2.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/src/rtl/io_cell_frame_ss_1.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/src/rtl/student_ss_1.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/src/rtl/Student_area_0.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/src/rtl/ICN_SS.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/axi/src/axi_to_axi_lite.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/axi/src/axi_atop_filter.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/axi/src/axi_burst_splitter.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/axi/src/axi_demux.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/axi/src/axi_demux_simple.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/rtl/ibex_pkg.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/syn/rtl/prim_clock_gating.v \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/rtl/ibex_pmp.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/rtl/ibex_cs_registers.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/rtl/ibex_core.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/ips/ibex/rtl/ibex_top.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/src/rtl/SS_Ctrl_reg_array.sv \
+    /media/roni/m2ssd/home/roni/work/temp/tau-ipxact/src/rtl/io_cell_frame_sysctrl.sv \
     src/generated/Didactic.v
 verilator_exit_code=$?
 echo ""
