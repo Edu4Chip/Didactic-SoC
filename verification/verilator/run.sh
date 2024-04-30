@@ -58,6 +58,31 @@ verilator \
     ips/axi/src/axi_lite_demux.sv \
     ips/axi/src/axi_err_slv.sv \
     ips/axi/src/axi_lite_mux.sv \
+    src/rtl/Student_SS_3.sv \
+    src/rtl/Student_SS_2.sv \
+    src/rtl/io_cell_frame_ss_1.sv \
+    src/rtl/student_ss_1.sv \
+    src/rtl/Student_area_0.sv \
+    src/rtl/ICN_SS.sv \
+    ips/axi/src/axi_to_axi_lite.sv \
+    ips/axi/src/axi_atop_filter.sv \
+    ips/axi/src/axi_burst_splitter.sv \
+    ips/axi/src/axi_demux.sv \
+    ips/axi/src/axi_demux_simple.sv \
+    ips/ibex/rtl/ibex_pkg.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv \
+    ips/ibex/syn/rtl/prim_clock_gating.v \
+    ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv \
+    ips/ibex/rtl/ibex_pmp.sv \
+    ips/ibex/rtl/ibex_cs_registers.sv \
+    ips/ibex/rtl/ibex_core.sv \
+    ips/ibex/rtl/ibex_top.sv \
+    src/rtl/SS_Ctrl_reg_array.sv \
+    src/rtl/io_cell_frame_sysctrl.sv \
     src/generated/Didactic.v
 verilator_exit_code=$?
 echo ""
