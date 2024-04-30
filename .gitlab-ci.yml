@@ -6,6 +6,7 @@ test-verilator:
     - echo $PWD
     - ls -l
     - cat /etc/*-release
+    - make repository_init
     - which verilator
     - verilator --version
     - ls -l verification/verilator/run.sh
