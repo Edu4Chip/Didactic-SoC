@@ -12,6 +12,7 @@ verilator \
     --exe \
     --top-module Didactic \
     --no-timing \
+    --trace \
     -Wno-context \
     -Wno-fatal \
     -Wno-lint \
