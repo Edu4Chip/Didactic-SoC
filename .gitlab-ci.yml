@@ -14,4 +14,6 @@ test-verilator:
     - chmod u+x verification/verilator/run.sh
     - chmod u+x verification/verilator/undo_fix.sh
     - ls -l verification/verilator
-    - verification/verilator/run.sh
+    - make verilator-generate
+    - make verilator-build
+    - make verilator-run
