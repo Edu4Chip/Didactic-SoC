@@ -15,6 +15,7 @@ verilator \
     --lint-only \
     --top-module Didactic \
     --no-timing \
+    -Wno-BLKANDNBLK \
     -I./src/generated \
     -I./src/reuse \
     -I./src/tb \
