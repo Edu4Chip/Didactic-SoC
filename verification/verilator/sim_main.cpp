@@ -35,6 +35,7 @@ int main(int argc, char **argv)
     const int maximum_iterations = 10;
     for (int i = 0; i < maximum_iterations; i++)
     {
+        bool stop_iteration = false;
         switch (tb_state)
         {
         case TestBenchState::starting:
@@ -77,12 +78,18 @@ int main(int argc, char **argv)
             break;
         case TestBenchState::finished:
             printf("[%ld] finished\n", contextp->time());
+            stop_iteration = true;
             tb_state = TestBenchState::finished;
             break;
         }
         main_time++;
         didactic->clk_in = !didactic->clk_in;
         didactic->eval();
+        if (stop_iteration)
+        {
+            break;
+        }
     }
+    didactic->final();
     return 0;
 }
