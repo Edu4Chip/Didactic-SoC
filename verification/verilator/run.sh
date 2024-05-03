@@ -4,6 +4,9 @@ which verilator
 verilator --version
 echo ""
 
+# Apply fixes to verilog files
+verification/verilator/do_fix.sh
+
 # Start with the easy task first.
 # Attempt to just process the input files.
 # No compilation is performed.
@@ -89,6 +92,9 @@ verilator \
     src/generated/Didactic.v
 verilator_exit_code=$?
 echo ""
+
+# Remove fixes to verilog files
+verification/verilator/undo_fix.sh
 
 if [ ${verilator_exit_code} -eq 0 ]; then
     echo "OK"
