@@ -79,3 +79,8 @@ verilator-build:
 .PHONY: verilator-run
 verilator-run:
 	./obj_dir/VDidactic
+
+# run sw testbench with tracing
+.PHONY: verilator-run-traced
+verilator-run-traced:
+	./obj_dir/VDidactic +trace
