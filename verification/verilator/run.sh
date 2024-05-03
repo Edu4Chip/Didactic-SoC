@@ -7,14 +7,15 @@ echo ""
 # Apply fixes to verilog files
 verification/verilator/do_fix.sh
 
-# Start with the easy task first.
-# Attempt to just process the input files.
-# No compilation is performed.
-# When this succeeds, implement more complex script.
 verilator \
-    --lint-only \
+    --cc \
+    --exe \
     --top-module Didactic \
     --no-timing \
+    -Wno-context \
+    -Wno-fatal \
+    -Wno-lint \
+    -Wno-style \
     -Wno-BLKANDNBLK \
     -I./src/generated \
     -I./src/reuse \
@@ -91,7 +92,8 @@ verilator \
     ips/ibex/rtl/ibex_top.sv \
     src/rtl/SS_Ctrl_reg_array.sv \
     src/rtl/io_cell_frame_sysctrl.sv \
-    src/generated/Didactic.v
+    src/generated/Didactic.v \
+    verification/verilator/sim_main.cpp
 verilator_exit_code=$?
 echo ""
 
