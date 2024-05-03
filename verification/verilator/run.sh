@@ -14,6 +14,7 @@ verification/verilator/do_fix.sh
 verilator \
     --lint-only \
     --top-module Didactic \
+    --no-timing \
     -I./src/generated \
     -I./src/reuse \
     -I./src/tb \
