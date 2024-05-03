@@ -31,6 +31,18 @@ int main(int argc, char **argv)
     const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
     contextp->commandArgs(argc, argv);
     const std::unique_ptr<VDidactic> didactic{new VDidactic{contextp.get(), "DIDACTIC"}};
+#if VM_TRACE
+    VerilatedVcdC *tfp = NULL;
+    const char *flag = Verilated::commandArgsPlusMatch("trace");
+    if (flag && 0 == strcmp(flag, "+trace"))
+    {
+        Verilated::traceEverOn(true);
+        tfp = new VerilatedVcdC;
+        didactic->trace(tfp, 99);
+        Verilated::mkdir("logs");
+        tfp->open("logs/vlt_dump.vcd");
+    }
+#endif
     TestBenchState tb_state = TestBenchState::starting;
     const int maximum_iterations = 10;
     for (int i = 0; i < maximum_iterations; i++)
@@ -85,11 +97,30 @@ int main(int argc, char **argv)
         main_time++;
         didactic->clk_in = !didactic->clk_in;
         didactic->eval();
+#if VM_TRACE
+        if (tfp)
+        {
+            tfp->dump(main_time);
+        }
+#endif
         if (stop_iteration)
         {
             break;
         }
     }
+#if VM_TRACE
+    if (tfp)
+    {
+        tfp->dump(main_time);
+    }
+#endif
     didactic->final();
+#if VM_TRACE
+    if (tfp)
+    {
+        tfp->close();
+        tfp = NULL;
+    }
+#endif
     return 0;
 }
