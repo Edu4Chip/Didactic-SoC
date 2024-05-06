@@ -61,7 +61,8 @@ int main(int argc, char **argv)
             didactic->jtag_tdo = 0;
             didactic->jtag_tms = 0;
             didactic->jtag_trst = 0;
-            didactic->reset = 0;
+            // Apparently reset is inverted
+            didactic->reset = 1;
             didactic->sdio_clk = 0;
             didactic->sdio_cmd = 0;
             didactic->sdio_data = 0;
@@ -75,12 +76,12 @@ int main(int argc, char **argv)
             break;
         case TestBenchState::assert_reset:
             printf("[%ld] assert reset\n", contextp->time());
-            didactic->reset = 1;
+            didactic->reset = 0;
             tb_state = TestBenchState::deassert_reset;
             break;
         case TestBenchState::deassert_reset:
             printf("[%ld] deassert reset\n", contextp->time());
-            didactic->reset = 0;
+            didactic->reset = 1;
             tb_state = TestBenchState::assert_fetch_enable;
             break;
         case TestBenchState::assert_fetch_enable:
