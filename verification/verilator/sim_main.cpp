@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <cassert>
 #include <verilated.h>
 #if VM_TRACE
 #include <verilated_vcd_c.h>
@@ -96,7 +97,19 @@ int main(int argc, char **argv)
             break;
         }
         main_time++;
-        didactic->clk_in = !didactic->clk_in;
+        switch (didactic->clk_in)
+        {
+        case 0:
+            didactic->clk_in = 1;
+            break;
+        case 1:
+            didactic->clk_in = 0;
+            break;
+        default:
+            // This branch should never happen
+            assert(false);
+            break;
+        }
         didactic->eval();
 #if VM_TRACE
         if (tfp)
