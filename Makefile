@@ -77,10 +77,10 @@ verilator-build:
 
 # run sw testbench
 .PHONY: verilator-run
-verilator-run:
+verilator-run: verilator-build
 	./obj_dir/VDidactic
 
 # run sw testbench with tracing
 .PHONY: verilator-run-traced
-verilator-run-traced:
+verilator-run-traced: verilator-build
 	./obj_dir/VDidactic +trace
