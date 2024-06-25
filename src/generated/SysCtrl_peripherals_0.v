@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
 // Creation date : 25.06.2024
-// Creation time : 14:52:31
+// Creation time : 14:56:04
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -39,8 +39,8 @@ module SysCtrl_peripherals_0 #(
     input                               clk,
 
     // Interface: GPIO
-    input                [3:0]          gpio_to_core,
-    output               [3:0]          gpio_from_core,
+    input                [7:0]          gpio_to_core,
+    output               [7:0]          gpio_from_core,
 
     // Interface: IRQ_GPIO
     output                              irq_gpio,
@@ -233,8 +233,8 @@ module SysCtrl_peripherals_0 #(
     assign b_resp = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_B_RESP;
     assign b_valid = AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_B_VALID;
     assign APB_SPI_Clock_to_Clock_clk = clk;
-    assign gpio_from_core = APB_GPIO_GPIO_to_GPIO_gpo[3:0];
-    assign APB_GPIO_GPIO_to_GPIO_gpi[3:0] = gpio_to_core;
+    assign gpio_from_core = APB_GPIO_GPIO_to_GPIO_gpo;
+    assign APB_GPIO_GPIO_to_GPIO_gpi = gpio_to_core;
     assign irq_gpio = APB_GPIO_IRQ_to_IRQ_GPIO_irq;
     assign irq_spi = APB_SPI_IRQ_to_IRQ_SPI_irq;
     assign irq_uart = APB_UART_IRQ_to_IRQ_UART_irq;

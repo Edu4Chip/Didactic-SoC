@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 25.06.2024
-// Creation time : 14:52:31
+// Creation time : 14:56:04
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -75,8 +75,8 @@ module SysCtrl_SS_0 #(
     input                               fetchEn_internal,
 
     // Interface: GPIO
-    input                [3:0]          gpio_to_core,
-    output               [3:0]          gpio_from_core,
+    input                [7:0]          gpio_to_core,
+    output               [7:0]          gpio_from_core,
 
     // Interface: ICN_SS_Ctrl
     output               [7:0]          ss_ctrl_icn,
@@ -155,8 +155,8 @@ module SysCtrl_SS_0 #(
 );
 
     // i_SysCtrl_peripherals_GPIO_to_GPIO wires:
-    wire [3:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpi;
-    wire [3:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpo;
+    wire [7:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpi;
+    wire [7:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpo;
     // i_SysCtrl_peripherals_SPI_to_SPI wires:
     wire [1:0] i_SysCtrl_peripherals_SPI_to_SPI_csn;
     wire [3:0] i_SysCtrl_peripherals_SPI_to_SPI_miso;
@@ -916,8 +916,8 @@ module SysCtrl_SS_0 #(
     wire [1:0] i_SysCtrl_peripherals_b_resp;
     wire       i_SysCtrl_peripherals_b_valid;
     wire       i_SysCtrl_peripherals_clk;
-    wire [3:0] i_SysCtrl_peripherals_gpio_from_core;
-    wire [3:0] i_SysCtrl_peripherals_gpio_to_core;
+    wire [7:0] i_SysCtrl_peripherals_gpio_from_core;
+    wire [7:0] i_SysCtrl_peripherals_gpio_to_core;
     wire       i_SysCtrl_peripherals_irq_gpio;
     wire [1:0] i_SysCtrl_peripherals_irq_spi;
     wire       i_SysCtrl_peripherals_irq_uart;

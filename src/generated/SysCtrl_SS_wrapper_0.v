@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 25.06.2024
-// Creation time : 14:52:31
+// Creation time : 14:56:04
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -389,8 +389,8 @@ module SysCtrl_SS_wrapper_0 #(
     wire [139:0] SysCtrl_SS_cell_cfg;
     wire       SysCtrl_SS_clk_internal;
     wire       SysCtrl_SS_fetchEn_internal;
-    wire [3:0] SysCtrl_SS_gpio_from_core;
-    wire [3:0] SysCtrl_SS_gpio_to_core;
+    wire [7:0] SysCtrl_SS_gpio_from_core;
+    wire [7:0] SysCtrl_SS_gpio_to_core;
     wire       SysCtrl_SS_irq_0;
     wire       SysCtrl_SS_irq_1;
     wire       SysCtrl_SS_irq_2;
@@ -614,8 +614,8 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg = SysCtrl_SS_cell_cfg;
     assign SysCtrl_SS_clk_internal = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
     assign SysCtrl_SS_fetchEn_internal = i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn_gpo;
-    assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo[3:0] = SysCtrl_SS_gpio_from_core;
-    assign SysCtrl_SS_gpio_to_core = i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi[3:0];
+    assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo = SysCtrl_SS_gpio_from_core;
+    assign SysCtrl_SS_gpio_to_core = i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
     assign SysCtrl_SS_irq_0 = SysCtrl_SS_IRQ0_to_IRQ0_irq;
     assign SysCtrl_SS_irq_1 = SysCtrl_SS_IRQ1_to_IRQ1_irq;
     assign SysCtrl_SS_irq_2 = SysCtrl_SS_IRQ2_to_IRQ2_irq;
