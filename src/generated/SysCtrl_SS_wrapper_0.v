@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 24.04.2024
-// Creation time : 10:52:33
+// Creation date : 25.06.2024
+// Creation time : 14:52:31
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.1 64-bit
+// Tool : Kactus2 3.13.2 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem.wrapper/SysCtrl_SS_wrapper/1.0/SysCtrl_SS_wrapper.1.0.xml
+// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/SysCtrl_SS_wrapper/1.0/SysCtrl_SS_wrapper.1.0.xml
 //-----------------------------------------------------------------------------
 
 module SysCtrl_SS_wrapper_0 #(
@@ -19,136 +19,171 @@ module SysCtrl_SS_wrapper_0 #(
     parameter                              IOCELL_COUNT     = 28
 ) (
     // Interface: AXI
-    input                               AR_READY,
-    input                               AW_READY,
-    input                [9:0]          B_ID,
-    input                [1:0]          B_RESP,
-    input                               B_USER,
-    input                               B_VALID,
-    input                [31:0]         R_DATA,
-    input                [9:0]          R_ID,
-    input                               R_LAST,
-    input                [1:0]          R_RESP,
-    input                [1:0]          R_USER,
-    input                               R_VALID,
-    input                               W_READY,
-    output               [31:0]         AR_ADDR,
-    output               [1:0]          AR_BURST,
-    output               [3:0]          AR_CACHE,
-    output               [9:0]          AR_ID,
-    output               [7:0]          AR_LEN,
-    output                              AR_LOCK,
-    output               [2:0]          AR_PROT,
-    output               [3:0]          AR_QOS,
-    output               [2:0]          AR_REGION,
-    output               [2:0]          AR_SIZE,
-    output                              AR_USER,
-    output                              AR_VALID,
-    output               [31:0]         AW_ADDR,
-    output               [5:0]          AW_ATOP,
-    output               [1:0]          AW_BURST,
-    output               [3:0]          AW_CACHE,
-    output               [9:0]          AW_ID,
-    output               [7:0]          AW_LEN,
-    output                              AW_LOCK,
-    output               [2:0]          AW_PROT,
-    output               [3:0]          AW_QOS,
-    output               [3:0]          AW_REGION,
-    output               [2:0]          AW_SIZE,
-    output                              AW_USER,
-    output                              AW_VALID,
-    output                              B_READY,
-    output                              R_READY,
-    output               [31:0]         W_DATA,
-    output                              W_LAST,
-    output               [3:0]          W_STROBE,
-    output                              W_USER,
-    output                              W_VALID,
+    input  logic                        AR_READY,
+    input  logic                        AW_READY,
+    input  logic         [9:0]          B_ID,
+    input  logic         [1:0]          B_RESP,
+    input  logic                        B_USER,
+    input  logic                        B_VALID,
+    input  logic         [31:0]         R_DATA,
+    input  logic         [9:0]          R_ID,
+    input  logic                        R_LAST,
+    input  logic         [1:0]          R_RESP,
+    input  logic         [1:0]          R_USER,
+    input  logic                        R_VALID,
+    input  logic                        W_READY,
+    output logic         [31:0]         AR_ADDR,
+    output logic         [1:0]          AR_BURST,
+    output logic         [3:0]          AR_CACHE,
+    output logic         [9:0]          AR_ID,
+    output logic         [7:0]          AR_LEN,
+    output logic                        AR_LOCK,
+    output logic         [2:0]          AR_PROT,
+    output logic         [3:0]          AR_QOS,
+    output logic         [2:0]          AR_REGION,
+    output logic         [2:0]          AR_SIZE,
+    output logic                        AR_USER,
+    output logic                        AR_VALID,
+    output logic         [31:0]         AW_ADDR,
+    output logic         [5:0]          AW_ATOP,
+    output logic         [1:0]          AW_BURST,
+    output logic         [3:0]          AW_CACHE,
+    output logic         [9:0]          AW_ID,
+    output logic         [7:0]          AW_LEN,
+    output logic                        AW_LOCK,
+    output logic         [2:0]          AW_PROT,
+    output logic         [3:0]          AW_QOS,
+    output logic         [3:0]          AW_REGION,
+    output logic         [2:0]          AW_SIZE,
+    output logic                        AW_USER,
+    output logic                        AW_VALID,
+    output logic                        B_READY,
+    output logic                        R_READY,
+    output logic         [31:0]         W_DATA,
+    output logic                        W_LAST,
+    output logic         [3:0]          W_STROBE,
+    output logic                        W_USER,
+    output logic                        W_VALID,
 
     // Interface: BootSel
-    inout                               boot_sel,
+    inout  wire                         boot_sel,
 
     // Interface: Clock
-    inout                               clock,
+    inout  logic                        clock,
 
     // Interface: Clock_int
-    output                              clk,
+    output logic                        clk,
 
     // Interface: FetchEn
-    inout                               fetch_en,
+    inout  wire                         fetch_en,
 
     // Interface: GPIO
-    inout                [3:0]          gpio,
+    inout  wire          [7:0]          gpio,
 
     // Interface: ICN_SS_Ctrl
-    output               [7:0]          ss_ctrl_icn,
+    output logic         [7:0]          ss_ctrl_icn,
 
     // Interface: IRQ0
-    input                               irq_0,
+    input  logic                        irq_0,
 
     // Interface: IRQ1
-    input                               irq_1,
+    input  logic                        irq_1,
 
     // Interface: IRQ2
-    input                               irq_2,
+    input  logic                        irq_2,
 
     // Interface: IRQ3
-    input                               irq_3,
+    input  logic                        irq_3,
 
     // Interface: JTAG
-    inout                               jtag_tck,
-    inout                               jtag_tdi,    // Data can be daisy chained or routed directly back
-    inout                               jtag_tdo,    // Data can be daisy chained or routed directly back
-    inout                               jtag_tms,
-    inout                               jtag_trst,
+    inout  wire                         jtag_tck,
+    inout  wire                         jtag_tdi,    // Data can be daisy chained or routed directly back
+    inout  wire                         jtag_tdo,    // Data can be daisy chained or routed directly back
+    inout  wire                         jtag_tms,
+    inout  wire                         jtag_trst,
 
     // Interface: Reset
-    inout                               reset,
+    inout  wire                         reset,
 
     // Interface: Reset_SS_0
-    output                              reset_ss_0,
+    output logic                        reset_ss_0,
 
     // Interface: Reset_SS_1
-    output                              reset_ss_1,
+    output logic                        reset_ss_1,
 
     // Interface: Reset_SS_2
-    output                              reset_ss_2,
+    output logic                        reset_ss_2,
 
     // Interface: Reset_SS_3
-    output                              reset_ss_3,
+    output logic                        reset_ss_3,
 
     // Interface: Reset_icn
-    output                              reset_int,
-
-    // Interface: SDIO
-    inout                               sdio_clk,
-    inout                               sdio_cmd,
-    inout                [3:0]          sdio_data,
+    output logic                        reset_int,
 
     // Interface: SPI
-    inout                [1:0]          spi_csn,
-    inout                [3:0]          spi_data,
-    inout                               spi_sck,
+    inout  wire          [1:0]          spi_csn,
+    inout  wire          [3:0]          spi_data,
+    inout  wire                         spi_sck,
 
     // Interface: SS_0_Ctrl
-    output                              irq_en_0,
-    output               [7:0]          ss_ctrl_0,
+    output logic                        irq_en_0,
+    output logic         [7:0]          ss_ctrl_0,
 
     // Interface: SS_1_Ctrl
-    output                              irq_en_1,
-    output               [7:0]          ss_ctrl_1,
+    output logic                        irq_en_1,
+    output logic         [7:0]          ss_ctrl_1,
 
     // Interface: SS_2_Ctrl
-    output                              irq_en_2,
-    output               [7:0]          ss_ctrl_2,
+    output logic                        irq_en_2,
+    output logic         [7:0]          ss_ctrl_2,
 
     // Interface: SS_3_Ctrl
-    output                              irq_en_3,
-    output               [7:0]          ss_ctrl_3,
+    output logic                        irq_en_3,
+    output logic         [7:0]          ss_ctrl_3,
 
     // Interface: UART
-    inout                               uart_rx,
-    inout                               uart_tx
+    inout  wire                         uart_rx,
+    inout  wire                         uart_tx,
+
+    // Interface: ss_0_pmod_gpio_0
+    input  logic         [3:0]          ss_0_pmo_0_gpio_oe,
+    input  logic         [3:0]          ss_0_pmo_0_gpo,
+    output logic         [3:0]          ss_0_pmo_0_gpi,
+
+    // Interface: ss_0_pmod_gpio_1
+    input  logic         [3:0]          ss_0_pmo_1_gpio_oe,
+    input  logic         [3:0]          ss_0_pmo_1_gpo,
+    output logic         [3:0]          ss_0_pmo_1_gpi,
+
+    // Interface: ss_1_pmod_gpio_0
+    input  logic         [3:0]          ss_1_pmod_0_gpio_oe,
+    input  logic         [3:0]          ss_1_pmod_0_gpo,
+    output logic         [3:0]          ss_1_pmod_0_gpi,
+
+    // Interface: ss_1_pmod_gpio_1
+    input  logic         [3:0]          ss_1_pmod_1_gpio_oe,
+    input  logic         [3:0]          ss_1_pmod_1_gpo,
+    output logic         [3:0]          ss_1_pmod_1_gpi,
+
+    // Interface: ss_2_pmod_gpio_0
+    input  logic         [3:0]          ss_2_pmod_0_gpio_oe,
+    input  logic         [3:0]          ss_2_pmod_0_gpo,
+    output logic         [3:0]          ss_2_pmod_0_gpi,
+
+    // Interface: ss_2_pmod_gpio_1
+    input  logic         [3:0]          ss_2_pmod_1_gpio_oe,
+    input  logic         [3:0]          ss_2_pmod_1_gpo,
+    output logic         [3:0]          ss_2_pmod_1_gpi,
+
+    // Interface: ss_3_pmod_gpio_0
+    input  logic         [3:0]          ss_3_pmod_0_gpio_oe,
+    input  logic         [3:0]          ss_3_pmod_0_gpo,
+    output logic         [3:0]          ss_3_pmod_0_gpi,
+
+    // Interface: ss_3_pmod_gpio_1
+    input  logic         [3:0]          ss_3_pmod_1_gpio_oe,
+    input  logic         [3:0]          ss_3_pmod_1_gpo,
+    output logic         [3:0]          ss_3_pmod_1_gpi
 );
 
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:
@@ -217,7 +252,6 @@ module SysCtrl_SS_wrapper_0 #(
     // i_io_cell_frame_UART_to_UART wires:
     // i_io_cell_frame_GPIO_to_GPIO wires:
     // i_io_cell_frame_SPI_to_SPI wires:
-    // i_io_cell_frame_SDIO_to_SDIO wires:
     // i_io_cell_frame_Reset_to_Reset wires:
     // i_io_cell_frame_Clock_to_Clock wires:
     // i_io_cell_frame_FetchEn_to_FetchEn wires:
@@ -228,9 +262,6 @@ module SysCtrl_SS_wrapper_0 #(
     wire       i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tdo;
     wire       i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tms;
     wire       i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_trst;
-    // i_io_cell_frame_GPIO_internal_to_SysCtrl_SS_GPIO wires:
-    wire [3:0] i_io_cell_frame_GPIO_internal_to_SysCtrl_SS_GPIO_gpi;
-    wire [3:0] i_io_cell_frame_GPIO_internal_to_SysCtrl_SS_GPIO_gpo;
     // i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk wires:
     wire       i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
     // i_io_cell_frame_BootSel_internal_to_SysCtrl_SS_BootSel wires:
@@ -243,15 +274,8 @@ module SysCtrl_SS_wrapper_0 #(
     // i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART wires:
     wire       i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_rx;
     wire       i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_tx;
-    // i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO wires:
-    wire       i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_clk;
-    wire       i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_cmd;
-    wire [3:0] i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_data_i;
-    wire [3:0] i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_data_o;
     // i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn wires:
     wire       i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn_gpo;
-    // i_io_cell_frame_Cfg_to_SysCtrl_SS_io_cell_cfg wires:
-    wire [139:0] i_io_cell_frame_Cfg_to_SysCtrl_SS_io_cell_cfg_cfg;
     // i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset wires:
     wire       i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
     // SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl wires:
@@ -270,6 +294,50 @@ module SysCtrl_SS_wrapper_0 #(
     wire       SysCtrl_SS_Reset_SS_2_to_bus_1_reset;
     // SysCtrl_SS_Reset_ICN_to_Reset_icn wires:
     wire       SysCtrl_SS_Reset_ICN_to_Reset_icn_reset;
+    // i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg wires:
+    wire [139:0] i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
+    // i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel wires:
+    wire [7:0] i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo;
+    // i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO wires:
+    wire [7:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
+    wire [7:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo;
+    // SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core wires:
+    wire [139:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
+    // i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal wires:
+    wire [7:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
+    wire [7:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
+    // i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0 wires:
+    wire [3:0] i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpi;
+    wire [3:0] i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpo;
+    // i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1 wires:
+    wire [3:0] i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1_gpi;
+    wire [3:0] i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1_gpo;
+    // i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0 wires:
+    wire [3:0] i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0_gpi;
+    wire [3:0] i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0_gpo;
+    // i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1 wires:
+    wire [3:0] i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1_gpi;
+    wire [3:0] i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1_gpo;
+    // i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0 wires:
+    wire [3:0] i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0_gpi;
+    wire [3:0] i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0_gpo;
+    // i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1 wires:
+    wire [3:0] i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1_gpi;
+    wire [3:0] i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1_gpo;
+    // i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0 wires:
+    wire [3:0] i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0_gpi;
+    wire [3:0] i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0_gpo;
+    // i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1 wires:
+    wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpi;
+    wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpo;
 
     // SysCtrl_SS port wires:
     wire [31:0] SysCtrl_SS_AR_ADDR;
@@ -336,16 +404,13 @@ module SysCtrl_SS_wrapper_0 #(
     wire       SysCtrl_SS_jtag_tdo_internal;
     wire       SysCtrl_SS_jtag_tms_internal;
     wire       SysCtrl_SS_jtag_trst_internal;
+    wire [7:0] SysCtrl_SS_pmod_sel;
     wire       SysCtrl_SS_reset_icn;
     wire       SysCtrl_SS_reset_internal;
     wire       SysCtrl_SS_reset_ss_0;
     wire       SysCtrl_SS_reset_ss_1;
     wire       SysCtrl_SS_reset_ss_2;
     wire       SysCtrl_SS_reset_ss_3;
-    wire       SysCtrl_SS_sdio_clk_internal;
-    wire       SysCtrl_SS_sdio_cmd_internal;
-    wire [3:0] SysCtrl_SS_sdio_data_i_internal;
-    wire [3:0] SysCtrl_SS_sdio_data_o_internal;
     wire [1:0] SysCtrl_SS_spim_csn_internal;
     wire [3:0] SysCtrl_SS_spim_miso_internal;
     wire [3:0] SysCtrl_SS_spim_mosi_internal;
@@ -359,27 +424,55 @@ module SysCtrl_SS_wrapper_0 #(
     wire       SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame port wires:
     wire       i_io_cell_frame_BootSel_internal;
-    wire [139:0] i_io_cell_frame_cell_cfg;
+    wire [119:0] i_io_cell_frame_cell_cfg;
     wire       i_io_cell_frame_clk_internal;
     wire       i_io_cell_frame_fetchEn_internal;
-    wire [3:0] i_io_cell_frame_gpio_from_core;
-    wire [3:0] i_io_cell_frame_gpio_to_core;
+    wire [7:0] i_io_cell_frame_gpio_from_core;
+    wire [7:0] i_io_cell_frame_gpio_to_core;
     wire       i_io_cell_frame_jtag_tck_internal;
     wire       i_io_cell_frame_jtag_tdi_internal;
     wire       i_io_cell_frame_jtag_tdo_internal;
     wire       i_io_cell_frame_jtag_tms_internal;
     wire       i_io_cell_frame_jtag_trst_internal;
     wire       i_io_cell_frame_reset_internal;
-    wire       i_io_cell_frame_sdio_clk_internal;
-    wire       i_io_cell_frame_sdio_cmd_internal;
-    wire [3:0] i_io_cell_frame_sdio_data_i_internal;
-    wire [3:0] i_io_cell_frame_sdio_data_o_internal;
     wire [1:0] i_io_cell_frame_spim_csn_internal;
     wire [3:0] i_io_cell_frame_spim_miso_internal;
     wire [3:0] i_io_cell_frame_spim_mosi_internal;
     wire       i_io_cell_frame_spim_sck_internal;
     wire       i_io_cell_frame_uart_rx_internal;
     wire       i_io_cell_frame_uart_tx_internal;
+    // i_pmod_mux port wires:
+    wire [139:0] i_pmod_mux_cell_cfg_from_core;
+    wire [139:0] i_pmod_mux_cell_cfg_to_io;
+    wire [7:0] i_pmod_mux_gpio_from_core;
+    wire [7:0] i_pmod_mux_gpio_from_io;
+    wire [7:0] i_pmod_mux_gpio_to_core;
+    wire [7:0] i_pmod_mux_gpio_to_io;
+    wire [7:0] i_pmod_mux_pmod_sel;
+    wire [3:0] i_pmod_mux_ss_0_pmod_0_gpi;
+    wire [3:0] i_pmod_mux_ss_0_pmod_0_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_0_pmod_0_gpo;
+    wire [3:0] i_pmod_mux_ss_0_pmod_1_gpi;
+    wire [3:0] i_pmod_mux_ss_0_pmod_1_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_0_pmod_1_gpo;
+    wire [3:0] i_pmod_mux_ss_1_pmod_0_gpi;
+    wire [3:0] i_pmod_mux_ss_1_pmod_0_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_1_pmod_0_gpo;
+    wire [3:0] i_pmod_mux_ss_1_pmod_1_gpi;
+    wire [3:0] i_pmod_mux_ss_1_pmod_1_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_1_pmod_1_gpo;
+    wire [3:0] i_pmod_mux_ss_2_pmod_0_gpi;
+    wire [3:0] i_pmod_mux_ss_2_pmod_0_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_2_pmod_0_gpo;
+    wire [3:0] i_pmod_mux_ss_2_pmod_1_gpi;
+    wire [3:0] i_pmod_mux_ss_2_pmod_1_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_2_pmod_1_gpo;
+    wire [3:0] i_pmod_mux_ss_3_pmod_0_gpi;
+    wire [3:0] i_pmod_mux_ss_3_pmod_0_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_3_pmod_0_gpo;
+    wire [3:0] i_pmod_mux_ss_3_pmod_1_gpi;
+    wire [3:0] i_pmod_mux_ss_3_pmod_1_gpio_oe;
+    wire [3:0] i_pmod_mux_ss_3_pmod_1_gpo;
 
     // Assignments for the ports of the encompassing component:
     assign AR_ADDR = SysCtrl_SS_AXI_to_AXI_AR_ADDR;
@@ -441,6 +534,30 @@ module SysCtrl_SS_wrapper_0 #(
     assign reset_ss_1 = SysCtrl_SS_Reset_SS_1_to_bus_2_reset;
     assign reset_ss_2 = SysCtrl_SS_Reset_SS_2_to_bus_1_reset;
     assign reset_ss_3 = SysCtrl_SS_Reset_SS_3_to_bus_reset;
+    assign ss_0_pmo_0_gpi = i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpi;
+    assign i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpio_oe = ss_0_pmo_0_gpio_oe;
+    assign i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpo = ss_0_pmo_0_gpo;
+    assign ss_0_pmo_1_gpi = i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1_gpi;
+    assign i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1_gpio_oe = ss_0_pmo_1_gpio_oe;
+    assign i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1_gpo = ss_0_pmo_1_gpo;
+    assign ss_1_pmod_0_gpi = i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0_gpi;
+    assign i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0_gpio_oe = ss_1_pmod_0_gpio_oe;
+    assign i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0_gpo = ss_1_pmod_0_gpo;
+    assign ss_1_pmod_1_gpi = i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1_gpi;
+    assign i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1_gpio_oe = ss_1_pmod_1_gpio_oe;
+    assign i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1_gpo = ss_1_pmod_1_gpo;
+    assign ss_2_pmod_0_gpi = i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0_gpi;
+    assign i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0_gpio_oe = ss_2_pmod_0_gpio_oe;
+    assign i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0_gpo = ss_2_pmod_0_gpo;
+    assign ss_2_pmod_1_gpi = i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1_gpi;
+    assign i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1_gpio_oe = ss_2_pmod_1_gpio_oe;
+    assign i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1_gpo = ss_2_pmod_1_gpo;
+    assign ss_3_pmod_0_gpi = i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0_gpi;
+    assign i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0_gpio_oe = ss_3_pmod_0_gpio_oe;
+    assign i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0_gpo = ss_3_pmod_0_gpo;
+    assign ss_3_pmod_1_gpi = i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpi;
+    assign i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpio_oe = ss_3_pmod_1_gpio_oe;
+    assign i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpo = ss_3_pmod_1_gpo;
     assign ss_ctrl_0 = SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_clk_ctrl;
     assign ss_ctrl_1 = SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_clk_ctrl;
     assign ss_ctrl_2 = SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_clk_ctrl;
@@ -494,11 +611,11 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_AXI_to_AXI_W_STROBE = SysCtrl_SS_W_STROBE;
     assign SysCtrl_SS_AXI_to_AXI_W_USER = SysCtrl_SS_W_USER;
     assign SysCtrl_SS_AXI_to_AXI_W_VALID = SysCtrl_SS_W_VALID;
-    assign i_io_cell_frame_Cfg_to_SysCtrl_SS_io_cell_cfg_cfg = SysCtrl_SS_cell_cfg;
+    assign SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg = SysCtrl_SS_cell_cfg;
     assign SysCtrl_SS_clk_internal = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
     assign SysCtrl_SS_fetchEn_internal = i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn_gpo;
-    assign i_io_cell_frame_GPIO_internal_to_SysCtrl_SS_GPIO_gpo = SysCtrl_SS_gpio_from_core;
-    assign SysCtrl_SS_gpio_to_core = i_io_cell_frame_GPIO_internal_to_SysCtrl_SS_GPIO_gpi;
+    assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo[3:0] = SysCtrl_SS_gpio_from_core;
+    assign SysCtrl_SS_gpio_to_core = i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi[3:0];
     assign SysCtrl_SS_irq_0 = SysCtrl_SS_IRQ0_to_IRQ0_irq;
     assign SysCtrl_SS_irq_1 = SysCtrl_SS_IRQ1_to_IRQ1_irq;
     assign SysCtrl_SS_irq_2 = SysCtrl_SS_IRQ2_to_IRQ2_irq;
@@ -512,16 +629,13 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tdo = SysCtrl_SS_jtag_tdo_internal;
     assign SysCtrl_SS_jtag_tms_internal = i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tms;
     assign SysCtrl_SS_jtag_trst_internal = i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_trst;
+    assign i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo = SysCtrl_SS_pmod_sel;
     assign SysCtrl_SS_Reset_ICN_to_Reset_icn_reset = SysCtrl_SS_reset_icn;
     assign SysCtrl_SS_reset_internal = i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
     assign SysCtrl_SS_Reset_SS_0_to_bus_3_reset = SysCtrl_SS_reset_ss_0;
     assign SysCtrl_SS_Reset_SS_1_to_bus_2_reset = SysCtrl_SS_reset_ss_1;
     assign SysCtrl_SS_Reset_SS_2_to_bus_1_reset = SysCtrl_SS_reset_ss_2;
     assign SysCtrl_SS_Reset_SS_3_to_bus_reset = SysCtrl_SS_reset_ss_3;
-    assign i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_clk = SysCtrl_SS_sdio_clk_internal;
-    assign i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_cmd = SysCtrl_SS_sdio_cmd_internal;
-    assign SysCtrl_SS_sdio_data_i_internal = i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_data_i;
-    assign i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_data_o = SysCtrl_SS_sdio_data_o_internal;
     assign i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_csn = SysCtrl_SS_spim_csn_internal;
     assign SysCtrl_SS_spim_miso_internal = i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_miso;
     assign i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_mosi = SysCtrl_SS_spim_mosi_internal;
@@ -535,27 +649,55 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_tx = SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame assignments:
     assign i_io_cell_frame_BootSel_internal_to_SysCtrl_SS_BootSel_gpo = i_io_cell_frame_BootSel_internal;
-    assign i_io_cell_frame_cell_cfg = i_io_cell_frame_Cfg_to_SysCtrl_SS_io_cell_cfg_cfg;
+    assign i_io_cell_frame_cell_cfg = i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg[119:0];
     assign i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk = i_io_cell_frame_clk_internal;
     assign i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn_gpo = i_io_cell_frame_fetchEn_internal;
-    assign i_io_cell_frame_gpio_from_core = i_io_cell_frame_GPIO_internal_to_SysCtrl_SS_GPIO_gpo;
-    assign i_io_cell_frame_GPIO_internal_to_SysCtrl_SS_GPIO_gpi = i_io_cell_frame_gpio_to_core;
+    assign i_io_cell_frame_gpio_from_core = i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
+    assign i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi = i_io_cell_frame_gpio_to_core;
     assign i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tck = i_io_cell_frame_jtag_tck_internal;
     assign i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tdi = i_io_cell_frame_jtag_tdi_internal;
     assign i_io_cell_frame_jtag_tdo_internal = i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tdo;
     assign i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tms = i_io_cell_frame_jtag_tms_internal;
     assign i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_trst = i_io_cell_frame_jtag_trst_internal;
     assign i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset = i_io_cell_frame_reset_internal;
-    assign i_io_cell_frame_sdio_clk_internal = i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_clk;
-    assign i_io_cell_frame_sdio_cmd_internal = i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_cmd;
-    assign i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_data_i = i_io_cell_frame_sdio_data_i_internal;
-    assign i_io_cell_frame_sdio_data_o_internal = i_io_cell_frame_SDIO_internal_to_SysCtrl_SS_SDIO_data_o;
     assign i_io_cell_frame_spim_csn_internal = i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_csn;
     assign i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_miso = i_io_cell_frame_spim_miso_internal;
     assign i_io_cell_frame_spim_mosi_internal = i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_mosi;
     assign i_io_cell_frame_spim_sck_internal = i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_sck;
     assign i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_rx = i_io_cell_frame_uart_rx_internal;
     assign i_io_cell_frame_uart_tx_internal = i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_tx;
+    // i_pmod_mux assignments:
+    assign i_pmod_mux_cell_cfg_from_core = SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
+    assign i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg = i_pmod_mux_cell_cfg_to_io;
+    assign i_pmod_mux_gpio_from_core = i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo;
+    assign i_pmod_mux_gpio_from_io = i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
+    assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi = i_pmod_mux_gpio_to_core;
+    assign i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo = i_pmod_mux_gpio_to_io;
+    assign i_pmod_mux_pmod_sel = i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo;
+    assign i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpi = i_pmod_mux_ss_0_pmod_0_gpi;
+    assign i_pmod_mux_ss_0_pmod_0_gpio_oe = i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpio_oe;
+    assign i_pmod_mux_ss_0_pmod_0_gpo = i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpo;
+    assign i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1_gpi = i_pmod_mux_ss_0_pmod_1_gpi;
+    assign i_pmod_mux_ss_0_pmod_1_gpio_oe = i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1_gpio_oe;
+    assign i_pmod_mux_ss_0_pmod_1_gpo = i_pmod_mux_ss_0_pmod_1_to_ss_0_pmod_gpio_1_gpo;
+    assign i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0_gpi = i_pmod_mux_ss_1_pmod_0_gpi;
+    assign i_pmod_mux_ss_1_pmod_0_gpio_oe = i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0_gpio_oe;
+    assign i_pmod_mux_ss_1_pmod_0_gpo = i_pmod_mux_ss_1_pmod_0_to_ss_1_pmod_gpio_0_gpo;
+    assign i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1_gpi = i_pmod_mux_ss_1_pmod_1_gpi;
+    assign i_pmod_mux_ss_1_pmod_1_gpio_oe = i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1_gpio_oe;
+    assign i_pmod_mux_ss_1_pmod_1_gpo = i_pmod_mux_ss_1_pmod_1_to_ss_1_pmod_gpio_1_gpo;
+    assign i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0_gpi = i_pmod_mux_ss_2_pmod_0_gpi;
+    assign i_pmod_mux_ss_2_pmod_0_gpio_oe = i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0_gpio_oe;
+    assign i_pmod_mux_ss_2_pmod_0_gpo = i_pmod_mux_ss_2_pmod_0_to_ss_2_pmod_gpio_0_gpo;
+    assign i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1_gpi = i_pmod_mux_ss_2_pmod_1_gpi;
+    assign i_pmod_mux_ss_2_pmod_1_gpio_oe = i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1_gpio_oe;
+    assign i_pmod_mux_ss_2_pmod_1_gpo = i_pmod_mux_ss_2_pmod_1_to_ss_2_pmod_gpio_1_gpo;
+    assign i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0_gpi = i_pmod_mux_ss_3_pmod_0_gpi;
+    assign i_pmod_mux_ss_3_pmod_0_gpio_oe = i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0_gpio_oe;
+    assign i_pmod_mux_ss_3_pmod_0_gpo = i_pmod_mux_ss_3_pmod_0_to_ss_3_pmod_gpio_0_gpo;
+    assign i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpi = i_pmod_mux_ss_3_pmod_1_gpi;
+    assign i_pmod_mux_ss_3_pmod_1_gpio_oe = i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpio_oe;
+    assign i_pmod_mux_ss_3_pmod_1_gpo = i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpo;
 
     // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.0
     SysCtrl_SS_0     SysCtrl_SS(
@@ -642,11 +784,6 @@ module SysCtrl_SS_wrapper_0 #(
         .reset_ss_2          (SysCtrl_SS_reset_ss_2),
         // Interface: Reset_SS_3
         .reset_ss_3          (SysCtrl_SS_reset_ss_3),
-        // Interface: SDIO
-        .sdio_data_i_internal(SysCtrl_SS_sdio_data_i_internal),
-        .sdio_clk_internal   (SysCtrl_SS_sdio_clk_internal),
-        .sdio_cmd_internal   (SysCtrl_SS_sdio_cmd_internal),
-        .sdio_data_o_internal(SysCtrl_SS_sdio_data_o_internal),
         // Interface: SPI
         .spim_miso_internal  (SysCtrl_SS_spim_miso_internal),
         .spim_csn_internal   (SysCtrl_SS_spim_csn_internal),
@@ -669,6 +806,8 @@ module SysCtrl_SS_wrapper_0 #(
         .uart_tx_internal    (SysCtrl_SS_uart_tx_internal),
         // Interface: io_cell_cfg
         .cell_cfg            (SysCtrl_SS_cell_cfg),
+        // Interface: pmod_sel
+        .pmod_sel            (SysCtrl_SS_pmod_sel),
         // These ports are not in any interface
         .irq_upper_tieoff    (15'h0));
 
@@ -689,7 +828,7 @@ module SysCtrl_SS_wrapper_0 #(
         // Interface: FetchEn_internal
         .fetchEn_internal    (i_io_cell_frame_fetchEn_internal),
         // Interface: GPIO
-        .gpio                (gpio[3:0]),
+        .gpio                (gpio[7:0]),
         // Interface: GPIO_internal
         .gpio_from_core      (i_io_cell_frame_gpio_from_core),
         .gpio_to_core        (i_io_cell_frame_gpio_to_core),
@@ -709,15 +848,6 @@ module SysCtrl_SS_wrapper_0 #(
         .reset               (reset),
         // Interface: Reset_internal
         .reset_internal      (i_io_cell_frame_reset_internal),
-        // Interface: SDIO
-        .sdio_clk            (sdio_clk),
-        .sdio_cmd            (sdio_cmd),
-        .sdio_data           (sdio_data[3:0]),
-        // Interface: SDIO_internal
-        .sdio_clk_internal   (i_io_cell_frame_sdio_clk_internal),
-        .sdio_cmd_internal   (i_io_cell_frame_sdio_cmd_internal),
-        .sdio_data_o_internal(i_io_cell_frame_sdio_data_o_internal),
-        .sdio_data_i_internal(i_io_cell_frame_sdio_data_i_internal),
         // Interface: SPI
         .spi_csn             (spi_csn[1:0]),
         .spi_data            (spi_data[3:0]),
@@ -733,6 +863,53 @@ module SysCtrl_SS_wrapper_0 #(
         // Interface: UART_internal
         .uart_tx_internal    (i_io_cell_frame_uart_tx_internal),
         .uart_rx_internal    (i_io_cell_frame_uart_rx_internal));
+
+    // IP-XACT VLNV: tuni.fi:ip:pmod_mux:1.0
+    pmod_mux     i_pmod_mux(
+        // Interface: cell_cfg_from_core
+        .cell_cfg_from_core  (i_pmod_mux_cell_cfg_from_core),
+        // Interface: cell_cfg_to_io
+        .cell_cfg_to_io      (i_pmod_mux_cell_cfg_to_io),
+        // Interface: gpio_core
+        .gpio_from_core      (i_pmod_mux_gpio_from_core),
+        .gpio_to_core        (i_pmod_mux_gpio_to_core),
+        // Interface: gpio_io
+        .gpio_from_io        (i_pmod_mux_gpio_from_io),
+        .gpio_to_io          (i_pmod_mux_gpio_to_io),
+        // Interface: pmod_sel
+        .pmod_sel            (i_pmod_mux_pmod_sel),
+        // Interface: ss_0_pmod_0
+        .ss_0_pmod_0_gpio_oe (i_pmod_mux_ss_0_pmod_0_gpio_oe),
+        .ss_0_pmod_0_gpo     (i_pmod_mux_ss_0_pmod_0_gpo),
+        .ss_0_pmod_0_gpi     (i_pmod_mux_ss_0_pmod_0_gpi),
+        // Interface: ss_0_pmod_1
+        .ss_0_pmod_1_gpio_oe (i_pmod_mux_ss_0_pmod_1_gpio_oe),
+        .ss_0_pmod_1_gpo     (i_pmod_mux_ss_0_pmod_1_gpo),
+        .ss_0_pmod_1_gpi     (i_pmod_mux_ss_0_pmod_1_gpi),
+        // Interface: ss_1_pmod_0
+        .ss_1_pmod_0_gpio_oe (i_pmod_mux_ss_1_pmod_0_gpio_oe),
+        .ss_1_pmod_0_gpo     (i_pmod_mux_ss_1_pmod_0_gpo),
+        .ss_1_pmod_0_gpi     (i_pmod_mux_ss_1_pmod_0_gpi),
+        // Interface: ss_1_pmod_1
+        .ss_1_pmod_1_gpio_oe (i_pmod_mux_ss_1_pmod_1_gpio_oe),
+        .ss_1_pmod_1_gpo     (i_pmod_mux_ss_1_pmod_1_gpo),
+        .ss_1_pmod_1_gpi     (i_pmod_mux_ss_1_pmod_1_gpi),
+        // Interface: ss_2_pmod_0
+        .ss_2_pmod_0_gpio_oe (i_pmod_mux_ss_2_pmod_0_gpio_oe),
+        .ss_2_pmod_0_gpo     (i_pmod_mux_ss_2_pmod_0_gpo),
+        .ss_2_pmod_0_gpi     (i_pmod_mux_ss_2_pmod_0_gpi),
+        // Interface: ss_2_pmod_1
+        .ss_2_pmod_1_gpio_oe (i_pmod_mux_ss_2_pmod_1_gpio_oe),
+        .ss_2_pmod_1_gpo     (i_pmod_mux_ss_2_pmod_1_gpo),
+        .ss_2_pmod_1_gpi     (i_pmod_mux_ss_2_pmod_1_gpi),
+        // Interface: ss_3_pmod_0
+        .ss_3_pmod_0_gpio_oe (i_pmod_mux_ss_3_pmod_0_gpio_oe),
+        .ss_3_pmod_0_gpo     (i_pmod_mux_ss_3_pmod_0_gpo),
+        .ss_3_pmod_0_gpi     (i_pmod_mux_ss_3_pmod_0_gpi),
+        // Interface: ss_3_pmod_1
+        .ss_3_pmod_1_gpio_oe (i_pmod_mux_ss_3_pmod_1_gpio_oe),
+        .ss_3_pmod_1_gpo     (i_pmod_mux_ss_3_pmod_1_gpo),
+        .ss_3_pmod_1_gpi     (i_pmod_mux_ss_3_pmod_1_gpi));
 
 
 endmodule

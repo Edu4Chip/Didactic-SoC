@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 24.04.2024
-// Creation time : 10:52:33
+// Creation date : 25.06.2024
+// Creation time : 14:52:31
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.1 64-bit
+// Tool : Kactus2 3.13.2 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem:SysCtrl_SS:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem/SysCtrl_SS/1.0/SysCtrl_SS.1.0.xml
+// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem/SysCtrl_SS/1.0/SysCtrl_SS.1.0.xml
 //-----------------------------------------------------------------------------
 
 module SysCtrl_SS_0 #(
@@ -118,12 +118,6 @@ module SysCtrl_SS_0 #(
     // Interface: Reset_SS_3
     output                              reset_ss_3,
 
-    // Interface: SDIO
-    input                [3:0]          sdio_data_i_internal,
-    output                              sdio_clk_internal,
-    output                              sdio_cmd_internal,
-    output               [3:0]          sdio_data_o_internal,
-
     // Interface: SPI
     input                [3:0]          spim_miso_internal,
     output               [1:0]          spim_csn_internal,
@@ -153,6 +147,9 @@ module SysCtrl_SS_0 #(
     // Interface: io_cell_cfg
     output               [139:0]        cell_cfg,
 
+    // Interface: pmod_sel
+    output logic         [7:0]          pmod_sel,
+
     // These ports are not in any interface
     input                [14:0]         irq_upper_tieoff
 );
@@ -165,11 +162,6 @@ module SysCtrl_SS_0 #(
     wire [3:0] i_SysCtrl_peripherals_SPI_to_SPI_miso;
     wire [3:0] i_SysCtrl_peripherals_SPI_to_SPI_mosi;
     wire       i_SysCtrl_peripherals_SPI_to_SPI_sck;
-    // i_SysCtrl_peripherals_SDIO_to_SDIO wires:
-    wire       i_SysCtrl_peripherals_SDIO_to_SDIO_clk;
-    wire       i_SysCtrl_peripherals_SDIO_to_SDIO_cmd;
-    wire [3:0] i_SysCtrl_peripherals_SDIO_to_SDIO_data_i;
-    wire [3:0] i_SysCtrl_peripherals_SDIO_to_SDIO_data_o;
     // i_SysCtrl_peripherals_UART_to_UART wires:
     wire       i_SysCtrl_peripherals_UART_to_UART_uart_rx;
     wire       i_SysCtrl_peripherals_UART_to_UART_uart_tx;
@@ -482,6 +474,8 @@ module SysCtrl_SS_0 #(
     wire       Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_REQ;
     wire [31:0] Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WDATA;
     wire       Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WE;
+    // SS_Ctrl_reg_array_pmod_sel_to_bus wires:
+    wire [7:0] SS_Ctrl_reg_array_pmod_sel_to_bus_gpo;
 
     // Ad-hoc wires:
     wire       Ibex_Core_irq_fast_i_to_irq_1;
@@ -788,6 +782,7 @@ module SysCtrl_SS_0 #(
     wire       SS_Ctrl_reg_array_irq_en_1;
     wire       SS_Ctrl_reg_array_irq_en_2;
     wire       SS_Ctrl_reg_array_irq_en_3;
+    wire [7:0] SS_Ctrl_reg_array_pmod_sel;
     wire [31:0] SS_Ctrl_reg_array_rdata_out;
     wire       SS_Ctrl_reg_array_req_in;
     wire       SS_Ctrl_reg_array_reset;
@@ -931,10 +926,6 @@ module SysCtrl_SS_0 #(
     wire [1:0] i_SysCtrl_peripherals_r_resp;
     wire       i_SysCtrl_peripherals_r_valid;
     wire       i_SysCtrl_peripherals_rst_n;
-    wire       i_SysCtrl_peripherals_sdio_clk_internal;
-    wire       i_SysCtrl_peripherals_sdio_cmd_internal;
-    wire [3:0] i_SysCtrl_peripherals_sdio_data_i_internal;
-    wire [3:0] i_SysCtrl_peripherals_sdio_data_o_internal;
     wire [1:0] i_SysCtrl_peripherals_spim_csn_internal;
     wire [3:0] i_SysCtrl_peripherals_spim_miso_internal;
     wire [3:0] i_SysCtrl_peripherals_spim_mosi_internal;
@@ -1074,16 +1065,13 @@ module SysCtrl_SS_0 #(
     assign jtag_tdo_internal = jtag_dbg_wrapper_JTAG_to_JTAG_tdo;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tms = jtag_tms_internal;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_trst = jtag_trst_internal;
+    assign pmod_sel = SS_Ctrl_reg_array_pmod_sel_to_bus_gpo;
     assign reset_icn = SS_Ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
     assign i_SysCtrl_peripherals_Reset_to_Reset_reset = reset_internal;
     assign reset_ss_0 = SS_Ctrl_reg_array_rst_ss_0_to_Reset_SS_0_reset;
     assign reset_ss_1 = SS_Ctrl_reg_array_rst_ss_1_to_Reset_SS_1_reset;
     assign reset_ss_2 = SS_Ctrl_reg_array_rst_ss_2_to_Reset_SS_2_reset;
     assign reset_ss_3 = SS_Ctrl_reg_array_rst_ss_3_to_Reset_SS_3_reset;
-    assign sdio_clk_internal = i_SysCtrl_peripherals_SDIO_to_SDIO_clk;
-    assign sdio_cmd_internal = i_SysCtrl_peripherals_SDIO_to_SDIO_cmd;
-    assign i_SysCtrl_peripherals_SDIO_to_SDIO_data_i = sdio_data_i_internal;
-    assign sdio_data_o_internal = i_SysCtrl_peripherals_SDIO_to_SDIO_data_o;
     assign spim_csn_internal = i_SysCtrl_peripherals_SPI_to_SPI_csn;
     assign i_SysCtrl_peripherals_SPI_to_SPI_miso = spim_miso_internal;
     assign spim_mosi_internal = i_SysCtrl_peripherals_SPI_to_SPI_mosi;
@@ -1402,6 +1390,7 @@ module SysCtrl_SS_0 #(
     assign SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en = SS_Ctrl_reg_array_irq_en_1;
     assign SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en = SS_Ctrl_reg_array_irq_en_2;
     assign SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en = SS_Ctrl_reg_array_irq_en_3;
+    assign SS_Ctrl_reg_array_pmod_sel_to_bus_gpo = SS_Ctrl_reg_array_pmod_sel;
     assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_RDATA = SS_Ctrl_reg_array_rdata_out;
     assign SS_Ctrl_reg_array_req_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_REQ;
     assign SS_Ctrl_reg_array_reset = i_SysCtrl_peripherals_Reset_to_Reset_reset;
@@ -1545,10 +1534,6 @@ module SysCtrl_SS_0 #(
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_RESP = i_SysCtrl_peripherals_r_resp;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_VALID = i_SysCtrl_peripherals_r_valid;
     assign i_SysCtrl_peripherals_rst_n = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign i_SysCtrl_peripherals_SDIO_to_SDIO_clk = i_SysCtrl_peripherals_sdio_clk_internal;
-    assign i_SysCtrl_peripherals_SDIO_to_SDIO_cmd = i_SysCtrl_peripherals_sdio_cmd_internal;
-    assign i_SysCtrl_peripherals_sdio_data_i_internal = i_SysCtrl_peripherals_SDIO_to_SDIO_data_i;
-    assign i_SysCtrl_peripherals_SDIO_to_SDIO_data_o = i_SysCtrl_peripherals_sdio_data_o_internal;
     assign i_SysCtrl_peripherals_SPI_to_SPI_csn = i_SysCtrl_peripherals_spim_csn_internal;
     assign i_SysCtrl_peripherals_spim_miso_internal = i_SysCtrl_peripherals_SPI_to_SPI_miso;
     assign i_SysCtrl_peripherals_SPI_to_SPI_mosi = i_SysCtrl_peripherals_spim_mosi_internal;
@@ -1989,6 +1974,8 @@ module SysCtrl_SS_0 #(
         .wdata_in            (SS_Ctrl_reg_array_wdata_in),
         .we_in               (SS_Ctrl_reg_array_we_in),
         .rdata_out           (SS_Ctrl_reg_array_rdata_out),
+        // Interface: pmod_sel
+        .pmod_sel            (SS_Ctrl_reg_array_pmod_sel),
         // Interface: rst_icn
         .reset_icn           (SS_Ctrl_reg_array_reset_icn),
         // Interface: rst_ss_0
@@ -2181,11 +2168,6 @@ module SysCtrl_SS_0 #(
         .irq_uart            (i_SysCtrl_peripherals_irq_uart),
         // Interface: Reset
         .rst_n               (i_SysCtrl_peripherals_rst_n),
-        // Interface: SDIO
-        .sdio_data_i_internal(i_SysCtrl_peripherals_sdio_data_i_internal),
-        .sdio_clk_internal   (i_SysCtrl_peripherals_sdio_clk_internal),
-        .sdio_cmd_internal   (i_SysCtrl_peripherals_sdio_cmd_internal),
-        .sdio_data_o_internal(i_SysCtrl_peripherals_sdio_data_o_internal),
         // Interface: SPI
         .spim_miso_internal  (i_SysCtrl_peripherals_spim_miso_internal),
         .spim_csn_internal   (i_SysCtrl_peripherals_spim_csn_internal),

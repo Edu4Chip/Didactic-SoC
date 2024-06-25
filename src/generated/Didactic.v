@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 24.04.2024
-// Creation time : 10:52:33
+// Creation date : 25.06.2024
+// Creation time : 14:52:31
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -9,10 +9,10 @@
 //                 * 28 signal IO
 //                 
 // Created by    : 
-// Tool : Kactus2 3.13.1 64-bit
+// Tool : Kactus2 3.13.2 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:soc:Didactic:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/soc/Didactic/1.0/Didactic.1.0.xml
+// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/Didactic.1.0.xml
 //-----------------------------------------------------------------------------
 
 module Didactic #(
@@ -21,47 +21,42 @@ module Didactic #(
     parameter                              IO_CFG_W         = 5    // Global SoC io cell cfg width
 ) (
     // Interface: BootSel
-    inout                               boot_sel,
+    inout  wire                         boot_sel,
 
     // Interface: Clock
-    inout                               clk_in,
+    inout  wire                         clk_in,
 
     // Interface: FetchEn
-    inout                               fetch_en,
+    inout  wire                         fetch_en,
 
     // Interface: GPIO
-    inout                [3:0]          gpio,
+    inout  wire          [7:0]          gpio,
 
     // Interface: JTAG
-    inout                               jtag_tck,
-    inout                               jtag_tdi,    // Data can be daisy chained or routed directly back
-    inout                               jtag_tdo,    // Data can be daisy chained or routed directly back
-    inout                               jtag_tms,
-    inout                               jtag_trst,
+    inout  wire                         jtag_tck,
+    inout  wire                         jtag_tdi,
+    inout  wire                         jtag_tdo,
+    inout  wire                         jtag_tms,
+    inout  wire                         jtag_trst,
 
     // Interface: Reset
-    inout                               reset,
-
-    // Interface: SDIO
-    inout                               sdio_clk,
-    inout                               sdio_cmd,
-    inout                [3:0]          sdio_data,
+    inout  wire                         reset,
 
     // Interface: SPI
-    inout                [1:0]          spi_csn,
-    inout                [3:0]          spi_data,
-    inout                               spi_sck,
-
-    // Interface: SS_1_GPO
-    inout                [1:0]          ss_1_gpio,
+    inout  wire          [1:0]          spi_csn,
+    inout  wire          [3:0]          spi_data,
+    inout  wire                         spi_sck,
 
     // Interface: UART
-    inout                               uart_rx,
-    inout                               uart_tx
+    inout  wire                         uart_rx,
+    inout  wire                         uart_tx,
+
+    // Interface: analog_if
+    inout  wire          [1:0]          ana_core_in,
+    inout  wire          [1:0]          ana_core_out
 );
 
     // SystemControl_SS_UART_to_UART wires:
-    // SystemControl_SS_SDIO_to_SDIO wires:
     // SystemControl_SS_SPI_to_SPI wires:
     // SystemControl_SS_FetchEn_to_FetchEn wires:
     // SystemControl_SS_BootSel_to_BootSel wires:
@@ -169,7 +164,6 @@ module Didactic #(
     wire [3:0] SystemControl_SS_AXI_to_ICN_SS_AXI_W_STROBE;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_USER;
     wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_VALID;
-    // Student_SS_1_GPIO_to_SS_1_GPO wires:
     // SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset wires:
     wire       SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset_reset;
     // SystemControl_SS_IRQ3_to_Student_SS_3_IRQ wires:
@@ -186,6 +180,39 @@ module Didactic #(
     wire       ICN_SS_APB3_to_Student_SS_3_APB_PSLVERR;
     wire [31:0] ICN_SS_APB3_to_Student_SS_3_APB_PWDATA;
     wire       ICN_SS_APB3_to_Student_SS_3_APB_PWRITE;
+    // Student_SS_2_analog_if_to_bus wires:
+    // Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0 wires:
+    wire [3:0] Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0_gpi;
+    wire [3:0] Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0_gpio_oe;
+    wire [3:0] Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0_gpo;
+    // SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1 wires:
+    wire [3:0] SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1_gpi;
+    wire [3:0] SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1_gpo;
+    // Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0 wires:
+    wire [3:0] Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpi;
+    wire [3:0] Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpio_oe;
+    wire [3:0] Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpo;
+    // Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1 wires:
+    wire [3:0] Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1_gpi;
+    wire [3:0] Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1_gpio_oe;
+    wire [3:0] Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1_gpo;
+    // Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0 wires:
+    wire [3:0] Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpi;
+    wire [3:0] Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpio_oe;
+    wire [3:0] Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpo;
+    // SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1 wires:
+    wire [3:0] SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1_gpi;
+    wire [3:0] SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1_gpo;
+    // Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0 wires:
+    wire [3:0] Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpi;
+    wire [3:0] Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpio_oe;
+    wire [3:0] Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpo;
+    // Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1 wires:
+    wire [3:0] Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpi;
+    wire [3:0] Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpio_oe;
+    wire [3:0] Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpo;
 
     // ICN_SS port wires:
     wire [31:0] ICN_SS_AR_ADDR;
@@ -257,6 +284,12 @@ module Didactic #(
     wire [7:0] Student_SS_0_clk_ctrl;
     wire       Student_SS_0_irq;
     wire       Student_SS_0_irq_en;
+    wire [3:0] Student_SS_0_pmod_0_gpi;
+    wire [3:0] Student_SS_0_pmod_0_gpio_oe;
+    wire [3:0] Student_SS_0_pmod_0_gpo;
+    wire [3:0] Student_SS_0_pmod_1_gpi;
+    wire [3:0] Student_SS_0_pmod_1_gpio_oe;
+    wire [3:0] Student_SS_0_pmod_1_gpo;
     wire       Student_SS_0_rst;
     // Student_SS_1 port wires:
     wire [31:0] Student_SS_1_PADDR;
@@ -270,6 +303,12 @@ module Didactic #(
     wire       Student_SS_1_clk;
     wire       Student_SS_1_irq_1;
     wire       Student_SS_1_irq_en_1;
+    wire [3:0] Student_SS_1_pmod_0_gpi;
+    wire [3:0] Student_SS_1_pmod_0_gpio_oe;
+    wire [3:0] Student_SS_1_pmod_0_gpo;
+    wire [3:0] Student_SS_1_pmod_1_gpi;
+    wire [3:0] Student_SS_1_pmod_1_gpio_oe;
+    wire [3:0] Student_SS_1_pmod_1_gpo;
     wire       Student_SS_1_reset_int;
     wire [7:0] Student_SS_1_ss_ctrl_1;
     // Student_SS_2 port wires:
@@ -284,6 +323,12 @@ module Didactic #(
     wire       Student_SS_2_clk;
     wire       Student_SS_2_irq_2;
     wire       Student_SS_2_irq_en_2;
+    wire [3:0] Student_SS_2_pmod_0_gpi;
+    wire [3:0] Student_SS_2_pmod_0_gpio_oe;
+    wire [3:0] Student_SS_2_pmod_0_gpo;
+    wire [3:0] Student_SS_2_pmod_1_gpi;
+    wire [3:0] Student_SS_2_pmod_1_gpio_oe;
+    wire [3:0] Student_SS_2_pmod_1_gpo;
     wire       Student_SS_2_reset_int;
     wire [7:0] Student_SS_2_ss_ctrl_2;
     // Student_SS_3 port wires:
@@ -298,6 +343,12 @@ module Didactic #(
     wire       Student_SS_3_clk_in;
     wire       Student_SS_3_irq_3;
     wire       Student_SS_3_irq_en_3;
+    wire [3:0] Student_SS_3_pmod_0_gpi;
+    wire [3:0] Student_SS_3_pmod_0_gpio_oe;
+    wire [3:0] Student_SS_3_pmod_0_gpo;
+    wire [3:0] Student_SS_3_pmod_1_gpi;
+    wire [3:0] Student_SS_3_pmod_1_gpio_oe;
+    wire [3:0] Student_SS_3_pmod_1_gpo;
     wire       Student_SS_3_reset_int;
     wire [7:0] Student_SS_3_ss_ctrl_3;
     // SystemControl_SS port wires:
@@ -360,6 +411,30 @@ module Didactic #(
     wire       SystemControl_SS_reset_ss_1;
     wire       SystemControl_SS_reset_ss_2;
     wire       SystemControl_SS_reset_ss_3;
+    wire [3:0] SystemControl_SS_ss_0_pmo_0_gpi;
+    wire [3:0] SystemControl_SS_ss_0_pmo_0_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_0_pmo_0_gpo;
+    wire [3:0] SystemControl_SS_ss_0_pmo_1_gpi;
+    wire [3:0] SystemControl_SS_ss_0_pmo_1_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_0_pmo_1_gpo;
+    wire [3:0] SystemControl_SS_ss_1_pmod_0_gpi;
+    wire [3:0] SystemControl_SS_ss_1_pmod_0_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_1_pmod_0_gpo;
+    wire [3:0] SystemControl_SS_ss_1_pmod_1_gpi;
+    wire [3:0] SystemControl_SS_ss_1_pmod_1_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_1_pmod_1_gpo;
+    wire [3:0] SystemControl_SS_ss_2_pmod_0_gpi;
+    wire [3:0] SystemControl_SS_ss_2_pmod_0_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_2_pmod_0_gpo;
+    wire [3:0] SystemControl_SS_ss_2_pmod_1_gpi;
+    wire [3:0] SystemControl_SS_ss_2_pmod_1_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_2_pmod_1_gpo;
+    wire [3:0] SystemControl_SS_ss_3_pmod_0_gpi;
+    wire [3:0] SystemControl_SS_ss_3_pmod_0_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_3_pmod_0_gpo;
+    wire [3:0] SystemControl_SS_ss_3_pmod_1_gpi;
+    wire [3:0] SystemControl_SS_ss_3_pmod_1_gpio_oe;
+    wire [3:0] SystemControl_SS_ss_3_pmod_1_gpo;
     wire [7:0] SystemControl_SS_ss_ctrl_0;
     wire [7:0] SystemControl_SS_ss_ctrl_1;
     wire [7:0] SystemControl_SS_ss_ctrl_2;
@@ -462,6 +537,12 @@ module Didactic #(
     assign Student_SS_0_clk_ctrl = SystemControl_SS_SS_0_Ctrl_to_Student_SS_0_SS_Ctrl_clk_ctrl;
     assign SystemControl_SS_IRQ0_to_Student_SS_0_IRQ_irq = Student_SS_0_irq;
     assign Student_SS_0_irq_en = SystemControl_SS_SS_0_Ctrl_to_Student_SS_0_SS_Ctrl_irq_en;
+    assign Student_SS_0_pmod_0_gpi = Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0_gpi;
+    assign Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0_gpio_oe = Student_SS_0_pmod_0_gpio_oe;
+    assign Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0_gpo = Student_SS_0_pmod_0_gpo;
+    assign Student_SS_0_pmod_1_gpi = SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1_gpi;
+    assign SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1_gpio_oe = Student_SS_0_pmod_1_gpio_oe;
+    assign SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1_gpo = Student_SS_0_pmod_1_gpo;
     assign Student_SS_0_rst = SystemControl_SS_Reset_SS_0_to_Student_SS_0_Reset_reset;
     // Student_SS_1 assignments:
     assign Student_SS_1_PADDR = ICN_SS_APB1_to_Student_SS_1_APB_PADDR;
@@ -475,6 +556,12 @@ module Didactic #(
     assign Student_SS_1_clk = SystemControl_SS_Clock_int_to_ICN_SS_Clock_clk;
     assign SystemControl_SS_IRQ1_to_Student_SS_1_IRQ_irq = Student_SS_1_irq_1;
     assign Student_SS_1_irq_en_1 = SystemControl_SS_SS_1_Ctrl_to_Student_SS_1_SS_Ctrl_irq_en;
+    assign Student_SS_1_pmod_0_gpi = Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpi;
+    assign Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpio_oe = Student_SS_1_pmod_0_gpio_oe;
+    assign Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpo = Student_SS_1_pmod_0_gpo;
+    assign Student_SS_1_pmod_1_gpi = Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1_gpi;
+    assign Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1_gpio_oe = Student_SS_1_pmod_1_gpio_oe;
+    assign Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1_gpo = Student_SS_1_pmod_1_gpo;
     assign Student_SS_1_reset_int = SystemControl_SS_Reset_SS_1_to_Student_SS_1_Reset_reset;
     assign Student_SS_1_ss_ctrl_1 = SystemControl_SS_SS_1_Ctrl_to_Student_SS_1_SS_Ctrl_clk_ctrl;
     // Student_SS_2 assignments:
@@ -489,6 +576,12 @@ module Didactic #(
     assign Student_SS_2_clk = SystemControl_SS_Clock_int_to_ICN_SS_Clock_clk;
     assign SystemControl_SS_IRQ2_to_Student_SS_2_IRQ_irq = Student_SS_2_irq_2;
     assign Student_SS_2_irq_en_2 = SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl_irq_en;
+    assign Student_SS_2_pmod_0_gpi = Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpi;
+    assign Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpio_oe = Student_SS_2_pmod_0_gpio_oe;
+    assign Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpo = Student_SS_2_pmod_0_gpo;
+    assign Student_SS_2_pmod_1_gpi = SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1_gpi;
+    assign SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1_gpio_oe = Student_SS_2_pmod_1_gpio_oe;
+    assign SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1_gpo = Student_SS_2_pmod_1_gpo;
     assign Student_SS_2_reset_int = SystemControl_SS_Reset_SS_2_to_Student_SS_2_Reset_reset;
     assign Student_SS_2_ss_ctrl_2 = SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl_clk_ctrl;
     // Student_SS_3 assignments:
@@ -503,6 +596,12 @@ module Didactic #(
     assign Student_SS_3_clk_in = SystemControl_SS_Clock_int_to_ICN_SS_Clock_clk;
     assign SystemControl_SS_IRQ3_to_Student_SS_3_IRQ_irq = Student_SS_3_irq_3;
     assign Student_SS_3_irq_en_3 = SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_irq_en;
+    assign Student_SS_3_pmod_0_gpi = Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpi;
+    assign Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpio_oe = Student_SS_3_pmod_0_gpio_oe;
+    assign Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpo = Student_SS_3_pmod_0_gpo;
+    assign Student_SS_3_pmod_1_gpi = Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpi;
+    assign Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpio_oe = Student_SS_3_pmod_1_gpio_oe;
+    assign Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpo = Student_SS_3_pmod_1_gpo;
     assign Student_SS_3_reset_int = SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset_reset;
     assign Student_SS_3_ss_ctrl_3 = SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_clk_ctrl;
     // SystemControl_SS assignments:
@@ -565,6 +664,30 @@ module Didactic #(
     assign SystemControl_SS_Reset_SS_1_to_Student_SS_1_Reset_reset = SystemControl_SS_reset_ss_1;
     assign SystemControl_SS_Reset_SS_2_to_Student_SS_2_Reset_reset = SystemControl_SS_reset_ss_2;
     assign SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset_reset = SystemControl_SS_reset_ss_3;
+    assign Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0_gpi = SystemControl_SS_ss_0_pmo_0_gpi;
+    assign SystemControl_SS_ss_0_pmo_0_gpio_oe = Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0_gpio_oe;
+    assign SystemControl_SS_ss_0_pmo_0_gpo = Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0_gpo;
+    assign SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1_gpi = SystemControl_SS_ss_0_pmo_1_gpi;
+    assign SystemControl_SS_ss_0_pmo_1_gpio_oe = SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1_gpio_oe;
+    assign SystemControl_SS_ss_0_pmo_1_gpo = SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1_gpo;
+    assign Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpi = SystemControl_SS_ss_1_pmod_0_gpi;
+    assign SystemControl_SS_ss_1_pmod_0_gpio_oe = Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpio_oe;
+    assign SystemControl_SS_ss_1_pmod_0_gpo = Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpo;
+    assign Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1_gpi = SystemControl_SS_ss_1_pmod_1_gpi;
+    assign SystemControl_SS_ss_1_pmod_1_gpio_oe = Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1_gpio_oe;
+    assign SystemControl_SS_ss_1_pmod_1_gpo = Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1_gpo;
+    assign Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpi = SystemControl_SS_ss_2_pmod_0_gpi;
+    assign SystemControl_SS_ss_2_pmod_0_gpio_oe = Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpio_oe;
+    assign SystemControl_SS_ss_2_pmod_0_gpo = Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpo;
+    assign SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1_gpi = SystemControl_SS_ss_2_pmod_1_gpi;
+    assign SystemControl_SS_ss_2_pmod_1_gpio_oe = SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1_gpio_oe;
+    assign SystemControl_SS_ss_2_pmod_1_gpo = SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1_gpo;
+    assign Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpi = SystemControl_SS_ss_3_pmod_0_gpi;
+    assign SystemControl_SS_ss_3_pmod_0_gpio_oe = Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpio_oe;
+    assign SystemControl_SS_ss_3_pmod_0_gpo = Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpo;
+    assign Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpi = SystemControl_SS_ss_3_pmod_1_gpi;
+    assign SystemControl_SS_ss_3_pmod_1_gpio_oe = Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpio_oe;
+    assign SystemControl_SS_ss_3_pmod_1_gpo = Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpo;
     assign SystemControl_SS_SS_0_Ctrl_to_Student_SS_0_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_0;
     assign SystemControl_SS_SS_1_Ctrl_to_Student_SS_1_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_1;
     assign SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_2;
@@ -657,7 +780,15 @@ module Didactic #(
         .rst                 (Student_SS_0_rst),
         // Interface: SS_Ctrl
         .clk_ctrl            (Student_SS_0_clk_ctrl),
-        .irq_en              (Student_SS_0_irq_en));
+        .irq_en              (Student_SS_0_irq_en),
+        // Interface: pmod_gpio_0
+        .pmod_0_gpi          (Student_SS_0_pmod_0_gpi),
+        .pmod_0_gpio_oe      (Student_SS_0_pmod_0_gpio_oe),
+        .pmod_0_gpo          (Student_SS_0_pmod_0_gpo),
+        // Interface: pmod_gpio_1
+        .pmod_1_gpi          (Student_SS_0_pmod_1_gpi),
+        .pmod_1_gpio_oe      (Student_SS_0_pmod_1_gpio_oe),
+        .pmod_1_gpo          (Student_SS_0_pmod_1_gpo));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_1:1.0
     Student_SS_1_0 Student_SS_1(
@@ -672,15 +803,21 @@ module Didactic #(
         .PSELERR             (Student_SS_1_PSELERR),
         // Interface: Clock
         .clk                 (Student_SS_1_clk),
-        // Interface: GPIO
-        .gpio                (ss_1_gpio[1:0]),
         // Interface: IRQ
         .irq_1               (Student_SS_1_irq_1),
         // Interface: Reset
         .reset_int           (Student_SS_1_reset_int),
         // Interface: SS_Ctrl
         .irq_en_1            (Student_SS_1_irq_en_1),
-        .ss_ctrl_1           (Student_SS_1_ss_ctrl_1));
+        .ss_ctrl_1           (Student_SS_1_ss_ctrl_1),
+        // Interface: pmod_gpio_0
+        .pmod_0_gpi          (Student_SS_1_pmod_0_gpi),
+        .pmod_0_gpio_oe      (Student_SS_1_pmod_0_gpio_oe),
+        .pmod_0_gpo          (Student_SS_1_pmod_0_gpo),
+        // Interface: pmod_gpio_1
+        .pmod_1_gpi          (Student_SS_1_pmod_1_gpi),
+        .pmod_1_gpio_oe      (Student_SS_1_pmod_1_gpio_oe),
+        .pmod_1_gpo          (Student_SS_1_pmod_1_gpo));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_2:1.0
     Student_SS_2_0 Student_SS_2(
@@ -701,7 +838,18 @@ module Didactic #(
         .reset_int           (Student_SS_2_reset_int),
         // Interface: SS_Ctrl
         .irq_en_2            (Student_SS_2_irq_en_2),
-        .ss_ctrl_2           (Student_SS_2_ss_ctrl_2));
+        .ss_ctrl_2           (Student_SS_2_ss_ctrl_2),
+        // Interface: analog_if
+        .ana_core_in         (ana_core_in[1:0]),
+        .ana_core_out        (ana_core_out[1:0]),
+        // Interface: pmod_gpio_0
+        .pmod_0_gpi          (Student_SS_2_pmod_0_gpi),
+        .pmod_0_gpio_oe      (Student_SS_2_pmod_0_gpio_oe),
+        .pmod_0_gpo          (Student_SS_2_pmod_0_gpo),
+        // Interface: pmod_gpio_1
+        .pmod_1_gpi          (Student_SS_2_pmod_1_gpi),
+        .pmod_1_gpio_oe      (Student_SS_2_pmod_1_gpio_oe),
+        .pmod_1_gpo          (Student_SS_2_pmod_1_gpo));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_3:1.0
     Student_SS_3_0 Student_SS_3(
@@ -722,7 +870,15 @@ module Didactic #(
         .reset_int           (Student_SS_3_reset_int),
         // Interface: SS_Ctrl
         .irq_en_3            (Student_SS_3_irq_en_3),
-        .ss_ctrl_3           (Student_SS_3_ss_ctrl_3));
+        .ss_ctrl_3           (Student_SS_3_ss_ctrl_3),
+        // Interface: pmod_gpio_0
+        .pmod_0_gpi          (Student_SS_3_pmod_0_gpi),
+        .pmod_0_gpio_oe      (Student_SS_3_pmod_0_gpio_oe),
+        .pmod_0_gpo          (Student_SS_3_pmod_0_gpo),
+        // Interface: pmod_gpio_1
+        .pmod_1_gpi          (Student_SS_3_pmod_1_gpi),
+        .pmod_1_gpio_oe      (Student_SS_3_pmod_1_gpio_oe),
+        .pmod_1_gpo          (Student_SS_3_pmod_1_gpo));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.0
     SysCtrl_SS_wrapper_0 #(
@@ -788,7 +944,7 @@ module Didactic #(
         // Interface: FetchEn
         .fetch_en            (fetch_en),
         // Interface: GPIO
-        .gpio                (gpio[3:0]),
+        .gpio                (gpio[7:0]),
         // Interface: ICN_SS_Ctrl
         .ss_ctrl_icn         (SystemControl_SS_ss_ctrl_icn),
         // Interface: IRQ0
@@ -817,10 +973,6 @@ module Didactic #(
         .reset_ss_3          (SystemControl_SS_reset_ss_3),
         // Interface: Reset_icn
         .reset_int           (SystemControl_SS_reset_int),
-        // Interface: SDIO
-        .sdio_clk            (sdio_clk),
-        .sdio_cmd            (sdio_cmd),
-        .sdio_data           (sdio_data[3:0]),
         // Interface: SPI
         .spi_csn             (spi_csn[1:0]),
         .spi_data            (spi_data[3:0]),
@@ -839,7 +991,39 @@ module Didactic #(
         .ss_ctrl_3           (SystemControl_SS_ss_ctrl_3),
         // Interface: UART
         .uart_rx             (uart_rx),
-        .uart_tx             (uart_tx));
+        .uart_tx             (uart_tx),
+        // Interface: ss_0_pmod_gpio_0
+        .ss_0_pmo_0_gpio_oe  (SystemControl_SS_ss_0_pmo_0_gpio_oe),
+        .ss_0_pmo_0_gpo      (SystemControl_SS_ss_0_pmo_0_gpo),
+        .ss_0_pmo_0_gpi      (SystemControl_SS_ss_0_pmo_0_gpi),
+        // Interface: ss_0_pmod_gpio_1
+        .ss_0_pmo_1_gpio_oe  (SystemControl_SS_ss_0_pmo_1_gpio_oe),
+        .ss_0_pmo_1_gpo      (SystemControl_SS_ss_0_pmo_1_gpo),
+        .ss_0_pmo_1_gpi      (SystemControl_SS_ss_0_pmo_1_gpi),
+        // Interface: ss_1_pmod_gpio_0
+        .ss_1_pmod_0_gpio_oe (SystemControl_SS_ss_1_pmod_0_gpio_oe),
+        .ss_1_pmod_0_gpo     (SystemControl_SS_ss_1_pmod_0_gpo),
+        .ss_1_pmod_0_gpi     (SystemControl_SS_ss_1_pmod_0_gpi),
+        // Interface: ss_1_pmod_gpio_1
+        .ss_1_pmod_1_gpio_oe (SystemControl_SS_ss_1_pmod_1_gpio_oe),
+        .ss_1_pmod_1_gpo     (SystemControl_SS_ss_1_pmod_1_gpo),
+        .ss_1_pmod_1_gpi     (SystemControl_SS_ss_1_pmod_1_gpi),
+        // Interface: ss_2_pmod_gpio_0
+        .ss_2_pmod_0_gpio_oe (SystemControl_SS_ss_2_pmod_0_gpio_oe),
+        .ss_2_pmod_0_gpo     (SystemControl_SS_ss_2_pmod_0_gpo),
+        .ss_2_pmod_0_gpi     (SystemControl_SS_ss_2_pmod_0_gpi),
+        // Interface: ss_2_pmod_gpio_1
+        .ss_2_pmod_1_gpio_oe (SystemControl_SS_ss_2_pmod_1_gpio_oe),
+        .ss_2_pmod_1_gpo     (SystemControl_SS_ss_2_pmod_1_gpo),
+        .ss_2_pmod_1_gpi     (SystemControl_SS_ss_2_pmod_1_gpi),
+        // Interface: ss_3_pmod_gpio_0
+        .ss_3_pmod_0_gpio_oe (SystemControl_SS_ss_3_pmod_0_gpio_oe),
+        .ss_3_pmod_0_gpo     (SystemControl_SS_ss_3_pmod_0_gpo),
+        .ss_3_pmod_0_gpi     (SystemControl_SS_ss_3_pmod_0_gpi),
+        // Interface: ss_3_pmod_gpio_1
+        .ss_3_pmod_1_gpio_oe (SystemControl_SS_ss_3_pmod_1_gpio_oe),
+        .ss_3_pmod_1_gpo     (SystemControl_SS_ss_3_pmod_1_gpo),
+        .ss_3_pmod_1_gpi     (SystemControl_SS_ss_3_pmod_1_gpi));
 
 
 endmodule

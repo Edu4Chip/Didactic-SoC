@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_1_0.v
-// Creation date : 24.04.2024
-// Creation time : 10:52:33
+// Creation date : 25.06.2024
+// Creation time : 14:52:31
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.1 64-bit
+// Tool : Kactus2 3.13.2 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:Student_SS_1:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem.wrapper/Student_SS_1/1.0/Student_SS_1.1.0.xml
+// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_1/1.0/Student_SS_1.1.0.xml
 //-----------------------------------------------------------------------------
 
 module Student_SS_1_0(
@@ -24,9 +24,6 @@ module Student_SS_1_0(
     // Interface: Clock
     input                               clk,
 
-    // Interface: GPIO
-    inout                [1:0]          gpio,
-
     // Interface: IRQ
     output                              irq_1,
 
@@ -35,7 +32,17 @@ module Student_SS_1_0(
 
     // Interface: SS_Ctrl
     input                               irq_en_1,
-    input                [7:0]          ss_ctrl_1
+    input                [7:0]          ss_ctrl_1,
+
+    // Interface: pmod_gpio_0
+    input  logic         [3:0]          pmod_0_gpi,
+    output logic         [3:0]          pmod_0_gpio_oe,
+    output logic         [3:0]          pmod_0_gpo,
+
+    // Interface: pmod_gpio_1
+    input  logic         [3:0]          pmod_1_gpi,
+    output logic         [3:0]          pmod_1_gpio_oe,
+    output logic         [3:0]          pmod_1_gpo
 );
 
     // tech_cg_0_clk_in_to_Clock wires:
@@ -58,21 +65,18 @@ module Student_SS_1_0(
     wire       student_ss_1_APB_to_APB_PWRITE;
     // student_ss_1_IRQ_to_IRQ wires:
     wire       student_ss_1_IRQ_to_IRQ_irq;
-    // io_cell_frame_1_GPIO_external_to_GPIO wires:
-    // io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio wires:
-    wire [1:0] io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpi;
-    wire [1:0] io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpio_oe;
-    wire [1:0] io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpo;
+    // student_ss_1_pmod_gpio_0_to_bus_1 wires:
+    wire [3:0] student_ss_1_pmod_gpio_0_to_bus_1_gpi;
+    wire [3:0] student_ss_1_pmod_gpio_0_to_bus_1_gpio_oe;
+    wire [3:0] student_ss_1_pmod_gpio_0_to_bus_1_gpo;
+    // student_ss_1_pmod_gpio_1_to_bus wires:
+    wire [3:0] student_ss_1_pmod_gpio_1_to_bus_gpi;
+    wire [3:0] student_ss_1_pmod_gpio_1_to_bus_gpio_oe;
+    wire [3:0] student_ss_1_pmod_gpio_1_to_bus_gpo;
 
     // Ad-hoc wires:
     wire       tech_cg_0_en_to_ss_ctrl_1;
-    wire [5:0] io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1;
 
-    // io_cell_frame_1 port wires:
-    wire [1:0] io_cell_frame_1_gpi_out;
-    wire [1:0] io_cell_frame_1_gpio_oe;
-    wire [1:0] io_cell_frame_1_gpo_in;
-    wire [5:0] io_cell_frame_1_io_cell_cfg;
     // student_ss_1 port wires:
     wire [9:0] student_ss_1_PADDR;
     wire       student_ss_1_PENABLE;
@@ -83,11 +87,14 @@ module Student_SS_1_0(
     wire [31:0] student_ss_1_PWDATA;
     wire       student_ss_1_PWRITE;
     wire       student_ss_1_clk_in;
-    wire [1:0] student_ss_1_gpi_i;
-    wire [1:0] student_ss_1_gpio_oe;
-    wire [1:0] student_ss_1_gpo_o;
     wire       student_ss_1_irq_1;
     wire       student_ss_1_irq_en_1;
+    wire [3:0] student_ss_1_pmod_0_gpi;
+    wire [3:0] student_ss_1_pmod_0_gpio_oe;
+    wire [3:0] student_ss_1_pmod_0_gpo;
+    wire [3:0] student_ss_1_pmod_1_gpi;
+    wire [3:0] student_ss_1_pmod_1_gpio_oe;
+    wire [3:0] student_ss_1_pmod_1_gpo;
     wire       student_ss_1_reset_int;
     wire [7:0] student_ss_1_ss_ctrl_1;
     // tech_cg_0 port wires:
@@ -107,16 +114,16 @@ module Student_SS_1_0(
     assign tech_cg_0_clk_in_to_Clock_clk = clk;
     assign irq_1 = student_ss_1_IRQ_to_IRQ_irq;
     assign student_ss_1_ss_ctrl_to_SS_Ctrl_irq_en = irq_en_1;
+    assign student_ss_1_pmod_gpio_0_to_bus_1_gpi = pmod_0_gpi;
+    assign pmod_0_gpio_oe = student_ss_1_pmod_gpio_0_to_bus_1_gpio_oe;
+    assign pmod_0_gpo = student_ss_1_pmod_gpio_0_to_bus_1_gpo;
+    assign student_ss_1_pmod_gpio_1_to_bus_gpi = pmod_1_gpi;
+    assign pmod_1_gpio_oe = student_ss_1_pmod_gpio_1_to_bus_gpio_oe;
+    assign pmod_1_gpo = student_ss_1_pmod_gpio_1_to_bus_gpo;
     assign student_ss_1_Reset_to_Reset_reset = reset_int;
     assign student_ss_1_ss_ctrl_to_SS_Ctrl_clk_ctrl = ss_ctrl_1;
-    assign io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1 = ss_ctrl_1[6:1];
     assign tech_cg_0_en_to_ss_ctrl_1 = ss_ctrl_1[0];
 
-    // io_cell_frame_1 assignments:
-    assign io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpi = io_cell_frame_1_gpi_out;
-    assign io_cell_frame_1_gpio_oe = io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpio_oe;
-    assign io_cell_frame_1_gpo_in = io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpo;
-    assign io_cell_frame_1_io_cell_cfg = io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1;
     // student_ss_1 assignments:
     assign student_ss_1_PADDR = student_ss_1_APB_to_APB_PADDR[9:0];
     assign student_ss_1_PENABLE = student_ss_1_APB_to_APB_PENABLE;
@@ -127,28 +134,20 @@ module Student_SS_1_0(
     assign student_ss_1_PWDATA = student_ss_1_APB_to_APB_PWDATA;
     assign student_ss_1_PWRITE = student_ss_1_APB_to_APB_PWRITE;
     assign student_ss_1_clk_in = tech_cg_0_clk_out_to_student_ss_1_Clock_clk;
-    assign student_ss_1_gpi_i = io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpi;
-    assign io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpio_oe = student_ss_1_gpio_oe;
-    assign io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio_gpo = student_ss_1_gpo_o;
     assign student_ss_1_IRQ_to_IRQ_irq = student_ss_1_irq_1;
     assign student_ss_1_irq_en_1 = student_ss_1_ss_ctrl_to_SS_Ctrl_irq_en;
+    assign student_ss_1_pmod_0_gpi = student_ss_1_pmod_gpio_0_to_bus_1_gpi;
+    assign student_ss_1_pmod_gpio_0_to_bus_1_gpio_oe = student_ss_1_pmod_0_gpio_oe;
+    assign student_ss_1_pmod_gpio_0_to_bus_1_gpo = student_ss_1_pmod_0_gpo;
+    assign student_ss_1_pmod_1_gpi = student_ss_1_pmod_gpio_1_to_bus_gpi;
+    assign student_ss_1_pmod_gpio_1_to_bus_gpio_oe = student_ss_1_pmod_1_gpio_oe;
+    assign student_ss_1_pmod_gpio_1_to_bus_gpo = student_ss_1_pmod_1_gpo;
     assign student_ss_1_reset_int = student_ss_1_Reset_to_Reset_reset;
     assign student_ss_1_ss_ctrl_1 = student_ss_1_ss_ctrl_to_SS_Ctrl_clk_ctrl;
     // tech_cg_0 assignments:
     assign tech_cg_0_clk = tech_cg_0_clk_in_to_Clock_clk;
     assign tech_cg_0_clk_out_to_student_ss_1_Clock_clk = tech_cg_0_clk_out;
     assign tech_cg_0_en = tech_cg_0_en_to_ss_ctrl_1;
-
-    // IP-XACT VLNV: tuni.fi:subsystem.io:io_cell_frame_ss_1:1.0
-    io_cell_frame_ss_1     io_cell_frame_1(
-        // Interface: GPIO_external
-        .gpio                (gpio[1:0]),
-        // Interface: GPIO_internal
-        .gpio_oe             (io_cell_frame_1_gpio_oe),
-        .gpo_in              (io_cell_frame_1_gpo_in),
-        .gpi_out             (io_cell_frame_1_gpi_out),
-        // These ports are not in any interface
-        .io_cell_cfg         (io_cell_frame_1_io_cell_cfg));
 
     // IP-XACT VLNV: tuni.fi:subsystem:student_ss_1:1.0
     student_ss_1     student_ss_1(
@@ -167,10 +166,14 @@ module Student_SS_1_0(
         .irq_1               (student_ss_1_irq_1),
         // Interface: Reset
         .reset_int           (student_ss_1_reset_int),
-        // Interface: gpio
-        .gpi_i               (student_ss_1_gpi_i),
-        .gpio_oe             (student_ss_1_gpio_oe),
-        .gpo_o               (student_ss_1_gpo_o),
+        // Interface: pmod_gpio_0
+        .pmod_0_gpi          (student_ss_1_pmod_0_gpi),
+        .pmod_0_gpio_oe      (student_ss_1_pmod_0_gpio_oe),
+        .pmod_0_gpo          (student_ss_1_pmod_0_gpo),
+        // Interface: pmod_gpio_1
+        .pmod_1_gpi          (student_ss_1_pmod_1_gpi),
+        .pmod_1_gpio_oe      (student_ss_1_pmod_1_gpio_oe),
+        .pmod_1_gpo          (student_ss_1_pmod_1_gpo),
         // Interface: ss_ctrl
         .irq_en_1            (student_ss_1_irq_en_1),
         .ss_ctrl_1           (student_ss_1_ss_ctrl_1));

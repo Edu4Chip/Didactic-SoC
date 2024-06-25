@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_0_0.v
-// Creation date : 24.04.2024
-// Creation time : 10:52:33
+// Creation date : 25.06.2024
+// Creation time : 14:52:31
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.1 64-bit
+// Tool : Kactus2 3.13.2 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:Student_SS_0:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem.wrapper/Student_SS_0/1.0/Student_SS_0.1.0.xml
+// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_0/1.0/Student_SS_0.1.0.xml
 //-----------------------------------------------------------------------------
 
 module Student_SS_0_0 #(
@@ -35,7 +35,17 @@ module Student_SS_0_0 #(
 
     // Interface: SS_Ctrl
     input                [7:0]          clk_ctrl,
-    input                               irq_en
+    input                               irq_en,
+
+    // Interface: pmod_gpio_0
+    input  logic         [3:0]          pmod_0_gpi,
+    output logic         [3:0]          pmod_0_gpio_oe,
+    output logic         [3:0]          pmod_0_gpo,
+
+    // Interface: pmod_gpio_1
+    input  logic         [3:0]          pmod_1_gpi,
+    output logic         [3:0]          pmod_1_gpio_oe,
+    output logic         [3:0]          pmod_1_gpo
 );
 
     // SS_cg_clk_in_to_Clock wires:
@@ -58,6 +68,14 @@ module Student_SS_0_0 #(
     // Student_area_0_SS_Ctrl_to_SS_Ctrl wires:
     wire [7:0] Student_area_0_SS_Ctrl_to_SS_Ctrl_clk_ctrl;
     wire       Student_area_0_SS_Ctrl_to_SS_Ctrl_irq_en;
+    // Student_area_0_pmod_gpio_0_to_bus_1 wires:
+    wire [3:0] Student_area_0_pmod_gpio_0_to_bus_1_gpi;
+    wire [3:0] Student_area_0_pmod_gpio_0_to_bus_1_gpio_oe;
+    wire [3:0] Student_area_0_pmod_gpio_0_to_bus_1_gpo;
+    // Student_area_0_pmod_gpio_1_to_bus wires:
+    wire [3:0] Student_area_0_pmod_gpio_1_to_bus_gpi;
+    wire [3:0] Student_area_0_pmod_gpio_1_to_bus_gpio_oe;
+    wire [3:0] Student_area_0_pmod_gpio_1_to_bus_gpo;
 
     // Ad-hoc wires:
     wire       SS_cg_en_to_clk_ctrl;
@@ -79,6 +97,12 @@ module Student_SS_0_0 #(
     wire       Student_area_0_clk_in;
     wire       Student_area_0_irq;
     wire       Student_area_0_irq_en;
+    wire [3:0] Student_area_0_pmod_0_gpi;
+    wire [3:0] Student_area_0_pmod_0_gpio_oe;
+    wire [3:0] Student_area_0_pmod_0_gpo;
+    wire [3:0] Student_area_0_pmod_1_gpi;
+    wire [3:0] Student_area_0_pmod_1_gpio_oe;
+    wire [3:0] Student_area_0_pmod_1_gpo;
     wire       Student_area_0_rst;
 
     // Assignments for the ports of the encompassing component:
@@ -95,6 +119,12 @@ module Student_SS_0_0 #(
     assign Student_area_0_SS_Ctrl_to_SS_Ctrl_clk_ctrl = clk_ctrl;
     assign irq = Student_area_0_IRQ_to_IRQ_irq;
     assign Student_area_0_SS_Ctrl_to_SS_Ctrl_irq_en = irq_en;
+    assign Student_area_0_pmod_gpio_0_to_bus_1_gpi = pmod_0_gpi;
+    assign pmod_0_gpio_oe = Student_area_0_pmod_gpio_0_to_bus_1_gpio_oe;
+    assign pmod_0_gpo = Student_area_0_pmod_gpio_0_to_bus_1_gpo;
+    assign Student_area_0_pmod_gpio_1_to_bus_gpi = pmod_1_gpi;
+    assign pmod_1_gpio_oe = Student_area_0_pmod_gpio_1_to_bus_gpio_oe;
+    assign pmod_1_gpo = Student_area_0_pmod_gpio_1_to_bus_gpo;
     assign Student_area_0_reset_to_Reset_reset = rst;
 
     // SS_cg assignments:
@@ -114,6 +144,12 @@ module Student_SS_0_0 #(
     assign Student_area_0_clk_in = SS_cg_clk_out_to_Student_area_0_clk_clk;
     assign Student_area_0_IRQ_to_IRQ_irq = Student_area_0_irq;
     assign Student_area_0_irq_en = Student_area_0_SS_Ctrl_to_SS_Ctrl_irq_en;
+    assign Student_area_0_pmod_0_gpi = Student_area_0_pmod_gpio_0_to_bus_1_gpi;
+    assign Student_area_0_pmod_gpio_0_to_bus_1_gpio_oe = Student_area_0_pmod_0_gpio_oe;
+    assign Student_area_0_pmod_gpio_0_to_bus_1_gpo = Student_area_0_pmod_0_gpo;
+    assign Student_area_0_pmod_1_gpi = Student_area_0_pmod_gpio_1_to_bus_gpi;
+    assign Student_area_0_pmod_gpio_1_to_bus_gpio_oe = Student_area_0_pmod_1_gpio_oe;
+    assign Student_area_0_pmod_gpio_1_to_bus_gpo = Student_area_0_pmod_1_gpo;
     assign Student_area_0_rst = Student_area_0_reset_to_Reset_reset;
 
     // IP-XACT VLNV: tuni.fi:tech:tech_cg:1.0
@@ -146,6 +182,14 @@ module Student_SS_0_0 #(
         .irq_en              (Student_area_0_irq_en),
         // Interface: clk
         .clk_in              (Student_area_0_clk_in),
+        // Interface: pmod_gpio_0
+        .pmod_0_gpi          (Student_area_0_pmod_0_gpi),
+        .pmod_0_gpio_oe      (Student_area_0_pmod_0_gpio_oe),
+        .pmod_0_gpo          (Student_area_0_pmod_0_gpo),
+        // Interface: pmod_gpio_1
+        .pmod_1_gpi          (Student_area_0_pmod_1_gpi),
+        .pmod_1_gpio_oe      (Student_area_0_pmod_1_gpio_oe),
+        .pmod_1_gpo          (Student_area_0_pmod_1_gpo),
         // Interface: reset
         .rst                 (Student_area_0_rst));
 
