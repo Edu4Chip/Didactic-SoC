@@ -401,6 +401,26 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator/>
 		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>pmod_sel</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gpo</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>pmod_sel</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:initiator/>
+		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:memoryMaps>
 		<ipxact:memoryMap>
@@ -849,8 +869,8 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -1140,6 +1160,23 @@
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>pmod_sel</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>7</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:fileSets>
@@ -1148,6 +1185,9 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/rtl/SS_Ctrl_reg_array.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>0bfe8ef38fbe6f2b6f134f73c0ab98f17bbdb5d9</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>

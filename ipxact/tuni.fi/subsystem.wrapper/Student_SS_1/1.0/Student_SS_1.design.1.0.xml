@@ -33,22 +33,9 @@
 					<kactus2:portPosition busRef="Reset" x="110" y="40"/>
 					<kactus2:portPosition busRef="gpio" x="-110" y="230"/>
 					<kactus2:portPosition busRef="ss_ctrl" x="-110" y="190"/>
+					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="260"/>
+					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="220"/>
 				</kactus2:portPositions>
-			</ipxact:vendorExtensions>
-		</ipxact:componentInstance>
-		<ipxact:componentInstance>
-			<ipxact:instanceName>io_cell_frame_1</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="subsystem.io" name="io_cell_frame_ss_1" version="1.0"/>
-			<ipxact:vendorExtensions>
-				<kactus2:uuid>{751acffe-fc09-49c9-bc55-6e2cede10f20}</kactus2:uuid>
-				<kactus2:position x="280" y="190"/>
-				<kactus2:portPositions>
-					<kactus2:portPosition busRef="GPIO_external" x="-110" y="100"/>
-					<kactus2:portPosition busRef="GPIO_internal" x="110" y="100"/>
-				</kactus2:portPositions>
-				<kactus2:adHocVisibilities>
-					<kactus2:adHocVisible portName="io_cell_cfg" x="-110" y="40"/>
-				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
 	</ipxact:componentInstances>
@@ -84,14 +71,14 @@
 			<ipxact:hierInterface busRef="IRQ"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>io_cell_frame_1_GPIO_external_to_GPIO</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="io_cell_frame_1" busRef="GPIO_external"/>
-			<ipxact:hierInterface busRef="GPIO"/>
+			<ipxact:name>student_ss_1_pmod_gpio_0_to_bus_1</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="student_ss_1" busRef="pmod_gpio_0"/>
+			<ipxact:hierInterface busRef="pmod_gpio_0"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="io_cell_frame_1" busRef="GPIO_internal"/>
-			<ipxact:activeInterface componentInstanceRef="student_ss_1" busRef="gpio"/>
+			<ipxact:name>student_ss_1_pmod_gpio_1_to_bus</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="student_ss_1" busRef="pmod_gpio_1"/>
+			<ipxact:hierInterface busRef="pmod_gpio_1"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
@@ -104,27 +91,6 @@
 						<ipxact:range>
 							<ipxact:left>0</ipxact:left>
 							<ipxact:right>0</ipxact:right>
-						</ipxact:range>
-					</ipxact:partSelect>
-				</ipxact:externalPortReference>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
-		<ipxact:adHocConnection>
-			<ipxact:name>io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1</ipxact:name>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="io_cell_frame_1" portRef="io_cell_cfg">
-					<ipxact:partSelect>
-						<ipxact:range>
-							<ipxact:left>5</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:range>
-					</ipxact:partSelect>
-				</ipxact:internalPortReference>
-				<ipxact:externalPortReference portRef="ss_ctrl_1">
-					<ipxact:partSelect>
-						<ipxact:range>
-							<ipxact:left>6</ipxact:left>
-							<ipxact:right>1</ipxact:right>
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:externalPortReference>
@@ -171,19 +137,13 @@
 				<kactus2:position x="710" y="210"/>
 				<kactus2:position x="820" y="210"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="io_cell_frame_1_io_cell_cfg_to_ss_ctrl_1" kactus2:offPage="false">
-				<kactus2:position x="60" y="140"/>
-				<kactus2:position x="150" y="140"/>
-				<kactus2:position x="150" y="230"/>
-				<kactus2:position x="170" y="230"/>
+			<kactus2:route kactus2:connRef="student_ss_1_pmod_gpio_0_to_pmod_gpio_0" kactus2:offPage="false">
+				<kactus2:position x="710" y="280"/>
+				<kactus2:position x="820" y="280"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="io_cell_frame_1_GPIO_external_to_GPIO" kactus2:offPage="false">
-				<kactus2:position x="170" y="290"/>
-				<kactus2:position x="60" y="290"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="io_cell_frame_1_GPIO_internal_to_student_ss_1_gpio" kactus2:offPage="false">
-				<kactus2:position x="390" y="290"/>
-				<kactus2:position x="490" y="290"/>
+			<kactus2:route kactus2:connRef="student_ss_1_pmod_gpio_1_to_pmod_gpio_1" kactus2:offPage="false">
+				<kactus2:position x="710" y="320"/>
+				<kactus2:position x="820" y="320"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>
@@ -215,9 +175,14 @@
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
-			<kactus2:name>GPIO</kactus2:name>
-			<kactus2:position x="60" y="290"/>
-			<kactus2:direction x="1" y="0"/>
+			<kactus2:name>pmod_gpio_1</kactus2:name>
+			<kactus2:position x="820" y="320"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>pmod_gpio_0</kactus2:name>
+			<kactus2:position x="820" y="280"/>
+			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>

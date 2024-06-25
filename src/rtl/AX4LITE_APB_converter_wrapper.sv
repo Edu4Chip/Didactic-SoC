@@ -18,7 +18,7 @@
 module AX4LITE_APB_converter_wrapper #(
     parameter                              APB_AW           = 32,
     parameter                              APB_DW           = 32,
-    parameter                              APB_TARGETS      = 4,
+    parameter                              APB_TARGETS      = 3,
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32
 ) (
@@ -99,7 +99,6 @@ module AX4LITE_APB_converter_wrapper #(
   rule_t [NoAddrRules-1:0] AddrMapAPB;
   // TODO: finalize Address table based on APB Subsystems
   assign AddrMapAPB = '{
-                         '{idx: 32'd3, start_addr: ADDR_BASE+APB_SIZE*3, end_addr: ADDR_BASE+APB_SIZE*4-1},
                          '{idx: 32'd2, start_addr: ADDR_BASE+APB_SIZE*2, end_addr: ADDR_BASE+APB_SIZE*3-1},
                          '{idx: 32'd1, start_addr: ADDR_BASE+APB_SIZE*1, end_addr: ADDR_BASE+APB_SIZE*2-1},
                          '{idx: 32'd0, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1-1}

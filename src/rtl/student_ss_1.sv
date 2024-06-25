@@ -40,13 +40,23 @@ module student_ss_1 #(
     input  logic              reset_int,
 
     // Interface: gpio
-    input  logic [1:0]        gpi_i,
-    output logic [1:0]        gpio_oe,
-    output logic [1:0]        gpo_o,
+    input  logic [7:0]        gpi_i,
+    output logic [7:0]        gpio_oe,
+    output logic [7:0]        gpo_o,
 
     // Interface: ss_ctrl
     input logic              irq_en_1,
-    input logic [7:0]        ss_ctrl_1
+    input logic [7:0]        ss_ctrl_1,
+    
+    //Interface: GPIO pmod 0
+    input  logic [3:0] pmod_0_gpi,
+    output logic [3:0] pmod_0_gpo,
+    output logic [3:0] pmod_0_gpoe,
+
+    //Interface: GPIO pmod 1
+    input  logic [3:0] pmod_1_gpi,
+    output logic [3:0] pmod_1_gpo,
+    output logic [3:0] pmod_1_gpoe
 );
 
   logic [31:0] field_0;
@@ -66,7 +76,7 @@ module student_ss_1 #(
 
     end
     else begin
-      field_1[1:0] <= gpi_i;
+      field_1[7:4] <= pmod_1_gpi
 
 
       if(PSEL) begin
@@ -118,10 +128,15 @@ module student_ss_1 #(
     PRDATA  <= PRDATA_reg;
     PREADY  <= PREADY_reg;
 
-    gpo_o <= field_0 [1:0];
+    pmod_0_gpo_o <= field_0 [3:0];
   end
 
 assign irq = 1'b0;
+// set as always outs
+assign pmod_0_gpoe = 4'h0;
+// set as always ins
+assign pmod_1_gpoe = 4'hF;
+
 
 /////// SVA /////////
 

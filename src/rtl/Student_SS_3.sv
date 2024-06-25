@@ -32,7 +32,18 @@ module Student_SS_3(
 
     // Interface: SS_Ctrl
     input  logic                        irq_en_3,
-    input  logic         [7:0]          ss_ctrl_3
+    input  logic         [7:0]          ss_ctrl_3,
+    
+    //Interface: GPIO pmod 0
+    input  logic [3:0] pmod_0_gpi,
+    output logic [3:0] pmod_0_gpo,
+    output logic [3:0] pmod_0_gpoe,
+
+    //Interface: GPIO pmod 1
+    input  logic [3:0] pmod_1_gpi,
+    output logic [3:0] pmod_1_gpo,
+    output logic [3:0] pmod_1_gpoe
+);
 );
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
@@ -42,6 +53,12 @@ assign PSELERR = 'd0;
 assign PSREADY = 'd0;
 assign PRDATA  = 'd0;
 assign irq     = 'd0;
+
+
+assign pmod_1_gpo =  3'h0;
+assign pmod_1_gpoe = 3'h0;
+assign pmod_0_gpo  = 3'h0;
+assign pmod_0_gpoe = 3'h0;
 
 
 endmodule

@@ -73,7 +73,10 @@ module SS_Ctrl_reg_array #(
 
     // Interface: ss_ctrl_3
     output logic irq_en_3,
-    output logic [7:0]          ss_ctrl_3
+    output logic [7:0]          ss_ctrl_3,
+
+    // Interface: pmod_ctrl
+    output logic [7:0] pmod_sel
 );
 
   logic [31:0] bootSel_reg;
@@ -94,6 +97,7 @@ module SS_Ctrl_reg_array #(
   logic [31:0] io_cell_cfg_6_reg;
   logic [31:0] io_cell_cfg_7_reg;
   logic [31:0] io_cell_cfg_8_reg;
+  logic [31:0] pmod_sel_reg;
 
     // FFs for write or read/write registers
     always_ff @( posedge clk or negedge reset )
@@ -117,6 +121,7 @@ module SS_Ctrl_reg_array #(
         io_cell_cfg_6_reg <= 'h0;
         io_cell_cfg_7_reg <= 'h0;
         io_cell_cfg_8_reg <= 'h0;
+        pmod_sel_reg <= 'h0;
     end
     else if (we_in) begin 
         case (addr_in)
@@ -171,6 +176,9 @@ module SS_Ctrl_reg_array #(
         end
         'h54: begin
             io_cell_cfg_8_reg <= wdata_in[ 31:0 ];
+        end
+        'h58: begin
+            pmod_sel_reg <= wdata_in[ 31:0 ];
         end
         endcase     
     end
@@ -229,6 +237,9 @@ module SS_Ctrl_reg_array #(
         'h54: begin
             rdata_out =io_cell_cfg_8_reg;
         end
+        'h54: begin
+            rdata_out =pmod_sel_reg;
+        end
     endcase
 end // read_logic
 
@@ -262,6 +273,8 @@ assign cell_cfg[95:64]  = io_cell_cfg_2_reg;
 assign cell_cfg[127:96]  = io_cell_cfg_3_reg;
 assign cell_cfg[139:128]  = io_cell_cfg_4_reg[10:0];
 
+assign pmod_sel = pmod_sel_reg;
 
-// this can be created by kamel once memory design is finalized
+
+// this can be recreated by kamel once memory design is finalized
 endmodule

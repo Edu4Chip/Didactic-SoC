@@ -144,134 +144,6 @@
 			</ipxact:initiator>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
-			<ipxact:name>APB_SDIO</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="APB" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="APB.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>PADDR</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>PADDR</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>PENABLE</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>PENABLE</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>PRDATA</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>31</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>PRDATA</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>63</ipxact:left>
-										<ipxact:right>32</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>PREADY</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>0</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>PREADY</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>1</ipxact:left>
-										<ipxact:right>1</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>PSEL</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>0</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>PSEL</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>1</ipxact:left>
-										<ipxact:right>1</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>PSLVERR</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>0</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>PSLVERR</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>1</ipxact:left>
-										<ipxact:right>1</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>PWDATA</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>PWDATA</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>PWRITE</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>PWRITE</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:initiator>
-				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
-					<ipxact:baseAddress>100</ipxact:baseAddress>
-				</ipxact:addressSpaceRef>
-			</ipxact:initiator>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
 			<ipxact:name>APB_SPI</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="APB" version="1.0"/>
 			<ipxact:abstractionTypes>
@@ -436,8 +308,8 @@
 								<ipxact:name>PRDATA</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
-										<ipxact:left>127</ipxact:left>
-										<ipxact:right>96</ipxact:right>
+										<ipxact:left>63</ipxact:left>
+										<ipxact:right>32</ipxact:right>
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
@@ -455,8 +327,8 @@
 								<ipxact:name>PREADY</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
-										<ipxact:left>3</ipxact:left>
-										<ipxact:right>3</ipxact:right>
+										<ipxact:left>1</ipxact:left>
+										<ipxact:right>1</ipxact:right>
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
@@ -474,8 +346,8 @@
 								<ipxact:name>PSEL</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
-										<ipxact:left>3</ipxact:left>
-										<ipxact:right>3</ipxact:right>
+										<ipxact:left>1</ipxact:left>
+										<ipxact:right>1</ipxact:right>
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
@@ -493,8 +365,8 @@
 								<ipxact:name>PSLVERR</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
-										<ipxact:left>3</ipxact:left>
-										<ipxact:right>3</ipxact:right>
+										<ipxact:left>1</ipxact:left>
+										<ipxact:right>1</ipxact:right>
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
@@ -873,7 +745,6 @@
 			<ipxact:target>
 				<ipxact:transparentBridge initiatorRef="APB_UART"/>
 				<ipxact:transparentBridge initiatorRef="APB_GPIO"/>
-				<ipxact:transparentBridge initiatorRef="APB_SDIO"/>
 				<ipxact:transparentBridge initiatorRef="APB_SPI"/>
 			</ipxact:target>
 			<ipxact:connectionRequired>false</ipxact:connectionRequired>
@@ -1567,7 +1438,7 @@
 	<ipxact:parameters>
 		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_05ad5ce0_302b_41c3_b3c9_9e67d0532c1b">
 			<ipxact:name>APB_TARGETS</ipxact:name>
-			<ipxact:value>4</ipxact:value>
+			<ipxact:value>3</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_9b7b3f2d_6802_439a_9398_412c81301bfc">
 			<ipxact:name>APB_AW</ipxact:name>

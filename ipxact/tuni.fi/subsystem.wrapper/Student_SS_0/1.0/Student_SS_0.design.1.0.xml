@@ -32,6 +32,8 @@
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="180"/>
 					<kactus2:portPosition busRef="clk" x="-110" y="60"/>
 					<kactus2:portPosition busRef="reset" x="110" y="40"/>
+					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="250"/>
+					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="210"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -66,6 +68,16 @@
 			<ipxact:name>Student_area_0_SS_Ctrl_to_SS_Ctrl</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="Student_area_0" busRef="SS_Ctrl"/>
 			<ipxact:hierInterface busRef="SS_Ctrl"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>Student_area_0_pmod_gpio_0_to_bus_1</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="Student_area_0" busRef="pmod_gpio_0"/>
+			<ipxact:hierInterface busRef="pmod_gpio_0"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>Student_area_0_pmod_gpio_1_to_bus</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="Student_area_0" busRef="pmod_gpio_1"/>
+			<ipxact:hierInterface busRef="pmod_gpio_1"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
@@ -124,6 +136,14 @@
 				<kactus2:position x="490" y="240"/>
 				<kactus2:position x="60" y="240"/>
 			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_area_0_pmod_gpio_0_to_pmod_gpio_0" kactus2:offPage="false">
+				<kactus2:position x="710" y="270"/>
+				<kactus2:position x="820" y="270"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_area_0_pmod_gpio_1_to_pmod_gpio_1" kactus2:offPage="false">
+				<kactus2:position x="710" y="310"/>
+				<kactus2:position x="820" y="310"/>
+			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>
 			<kactus2:adHocVisible portName="clk_ctrl" x="60" y="160"/>
@@ -152,6 +172,16 @@
 			<kactus2:name>SS_Ctrl</kactus2:name>
 			<kactus2:position x="60" y="240"/>
 			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>pmod_gpio_1</kactus2:name>
+			<kactus2:position x="820" y="310"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>pmod_gpio_0</kactus2:name>
+			<kactus2:position x="820" y="270"/>
+			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>
