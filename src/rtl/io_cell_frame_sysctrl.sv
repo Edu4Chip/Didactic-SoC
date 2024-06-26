@@ -113,7 +113,7 @@ module io_cell_frame_sysctrl #(
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_bootsel(.FROM_CORE(1'b0), .TO_CORE(BootSel_internal), .PAD(boot_sel), .io_cell_cfg(cell_cfg[9*IOCELL_CFG_W-1:8*IOCELL_CFG_W]));
 
   // fetchEn
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_fetchen(.FROM_CORE(1'b0), .TO_CORE(fetch_en), .PAD(fetch_en), .io_cell_cfg(cell_cfg[10*IOCELL_CFG_W-1:9*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_fetchen(.FROM_CORE(1'b0), .TO_CORE(fetchEn_internal), .PAD(fetch_en), .io_cell_cfg(cell_cfg[10*IOCELL_CFG_W-1:9*IOCELL_CFG_W]));
 
 
   // jtag
