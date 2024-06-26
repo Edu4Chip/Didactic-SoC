@@ -21,7 +21,7 @@
 module io_cell_frame_sysctrl #(
     parameter IOCELL_CFG_W = 5,
     // count and modify according to cells
-    parameter IOCELL_COUNT = 24
+    parameter IOCELL_COUNT = 26
   )(
     // Interface: BootSel
     inout  wire        boot_sel,
@@ -94,9 +94,9 @@ module io_cell_frame_sysctrl #(
   // reset and clk not configurable to avoid locking SoC
 
   // reset
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_rst(.FROM_CORE(1'b0), .TO_CORE(reset_internal), .PAD(reset), .io_cell_cfg({IOCELL_CFG_W}'hF));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_rst(.FROM_CORE(1'b0), .TO_CORE(reset_internal), .PAD(reset), .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
   // clk
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_clk(.FROM_CORE(1'b0), .TO_CORE(clk_internal), .PAD(clk_in), .io_cell_cfg({IOCELL_CFG_W}'hF));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_clk(.FROM_CORE(1'b0), .TO_CORE(clk_internal), .PAD(clk_in), .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
 
 
   // gpio
@@ -104,16 +104,16 @@ module io_cell_frame_sysctrl #(
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio1(.FROM_CORE(gpio_from_core[1]), .TO_CORE(gpio_to_core[1]), .PAD(gpio[1]), .io_cell_cfg(cell_cfg[2*IOCELL_CFG_W-1:1*IOCELL_CFG_W]));
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio2(.FROM_CORE(gpio_from_core[2]), .TO_CORE(gpio_to_core[2]), .PAD(gpio[2]), .io_cell_cfg(cell_cfg[3*IOCELL_CFG_W-1:2*IOCELL_CFG_W]));
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio3(.FROM_CORE(gpio_from_core[3]), .TO_CORE(gpio_to_core[3]), .PAD(gpio[3]), .io_cell_cfg(cell_cfg[4*IOCELL_CFG_W-1:3*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio3(.FROM_CORE(gpio_from_core[4]), .TO_CORE(gpio_to_core[4]), .PAD(gpio[4]), .io_cell_cfg(cell_cfg[5*IOCELL_CFG_W-1:4*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio3(.FROM_CORE(gpio_from_core[5]), .TO_CORE(gpio_to_core[5]), .PAD(gpio[5]), .io_cell_cfg(cell_cfg[6*IOCELL_CFG_W-1:5*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio3(.FROM_CORE(gpio_from_core[6]), .TO_CORE(gpio_to_core[6]), .PAD(gpio[6]), .io_cell_cfg(cell_cfg[7*IOCELL_CFG_W-1:6*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio3(.FROM_CORE(gpio_from_core[7]), .TO_CORE(gpio_to_core[7]), .PAD(gpio[7]), .io_cell_cfg(cell_cfg[8*IOCELL_CFG_W-1:7*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio4(.FROM_CORE(gpio_from_core[4]), .TO_CORE(gpio_to_core[4]), .PAD(gpio[4]), .io_cell_cfg(cell_cfg[5*IOCELL_CFG_W-1:4*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio5(.FROM_CORE(gpio_from_core[5]), .TO_CORE(gpio_to_core[5]), .PAD(gpio[5]), .io_cell_cfg(cell_cfg[6*IOCELL_CFG_W-1:5*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio6(.FROM_CORE(gpio_from_core[6]), .TO_CORE(gpio_to_core[6]), .PAD(gpio[6]), .io_cell_cfg(cell_cfg[7*IOCELL_CFG_W-1:6*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio7(.FROM_CORE(gpio_from_core[7]), .TO_CORE(gpio_to_core[7]), .PAD(gpio[7]), .io_cell_cfg(cell_cfg[8*IOCELL_CFG_W-1:7*IOCELL_CFG_W]));
 
   // bootSel
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_bootsel(.FROM_CORE(1'b0), .TO_CORE(BootSel_internal), .PAD(boot_sel), .io_cell_cfg(cell_cfg[9*IOCELL_CFG_W-1:8*IOCELL_CFG_W]));
 
   // fetchEn
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_fetchen(.FROM_CORE(1'b0), .TO_CORE(fetch_en), .PAD(fetchEn_internal), .io_cell_cfg(cell_cfg[10*IOCELL_CFG_W-1:9*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_fetchen(.FROM_CORE(1'b0), .TO_CORE(fetch_en), .PAD(fetch_en), .io_cell_cfg(cell_cfg[10*IOCELL_CFG_W-1:9*IOCELL_CFG_W]));
 
 
   // jtag

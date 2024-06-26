@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 25.06.2024
-// Creation time : 14:56:04
+// Creation date : 26.06.2024
+// Creation time : 12:08:57
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -19,139 +19,139 @@ module SysCtrl_SS_0 #(
     parameter                              IOCELL_COUNT     = 28    // update this value manually to match cell numbers
 ) (
     // Interface: AXI
-    input                               AR_READY,
-    input                               AW_READY,
-    input                [9:0]          B_ID,
-    input                [1:0]          B_RESP,
-    input                               B_USER,
-    input                               B_VALID,
-    input                [31:0]         R_DATA,
-    input                [9:0]          R_ID,
-    input                               R_LAST,
-    input                [1:0]          R_RESP,
-    input                               R_USER,
-    input                               R_VALID,
-    input                               W_READY,
-    output               [31:0]         AR_ADDR,
-    output               [1:0]          AR_BURST,
-    output               [3:0]          AR_CACHE,
-    output               [9:0]          AR_ID,
-    output               [7:0]          AR_LEN,
-    output                              AR_LOCK,
-    output               [2:0]          AR_PROT,
-    output               [3:0]          AR_QOS,
-    output               [2:0]          AR_REGION,
-    output               [2:0]          AR_SIZE,
-    output                              AR_USER,
-    output                              AR_VALID,
-    output               [31:0]         AW_ADDR,
-    output               [5:0]          AW_ATOP,
-    output               [1:0]          AW_BURST,
-    output               [3:0]          AW_CACHE,
-    output               [9:0]          AW_ID,
-    output               [7:0]          AW_LEN,
-    output                              AW_LOCK,
-    output               [2:0]          AW_PROT,
-    output               [3:0]          AW_QOS,
-    output               [3:0]          AW_REGION,
-    output               [2:0]          AW_SIZE,
-    output                              AW_USER,
-    output                              AW_VALID,
-    output                              B_READY,
-    output                              R_READY,
-    output               [31:0]         W_DATA,
-    output                              W_LAST,
-    output               [3:0]          W_STROBE,
-    output                              W_USER,
-    output                              W_VALID,
+    input  logic                        AR_READY,
+    input  logic                        AW_READY,
+    input  logic         [9:0]          B_ID,
+    input  logic         [1:0]          B_RESP,
+    input  logic                        B_USER,
+    input  logic                        B_VALID,
+    input  logic         [31:0]         R_DATA,
+    input  logic         [9:0]          R_ID,
+    input  logic                        R_LAST,
+    input  logic         [1:0]          R_RESP,
+    input  logic                        R_USER,
+    input  logic                        R_VALID,
+    input  logic                        W_READY,
+    output logic         [31:0]         AR_ADDR,
+    output logic         [1:0]          AR_BURST,
+    output logic         [3:0]          AR_CACHE,
+    output logic         [9:0]          AR_ID,
+    output logic         [7:0]          AR_LEN,
+    output logic                        AR_LOCK,
+    output logic         [2:0]          AR_PROT,
+    output logic         [3:0]          AR_QOS,
+    output logic         [2:0]          AR_REGION,
+    output logic         [2:0]          AR_SIZE,
+    output logic                        AR_USER,
+    output logic                        AR_VALID,
+    output logic         [31:0]         AW_ADDR,
+    output logic         [5:0]          AW_ATOP,
+    output logic         [1:0]          AW_BURST,
+    output logic         [3:0]          AW_CACHE,
+    output logic         [9:0]          AW_ID,
+    output logic         [7:0]          AW_LEN,
+    output logic                        AW_LOCK,
+    output logic         [2:0]          AW_PROT,
+    output logic         [3:0]          AW_QOS,
+    output logic         [3:0]          AW_REGION,
+    output logic         [2:0]          AW_SIZE,
+    output logic                        AW_USER,
+    output logic                        AW_VALID,
+    output logic                        B_READY,
+    output logic                        R_READY,
+    output logic         [31:0]         W_DATA,
+    output logic                        W_LAST,
+    output logic         [3:0]          W_STROBE,
+    output logic                        W_USER,
+    output logic                        W_VALID,
 
     // Interface: BootSel
-    input                               BootSel_internal,
+    input  logic                        BootSel_internal,
 
     // Interface: Clk
-    input                               clk_internal,
+    input  logic                        clk_internal,
 
     // Interface: FetchEn
-    input                               fetchEn_internal,
+    input  logic                        fetchEn_internal,
 
     // Interface: GPIO
-    input                [7:0]          gpio_to_core,
-    output               [7:0]          gpio_from_core,
+    input  logic         [7:0]          gpio_to_core,
+    output logic         [7:0]          gpio_from_core,
 
     // Interface: ICN_SS_Ctrl
-    output               [7:0]          ss_ctrl_icn,
+    output logic         [7:0]          ss_ctrl_icn,
 
     // Interface: IRQ0
-    input                               irq_0,
+    input  logic                        irq_0,
 
     // Interface: IRQ1
-    input                               irq_1,
+    input  logic                        irq_1,
 
     // Interface: IRQ2
-    input                               irq_2,
+    input  logic                        irq_2,
 
     // Interface: IRQ3
-    input                               irq_3,
+    input  logic                        irq_3,
 
     // Interface: JTAG
-    input                               jtag_tck_internal,
-    input                               jtag_tdi_internal,
-    input                               jtag_tms_internal,
-    input                               jtag_trst_internal,
-    output                              jtag_tdo_internal,
+    input  logic                        jtag_tck_internal,
+    input  logic                        jtag_tdi_internal,
+    input  logic                        jtag_tms_internal,
+    input  logic                        jtag_trst_internal,
+    output logic                        jtag_tdo_internal,
 
     // Interface: Reset
-    input                               reset_internal,
+    input  logic                        reset_internal,
 
     // Interface: Reset_ICN
-    output                              reset_icn,
+    output logic                        reset_icn,
 
     // Interface: Reset_SS_0
-    output                              reset_ss_0,
+    output logic                        reset_ss_0,
 
     // Interface: Reset_SS_1
-    output                              reset_ss_1,
+    output logic                        reset_ss_1,
 
     // Interface: Reset_SS_2
-    output                              reset_ss_2,
+    output logic                        reset_ss_2,
 
     // Interface: Reset_SS_3
-    output                              reset_ss_3,
+    output logic                        reset_ss_3,
 
     // Interface: SPI
-    input                [3:0]          spim_miso_internal,
-    output               [1:0]          spim_csn_internal,
-    output               [3:0]          spim_mosi_internal,
-    output                              spim_sck_internal,
+    input  logic         [3:0]          spim_miso_internal,
+    output logic         [1:0]          spim_csn_internal,
+    output logic         [3:0]          spim_mosi_internal,
+    output logic                        spim_sck_internal,
 
     // Interface: SS_Ctrl_0
-    output                              irq_en_0,
-    output               [7:0]          ss_ctrl_0,
+    output logic                        irq_en_0,
+    output logic         [7:0]          ss_ctrl_0,
 
     // Interface: SS_Ctrl_1
-    output                              irq_en_1,
-    output               [7:0]          ss_ctrl_1,
+    output logic                        irq_en_1,
+    output logic         [7:0]          ss_ctrl_1,
 
     // Interface: SS_Ctrl_2
-    output                              irq_en_2,
-    output               [7:0]          ss_ctrl_2,
+    output logic                        irq_en_2,
+    output logic         [7:0]          ss_ctrl_2,
 
     // Interface: SS_Ctrl_3
-    output                              irq_en_3,
-    output               [7:0]          ss_ctrl_3,
+    output logic                        irq_en_3,
+    output logic         [7:0]          ss_ctrl_3,
 
     // Interface: UART
-    input                               uart_rx_internal,
-    output                              uart_tx_internal,
+    input  logic                        uart_rx_internal,
+    output logic                        uart_tx_internal,
 
     // Interface: io_cell_cfg
-    output               [139:0]        cell_cfg,
+    output logic         [139:0]        cell_cfg,
 
     // Interface: pmod_sel
     output logic         [7:0]          pmod_sel,
 
     // These ports are not in any interface
-    input                [14:0]         irq_upper_tieoff
+    input  logic         [14:0]         irq_upper_tieoff
 );
 
     // i_SysCtrl_peripherals_GPIO_to_GPIO wires:

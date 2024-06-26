@@ -1,23 +1,29 @@
-# custom rtl files
-rtl/AX4LITE_APB_converter_wrapper.sv
+# Student system examples
 rtl/Student_area_0.sv
-rtl/io_cell_frame_ss_1.sv
-rtl/ICN_SS.sv
-rtl/SysCtrl_xbar.sv
 rtl/student_ss_1.sv
 rtl/Student_SS_2.sv
-rtl/i_io_cell_frame.sv
-rtl/APB_SDIO_tieoff.v
+rtl/Student_SS_3.sv
+
+# custom rtl files
+rtl/AX4LITE_APB_converter_wrapper.sv
+rtl/ICN_SS.sv
 rtl/SS_Ctrl_reg_array.sv
+rtl/SysCtrl_xbar.sv
+rtl/io_cell_frame_sysctrl.sv
+
 # reused
 reuse/ibex_axi_bridge.sv
 reuse/jtag_dbg_wrapper.sv
 reuse/mem_axi_bridge.sv
 
-# generated files
-generated/Didactic.v
-generated/SysCtrl_SS_0.v
-generated/SysCtrl_peripherals_0.v
+# generated student wrappers
 generated/Student_SS_0_0.v
 generated/Student_SS_1_0.v
+generated/Student_SS_2_0.v
+generated/Student_SS_3_0.v
+
+# generated structural RTL
+generated/SysCtrl_peripherals_0.v
+generated/SysCtrl_SS_0.v
 generated/SysCtrl_SS_wrapper_0.v
+generated/Didactic.v

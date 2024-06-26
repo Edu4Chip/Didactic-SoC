@@ -46,12 +46,12 @@ module Student_area_0 #(
     //Interface: GPIO pmod 0
     input  logic [3:0] pmod_0_gpi,
     output logic [3:0] pmod_0_gpo,
-    output logic [3:0] pmod_0_gpoe,
+    output logic [3:0] pmod_0_gpio_oe,
 
     //Interface: GPIO pmod 1
     input  logic [3:0] pmod_1_gpi,
     output logic [3:0] pmod_1_gpo,
-    output logic [3:0] pmod_1_gpoe
+    output logic [3:0] pmod_1_gpio_oe
 );
 
   logic PSLVERR_reg      ;
@@ -117,9 +117,9 @@ module Student_area_0 #(
 
 assign irq = 1'b0;
 assign pmod_1_gpo =  3'h0;
-assign pmod_1_gpoe = 3'h0;
+assign pmod_1_gpio_oe = 3'h0;
 assign pmod_0_gpo  = 3'h0;
-assign pmod_0_gpoe = 3'h0;
+assign pmod_0_gpio_oe = 3'h0;
 
 /////// SVA /////////
 

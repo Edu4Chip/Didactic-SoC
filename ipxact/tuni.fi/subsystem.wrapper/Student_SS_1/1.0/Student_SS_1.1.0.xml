@@ -235,6 +235,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>pmod_1_gpo</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -243,6 +244,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>pmod_1_gpi</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -251,6 +253,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>pmod_1_gpio_oe</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -282,6 +285,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -299,6 +307,11 @@
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -316,6 +329,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -333,6 +351,11 @@
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -350,6 +373,11 @@
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -367,6 +395,11 @@
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -384,6 +417,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -401,6 +439,11 @@
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -418,6 +461,11 @@
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -435,6 +483,11 @@
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -452,6 +505,11 @@
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -469,6 +527,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -486,6 +549,11 @@
 							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>

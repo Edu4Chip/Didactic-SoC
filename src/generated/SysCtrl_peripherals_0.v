@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 25.06.2024
-// Creation time : 14:56:04
+// Creation date : 26.06.2024
+// Creation time : 12:08:57
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -15,54 +15,54 @@ module SysCtrl_peripherals_0 #(
     parameter                              AXI4LITE_AW      = 32
 ) (
     // Interface: AXI4LITE
-    input                [31:0]         ar_addr,
-    input                [2:0]          ar_prot,
-    input                               ar_valid,
-    input                [31:0]         aw_addr,
-    input                [2:0]          aw_prot,
-    input                               aw_valid,
-    input                               b_ready,
-    input                               r_ready,
-    input                [31:0]         w_data,
-    input                [3:0]          w_strb,
-    input                               w_valid,
-    output                              ar_ready,
-    output                              aw_ready,
-    output               [1:0]          b_resp,
-    output                              b_valid,
-    output               [31:0]         r_data,
-    output               [1:0]          r_resp,
-    output                              r_valid,
-    output                              w_ready,
+    input  logic         [31:0]         ar_addr,
+    input  logic         [2:0]          ar_prot,
+    input  logic                        ar_valid,
+    input  logic         [31:0]         aw_addr,
+    input  logic         [2:0]          aw_prot,
+    input  logic                        aw_valid,
+    input  logic                        b_ready,
+    input  logic                        r_ready,
+    input  logic         [31:0]         w_data,
+    input  logic         [3:0]          w_strb,
+    input  logic                        w_valid,
+    output logic                        ar_ready,
+    output logic                        aw_ready,
+    output logic         [1:0]          b_resp,
+    output logic                        b_valid,
+    output logic         [31:0]         r_data,
+    output logic         [1:0]          r_resp,
+    output logic                        r_valid,
+    output logic                        w_ready,
 
     // Interface: Clock
-    input                               clk,
+    input  logic                        clk,
 
     // Interface: GPIO
-    input                [7:0]          gpio_to_core,
-    output               [7:0]          gpio_from_core,
+    input  logic         [7:0]          gpio_to_core,
+    output logic         [7:0]          gpio_from_core,
 
     // Interface: IRQ_GPIO
-    output                              irq_gpio,
+    output logic                        irq_gpio,
 
     // Interface: IRQ_SPI
-    output               [1:0]          irq_spi,
+    output logic         [1:0]          irq_spi,
 
     // Interface: IRQ_UART
-    output                              irq_uart,
+    output logic                        irq_uart,
 
     // Interface: Reset
-    input                               rst_n,
+    input  logic                        rst_n,
 
     // Interface: SPI
-    input                [3:0]          spim_miso_internal,
-    output               [1:0]          spim_csn_internal,
-    output               [3:0]          spim_mosi_internal,
-    output                              spim_sck_internal,
+    input  logic         [3:0]          spim_miso_internal,
+    output logic         [1:0]          spim_csn_internal,
+    output logic         [3:0]          spim_mosi_internal,
+    output logic                        spim_sck_internal,
 
     // Interface: UART
-    input                               uart_rx_internal,
-    output                              uart_tx_internal
+    input  logic                        uart_rx_internal,
+    output logic                        uart_tx_internal
 );
 
     // APB_SPI_SPI_to_SPI wires:

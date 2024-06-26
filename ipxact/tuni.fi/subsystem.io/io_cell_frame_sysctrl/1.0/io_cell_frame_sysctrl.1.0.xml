@@ -557,6 +557,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -574,6 +579,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -591,6 +601,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -608,6 +623,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -625,6 +645,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -642,6 +667,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -659,6 +689,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -677,6 +712,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -695,6 +735,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -712,6 +757,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -729,6 +779,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -746,6 +801,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -763,6 +823,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -780,6 +845,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
 							<ipxact:defaultValue></ipxact:defaultValue>
@@ -791,24 +861,44 @@
 				<ipxact:name>reset_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>clk_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>fetchEn_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>BootSel_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -821,18 +911,33 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>uart_rx_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>uart_tx_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -845,6 +950,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -857,42 +967,77 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>jtag_tck_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>jtag_tdi_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>jtag_tdo_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>jtag_tms_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>jtag_trst_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>spim_sck_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -905,6 +1050,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -917,6 +1067,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -929,6 +1084,11 @@
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 		</ipxact:ports>

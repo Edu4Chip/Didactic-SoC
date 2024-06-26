@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 25.06.2024
-// Creation time : 14:56:04
+// Creation date : 26.06.2024
+// Creation time : 12:08:57
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
