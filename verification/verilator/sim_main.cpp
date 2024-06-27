@@ -23,6 +23,7 @@ enum TestBenchState {
   deassert_reset,
   assert_fetch_enable,
   finished,
+  waiting,
 };
 
 int main(int argc, char **argv) {
@@ -43,7 +44,9 @@ int main(int argc, char **argv) {
   }
 #endif
   TestBenchState tb_state = TestBenchState::starting;
-  const int maximum_iterations = 10;
+  const int maximum_iterations = 1000;
+  TestBenchState tb_state_after_waiting = TestBenchState::waiting;
+  int clock_cycles_to_wait = 0;
   for (int i = 0; i < maximum_iterations; i++) {
     bool stop_iteration = false;
     switch (tb_state) {
@@ -82,12 +85,38 @@ int main(int argc, char **argv) {
     case TestBenchState::assert_fetch_enable:
       printf("[%ld] assert fetch_enable\n", contextp->time());
       didactic->fetch_en = 1;
-      tb_state = TestBenchState::finished;
+      tb_state = TestBenchState::waiting;
+      tb_state_after_waiting = TestBenchState::finished;
+      clock_cycles_to_wait = 10;
       break;
     case TestBenchState::finished:
       printf("[%ld] finished\n", contextp->time());
       stop_iteration = true;
       tb_state = TestBenchState::finished;
+      break;
+    case TestBenchState::waiting:
+      if (didactic->clk_in == 1) {
+        // Clock does high-to-low
+      } else if (didactic->clk_in == 0) {
+        // Clock does low-to-high
+        clock_cycles_to_wait -= 1;
+      } else {
+        // This branch should never happen
+        assert(false);
+      }
+      if (clock_cycles_to_wait == 0) {
+        // Waited enough cycles
+        tb_state = tb_state_after_waiting;
+        printf("[%ld] waiting done\n", contextp->time());
+      } else if (0 < clock_cycles_to_wait) {
+        // Still waiting
+        tb_state = TestBenchState::waiting;
+        // printf("[%ld] waiting %i more cycles\n", contextp->time(),
+        // clock_cycles_to_wait);
+      } else {
+        // This branch should never happen
+        assert(false);
+      }
       break;
     }
     main_time++;
