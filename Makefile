@@ -9,6 +9,7 @@
 #
 # Contributors: 
 # * Matti Käyrä (Matti.kayra@tuni.fi)
+# * Roni Hämäläinen (roni.hamalainen@tuni.fi)
 #######################################
 
 # Common shell variables
@@ -59,3 +60,27 @@ run_sim: check-env
 # compile sw binary with chosen tools
 run_sim: check-env
 	$(MAKE) -C sw build_sw BUILD_DIR=$(BUILD_DIR) TEST_CASE=$(HELLO)
+
+######################################################################
+# verilator targets
+######################################################################
+
+# generate sw model for hw
+.PHONY: verilator-generate
+verilator-generate:
+	./verification/verilator/run.sh
+
+# build sw model with sw testbench
+.PHONY: verilator-build
+verilator-build:
+	make -C obj_dir -f VDidactic.mk
+
+# run sw testbench
+.PHONY: verilator-run
+verilator-run: verilator-build
+	./obj_dir/VDidactic
+
+# run sw testbench with tracing
+.PHONY: verilator-run-traced
+verilator-run-traced: verilator-build
+	./obj_dir/VDidactic +trace

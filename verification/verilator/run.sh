@@ -4,13 +4,20 @@ which verilator
 verilator --version
 echo ""
 
-# Start with the easy task first.
-# Attempt to just process the input files.
-# No compilation is performed.
-# When this succeeds, implement more complex script.
+# Apply fixes to verilog files
+verification/verilator/do_fix.sh
+
 verilator \
-    --lint-only \
+    --cc \
+    --exe \
     --top-module Didactic \
+    --no-timing \
+    --trace \
+    -Wno-context \
+    -Wno-fatal \
+    -Wno-lint \
+    -Wno-style \
+    -Wno-BLKANDNBLK \
     -I./src/generated \
     -I./src/reuse \
     -I./src/tb \
@@ -22,6 +29,9 @@ verilator \
     -I./ips/common_cells/src \
     -I./ips/common_cells/src/deprecated \
     -I./ips/axi/include \
+    -I./ips/ibex/vendor/lowrisc_ip/ip/prim/rtl \
+    -I./ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
+    -I./ips/ibex/rtl \
     ips/riscv-dbg/src/dm_pkg.sv \
     ips/common_cells/src/cdc_reset_ctrlr_pkg.sv \
     ips/common_cells/src/cdc_4phase.sv \
@@ -58,9 +68,38 @@ verilator \
     ips/axi/src/axi_lite_demux.sv \
     ips/axi/src/axi_err_slv.sv \
     ips/axi/src/axi_lite_mux.sv \
-    src/generated/Didactic.v
+    src/rtl/Student_SS_3.sv \
+    src/rtl/Student_SS_2.sv \
+    src/rtl/io_cell_frame_ss_1.sv \
+    src/rtl/student_ss_1.sv \
+    src/rtl/Student_area_0.sv \
+    src/rtl/ICN_SS.sv \
+    ips/axi/src/axi_to_axi_lite.sv \
+    ips/axi/src/axi_atop_filter.sv \
+    ips/axi/src/axi_burst_splitter.sv \
+    ips/axi/src/axi_demux.sv \
+    ips/axi/src/axi_demux_simple.sv \
+    ips/ibex/rtl/ibex_pkg.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv \
+    ips/ibex/syn/rtl/prim_clock_gating.v \
+    ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv \
+    ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv \
+    ips/ibex/rtl/ibex_pmp.sv \
+    ips/ibex/rtl/ibex_cs_registers.sv \
+    ips/ibex/rtl/ibex_core.sv \
+    ips/ibex/rtl/ibex_top.sv \
+    src/rtl/SS_Ctrl_reg_array.sv \
+    src/rtl/io_cell_frame_sysctrl.sv \
+    src/generated/Didactic.v \
+    verification/verilator/sim_main.cpp
 verilator_exit_code=$?
 echo ""
+
+# Remove fixes to verilog files
+verification/verilator/undo_fix.sh
 
 if [ ${verilator_exit_code} -eq 0 ]; then
     echo "OK"

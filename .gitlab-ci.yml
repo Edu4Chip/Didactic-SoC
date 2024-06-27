@@ -9,7 +9,11 @@ test-verilator:
     - make repository_init
     - which verilator
     - verilator --version
-    - ls -l verification/verilator/run.sh
+    - ls -l verification/verilator
+    - chmod u+x verification/verilator/do_fix.sh
     - chmod u+x verification/verilator/run.sh
-    - ls -l verification/verilator/run.sh
-    - verification/verilator/run.sh
+    - chmod u+x verification/verilator/undo_fix.sh
+    - ls -l verification/verilator
+    - make verilator-generate
+    - make verilator-build
+    - make verilator-run
