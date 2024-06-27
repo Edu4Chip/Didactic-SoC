@@ -5,6 +5,7 @@ rtl/Student_SS_2.sv
 rtl/Student_SS_3.sv
 
 # custom rtl files
+rtl/pmod_mux.sv
 rtl/AX4LITE_APB_converter_wrapper.sv
 rtl/ICN_SS.sv
 rtl/SS_Ctrl_reg_array.sv

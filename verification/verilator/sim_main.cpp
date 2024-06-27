@@ -64,15 +64,13 @@ int main(int argc, char **argv)
             didactic->jtag_trst = 0;
             // Apparently reset is inverted
             didactic->reset = 1;
-            didactic->sdio_clk = 0;
-            didactic->sdio_cmd = 0;
-            didactic->sdio_data = 0;
             didactic->spi_csn = 0;
             didactic->spi_data = 0;
             didactic->spi_sck = 0;
-            didactic->ss_1_gpio = 0;
             didactic->uart_rx = 0;
             didactic->uart_tx = 0;
+            didactic->ana_core_in = 0;
+            didactic->ana_core_out = 0;
             tb_state = TestBenchState::assert_reset;
             break;
         case TestBenchState::assert_reset:
