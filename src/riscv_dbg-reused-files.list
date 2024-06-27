@@ -1,5 +1,5 @@
 # riscv debugger files
-../ips/riscv-dbg/src/dla_dm_pkg.sv 
+../ips/riscv-dbg/src/dm_pkg.sv 
 ../ips/riscv-dbg/src/dm_mem.sv 
 ../ips/riscv-dbg/src/dm_sba.sv 
 ../ips/riscv-dbg/src/dm_csrs.sv 

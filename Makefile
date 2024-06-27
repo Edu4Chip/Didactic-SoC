@@ -56,11 +56,11 @@ run_sim: check-env
 ######################################################################
 # sw targets
 ######################################################################
-
-# compile sw binary with chosen tools
-run_sim: check-env
-	$(MAKE) -C sw build_sw BUILD_DIR=$(BUILD_DIR) TEST_CASE=$(HELLO)
-
+#
+## compile sw binary with chosen tools
+#run_sim: check-env
+#	$(MAKE) -C sw build_sw BUILD_DIR=$(BUILD_DIR) TEST_CASE=$(HELLO)
+#
 ######################################################################
 # verilator targets
 ######################################################################

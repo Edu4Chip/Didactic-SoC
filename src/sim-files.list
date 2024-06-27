@@ -2,6 +2,9 @@
 reuse/BootRom.sv
 reuse/sp_sram.sv
 
+../ips/ibex/syn/rtl/prim_clock_gating.v
+../ips/tech_cells_generic/src/rtl/tc_clk.sv
+
 tech_generic/io_cell_wrapper.sv
 tech_generic/io_cell.sv
 tech_generic/tech_cg.sv

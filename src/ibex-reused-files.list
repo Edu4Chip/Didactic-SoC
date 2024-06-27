@@ -3,12 +3,15 @@
 # prim generic packages
 ../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv 
 ../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv 
-../ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_clock_gating.sv 
-../ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv 
-# these core common files probably need to be replaced with tech files
+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv
+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv
 ../ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv 
+
+# these core common files probably need to be replaced with tech files
+
+../ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv 
 ../ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv 
-../ips/ibex/dv/uvm/core_ibex/common/prim/prim_clock_gating.sv 
+
 # actual ibex source files
 ../ips/ibex/rtl/ibex_pkg.sv 
 ../ips/ibex/rtl/ibex_csr.sv 
@@ -22,11 +25,11 @@
 ../ips/ibex/rtl/ibex_register_file_ff.sv 
 ../ips/ibex/rtl/ibex_ex_block.sv 
 ../ips/ibex/rtl/ibex_controller.sv 
-../ips/ibex/rtl/ibex_cs_registers.sv 
+../ips/ibex/rtl/ibex_cs_registers.sv
+../ips/ibex/rtl/ibex_pmp.sv
 ../ips/ibex/rtl/ibex_if_stage.sv 
 ../ips/ibex/rtl/ibex_id_stage.sv 
 ../ips/ibex/rtl/ibex_load_store_unit.sv 
 ../ips/ibex/rtl/ibex_wb_stage.sv 
 ../ips/ibex/rtl/ibex_core.sv 
-../ips/ibex/rtl/ibex_tracer.sv 
 ../ips/ibex/rtl/ibex_top.sv 
