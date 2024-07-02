@@ -39,11 +39,6 @@ module student_ss_1 #(
     // Interface: Reset
     input  logic              reset_int,
 
-    // Interface: gpio
-    input  logic [7:0]        gpi_i,
-    output logic [7:0]        gpio_oe,
-    output logic [7:0]        gpo_o,
-
     // Interface: ss_ctrl
     input logic              irq_en_1,
     input logic [7:0]        ss_ctrl_1,

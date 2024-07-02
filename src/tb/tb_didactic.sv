@@ -57,6 +57,12 @@ module tb_didactic();
 ////////////////////////////////
   logic clk = 1'b0;
   logic reset = 1'b0;
+  
+  tri0 dut_clk;
+  tri0 dut_reset;
+
+  assign dut_clk = clk;
+  assign dut_reset = reset;
 
   tri0 dut_uart_rx;
   tri0 dut_uart_tx;
@@ -240,7 +246,7 @@ module tb_didactic();
     // Interface: BootSel
     .boot_sel(dut_bootsel),
     // Interface: Clock
-    .clk_in(clk),
+    .clk_in(dut_clk),
     // Interface: FetchEn
     .fetch_en(dut_fetch_en),
     // Interface: GPIO
@@ -252,7 +258,7 @@ module tb_didactic();
     .jtag_tms(dut_jtag_tms),
     .jtag_trst(dut_jtag_trstn),
     // Interface: Reset
-    .reset(reset),
+    .reset(dut_reset),
     // Interface: SPI
     .spi_csn({dut_csn1,dut_csn0}),
     .spi_data({dut_spi_data0,dut_spi_data1,dut_spi_data2,dut_spi_data3}),
