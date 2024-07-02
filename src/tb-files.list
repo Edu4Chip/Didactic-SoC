@@ -1,2 +1,7 @@
 # insert test files here, tb, jtag packages etc.
+../ips/riscv-dbg/src/dm_pkg.sv
+
+../ips/pulp/rtl/tb/jtag_pkg.sv
+../ips/pulp/rtl/tb/riscv_pkg.sv
+
 tb/tb_didactic.sv

@@ -16,7 +16,7 @@ module tb_didactic();
 /////////////////////////////
 // parameters
 ////////////////////////////////
-
+  parameter DM_SANITY_TESTCASES = 1;
 /////////////////////////////
 // wiring
 ////////////////////////////////
@@ -25,14 +25,6 @@ module tb_didactic();
 
   tri0 dut_uart_rx;
   tri0 dut_uart_tx;
-
-  tri1 dut_sdio0;
-  tri1 dut_sdio1;
-  tri1 dut_sdio2;
-  tri1 dut_sdio3;
-  tri1 dut_sdio_cmd;
-  tri1 dut_sdio_sck;
-
   
   tri1 dut_csn0;
   tri1 dut_csn1;
@@ -42,13 +34,14 @@ module tb_didactic();
   tri1 dut_spi_data2;
   tri1 dut_spi_data3;
 
-  tri1 dut_ss_1_gpio_0;
-  tri0 dut_ss_1_gpio_1;
-
   tri0 dut_gpio_0;
   tri1 dut_gpio_1;
   tri0 dut_gpio_2;
   tri1 dut_gpio_3;
+  tri1 dut_gpio_4;
+  tri1 dut_gpio_5;
+  tri1 dut_gpio_6;
+  tri1 dut_gpio_7;
 
   tri1 dut_jtag_trstn;
   tri1 dut_jtag_tck;
@@ -59,6 +52,21 @@ module tb_didactic();
   tri0 dut_bootsel;
 
   tri1 dut_fetch_en;
+
+  tri1 dut_ana_in_0;
+  tri1 dut_ana_in_1;
+  tri1 dut_ana_out_0;
+  tri1 dut_ana_out_1;
+
+////////////////////////////////
+// PKG init
+////////////////////////////////
+
+  jtag_pkg::test_mode_if_t   test_mode_if = new;
+  jtag_pkg::debug_mode_if_t  debug_mode_if = new;
+
+  dm_pkg::dm_ctrl_t dmcontrol;
+
 /////////////////////////////
 // clk process
 ////////////////////////////////
@@ -87,6 +95,28 @@ module tb_didactic();
 
     $display("[TB] Time %g ns - execute for 3ms", $time);
 
+
+    jtag_pkg::jtag_reset      (dut_jtag_tck, dut_jtag_tms, dut_jtag_trstn, dut_jtag_tdi);
+    jtag_pkg::jtag_softreset  (dut_jtag_tck, dut_jtag_tms, dut_jtag_trstn, dut_jtag_tdi);
+    #5us;
+    jtag_pkg::jtag_bypass_test(dut_jtag_tck, dut_jtag_tms, dut_jtag_trstn, dut_jtag_tdi, dut_jtag_tdo);
+    #5us;
+    jtag_pkg::jtag_get_idcode (dut_jtag_tck, dut_jtag_tms, dut_jtag_trstn, dut_jtag_tdi, dut_jtag_tdo);
+    #5us;
+
+
+    if(DM_SANITY_TESTCASES == 1) begin
+
+
+
+    end
+    else(DM_SANITY_TESTCASES == 0) begin
+    
+    // program load & execute
+    
+    
+    end
+
     $stop;
 
   end
@@ -104,7 +134,7 @@ module tb_didactic();
     // Interface: FetchEn
     .fetch_en(dut_fetch_en),
     // Interface: GPIO
-    .gpio({dut_gpio_3,dut_gpio_2,dut_gpio_1,dut_gpio_0}),
+    .gpio({dut_gpio_7,dut_gpio_6,dut_gpio_5,dut_gpio_4,dut_gpio_3,dut_gpio_2,dut_gpio_1,dut_gpio_0}),
     // Interface: JTAG
     .jtag_tck(dut_jtag_tck),
     .jtag_tdi(dut_jtag_tdi),    // Data can be daisy chained or routed directly back
@@ -113,10 +143,6 @@ module tb_didactic();
     .jtag_trst(dut_jtag_trstn),
     // Interface: Reset
     .reset(reset),
-    // Interface: SDIO
-    .sdio_clk(dut_sdio_sck),
-    .sdio_cmd({dut_sdio_cmd}),
-    .sdio_data({dut_sdio3,dut_sdio2,dut_sdio1,dut_sdio0}),
     // Interface: SPI
     .spi_csn({dut_csn1,dut_csn0}),
     .spi_data({dut_spi_data0,dut_spi_data1,dut_spi_data2,dut_spi_data3}),
@@ -125,7 +151,10 @@ module tb_didactic();
     .ss_1_gpio({dut_ss_1_gpio_1,dut_ss_1_gpio_0}),
     // Interface: UART
     .uart_rx(dut_uart_rx),
-    .uart_tx(dut_uart_tx)
+    .uart_tx(dut_uart_tx),
+    // Interface: analog_if
+    .ana_core_in({dut_ana_in_0,   cdut_ana_in_1}),
+    .ana_core_out({dut_ana_out_0, dut_ana_out_1})
   );
 
 

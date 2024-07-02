@@ -25,3 +25,6 @@
 [submodule "ips/tech_cells_generic"]
 	path = ips/tech_cells_generic
 	url = https://github.com/pulp-platform/tech_cells_generic.git
+[submodule "ips/pulp"]
+	path = ips/pulp
+	url = https://github.com/pulp-platform/pulp.git
