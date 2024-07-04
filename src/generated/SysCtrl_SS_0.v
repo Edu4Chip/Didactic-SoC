@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 04.07.2024
-// Creation time : 15:10:24
+// Creation time : 15:13:40
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -2223,7 +2223,7 @@ module SysCtrl_SS_0 #(
         .AXI_AW              (32),
         .DM_BASE_ADDRESS     (4096),
         .AXI_DW              (32),
-        .DM_ID_VALUE         (3237998097))
+        .DM_ID_VALUE         (470810337))
     jtag_dbg_wrapper(
         // Interface: AXI4LITE_I
         .init_ar_ready       (jtag_dbg_wrapper_init_ar_ready),
