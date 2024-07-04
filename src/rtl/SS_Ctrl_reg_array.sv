@@ -123,7 +123,11 @@ module SS_Ctrl_reg_array #(
         io_cell_cfg_8_reg <= 'h0;
         pmod_sel_reg <= 'h0;
     end
-    else if (we_in) begin 
+    else begin
+      bootSel_reg[0] = bootsel;
+
+    
+     if (we_in) begin 
         case (addr_in)
 
         'h0: begin
@@ -180,7 +184,8 @@ module SS_Ctrl_reg_array #(
         'h58: begin
             pmod_sel_reg <= wdata_in[ 31:0 ];
         end
-        endcase     
+        endcase
+     end
     end
     end // control_register_ff
 
@@ -245,7 +250,6 @@ end // read_logic
 
 // assign ins
 
-assign bootSel_reg[0] = bootsel;
 
 // assign outs
 

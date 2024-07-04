@@ -331,7 +331,7 @@ axi_lite_xbar_intf #(
   .mst_ports(axi4lite_target_bus),
   .addr_map_i(AddrMapXBAR),
   .en_default_mst_port_i('d0),
-  .default_mst_port_i({AXI4LITE_TARGETS{'d0}})
+  .default_mst_port_i('d0)
 );
 
 // Interface: AXI4LITE_BootRom

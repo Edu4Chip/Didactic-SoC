@@ -1,8 +1,10 @@
 # insert test files here, tb, jtag packages etc.
-../ips/riscv-dbg/src/dm_pkg.sv
+#../ips/riscv-dbg/src/dm_pkg.sv
+#
+#../ips/pulp/rtl/tb/jtag_pkg.sv
+#../ips/pulp/rtl/tb/riscv_pkg.sv
 
-../ips/pulp/rtl/tb/jtag_pkg.sv
-../ips/pulp/rtl/tb/riscv_pkg.sv
+#if unable to link libraries as compile units, uncomment above duplicates
 ../ips/pulp/rtl/vip/uart_tb_rx.sv
 
 tb/tb_didactic.sv
