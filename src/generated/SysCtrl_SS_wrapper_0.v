@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 05.07.2024
-// Creation time : 13:28:12
+// Creation time : 13:45:32
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -17,8 +17,7 @@ module SysCtrl_SS_wrapper_0 #(
     parameter                              AXI_USERW        = 1,
     parameter                              IOCELL_CFG_W     = 5,    // IO cell configuration bus width.
     parameter                              IOCELL_COUNT     = 28,    // Controller IO cell count.
-    parameter                              NUM_GPIO         = 8,
-    parameter                              GPIO_NUM         = 7
+    parameter                              NUM_GPIO         = 7
 ) (
     // Interface: AXI
     input  logic                        AR_READY,

@@ -738,7 +738,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
+							<ipxact:left>uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea/8-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1207,7 +1207,7 @@
 			<ipxact:name>AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea" resolve="user">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea" resolve="user">
 			<ipxact:name>DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>

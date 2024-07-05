@@ -15,6 +15,7 @@
 					<ipxact:configurableElementValue referenceId="uuid_b19f9e43_dcca_45a6_84e6_2eae6f88d91c">uuid_d2d6936f_cf38_444a_9d66_18e5f81e7146</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_72c6e7c1_9fda_400e_ae82_b5a26eb1a676">uuid_387c59b4_154a_4b34_8fcf_231a4c5edbee</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c">uuid_c5c55bd7_e27a_4bea_89e3_9b0df7f7a856</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4">uuid_64f20e2c_b66e_4f72_98c0_394cfa540a5e</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -340,31 +341,31 @@
 		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_9130a023_5127_4659_8cd3_f94ce31ec91a" resolve="user">
+		<ipxact:parameter parameterId="uuid_9130a023_5127_4659_8cd3_f94ce31ec91a" resolve="user">
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_440c5d94_8fbc_4214_9e9f_0e3ebe07713a" resolve="user">
+		<ipxact:parameter parameterId="uuid_440c5d94_8fbc_4214_9e9f_0e3ebe07713a" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_64f20e2c_b66e_4f72_98c0_394cfa540a5e" resolve="user">
-			<ipxact:name>GPIO_NUM</ipxact:name>
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_64f20e2c_b66e_4f72_98c0_394cfa540a5e" resolve="user">
+			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:value>7</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_6fb3c645_4be5_4ecf_9fe9_a00f81be2824" resolve="user">
+		<ipxact:parameter parameterId="uuid_6fb3c645_4be5_4ecf_9fe9_a00f81be2824" resolve="user">
 			<ipxact:name>AXI_IDW</ipxact:name>
 			<ipxact:value>7</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d2d6936f_cf38_444a_9d66_18e5f81e7146" resolve="user">
+		<ipxact:parameter parameterId="uuid_d2d6936f_cf38_444a_9d66_18e5f81e7146" resolve="user">
 			<ipxact:name>AXI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_387c59b4_154a_4b34_8fcf_231a4c5edbee" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_387c59b4_154a_4b34_8fcf_231a4c5edbee" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_c5c55bd7_e27a_4bea_89e3_9b0df7f7a856" resolve="user">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_c5c55bd7_e27a_4bea_89e3_9b0df7f7a856" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:value>28</ipxact:value>
 		</ipxact:parameter>
