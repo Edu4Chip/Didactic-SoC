@@ -21,7 +21,8 @@
 module io_cell_frame_sysctrl #(
     parameter IOCELL_CFG_W = 5,
     // count and modify according to cells
-    parameter IOCELL_COUNT = 26
+    parameter IOCELL_COUNT = 26,
+    parameter NUM_GPIO = 8
   )(
     // Interface: BootSel
     inout  wire        boot_sel,
@@ -45,11 +46,11 @@ module io_cell_frame_sysctrl #(
     output logic       fetchEn_internal,
 
     // Interface: GPIO
-    inout  wire  [7:0] gpio,
+    inout  wire  [NUM_GPIO-1:0] gpio,
 
     // Interface: GPIO_internal
-    input  logic [7:0] gpio_from_core,
-    output logic [7:0] gpio_to_core,
+    input  logic [NUM_GPIO-1:0] gpio_from_core,
+    output logic [NUM_GPIO-1:0] gpio_to_core,
 
     // Interface: JTAG
     inout  wire        jtag_tck,

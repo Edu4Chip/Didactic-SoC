@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 05.07.2024
-// Creation time : 11:33:05
+// Creation time : 13:17:15
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -15,8 +15,9 @@ module SysCtrl_SS_wrapper_0 #(
     parameter                              AXI_DW           = 32,
     parameter                              AXI_IDW          = 7,
     parameter                              AXI_USERW        = 1,
-    parameter                              IOCELL_CFG_W     = 5,
-    parameter                              IOCELL_COUNT     = 28,
+    parameter                              IOCELL_CFG_W     = 5,    // IO cell configuration bus width.
+    parameter                              IOCELL_COUNT     = 28,    // Controller IO cell count.
+    parameter                              NUM_GPIO         = 8,
     parameter                              GPIO_NUM         = 7
 ) (
     // Interface: AXI
@@ -305,8 +306,8 @@ module SysCtrl_SS_wrapper_0 #(
     // SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core wires:
     wire [139:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
     // i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal wires:
-    wire [7:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
-    wire [7:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
+    wire [6:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
+    wire [6:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
     // i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0 wires:
     wire [3:0] i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpi;
     wire [3:0] i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpio_oe;
@@ -344,7 +345,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [31:0] SysCtrl_SS_AR_ADDR;
     wire [1:0] SysCtrl_SS_AR_BURST;
     wire [3:0] SysCtrl_SS_AR_CACHE;
-    wire [9:0] SysCtrl_SS_AR_ID;
+    wire [6:0] SysCtrl_SS_AR_ID;
     wire [7:0] SysCtrl_SS_AR_LEN;
     wire       SysCtrl_SS_AR_LOCK;
     wire [2:0] SysCtrl_SS_AR_PROT;
@@ -358,7 +359,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [5:0] SysCtrl_SS_AW_ATOP;
     wire [1:0] SysCtrl_SS_AW_BURST;
     wire [3:0] SysCtrl_SS_AW_CACHE;
-    wire [9:0] SysCtrl_SS_AW_ID;
+    wire [6:0] SysCtrl_SS_AW_ID;
     wire [7:0] SysCtrl_SS_AW_LEN;
     wire       SysCtrl_SS_AW_LOCK;
     wire [2:0] SysCtrl_SS_AW_PROT;
@@ -368,14 +369,14 @@ module SysCtrl_SS_wrapper_0 #(
     wire [2:0] SysCtrl_SS_AW_SIZE;
     wire       SysCtrl_SS_AW_USER;
     wire       SysCtrl_SS_AW_VALID;
-    wire [9:0] SysCtrl_SS_B_ID;
+    wire [6:0] SysCtrl_SS_B_ID;
     wire       SysCtrl_SS_B_READY;
     wire [1:0] SysCtrl_SS_B_RESP;
     wire       SysCtrl_SS_B_USER;
     wire       SysCtrl_SS_B_VALID;
     wire       SysCtrl_SS_BootSel_internal;
     wire [31:0] SysCtrl_SS_R_DATA;
-    wire [9:0] SysCtrl_SS_R_ID;
+    wire [6:0] SysCtrl_SS_R_ID;
     wire       SysCtrl_SS_R_LAST;
     wire       SysCtrl_SS_R_READY;
     wire [1:0] SysCtrl_SS_R_RESP;
@@ -425,11 +426,11 @@ module SysCtrl_SS_wrapper_0 #(
     wire       SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame port wires:
     wire       i_io_cell_frame_BootSel_internal;
-    wire [119:0] i_io_cell_frame_cell_cfg;
+    wire [139:0] i_io_cell_frame_cell_cfg;
     wire       i_io_cell_frame_clk_internal;
     wire       i_io_cell_frame_fetchEn_internal;
-    wire [7:0] i_io_cell_frame_gpio_from_core;
-    wire [7:0] i_io_cell_frame_gpio_to_core;
+    wire [6:0] i_io_cell_frame_gpio_from_core;
+    wire [6:0] i_io_cell_frame_gpio_to_core;
     wire       i_io_cell_frame_jtag_tck_internal;
     wire       i_io_cell_frame_jtag_tdi_internal;
     wire       i_io_cell_frame_jtag_tdo_internal;
@@ -445,10 +446,10 @@ module SysCtrl_SS_wrapper_0 #(
     // i_pmod_mux port wires:
     wire [139:0] i_pmod_mux_cell_cfg_from_core;
     wire [139:0] i_pmod_mux_cell_cfg_to_io;
-    wire [7:0] i_pmod_mux_gpio_from_core;
-    wire [7:0] i_pmod_mux_gpio_from_io;
-    wire [7:0] i_pmod_mux_gpio_to_core;
-    wire [7:0] i_pmod_mux_gpio_to_io;
+    wire [6:0] i_pmod_mux_gpio_from_core;
+    wire [6:0] i_pmod_mux_gpio_from_io;
+    wire [6:0] i_pmod_mux_gpio_to_core;
+    wire [6:0] i_pmod_mux_gpio_to_io;
     wire [7:0] i_pmod_mux_pmod_sel;
     wire [3:0] i_pmod_mux_ss_0_pmod_0_gpi;
     wire [3:0] i_pmod_mux_ss_0_pmod_0_gpio_oe;
@@ -569,7 +570,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_AXI_to_AXI_AR_ADDR = SysCtrl_SS_AR_ADDR;
     assign SysCtrl_SS_AXI_to_AXI_AR_BURST = SysCtrl_SS_AR_BURST;
     assign SysCtrl_SS_AXI_to_AXI_AR_CACHE = SysCtrl_SS_AR_CACHE;
-    assign SysCtrl_SS_AXI_to_AXI_AR_ID = SysCtrl_SS_AR_ID;
+    assign SysCtrl_SS_AXI_to_AXI_AR_ID[6:0] = SysCtrl_SS_AR_ID;
     assign SysCtrl_SS_AXI_to_AXI_AR_LEN = SysCtrl_SS_AR_LEN;
     assign SysCtrl_SS_AXI_to_AXI_AR_LOCK = SysCtrl_SS_AR_LOCK;
     assign SysCtrl_SS_AXI_to_AXI_AR_PROT = SysCtrl_SS_AR_PROT;
@@ -583,7 +584,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_AXI_to_AXI_AW_ATOP = SysCtrl_SS_AW_ATOP;
     assign SysCtrl_SS_AXI_to_AXI_AW_BURST = SysCtrl_SS_AW_BURST;
     assign SysCtrl_SS_AXI_to_AXI_AW_CACHE = SysCtrl_SS_AW_CACHE;
-    assign SysCtrl_SS_AXI_to_AXI_AW_ID = SysCtrl_SS_AW_ID;
+    assign SysCtrl_SS_AXI_to_AXI_AW_ID[6:0] = SysCtrl_SS_AW_ID;
     assign SysCtrl_SS_AXI_to_AXI_AW_LEN = SysCtrl_SS_AW_LEN;
     assign SysCtrl_SS_AXI_to_AXI_AW_LOCK = SysCtrl_SS_AW_LOCK;
     assign SysCtrl_SS_AXI_to_AXI_AW_PROT = SysCtrl_SS_AW_PROT;
@@ -593,14 +594,14 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_AXI_to_AXI_AW_SIZE = SysCtrl_SS_AW_SIZE;
     assign SysCtrl_SS_AXI_to_AXI_AW_USER = SysCtrl_SS_AW_USER;
     assign SysCtrl_SS_AXI_to_AXI_AW_VALID = SysCtrl_SS_AW_VALID;
-    assign SysCtrl_SS_B_ID = SysCtrl_SS_AXI_to_AXI_B_ID;
+    assign SysCtrl_SS_B_ID = SysCtrl_SS_AXI_to_AXI_B_ID[6:0];
     assign SysCtrl_SS_AXI_to_AXI_B_READY = SysCtrl_SS_B_READY;
     assign SysCtrl_SS_B_RESP = SysCtrl_SS_AXI_to_AXI_B_RESP;
     assign SysCtrl_SS_B_USER = SysCtrl_SS_AXI_to_AXI_B_USER;
     assign SysCtrl_SS_B_VALID = SysCtrl_SS_AXI_to_AXI_B_VALID;
     assign SysCtrl_SS_BootSel_internal = i_io_cell_frame_BootSel_internal_to_SysCtrl_SS_BootSel_gpo;
     assign SysCtrl_SS_R_DATA = SysCtrl_SS_AXI_to_AXI_R_DATA;
-    assign SysCtrl_SS_R_ID = SysCtrl_SS_AXI_to_AXI_R_ID;
+    assign SysCtrl_SS_R_ID = SysCtrl_SS_AXI_to_AXI_R_ID[6:0];
     assign SysCtrl_SS_R_LAST = SysCtrl_SS_AXI_to_AXI_R_LAST;
     assign SysCtrl_SS_AXI_to_AXI_R_READY = SysCtrl_SS_R_READY;
     assign SysCtrl_SS_R_RESP = SysCtrl_SS_AXI_to_AXI_R_RESP;
@@ -650,7 +651,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_tx = SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame assignments:
     assign i_io_cell_frame_BootSel_internal_to_SysCtrl_SS_BootSel_gpo = i_io_cell_frame_BootSel_internal;
-    assign i_io_cell_frame_cell_cfg = i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg[119:0];
+    assign i_io_cell_frame_cell_cfg = i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
     assign i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk = i_io_cell_frame_clk_internal;
     assign i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn_gpo = i_io_cell_frame_fetchEn_internal;
     assign i_io_cell_frame_gpio_from_core = i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
@@ -670,9 +671,9 @@ module SysCtrl_SS_wrapper_0 #(
     // i_pmod_mux assignments:
     assign i_pmod_mux_cell_cfg_from_core = SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
     assign i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg = i_pmod_mux_cell_cfg_to_io;
-    assign i_pmod_mux_gpio_from_core = i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo;
+    assign i_pmod_mux_gpio_from_core = i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo[6:0];
     assign i_pmod_mux_gpio_from_io = i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
-    assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi = i_pmod_mux_gpio_to_core;
+    assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi[6:0] = i_pmod_mux_gpio_to_core;
     assign i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo = i_pmod_mux_gpio_to_io;
     assign i_pmod_mux_pmod_sel = i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo;
     assign i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpi = i_pmod_mux_ss_0_pmod_0_gpi;
@@ -707,7 +708,8 @@ module SysCtrl_SS_wrapper_0 #(
         .AXI_IDW             (6),
         .AXI_USERW           (1),
         .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (26))
+        .IOCELL_COUNT        (26),
+        .NUM_GPIO            (5))
     SysCtrl_SS(
         // Interface: AXI
         .AR_READY            (SysCtrl_SS_AR_READY),
@@ -822,7 +824,8 @@ module SysCtrl_SS_wrapper_0 #(
     // IP-XACT VLNV: tuni.fi:subsystem.io:io_cell_frame_sysctrl:1.0
     io_cell_frame_sysctrl #(
         .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (24))
+        .IOCELL_COUNT        (28),
+        .NUM_GPIO            (7))
     i_io_cell_frame(
         // Interface: BootSel
         .boot_sel            (boot_sel),
@@ -878,7 +881,8 @@ module SysCtrl_SS_wrapper_0 #(
     // IP-XACT VLNV: tuni.fi:ip:pmod_mux:1.0
     pmod_mux #(
         .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (28))
+        .IOCELL_COUNT        (28),
+        .NUM_GPIO            (7))
     i_pmod_mux(
         // Interface: cell_cfg_from_core
         .cell_cfg_from_core  (i_pmod_mux_cell_cfg_from_core),

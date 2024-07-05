@@ -11,9 +11,10 @@
 //-----------------------------------------------------------------------------
 
 module pmod_mux #(
-    parameter                              IOCELL_CFG_W     = 5,    // control bus width for each individual IO cell
-    parameter                              IOCELL_COUNT     = 26    // update this value manually to match cell numbers
-  )(
+    parameter IOCELL_CFG_W     = 5,    // control bus width for each individual IO cell
+    parameter IOCELL_COUNT     = 26,    // update this value manually to match cell numbers
+    parameter NUM_GPIO         = 8
+    )(
     // Interface: cell_cfg_from_core
     input  logic         [IOCELL_COUNT*IOCELL_CFG_W-1:0] cell_cfg_from_core,
 
@@ -21,12 +22,12 @@ module pmod_mux #(
     output logic         [IOCELL_COUNT*IOCELL_CFG_W-1:0] cell_cfg_to_io,
 
     // Interface: gpio_core
-    input  logic         [7:0]          gpio_from_core,
-    output logic         [7:0]          gpio_to_core,
+    input  logic         [NUM_GPIO-1:0] gpio_from_core,
+    output logic         [NUM_GPIO-1:0] gpio_to_core,
 
     // Interface: gpio_io
-    input  logic         [7:0]          gpio_from_io,
-    output logic         [7:0]          gpio_to_io,
+    input  logic         [NUM_GPIO-1:0] gpio_from_io,
+    output logic         [NUM_GPIO-1:0] gpio_to_io,
 
     // Interface: pmod_sel
     input  logic         [7:0]          pmod_sel,

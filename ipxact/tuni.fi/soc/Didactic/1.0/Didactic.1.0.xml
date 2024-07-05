@@ -293,6 +293,19 @@
 			</ipxact:view>
 		</ipxact:views>
 		<ipxact:instantiations>
+			<ipxact:designInstantiation>
+				<ipxact:name>design</ipxact:name>
+				<ipxact:designRef vendor="tuni.fi" library="soc" name="didactic.design" version="1.0">
+					<ipxact:configurableElementValues>
+						<ipxact:configurableElementValue referenceId="uuid_af160ab0_303b_4739_92cf_faf7577ad88d">uuid_c4cec312_f229_44eb_8372_8f6373078891</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc">uuid_69987c4d_cb9f_4633_a85c_1cbe5c7ff83b</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_e2640b90_fd6f_4b0d_a0b4_736fee3e610f">uuid_8d66272e_a32c_446f_ae40_3cac7d95d06e</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_c42c7a6d_6145_4f8f_8868_4d08baaccfc3">uuid_40121f95_5130_4dce_8b53_074bc2163a43</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_a73172ae_fefe_4f4c_a1c4_d50cc3ad12e5">uuid_50ed0345_2dfe_40da_9702_935759c30ab7</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_7c953737_3ec1_4c5b_b5f8_84e46dd8f1b9">uuid_c4588cc5_5105_434c_8c8c_6f02585bd287</ipxact:configurableElementValue>
+					</ipxact:configurableElementValues>
+				</ipxact:designRef>
+			</ipxact:designInstantiation>
 			<ipxact:designConfigurationInstantiation>
 				<ipxact:name>_design_configuration</ipxact:name>
 				<ipxact:designConfigurationRef vendor="tuni.fi" library="soc" name="didactic.designcfg" version="1.0"/>
@@ -437,7 +450,7 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_8d66272e_a32c_446f_ae40_3cac7d95d06e-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -662,30 +675,33 @@ Spec:
 * 28 signal IO
 </ipxact:description>
 	<ipxact:parameters>
-		<ipxact:parameter parameterId="uuid_c4cec312_f229_44eb_8372_8f6373078891" resolve="immediate">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_c4cec312_f229_44eb_8372_8f6373078891" resolve="immediate">
 			<ipxact:name>AW</ipxact:name>
 			<ipxact:description>Global SoC address width</ipxact:description>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_69987c4d_cb9f_4633_a85c_1cbe5c7ff83b" resolve="immediate">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_69987c4d_cb9f_4633_a85c_1cbe5c7ff83b" resolve="immediate">
 			<ipxact:name>DW</ipxact:name>
 			<ipxact:description>Global SoC data width</ipxact:description>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_e026d445_c096_414c_aa35_13289dd72403" resolve="immediate">
-			<ipxact:name>IO_CFG_W</ipxact:name>
-			<ipxact:description>Global SoC io cell cfg width</ipxact:description>
-			<ipxact:value>5</ipxact:value>
-		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_40121f95_5130_4dce_8b53_074bc2163a43" resolve="immediate">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_40121f95_5130_4dce_8b53_074bc2163a43" resolve="immediate">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:description>SoC SS control width</ipxact:description>
 			<ipxact:value>8</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_8d66272e_a32c_446f_ae40_3cac7d95d06e" resolve="immediate">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_8d66272e_a32c_446f_ae40_3cac7d95d06e" resolve="immediate">
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:description>SoC GPIO Cell count. Default 2x pmod = 8.</ipxact:description>
 			<ipxact:value>8</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_c4588cc5_5105_434c_8c8c_6f02585bd287" resolve="immediate">
+			<ipxact:name>AXI_USERW</ipxact:name>
+			<ipxact:value>1</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_50ed0345_2dfe_40da_9702_935759c30ab7" resolve="immediate">
+			<ipxact:name>AXI_IDW</ipxact:name>
+			<ipxact:value>10</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

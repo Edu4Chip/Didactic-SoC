@@ -7,7 +7,11 @@
 	<ipxact:componentInstances>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>i_dmem</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="memory.simulation" name="sp_sram" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="memory.simulation" name="sp_sram" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_dea62a38_7143_4438_be39_585a2e4998e7">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{c7322592-7164-4021-88e6-0c040188c889}</kactus2:uuid>
 				<kactus2:position x="600" y="60"/>
@@ -35,7 +39,15 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Ctrl_xbar</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="ip" name="SysCtrl_xbar" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="ip" name="SysCtrl_xbar" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_eb1ad1e6_d30b_4600_8063_c83e32219a10">uuid_6fca5cb5_da12_4344_ae36_98754fe1e5eb</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_5fe59b41_0414_4869_a3bf_75d9c9173520">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_4242053c_02ba_49b3_87da_94390d743b46">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_5c337f67_f3e3_43bb_a43e_ae35ce4ebc0b">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_6bb4c3b9_800e_46b0_90b2_6b10ca400c47">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{0ceb348e-62da-4d11-a23f-f977e9575cf4}</kactus2:uuid>
 				<kactus2:position x="1240" y="60"/>
@@ -57,7 +69,13 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>i_SysCtrl_peripherals</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="ip" name="SysCtrl_peripherals" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="ip" name="SysCtrl_peripherals" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_88b2b498_66ba_44c6_9c72_f14b9ed61a80">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_d5310ef8_5f7b_4872_b1b9_587a6c57e6ea">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_3aaeb7b0_a0e8_4ebe_b293_07e6cfd677ca">uuid_af1dc1b2_e8c6_4271_bf5e_082c38a450e4</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{a3a749de-2fcf-43bf-a437-072bfd5b1de6}</kactus2:uuid>
 				<kactus2:position x="1560" y="60"/>
@@ -87,6 +105,8 @@
 			<ipxact:componentRef vendor="tuni.fi" library="ip" name="jtag_dbg_wrapper" version="1.0">
 				<ipxact:configurableElementValues>
 					<ipxact:configurableElementValue referenceId="uuid_d7bb2734_1d0d_4c03_8fa4_ff989442bbfa">32'h1c0ffee1</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_796e3220_5038_4700_b9a8_bc369d9999b8">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_aaffb34f_5fe4_4dee_b4d5_4f2cc1a61f83">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -105,7 +125,14 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>axi_dmem_bridge</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="ip" name="mem_axi_bridge" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="ip" name="mem_axi_bridge" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_2c57dccd_6ea8_49fc_8012_ed08dafda914">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_3eb4fbf8_5f28_4c2e_a141_46819b229e04">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_2fafb095_9b81_46b1_944f_64c0bbdeaf1f">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_d53626b1_a8f4_4166_b95e_7db773e439d1">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{6e78ab59-d146-47eb-89cd-74b5153291fd}</kactus2:uuid>
 				<kactus2:position x="920" y="60"/>
@@ -132,7 +159,14 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>SS_Ctrl_reg_array</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="ip" name="SS_Ctrl_reg_array" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="ip" name="SS_Ctrl_reg_array" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b">uuid_f59fdf20_4566_47aa_b925_96a29c6c62dc</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960">uuid_f7826066_d90a_4d4c_9391_cfeef631857f</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{d29faeea-3c09-42a1-863b-702901c54da1}</kactus2:uuid>
 				<kactus2:position x="280" y="60"/>
@@ -178,7 +212,14 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>core_dmem_bridge</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="lowRISC" name="ibex_axi_bridge" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="lowRISC" name="ibex_axi_bridge" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_d0fb64e5_7e7c_492c_bfe9_8525cdb3d06b">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_9aa54edb_94cb_4f58_a1b8_b0870429c85b">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_c434ed14_2084_4029_aadc_483c7634ec22">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_1a72b174_638b_4e79_95db_badbb636b767">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{a27c3303-4c81-47a0-949b-246d1161a5aa}</kactus2:uuid>
 				<kactus2:position x="920" y="470"/>
@@ -192,7 +233,11 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>i_imem</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="memory.simulation" name="sp_sram" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="memory.simulation" name="sp_sram" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_dea62a38_7143_4438_be39_585a2e4998e7">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{eb516f09-02e3-4763-8370-353cf46c0fdc}</kactus2:uuid>
 				<kactus2:position x="600" y="170"/>
@@ -205,7 +250,14 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>axi_imem_bridge</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="ip" name="mem_axi_bridge" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="ip" name="mem_axi_bridge" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_2c57dccd_6ea8_49fc_8012_ed08dafda914">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_3eb4fbf8_5f28_4c2e_a141_46819b229e04">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_2fafb095_9b81_46b1_944f_64c0bbdeaf1f">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_d53626b1_a8f4_4166_b95e_7db773e439d1">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{1217a625-bb09-48dc-8d47-789060b68f31}</kactus2:uuid>
 				<kactus2:position x="920" y="200"/>
@@ -219,7 +271,14 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>BootRom_axi_bridge</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="ip" name="mem_axi_bridge" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="ip" name="mem_axi_bridge" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_2c57dccd_6ea8_49fc_8012_ed08dafda914">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_3eb4fbf8_5f28_4c2e_a141_46819b229e04">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_2fafb095_9b81_46b1_944f_64c0bbdeaf1f">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_d53626b1_a8f4_4166_b95e_7db773e439d1">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{48723b67-a0e9-4fc7-b0ab-961f89979fa6}</kactus2:uuid>
 				<kactus2:position x="920" y="330"/>
@@ -233,7 +292,14 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Ctrl_reg_bridge</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="ip" name="mem_axi_bridge" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="ip" name="mem_axi_bridge" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_2c57dccd_6ea8_49fc_8012_ed08dafda914">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_3eb4fbf8_5f28_4c2e_a141_46819b229e04">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_2fafb095_9b81_46b1_944f_64c0bbdeaf1f">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_d53626b1_a8f4_4166_b95e_7db773e439d1">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{0782b6d1-1eae-48b2-9796-2b1a566b389a}</kactus2:uuid>
 				<kactus2:position x="280" y="510"/>
@@ -698,31 +764,31 @@
 		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>
 	<ipxact:parameters>
-		<ipxact:parameter parameterId="uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2" resolve="user">
+		<ipxact:parameter kactus2:usageCount="17" parameterId="uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_ac754a52_641d_45a0_945d_a6b366405072" resolve="user">
+		<ipxact:parameter kactus2:usageCount="15" parameterId="uuid_ac754a52_641d_45a0_945d_a6b366405072" resolve="user">
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_f7826066_d90a_4d4c_9391_cfeef631857f" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_f7826066_d90a_4d4c_9391_cfeef631857f" resolve="user">
 			<ipxact:name>IO_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_f59fdf20_4566_47aa_b925_96a29c6c62dc" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_f59fdf20_4566_47aa_b925_96a29c6c62dc" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:value>26</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_af1dc1b2_e8c6_4271_bf5e_082c38a450e4" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_af1dc1b2_e8c6_4271_bf5e_082c38a450e4" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_8586df63_4751_4b43_8780_1959758f59a7" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_8586df63_4751_4b43_8780_1959758f59a7" resolve="user">
 			<ipxact:name>AXI_IDW</ipxact:name>
 			<ipxact:value>6</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_6fca5cb5_da12_4344_ae36_98754fe1e5eb" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_6fca5cb5_da12_4344_ae36_98754fe1e5eb" resolve="user">
 			<ipxact:name>AXI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>

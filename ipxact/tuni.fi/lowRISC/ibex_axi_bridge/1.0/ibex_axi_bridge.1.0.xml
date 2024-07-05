@@ -917,19 +917,19 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_d0fb64e5_7e7c_492c_bfe9_8525cdb3d06b">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_d0fb64e5_7e7c_492c_bfe9_8525cdb3d06b" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_9aa54edb_94cb_4f58_a1b8_b0870429c85b">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_9aa54edb_94cb_4f58_a1b8_b0870429c85b" resolve="user">
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_c434ed14_2084_4029_aadc_483c7634ec22">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_c434ed14_2084_4029_aadc_483c7634ec22" resolve="user">
 			<ipxact:name>IBEX_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_1a72b174_638b_4e79_95db_badbb636b767">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_1a72b174_638b_4e79_95db_badbb636b767" resolve="user">
 			<ipxact:name>IBEX_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>

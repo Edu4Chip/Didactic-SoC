@@ -7,7 +7,16 @@
 	<ipxact:componentInstances>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>SystemControl_SS</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="SysCtrl_SS_wrapper" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="SysCtrl_SS_wrapper" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_4e26fd1f_4186_49ba_9991_facd80166e3a">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_e2e5f792_3afb_4ec7_b04b_8270180cf8d8">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_39fb5f0f_a305_4dcb_9785_6d039c83e2e4">uuid_a73172ae_fefe_4f4c_a1c4_d50cc3ad12e5</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_2cface3e_b92e_4224_baa8_d5c6d08b56d7">uuid_7c953737_3ec1_4c5b_b5f8_84e46dd8f1b9</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_8ff74019_5833_4343_a8f8_226797e9637c">uuid_e29057bd_bba5_425a_95c9_823d4fae652f</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_fdcf1383_a4b8_40b8_9dff_18f79a458e7a">uuid_e2640b90_fd6f_4b0d_a0b4_736fee3e610f</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{1b2f10de-b1b3-480c-a12a-4664c7b6e58b}</kactus2:uuid>
 				<kactus2:position x="280" y="60"/>
@@ -48,7 +57,16 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>ICN_SS</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="interconnect" name="ICN_SS" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="interconnect" name="ICN_SS" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_5d59a72d_f159_4e8d_8c80_3bde42abf5ab">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_225decbf_1961_44a0_98d4_cd235959bd92">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967">uuid_7c953737_3ec1_4c5b_b5f8_84e46dd8f1b9</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_4821f764_9140_40bb_9660_7efce3fe7b59">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_43badc9f_5035_4aaf_999f_e5eae3b3af1e">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{9f960ad2-a534-42e1-b78e-9c12ef3bd1b4}</kactus2:uuid>
 				<kactus2:position x="600" y="60"/>
@@ -66,7 +84,12 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Student_SS_0</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_0" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_0" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_9811eb96_811c_4e28_9ec6_1859828cd1be">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_44da11cb_daf8_4d27_89df_a67bf4fcda56">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{114f88dd-7f5d-435a-8479-2c77900a50b9}</kactus2:uuid>
 				<kactus2:position x="920" y="60"/>
@@ -83,7 +106,12 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Student_SS_1</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_1" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_1" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_3113cd69_6e50_4792_a3e0_6244d202c503">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_90e4f5de_de41_444d_b453_a57ae0a5c89a">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{e7aa2d1b-7014-429b-b502-752789a25920}</kactus2:uuid>
 				<kactus2:position x="920" y="250"/>
@@ -99,7 +127,12 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Student_SS_2</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_2" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_2" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_606fc714_06b0_462f_a573_d8f60e5da8e5">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_73b7b298_416c_4b99_8b88_5fbe88121e07">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{43939e4b-2949-428a-995c-bbc4ab3643ee}</kactus2:uuid>
 				<kactus2:position x="920" y="440"/>
@@ -116,7 +149,12 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Student_SS_3</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_3" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_3" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_2143672d_60f7_4f54_adbc_533b7122a081">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_c6035edc_4b5b_4955_9ef7_a30333c67701">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{6a4140dd-b7da-4894-a2f5-30ade336f4c0}</kactus2:uuid>
 				<kactus2:position x="920" y="630"/>
@@ -340,25 +378,29 @@
 		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:parameters>
-		<ipxact:parameter parameterId="uuid_af160ab0_303b_4739_92cf_faf7577ad88d" resolve="user">
+		<ipxact:parameter kactus2:usageCount="6" parameterId="uuid_af160ab0_303b_4739_92cf_faf7577ad88d" resolve="user">
 			<ipxact:name>AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc" resolve="user">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc" resolve="user">
 			<ipxact:name>DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_e29057bd_bba5_425a_95c9_823d4fae652f" resolve="user">
-			<ipxact:name>IO_CFG_W</ipxact:name>
-			<ipxact:value>4</ipxact:value>
-		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_e2640b90_fd6f_4b0d_a0b4_736fee3e610f" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_e2640b90_fd6f_4b0d_a0b4_736fee3e610f" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:value>8</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter parameterId="uuid_c42c7a6d_6145_4f8f_8868_4d08baaccfc3" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:value>8</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_a73172ae_fefe_4f4c_a1c4_d50cc3ad12e5" resolve="user">
+			<ipxact:name>AXI_IDW</ipxact:name>
+			<ipxact:value>10</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_7c953737_3ec1_4c5b_b5f8_84e46dd8f1b9" resolve="user">
+			<ipxact:name>AXI_USERW</ipxact:name>
+			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

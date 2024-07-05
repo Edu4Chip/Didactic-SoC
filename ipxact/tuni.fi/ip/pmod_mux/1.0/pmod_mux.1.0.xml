@@ -442,6 +442,36 @@
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
+		<ipxact:views>
+			<ipxact:view>
+				<ipxact:name>flat_verilog</ipxact:name>
+				<ipxact:envIdentifier>Verilog:kactus2.cs.tut.fi:</ipxact:envIdentifier>
+				<ipxact:componentInstantiationRef>verilog_implementation</ipxact:componentInstantiationRef>
+			</ipxact:view>
+		</ipxact:views>
+		<ipxact:instantiations>
+			<ipxact:componentInstantiation>
+				<ipxact:name>verilog_implementation</ipxact:name>
+				<ipxact:language>Verilog</ipxact:language>
+				<ipxact:moduleName>pmod_mux</ipxact:moduleName>
+				<ipxact:moduleParameters>
+					<ipxact:moduleParameter parameterId="uuid_20c0a3e8_e526_41bd_be0c_53139ed1f810" usageType="nontyped">
+						<ipxact:name>IOCELL_CFG_W</ipxact:name>
+						<ipxact:description>control bus width for each individual IO cell</ipxact:description>
+						<ipxact:value>uuid_a0d54e9e_a863_4b6d_9ffb_adb0dd301f2e</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_b4b12fa7_780e_4040_96b0_b9ead1f29e84" usageType="nontyped">
+						<ipxact:name>IOCELL_COUNT</ipxact:name>
+						<ipxact:description>update this value manually to match cell numbers</ipxact:description>
+						<ipxact:value>uuid_d1e10fb4_d1e0_43a1_b5da_816635063659</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_672cede9_6983_4242_828a_99c730f1d477" usageType="nontyped">
+						<ipxact:name>NUM_GPIO</ipxact:name>
+						<ipxact:value>uuid_ac68504e_7c24_44db_a80e_b9bfebb39655</ipxact:value>
+					</ipxact:moduleParameter>
+				</ipxact:moduleParameters>
+			</ipxact:componentInstantiation>
+		</ipxact:instantiations>
 		<ipxact:ports>
 			<ipxact:port>
 				<ipxact:name>gpio_from_core</ipxact:name>
@@ -449,7 +479,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_ac68504e_7c24_44db_a80e_b9bfebb39655-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -471,7 +501,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_ac68504e_7c24_44db_a80e_b9bfebb39655-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -537,7 +567,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_ac68504e_7c24_44db_a80e_b9bfebb39655-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -559,7 +589,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_ac68504e_7c24_44db_a80e_b9bfebb39655-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1137,15 +1167,19 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_a0d54e9e_a863_4b6d_9ffb_adb0dd301f2e" resolve="user">
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_a0d54e9e_a863_4b6d_9ffb_adb0dd301f2e" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:description>control bus width for each individual IO cell</ipxact:description>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d1e10fb4_d1e0_43a1_b5da_816635063659" resolve="user">
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_d1e10fb4_d1e0_43a1_b5da_816635063659" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
-			<ipxact:value>28</ipxact:value>
+			<ipxact:value>26</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_ac68504e_7c24_44db_a80e_b9bfebb39655" resolve="user">
+			<ipxact:name>NUM_GPIO</ipxact:name>
+			<ipxact:value>8</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

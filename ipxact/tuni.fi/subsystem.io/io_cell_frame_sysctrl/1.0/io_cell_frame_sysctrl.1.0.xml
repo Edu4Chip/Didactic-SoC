@@ -524,6 +524,34 @@
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
+		<ipxact:views>
+			<ipxact:view>
+				<ipxact:name>flat_verilog</ipxact:name>
+				<ipxact:envIdentifier>Verilog:kactus2.cs.tut.fi:</ipxact:envIdentifier>
+				<ipxact:componentInstantiationRef>verilog_implementation</ipxact:componentInstantiationRef>
+			</ipxact:view>
+		</ipxact:views>
+		<ipxact:instantiations>
+			<ipxact:componentInstantiation>
+				<ipxact:name>verilog_implementation</ipxact:name>
+				<ipxact:language>Verilog</ipxact:language>
+				<ipxact:moduleName>io_cell_frame_sysctrl</ipxact:moduleName>
+				<ipxact:moduleParameters>
+					<ipxact:moduleParameter parameterId="uuid_e63c8cad_3436_4619_bcc0_c8dd92dc26d0" usageType="nontyped">
+						<ipxact:name>IOCELL_CFG_W</ipxact:name>
+						<ipxact:value>uuid_a8d0dbda_8922_41dc_b974_8d3fb4f682c4</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_0e77dbc1_ef24_459a_bcec_58a528fba27b" usageType="nontyped">
+						<ipxact:name>IOCELL_COUNT</ipxact:name>
+						<ipxact:value>uuid_da8e681e_1406_4c24_bcdc_06c71f86277e</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_c27e6e7c_616b_4790_b4d8_a6d2ac93f03b" usageType="nontyped">
+						<ipxact:name>NUM_GPIO</ipxact:name>
+						<ipxact:value>uuid_e0200e73_c991_44a1_9bd6_7f257b75f23c</ipxact:value>
+					</ipxact:moduleParameter>
+				</ipxact:moduleParameters>
+			</ipxact:componentInstantiation>
+		</ipxact:instantiations>
 		<ipxact:ports>
 			<ipxact:port>
 				<ipxact:name>reset</ipxact:name>
@@ -531,8 +559,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -575,8 +603,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -619,7 +647,7 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
+							<ipxact:left>uuid_e0200e73_c991_44a1_9bd6_7f257b75f23c-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -641,8 +669,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -663,8 +691,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -685,8 +713,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -703,13 +731,12 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>jtag_tdi</ipxact:name>
-				<ipxact:description>Data can be daisy chained or routed directly back</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -726,13 +753,12 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>jtag_tdo</ipxact:name>
-				<ipxact:description>Data can be daisy chained or routed directly back</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -753,8 +779,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -775,8 +801,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -797,8 +823,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -819,8 +845,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -841,8 +867,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -861,6 +887,12 @@
 				<ipxact:name>reset_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -872,6 +904,12 @@
 				<ipxact:name>clk_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -883,6 +921,12 @@
 				<ipxact:name>fetchEn_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -894,6 +938,12 @@
 				<ipxact:name>BootSel_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -907,7 +957,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>uuid_da8e681e_1406_4c24_bcdc_06c71f86277e*uuid_a8d0dbda_8922_41dc_b974_8d3fb4f682c4-1</ipxact:left>
+							<ipxact:left>(uuid_a8d0dbda_8922_41dc_b974_8d3fb4f682c4*uuid_da8e681e_1406_4c24_bcdc_06c71f86277e)-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -922,6 +972,12 @@
 				<ipxact:name>uart_rx_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -933,6 +989,12 @@
 				<ipxact:name>uart_tx_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -946,7 +1008,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_e0200e73_c991_44a1_9bd6_7f257b75f23c-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -963,7 +1025,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_e0200e73_c991_44a1_9bd6_7f257b75f23c-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -978,6 +1040,12 @@
 				<ipxact:name>jtag_tck_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -989,6 +1057,12 @@
 				<ipxact:name>jtag_tdi_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -1000,6 +1074,12 @@
 				<ipxact:name>jtag_tdo_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -1011,6 +1091,12 @@
 				<ipxact:name>jtag_tms_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -1022,6 +1108,12 @@
 				<ipxact:name>jtag_trst_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -1033,6 +1125,12 @@
 				<ipxact:name>spim_sck_internal</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -1103,14 +1201,17 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_a8d0dbda_8922_41dc_b974_8d3fb4f682c4" resolve="user">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_a8d0dbda_8922_41dc_b974_8d3fb4f682c4" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_da8e681e_1406_4c24_bcdc_06c71f86277e" resolve="user">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_da8e681e_1406_4c24_bcdc_06c71f86277e" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
-			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
-			<ipxact:value>24</ipxact:value>
+			<ipxact:value>26</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_e0200e73_c991_44a1_9bd6_7f257b75f23c" resolve="user">
+			<ipxact:name>NUM_GPIO</ipxact:name>
+			<ipxact:value>8</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

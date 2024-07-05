@@ -1362,6 +1362,20 @@
 			</ipxact:view>
 		</ipxact:views>
 		<ipxact:instantiations>
+			<ipxact:designInstantiation>
+				<ipxact:name>design</ipxact:name>
+				<ipxact:designRef vendor="tuni.fi" library="subsystem" name="SysCtrl_SS.design" version="1.0">
+					<ipxact:configurableElementValues>
+						<ipxact:configurableElementValue referenceId="uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2">uuid_67b72383_784d_4df0_8167_b40e00ce315e</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_ac754a52_641d_45a0_945d_a6b366405072">uuid_ffd525d4_f60d_47a7_88e8_311b2ff4ba42</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_f7826066_d90a_4d4c_9391_cfeef631857f">uuid_72c6e7c1_9fda_400e_ae82_b5a26eb1a676</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_f59fdf20_4566_47aa_b925_96a29c6c62dc">uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_8586df63_4751_4b43_8780_1959758f59a7">uuid_00bc8b4d_584b_469d_878c_d64754de140f</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_6fca5cb5_da12_4344_ae36_98754fe1e5eb">uuid_b19f9e43_dcca_45a6_84e6_2eae6f88d91c</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_af1dc1b2_e8c6_4271_bf5e_082c38a450e4">uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4</ipxact:configurableElementValue>
+					</ipxact:configurableElementValues>
+				</ipxact:designRef>
+			</ipxact:designInstantiation>
 			<ipxact:designConfigurationInstantiation>
 				<ipxact:name>_design_configuration</ipxact:name>
 				<ipxact:designConfigurationRef vendor="tuni.fi" library="subsystem" name="SysCtrl_SS.designcfg" version="1.0"/>
@@ -3162,30 +3176,34 @@
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_ffd525d4_f60d_47a7_88e8_311b2ff4ba42" resolve="user">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_ffd525d4_f60d_47a7_88e8_311b2ff4ba42" resolve="user">
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_67b72383_784d_4df0_8167_b40e00ce315e" resolve="user">
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_67b72383_784d_4df0_8167_b40e00ce315e" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_00bc8b4d_584b_469d_878c_d64754de140f" resolve="user">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_00bc8b4d_584b_469d_878c_d64754de140f" resolve="user">
 			<ipxact:name>AXI_IDW</ipxact:name>
 			<ipxact:value>10</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_b19f9e43_dcca_45a6_84e6_2eae6f88d91c" resolve="user">
+		<ipxact:parameter kactus2:usageCount="6" parameterId="uuid_b19f9e43_dcca_45a6_84e6_2eae6f88d91c" resolve="user">
 			<ipxact:name>AXI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_72c6e7c1_9fda_400e_ae82_b5a26eb1a676" resolve="user">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_72c6e7c1_9fda_400e_ae82_b5a26eb1a676" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c" resolve="user">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
 			<ipxact:value>28</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4" resolve="user">
+			<ipxact:name>NUM_GPIO</ipxact:name>
+			<ipxact:value>6</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
