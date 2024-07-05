@@ -62,7 +62,7 @@
 					<ipxact:configurableElementValue referenceId="uuid_5d59a72d_f159_4e8d_8c80_3bde42abf5ab">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_225decbf_1961_44a0_98d4_cd235959bd92">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967">uuid_7c953737_3ec1_4c5b_b5f8_84e46dd8f1b9</ipxact:configurableElementValue>
-					<ipxact:configurableElementValue referenceId="uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d">uuid_a73172ae_fefe_4f4c_a1c4_d50cc3ad12e5</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_4821f764_9140_40bb_9660_7efce3fe7b59">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_43badc9f_5035_4aaf_999f_e5eae3b3af1e">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
@@ -382,7 +382,7 @@
 			<ipxact:name>AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc" resolve="user">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc" resolve="user">
 			<ipxact:name>DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
@@ -394,7 +394,7 @@
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:value>8</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_a73172ae_fefe_4f4c_a1c4_d50cc3ad12e5" resolve="user">
+		<ipxact:parameter kactus2:usageCount="6" parameterId="uuid_a73172ae_fefe_4f4c_a1c4_d50cc3ad12e5" resolve="user">
 			<ipxact:name>AXI_IDW</ipxact:name>
 			<ipxact:value>10</ipxact:value>
 		</ipxact:parameter>
