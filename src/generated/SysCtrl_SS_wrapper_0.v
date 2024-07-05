@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 05.07.2024
-// Creation time : 13:45:32
+// Creation time : 14:17:00
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -17,17 +17,18 @@ module SysCtrl_SS_wrapper_0 #(
     parameter                              AXI_USERW        = 1,
     parameter                              IOCELL_CFG_W     = 5,    // IO cell configuration bus width.
     parameter                              IOCELL_COUNT     = 28,    // Controller IO cell count.
-    parameter                              NUM_GPIO         = 7
+    parameter                              NUM_GPIO         = 7,
+    parameter                              SS_CTRL_W        = 8
 ) (
     // Interface: AXI
     input  logic                        AR_READY,
     input  logic                        AW_READY,
-    input  logic         [9:0]          B_ID,
+    input  logic         [1:0]          B_ID,
     input  logic         [1:0]          B_RESP,
     input  logic                        B_USER,
     input  logic                        B_VALID,
     input  logic         [31:0]         R_DATA,
-    input  logic         [9:0]          R_ID,
+    input  logic         [1:0]          R_ID,
     input  logic                        R_LAST,
     input  logic         [1:0]          R_RESP,
     input  logic         [1:0]          R_USER,
@@ -36,7 +37,7 @@ module SysCtrl_SS_wrapper_0 #(
     output logic         [31:0]         AR_ADDR,
     output logic         [1:0]          AR_BURST,
     output logic         [3:0]          AR_CACHE,
-    output logic         [9:0]          AR_ID,
+    output logic         [1:0]          AR_ID,
     output logic         [7:0]          AR_LEN,
     output logic                        AR_LOCK,
     output logic         [2:0]          AR_PROT,
@@ -79,7 +80,7 @@ module SysCtrl_SS_wrapper_0 #(
     inout  wire                         fetch_en,
 
     // Interface: GPIO
-    inout  wire          [7:0]          gpio,
+    inout  wire          [2:0]          gpio,
 
     // Interface: ICN_SS_Ctrl
     output logic         [7:0]          ss_ctrl_icn,
@@ -207,7 +208,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [31:0] SysCtrl_SS_AXI_to_AXI_AR_ADDR;
     wire [1:0] SysCtrl_SS_AXI_to_AXI_AR_BURST;
     wire [3:0] SysCtrl_SS_AXI_to_AXI_AR_CACHE;
-    wire [9:0] SysCtrl_SS_AXI_to_AXI_AR_ID;
+    wire [6:0] SysCtrl_SS_AXI_to_AXI_AR_ID;
     wire [7:0] SysCtrl_SS_AXI_to_AXI_AR_LEN;
     wire       SysCtrl_SS_AXI_to_AXI_AR_LOCK;
     wire [2:0] SysCtrl_SS_AXI_to_AXI_AR_PROT;
@@ -231,13 +232,13 @@ module SysCtrl_SS_wrapper_0 #(
     wire [2:0] SysCtrl_SS_AXI_to_AXI_AW_SIZE;
     wire       SysCtrl_SS_AXI_to_AXI_AW_USER;
     wire       SysCtrl_SS_AXI_to_AXI_AW_VALID;
-    wire [9:0] SysCtrl_SS_AXI_to_AXI_B_ID;
+    wire [6:0] SysCtrl_SS_AXI_to_AXI_B_ID;
     wire       SysCtrl_SS_AXI_to_AXI_B_READY;
     wire [1:0] SysCtrl_SS_AXI_to_AXI_B_RESP;
     wire       SysCtrl_SS_AXI_to_AXI_B_USER;
     wire       SysCtrl_SS_AXI_to_AXI_B_VALID;
     wire [31:0] SysCtrl_SS_AXI_to_AXI_R_DATA;
-    wire [9:0] SysCtrl_SS_AXI_to_AXI_R_ID;
+    wire [6:0] SysCtrl_SS_AXI_to_AXI_R_ID;
     wire       SysCtrl_SS_AXI_to_AXI_R_LAST;
     wire       SysCtrl_SS_AXI_to_AXI_R_READY;
     wire [1:0] SysCtrl_SS_AXI_to_AXI_R_RESP;
@@ -479,7 +480,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign AR_ADDR = SysCtrl_SS_AXI_to_AXI_AR_ADDR;
     assign AR_BURST = SysCtrl_SS_AXI_to_AXI_AR_BURST;
     assign AR_CACHE = SysCtrl_SS_AXI_to_AXI_AR_CACHE;
-    assign AR_ID = SysCtrl_SS_AXI_to_AXI_AR_ID;
+    assign AR_ID = SysCtrl_SS_AXI_to_AXI_AR_ID[1:0];
     assign AR_LEN = SysCtrl_SS_AXI_to_AXI_AR_LEN;
     assign AR_LOCK = SysCtrl_SS_AXI_to_AXI_AR_LOCK;
     assign AR_PROT = SysCtrl_SS_AXI_to_AXI_AR_PROT;
@@ -503,13 +504,13 @@ module SysCtrl_SS_wrapper_0 #(
     assign AW_SIZE = SysCtrl_SS_AXI_to_AXI_AW_SIZE;
     assign AW_USER = SysCtrl_SS_AXI_to_AXI_AW_USER;
     assign AW_VALID = SysCtrl_SS_AXI_to_AXI_AW_VALID;
-    assign SysCtrl_SS_AXI_to_AXI_B_ID = B_ID;
+    assign SysCtrl_SS_AXI_to_AXI_B_ID[1:0] = B_ID;
     assign B_READY = SysCtrl_SS_AXI_to_AXI_B_READY;
     assign SysCtrl_SS_AXI_to_AXI_B_RESP = B_RESP;
     assign SysCtrl_SS_AXI_to_AXI_B_USER = B_USER;
     assign SysCtrl_SS_AXI_to_AXI_B_VALID = B_VALID;
     assign SysCtrl_SS_AXI_to_AXI_R_DATA = R_DATA;
-    assign SysCtrl_SS_AXI_to_AXI_R_ID = R_ID;
+    assign SysCtrl_SS_AXI_to_AXI_R_ID[1:0] = R_ID;
     assign SysCtrl_SS_AXI_to_AXI_R_LAST = R_LAST;
     assign R_READY = SysCtrl_SS_AXI_to_AXI_R_READY;
     assign SysCtrl_SS_AXI_to_AXI_R_RESP = R_RESP;
@@ -569,7 +570,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_AXI_to_AXI_AR_ADDR = SysCtrl_SS_AR_ADDR;
     assign SysCtrl_SS_AXI_to_AXI_AR_BURST = SysCtrl_SS_AR_BURST;
     assign SysCtrl_SS_AXI_to_AXI_AR_CACHE = SysCtrl_SS_AR_CACHE;
-    assign SysCtrl_SS_AXI_to_AXI_AR_ID[6:0] = SysCtrl_SS_AR_ID;
+    assign SysCtrl_SS_AXI_to_AXI_AR_ID = SysCtrl_SS_AR_ID;
     assign SysCtrl_SS_AXI_to_AXI_AR_LEN = SysCtrl_SS_AR_LEN;
     assign SysCtrl_SS_AXI_to_AXI_AR_LOCK = SysCtrl_SS_AR_LOCK;
     assign SysCtrl_SS_AXI_to_AXI_AR_PROT = SysCtrl_SS_AR_PROT;
@@ -593,14 +594,14 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_AXI_to_AXI_AW_SIZE = SysCtrl_SS_AW_SIZE;
     assign SysCtrl_SS_AXI_to_AXI_AW_USER = SysCtrl_SS_AW_USER;
     assign SysCtrl_SS_AXI_to_AXI_AW_VALID = SysCtrl_SS_AW_VALID;
-    assign SysCtrl_SS_B_ID = SysCtrl_SS_AXI_to_AXI_B_ID[6:0];
+    assign SysCtrl_SS_B_ID = SysCtrl_SS_AXI_to_AXI_B_ID;
     assign SysCtrl_SS_AXI_to_AXI_B_READY = SysCtrl_SS_B_READY;
     assign SysCtrl_SS_B_RESP = SysCtrl_SS_AXI_to_AXI_B_RESP;
     assign SysCtrl_SS_B_USER = SysCtrl_SS_AXI_to_AXI_B_USER;
     assign SysCtrl_SS_B_VALID = SysCtrl_SS_AXI_to_AXI_B_VALID;
     assign SysCtrl_SS_BootSel_internal = i_io_cell_frame_BootSel_internal_to_SysCtrl_SS_BootSel_gpo;
     assign SysCtrl_SS_R_DATA = SysCtrl_SS_AXI_to_AXI_R_DATA;
-    assign SysCtrl_SS_R_ID = SysCtrl_SS_AXI_to_AXI_R_ID[6:0];
+    assign SysCtrl_SS_R_ID = SysCtrl_SS_AXI_to_AXI_R_ID;
     assign SysCtrl_SS_R_LAST = SysCtrl_SS_AXI_to_AXI_R_LAST;
     assign SysCtrl_SS_AXI_to_AXI_R_READY = SysCtrl_SS_R_READY;
     assign SysCtrl_SS_R_RESP = SysCtrl_SS_AXI_to_AXI_R_RESP;
@@ -841,7 +842,7 @@ module SysCtrl_SS_wrapper_0 #(
         // Interface: FetchEn_internal
         .fetchEn_internal    (i_io_cell_frame_fetchEn_internal),
         // Interface: GPIO
-        .gpio                (gpio[7:0]),
+        .gpio                (),
         // Interface: GPIO_internal
         .gpio_from_core      (i_io_cell_frame_gpio_from_core),
         .gpio_to_core        (i_io_cell_frame_gpio_to_core),
