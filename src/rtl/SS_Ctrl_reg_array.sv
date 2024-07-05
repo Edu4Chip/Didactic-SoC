@@ -18,8 +18,10 @@
     * same functionality can be later created by TAU Kamel tool automatically from IPXACT
 */
 module SS_Ctrl_reg_array #(
-    parameter                              IOCELL_CFG_W     = 5,    
-    parameter                              IOCELL_COUNT     = 28    // update this value manually to match cell numbers
+    parameter IOCELL_CFG_W     = 5,    
+    parameter IOCELL_COUNT     = 28,    // update this value manually to match cell numbers
+    parameter AW = 32,
+    parameter DW = 32
 ) (
     // Interface: BootSel
     input  logic bootsel,
@@ -37,12 +39,12 @@ module SS_Ctrl_reg_array #(
     output logic [(IOCELL_CFG_W*IOCELL_COUNT)-1:0] cell_cfg,
 
     // Interface: mem_reg_if
-    input  logic [31:0] addr_in,
-    input  logic [3:0]  be_in,
+    input  logic [AW-1:0] addr_in,
+    input  logic [DW/8-1:0]  be_in,
     input  logic        req_in,
-    input  logic [31:0] wdata_in,
+    input  logic [DW-1:0] wdata_in,
     input  logic        we_in,
-    output logic [31:0] rdata_out,
+    output logic [DW-1:0] rdata_out,
 
     // Interface: rst_icn
     output logic reset_icn,
@@ -274,8 +276,9 @@ assign ss_ctrl_icn = icn_rst_ctrl_reg[7:0];
 assign cell_cfg[31:0]  = io_cell_cfg_reg;
 assign cell_cfg[63:32]  = io_cell_cfg_1_reg;
 assign cell_cfg[95:64]  = io_cell_cfg_2_reg;
-assign cell_cfg[127:96]  = io_cell_cfg_3_reg;
-assign cell_cfg[139:128]  = io_cell_cfg_4_reg[10:0];
+assign cell_cfg[119:96]  = io_cell_cfg_3_reg[23:0];
+// 127
+//assign cell_cfg[139:128]  = io_cell_cfg_4_reg[10:0];
 
 assign pmod_sel = pmod_sel_reg;
 
