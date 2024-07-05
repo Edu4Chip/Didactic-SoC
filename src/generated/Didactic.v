@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
 // Creation date : 05.07.2024
-// Creation time : 14:17:00
+// Creation time : 14:45:47
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -360,7 +360,7 @@ module Didactic #(
     wire [31:0] SystemControl_SS_AR_ADDR;
     wire [1:0] SystemControl_SS_AR_BURST;
     wire [3:0] SystemControl_SS_AR_CACHE;
-    wire [1:0] SystemControl_SS_AR_ID;
+    wire [9:0] SystemControl_SS_AR_ID;
     wire [7:0] SystemControl_SS_AR_LEN;
     wire       SystemControl_SS_AR_LOCK;
     wire [2:0] SystemControl_SS_AR_PROT;
@@ -384,13 +384,13 @@ module Didactic #(
     wire [2:0] SystemControl_SS_AW_SIZE;
     wire       SystemControl_SS_AW_USER;
     wire       SystemControl_SS_AW_VALID;
-    wire [1:0] SystemControl_SS_B_ID;
+    wire [9:0] SystemControl_SS_B_ID;
     wire       SystemControl_SS_B_READY;
     wire [1:0] SystemControl_SS_B_RESP;
     wire       SystemControl_SS_B_USER;
     wire       SystemControl_SS_B_VALID;
     wire [31:0] SystemControl_SS_R_DATA;
-    wire [1:0] SystemControl_SS_R_ID;
+    wire [9:0] SystemControl_SS_R_ID;
     wire       SystemControl_SS_R_LAST;
     wire       SystemControl_SS_R_READY;
     wire [1:0] SystemControl_SS_R_RESP;
@@ -613,7 +613,7 @@ module Didactic #(
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ADDR = SystemControl_SS_AR_ADDR;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_BURST = SystemControl_SS_AR_BURST;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_CACHE = SystemControl_SS_AR_CACHE;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ID[1:0] = SystemControl_SS_AR_ID;
+    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ID = SystemControl_SS_AR_ID;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_LEN = SystemControl_SS_AR_LEN;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_LOCK = SystemControl_SS_AR_LOCK;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_PROT = SystemControl_SS_AR_PROT;
@@ -637,13 +637,13 @@ module Didactic #(
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_SIZE = SystemControl_SS_AW_SIZE;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_USER = SystemControl_SS_AW_USER;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_VALID = SystemControl_SS_AW_VALID;
-    assign SystemControl_SS_B_ID = SystemControl_SS_AXI_to_ICN_SS_AXI_B_ID[1:0];
+    assign SystemControl_SS_B_ID = SystemControl_SS_AXI_to_ICN_SS_AXI_B_ID;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_B_READY = SystemControl_SS_B_READY;
     assign SystemControl_SS_B_RESP = SystemControl_SS_AXI_to_ICN_SS_AXI_B_RESP;
     assign SystemControl_SS_B_USER = SystemControl_SS_AXI_to_ICN_SS_AXI_B_USER;
     assign SystemControl_SS_B_VALID = SystemControl_SS_AXI_to_ICN_SS_AXI_B_VALID;
     assign SystemControl_SS_R_DATA = SystemControl_SS_AXI_to_ICN_SS_AXI_R_DATA;
-    assign SystemControl_SS_R_ID = SystemControl_SS_AXI_to_ICN_SS_AXI_R_ID[1:0];
+    assign SystemControl_SS_R_ID = SystemControl_SS_AXI_to_ICN_SS_AXI_R_ID;
     assign SystemControl_SS_R_LAST = SystemControl_SS_AXI_to_ICN_SS_AXI_R_LAST;
     assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_READY = SystemControl_SS_R_READY;
     assign SystemControl_SS_R_RESP = SystemControl_SS_AXI_to_ICN_SS_AXI_R_RESP;
@@ -905,12 +905,12 @@ module Didactic #(
     SysCtrl_SS_wrapper_0 #(
         .AXI_AW              (32),
         .AXI_DW              (32),
-        .AXI_IDW             (7),
         .AXI_USERW           (1),
         .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (28),
-        .NUM_GPIO            (7),
-        .SS_CTRL_W           (8))
+        .IOCELL_COUNT        (26),
+        .AXI_IDW             (10),
+        .SS_CTRL_W           (8),
+        .NUM_GPIO            (8))
     SystemControl_SS(
         // Interface: AXI
         .AR_READY            (SystemControl_SS_AR_READY),

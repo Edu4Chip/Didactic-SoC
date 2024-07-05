@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 05.07.2024
-// Creation time : 14:17:00
+// Creation time : 14:45:47
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -23,12 +23,12 @@ module SysCtrl_SS_0 #(
     // Interface: AXI
     input  logic                        AR_READY,
     input  logic                        AW_READY,
-    input  logic         [6:0]          B_ID,
+    input  logic         [9:0]          B_ID,
     input  logic         [1:0]          B_RESP,
     input  logic                        B_USER,
     input  logic                        B_VALID,
     input  logic         [31:0]         R_DATA,
-    input  logic         [6:0]          R_ID,
+    input  logic         [9:0]          R_ID,
     input  logic                        R_LAST,
     input  logic         [1:0]          R_RESP,
     input  logic                        R_USER,
@@ -37,7 +37,7 @@ module SysCtrl_SS_0 #(
     output logic         [31:0]         AR_ADDR,
     output logic         [1:0]          AR_BURST,
     output logic         [3:0]          AR_CACHE,
-    output logic         [6:0]          AR_ID,
+    output logic         [9:0]          AR_ID,
     output logic         [7:0]          AR_LEN,
     output logic                        AR_LOCK,
     output logic         [2:0]          AR_PROT,
@@ -50,7 +50,7 @@ module SysCtrl_SS_0 #(
     output logic         [5:0]          AW_ATOP,
     output logic         [1:0]          AW_BURST,
     output logic         [3:0]          AW_CACHE,
-    output logic         [6:0]          AW_ID,
+    output logic         [9:0]          AW_ID,
     output logic         [7:0]          AW_LEN,
     output logic                        AW_LOCK,
     output logic         [2:0]          AW_PROT,
@@ -147,7 +147,7 @@ module SysCtrl_SS_0 #(
     output logic                        uart_tx_internal,
 
     // Interface: io_cell_cfg
-    output logic         [139:0]        cell_cfg,
+    output logic         [129:0]        cell_cfg,
 
     // Interface: pmod_sel
     output logic         [7:0]          pmod_sel,
@@ -262,7 +262,7 @@ module SysCtrl_SS_0 #(
     wire [7:0] SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
     wire       SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
     // SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg wires:
-    wire [139:0] SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
+    wire [129:0] SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
     // jtag_dbg_wrapper_JTAG_to_JTAG wires:
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tck;
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tdi;
@@ -1007,7 +1007,7 @@ module SysCtrl_SS_0 #(
     assign AR_ADDR = Ctrl_xbar_AXI_ICN_to_AXI_AR_ADDR;
     assign AR_BURST = Ctrl_xbar_AXI_ICN_to_AXI_AR_BURST;
     assign AR_CACHE = Ctrl_xbar_AXI_ICN_to_AXI_AR_CACHE;
-    assign AR_ID = Ctrl_xbar_AXI_ICN_to_AXI_AR_ID[6:0];
+    assign AR_ID = Ctrl_xbar_AXI_ICN_to_AXI_AR_ID;
     assign AR_LEN = Ctrl_xbar_AXI_ICN_to_AXI_AR_LEN;
     assign AR_LOCK = Ctrl_xbar_AXI_ICN_to_AXI_AR_LOCK;
     assign AR_PROT = Ctrl_xbar_AXI_ICN_to_AXI_AR_PROT;
@@ -1021,7 +1021,7 @@ module SysCtrl_SS_0 #(
     assign AW_ATOP = Ctrl_xbar_AXI_ICN_to_AXI_AW_ATOP;
     assign AW_BURST = Ctrl_xbar_AXI_ICN_to_AXI_AW_BURST;
     assign AW_CACHE = Ctrl_xbar_AXI_ICN_to_AXI_AW_CACHE;
-    assign AW_ID = Ctrl_xbar_AXI_ICN_to_AXI_AW_ID[6:0];
+    assign AW_ID = Ctrl_xbar_AXI_ICN_to_AXI_AW_ID;
     assign AW_LEN = Ctrl_xbar_AXI_ICN_to_AXI_AW_LEN;
     assign AW_LOCK = Ctrl_xbar_AXI_ICN_to_AXI_AW_LOCK;
     assign AW_PROT = Ctrl_xbar_AXI_ICN_to_AXI_AW_PROT;
@@ -1031,14 +1031,14 @@ module SysCtrl_SS_0 #(
     assign AW_SIZE = Ctrl_xbar_AXI_ICN_to_AXI_AW_SIZE;
     assign AW_USER = Ctrl_xbar_AXI_ICN_to_AXI_AW_USER;
     assign AW_VALID = Ctrl_xbar_AXI_ICN_to_AXI_AW_VALID;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_B_ID[6:0] = B_ID;
+    assign Ctrl_xbar_AXI_ICN_to_AXI_B_ID = B_ID;
     assign B_READY = Ctrl_xbar_AXI_ICN_to_AXI_B_READY;
     assign Ctrl_xbar_AXI_ICN_to_AXI_B_RESP = B_RESP;
     assign Ctrl_xbar_AXI_ICN_to_AXI_B_USER = B_USER;
     assign Ctrl_xbar_AXI_ICN_to_AXI_B_VALID = B_VALID;
     assign SS_Ctrl_reg_array_BootSel_to_BootSel_gpo = BootSel_internal;
     assign Ctrl_xbar_AXI_ICN_to_AXI_R_DATA = R_DATA;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_R_ID[6:0] = R_ID;
+    assign Ctrl_xbar_AXI_ICN_to_AXI_R_ID = R_ID;
     assign Ctrl_xbar_AXI_ICN_to_AXI_R_LAST = R_LAST;
     assign R_READY = Ctrl_xbar_AXI_ICN_to_AXI_R_READY;
     assign Ctrl_xbar_AXI_ICN_to_AXI_R_RESP = R_RESP;
@@ -1386,7 +1386,7 @@ module SysCtrl_SS_0 #(
     assign SS_Ctrl_reg_array_addr_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_ADDR;
     assign SS_Ctrl_reg_array_be_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_BE;
     assign SS_Ctrl_reg_array_bootsel = SS_Ctrl_reg_array_BootSel_to_BootSel_gpo;
-    assign SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg[129:0] = SS_Ctrl_reg_array_cell_cfg;
+    assign SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg = SS_Ctrl_reg_array_cell_cfg;
     assign SS_Ctrl_reg_array_clk = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en = SS_Ctrl_reg_array_irq_en_0;
     assign SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en = SS_Ctrl_reg_array_irq_en_1;
