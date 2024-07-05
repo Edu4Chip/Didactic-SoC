@@ -7198,27 +7198,27 @@
 	</ipxact:model>
 	<ipxact:description>SysCtrl internal XBAR.</ipxact:description>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_5fe59b41_0414_4869_a3bf_75d9c9173520">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_5fe59b41_0414_4869_a3bf_75d9c9173520" resolve="user">
 			<ipxact:name>AXI4LITE_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_4242053c_02ba_49b3_87da_94390d743b46">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_4242053c_02ba_49b3_87da_94390d743b46" resolve="user">
 			<ipxact:name>AXI4LITE_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_4b1de481_6ed1_4d8b_b7c5_fb4fb4a0d30c">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_4b1de481_6ed1_4d8b_b7c5_fb4fb4a0d30c" resolve="user">
 			<ipxact:name>AXI_IDW</ipxact:name>
 			<ipxact:value>10</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_5c337f67_f3e3_43bb_a43e_ae35ce4ebc0b">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_5c337f67_f3e3_43bb_a43e_ae35ce4ebc0b" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_6bb4c3b9_800e_46b0_90b2_6b10ca400c47">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_6bb4c3b9_800e_46b0_90b2_6b10ca400c47" resolve="user">
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_eb1ad1e6_d30b_4600_8063_c83e32219a10">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_eb1ad1e6_d30b_4600_8063_c83e32219a10" resolve="user">
 			<ipxact:name>AXI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>

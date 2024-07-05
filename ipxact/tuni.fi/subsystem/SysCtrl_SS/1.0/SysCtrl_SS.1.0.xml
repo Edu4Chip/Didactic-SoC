@@ -3162,27 +3162,27 @@
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_ffd525d4_f60d_47a7_88e8_311b2ff4ba42">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_ffd525d4_f60d_47a7_88e8_311b2ff4ba42" resolve="user">
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_67b72383_784d_4df0_8167_b40e00ce315e">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_67b72383_784d_4df0_8167_b40e00ce315e" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_00bc8b4d_584b_469d_878c_d64754de140f">
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_00bc8b4d_584b_469d_878c_d64754de140f" resolve="user">
 			<ipxact:name>AXI_IDW</ipxact:name>
 			<ipxact:value>10</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_b19f9e43_dcca_45a6_84e6_2eae6f88d91c">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_b19f9e43_dcca_45a6_84e6_2eae6f88d91c" resolve="user">
 			<ipxact:name>AXI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_72c6e7c1_9fda_400e_ae82_b5a26eb1a676">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_72c6e7c1_9fda_400e_ae82_b5a26eb1a676" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
 			<ipxact:value>28</ipxact:value>

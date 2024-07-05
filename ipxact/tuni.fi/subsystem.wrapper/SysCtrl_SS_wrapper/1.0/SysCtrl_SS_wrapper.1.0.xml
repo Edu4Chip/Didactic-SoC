@@ -3509,7 +3509,7 @@
 		</ipxact:parameter>
 		<ipxact:parameter parameterId="uuid_3c540ce4_53de_4e40_a627_b222bc6874a6" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
-			<ipxact:value>28</ipxact:value>
+			<ipxact:value>26</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

@@ -1103,11 +1103,11 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_a8d0dbda_8922_41dc_b974_8d3fb4f682c4">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_a8d0dbda_8922_41dc_b974_8d3fb4f682c4" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_da8e681e_1406_4c24_bcdc_06c71f86277e">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_da8e681e_1406_4c24_bcdc_06c71f86277e" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
 			<ipxact:value>24</ipxact:value>

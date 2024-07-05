@@ -79,19 +79,19 @@
 				<kactus2:uuid>{6032a104-00bc-4bfb-b6ac-1ad368f968d2}</kactus2:uuid>
 				<kactus2:position x="600" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="gpio_io" x="-110" y="40"/>
-					<kactus2:portPosition busRef="ss_2_pmod_1" x="110" y="230"/>
-					<kactus2:portPosition busRef="ss_3_pmod_0" x="110" y="270"/>
-					<kactus2:portPosition busRef="ss_1_pmod_1" x="110" y="150"/>
-					<kactus2:portPosition busRef="ss_0_pmod_1" x="110" y="70"/>
-					<kactus2:portPosition busRef="ss_3_pmod_1" x="110" y="310"/>
-					<kactus2:portPosition busRef="ss_0_pmod_0" x="110" y="40"/>
-					<kactus2:portPosition busRef="ss_2_pmod_0" x="110" y="190"/>
-					<kactus2:portPosition busRef="ss_1_pmod_0" x="110" y="110"/>
-					<kactus2:portPosition busRef="gpio_core" x="110" y="390"/>
 					<kactus2:portPosition busRef="cell_cfg_from_core" x="110" y="350"/>
 					<kactus2:portPosition busRef="cell_cfg_to_io" x="-110" y="440"/>
+					<kactus2:portPosition busRef="gpio_core" x="110" y="390"/>
+					<kactus2:portPosition busRef="gpio_io" x="-110" y="40"/>
 					<kactus2:portPosition busRef="pmod_sel" x="110" y="430"/>
+					<kactus2:portPosition busRef="ss_0_pmod_0" x="110" y="40"/>
+					<kactus2:portPosition busRef="ss_0_pmod_1" x="110" y="70"/>
+					<kactus2:portPosition busRef="ss_1_pmod_0" x="110" y="110"/>
+					<kactus2:portPosition busRef="ss_1_pmod_1" x="110" y="150"/>
+					<kactus2:portPosition busRef="ss_2_pmod_0" x="110" y="190"/>
+					<kactus2:portPosition busRef="ss_2_pmod_1" x="110" y="230"/>
+					<kactus2:portPosition busRef="ss_3_pmod_0" x="110" y="270"/>
+					<kactus2:portPosition busRef="ss_3_pmod_1" x="110" y="310"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -318,6 +318,36 @@
 			<ipxact:hierInterface busRef="ss_3_pmod_gpio_1"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
+	<ipxact:parameters>
+		<ipxact:parameter parameterId="uuid_9130a023_5127_4659_8cd3_f94ce31ec91a" resolve="user">
+			<ipxact:name>AXI_AW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_440c5d94_8fbc_4214_9e9f_0e3ebe07713a" resolve="user">
+			<ipxact:name>AXI_DW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_64f20e2c_b66e_4f72_98c0_394cfa540a5e" resolve="user">
+			<ipxact:name>GPIO_NUM</ipxact:name>
+			<ipxact:value>7</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_6fb3c645_4be5_4ecf_9fe9_a00f81be2824" resolve="user">
+			<ipxact:name>AXI_IDW</ipxact:name>
+			<ipxact:value>7</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_d2d6936f_cf38_444a_9d66_18e5f81e7146" resolve="user">
+			<ipxact:name>AXI_USERW</ipxact:name>
+			<ipxact:value>1</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_387c59b4_154a_4b34_8fcf_231a4c5edbee" resolve="user">
+			<ipxact:name>IOCELL_CFG_W</ipxact:name>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_c5c55bd7_e27a_4bea_89e3_9b0df7f7a856" resolve="user">
+			<ipxact:name>IOCELL_COUNT</ipxact:name>
+			<ipxact:value>28</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>

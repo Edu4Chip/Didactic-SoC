@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 02.07.2024
-// Creation time : 13:51:03
+// Creation date : 05.07.2024
+// Creation time : 11:33:06
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -12,7 +12,10 @@
 
 module SysCtrl_peripherals_0 #(
     parameter                              AXI4LITE_DW      = 32,
-    parameter                              AXI4LITE_AW      = 32
+    parameter                              AXI4LITE_AW      = 32,
+    parameter                              NUM_GPIO         = 6,
+    parameter                              APB_DW           = 32,
+    parameter                              APB_AW           = 12
 ) (
     // Interface: AXI4LITE
     input  logic         [31:0]         ar_addr,
@@ -97,7 +100,7 @@ module SysCtrl_peripherals_0 #(
     wire       AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PWRITE;
     // APB_GPIO_GPIO_to_GPIO wires:
     wire [7:0] APB_GPIO_GPIO_to_GPIO_gpi;
-    wire [7:0] APB_GPIO_GPIO_to_GPIO_gpio_oe;
+    wire [5:0] APB_GPIO_GPIO_to_GPIO_gpio_oe;
     wire [7:0] APB_GPIO_GPIO_to_GPIO_gpo;
     // APB_GPIO_IRQ_to_IRQ_GPIO wires:
     wire       APB_GPIO_IRQ_to_IRQ_GPIO_irq;
@@ -147,8 +150,8 @@ module SysCtrl_peripherals_0 #(
     wire       APB_GPIO_PSLVERR;
     wire [31:0] APB_GPIO_PWDATA;
     wire       APB_GPIO_PWRITE;
-    wire [7:0] APB_GPIO_gpio_in;
-    wire [7:0] APB_GPIO_gpio_out;
+    wire [5:0] APB_GPIO_gpio_in;
+    wire [5:0] APB_GPIO_gpio_out;
     wire       APB_GPIO_interrupt;
     // APB_SPI port wires:
     wire       APB_SPI_HCLK;
@@ -265,8 +268,8 @@ module SysCtrl_peripherals_0 #(
     assign AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PSLVERR = APB_GPIO_PSLVERR;
     assign APB_GPIO_PWDATA = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PWDATA;
     assign APB_GPIO_PWRITE = AX4LITE_APB_converter_wrapper_APB_GPIO_to_APB_GPIO_APB_PWRITE;
-    assign APB_GPIO_gpio_in = APB_GPIO_GPIO_to_GPIO_gpi;
-    assign APB_GPIO_GPIO_to_GPIO_gpo = APB_GPIO_gpio_out;
+    assign APB_GPIO_gpio_in = APB_GPIO_GPIO_to_GPIO_gpi[5:0];
+    assign APB_GPIO_GPIO_to_GPIO_gpo[5:0] = APB_GPIO_gpio_out;
     assign APB_GPIO_IRQ_to_IRQ_GPIO_irq = APB_GPIO_interrupt;
     // APB_SPI assignments:
     assign APB_SPI_HCLK = APB_SPI_Clock_to_Clock_clk;
@@ -356,7 +359,8 @@ module SysCtrl_peripherals_0 #(
 
     // IP-XACT VLNV: tuni.fi:pulp.peripheral:APB_GPIO:1.0
     apb_gpio #(
-        .PAD_NUM             (8),
+        .APB_ADDR_WIDTH      (12),
+        .PAD_NUM             (6),
         .NBIT_PADCFG         (5))
     APB_GPIO(
         // Interface: APB
@@ -449,7 +453,12 @@ module SysCtrl_peripherals_0 #(
         .RTSN                ());
 
     // IP-XACT VLNV: tuni.fi:communication:AX4LITE_APB_converter_wrapper:1.0
-    AX4LITE_APB_converter_wrapper     AX4LITE_APB_converter_wrapper(
+    AX4LITE_APB_converter_wrapper #(
+        .APB_AW              (32),
+        .APB_DW              (32),
+        .AXI_AW              (32),
+        .AXI_DW              (32))
+    AX4LITE_APB_converter_wrapper(
         // Interface: AXI4LITE
         .ar_addr             (AX4LITE_APB_converter_wrapper_ar_addr),
         .ar_prot             (AX4LITE_APB_converter_wrapper_ar_prot),

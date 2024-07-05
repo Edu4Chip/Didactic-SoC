@@ -106,6 +106,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>wdata_i</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -288,11 +289,11 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_dea62a38_7143_4438_be39_585a2e4998e7">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_dea62a38_7143_4438_be39_585a2e4998e7" resolve="user">
 			<ipxact:name>DATA_WIDTH</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_55d6171d_2137_4f9e_b780_12fe7c36b023">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_55d6171d_2137_4f9e_b780_12fe7c36b023" resolve="user">
 			<ipxact:name>NUM_WORDS</ipxact:name>
 			<ipxact:value>1024</ipxact:value>
 		</ipxact:parameter>

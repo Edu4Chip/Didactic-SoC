@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 02.07.2024
-// Creation time : 13:51:03
+// Creation date : 05.07.2024
+// Creation time : 11:33:05
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -13,10 +13,11 @@
 module SysCtrl_SS_wrapper_0 #(
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32,
-    parameter                              AXI_IDW          = 10,
+    parameter                              AXI_IDW          = 7,
     parameter                              AXI_USERW        = 1,
     parameter                              IOCELL_CFG_W     = 5,
-    parameter                              IOCELL_COUNT     = 28
+    parameter                              IOCELL_COUNT     = 28,
+    parameter                              GPIO_NUM         = 7
 ) (
     // Interface: AXI
     input  logic                        AR_READY,
@@ -700,7 +701,14 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_pmod_mux_ss_3_pmod_1_gpo = i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpo;
 
     // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.0
-    SysCtrl_SS_0     SysCtrl_SS(
+    SysCtrl_SS_0 #(
+        .AXI_AW              (32),
+        .AXI_DW              (32),
+        .AXI_IDW             (6),
+        .AXI_USERW           (1),
+        .IOCELL_CFG_W        (5),
+        .IOCELL_COUNT        (26))
+    SysCtrl_SS(
         // Interface: AXI
         .AR_READY            (SysCtrl_SS_AR_READY),
         .AW_READY            (SysCtrl_SS_AW_READY),
@@ -812,7 +820,10 @@ module SysCtrl_SS_wrapper_0 #(
         .irq_upper_tieoff    (15'h0));
 
     // IP-XACT VLNV: tuni.fi:subsystem.io:io_cell_frame_sysctrl:1.0
-    io_cell_frame_sysctrl     i_io_cell_frame(
+    io_cell_frame_sysctrl #(
+        .IOCELL_CFG_W        (5),
+        .IOCELL_COUNT        (24))
+    i_io_cell_frame(
         // Interface: BootSel
         .boot_sel            (boot_sel),
         // Interface: BootSel_internal
@@ -865,7 +876,10 @@ module SysCtrl_SS_wrapper_0 #(
         .uart_rx_internal    (i_io_cell_frame_uart_rx_internal));
 
     // IP-XACT VLNV: tuni.fi:ip:pmod_mux:1.0
-    pmod_mux     i_pmod_mux(
+    pmod_mux #(
+        .IOCELL_CFG_W        (5),
+        .IOCELL_COUNT        (28))
+    i_pmod_mux(
         // Interface: cell_cfg_from_core
         .cell_cfg_from_core  (i_pmod_mux_cell_cfg_from_core),
         // Interface: cell_cfg_to_io

@@ -1436,23 +1436,23 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_05ad5ce0_302b_41c3_b3c9_9e67d0532c1b">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_05ad5ce0_302b_41c3_b3c9_9e67d0532c1b" resolve="immediate">
 			<ipxact:name>APB_TARGETS</ipxact:name>
 			<ipxact:value>3</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_9b7b3f2d_6802_439a_9398_412c81301bfc">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_9b7b3f2d_6802_439a_9398_412c81301bfc" resolve="user">
 			<ipxact:name>APB_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8" resolve="user">
 			<ipxact:name>APB_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_c041bc03_27da_4bf3_ab34_b275887ee7ec">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_c041bc03_27da_4bf3_ab34_b275887ee7ec" resolve="user">
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_b7cb051d_c93f_4ddf_8905_8a442cd23708">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_b7cb051d_c93f_4ddf_8905_8a442cd23708" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>

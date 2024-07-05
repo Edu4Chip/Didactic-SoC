@@ -677,6 +677,16 @@ Spec:
 			<ipxact:description>Global SoC io cell cfg width</ipxact:description>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_40121f95_5130_4dce_8b53_074bc2163a43" resolve="immediate">
+			<ipxact:name>SS_CTRL_W</ipxact:name>
+			<ipxact:description>SoC SS control width</ipxact:description>
+			<ipxact:value>8</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_8d66272e_a32c_446f_ae40_3cac7d95d06e" resolve="immediate">
+			<ipxact:name>NUM_GPIO</ipxact:name>
+			<ipxact:description>SoC GPIO Cell count. Default 2x pmod = 8.</ipxact:description>
+			<ipxact:value>8</ipxact:value>
+		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:author>Matti Käyrä</kactus2:author>

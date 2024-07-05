@@ -24,8 +24,9 @@
 			<ipxact:instanceName>APB_GPIO</ipxact:instanceName>
 			<ipxact:componentRef vendor="tuni.fi" library="pulp.peripheral" name="APB_GPIO" version="1.0">
 				<ipxact:configurableElementValues>
-					<ipxact:configurableElementValue referenceId="uuid_2c1125d3_ffdc_41a9_95df_91732c2fe246">8</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_2c1125d3_ffdc_41a9_95df_91732c2fe246">uuid_4a3460b5_b700_4fb1_833e_2c6da785453c</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_c2a3113e_01d5_4bfc_957f_f0be7f1f7f7b">5</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_e6870857_1ec0_4f40_bfdf_8e371c082575">uuid_791a9ee3_00c1_4981_ad4c_272baf8eaf2c</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -42,7 +43,14 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>AX4LITE_APB_converter_wrapper</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="communication" name="AX4LITE_APB_converter_wrapper" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="communication" name="AX4LITE_APB_converter_wrapper" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8">uuid_e1134b4a_e4c6_4878_ac5b_98e4fa9ad7ef</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_c041bc03_27da_4bf3_ab34_b275887ee7ec">uuid_a3a52741_9dfe_4bbf_92ff_7235fc5c195f</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_b7cb051d_c93f_4ddf_8905_8a442cd23708">uuid_bfbc6e4b_82d0_4aa0_a1a7_7e52ce7d2592</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_9b7b3f2d_6802_439a_9398_412c81301bfc">uuid_a3a52741_9dfe_4bbf_92ff_7235fc5c195f</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{dab89cb6-6e21-43c5-81c7-8b4ef867b2e3}</kactus2:uuid>
 				<kactus2:position x="280" y="60"/>
@@ -59,7 +67,11 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>APB_SPI</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="pulp.peripheral" name="apb_spi_master" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="pulp.peripheral" name="apb_spi_master" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_913658b1_cc14_4c98_b032_1b7aa2c4dba0">uuid_791a9ee3_00c1_4981_ad4c_272baf8eaf2c</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{63b91260-d402-4e76-9c93-980d68af5bad}</kactus2:uuid>
 				<kactus2:position x="600" y="220"/>
@@ -165,6 +177,28 @@
 			<ipxact:hierInterface busRef="IRQ_UART"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
+	<ipxact:parameters>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_e1134b4a_e4c6_4878_ac5b_98e4fa9ad7ef" resolve="user">
+			<ipxact:name>AXI4LITE_DW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_a3a52741_9dfe_4bbf_92ff_7235fc5c195f" resolve="user">
+			<ipxact:name>AXI4LITE_AW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_bfbc6e4b_82d0_4aa0_a1a7_7e52ce7d2592" resolve="user">
+			<ipxact:name>APB_DW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_791a9ee3_00c1_4981_ad4c_272baf8eaf2c" resolve="user">
+			<ipxact:name>APB_AW</ipxact:name>
+			<ipxact:value>12</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_4a3460b5_b700_4fb1_833e_2c6da785453c" resolve="user">
+			<ipxact:name>NUM_GPIO</ipxact:name>
+			<ipxact:value>6</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>
@@ -327,5 +361,11 @@
 			<kactus2:timestamp>22.04.2024 14:02</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:adHocVisibilities/>
+		<kactus2:note>
+			<kactus2:position x="970" y="140"/>
+			<kactus2:content>APB address is sliced to target modules.</kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>05.07.2024 10:39</kactus2:timestamp>
+		</kactus2:note>
 	</ipxact:vendorExtensions>
 </ipxact:design>

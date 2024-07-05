@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_2_0.v
-// Creation date : 02.07.2024
-// Creation time : 13:51:03
+// Creation date : 05.07.2024
+// Creation time : 11:33:06
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -10,7 +10,10 @@
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_2/1.0/Student_SS_2.1.0.xml
 //-----------------------------------------------------------------------------
 
-module Student_SS_2_0(
+module Student_SS_2_0 #(
+    parameter                              APB_AW           = 32,
+    parameter                              APB_DW           = 32
+) (
     // Interface: APB
     input  logic         [31:0]         PADDR,
     input  logic                        PENABLE,

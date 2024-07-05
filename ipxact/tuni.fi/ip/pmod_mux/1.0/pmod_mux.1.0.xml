@@ -121,6 +121,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>pmod_sel</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -1129,21 +1130,19 @@
 	<ipxact:fileSets>
 		<ipxact:fileSet>
 			<ipxact:name>rtl</ipxact:name>
-			<ipxact:group>generatedFiles</ipxact:group>
 			<ipxact:file>
-				<ipxact:name>../../../../../src/rtl/pmod_mux.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:29:25 on 25.06.2024 by Kactus2. </ipxact:description>
+				<ipxact:name>../../../../../src/rtl/pmod_mux.sv</ipxact:name>
+				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_a0d54e9e_a863_4b6d_9ffb_adb0dd301f2e">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_a0d54e9e_a863_4b6d_9ffb_adb0dd301f2e" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:description>control bus width for each individual IO cell</ipxact:description>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d1e10fb4_d1e0_43a1_b5da_816635063659">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d1e10fb4_d1e0_43a1_b5da_816635063659" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
 			<ipxact:value>28</ipxact:value>

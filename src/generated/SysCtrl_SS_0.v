@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 04.07.2024
-// Creation time : 15:13:40
+// Creation date : 05.07.2024
+// Creation time : 11:33:06
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -13,10 +13,12 @@
 module SysCtrl_SS_0 #(
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32,
-    parameter                              AXI_IDW          = 10,
+    parameter                              AXI_IDW          = 6,
     parameter                              AXI_USERW        = 1,
     parameter                              IOCELL_CFG_W     = 5,
-    parameter                              IOCELL_COUNT     = 28    // update this value manually to match cell numbers
+    parameter                              IOCELL_COUNT     = 26,    // update this value manually to match cell numbers
+    parameter                              IO_CFG_W         = 5,
+    parameter                              NUM_GPIO         = 5
 ) (
     // Interface: AXI
     input  logic                        AR_READY,
@@ -1629,7 +1631,12 @@ module SysCtrl_SS_0 #(
         .ruser_o             ());
 
     // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
-    mem_axi_bridge     BootRom_axi_bridge(
+    mem_axi_bridge #(
+        .MEM_AW              (32),
+        .MEM_DW              (32),
+        .AXI_AW              (32),
+        .AXI_DW              (32))
+    BootRom_axi_bridge(
         // Interface: AXI4LITE
         .ar_addr_i           (BootRom_axi_bridge_ar_addr_i),
         .ar_valid_i          (BootRom_axi_bridge_ar_valid_i),
@@ -1661,7 +1668,12 @@ module SysCtrl_SS_0 #(
         .rst_ni              (BootRom_axi_bridge_rst_ni));
 
     // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
-    mem_axi_bridge     Ctrl_reg_bridge(
+    mem_axi_bridge #(
+        .MEM_AW              (32),
+        .MEM_DW              (32),
+        .AXI_AW              (32),
+        .AXI_DW              (32))
+    Ctrl_reg_bridge(
         // Interface: AXI4LITE
         .ar_addr_i           (Ctrl_reg_bridge_ar_addr_i),
         .ar_valid_i          (Ctrl_reg_bridge_ar_valid_i),
@@ -1693,7 +1705,14 @@ module SysCtrl_SS_0 #(
         .rst_ni              (Ctrl_reg_bridge_rst_ni));
 
     // IP-XACT VLNV: tuni.fi:ip:SysCtrl_xbar:1.0
-    SysCtrl_xbar     Ctrl_xbar(
+    SysCtrl_xbar #(
+        .AXI4LITE_DW         (32),
+        .AXI4LITE_AW         (32),
+        .AXI_IDW             (10),
+        .AXI_DW              (32),
+        .AXI_AW              (32),
+        .AXI_USERW           (1))
+    Ctrl_xbar(
         // Interface: AXI4LITE_BootRom
         .BootRom_ar_ready_in (Ctrl_xbar_BootRom_ar_ready_in),
         .BootRom_aw_ready_in (Ctrl_xbar_BootRom_aw_ready_in),
@@ -1963,7 +1982,12 @@ module SysCtrl_SS_0 #(
         .scramble_req_o      ());
 
     // IP-XACT VLNV: tuni.fi:ip:SS_Ctrl_reg_array:1.0
-    SS_Ctrl_reg_array     SS_Ctrl_reg_array(
+    SS_Ctrl_reg_array #(
+        .IOCELL_COUNT        (28),
+        .IOCELL_CFG_W        (5),
+        .AW                  (32),
+        .DW                  (32))
+    SS_Ctrl_reg_array(
         // Interface: BootSel
         .bootsel             (SS_Ctrl_reg_array_bootsel),
         // Interface: Clock
@@ -2007,7 +2031,12 @@ module SysCtrl_SS_0 #(
         .ss_ctrl_3           (SS_Ctrl_reg_array_ss_ctrl_3));
 
     // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
-    mem_axi_bridge     axi_dmem_bridge(
+    mem_axi_bridge #(
+        .MEM_AW              (32),
+        .MEM_DW              (32),
+        .AXI_AW              (32),
+        .AXI_DW              (32))
+    axi_dmem_bridge(
         // Interface: AXI4LITE
         .ar_addr_i           (axi_dmem_bridge_ar_addr_i),
         .ar_valid_i          (axi_dmem_bridge_ar_valid_i),
@@ -2039,7 +2068,12 @@ module SysCtrl_SS_0 #(
         .rst_ni              (axi_dmem_bridge_rst_ni));
 
     // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
-    mem_axi_bridge     axi_imem_bridge(
+    mem_axi_bridge #(
+        .MEM_AW              (32),
+        .MEM_DW              (32),
+        .AXI_AW              (32),
+        .AXI_DW              (32))
+    axi_imem_bridge(
         // Interface: AXI4LITE
         .ar_addr_i           (axi_imem_bridge_ar_addr_i),
         .ar_valid_i          (axi_imem_bridge_ar_valid_i),
@@ -2141,7 +2175,11 @@ module SysCtrl_SS_0 #(
         .rvalid_o            (core_imem_bridge_rvalid_o));
 
     // IP-XACT VLNV: tuni.fi:ip:SysCtrl_peripherals:1.0
-    SysCtrl_peripherals_0     i_SysCtrl_peripherals(
+    SysCtrl_peripherals_0 #(
+        .AXI4LITE_DW         (32),
+        .AXI4LITE_AW         (32),
+        .NUM_GPIO            (6))
+    i_SysCtrl_peripherals(
         // Interface: AXI4LITE
         .ar_addr             (i_SysCtrl_peripherals_ar_addr),
         .ar_prot             (i_SysCtrl_peripherals_ar_prot),
@@ -2185,7 +2223,10 @@ module SysCtrl_SS_0 #(
         .uart_tx_internal    (i_SysCtrl_peripherals_uart_tx_internal));
 
     // IP-XACT VLNV: tuni.fi:memory.simulation:sp_sram:1.0
-    sp_sram     i_dmem(
+    sp_sram #(
+        .DATA_WIDTH          (32),
+        .NUM_WORDS           (1024))
+    i_dmem(
         // Interface: Clock
         .clk_i               (i_dmem_clk_i),
         // Interface: Reset
@@ -2202,7 +2243,10 @@ module SysCtrl_SS_0 #(
         .ruser_o             ());
 
     // IP-XACT VLNV: tuni.fi:memory.simulation:sp_sram:1.0
-    sp_sram     i_imem(
+    sp_sram #(
+        .DATA_WIDTH          (32),
+        .NUM_WORDS           (1024))
+    i_imem(
         // Interface: Clock
         .clk_i               (i_imem_clk_i),
         // Interface: Reset

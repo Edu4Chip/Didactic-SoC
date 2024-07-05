@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 02.07.2024
-// Creation time : 13:51:03
+// Creation date : 05.07.2024
+// Creation time : 11:33:05
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -18,7 +18,9 @@
 module Didactic #(
     parameter                              AW               = 32,    // Global SoC address width
     parameter                              DW               = 32,    // Global SoC data width
-    parameter                              IO_CFG_W         = 5    // Global SoC io cell cfg width
+    parameter                              IO_CFG_W         = 4,    // Global SoC io cell cfg width
+    parameter                              SS_CTRL_W        = 8,    // SoC SS control width
+    parameter                              NUM_GPIO         = 8    // SoC GPIO Cell count. Default 2x pmod = 8.
 ) (
     // Interface: BootSel
     inout  wire                         boot_sel,
@@ -695,7 +697,14 @@ module Didactic #(
     assign SystemControl_SS_ICN_SS_Ctrl_to_ICN_SS_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_icn;
 
     // IP-XACT VLNV: tuni.fi:interconnect:ICN_SS:1.0
-    ICN_SS     ICN_SS(
+    ICN_SS #(
+        .AXI_DW              (32),
+        .AXI_AW              (32),
+        .AXI_USERW           (1),
+        .AXI_IDW             (10),
+        .APB_DW              (32),
+        .APB_AW              (32))
+    ICN_SS(
         // Interface: AXI
         .AR_ADDR             (ICN_SS_AR_ADDR),
         .AR_BURST            (ICN_SS_AR_BURST),
@@ -791,7 +800,10 @@ module Didactic #(
         .pmod_1_gpo          (Student_SS_0_pmod_1_gpo));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_1:1.0
-    Student_SS_1_0 Student_SS_1(
+    Student_SS_1_0 #(
+        .APB_AW              (32),
+        .APB_DW              (32))
+    Student_SS_1(
         // Interface: APB
         .PADDR               (Student_SS_1_PADDR),
         .PENABLE             (Student_SS_1_PENABLE),
@@ -820,7 +832,10 @@ module Didactic #(
         .pmod_1_gpo          (Student_SS_1_pmod_1_gpo));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_2:1.0
-    Student_SS_2_0 Student_SS_2(
+    Student_SS_2_0 #(
+        .APB_AW              (32),
+        .APB_DW              (32))
+    Student_SS_2(
         // Interface: APB
         .PADDR               (Student_SS_2_PADDR),
         .PENABLE             (Student_SS_2_PENABLE),
@@ -852,7 +867,10 @@ module Didactic #(
         .pmod_1_gpo          (Student_SS_2_pmod_1_gpo));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:Student_SS_3:1.0
-    Student_SS_3_0 Student_SS_3(
+    Student_SS_3_0 #(
+        .APB_DW              (32),
+        .APB_AW              (32))
+    Student_SS_3(
         // Interface: APB
         .PADDR               (Student_SS_3_PADDR),
         .PENABLE             (Student_SS_3_PENABLE),
@@ -884,7 +902,7 @@ module Didactic #(
     SysCtrl_SS_wrapper_0 #(
         .AXI_AW              (32),
         .AXI_DW              (32),
-        .AXI_IDW             (10),
+        .AXI_IDW             (7),
         .AXI_USERW           (1),
         .IOCELL_CFG_W        (5),
         .IOCELL_COUNT        (28))

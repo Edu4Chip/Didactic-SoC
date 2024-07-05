@@ -530,6 +530,16 @@
 			</ipxact:view>
 		</ipxact:views>
 		<ipxact:instantiations>
+			<ipxact:designInstantiation>
+				<ipxact:name>design</ipxact:name>
+				<ipxact:designRef vendor="tuni.fi" library="ip" name="SysCtrl_peripherals.design" version="1.0">
+					<ipxact:configurableElementValues>
+						<ipxact:configurableElementValue referenceId="uuid_a3a52741_9dfe_4bbf_92ff_7235fc5c195f">uuid_d5310ef8_5f7b_4872_b1b9_587a6c57e6ea</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_e1134b4a_e4c6_4878_ac5b_98e4fa9ad7ef">uuid_88b2b498_66ba_44c6_9c72_f14b9ed61a80</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_4a3460b5_b700_4fb1_833e_2c6da785453c">uuid_3aaeb7b0_a0e8_4ebe_b293_07e6cfd677ca</ipxact:configurableElementValue>
+					</ipxact:configurableElementValues>
+				</ipxact:designRef>
+			</ipxact:designInstantiation>
 			<ipxact:designConfigurationInstantiation>
 				<ipxact:name>_design_configuration</ipxact:name>
 				<ipxact:designConfigurationRef vendor="tuni.fi" library="ip" name="SysCtrl_peripherals.designcfg" version="1.0"/>
@@ -1039,13 +1049,17 @@
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_88b2b498_66ba_44c6_9c72_f14b9ed61a80">
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_88b2b498_66ba_44c6_9c72_f14b9ed61a80" resolve="user">
 			<ipxact:name>AXI4LITE_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_d5310ef8_5f7b_4872_b1b9_587a6c57e6ea">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_d5310ef8_5f7b_4872_b1b9_587a6c57e6ea" resolve="user">
 			<ipxact:name>AXI4LITE_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_3aaeb7b0_a0e8_4ebe_b293_07e6cfd677ca" resolve="user">
+			<ipxact:name>NUM_GPIO</ipxact:name>
+			<ipxact:value>4</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

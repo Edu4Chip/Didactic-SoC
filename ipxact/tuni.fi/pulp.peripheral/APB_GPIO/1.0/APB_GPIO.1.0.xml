@@ -963,7 +963,7 @@ if unneeded.</ipxact:description>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_e6870857_1ec0_4f40_bfdf_8e371c082575">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_e6870857_1ec0_4f40_bfdf_8e371c082575" resolve="user">
 			<ipxact:name>APB_ADDR_WIDTH</ipxact:name>
 			<ipxact:description>APB slaves are 4KB by default</ipxact:description>
 			<ipxact:value>12</ipxact:value>

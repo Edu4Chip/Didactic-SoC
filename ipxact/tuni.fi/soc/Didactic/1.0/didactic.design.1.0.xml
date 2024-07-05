@@ -339,6 +339,28 @@
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_3_pmod_gpio_1"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
+	<ipxact:parameters>
+		<ipxact:parameter parameterId="uuid_af160ab0_303b_4739_92cf_faf7577ad88d" resolve="user">
+			<ipxact:name>AW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc" resolve="user">
+			<ipxact:name>DW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_e29057bd_bba5_425a_95c9_823d4fae652f" resolve="user">
+			<ipxact:name>IO_CFG_W</ipxact:name>
+			<ipxact:value>4</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_e2640b90_fd6f_4b0d_a0b4_736fee3e610f" resolve="user">
+			<ipxact:name>NUM_GPIO</ipxact:name>
+			<ipxact:value>8</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_c42c7a6d_6145_4f8f_8868_4d08baaccfc3" resolve="user">
+			<ipxact:name>SS_CTRL_W</ipxact:name>
+			<ipxact:value>8</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>
