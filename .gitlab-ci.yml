@@ -22,3 +22,7 @@ test-verilator:
     - make verilator-generate executable=example
     - make verilator-build
     - make verilator-run
+    - echo "test cycle counter"
+    - make verilator-generate executable=count_cycles
+    - make verilator-build
+    - make verilator-run
