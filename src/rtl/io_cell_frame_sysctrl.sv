@@ -92,6 +92,11 @@ module io_cell_frame_sysctrl #(
     output logic       uart_rx_internal
   );
 
+  `ifdef VERILATOR
+  `include "verification/verilator/src/common.v"
+  `INCREMENT_CYCLE_COUNT(clk_in)
+  `endif
+
   // reset and clk not configurable to avoid locking SoC
 
   // reset

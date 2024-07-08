@@ -60,6 +60,11 @@ module AX4LITE_APB_converter_wrapper #(
     output logic                        PWRITE
 );
 
+  `ifdef VERILATOR
+  `include "verification/verilator/src/common.v"
+  `INCREMENT_CYCLE_COUNT(clk)
+  `endif
+
 
   AXI_LITE #(
    .AXI_ADDR_WIDTH(AXI_AW),
