@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 08.07.2024
-// Creation time : 13:30:50
+// Creation time : 13:32:30
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -2190,7 +2190,7 @@ module SysCtrl_SS_0 #(
     SysCtrl_peripherals_0 #(
         .AXI4LITE_DW         (32),
         .AXI4LITE_AW         (32),
-        .NUM_GPIO            (6))
+        .NUM_GPIO            (8))
     i_SysCtrl_peripherals(
         // Interface: AXI4LITE
         .ar_addr             (i_SysCtrl_peripherals_ar_addr),

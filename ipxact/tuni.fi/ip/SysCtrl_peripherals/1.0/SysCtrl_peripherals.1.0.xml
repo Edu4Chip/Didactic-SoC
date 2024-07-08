@@ -526,6 +526,7 @@
 		<ipxact:views>
 			<ipxact:view>
 				<ipxact:name>hierarchical</ipxact:name>
+				<ipxact:designInstantiationRef>design</ipxact:designInstantiationRef>
 				<ipxact:designConfigurationInstantiationRef>_design_configuration</ipxact:designConfigurationInstantiationRef>
 			</ipxact:view>
 		</ipxact:views>
