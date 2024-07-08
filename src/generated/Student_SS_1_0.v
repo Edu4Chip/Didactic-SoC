@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_1_0.v
 // Creation date : 08.07.2024
-// Creation time : 14:34:53
+// Creation time : 15:08:32
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit

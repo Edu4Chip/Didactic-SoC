@@ -651,8 +651,8 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
+							<ipxact:left>(uuid_3eb4fbf8_5f28_4c2e_a141_46819b229e04/8)-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>

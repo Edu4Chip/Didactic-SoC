@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 08.07.2024
-// Creation time : 14:34:53
+// Creation time : 15:08:32
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -520,7 +520,7 @@ module SysCtrl_SS_0 #(
     wire       BootRom_axi_bridge_rst_ni;
     wire [31:0] BootRom_axi_bridge_w_data_i;
     wire       BootRom_axi_bridge_w_ready_o;
-    wire       BootRom_axi_bridge_w_strb_i;
+    wire [3:0] BootRom_axi_bridge_w_strb_i;
     wire       BootRom_axi_bridge_w_valid_i;
     wire       BootRom_axi_bridge_we_o;
     // Ctrl_reg_bridge port wires:
@@ -545,7 +545,7 @@ module SysCtrl_SS_0 #(
     wire       Ctrl_reg_bridge_rst_ni;
     wire [31:0] Ctrl_reg_bridge_w_data_i;
     wire       Ctrl_reg_bridge_w_ready_o;
-    wire       Ctrl_reg_bridge_w_strb_i;
+    wire [3:0] Ctrl_reg_bridge_w_strb_i;
     wire       Ctrl_reg_bridge_w_valid_i;
     wire [31:0] Ctrl_reg_bridge_wdata_o;
     wire       Ctrl_reg_bridge_we_o;
@@ -821,7 +821,7 @@ module SysCtrl_SS_0 #(
     wire       axi_dmem_bridge_rst_ni;
     wire [31:0] axi_dmem_bridge_w_data_i;
     wire       axi_dmem_bridge_w_ready_o;
-    wire       axi_dmem_bridge_w_strb_i;
+    wire [3:0] axi_dmem_bridge_w_strb_i;
     wire       axi_dmem_bridge_w_valid_i;
     wire [31:0] axi_dmem_bridge_wdata_o;
     wire       axi_dmem_bridge_we_o;
@@ -847,7 +847,7 @@ module SysCtrl_SS_0 #(
     wire       axi_imem_bridge_rst_ni;
     wire [31:0] axi_imem_bridge_w_data_i;
     wire       axi_imem_bridge_w_ready_o;
-    wire       axi_imem_bridge_w_strb_i;
+    wire [3:0] axi_imem_bridge_w_strb_i;
     wire       axi_imem_bridge_w_valid_i;
     wire [31:0] axi_imem_bridge_wdata_o;
     wire       axi_imem_bridge_we_o;
@@ -1119,7 +1119,7 @@ module SysCtrl_SS_0 #(
     assign BootRom_axi_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     assign BootRom_axi_bridge_w_data_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_DATA;
     assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_READY = BootRom_axi_bridge_w_ready_o;
-    assign BootRom_axi_bridge_w_strb_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_STRB[0];
+    assign BootRom_axi_bridge_w_strb_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_STRB;
     assign BootRom_axi_bridge_w_valid_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_VALID;
     assign BootRom_axi_bridge_Mem_to_BootRom_mem_WE = BootRom_axi_bridge_we_o;
     // Ctrl_reg_bridge assignments:
@@ -1144,7 +1144,7 @@ module SysCtrl_SS_0 #(
     assign Ctrl_reg_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     assign Ctrl_reg_bridge_w_data_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_DATA;
     assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_READY = Ctrl_reg_bridge_w_ready_o;
-    assign Ctrl_reg_bridge_w_strb_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_STRB[0];
+    assign Ctrl_reg_bridge_w_strb_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_STRB;
     assign Ctrl_reg_bridge_w_valid_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_VALID;
     assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WDATA = Ctrl_reg_bridge_wdata_o;
     assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WE = Ctrl_reg_bridge_we_o;
@@ -1431,7 +1431,7 @@ module SysCtrl_SS_0 #(
     assign axi_dmem_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     assign axi_dmem_bridge_w_data_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_DATA;
     assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_READY = axi_dmem_bridge_w_ready_o;
-    assign axi_dmem_bridge_w_strb_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_STRB[0];
+    assign axi_dmem_bridge_w_strb_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_STRB;
     assign axi_dmem_bridge_w_valid_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_VALID;
     assign i_dmem_mem_to_axi_dmem_bridge_Mem_WDATA = axi_dmem_bridge_wdata_o;
     assign i_dmem_mem_to_axi_dmem_bridge_Mem_WE = axi_dmem_bridge_we_o;
@@ -1457,7 +1457,7 @@ module SysCtrl_SS_0 #(
     assign axi_imem_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     assign axi_imem_bridge_w_data_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_DATA;
     assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_READY = axi_imem_bridge_w_ready_o;
-    assign axi_imem_bridge_w_strb_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_STRB[0];
+    assign axi_imem_bridge_w_strb_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_STRB;
     assign axi_imem_bridge_w_valid_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_VALID;
     assign axi_imem_bridge_Mem_to_i_imem_mem_WDATA = axi_imem_bridge_wdata_o;
     assign axi_imem_bridge_Mem_to_i_imem_mem_WE = axi_imem_bridge_we_o;
@@ -2251,7 +2251,7 @@ module SysCtrl_SS_0 #(
         .we_i                (i_dmem_we_i),
         .rdata_o             (i_dmem_rdata_o),
         // These ports are not in any interface
-        .wuser_i             ('h0),
+        .wuser_i             (1'b0),
         .ruser_o             ());
 
     // IP-XACT VLNV: tuni.fi:memory.simulation:sp_sram:1.0
@@ -2271,7 +2271,7 @@ module SysCtrl_SS_0 #(
         .we_i                (i_imem_we_i),
         .rdata_o             (i_imem_rdata_o),
         // These ports are not in any interface
-        .wuser_i             ('h0),
+        .wuser_i             (1'b0),
         .ruser_o             ());
 
     // IP-XACT VLNV: tuni.fi:ip:jtag_dbg_wrapper:1.0

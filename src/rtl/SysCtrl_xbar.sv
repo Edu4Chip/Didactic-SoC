@@ -33,7 +33,7 @@ module SysCtrl_xbar #(
     input  logic [1:0]                 BootRom_r_resp_in,
     input  logic                       BootRom_r_valid_in,
     input  logic                       BootRom_w_ready_in,
-    output logic [AXI4LITE_AW:0]       BootRom_ar_addr_out,
+    output logic [AXI4LITE_AW-1:0]       BootRom_ar_addr_out,
     output logic                       BootRom_ar_valid_out,
     output logic [AXI4LITE_AW-1:0]     BootRom_aw_addr_out,
     output logic                       BootRom_aw_valid_out,
