@@ -21,7 +21,8 @@ module SS_Ctrl_reg_array #(
     parameter IOCELL_CFG_W     = 5,    
     parameter IOCELL_COUNT     = 28,    // update this value manually to match cell numbers
     parameter AW = 32,
-    parameter DW = 32
+    parameter DW = 32,
+    parameter SS_CTRL_W = 31 // configurable up to 31 bits
 ) (
     // Interface: BootSel
     input  logic bootsel,
@@ -33,7 +34,7 @@ module SS_Ctrl_reg_array #(
     input  logic reset,
 
     // Interface: icn_ss_ctrl
-    output logic [7:0]          ss_ctrl_icn,
+    output logic [SS_CTRL_W-1:0]          ss_ctrl_icn,
 
     // Interface: io_cfg
     output logic [(IOCELL_CFG_W*IOCELL_COUNT)-1:0] cell_cfg,
@@ -63,19 +64,19 @@ module SS_Ctrl_reg_array #(
 
     // Interface: ss_ctrl_0
     output logic irq_en_0,
-    output logic [7:0]          ss_ctrl_0,
+    output logic [SS_CTRL_W-1:0]          ss_ctrl_0,
 
     // Interface: ss_ctrl_1
     output logic irq_en_1,
-    output logic [7:0]          ss_ctrl_1,
+    output logic [SS_CTRL_W-1:0]          ss_ctrl_1,
 
     // Interface: ss_ctrl_2
     output logic irq_en_2,
-    output logic [7:0]          ss_ctrl_2,
+    output logic [SS_CTRL_W-1:0]          ss_ctrl_2,
 
     // Interface: ss_ctrl_3
     output logic irq_en_3,
-    output logic [7:0]          ss_ctrl_3,
+    output logic [SS_CTRL_W-1:0]          ss_ctrl_3,
 
     // Interface: pmod_ctrl
     output logic [7:0] pmod_sel
@@ -262,14 +263,14 @@ assign reset_ss_1 = ss_rst_reg[2];
 assign reset_ss_2 = ss_rst_reg[3];
 assign reset_ss_3 = ss_rst_reg[4];
 assign irq_en_0 = ss_0_ctrl_reg[31];
-assign ss_ctrl_0 = ss_0_ctrl_reg[7:0];
+assign ss_ctrl_0 = ss_0_ctrl_reg[SS_CTRL_W-1:0];
 assign irq_en_1 =ss_1_ctrl_reg[31];
-assign ss_ctrl_1 = ss_1_ctrl_reg[7:0];
+assign ss_ctrl_1 = ss_1_ctrl_reg[SS_CTRL_W-1:0];
 assign irq_en_2 =ss_2_ctrl_reg[31] ;
-assign ss_ctrl_2 = ss_2_ctrl_reg[7:0];
+assign ss_ctrl_2 = ss_2_ctrl_reg[SS_CTRL_W-1:0];
 assign irq_en_3 = ss_3_ctrl_reg[31];
-assign ss_ctrl_3 = ss_3_ctrl_reg[7:0];
-assign ss_ctrl_icn = icn_rst_ctrl_reg[7:0];
+assign ss_ctrl_3 = ss_3_ctrl_reg[SS_CTRL_W-1:0];
+assign ss_ctrl_icn = icn_rst_ctrl_reg[SS_CTRL_W-1:0];
 
 
 //  continuos reg assigns for now

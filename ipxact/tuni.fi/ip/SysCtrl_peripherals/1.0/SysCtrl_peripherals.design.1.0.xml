@@ -360,12 +360,12 @@
 			<kactus2:associations/>
 			<kactus2:timestamp>22.04.2024 14:02</kactus2:timestamp>
 		</kactus2:note>
-		<kactus2:adHocVisibilities/>
 		<kactus2:note>
 			<kactus2:position x="970" y="140"/>
 			<kactus2:content>APB address is sliced to target modules.</kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>05.07.2024 10:39</kactus2:timestamp>
 		</kactus2:note>
+		<kactus2:adHocVisibilities/>
 	</ipxact:vendorExtensions>
 </ipxact:design>

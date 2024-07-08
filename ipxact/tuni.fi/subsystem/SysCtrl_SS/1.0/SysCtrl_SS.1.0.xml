@@ -1358,6 +1358,7 @@
 		<ipxact:views>
 			<ipxact:view>
 				<ipxact:name>hierarchical</ipxact:name>
+				<ipxact:designInstantiationRef>design</ipxact:designInstantiationRef>
 				<ipxact:designConfigurationInstantiationRef>_design_configuration</ipxact:designConfigurationInstantiationRef>
 			</ipxact:view>
 		</ipxact:views>
@@ -1373,6 +1374,7 @@
 						<ipxact:configurableElementValue referenceId="uuid_8586df63_4751_4b43_8780_1959758f59a7">uuid_00bc8b4d_584b_469d_878c_d64754de140f</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_6fca5cb5_da12_4344_ae36_98754fe1e5eb">uuid_b19f9e43_dcca_45a6_84e6_2eae6f88d91c</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_af1dc1b2_e8c6_4271_bf5e_082c38a450e4">uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_3777da60_8580_4b50_b427_8bd245188123">uuid_acf5c976_d744_4d71_b8fe_289308668ff7</ipxact:configurableElementValue>
 					</ipxact:configurableElementValues>
 				</ipxact:designRef>
 			</ipxact:designInstantiation>
@@ -1498,7 +1500,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_acf5c976_d744_4d71_b8fe_289308668ff7-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1564,7 +1566,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_acf5c976_d744_4d71_b8fe_289308668ff7-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2796,7 +2798,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_acf5c976_d744_4d71_b8fe_289308668ff7-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2884,7 +2886,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_acf5c976_d744_4d71_b8fe_289308668ff7-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -3038,7 +3040,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_acf5c976_d744_4d71_b8fe_289308668ff7-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -3180,7 +3182,7 @@
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_67b72383_784d_4df0_8167_b40e00ce315e" resolve="user">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_67b72383_784d_4df0_8167_b40e00ce315e" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
@@ -3204,6 +3206,10 @@
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:value>6</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_acf5c976_d744_4d71_b8fe_289308668ff7" resolve="user">
+			<ipxact:name>SS_CTRL_W</ipxact:name>
+			<ipxact:value>8</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

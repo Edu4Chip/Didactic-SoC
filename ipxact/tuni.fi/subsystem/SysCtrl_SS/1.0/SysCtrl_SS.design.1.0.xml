@@ -24,7 +24,14 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>core_imem_bridge</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="lowRISC" name="ibex_axi_bridge" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="lowRISC" name="ibex_axi_bridge" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_1a72b174_638b_4e79_95db_badbb636b767">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_c434ed14_2084_4029_aadc_483c7634ec22">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_9aa54edb_94cb_4f58_a1b8_b0870429c85b">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_d0fb64e5_7e7c_492c_bfe9_8525cdb3d06b">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{a3e30c18-6d45-48cf-8430-fafd09eb6e64}</kactus2:uuid>
 				<kactus2:position x="920" y="600"/>
@@ -764,11 +771,11 @@
 		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="17" parameterId="uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2" resolve="user">
+		<ipxact:parameter kactus2:usageCount="19" parameterId="uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="15" parameterId="uuid_ac754a52_641d_45a0_945d_a6b366405072" resolve="user">
+		<ipxact:parameter kactus2:usageCount="17" parameterId="uuid_ac754a52_641d_45a0_945d_a6b366405072" resolve="user">
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
@@ -784,13 +791,17 @@
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_8586df63_4751_4b43_8780_1959758f59a7" resolve="user">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_8586df63_4751_4b43_8780_1959758f59a7" resolve="user">
 			<ipxact:name>AXI_IDW</ipxact:name>
 			<ipxact:value>6</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_6fca5cb5_da12_4344_ae36_98754fe1e5eb" resolve="user">
 			<ipxact:name>AXI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_3777da60_8580_4b50_b427_8bd245188123" resolve="user">
+			<ipxact:name>SS_CTRL_W</ipxact:name>
+			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
