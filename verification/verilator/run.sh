@@ -4,6 +4,20 @@ which verilator
 verilator --version
 echo ""
 
+# Assume that first positional argument is the name of the executable
+if [ -z ${1} ]; then
+    EXECUTABLE="example"
+    tput setaf 3; echo "warning: executable not given, defaulting to \"${EXECUTABLE}\""; tput sgr0
+else
+    EXECUTABLE=${1}
+    tput setaf 2; echo "info: executable given: \"${EXECUTABLE}\""; tput sgr0
+fi
+
+if [ ! -f verification/verilator/src/${EXECUTABLE}.cpp ]; then
+    tput setaf 1; echo "error: given file \"${EXECUTABLE}.cpp\" doest not exist"; tput sgr0
+    exit 1
+fi
+
 # Apply fixes to verilog files
 verification/verilator/do_fix.sh
 
@@ -28,7 +42,7 @@ verilator \
     -F src/ibex-reused-files.list \
     -F src/sv-files.list \
     -F src/sim-files.list \
-    verification/verilator/sim_main.cpp
+    verification/verilator/src/${EXECUTABLE}.cpp
 verilator_exit_code=$?
 echo ""
 
