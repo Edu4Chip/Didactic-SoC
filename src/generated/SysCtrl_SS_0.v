@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 08.07.2024
-// Creation time : 13:32:30
+// Creation time : 14:34:53
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -249,18 +249,18 @@ module SysCtrl_SS_0 #(
     // SS_Ctrl_reg_array_rst_ss_3_to_Reset_SS_3 wires:
     wire       SS_Ctrl_reg_array_rst_ss_3_to_Reset_SS_3_reset;
     // SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl wires:
-    wire [30:0] SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
+    wire [7:0] SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
     // SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0 wires:
-    wire [30:0] SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl;
+    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl;
     wire       SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en;
     // SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1 wires:
-    wire [30:0] SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl;
+    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl;
     wire       SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
     // SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2 wires:
-    wire [30:0] SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
+    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
     wire       SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
     // SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3 wires:
-    wire [30:0] SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
+    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
     wire       SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
     // SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg wires:
     wire [129:0] SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
@@ -792,11 +792,11 @@ module SysCtrl_SS_0 #(
     wire       SS_Ctrl_reg_array_reset_ss_1;
     wire       SS_Ctrl_reg_array_reset_ss_2;
     wire       SS_Ctrl_reg_array_reset_ss_3;
-    wire [30:0] SS_Ctrl_reg_array_ss_ctrl_0;
-    wire [30:0] SS_Ctrl_reg_array_ss_ctrl_1;
-    wire [30:0] SS_Ctrl_reg_array_ss_ctrl_2;
-    wire [30:0] SS_Ctrl_reg_array_ss_ctrl_3;
-    wire [30:0] SS_Ctrl_reg_array_ss_ctrl_icn;
+    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_0;
+    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_1;
+    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_2;
+    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_3;
+    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_icn;
     wire [31:0] SS_Ctrl_reg_array_wdata_in;
     wire       SS_Ctrl_reg_array_we_in;
     // axi_dmem_bridge port wires:
@@ -1081,11 +1081,11 @@ module SysCtrl_SS_0 #(
     assign i_SysCtrl_peripherals_SPI_to_SPI_miso = spim_miso_internal;
     assign spim_mosi_internal = i_SysCtrl_peripherals_SPI_to_SPI_mosi;
     assign spim_sck_internal = i_SysCtrl_peripherals_SPI_to_SPI_sck;
-    assign ss_ctrl_0 = SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl[7:0];
-    assign ss_ctrl_1 = SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl[7:0];
-    assign ss_ctrl_2 = SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl[7:0];
-    assign ss_ctrl_3 = SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl[7:0];
-    assign ss_ctrl_icn = SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl[7:0];
+    assign ss_ctrl_0 = SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl;
+    assign ss_ctrl_1 = SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl;
+    assign ss_ctrl_2 = SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
+    assign ss_ctrl_3 = SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
+    assign ss_ctrl_icn = SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
     assign i_SysCtrl_peripherals_UART_to_UART_uart_rx = uart_rx_internal;
     assign uart_tx_internal = i_SysCtrl_peripherals_UART_to_UART_uart_tx;
 
@@ -1988,7 +1988,7 @@ module SysCtrl_SS_0 #(
         .IOCELL_CFG_W        (5),
         .AW                  (32),
         .DW                  (32),
-        .SS_CTRL_W           (31))
+        .SS_CTRL_W           (8))
     SS_Ctrl_reg_array(
         // Interface: BootSel
         .bootsel             (SS_Ctrl_reg_array_bootsel),

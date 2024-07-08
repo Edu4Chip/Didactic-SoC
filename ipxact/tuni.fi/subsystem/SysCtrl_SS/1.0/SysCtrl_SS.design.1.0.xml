@@ -172,6 +172,7 @@
 					<ipxact:configurableElementValue referenceId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960">uuid_f7826066_d90a_4d4c_9391_cfeef631857f</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79">uuid_3777da60_8580_4b50_b427_8bd245188123</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -799,7 +800,7 @@
 			<ipxact:name>AXI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_3777da60_8580_4b50_b427_8bd245188123" resolve="user">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_3777da60_8580_4b50_b427_8bd245188123" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
