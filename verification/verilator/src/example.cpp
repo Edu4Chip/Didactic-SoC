@@ -1,5 +1,6 @@
 #include <cassert>
 #include <fstream>
+#include <functional>
 #include <iostream>
 #include <iterator>
 #include <memory>
@@ -26,9 +27,18 @@ enum TestBenchState {
   waiting,
 };
 
+void scheduled_task_example(const std::shared_ptr<VerilatedContext> &contextp) {
+  printf("[%ld] %s\n", contextp->time(), __func__);
+}
+
+struct ScheduledTask {
+  uint64_t time;
+  std::function<void(const std::shared_ptr<VerilatedContext> &)> task;
+};
+
 int main(int argc, char **argv) {
   std::cout << "hello from " << __FILE__ << std::endl;
-  const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
+  const std::shared_ptr<VerilatedContext> contextp{new VerilatedContext};
   contextp->commandArgs(argc, argv);
   const std::unique_ptr<VDidactic> didactic{
       new VDidactic{contextp.get(), "DIDACTIC"}};
@@ -47,7 +57,19 @@ int main(int argc, char **argv) {
   const int maximum_iterations = 1000;
   TestBenchState tb_state_after_waiting = TestBenchState::waiting;
   int clock_cycles_to_wait = 0;
+  std::vector<ScheduledTask> scheduled_tasks;
+  {
+    ScheduledTask task;
+    task.time = 10;
+    task.task = scheduled_task_example;
+    scheduled_tasks.push_back(task);
+  }
   for (int i = 0; i < maximum_iterations; i++) {
+    for (ScheduledTask task : scheduled_tasks) {
+      if (task.time == contextp->time()) {
+        task.task(contextp);
+      }
+    }
     bool stop_iteration = false;
     switch (tb_state) {
     case TestBenchState::starting:

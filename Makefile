@@ -65,10 +65,12 @@ run_sim: check-env
 # verilator targets
 ######################################################################
 
+executable ?= ""
+
 # generate sw model for hw
 .PHONY: verilator-generate
 verilator-generate:
-	./verification/verilator/run.sh
+	./verification/verilator/run.sh $(executable)
 
 # build sw model with sw testbench
 .PHONY: verilator-build
