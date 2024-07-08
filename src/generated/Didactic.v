@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 05.07.2024
-// Creation time : 14:45:47
+// Creation date : 08.07.2024
+// Creation time : 11:54:08
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -706,7 +706,8 @@ module Didactic #(
         .AXI_USERW           (1),
         .AXI_IDW             (10),
         .APB_DW              (32),
-        .APB_AW              (32))
+        .APB_AW              (32),
+        .SS_CTRL_W           (8))
     ICN_SS(
         // Interface: AXI
         .AR_ADDR             (ICN_SS_AR_ADDR),
@@ -908,9 +909,9 @@ module Didactic #(
         .AXI_USERW           (1),
         .IOCELL_CFG_W        (5),
         .IOCELL_COUNT        (26),
-        .AXI_IDW             (10),
+        .AXI_IDW             (5),
         .SS_CTRL_W           (8),
-        .NUM_GPIO            (8))
+        .NUM_GPIO            (9))
     SystemControl_SS(
         // Interface: AXI
         .AR_READY            (SystemControl_SS_AR_READY),

@@ -1343,6 +1343,54 @@
 		</ipxact:addressSpace>
 	</ipxact:addressSpaces>
 	<ipxact:model>
+		<ipxact:views>
+			<ipxact:view>
+				<ipxact:name>flat_verilog</ipxact:name>
+				<ipxact:envIdentifier>Verilog:kactus2.cs.tut.fi:</ipxact:envIdentifier>
+				<ipxact:componentInstantiationRef>verilog_implementation</ipxact:componentInstantiationRef>
+			</ipxact:view>
+		</ipxact:views>
+		<ipxact:instantiations>
+			<ipxact:componentInstantiation>
+				<ipxact:name>verilog_implementation</ipxact:name>
+				<ipxact:language>Verilog</ipxact:language>
+				<ipxact:moduleName>ICN_SS</ipxact:moduleName>
+				<ipxact:moduleParameters>
+					<ipxact:moduleParameter parameterId="uuid_0d277280_44db_46bc_b869_89618a31fe17" usageType="nontyped">
+						<ipxact:name>APB_AW</ipxact:name>
+						<ipxact:value>uuid_43badc9f_5035_4aaf_999f_e5eae3b3af1e</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_3a2e9670_ca7f_4096_8895_646e40e5c34e" usageType="nontyped">
+						<ipxact:name>APB_DW</ipxact:name>
+						<ipxact:value>uuid_4821f764_9140_40bb_9660_7efce3fe7b59</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_a473d587_f178_4cba_bc86_787aead97242" usageType="nontyped">
+						<ipxact:name>APB_TARGETS</ipxact:name>
+						<ipxact:value>uuid_e4622e71_1ded_4bf0_9635_ed555c5f3ba3</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_49a5b9e1_47b4_4617_84c6_497fe0f82c54" usageType="nontyped">
+						<ipxact:name>AXI_AW</ipxact:name>
+						<ipxact:value>uuid_225decbf_1961_44a0_98d4_cd235959bd92</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_84431de4_9beb_4171_a963_977cad2124c1" usageType="nontyped">
+						<ipxact:name>AXI_DW</ipxact:name>
+						<ipxact:value>uuid_5d59a72d_f159_4e8d_8c80_3bde42abf5ab</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_e435056b_8f82_404d_bcb8_91a793affb5d" usageType="nontyped">
+						<ipxact:name>AXI_IDW</ipxact:name>
+						<ipxact:value>uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_280543c2_2067_431e_bdaf_a984210f0b57" usageType="nontyped">
+						<ipxact:name>AXI_USERW</ipxact:name>
+						<ipxact:value>uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_b966151f_3304_49aa_b4bf_4a402301073f" usageType="nontyped">
+						<ipxact:name>SS_CTRL_W</ipxact:name>
+						<ipxact:value>uuid_6e221ea5_430f_4ad7_afdb_a74f5e361823</ipxact:value>
+					</ipxact:moduleParameter>
+				</ipxact:moduleParameters>
+			</ipxact:componentInstantiation>
+		</ipxact:instantiations>
 		<ipxact:ports>
 			<ipxact:port>
 				<ipxact:name>AR_ADDR</ipxact:name>
@@ -2384,7 +2432,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>uuid_6e221ea5_430f_4ad7_afdb_a74f5e361823-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2523,6 +2571,12 @@
 				<ipxact:name>PWRITE</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
@@ -2544,33 +2598,37 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_5d59a72d_f159_4e8d_8c80_3bde42abf5ab" resolve="user">
+		<ipxact:parameter kactus2:usageCount="7" parameterId="uuid_5d59a72d_f159_4e8d_8c80_3bde42abf5ab" resolve="user">
 			<ipxact:name>AXI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_225decbf_1961_44a0_98d4_cd235959bd92" resolve="user">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_225decbf_1961_44a0_98d4_cd235959bd92" resolve="user">
 			<ipxact:name>AXI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967" resolve="user">
+		<ipxact:parameter kactus2:usageCount="11" parameterId="uuid_7037459e_9cd3_4de9_ac27_a3c0e004a967" resolve="user">
 			<ipxact:name>AXI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d" resolve="user">
+		<ipxact:parameter kactus2:usageCount="9" parameterId="uuid_3888bd96_6b68_43e0_9bad_d0c69e06cd2d" resolve="user">
 			<ipxact:name>AXI_IDW</ipxact:name>
 			<ipxact:value>10</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_e4622e71_1ded_4bf0_9635_ed555c5f3ba3" resolve="immediate">
+		<ipxact:parameter kactus2:usageCount="8" parameterId="uuid_e4622e71_1ded_4bf0_9635_ed555c5f3ba3" resolve="immediate">
 			<ipxact:name>APB_TARGETS</ipxact:name>
 			<ipxact:value>4</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_4821f764_9140_40bb_9660_7efce3fe7b59" resolve="user">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_4821f764_9140_40bb_9660_7efce3fe7b59" resolve="user">
 			<ipxact:name>APB_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_43badc9f_5035_4aaf_999f_e5eae3b3af1e" resolve="user">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_43badc9f_5035_4aaf_999f_e5eae3b3af1e" resolve="user">
 			<ipxact:name>APB_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_6e221ea5_430f_4ad7_afdb_a74f5e361823" resolve="user">
+			<ipxact:name>SS_CTRL_W</ipxact:name>
+			<ipxact:value>8</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
