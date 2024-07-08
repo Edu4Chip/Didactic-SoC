@@ -2,6 +2,8 @@ default:
   image: u_verilator:latest
 
 test-verilator:
+  variables:
+    TERM: "dumb"
   script:
     - echo $PWD
     - ls -l
