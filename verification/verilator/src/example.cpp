@@ -13,6 +13,10 @@
 #endif
 
 #include "VDidactic.h"
+#include "VDidactic__Dpi.h"
+#include "svdpi.h"
+
+#include "common.hpp"
 
 // Simulation time
 vluint64_t main_time = 0;
