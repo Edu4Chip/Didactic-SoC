@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 08.07.2024
-// Creation time : 15:08:32
+// Creation time : 15:18:12
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -1627,8 +1627,8 @@ module SysCtrl_SS_0 #(
         .we_i                (BootRom_we_i),
         .rdata_o             (BootRom_rdata_o),
         // These ports are not in any interface
-        .wdata_i             (),
-        .wuser_i             (1'h0),
+        .wdata_i             (32'h0),
+        .wuser_i             (1'b0),
         .ruser_o             ());
 
     // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
