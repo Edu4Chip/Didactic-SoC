@@ -22,6 +22,12 @@ initialize:
     - chmod u+x verification/verilator/run.sh
     - chmod u+x verification/verilator/undo_fix.sh
     - ls -l verification/verilator
+  artifacts:
+    expire_in: "30 mins"
+    paths:
+      - ips/*
+      - src/*
+      - verification/*
 
 default-executable:
   stage: test
