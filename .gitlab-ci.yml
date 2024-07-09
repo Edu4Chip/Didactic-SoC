@@ -4,6 +4,7 @@ default:
 stages:
   - initialize
   - test
+  - verify
 
 variables:
   TERM: "dumb"
