@@ -45,7 +45,7 @@ example-executable:
     - make verilator-build
     - make verilator-run
 
-test-verilator:
+count-cycles-executable:
   stage: test
   script:
     - echo "test cycle counter"
