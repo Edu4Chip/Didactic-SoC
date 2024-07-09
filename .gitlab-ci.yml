@@ -53,3 +53,11 @@ count-cycles-executable:
     - make verilator-generate executable=count_cycles
     - make verilator-build
     - make verilator-run
+
+verify-cycle-counts:
+  stage: verify
+  script:
+    - echo "verify cycle counts"
+    - make verilator-generate executable=verify_cycle_counts
+    - make verilator-build
+    - make verilator-run
