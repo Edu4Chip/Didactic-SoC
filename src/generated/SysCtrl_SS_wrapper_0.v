@@ -189,7 +189,7 @@ module SysCtrl_SS_wrapper_0 #(
 );
     `ifdef VERILATOR
     `include "verification/verilator/src/common.v"
-    `INCREMENT_CYCLE_COUNT(clk)
+    `INCREMENT_CYCLE_COUNT(clock)
     `endif
 
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:
