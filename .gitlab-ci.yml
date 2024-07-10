@@ -61,3 +61,11 @@ verify-cycle-counts:
     - make verilator-generate executable=verify_cycle_counts
     - make verilator-build
     - make verilator-run
+
+verify-signal-propagation:
+  stage: verify
+  script:
+    - echo "verify signal propagation"
+    - make verilator-generate executable=verify_signal_propagation
+    - make verilator-build
+    - make verilator-run
