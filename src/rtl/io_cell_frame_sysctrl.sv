@@ -109,6 +109,12 @@ module io_cell_frame_sysctrl #(
   // TODO: SPI
   `CHECK_SIGNAL_PROPAGATION(uart_rx, uart_tx_internal)
   `CHECK_SIGNAL_PROPAGATION(uart_tx, uart_rx_internal)
+  `ifdef FIX_SIGNAL_PROPAGATION
+  // FIXME: temporary solution to fix signal propagation, remove when fixed in HDL
+  assign BootSel_internal = boot_sel;
+  assign clk_internal = clk_in;
+  assign fetchEn_internal = fetch_en;
+  `endif
   `endif
 
   // reset and clk not configurable to avoid locking SoC

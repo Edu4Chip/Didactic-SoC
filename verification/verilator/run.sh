@@ -21,6 +21,8 @@ fi
 # Apply fixes to verilog files
 verification/verilator/do_fix.sh
 
+# FIXME: "FIX_SIGNAL_PROPAGATION" is a temporary solution to fix signal propagation, remove when fixed in HDL
+
 verilator \
     --cc \
     --exe \
@@ -42,6 +44,7 @@ verilator \
     -F src/ibex-reused-files.list \
     -F src/sv-files.list \
     -F src/sim-files.list \
+    -DFIX_SIGNAL_PROPAGATION \
     verification/verilator/src/${EXECUTABLE}.cpp
 verilator_exit_code=$?
 echo ""
