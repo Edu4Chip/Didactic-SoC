@@ -106,8 +106,8 @@ int main(int argc, char** argv) {
     }
     // Compute combinatorial logic
     model->eval();
-    toggle_clock(model);
     // Compute sequential logic
+    toggle_clock(model);
     model->eval();
 #if VM_TRACE
     if (tracer) {
