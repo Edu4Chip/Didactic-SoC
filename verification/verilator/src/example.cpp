@@ -52,6 +52,7 @@ int main(int argc, char** argv) {
   std::vector<ScheduledTask> scheduled_tasks;
   schedule_task(scheduled_tasks, 10, task_example);
 
+  // Run simulation
   const size_t maximum_iterations = 1000;
   for (size_t i = 0; i < maximum_iterations; i++) {
     for (ScheduledTask task : scheduled_tasks) {
