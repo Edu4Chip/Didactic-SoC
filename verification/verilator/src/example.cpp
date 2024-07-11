@@ -7,20 +7,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <verilated.h>
-#if VM_TRACE
-#include <verilated_vcd_c.h>
-#endif
-
-#include "VDidactic.h"
-#include "VDidactic__Dpi.h"
-#include "svdpi.h"
 
 #include "common.hpp"
-
-// Simulation time
-vluint64_t main_time = 0;
-double sc_time_stamp() { return main_time; }
 
 enum TestBenchState {
   starting,
@@ -31,153 +19,114 @@ enum TestBenchState {
   waiting,
 };
 
-void scheduled_task_example(const std::shared_ptr<VerilatedContext> &contextp) {
-  printf("[%ld] %s\n", contextp->time(), __func__);
+void task_example(const ContextPointer& context, [[maybe_unused]] const ModelPointer& model) {
+  std::cout << "[" << context->time() << "]" << " " << __func__ << std::endl;
 }
 
-struct ScheduledTask {
-  uint64_t time;
-  std::function<void(const std::shared_ptr<VerilatedContext> &)> task;
-};
-
-int main(int argc, char **argv) {
-  std::cout << "hello from " << __FILE__ << std::endl;
-  const std::shared_ptr<VerilatedContext> contextp{new VerilatedContext};
-  contextp->commandArgs(argc, argv);
-  const std::unique_ptr<VDidactic> didactic{
-      new VDidactic{contextp.get(), "DIDACTIC"}};
+int main(int argc, char** argv) {
+  // Setup Verilator
+  const auto context = std::make_unique<Context>();
+  context->commandArgs(argc, argv);
+  context->debug(0);
+  context->randReset(2);
+  context->randSeed(12345);
+  const auto model = std::make_unique<Model>(context.get(), "DIDACTIC");
 #if VM_TRACE
-  VerilatedVcdC *tfp = NULL;
-  const char *flag = Verilated::commandArgsPlusMatch("trace");
-  if (flag && 0 == strcmp(flag, "+trace")) {
+  TracerPointer tracer = nullptr;
+  auto flag = Verilated::commandArgsPlusMatch("trace");
+  if (flag && strcmp(flag, "+trace") == 0) {
     Verilated::traceEverOn(true);
-    tfp = new VerilatedVcdC;
-    didactic->trace(tfp, 99);
+    tracer = std::make_unique<Tracer>();
+    model->trace(tracer.get(), 99);
     Verilated::mkdir("logs");
-    tfp->open("logs/vlt_dump.vcd");
+    tracer->open("logs/vlt_dump.vcd");
   }
 #endif
+
+  // Setup example FSM
   TestBenchState tb_state = TestBenchState::starting;
-  const int maximum_iterations = 1000;
   TestBenchState tb_state_after_waiting = TestBenchState::waiting;
-  int clock_cycles_to_wait = 0;
+  unsigned int clock_cycles_to_wait = 0;
+
+  // Schedule tasks
   std::vector<ScheduledTask> scheduled_tasks;
-  {
-    ScheduledTask task;
-    task.time = 10;
-    task.task = scheduled_task_example;
-    scheduled_tasks.push_back(task);
-  }
-  for (int i = 0; i < maximum_iterations; i++) {
+  schedule_task(scheduled_tasks, 10, task_example);
+
+  const size_t maximum_iterations = 1000;
+  for (size_t i = 0; i < maximum_iterations; i++) {
     for (ScheduledTask task : scheduled_tasks) {
-      if (task.time == contextp->time()) {
-        task.task(contextp);
+      if (task.time == context->time()) {
+        task.task(context, model);
       }
     }
     bool stop_iteration = false;
     switch (tb_state) {
-    case TestBenchState::starting:
-      printf("[%ld] initialize inputs\n", contextp->time());
-      didactic->boot_sel = 0;
-      didactic->clk_in = 1;
-      didactic->fetch_en = 0;
-      didactic->gpio = 0;
-      didactic->jtag_tck = 0;
-      didactic->jtag_tdi = 0;
-      didactic->jtag_tdo = 0;
-      didactic->jtag_tms = 0;
-      didactic->jtag_trst = 0;
-      // Apparently reset is inverted
-      didactic->reset = 1;
-      didactic->spi_csn = 0;
-      didactic->spi_data = 0;
-      didactic->spi_sck = 0;
-      didactic->uart_rx = 0;
-      didactic->uart_tx = 0;
-      didactic->ana_core_in = 0;
-      didactic->ana_core_out = 0;
-      tb_state = TestBenchState::assert_reset;
-      break;
-    case TestBenchState::assert_reset:
-      printf("[%ld] assert reset\n", contextp->time());
-      didactic->reset = 0;
-      tb_state = TestBenchState::deassert_reset;
-      break;
-    case TestBenchState::deassert_reset:
-      printf("[%ld] deassert reset\n", contextp->time());
-      didactic->reset = 1;
-      tb_state = TestBenchState::assert_fetch_enable;
-      break;
-    case TestBenchState::assert_fetch_enable:
-      printf("[%ld] assert fetch_enable\n", contextp->time());
-      didactic->fetch_en = 1;
-      tb_state = TestBenchState::waiting;
-      tb_state_after_waiting = TestBenchState::finished;
-      clock_cycles_to_wait = 10;
-      break;
-    case TestBenchState::finished:
-      printf("[%ld] finished\n", contextp->time());
-      stop_iteration = true;
-      tb_state = TestBenchState::finished;
-      break;
-    case TestBenchState::waiting:
-      if (didactic->clk_in == 1) {
-        // Clock does high-to-low
-      } else if (didactic->clk_in == 0) {
-        // Clock does low-to-high
-        clock_cycles_to_wait -= 1;
-      } else {
-        // This branch should never happen
-        assert(false);
-      }
-      if (clock_cycles_to_wait == 0) {
-        // Waited enough cycles
-        tb_state = tb_state_after_waiting;
-        printf("[%ld] waiting done\n", contextp->time());
-      } else if (0 < clock_cycles_to_wait) {
-        // Still waiting
+      case TestBenchState::starting:
+        task_initialize(context, model);
+        tb_state = TestBenchState::assert_reset;
+        break;
+      case TestBenchState::assert_reset:
+        task_assert_reset(context, model);
+        tb_state = TestBenchState::deassert_reset;
+        break;
+      case TestBenchState::deassert_reset:
+        task_deassert_reset(context, model);
+        tb_state = TestBenchState::assert_fetch_enable;
+        break;
+      case TestBenchState::assert_fetch_enable:
+        task_assert_fetch_enable(context, model);
         tb_state = TestBenchState::waiting;
-        // printf("[%ld] waiting %i more cycles\n", contextp->time(),
-        // clock_cycles_to_wait);
-      } else {
-        // This branch should never happen
-        assert(false);
-      }
-      break;
+        tb_state_after_waiting = TestBenchState::finished;
+        clock_cycles_to_wait = 10;
+        break;
+      case TestBenchState::finished:
+        std::cout << "[" << context->time() << "] " << "finished" << std::endl;
+        stop_iteration = true;
+        tb_state = TestBenchState::finished;
+        break;
+      case TestBenchState::waiting:
+        if (model->clk_in == 1) {
+          // Clock does high-to-low
+        } else if (model->clk_in == 0) {
+          // Clock does low-to-high
+          clock_cycles_to_wait -= 1;
+        } else {
+          // This branch should never happen
+          assert(false);
+        }
+        if (clock_cycles_to_wait == 0) {
+          // Waited enough cycles
+          tb_state = tb_state_after_waiting;
+        } else {
+          // Still waiting
+          tb_state = TestBenchState::waiting;
+        }
+        break;
     }
-    main_time++;
-    switch (didactic->clk_in) {
-    case 0:
-      didactic->clk_in = 1;
-      break;
-    case 1:
-      didactic->clk_in = 0;
-      break;
-    default:
-      // This branch should never happen
-      assert(false);
-      break;
-    }
-    didactic->eval();
+    // Compute combinatorial logic
+    model->eval();
+    toggle_clock(model);
+    // Compute sequential logic
+    model->eval();
 #if VM_TRACE
-    if (tfp) {
-      tfp->dump(main_time);
+    if (tracer) {
+      tracer->dump(context->time());
     }
 #endif
+    context->timeInc(1);
     if (stop_iteration) {
       break;
     }
   }
 #if VM_TRACE
-  if (tfp) {
-    tfp->dump(main_time);
+  if (tracer) {
+    tracer->dump(context->time());
   }
 #endif
-  didactic->final();
+  model->final();
 #if VM_TRACE
-  if (tfp) {
-    tfp->close();
-    tfp = NULL;
+  if (tracer) {
+    tracer->close();
   }
 #endif
   return 0;
