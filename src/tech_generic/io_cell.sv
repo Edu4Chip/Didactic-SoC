@@ -28,7 +28,7 @@ endmodule
 
 module i_cell (
     // On-chip
-    input logic TO_CORE,
+    output logic TO_CORE,
     // Off-chip
     inout  wire  PAD
   );
@@ -39,7 +39,7 @@ endmodule
 
 module o_cell (
     // On-chip
-    output logic FROM_CORE,
+    input logic FROM_CORE,
     // Off-chip
     inout  wire  PAD
   );

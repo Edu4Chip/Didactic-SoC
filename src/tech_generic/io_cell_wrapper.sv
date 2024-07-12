@@ -37,10 +37,7 @@ module io_cell_wrapper #(
           .PAD(PAD)
       );
       
-      logic tieoff_core;
-
-      assign tieoff_core = 1'b0;
-      assign TO_CORE = tieoff_core;
+      assign TO_CORE = 1'b0;
 
     end
     if (CELL_TYPE == 2) begin: gen_i_cell
