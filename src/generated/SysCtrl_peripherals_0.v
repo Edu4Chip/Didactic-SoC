@@ -67,6 +67,10 @@ module SysCtrl_peripherals_0 #(
     input  logic                        uart_rx_internal,
     output logic                        uart_tx_internal
 );
+    `ifdef VERILATOR
+    `include "verification/verilator/src/common.v"
+    `INCREMENT_CYCLE_COUNT(clk)
+    `endif
 
     // APB_SPI_SPI_to_SPI wires:
     wire [3:0] APB_SPI_SPI_to_SPI_csn;

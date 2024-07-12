@@ -47,6 +47,10 @@ module Student_SS_3_0 #(
     output logic         [3:0]          pmod_1_gpio_oe,
     output logic         [3:0]          pmod_1_gpo
 );
+    `ifdef VERILATOR
+    `include "verification/verilator/src/common.v"
+    `INCREMENT_CYCLE_COUNT(clk_in)
+    `endif
 
     // SS_cg_clk_in_to_Clock wires:
     wire       SS_cg_clk_in_to_Clock_clk;

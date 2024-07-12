@@ -94,6 +94,11 @@ module ICN_SS #(
     output logic                            PWRITE
 );
 
+  `ifdef VERILATOR
+  `include "verification/verilator/src/common.v"
+  `INCREMENT_CYCLE_COUNT(clk)
+  `endif
+
   AXI_BUS #(
     .AXI_ADDR_WIDTH(AXI_AW), 
     .AXI_DATA_WIDTH(AXI_DW), 

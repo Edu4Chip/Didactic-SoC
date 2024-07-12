@@ -49,6 +49,11 @@ module ibex_axi_bridge #(
   output logic                  r_ready_o
 );
 
+`ifdef VERILATOR
+`include "verification/verilator/src/common.v"
+`INCREMENT_CYCLE_COUNT(clk_i)
+`endif
+
 enum logic [3:0] {
   IDLE,
   READ_START,

@@ -187,6 +187,10 @@ module SysCtrl_SS_wrapper_0 #(
     input  logic         [3:0]          ss_3_pmod_1_gpo,
     output logic         [3:0]          ss_3_pmod_1_gpi
 );
+    `ifdef VERILATOR
+    `include "verification/verilator/src/common.v"
+    `INCREMENT_CYCLE_COUNT(clock)
+    `endif
 
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:
     wire [7:0] SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl_clk_ctrl;

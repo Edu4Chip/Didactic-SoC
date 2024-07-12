@@ -17,12 +17,15 @@
     - `ls -l verification/verilator/run.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/run.sh`.
     - `ls -l verification/verilator/undo_fix.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/undo_fix.sh`.
 3. Translate HW to SW with Verilator `make verilator-generate`.
+    - Select executable, e.g. `example` using `make verilator-generate executable=example`.
     - Return value is `OK` if no errors were detected.
     - Return value is `FAIL` is errors were detected.
 4. Build Verilator's output with SW testbench `make verilator-build`.
 5. Execute SW testbench `make verilator-run`.
+    - `make verilator-run` should automatically execute `make verilator-build`.
 
 ### Tracing
 
 1. Execute SW testbench with tracing `make verilator-run-traced`.
+    - `make verilator-run-traced` should automatically execute `make verilator-build`.
 2. Inspect trace with GTKWave `gtkwave logs/vlt_dump.vcd`.

@@ -156,6 +156,10 @@ module SysCtrl_SS_0 #(
     // These ports are not in any interface
     input  logic         [14:0]         irq_upper_tieoff
 );
+    `ifdef VERILATOR
+    `include "verification/verilator/src/common.v"
+    `INCREMENT_CYCLE_COUNT(clk_internal)
+    `endif
 
     // i_SysCtrl_peripherals_GPIO_to_GPIO wires:
     wire [7:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpi;

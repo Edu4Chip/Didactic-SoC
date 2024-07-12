@@ -1,7 +1,16 @@
 default:
   image: u_verilator:latest
 
-test-verilator:
+stages:
+  - initialize
+  - test
+  - verify
+
+variables:
+  TERM: "dumb"
+
+initialize:
+  stage: initialize
   script:
     - echo $PWD
     - ls -l
@@ -14,11 +23,49 @@ test-verilator:
     - chmod u+x verification/verilator/run.sh
     - chmod u+x verification/verilator/undo_fix.sh
     - ls -l verification/verilator
+  artifacts:
+    expire_in: "30 mins"
+    paths:
+      - ips/*
+      - src/*
+      - verification/*
+
+default-executable:
+  stage: test
+  script:
     - echo "test default executable"
     - make verilator-generate
     - make verilator-build
     - make verilator-run
+
+example-executable:
+  stage: test
+  script:
     - echo "test given executable"
     - make verilator-generate executable=example
+    - make verilator-build
+    - make verilator-run
+
+count-cycles-executable:
+  stage: test
+  script:
+    - echo "test cycle counter"
+    - make verilator-generate executable=count_cycles
+    - make verilator-build
+    - make verilator-run
+
+verify-cycle-counts:
+  stage: verify
+  script:
+    - echo "verify cycle counts"
+    - make verilator-generate executable=verify_cycle_counts
+    - make verilator-build
+    - make verilator-run
+
+verify-signal-propagation:
+  stage: verify
+  script:
+    - echo "verify signal propagation"
+    - make verilator-generate executable=verify_signal_propagation
     - make verilator-build
     - make verilator-run

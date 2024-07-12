@@ -82,6 +82,11 @@ module SS_Ctrl_reg_array #(
     output logic [7:0] pmod_sel
 );
 
+  `ifdef VERILATOR
+  `include "verification/verilator/src/common.v"
+  `INCREMENT_CYCLE_COUNT(clk)
+  `endif
+
   logic [31:0] bootSel_reg;
   logic [31:0] ss_rst_reg;
   logic [31:0] icn_rst_ctrl_reg;

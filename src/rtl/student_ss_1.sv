@@ -54,6 +54,11 @@ module student_ss_1 #(
     output logic [3:0] pmod_1_gpio_oe
 );
 
+  `ifdef VERILATOR
+  `include "verification/verilator/src/common.v"
+  `INCREMENT_CYCLE_COUNT(clk_in)
+  `endif
+
   logic [31:0] field_0;
   logic [31:0] field_1;
   logic PSLVERR_reg;

@@ -251,6 +251,11 @@ module SysCtrl_xbar #(
     input  logic                             reset_ni
 );
 
+  `ifdef VERILATOR
+  `include "verification/verilator/src/common.v"
+  `INCREMENT_CYCLE_COUNT(clk_i)
+  `endif
+
   // TODO: check numbers
   localparam AXI4LITE_TARGETS = 7;
   localparam AXI4LITE_INITIATORS = 3;

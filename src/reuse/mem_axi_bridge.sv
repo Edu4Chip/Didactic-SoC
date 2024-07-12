@@ -47,6 +47,11 @@ module mem_axi_bridge #(
   input  logic                  r_ready_i
 );
 
+`ifdef VERILATOR
+`include "verification/verilator/src/common.v"
+`INCREMENT_CYCLE_COUNT(clk_i)
+`endif
+
 enum logic [3:0] {
   IDLE,
   READ_START,
