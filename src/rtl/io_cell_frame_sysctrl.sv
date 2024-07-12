@@ -120,9 +120,9 @@ module io_cell_frame_sysctrl #(
   // reset and clk not configurable to avoid locking SoC
 
   // reset
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_rst(.FROM_CORE(1'b0), .TO_CORE(reset_internal), .PAD(reset), .io_cell_cfg({IOCELL_CFG_W{1'b0}}));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_rst(.FROM_CORE(1'b0), .TO_CORE(reset_internal), .PAD(reset), .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
   // clk
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_clk(.FROM_CORE(1'b0), .TO_CORE(clk_internal), .PAD(clk_in), .io_cell_cfg({IOCELL_CFG_W{1'b0}}));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_clk(.FROM_CORE(1'b0), .TO_CORE(clk_internal), .PAD(clk_in), .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
 
 
   // gpio
