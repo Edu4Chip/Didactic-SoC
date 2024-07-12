@@ -2,3 +2,4 @@ build/
 obj_dir/
 logs/
 modelsim.ini
+transcript

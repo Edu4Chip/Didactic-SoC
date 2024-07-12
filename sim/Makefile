@@ -78,3 +78,12 @@ elaborate: library_mapping
 	$(DUT) \
 	-o $(DUT)_opt \
 	-l $(BUILD_DIR)/opt/$(START_TIME)_vopt.log
+
+run_sim:
+	cd $(BUILD_DIR)
+	vsim \
+	$(DUT_LIBS) \
+	-work $(BUILD_DIR)/tb_lib \
+	$(DUT)_opt \
+	-do "run 1ms" \
+	-l $(BUILD_DIR)/sim/$(START_TIME)_sim.log
