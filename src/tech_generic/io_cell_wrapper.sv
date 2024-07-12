@@ -32,7 +32,7 @@ module io_cell_wrapper #(
     end
     if (CELL_TYPE == 1) begin: gen_o_cell
 
-      io_cell i_o_cell(
+      o_cell i_o_cell(
           .FROM_CORE(FROM_CORE),
           .PAD(PAD)
       );
@@ -42,7 +42,7 @@ module io_cell_wrapper #(
     end
     if (CELL_TYPE == 2) begin: gen_i_cell
 
-      io_cell i_i_cell(
+      i_cell i_i_cell(
           .TO_CORE(TO_CORE),
           .PAD(PAD)
       );
