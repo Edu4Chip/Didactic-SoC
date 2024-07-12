@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 08.07.2024
-// Creation time : 15:18:12
+// Creation date : 12.07.2024
+// Creation time : 09:40:19
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -321,7 +321,6 @@ module SysCtrl_SS_0 #(
     wire       Ibex_Core_imem_to_core_imem_bridge_mem_REQ;
     wire       Ibex_Core_imem_to_core_imem_bridge_mem_RVALID;
     wire [31:0] Ibex_Core_imem_to_core_imem_bridge_mem_WDATA;
-    wire [6:0] Ibex_Core_imem_to_core_imem_bridge_mem_WDATA_INTG;
     wire       Ibex_Core_imem_to_core_imem_bridge_mem_WE;
     // Ibex_Core_dmem_to_core_dmem_bridge_mem wires:
     wire [31:0] Ibex_Core_dmem_to_core_dmem_bridge_mem_ADDR;
@@ -333,6 +332,7 @@ module SysCtrl_SS_0 #(
     wire       Ibex_Core_dmem_to_core_dmem_bridge_mem_REQ;
     wire       Ibex_Core_dmem_to_core_dmem_bridge_mem_RVALID;
     wire [31:0] Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA;
+    wire [6:0] Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA_INTG;
     wire       Ibex_Core_dmem_to_core_dmem_bridge_mem_WE;
     // i_dmem_mem_to_axi_dmem_bridge_Mem wires:
     wire [31:0] i_dmem_mem_to_axi_dmem_bridge_Mem_ADDR;
@@ -862,6 +862,7 @@ module SysCtrl_SS_0 #(
     wire       core_dmem_bridge_b_ready_o;
     wire [1:0] core_dmem_bridge_b_resp_i;
     wire       core_dmem_bridge_b_valid_i;
+    wire [3:0] core_dmem_bridge_be_i;
     wire       core_dmem_bridge_clk_i;
     wire       core_dmem_bridge_err_o;
     wire       core_dmem_bridge_gnt_o;
@@ -877,6 +878,8 @@ module SysCtrl_SS_0 #(
     wire       core_dmem_bridge_w_ready_i;
     wire [3:0] core_dmem_bridge_w_strb_o;
     wire       core_dmem_bridge_w_valid_o;
+    wire [31:0] core_dmem_bridge_wdata_i;
+    wire       core_dmem_bridge_we_i;
     // core_imem_bridge port wires:
     wire [31:0] core_imem_bridge_addr_i;
     wire [31:0] core_imem_bridge_ar_addr_o;
@@ -888,7 +891,6 @@ module SysCtrl_SS_0 #(
     wire       core_imem_bridge_b_ready_o;
     wire [1:0] core_imem_bridge_b_resp_i;
     wire       core_imem_bridge_b_valid_i;
-    wire [3:0] core_imem_bridge_be_i;
     wire       core_imem_bridge_clk_i;
     wire       core_imem_bridge_err_o;
     wire       core_imem_bridge_gnt_o;
@@ -904,8 +906,6 @@ module SysCtrl_SS_0 #(
     wire       core_imem_bridge_w_ready_i;
     wire [3:0] core_imem_bridge_w_strb_o;
     wire       core_imem_bridge_w_valid_o;
-    wire [31:0] core_imem_bridge_wdata_i;
-    wire       core_imem_bridge_we_i;
     // i_SysCtrl_peripherals port wires:
     wire [31:0] i_SysCtrl_peripherals_ar_addr;
     wire [2:0] i_SysCtrl_peripherals_ar_prot;
@@ -1355,24 +1355,24 @@ module SysCtrl_SS_0 #(
     assign Ctrl_xbar_reset_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     // Ibex_Core assignments:
     assign Ibex_Core_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_ADDR = Ibex_Core_data_addr_o;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_BE = Ibex_Core_data_be_o;
-    assign Ibex_Core_data_err_i = Ibex_Core_imem_to_core_imem_bridge_mem_ERR;
-    assign Ibex_Core_data_gnt_i = Ibex_Core_imem_to_core_imem_bridge_mem_GNT;
-    assign Ibex_Core_data_rdata_i = Ibex_Core_imem_to_core_imem_bridge_mem_RDATA;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_REQ = Ibex_Core_data_req_o;
-    assign Ibex_Core_data_rvalid_i = Ibex_Core_imem_to_core_imem_bridge_mem_RVALID;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_WDATA = Ibex_Core_data_wdata_o;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_WE = Ibex_Core_data_we_o;
+    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_ADDR = Ibex_Core_data_addr_o;
+    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_BE = Ibex_Core_data_be_o;
+    assign Ibex_Core_data_err_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_ERR;
+    assign Ibex_Core_data_gnt_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_GNT;
+    assign Ibex_Core_data_rdata_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_RDATA;
+    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_REQ = Ibex_Core_data_req_o;
+    assign Ibex_Core_data_rvalid_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_RVALID;
+    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA = Ibex_Core_data_wdata_o;
+    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_WE = Ibex_Core_data_we_o;
     assign Ibex_Core_debug_req_i = jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req;
     assign Ibex_Core_fetch_enable_i[3:1] = 'd0;
     assign Ibex_Core_fetch_enable_i[0] = Ibex_Core_FetchEn_to_FetchEn_gpo;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_ADDR = Ibex_Core_instr_addr_o;
-    assign Ibex_Core_instr_err_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_ERR;
-    assign Ibex_Core_instr_gnt_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_GNT;
-    assign Ibex_Core_instr_rdata_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_RDATA;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_REQ = Ibex_Core_instr_req_o;
-    assign Ibex_Core_instr_rvalid_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_RVALID;
+    assign Ibex_Core_imem_to_core_imem_bridge_mem_ADDR = Ibex_Core_instr_addr_o;
+    assign Ibex_Core_instr_err_i = Ibex_Core_imem_to_core_imem_bridge_mem_ERR;
+    assign Ibex_Core_instr_gnt_i = Ibex_Core_imem_to_core_imem_bridge_mem_GNT;
+    assign Ibex_Core_instr_rdata_i = Ibex_Core_imem_to_core_imem_bridge_mem_RDATA;
+    assign Ibex_Core_imem_to_core_imem_bridge_mem_REQ = Ibex_Core_instr_req_o;
+    assign Ibex_Core_instr_rvalid_i = Ibex_Core_imem_to_core_imem_bridge_mem_RVALID;
     assign Ibex_Core_irq_fast_i[4] = Ibex_Core_irq_fast_i_to_irq_0;
     assign Ibex_Core_irq_fast_i[5] = Ibex_Core_irq_fast_i_to_irq_1;
     assign Ibex_Core_irq_fast_i[6] = Ibex_Core_irq_fast_i_to_irq_2;
@@ -1472,6 +1472,7 @@ module SysCtrl_SS_0 #(
     assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_READY = core_dmem_bridge_b_ready_o;
     assign core_dmem_bridge_b_resp_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_RESP;
     assign core_dmem_bridge_b_valid_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_VALID;
+    assign core_dmem_bridge_be_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_BE;
     assign core_dmem_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_ERR = core_dmem_bridge_err_o;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_GNT = core_dmem_bridge_gnt_o;
@@ -1487,6 +1488,8 @@ module SysCtrl_SS_0 #(
     assign core_dmem_bridge_w_ready_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_READY;
     assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_STRB = core_dmem_bridge_w_strb_o;
     assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_VALID = core_dmem_bridge_w_valid_o;
+    assign core_dmem_bridge_wdata_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA;
+    assign core_dmem_bridge_we_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_WE;
     // core_imem_bridge assignments:
     assign core_imem_bridge_addr_i = Ibex_Core_imem_to_core_imem_bridge_mem_ADDR;
     assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR = core_imem_bridge_ar_addr_o;
@@ -1498,7 +1501,6 @@ module SysCtrl_SS_0 #(
     assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_READY = core_imem_bridge_b_ready_o;
     assign core_imem_bridge_b_resp_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_RESP;
     assign core_imem_bridge_b_valid_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_VALID;
-    assign core_imem_bridge_be_i = Ibex_Core_imem_to_core_imem_bridge_mem_BE;
     assign core_imem_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign Ibex_Core_imem_to_core_imem_bridge_mem_ERR = core_imem_bridge_err_o;
     assign Ibex_Core_imem_to_core_imem_bridge_mem_GNT = core_imem_bridge_gnt_o;
@@ -1514,8 +1516,6 @@ module SysCtrl_SS_0 #(
     assign core_imem_bridge_w_ready_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_READY;
     assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_STRB = core_imem_bridge_w_strb_o;
     assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_VALID = core_imem_bridge_w_valid_o;
-    assign core_imem_bridge_wdata_i = Ibex_Core_imem_to_core_imem_bridge_mem_WDATA;
-    assign core_imem_bridge_we_i = Ibex_Core_imem_to_core_imem_bridge_mem_WE;
     // i_SysCtrl_peripherals assignments:
     assign i_SysCtrl_peripherals_ar_addr = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_ADDR;
     assign i_SysCtrl_peripherals_ar_prot = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_PROT;
@@ -1942,14 +1942,6 @@ module SysCtrl_SS_0 #(
         // Interface: Reset
         .rst_ni              (Ibex_Core_rst_ni),
         // Interface: dmem
-        .instr_err_i         (Ibex_Core_instr_err_i),
-        .instr_gnt_i         (Ibex_Core_instr_gnt_i),
-        .instr_rdata_i       (Ibex_Core_instr_rdata_i),
-        .instr_rdata_intg_i  (7'h0),
-        .instr_rvalid_i      (Ibex_Core_instr_rvalid_i),
-        .instr_addr_o        (Ibex_Core_instr_addr_o),
-        .instr_req_o         (Ibex_Core_instr_req_o),
-        // Interface: imem
         .data_err_i          (Ibex_Core_data_err_i),
         .data_gnt_i          (Ibex_Core_data_gnt_i),
         .data_rdata_i        (Ibex_Core_data_rdata_i),
@@ -1961,6 +1953,14 @@ module SysCtrl_SS_0 #(
         .data_wdata_intg_o   (),
         .data_wdata_o        (Ibex_Core_data_wdata_o),
         .data_we_o           (Ibex_Core_data_we_o),
+        // Interface: imem
+        .instr_err_i         (Ibex_Core_instr_err_i),
+        .instr_gnt_i         (Ibex_Core_instr_gnt_i),
+        .instr_rdata_i       (Ibex_Core_instr_rdata_i),
+        .instr_rdata_intg_i  (7'h0),
+        .instr_rvalid_i      (Ibex_Core_instr_rvalid_i),
+        .instr_addr_o        (Ibex_Core_instr_addr_o),
+        .instr_req_o         (Ibex_Core_instr_req_o),
         // These ports are not in any interface
         .boot_addr_i         (32'h1010000),
         .hart_id_i           (32'h0),
@@ -2137,10 +2137,10 @@ module SysCtrl_SS_0 #(
         .w_valid_o           (core_dmem_bridge_w_valid_o),
         // Interface: mem
         .addr_i              (core_dmem_bridge_addr_i),
-        .be_i                (),
+        .be_i                (core_dmem_bridge_be_i),
         .req_i               (core_dmem_bridge_req_i),
-        .wdata_i             (),
-        .we_i                (),
+        .wdata_i             (core_dmem_bridge_wdata_i),
+        .we_i                (core_dmem_bridge_we_i),
         .err_o               (core_dmem_bridge_err_o),
         .gnt_o               (core_dmem_bridge_gnt_o),
         .rdata_o             (core_dmem_bridge_rdata_o),
@@ -2177,10 +2177,10 @@ module SysCtrl_SS_0 #(
         .w_valid_o           (core_imem_bridge_w_valid_o),
         // Interface: mem
         .addr_i              (core_imem_bridge_addr_i),
-        .be_i                (core_imem_bridge_be_i),
+        .be_i                (),
         .req_i               (core_imem_bridge_req_i),
-        .wdata_i             (core_imem_bridge_wdata_i),
-        .we_i                (core_imem_bridge_we_i),
+        .wdata_i             (),
+        .we_i                (),
         .err_o               (core_imem_bridge_err_o),
         .gnt_o               (core_imem_bridge_gnt_o),
         .rdata_o             (core_imem_bridge_rdata_o),
