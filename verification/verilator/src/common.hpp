@@ -4,6 +4,7 @@
 #define COMMON_H
 
 #include <cassert>
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <memory>
@@ -70,6 +71,80 @@ void check_signal_propagation(const char* path, double time, const char* name1, 
   }
 }
 
+struct StatusImem {
+  uint32_t err_i;
+  uint32_t gnt_i;
+  uint32_t rdata_i;
+  uint32_t rdata_intg_i;
+  uint32_t rvalid_i;
+  uint32_t addr_o;
+  uint32_t req_o;
+};
+
+struct StatusDmem {
+  uint32_t err_i;
+  uint32_t gnt_i;
+  uint32_t rdata_i;
+  uint32_t rdata_intg_i;
+  uint32_t rvalid_i;
+  uint32_t addr_o;
+  uint32_t be_o;
+  uint32_t req_o;
+  uint32_t wdata_intg_o;
+  uint32_t wdata_o;
+  uint32_t we_o;
+};
+
+extern void print_core_state(double time, const uint32_t* status_imem, const uint32_t* status_dmem) {
+  std::cout << "[" << time << "] " << __func__ << std::endl;
+
+  // Apparently struct members come in reverse order...
+  struct StatusImem* status_imem2 = (struct StatusImem*)status_imem;
+  struct StatusImem status_imem3;
+  status_imem3.err_i = status_imem2->req_o;
+  status_imem3.gnt_i = status_imem2->addr_o;
+  status_imem3.rdata_i = status_imem2->rvalid_i;
+  status_imem3.rdata_intg_i = status_imem2->rdata_intg_i;
+  status_imem3.rvalid_i = status_imem2->rdata_i;
+  status_imem3.addr_o = status_imem2->gnt_i;
+  status_imem3.req_o = status_imem2->req_o;
+  struct StatusDmem* status_dmem2 = (struct StatusDmem*)status_dmem;
+  struct StatusDmem status_dmem3;
+  status_dmem3.err_i = status_dmem2->we_o;
+  status_dmem3.gnt_i = status_dmem2->wdata_o;
+  status_dmem3.rdata_i = status_dmem2->wdata_intg_o;
+  status_dmem3.rdata_intg_i = status_dmem2->req_o;
+  status_dmem3.rvalid_i = status_dmem2->be_o;
+  status_dmem3.addr_o = status_dmem2->addr_o;
+  status_dmem3.be_o = status_dmem2->rvalid_i;
+  status_dmem3.req_o = status_dmem2->rdata_intg_i;
+  status_dmem3.wdata_intg_o = status_dmem2->rdata_i;
+  status_dmem3.wdata_o = status_dmem2->gnt_i;
+  status_dmem3.we_o = status_dmem2->err_i;
+
+  std::cout << "  " << "imem:" << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "err_i: " << status_imem3.err_i << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "gnt_i: " << status_imem3.gnt_i << std::endl;
+  std::cout << "  " << "  " << std::right << std::setw(15) << "rdata_i: " << status_imem3.rdata_i << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "rdata_intg_i: " << status_imem3.rdata_intg_i << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "rvalid_i: " << status_imem3.rvalid_i << std::endl;
+  std::cout << "  " << "  " << std::right << std::setw(15) << "addr_o: " << "0x" << std::hex << status_imem3.addr_o << std::dec << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "req_o: " << status_imem3.req_o << std::endl;
+
+  std::cout << "  " << "dmem:" << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "err_i: " << status_dmem3.err_i << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "gnt_i: " << status_dmem3.gnt_i << std::endl;
+  std::cout << "  " << "  " << std::right << std::setw(15) << "rdata_i: " << status_dmem3.rdata_i << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "rdata_intg_i: " << status_dmem3.rdata_intg_i << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "rvalid_i: " << status_dmem3.rvalid_i << std::endl;
+  std::cout << "  " << "  " << std::right << std::setw(15) << "addr_o: " << "0x" << std::hex << status_dmem3.addr_o << std::dec << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "be_o: " << status_dmem3.be_o << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "req_o: " << status_dmem3.req_o << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "wdata_intg_o: " << status_dmem3.wdata_intg_o << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "wdata_o: " << status_dmem3.wdata_o << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "we_o: " << status_dmem3.we_o << std::endl;
+}
+
 // =============================================
 // Functions and objects used in simulation code
 // =============================================
@@ -84,16 +159,16 @@ using TracerPointer = std::unique_ptr<Tracer>;
 
 void toggle_clock(const ModelPointer& model) {
   switch (model->clk_in) {
-  case 0:
-    model->clk_in = 1;
-    break;
-  case 1:
-    model->clk_in = 0;
-    break;
-  default:
-    // This branch should never happen
-    assert(false);
-    break;
+    case 0:
+      model->clk_in = 1;
+      break;
+    case 1:
+      model->clk_in = 0;
+      break;
+    default:
+      // This branch should never happen
+      assert(false);
+      break;
   }
 }
 
