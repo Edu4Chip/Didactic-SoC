@@ -96,8 +96,6 @@ struct StatusDmem {
 };
 
 extern void print_core_state(double time, const uint32_t* status_imem, const uint32_t* status_dmem) {
-  std::cout << "[" << time << "] " << __func__ << std::endl;
-
   // Apparently struct members come in reverse order...
   struct StatusImem* status_imem2 = (struct StatusImem*)status_imem;
   struct StatusImem status_imem3;
@@ -122,6 +120,7 @@ extern void print_core_state(double time, const uint32_t* status_imem, const uin
   status_dmem3.wdata_o = status_dmem2->gnt_i;
   status_dmem3.we_o = status_dmem2->err_i;
 
+  /*std::cout << "[" << time << "] " << __func__ << std::endl;
   std::cout << "  " << "imem:" << std::endl;
   // std::cout << "  " << "  " << std::right << std::setw(15) << "err_i: " << status_imem3.err_i << std::endl;
   // std::cout << "  " << "  " << std::right << std::setw(15) << "gnt_i: " << status_imem3.gnt_i << std::endl;
