@@ -141,7 +141,115 @@ extern void print_core_state(double time, const uint32_t* status_imem, const uin
   // std::cout << "  " << "  " << std::right << std::setw(15) << "req_o: " << status_dmem3.req_o << std::endl;
   // std::cout << "  " << "  " << std::right << std::setw(15) << "wdata_intg_o: " << status_dmem3.wdata_intg_o << std::endl;
   // std::cout << "  " << "  " << std::right << std::setw(15) << "wdata_o: " << status_dmem3.wdata_o << std::endl;
-  // std::cout << "  " << "  " << std::right << std::setw(15) << "we_o: " << status_dmem3.we_o << std::endl;
+  // std::cout << "  " << "  " << std::right << std::setw(15) << "we_o: " << status_dmem3.we_o << std::endl;*/
+}
+
+struct StatusIbexAxiBridge {
+  uint32_t clk_i;
+  uint32_t rst_ni;
+
+  // IBEX side
+
+  uint32_t req_i;
+  uint32_t gnt_o;
+  uint32_t rvalid_o;
+  uint32_t we_i;
+  uint32_t be_i;
+  uint32_t addr_i;
+  uint32_t wdata_i;
+  uint32_t rdata_o;
+  uint32_t err_o;
+
+  // AXI side
+
+  uint32_t aw_addr_o;
+  uint32_t aw_valid_o;
+  uint32_t aw_ready_i;
+  uint32_t w_data_o;
+  uint32_t w_strb_o;
+  uint32_t w_valid_o;
+  uint32_t w_ready_i;
+  uint32_t b_resp_i;
+  uint32_t b_valid_i;
+  uint32_t b_ready_o;
+  uint32_t ar_addr_o;
+  uint32_t ar_valid_o;
+  uint32_t ar_ready_i;
+  uint32_t r_data_i;
+  uint32_t r_resp_i;
+  uint32_t r_valid_i;
+  uint32_t r_ready_o;
+};
+
+void track_ibex_axi_bridge(double time, const char* name, const uint32_t* status_ibex_axi_bridge) {
+  std::vector<std::string> ignored = {
+      //"DIDACTIC.Didactic.SystemControl_SS.SysCtrl_SS.core_imem_bridge.unnamedblk1",
+      "DIDACTIC.Didactic.SystemControl_SS.SysCtrl_SS.core_dmem_bridge.unnamedblk1",
+      "DIDACTIC.Didactic.SystemControl_SS.SysCtrl_SS.jtag_dbg_wrapper.i_debug2axi_lite_bridge.unnamedblk1",
+  };
+  if (std::find(ignored.begin(), ignored.end(), std::string(name)) != ignored.end()) {
+    return;
+  }
+  struct StatusIbexAxiBridge* status_ibex_axi_bridge2 = (struct StatusIbexAxiBridge*)status_ibex_axi_bridge;
+  struct StatusIbexAxiBridge status_ibex_axi_bridge3;
+  status_ibex_axi_bridge3.clk_i = status_ibex_axi_bridge2->r_ready_o;
+  status_ibex_axi_bridge3.rst_ni = status_ibex_axi_bridge2->r_valid_i;
+  status_ibex_axi_bridge3.req_i = status_ibex_axi_bridge2->r_resp_i;
+  status_ibex_axi_bridge3.gnt_o = status_ibex_axi_bridge2->r_data_i;
+  status_ibex_axi_bridge3.rvalid_o = status_ibex_axi_bridge2->ar_ready_i;
+  status_ibex_axi_bridge3.we_i = status_ibex_axi_bridge2->ar_valid_o;
+  status_ibex_axi_bridge3.be_i = status_ibex_axi_bridge2->ar_addr_o;
+  status_ibex_axi_bridge3.addr_i = status_ibex_axi_bridge2->b_ready_o;
+  status_ibex_axi_bridge3.wdata_i = status_ibex_axi_bridge2->b_valid_i;
+  status_ibex_axi_bridge3.rdata_o = status_ibex_axi_bridge2->b_resp_i;
+  status_ibex_axi_bridge3.err_o = status_ibex_axi_bridge2->w_ready_i;
+  status_ibex_axi_bridge3.aw_addr_o = status_ibex_axi_bridge2->w_valid_o;
+  status_ibex_axi_bridge3.aw_valid_o = status_ibex_axi_bridge2->w_strb_o;
+  status_ibex_axi_bridge3.aw_ready_i = status_ibex_axi_bridge2->w_data_o;
+  status_ibex_axi_bridge3.w_data_o = status_ibex_axi_bridge2->aw_ready_i;
+  status_ibex_axi_bridge3.w_strb_o = status_ibex_axi_bridge2->aw_valid_o;
+  status_ibex_axi_bridge3.w_valid_o = status_ibex_axi_bridge2->aw_addr_o;
+  status_ibex_axi_bridge3.w_ready_i = status_ibex_axi_bridge2->err_o;
+  status_ibex_axi_bridge3.b_resp_i = status_ibex_axi_bridge2->rdata_o;
+  status_ibex_axi_bridge3.b_valid_i = status_ibex_axi_bridge2->wdata_i;
+  status_ibex_axi_bridge3.b_ready_o = status_ibex_axi_bridge2->addr_i;
+  status_ibex_axi_bridge3.ar_addr_o = status_ibex_axi_bridge2->be_i;
+  status_ibex_axi_bridge3.ar_valid_o = status_ibex_axi_bridge2->we_i;
+  status_ibex_axi_bridge3.ar_ready_i = status_ibex_axi_bridge2->rvalid_o;
+  status_ibex_axi_bridge3.r_data_i = status_ibex_axi_bridge2->gnt_o;
+  status_ibex_axi_bridge3.r_resp_i = status_ibex_axi_bridge2->req_i;
+  status_ibex_axi_bridge3.r_valid_i = status_ibex_axi_bridge2->rst_ni;
+  status_ibex_axi_bridge3.r_ready_o = status_ibex_axi_bridge2->clk_i;
+  /*std::cout << "[" << time << "] " << __func__ << std::endl;
+  std::cout << std::string(name) << ":" << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "clk_i: " << status_ibex_axi_bridge3.clk_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "rst_ni: " << status_ibex_axi_bridge3.rst_ni << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "req_i: " << status_ibex_axi_bridge3.req_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "gnt_o: " << status_ibex_axi_bridge3.gnt_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "rvalid_o: " << status_ibex_axi_bridge3.rvalid_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "we_i: " << status_ibex_axi_bridge3.we_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "be_i: " << status_ibex_axi_bridge3.be_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "addr_i: " << "0x" << std::hex << status_ibex_axi_bridge3.addr_i << std::dec << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "wdata_i: " << status_ibex_axi_bridge3.wdata_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "rdata_o: " << status_ibex_axi_bridge3.rdata_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "err_o: " << status_ibex_axi_bridge3.err_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "aw_addr_o: " << "0x" << std::hex << status_ibex_axi_bridge3.aw_addr_o << std::dec << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "aw_valid_o: " << status_ibex_axi_bridge3.aw_valid_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "aw_ready_i: " << status_ibex_axi_bridge3.aw_ready_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "w_data_o: " << status_ibex_axi_bridge3.w_data_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "w_strb_o: " << status_ibex_axi_bridge3.w_strb_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "w_valid_o: " << status_ibex_axi_bridge3.w_valid_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "w_ready_i: " << status_ibex_axi_bridge3.w_ready_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "b_resp_i: " << status_ibex_axi_bridge3.b_resp_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "b_valid_i: " << status_ibex_axi_bridge3.b_valid_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "b_ready_o: " << status_ibex_axi_bridge3.b_ready_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "ar_addr_o: " << "0x" << std::hex << status_ibex_axi_bridge3.ar_addr_o << std::dec << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "ar_valid_o: " << status_ibex_axi_bridge3.ar_valid_o << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "ar_ready_i: " << status_ibex_axi_bridge3.ar_ready_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "r_data_i: " << status_ibex_axi_bridge3.r_data_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "r_resp_i: " << status_ibex_axi_bridge3.r_resp_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "r_valid_i: " << status_ibex_axi_bridge3.r_valid_i << std::endl;
+  std::cout << "  " << std::right << std::setw(15) << "r_ready_o: " << status_ibex_axi_bridge3.r_ready_o << std::endl;*/
 }
 
 // =============================================
