@@ -52,8 +52,7 @@ module Student_SS_2_0 #(
     output logic         [3:0]          pmod_1_gpo
 );
     `ifdef VERILATOR
-    `include "verification/verilator/src/common.v"
-    `INCREMENT_CYCLE_COUNT(clk)
+        `include "verification/verilator/src/hdl/Student_SS_2_0.sv"
     `endif
 
     // SS_cg_clk_in_to_Clock wires:

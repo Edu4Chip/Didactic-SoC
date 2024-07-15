@@ -81,10 +81,8 @@ module SS_Ctrl_reg_array #(
     // Interface: pmod_ctrl
     output logic [7:0] pmod_sel
 );
-
   `ifdef VERILATOR
-  `include "verification/verilator/src/common.v"
-  `INCREMENT_CYCLE_COUNT(clk)
+    `include "verification/verilator/src/hdl/SS_Ctrl_reg_array.sv"
   `endif
 
   logic [31:0] bootSel_reg;

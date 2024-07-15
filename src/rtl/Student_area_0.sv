@@ -53,10 +53,8 @@ module Student_area_0 #(
     output logic [3:0] pmod_1_gpo,
     output logic [3:0] pmod_1_gpio_oe
 );
-
   `ifdef VERILATOR
-  `include "verification/verilator/src/common.v"
-  `INCREMENT_CYCLE_COUNT(clk_in)
+    `include "verification/verilator/src/hdl/Student_area_0.sv"
   `endif
 
   logic PSLVERR_reg      ;

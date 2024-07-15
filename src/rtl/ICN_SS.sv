@@ -93,10 +93,8 @@ module ICN_SS #(
     output logic [APB_DW-1:0]               PWDATA,
     output logic                            PWRITE
 );
-
   `ifdef VERILATOR
-  `include "verification/verilator/src/common.v"
-  `INCREMENT_CYCLE_COUNT(clk)
+    `include "verification/verilator/src/hdl/ICN_SS.sv"
   `endif
 
   AXI_BUS #(

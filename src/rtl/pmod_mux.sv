@@ -73,6 +73,10 @@ module pmod_mux #(
     output logic         [3:0]          ss_3_pmod_1_gpi
 );
 
+   `ifdef VERILATOR
+      `include "verification/verilator/src/hdl/pmod_mux.sv"
+   `endif
+
   always_comb 
     mux_process : begin
 

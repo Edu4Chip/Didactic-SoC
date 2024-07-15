@@ -46,10 +46,8 @@ module Student_SS_3(
 );
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
-
 `ifdef VERILATOR
-`include "verification/verilator/src/common.v"
-`INCREMENT_CYCLE_COUNT(clk_in)
+    `include "verification/verilator/src/hdl/Student_SS_3.sv"
 `endif
 
 // TODO: Replace this with your module implementation

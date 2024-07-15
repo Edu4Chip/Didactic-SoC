@@ -188,8 +188,7 @@ module SysCtrl_SS_wrapper_0 #(
     output logic         [3:0]          ss_3_pmod_1_gpi
 );
     `ifdef VERILATOR
-    `include "verification/verilator/src/common.v"
-    `INCREMENT_CYCLE_COUNT(clock)
+        `include "verification/verilator/src/hdl/SysCtrl_SS_wrapper_0.sv"
     `endif
 
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:

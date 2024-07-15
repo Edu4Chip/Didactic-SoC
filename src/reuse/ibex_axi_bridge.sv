@@ -48,10 +48,8 @@ module ibex_axi_bridge #(
   input  logic                  r_valid_i,
   output logic                  r_ready_o
 );
-
 `ifdef VERILATOR
-`include "verification/verilator/src/common.v"
-`INCREMENT_CYCLE_COUNT(clk_i)
+  `include "verification/verilator/src/hdl/ibex_axi_bridge.sv"
 `endif
 
 enum logic [3:0] {
