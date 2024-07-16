@@ -15,6 +15,7 @@ initialize:
     - echo $PWD
     - ls -l
     - cat /etc/*-release
+    - apt update
     - apt install tree
     - make repository_init
     - which verilator
