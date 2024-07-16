@@ -15,8 +15,6 @@ initialize:
     - echo $PWD
     - ls -l
     - cat /etc/*-release
-    - apt update
-    - apt install tree
     - make repository_init
     - which verilator
     - verilator --version
@@ -35,6 +33,8 @@ initialize:
 default-executable:
   stage: test
   script:
+    - apt update
+    - apt install tree
     - tree verification
     - echo "test default executable"
     - make verilator-generate
