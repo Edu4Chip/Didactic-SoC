@@ -40,6 +40,6 @@ import "DPI-C" function void check_signal_propagation(input string path, input r
 `define CHECK_SIGNAL_PROPAGATION(FROM, TO) \
     `ifdef VERILATOR \
     always @ (FROM) begin \
-        #0 check_signal_propagation(`__FILE__, $realtime, "FROM", FROM, "TO", TO); \
+        #0 check_signal_propagation(`__FILE__, $realtime, `"FROM`", FROM, `"TO`", TO); \
     end \
     `endif
