@@ -10,6 +10,10 @@
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem/SysCtrl_SS/1.0/SysCtrl_SS.1.0.xml
 //-----------------------------------------------------------------------------
 
+`ifdef VERILATOR
+    `include "verification/verilator/src/hdl/nms/SysCtrl_SS_0.sv"
+`endif
+
 module SysCtrl_SS_0 #(
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32,
@@ -157,7 +161,7 @@ module SysCtrl_SS_0 #(
     input  logic         [14:0]         irq_upper_tieoff
 );
     `ifdef VERILATOR
-        `include "verification/verilator/src/hdl/SysCtrl_SS_0.sv"
+        `include "verification/verilator/src/hdl/ms/SysCtrl_SS_0.sv"
     `endif
 
     // i_SysCtrl_peripherals_GPIO_to_GPIO wires:

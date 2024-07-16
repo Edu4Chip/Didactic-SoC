@@ -10,6 +10,10 @@
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/ip/SysCtrl_peripherals/1.0/SysCtrl_peripherals.1.0.xml
 //-----------------------------------------------------------------------------
 
+`ifdef VERILATOR
+    `include "verification/verilator/src/hdl/nms/SysCtrl_peripherals_0.sv"
+`endif
+
 module SysCtrl_peripherals_0 #(
     parameter                              AXI4LITE_DW      = 32,
     parameter                              AXI4LITE_AW      = 32,
@@ -68,7 +72,7 @@ module SysCtrl_peripherals_0 #(
     output logic                        uart_tx_internal
 );
     `ifdef VERILATOR
-        `include "verification/verilator/src/hdl/SysCtrl_peripherals_0.sv"
+        `include "verification/verilator/src/hdl/ms/SysCtrl_peripherals_0.sv"
     `endif
 
     // APB_SPI_SPI_to_SPI wires:

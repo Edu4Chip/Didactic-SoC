@@ -10,6 +10,10 @@
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/SysCtrl_SS_wrapper/1.0/SysCtrl_SS_wrapper.1.0.xml
 //-----------------------------------------------------------------------------
 
+`ifdef VERILATOR
+    `include "verification/verilator/src/hdl/nms/SysCtrl_SS_wrapper_0.sv"
+`endif
+
 module SysCtrl_SS_wrapper_0 #(
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32,
@@ -188,7 +192,7 @@ module SysCtrl_SS_wrapper_0 #(
     output logic         [3:0]          ss_3_pmod_1_gpi
 );
     `ifdef VERILATOR
-        `include "verification/verilator/src/hdl/SysCtrl_SS_wrapper_0.sv"
+        `include "verification/verilator/src/hdl/ms/SysCtrl_SS_wrapper_0.sv"
     `endif
 
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:

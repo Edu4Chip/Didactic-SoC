@@ -5,6 +5,10 @@
 // this will be replaced by actual bootrom or removed in
 //case we want to only rely on the jtag based boot
 
+`ifdef VERILATOR
+  `include "verification/verilator/src/hdl/nms/BootRom.sv"
+`endif
+
 module BootRom #(
   parameter              INIT_FILE  = "",
   parameter int unsigned DATA_WIDTH = 64,
@@ -24,7 +28,7 @@ module BootRom #(
   input  logic                         wuser_i
 );
 `ifdef VERILATOR
-  `include "verification/verilator/src/hdl/BootRom.sv"
+  `include "verification/verilator/src/hdl/ms/BootRom.sv"
 `endif
 
 `ifndef FPGA /************************* ASIC SIM MODEL ****************************/

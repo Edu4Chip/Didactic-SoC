@@ -1,5 +1,9 @@
 // Description: SRAM Behavioral Model
 
+`ifdef VERILATOR
+  `include "verification/verilator/src/hdl/nms/sp_sram.sv"
+`endif
+
 module sp_sram #(
   parameter              INIT_FILE  = "",
   parameter int unsigned DATA_WIDTH = 64,
@@ -19,7 +23,7 @@ module sp_sram #(
   input  logic                         wuser_i
 );
 `ifdef VERILATOR
-  `include "verification/verilator/src/hdl/sp_sram.sv"
+  `include "verification/verilator/src/hdl/ms/sp_sram.sv"
 `endif
 
 `ifndef FPGA /************************* ASIC SIM MODEL ****************************/

@@ -16,6 +16,11 @@
     * example student area rtl code with off chip gpio interface 
     * original interface created with kactus2. Do not rewrite from kactus.
 */
+
+`ifdef VERILATOR
+  `include "verification/verilator/src/hdl/nms/student_ss_1.sv"
+`endif
+
 module student_ss_1 #(
     parameter                 APB_AW  = 10,
     parameter                 APB_DW  = 32
@@ -54,7 +59,7 @@ module student_ss_1 #(
     output logic [3:0] pmod_1_gpio_oe
 );
   `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/student_ss_1.sv"
+    `include "verification/verilator/src/hdl/ms/student_ss_1.sv"
   `endif
 
   logic [31:0] field_0;

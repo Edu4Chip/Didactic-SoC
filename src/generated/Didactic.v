@@ -15,6 +15,10 @@
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/Didactic.1.0.xml
 //-----------------------------------------------------------------------------
 
+`ifdef VERILATOR
+    `include "verification/verilator/src/hdl/nms/Didactic.sv"
+`endif
+
 module Didactic #(
     parameter                              AW               = 32,    // Global SoC address width
     parameter                              DW               = 32,    // Global SoC data width
@@ -61,7 +65,7 @@ module Didactic #(
     inout  wire          [1:0]          ana_core_out
 );
     `ifdef VERILATOR
-        `include "verification/verilator/src/hdl/Didactic.sv"
+        `include "verification/verilator/src/hdl/ms/Didactic.sv"
     `endif
 
     // SystemControl_SS_UART_to_UART wires:

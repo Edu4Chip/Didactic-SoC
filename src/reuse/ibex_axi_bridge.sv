@@ -5,6 +5,11 @@
   authors: Antti Nurmi    <antti.nurmi@tuni.fi>
            Tom Szymkowiak <thomas.szymkowiak@tuni.fi>
 */
+
+`ifdef VERILATOR
+  `include "verification/verilator/src/hdl/nms/ibex_axi_bridge.sv"
+`endif
+
 module ibex_axi_bridge #(
   /* NOTE: Limitation exists that IBEX DW/AW must be larger or equal to the
      respective AXI AW/DW. i.e. AXI CANNOT be wider than IBEX */
@@ -49,7 +54,7 @@ module ibex_axi_bridge #(
   output logic                  r_ready_o
 );
 `ifdef VERILATOR
-  `include "verification/verilator/src/hdl/ibex_axi_bridge.sv"
+  `include "verification/verilator/src/hdl/ms/ibex_axi_bridge.sv"
 `endif
 
 enum logic [3:0] {

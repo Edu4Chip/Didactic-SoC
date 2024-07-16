@@ -21,6 +21,10 @@
     * tweaks for importing to kactus2 by MK
 */
 
+`ifdef VERILATOR
+  `include "verification/verilator/src/hdl/nms/jtag_dbg_wrapper.sv"
+`endif
+
 module jtag_dbg_wrapper #(
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32,
@@ -90,7 +94,7 @@ module jtag_dbg_wrapper #(
     output        logic                      ndmreset_o
 );
 `ifdef VERILATOR
-  `include "verification/verilator/src/hdl/jtag_dbg_wrapper.sv"
+  `include "verification/verilator/src/hdl/ms/jtag_dbg_wrapper.sv"
 `endif
 
 /****** LOCAL VARIABLES AND CONSTANTS *****************************************/

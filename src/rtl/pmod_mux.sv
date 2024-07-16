@@ -10,6 +10,10 @@
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/ip/pmod_mux/1.0/pmod_mux.1.0.xml
 //-----------------------------------------------------------------------------
 
+`ifdef VERILATOR
+   `include "verification/verilator/src/hdl/nms/pmod_mux.sv"
+`endif
+
 module pmod_mux #(
     parameter IOCELL_CFG_W     = 5,    // control bus width for each individual IO cell
     parameter IOCELL_COUNT     = 26,    // update this value manually to match cell numbers
@@ -74,7 +78,7 @@ module pmod_mux #(
 );
 
    `ifdef VERILATOR
-      `include "verification/verilator/src/hdl/pmod_mux.sv"
+      `include "verification/verilator/src/hdl/ms/pmod_mux.sv"
    `endif
 
   always_comb 

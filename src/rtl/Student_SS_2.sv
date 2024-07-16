@@ -10,6 +10,10 @@
 // whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem/student_ss_2/1.0/student_ss_2.1.0.xml
 //-----------------------------------------------------------------------------
 
+`ifdef VERILATOR
+    `include "verification/verilator/src/hdl/nms/Student_SS_2.sv"
+`endif
+
 module student_ss_2(
     // Interface: APB
     input  logic [31:0] PADDR,
@@ -51,7 +55,7 @@ module student_ss_2(
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
 `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/Student_SS_2.sv"
+    `include "verification/verilator/src/hdl/ms/Student_SS_2.sv"
 `endif
 
 // this file contains minimal functionality to avoid breaking anything in other ends of the chip.

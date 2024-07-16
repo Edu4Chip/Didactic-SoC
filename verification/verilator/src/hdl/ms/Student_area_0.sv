@@ -1,0 +1,1 @@
+`INCREMENT_CYCLE_COUNT(clk_in)

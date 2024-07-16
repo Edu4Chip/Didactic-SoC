@@ -10,6 +10,10 @@
 // whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem/Student_SS_3/1.0/Student_SS_3.1.0.xml
 //-----------------------------------------------------------------------------
 
+`ifdef VERILATOR
+    `include "verification/verilator/src/hdl/nms/Student_SS_3.sv"
+`endif
+
 module Student_SS_3(
     // Interface: APB
     input  logic         [31:0]         PADDR,
@@ -47,7 +51,7 @@ module Student_SS_3(
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
 `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/Student_SS_3.sv"
+    `include "verification/verilator/src/hdl/ms/Student_SS_3.sv"
 `endif
 
 // TODO: Replace this with your module implementation

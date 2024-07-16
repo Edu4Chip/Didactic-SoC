@@ -17,6 +17,11 @@
     * This initial created manually. 
     * same functionality can be later created by TAU Kamel tool automatically from IPXACT
 */
+
+`ifdef VERILATOR
+    `include "verification/verilator/src/hdl/nms/SS_Ctrl_reg_array.sv"
+`endif
+
 module SS_Ctrl_reg_array #(
     parameter IOCELL_CFG_W     = 5,    
     parameter IOCELL_COUNT     = 28,    // update this value manually to match cell numbers
@@ -82,7 +87,7 @@ module SS_Ctrl_reg_array #(
     output logic [7:0] pmod_sel
 );
   `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/SS_Ctrl_reg_array.sv"
+    `include "verification/verilator/src/hdl/ms/SS_Ctrl_reg_array.sv"
   `endif
 
   logic [31:0] bootSel_reg;
