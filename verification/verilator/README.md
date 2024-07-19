@@ -13,9 +13,9 @@
 
 1. [Install Verilator](https://verilator.org/guide/latest/install.html).
 2. Configure file permission.
-    - `ls -l verification/verilator/do_fix.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/do_fix.sh`.
-    - `ls -l verification/verilator/run.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/run.sh`.
-    - `ls -l verification/verilator/undo_fix.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/undo_fix.sh`.
+    - `ls -l verification/verilator/scripts/do_fix.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/scripts/do_fix.sh`.
+    - `ls -l verification/verilator/scripts/run.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/scripts/run.sh`.
+    - `ls -l verification/verilator/scripts/undo_fix.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/scripts/undo_fix.sh`.
 3. Translate HW to SW with Verilator `make verilator-generate`.
     - Select executable, e.g. `example` using `make verilator-generate executable=example`.
     - Return value is `OK` if no errors were detected.
