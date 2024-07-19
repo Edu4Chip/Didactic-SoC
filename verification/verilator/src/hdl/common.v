@@ -5,7 +5,7 @@ Assuming that "clk" is the clock signal of the module.
 
 ```
 `ifdef VERILATOR
-`include "verification/verilator/src/common.v"
+`include "verification/verilator/src/hdl/common.v"
 `INCREMENT_CYCLE_COUNT(clk)
 `endif
 ```
@@ -30,7 +30,7 @@ Assuming that "from" and "to" are signals.
 
 ```
 `ifdef VERILATOR
-`include "verification/verilator/src/common.v"
+`include "verification/verilator/src/hdl/common.v"
 import "DPI-C" function void check_signal_propagation(input string path, input real itime, input string name1, input int value1, input string name2, input int value2);
 `CHECK_SIGNAL_PROPAGATION(from, to)
 `endif
