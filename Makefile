@@ -75,7 +75,7 @@ verilator-generate:
 # build sw model with sw testbench
 .PHONY: verilator-build
 verilator-build:
-	make -C obj_dir -f VDidactic.mk
+	make --directory=obj_dir --makefile=VDidactic.mk
 
 # run sw testbench
 .PHONY: verilator-run
