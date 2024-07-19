@@ -27,6 +27,8 @@ int main(int argc, char** argv) {
   }
 #endif
 
+  std::cout << "1" << std::endl;
+
   // Schedule tasks
   std::vector<ScheduledTask> scheduled_tasks;
   schedule_task(scheduled_tasks, 2, task_initialize);
@@ -42,11 +44,15 @@ int main(int argc, char** argv) {
         task.task(context, model);
       }
     }
+    std::cout << "2" << std::endl;
     // Compute combinatorial logic
     model->eval();
+    std::cout << "3" << std::endl;
     // Compute sequential logic
     toggle_clock(model);
+    std::cout << "4" << std::endl;
     model->eval();
+    std::cout << "5" << std::endl;
 #if VM_TRACE
     if (tracer) {
       tracer->dump(context->time());
