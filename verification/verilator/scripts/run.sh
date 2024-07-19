@@ -18,6 +18,9 @@ if [ ! -f verification/verilator/src/sw/${EXECUTABLE}.cpp ]; then
     exit 1
 fi
 
+# Generate HDL and SW bindings
+python3 verification/verilator/scripts/generate_bindings.py
+
 # Apply fixes to verilog files
 verification/verilator/scripts/do_fix.sh
 
