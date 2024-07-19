@@ -19,9 +19,9 @@ initialize:
     - which verilator
     - verilator --version
     - ls -l verification/verilator
-    - chmod u+x verification/verilator/do_fix.sh
-    - chmod u+x verification/verilator/run.sh
-    - chmod u+x verification/verilator/undo_fix.sh
+    - chmod u+x verification/verilator/scripts/do_fix.sh
+    - chmod u+x verification/verilator/scripts/run.sh
+    - chmod u+x verification/verilator/scripts/undo_fix.sh
     - ls -l verification/verilator
   artifacts:
     expire_in: "30 mins"
@@ -33,9 +33,6 @@ initialize:
 default-executable:
   stage: test
   script:
-    - apt update
-    - apt install tree
-    - tree verification
     - echo "test default executable"
     - make verilator-generate
     - make verilator-build
