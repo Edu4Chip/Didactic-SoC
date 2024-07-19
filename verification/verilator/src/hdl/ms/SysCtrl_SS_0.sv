@@ -1,5 +1,7 @@
 `INCREMENT_CYCLE_COUNT(clk_internal)
+`include "verification/verilator/src/generated/hdl/ms/SysCtrl_SS_0.sv"
 
+/*
 always @ (posedge Ibex_Core_clk_i) begin
     StatusImem status_imem;
     StatusDmem status_dmem;
@@ -25,3 +27,4 @@ always @ (posedge Ibex_Core_clk_i) begin
     status_dmem.we_o         = Ibex_Core_data_we_o;
     print_core_state($realtime, status_imem, status_dmem);
 end
+*/

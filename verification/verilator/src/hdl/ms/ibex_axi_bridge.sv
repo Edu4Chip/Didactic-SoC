@@ -1,5 +1,7 @@
 `INCREMENT_CYCLE_COUNT(clk_i)
+`include "verification/verilator/src/generated/hdl/ms/ibex_axi_bridge.sv"
 
+/*
 always @ (posedge clk_i) begin
   string name;
   StatusIbexAxiBridge status_ibex_axi_bridge;
@@ -34,3 +36,4 @@ always @ (posedge clk_i) begin
   $sformat(name, "%m");
   track_ibex_axi_bridge($realtime, name, status_ibex_axi_bridge);
 end
+*/

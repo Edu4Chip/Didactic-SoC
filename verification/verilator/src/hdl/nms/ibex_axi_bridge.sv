@@ -1,5 +1,7 @@
-`include "verification/verilator/src/common.v"
+`include "verification/verilator/src/hdl/common.v"
+`include "verification/verilator/src/generated/hdl/nms/ibex_axi_bridge.sv"
 
+/*
 typedef struct packed {
   int unsigned clk_i;
   int unsigned rst_ni;
@@ -34,3 +36,4 @@ typedef struct packed {
 } StatusIbexAxiBridge;
 
 import "DPI-C" function void track_ibex_axi_bridge(input real itime, input string name, input StatusIbexAxiBridge status_ibex_axi_bridge);
+*/

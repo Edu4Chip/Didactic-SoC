@@ -1,4 +1,5 @@
 `INCREMENT_CYCLE_COUNT(clk_in)
+`include "verification/verilator/src/generated/hdl/ms/io_cell_frame_sysctrl.sv"
 
 `CHECK_SIGNAL_PROPAGATION(boot_sel, BootSel_internal)
 `CHECK_SIGNAL_PROPAGATION(clk_in, clk_internal)
