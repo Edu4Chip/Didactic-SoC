@@ -13,13 +13,13 @@ else
     tput setaf 2; echo "info: executable given: \"${EXECUTABLE}\""; tput sgr0
 fi
 
-if [ ! -f verification/verilator/src/${EXECUTABLE}.cpp ]; then
+if [ ! -f verification/verilator/src/sw/${EXECUTABLE}.cpp ]; then
     tput setaf 1; echo "error: given file \"${EXECUTABLE}.cpp\" doest not exist"; tput sgr0
     exit 1
 fi
 
 # Apply fixes to verilog files
-verification/verilator/do_fix.sh
+verification/verilator/scripts/do_fix.sh
 
 # FIXME: "FIX_SIGNAL_PROPAGATION" is a temporary solution to fix signal propagation, remove when fixed in HDL
 
@@ -45,12 +45,12 @@ verilator \
     -F src/sv-files.list \
     -F src/sim-files.list \
     -DFIX_SIGNAL_PROPAGATION \
-    verification/verilator/src/${EXECUTABLE}.cpp
+    verification/verilator/src/sw/${EXECUTABLE}.cpp
 verilator_exit_code=$?
 echo ""
 
 # Remove fixes to verilog files
-verification/verilator/undo_fix.sh
+verification/verilator/scripts/undo_fix.sh
 
 if [ ${verilator_exit_code} -eq 0 ]; then
     echo "OK"
