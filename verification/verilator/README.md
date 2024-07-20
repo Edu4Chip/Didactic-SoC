@@ -16,8 +16,9 @@
     - `ls -l verification/verilator/scripts/do_fix.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/scripts/do_fix.sh`.
     - `ls -l verification/verilator/scripts/run.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/scripts/run.sh`.
     - `ls -l verification/verilator/scripts/undo_fix.sh` must return `**x` for user. If that is not the case then `chmod u+x verification/verilator/scripts/undo_fix.sh`.
-3. Translate HW to SW with Verilator `make verilator-generate`.
-    - Select executable, e.g. `example` using `make verilator-generate executable=example`.
+3. Generate HDL and SW bindings `make verilator-generate-bindings`
+3. Translate HW to SW with Verilator `make verilator-generate-model`.
+    - Select executable, e.g. `example` using `make verilator-generate-model executable=example`.
     - Return value is `OK` if no errors were detected.
     - Return value is `FAIL` is errors were detected.
 4. Build Verilator's output with SW testbench `make verilator-build`.
