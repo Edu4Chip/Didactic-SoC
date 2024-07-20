@@ -169,6 +169,7 @@ extern void print_core_state(double time, const uint32_t* status_imem, const uin
   // std::cout << "  " << "  " << std::right << std::setw(15) << "we_o: " << status_dmem3.we_o << std::endl;*/
 }
 
+/*
 struct StatusIbexAxiBridge {
   uint32_t clk_i;
   uint32_t rst_ni;
@@ -205,7 +206,9 @@ struct StatusIbexAxiBridge {
   uint32_t r_valid_i;
   uint32_t r_ready_o;
 };
+*/
 
+/*
 void track_ibex_axi_bridge(double time, const char* name, const uint32_t* status_ibex_axi_bridge) {
   std::vector<std::string> ignored = {
       //"DIDACTIC.Didactic.SystemControl_SS.SysCtrl_SS.core_imem_bridge.unnamedblk1",
@@ -245,7 +248,7 @@ void track_ibex_axi_bridge(double time, const char* name, const uint32_t* status
   status_ibex_axi_bridge3.r_resp_i = status_ibex_axi_bridge2->req_i;
   status_ibex_axi_bridge3.r_valid_i = status_ibex_axi_bridge2->rst_ni;
   status_ibex_axi_bridge3.r_ready_o = status_ibex_axi_bridge2->clk_i;
-  /*std::cout << "[" << time << "] " << __func__ << std::endl;
+  std::cout << "[" << time << "] " << __func__ << std::endl;
   std::cout << std::string(name) << ":" << std::endl;
   std::cout << "  " << std::right << std::setw(15) << "clk_i: " << status_ibex_axi_bridge3.clk_i << std::endl;
   std::cout << "  " << std::right << std::setw(15) << "rst_ni: " << status_ibex_axi_bridge3.rst_ni << std::endl;
@@ -274,8 +277,9 @@ void track_ibex_axi_bridge(double time, const char* name, const uint32_t* status
   std::cout << "  " << std::right << std::setw(15) << "r_data_i: " << status_ibex_axi_bridge3.r_data_i << std::endl;
   std::cout << "  " << std::right << std::setw(15) << "r_resp_i: " << status_ibex_axi_bridge3.r_resp_i << std::endl;
   std::cout << "  " << std::right << std::setw(15) << "r_valid_i: " << status_ibex_axi_bridge3.r_valid_i << std::endl;
-  std::cout << "  " << std::right << std::setw(15) << "r_ready_o: " << status_ibex_axi_bridge3.r_ready_o << std::endl;*/
+  std::cout << "  " << std::right << std::setw(15) << "r_ready_o: " << status_ibex_axi_bridge3.r_ready_o << std::endl;
 }
+*/
 
 // =============================================
 // Functions and objects used in simulation code
