@@ -67,9 +67,14 @@ run_sim: check-env
 
 executable ?= ""
 
+# generate hdl and sw bindings
+.PHONY: verilator-generate-bindings
+verilator-generate-bindings:
+	python3 ./verification/verilator/scripts/generate_bindings.py
+
 # generate sw model for hw
-.PHONY: verilator-generate
-verilator-generate:
+.PHONY: verilator-generate-model
+verilator-generate-model:
 	./verification/verilator/scripts/run.sh $(executable)
 
 # build sw model with sw testbench
