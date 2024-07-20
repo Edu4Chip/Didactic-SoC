@@ -145,14 +145,16 @@ if __name__ == "__main__":
                 print(f"}};", file=stream)
 
                 print(f"void track_{module_name}(double time, const char* name, const uint32_t* status) {{", file=stream)
-                print(f'  std::cout << "[" << time << "] " << __func__ << std::endl;', file=stream)
                 print(f"  // Apparently struct members come in reverse order...", file=stream)
                 print(f"  struct {struct_name}* status2 = (struct {struct_name}*)status;", file=stream)
                 print(f"  struct {struct_name} status3;", file=stream)
                 signal_names_reversed = list(reversed(signal_names))
                 for name1, name2 in zip(signal_names, signal_names_reversed):
                     print(f"  status3.{name1} = status2->{name2};", file=stream)
+                print(f"#ifdef TRACK_{module_name.upper()}", file=stream)
+                print(f'  std::cout << "[" << time << "] " << __func__ << std::endl;', file=stream)
                 print(f'  std::cout << std::string(name) << ":" << std::endl;', file=stream)
                 for signal_name in signal_names:
                     print(f'  std::cout << "  " << std::right << std::setw(15) << "{signal_name}: " << status3.{signal_name} << std::endl;', file=stream)
+                print(f"#endif // TRACK_{module_name.upper()}", file=stream)
                 print(f"}}", file=stream)
