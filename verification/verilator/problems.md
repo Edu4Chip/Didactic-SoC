@@ -12,3 +12,7 @@ If this line is enabled, then a following error is generated
 ```
 
 If this line is replaced with e.g. `typedef logic [31:0] select_t;`, the error disappears.
+
+## Problem 2
+
+If `--timing` is enabled, then the test executable has a segmentation fault at the first call to `model.eval()`.
