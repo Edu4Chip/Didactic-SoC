@@ -74,3 +74,13 @@ verify-signal-propagation:
     - make verilator-generate-model executable=verify_signal_propagation
     - make verilator-build
     - make verilator-run
+
+verify-build-with-all-warnings:
+  stage: verify
+  script:
+    - echo "verify build with all warnings"
+    - chmod u+x verification/verilator/scripts/run.sh
+    - make verilator-generate-bindings
+    - ./verification/verilator/scripts/run_with_all_warnings.sh
+    - make verilator-build
+    - make verilator-run
