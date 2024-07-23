@@ -35,6 +35,11 @@ import "DPI-C" function void check_signal_propagation(input string path, input r
 `CHECK_SIGNAL_PROPAGATION(from, to)
 `endif
 ```
+
+The `#0` delay is added to make sure that signal propagation is checked only at inactive region.
+Thus, all continuous assignments should be done at the previous active region.
+Problem: `--timing` option causes segmentation fault at first `model.eval()`.
+
 */
 
 `define CHECK_SIGNAL_PROPAGATION(FROM, TO) \
