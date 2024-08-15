@@ -30,6 +30,13 @@ check-env:
 	mkdir -p $(BUILD_DIR)/logs/sim
 
 ######################################################################
+#
+######################################################################
+soc-rtl:
+	echo "Generating SoC RTL. Check variables from scripts/run_kactus2_script.sh to be able to run Kactus2."
+	source scripts/run_kactus2_script.sh -f scripts/kactus2_generate_soc_rtl.py
+
+######################################################################
 # hw targets
 ######################################################################
 
