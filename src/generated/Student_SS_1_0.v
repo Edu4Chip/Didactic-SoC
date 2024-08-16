@@ -51,6 +51,9 @@ module Student_SS_1_0 #(
     output logic         [3:0]          pmod_1_gpio_oe,
     output logic         [3:0]          pmod_1_gpo
 );
+    `ifdef VERILATOR
+        `include "verification/verilator/src/hdl/ms/Student_SS_1_0.sv"
+    `endif
 
     // tech_cg_0_clk_in_to_Clock wires:
     wire       tech_cg_0_clk_in_to_Clock_clk;

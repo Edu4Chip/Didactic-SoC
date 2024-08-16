@@ -25,7 +25,7 @@ module SysCtrl_xbar #(
     parameter                          AXI4LITE_AW      = 32,
     parameter                          AXI4LITE_DW      = 32,
     parameter                          AXI_AW           = 32,
-    parameter                          AXI_DW           = 32,
+    parameter                          AXI_DW           = 32
 ) (
 
     // Interface: AXI4LITE_CORE_IMEM
