@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 12.07.2024
-// Creation time : 09:40:19
+// Creation date : 16.08.2024
+// Creation time : 11:27:28
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -15,17 +15,11 @@
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/Didactic.1.0.xml
 //-----------------------------------------------------------------------------
 
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/Didactic.sv"
-`endif
-
 module Didactic #(
     parameter                              AW               = 32,    // Global SoC address width
     parameter                              DW               = 32,    // Global SoC data width
     parameter                              SS_CTRL_W        = 8,    // SoC SS control width
     parameter                              NUM_GPIO         = 8,    // SoC GPIO Cell count. Default 2x pmod = 8.
-    parameter                              AXI_USERW        = 1,
-    parameter                              AXI_IDW          = 10,
     parameter                              IOCELL_CFG_W     = 5,    // Tech cell control width.
     parameter                              IOCELL_COUNT     = 26    // Controller IO  cell count
 ) (
@@ -64,9 +58,6 @@ module Didactic #(
     inout  wire          [1:0]          ana_core_in,
     inout  wire          [1:0]          ana_core_out
 );
-    `ifdef VERILATOR
-        `include "verification/verilator/src/hdl/ms/Didactic.sv"
-    `endif
 
     // SystemControl_SS_UART_to_UART wires:
     // SystemControl_SS_SPI_to_SPI wires:
@@ -130,52 +121,6 @@ module Didactic #(
     wire       SystemControl_SS_Reset_SS_1_to_Student_SS_1_Reset_reset;
     // SystemControl_SS_Reset_SS_2_to_Student_SS_2_Reset wires:
     wire       SystemControl_SS_Reset_SS_2_to_Student_SS_2_Reset_reset;
-    // SystemControl_SS_AXI_to_ICN_SS_AXI wires:
-    wire [31:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ADDR;
-    wire [1:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AR_BURST;
-    wire [3:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AR_CACHE;
-    wire [9:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ID;
-    wire [7:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AR_LEN;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AR_LOCK;
-    wire [2:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AR_PROT;
-    wire [3:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AR_QOS;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AR_READY;
-    wire [2:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AR_REGION;
-    wire [2:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AR_SIZE;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AR_USER;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AR_VALID;
-    wire [31:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_ADDR;
-    wire [5:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_ATOP;
-    wire [1:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_BURST;
-    wire [3:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_CACHE;
-    wire [9:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_ID;
-    wire [7:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_LEN;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AW_LOCK;
-    wire [2:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_PROT;
-    wire [3:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_QOS;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AW_READY;
-    wire [3:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_REGION;
-    wire [2:0] SystemControl_SS_AXI_to_ICN_SS_AXI_AW_SIZE;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AW_USER;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_AW_VALID;
-    wire [9:0] SystemControl_SS_AXI_to_ICN_SS_AXI_B_ID;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_B_READY;
-    wire [1:0] SystemControl_SS_AXI_to_ICN_SS_AXI_B_RESP;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_B_USER;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_B_VALID;
-    wire [31:0] SystemControl_SS_AXI_to_ICN_SS_AXI_R_DATA;
-    wire [9:0] SystemControl_SS_AXI_to_ICN_SS_AXI_R_ID;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_R_LAST;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_R_READY;
-    wire [1:0] SystemControl_SS_AXI_to_ICN_SS_AXI_R_RESP;
-    wire [1:0] SystemControl_SS_AXI_to_ICN_SS_AXI_R_USER;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_R_VALID;
-    wire [31:0] SystemControl_SS_AXI_to_ICN_SS_AXI_W_DATA;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_LAST;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_READY;
-    wire [3:0] SystemControl_SS_AXI_to_ICN_SS_AXI_W_STROBE;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_USER;
-    wire       SystemControl_SS_AXI_to_ICN_SS_AXI_W_VALID;
     // SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset wires:
     wire       SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset_reset;
     // SystemControl_SS_IRQ3_to_Student_SS_3_IRQ wires:
@@ -225,40 +170,26 @@ module Didactic #(
     wire [3:0] Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpi;
     wire [3:0] Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpio_oe;
     wire [3:0] Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpo;
+    // ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn wires:
+    wire [31:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_ADDR;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_READY;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_VALID;
+    wire [31:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_ADDR;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_READY;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_VALID;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_READY;
+    wire [1:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_RESP;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_VALID;
+    wire [31:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_DATA;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_READY;
+    wire [1:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_RESP;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_VALID;
+    wire [31:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_DATA;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_READY;
+    wire [3:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_STRB;
+    wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_VALID;
 
     // ICN_SS port wires:
-    wire [31:0] ICN_SS_AR_ADDR;
-    wire [1:0] ICN_SS_AR_BURST;
-    wire [3:0] ICN_SS_AR_CACHE;
-    wire [9:0] ICN_SS_AR_ID;
-    wire [7:0] ICN_SS_AR_LEN;
-    wire       ICN_SS_AR_LOCK;
-    wire [2:0] ICN_SS_AR_PROT;
-    wire [3:0] ICN_SS_AR_QOS;
-    wire       ICN_SS_AR_READY;
-    wire [2:0] ICN_SS_AR_REGION;
-    wire [2:0] ICN_SS_AR_SIZE;
-    wire       ICN_SS_AR_USER;
-    wire       ICN_SS_AR_VALID;
-    wire [31:0] ICN_SS_AW_ADDR;
-    wire [5:0] ICN_SS_AW_ATOP;
-    wire [1:0] ICN_SS_AW_BURST;
-    wire [3:0] ICN_SS_AW_CACHE;
-    wire [9:0] ICN_SS_AW_ID;
-    wire [7:0] ICN_SS_AW_LEN;
-    wire       ICN_SS_AW_LOCK;
-    wire [2:0] ICN_SS_AW_PROT;
-    wire [3:0] ICN_SS_AW_QOS;
-    wire       ICN_SS_AW_READY;
-    wire [3:0] ICN_SS_AW_REGION;
-    wire [2:0] ICN_SS_AW_SIZE;
-    wire       ICN_SS_AW_USER;
-    wire       ICN_SS_AW_VALID;
-    wire [9:0] ICN_SS_B_ID;
-    wire       ICN_SS_B_READY;
-    wire [1:0] ICN_SS_B_RESP;
-    wire       ICN_SS_B_USER;
-    wire       ICN_SS_B_VALID;
     wire [31:0] ICN_SS_PADDR;
     wire       ICN_SS_PENABLE;
     wire [127:0] ICN_SS_PRDATA;
@@ -267,20 +198,24 @@ module Didactic #(
     wire [3:0] ICN_SS_PSLVERR;
     wire [31:0] ICN_SS_PWDATA;
     wire       ICN_SS_PWRITE;
-    wire [31:0] ICN_SS_R_DATA;
-    wire [9:0] ICN_SS_R_ID;
-    wire       ICN_SS_R_LAST;
-    wire       ICN_SS_R_READY;
-    wire [1:0] ICN_SS_R_RESP;
-    wire       ICN_SS_R_USER;
-    wire       ICN_SS_R_VALID;
-    wire [31:0] ICN_SS_W_DATA;
-    wire       ICN_SS_W_LAST;
-    wire       ICN_SS_W_READY;
-    wire [3:0] ICN_SS_W_STROBE;
-    wire       ICN_SS_W_USER;
-    wire       ICN_SS_W_VALID;
     wire       ICN_SS_clk;
+    wire [31:0] ICN_SS_icn_ar_addr_in;
+    wire       ICN_SS_icn_ar_ready_out;
+    wire       ICN_SS_icn_ar_valid_in;
+    wire [31:0] ICN_SS_icn_aw_addr_in;
+    wire       ICN_SS_icn_aw_ready_out;
+    wire       ICN_SS_icn_aw_valid_in;
+    wire       ICN_SS_icn_b_ready_in;
+    wire [1:0] ICN_SS_icn_b_resp_out;
+    wire       ICN_SS_icn_b_valid_out;
+    wire [31:0] ICN_SS_icn_r_data_out;
+    wire       ICN_SS_icn_r_ready_in;
+    wire [1:0] ICN_SS_icn_r_resp_out;
+    wire       ICN_SS_icn_r_valid_out;
+    wire [31:0] ICN_SS_icn_w_data_in;
+    wire       ICN_SS_icn_w_ready_out;
+    wire [3:0] ICN_SS_icn_w_strb_in;
+    wire       ICN_SS_icn_w_valid_in;
     wire       ICN_SS_reset_int;
     wire [7:0] ICN_SS_ss_ctrl_icn;
     // Student_SS_0 port wires:
@@ -364,52 +299,24 @@ module Didactic #(
     wire       Student_SS_3_reset_int;
     wire [7:0] Student_SS_3_ss_ctrl_3;
     // SystemControl_SS port wires:
-    wire [31:0] SystemControl_SS_AR_ADDR;
-    wire [1:0] SystemControl_SS_AR_BURST;
-    wire [3:0] SystemControl_SS_AR_CACHE;
-    wire [9:0] SystemControl_SS_AR_ID;
-    wire [7:0] SystemControl_SS_AR_LEN;
-    wire       SystemControl_SS_AR_LOCK;
-    wire [2:0] SystemControl_SS_AR_PROT;
-    wire [3:0] SystemControl_SS_AR_QOS;
-    wire       SystemControl_SS_AR_READY;
-    wire [2:0] SystemControl_SS_AR_REGION;
-    wire [2:0] SystemControl_SS_AR_SIZE;
-    wire       SystemControl_SS_AR_USER;
-    wire       SystemControl_SS_AR_VALID;
-    wire [31:0] SystemControl_SS_AW_ADDR;
-    wire [5:0] SystemControl_SS_AW_ATOP;
-    wire [1:0] SystemControl_SS_AW_BURST;
-    wire [3:0] SystemControl_SS_AW_CACHE;
-    wire [9:0] SystemControl_SS_AW_ID;
-    wire [7:0] SystemControl_SS_AW_LEN;
-    wire       SystemControl_SS_AW_LOCK;
-    wire [2:0] SystemControl_SS_AW_PROT;
-    wire [3:0] SystemControl_SS_AW_QOS;
-    wire       SystemControl_SS_AW_READY;
-    wire [3:0] SystemControl_SS_AW_REGION;
-    wire [2:0] SystemControl_SS_AW_SIZE;
-    wire       SystemControl_SS_AW_USER;
-    wire       SystemControl_SS_AW_VALID;
-    wire [9:0] SystemControl_SS_B_ID;
-    wire       SystemControl_SS_B_READY;
-    wire [1:0] SystemControl_SS_B_RESP;
-    wire       SystemControl_SS_B_USER;
-    wire       SystemControl_SS_B_VALID;
-    wire [31:0] SystemControl_SS_R_DATA;
-    wire [9:0] SystemControl_SS_R_ID;
-    wire       SystemControl_SS_R_LAST;
-    wire       SystemControl_SS_R_READY;
-    wire [1:0] SystemControl_SS_R_RESP;
-    wire [1:0] SystemControl_SS_R_USER;
-    wire       SystemControl_SS_R_VALID;
-    wire [31:0] SystemControl_SS_W_DATA;
-    wire       SystemControl_SS_W_LAST;
-    wire       SystemControl_SS_W_READY;
-    wire [3:0] SystemControl_SS_W_STROBE;
-    wire       SystemControl_SS_W_USER;
-    wire       SystemControl_SS_W_VALID;
     wire       SystemControl_SS_clk;
+    wire [31:0] SystemControl_SS_icn_ar_addr_out;
+    wire       SystemControl_SS_icn_ar_ready_in;
+    wire       SystemControl_SS_icn_ar_valid_out;
+    wire [31:0] SystemControl_SS_icn_aw_addr_out;
+    wire       SystemControl_SS_icn_aw_ready_in;
+    wire       SystemControl_SS_icn_aw_valid_out;
+    wire       SystemControl_SS_icn_b_ready_out;
+    wire [1:0] SystemControl_SS_icn_b_resp_in;
+    wire       SystemControl_SS_icn_b_valid_in;
+    wire [31:0] SystemControl_SS_icn_r_data_in;
+    wire       SystemControl_SS_icn_r_ready_out;
+    wire [1:0] SystemControl_SS_icn_r_resp_in;
+    wire       SystemControl_SS_icn_r_valid_in;
+    wire [31:0] SystemControl_SS_icn_w_data_out;
+    wire       SystemControl_SS_icn_w_ready_in;
+    wire [3:0] SystemControl_SS_icn_w_strb_out;
+    wire       SystemControl_SS_icn_w_valid_out;
     wire       SystemControl_SS_irq_0;
     wire       SystemControl_SS_irq_1;
     wire       SystemControl_SS_irq_2;
@@ -456,38 +363,6 @@ module Didactic #(
     // Assignments for the ports of the encompassing component:
 
     // ICN_SS assignments:
-    assign ICN_SS_AR_ADDR = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ADDR;
-    assign ICN_SS_AR_BURST = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_BURST;
-    assign ICN_SS_AR_CACHE = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_CACHE;
-    assign ICN_SS_AR_ID = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ID;
-    assign ICN_SS_AR_LEN = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_LEN;
-    assign ICN_SS_AR_LOCK = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_LOCK;
-    assign ICN_SS_AR_PROT = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_PROT;
-    assign ICN_SS_AR_QOS = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_QOS;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_READY = ICN_SS_AR_READY;
-    assign ICN_SS_AR_REGION = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_REGION;
-    assign ICN_SS_AR_SIZE = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_SIZE;
-    assign ICN_SS_AR_USER = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_USER;
-    assign ICN_SS_AR_VALID = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_VALID;
-    assign ICN_SS_AW_ADDR = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_ADDR;
-    assign ICN_SS_AW_ATOP = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_ATOP;
-    assign ICN_SS_AW_BURST = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_BURST;
-    assign ICN_SS_AW_CACHE = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_CACHE;
-    assign ICN_SS_AW_ID = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_ID;
-    assign ICN_SS_AW_LEN = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_LEN;
-    assign ICN_SS_AW_LOCK = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_LOCK;
-    assign ICN_SS_AW_PROT = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_PROT;
-    assign ICN_SS_AW_QOS = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_QOS;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_READY = ICN_SS_AW_READY;
-    assign ICN_SS_AW_REGION = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_REGION;
-    assign ICN_SS_AW_SIZE = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_SIZE;
-    assign ICN_SS_AW_USER = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_USER;
-    assign ICN_SS_AW_VALID = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_VALID;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_B_ID = ICN_SS_B_ID;
-    assign ICN_SS_B_READY = SystemControl_SS_AXI_to_ICN_SS_AXI_B_READY;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_B_RESP = ICN_SS_B_RESP;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_B_USER = ICN_SS_B_USER;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_B_VALID = ICN_SS_B_VALID;
     assign ICN_SS_APB3_to_Student_SS_3_APB_PADDR = ICN_SS_PADDR;
     assign ICN_SS_APB2_to_Student_SS_2_APB_PADDR = ICN_SS_PADDR;
     assign ICN_SS_APB1_to_Student_SS_1_APB_PADDR = ICN_SS_PADDR;
@@ -520,20 +395,24 @@ module Didactic #(
     assign ICN_SS_APB2_to_Student_SS_2_APB_PWRITE = ICN_SS_PWRITE;
     assign ICN_SS_APB1_to_Student_SS_1_APB_PWRITE = ICN_SS_PWRITE;
     assign ICN_SS_APB0_to_Student_SS_0_APB_PWRITE = ICN_SS_PWRITE;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_DATA = ICN_SS_R_DATA;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_ID = ICN_SS_R_ID;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_LAST = ICN_SS_R_LAST;
-    assign ICN_SS_R_READY = SystemControl_SS_AXI_to_ICN_SS_AXI_R_READY;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_RESP = ICN_SS_R_RESP;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_USER[0] = ICN_SS_R_USER;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_VALID = ICN_SS_R_VALID;
-    assign ICN_SS_W_DATA = SystemControl_SS_AXI_to_ICN_SS_AXI_W_DATA;
-    assign ICN_SS_W_LAST = SystemControl_SS_AXI_to_ICN_SS_AXI_W_LAST;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_W_READY = ICN_SS_W_READY;
-    assign ICN_SS_W_STROBE = SystemControl_SS_AXI_to_ICN_SS_AXI_W_STROBE;
-    assign ICN_SS_W_USER = SystemControl_SS_AXI_to_ICN_SS_AXI_W_USER;
-    assign ICN_SS_W_VALID = SystemControl_SS_AXI_to_ICN_SS_AXI_W_VALID;
     assign ICN_SS_clk = SystemControl_SS_Clock_int_to_ICN_SS_Clock_clk;
+    assign ICN_SS_icn_ar_addr_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_ADDR;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_READY = ICN_SS_icn_ar_ready_out;
+    assign ICN_SS_icn_ar_valid_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_VALID;
+    assign ICN_SS_icn_aw_addr_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_ADDR;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_READY = ICN_SS_icn_aw_ready_out;
+    assign ICN_SS_icn_aw_valid_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_VALID;
+    assign ICN_SS_icn_b_ready_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_READY;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_RESP = ICN_SS_icn_b_resp_out;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_VALID = ICN_SS_icn_b_valid_out;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_DATA = ICN_SS_icn_r_data_out;
+    assign ICN_SS_icn_r_ready_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_READY;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_RESP = ICN_SS_icn_r_resp_out;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_VALID = ICN_SS_icn_r_valid_out;
+    assign ICN_SS_icn_w_data_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_DATA;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_READY = ICN_SS_icn_w_ready_out;
+    assign ICN_SS_icn_w_strb_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_STRB;
+    assign ICN_SS_icn_w_valid_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_VALID;
     assign ICN_SS_reset_int = SystemControl_SS_Reset_icn_to_ICN_SS_Reset_reset;
     assign ICN_SS_ss_ctrl_icn = SystemControl_SS_ICN_SS_Ctrl_to_ICN_SS_SS_Ctrl_clk_ctrl;
     // Student_SS_0 assignments:
@@ -617,52 +496,24 @@ module Didactic #(
     assign Student_SS_3_reset_int = SystemControl_SS_Reset_SS_3_to_Student_SS_3_Reset_reset;
     assign Student_SS_3_ss_ctrl_3 = SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_clk_ctrl;
     // SystemControl_SS assignments:
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ADDR = SystemControl_SS_AR_ADDR;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_BURST = SystemControl_SS_AR_BURST;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_CACHE = SystemControl_SS_AR_CACHE;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_ID = SystemControl_SS_AR_ID;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_LEN = SystemControl_SS_AR_LEN;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_LOCK = SystemControl_SS_AR_LOCK;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_PROT = SystemControl_SS_AR_PROT;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_QOS = SystemControl_SS_AR_QOS;
-    assign SystemControl_SS_AR_READY = SystemControl_SS_AXI_to_ICN_SS_AXI_AR_READY;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_REGION = SystemControl_SS_AR_REGION;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_SIZE = SystemControl_SS_AR_SIZE;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_USER = SystemControl_SS_AR_USER;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AR_VALID = SystemControl_SS_AR_VALID;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_ADDR = SystemControl_SS_AW_ADDR;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_ATOP = SystemControl_SS_AW_ATOP;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_BURST = SystemControl_SS_AW_BURST;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_CACHE = SystemControl_SS_AW_CACHE;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_ID = SystemControl_SS_AW_ID;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_LEN = SystemControl_SS_AW_LEN;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_LOCK = SystemControl_SS_AW_LOCK;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_PROT = SystemControl_SS_AW_PROT;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_QOS = SystemControl_SS_AW_QOS;
-    assign SystemControl_SS_AW_READY = SystemControl_SS_AXI_to_ICN_SS_AXI_AW_READY;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_REGION = SystemControl_SS_AW_REGION;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_SIZE = SystemControl_SS_AW_SIZE;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_USER = SystemControl_SS_AW_USER;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_AW_VALID = SystemControl_SS_AW_VALID;
-    assign SystemControl_SS_B_ID = SystemControl_SS_AXI_to_ICN_SS_AXI_B_ID;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_B_READY = SystemControl_SS_B_READY;
-    assign SystemControl_SS_B_RESP = SystemControl_SS_AXI_to_ICN_SS_AXI_B_RESP;
-    assign SystemControl_SS_B_USER = SystemControl_SS_AXI_to_ICN_SS_AXI_B_USER;
-    assign SystemControl_SS_B_VALID = SystemControl_SS_AXI_to_ICN_SS_AXI_B_VALID;
-    assign SystemControl_SS_R_DATA = SystemControl_SS_AXI_to_ICN_SS_AXI_R_DATA;
-    assign SystemControl_SS_R_ID = SystemControl_SS_AXI_to_ICN_SS_AXI_R_ID;
-    assign SystemControl_SS_R_LAST = SystemControl_SS_AXI_to_ICN_SS_AXI_R_LAST;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_R_READY = SystemControl_SS_R_READY;
-    assign SystemControl_SS_R_RESP = SystemControl_SS_AXI_to_ICN_SS_AXI_R_RESP;
-    assign SystemControl_SS_R_USER = SystemControl_SS_AXI_to_ICN_SS_AXI_R_USER;
-    assign SystemControl_SS_R_VALID = SystemControl_SS_AXI_to_ICN_SS_AXI_R_VALID;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_W_DATA = SystemControl_SS_W_DATA;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_W_LAST = SystemControl_SS_W_LAST;
-    assign SystemControl_SS_W_READY = SystemControl_SS_AXI_to_ICN_SS_AXI_W_READY;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_W_STROBE = SystemControl_SS_W_STROBE;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_W_USER = SystemControl_SS_W_USER;
-    assign SystemControl_SS_AXI_to_ICN_SS_AXI_W_VALID = SystemControl_SS_W_VALID;
     assign SystemControl_SS_Clock_int_to_ICN_SS_Clock_clk = SystemControl_SS_clk;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_ADDR = SystemControl_SS_icn_ar_addr_out;
+    assign SystemControl_SS_icn_ar_ready_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_READY;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_VALID = SystemControl_SS_icn_ar_valid_out;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_ADDR = SystemControl_SS_icn_aw_addr_out;
+    assign SystemControl_SS_icn_aw_ready_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_READY;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_VALID = SystemControl_SS_icn_aw_valid_out;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_READY = SystemControl_SS_icn_b_ready_out;
+    assign SystemControl_SS_icn_b_resp_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_RESP;
+    assign SystemControl_SS_icn_b_valid_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_VALID;
+    assign SystemControl_SS_icn_r_data_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_DATA;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_READY = SystemControl_SS_icn_r_ready_out;
+    assign SystemControl_SS_icn_r_resp_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_RESP;
+    assign SystemControl_SS_icn_r_valid_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_R_VALID;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_DATA = SystemControl_SS_icn_w_data_out;
+    assign SystemControl_SS_icn_w_ready_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_READY;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_STRB = SystemControl_SS_icn_w_strb_out;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_W_VALID = SystemControl_SS_icn_w_valid_out;
     assign SystemControl_SS_irq_0 = SystemControl_SS_IRQ0_to_Student_SS_0_IRQ_irq;
     assign SystemControl_SS_irq_1 = SystemControl_SS_IRQ1_to_Student_SS_1_IRQ_irq;
     assign SystemControl_SS_irq_2 = SystemControl_SS_IRQ2_to_Student_SS_2_IRQ_irq;
@@ -708,60 +559,28 @@ module Didactic #(
 
     // IP-XACT VLNV: tuni.fi:interconnect:ICN_SS:1.0
     ICN_SS #(
-        .AXI_DW              (32),
-        .AXI_AW              (32),
-        .AXI_USERW           (1),
-        .AXI_IDW             (10),
         .APB_DW              (32),
         .APB_AW              (32),
         .SS_CTRL_W           (8))
     ICN_SS(
-        // Interface: AXI
-        .AR_ADDR             (ICN_SS_AR_ADDR),
-        .AR_BURST            (ICN_SS_AR_BURST),
-        .AR_CACHE            (ICN_SS_AR_CACHE),
-        .AR_ID               (ICN_SS_AR_ID),
-        .AR_LEN              (ICN_SS_AR_LEN),
-        .AR_LOCK             (ICN_SS_AR_LOCK),
-        .AR_PROT             (ICN_SS_AR_PROT),
-        .AR_QOS              (ICN_SS_AR_QOS),
-        .AR_REGION           (ICN_SS_AR_REGION),
-        .AR_SIZE             (ICN_SS_AR_SIZE),
-        .AR_USER             (ICN_SS_AR_USER),
-        .AR_VALID            (ICN_SS_AR_VALID),
-        .AW_ADDR             (ICN_SS_AW_ADDR),
-        .AW_ATOP             (ICN_SS_AW_ATOP),
-        .AW_BURST            (ICN_SS_AW_BURST),
-        .AW_CACHE            (ICN_SS_AW_CACHE),
-        .AW_ID               (ICN_SS_AW_ID),
-        .AW_LEN              (ICN_SS_AW_LEN),
-        .AW_LOCK             (ICN_SS_AW_LOCK),
-        .AW_PROT             (ICN_SS_AW_PROT),
-        .AW_QOS              (ICN_SS_AW_QOS),
-        .AW_REGION           (ICN_SS_AW_REGION),
-        .AW_SIZE             (ICN_SS_AW_SIZE),
-        .AW_USER             (ICN_SS_AW_USER),
-        .AW_VALID            (ICN_SS_AW_VALID),
-        .B_READY             (ICN_SS_B_READY),
-        .R_READY             (ICN_SS_R_READY),
-        .W_DATA              (ICN_SS_W_DATA),
-        .W_LAST              (ICN_SS_W_LAST),
-        .W_STROBE            (ICN_SS_W_STROBE),
-        .W_USER              (ICN_SS_W_USER),
-        .W_VALID             (ICN_SS_W_VALID),
-        .AR_READY            (ICN_SS_AR_READY),
-        .AW_READY            (ICN_SS_AW_READY),
-        .B_ID                (ICN_SS_B_ID),
-        .B_RESP              (ICN_SS_B_RESP),
-        .B_USER              (ICN_SS_B_USER),
-        .B_VALID             (ICN_SS_B_VALID),
-        .R_DATA              (ICN_SS_R_DATA),
-        .R_ID                (ICN_SS_R_ID),
-        .R_LAST              (ICN_SS_R_LAST),
-        .R_RESP              (ICN_SS_R_RESP),
-        .R_USER              (ICN_SS_R_USER),
-        .R_VALID             (ICN_SS_R_VALID),
-        .W_READY             (ICN_SS_W_READY),
+        // Interface: AXI4LITE_icn
+        .icn_ar_addr_in      (ICN_SS_icn_ar_addr_in),
+        .icn_ar_valid_in     (ICN_SS_icn_ar_valid_in),
+        .icn_aw_addr_in      (ICN_SS_icn_aw_addr_in),
+        .icn_aw_valid_in     (ICN_SS_icn_aw_valid_in),
+        .icn_b_ready_in      (ICN_SS_icn_b_ready_in),
+        .icn_r_ready_in      (ICN_SS_icn_r_ready_in),
+        .icn_w_data_in       (ICN_SS_icn_w_data_in),
+        .icn_w_strb_in       (ICN_SS_icn_w_strb_in),
+        .icn_w_valid_in      (ICN_SS_icn_w_valid_in),
+        .icn_ar_ready_out    (ICN_SS_icn_ar_ready_out),
+        .icn_aw_ready_out    (ICN_SS_icn_aw_ready_out),
+        .icn_b_resp_out      (ICN_SS_icn_b_resp_out),
+        .icn_b_valid_out     (ICN_SS_icn_b_valid_out),
+        .icn_r_data_out      (ICN_SS_icn_r_data_out),
+        .icn_r_resp_out      (ICN_SS_icn_r_resp_out),
+        .icn_r_valid_out     (ICN_SS_icn_r_valid_out),
+        .icn_w_ready_out     (ICN_SS_icn_w_ready_out),
         // Interface: Clock
         .clk                 (ICN_SS_clk),
         // Interface: Reset
@@ -911,61 +730,31 @@ module Didactic #(
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.0
     SysCtrl_SS_wrapper_0 #(
-        .AXI_AW              (32),
-        .AXI_DW              (32),
-        .AXI_USERW           (1),
+        .AXI4LITE_AW         (32),
+        .AXI4LITE_DW         (32),
         .SS_CTRL_W           (8),
-        .AXI_IDW             (10),
         .NUM_GPIO            (8),
         .IOCELL_COUNT        (26),
         .IOCELL_CFGW         (5))
     SystemControl_SS(
-        // Interface: AXI
-        .AR_READY            (SystemControl_SS_AR_READY),
-        .AW_READY            (SystemControl_SS_AW_READY),
-        .B_ID                (SystemControl_SS_B_ID),
-        .B_RESP              (SystemControl_SS_B_RESP),
-        .B_USER              (SystemControl_SS_B_USER),
-        .B_VALID             (SystemControl_SS_B_VALID),
-        .R_DATA              (SystemControl_SS_R_DATA),
-        .R_ID                (SystemControl_SS_R_ID),
-        .R_LAST              (SystemControl_SS_R_LAST),
-        .R_RESP              (SystemControl_SS_R_RESP),
-        .R_USER              (SystemControl_SS_R_USER),
-        .R_VALID             (SystemControl_SS_R_VALID),
-        .W_READY             (SystemControl_SS_W_READY),
-        .AR_ADDR             (SystemControl_SS_AR_ADDR),
-        .AR_BURST            (SystemControl_SS_AR_BURST),
-        .AR_CACHE            (SystemControl_SS_AR_CACHE),
-        .AR_ID               (SystemControl_SS_AR_ID),
-        .AR_LEN              (SystemControl_SS_AR_LEN),
-        .AR_LOCK             (SystemControl_SS_AR_LOCK),
-        .AR_PROT             (SystemControl_SS_AR_PROT),
-        .AR_QOS              (SystemControl_SS_AR_QOS),
-        .AR_REGION           (SystemControl_SS_AR_REGION),
-        .AR_SIZE             (SystemControl_SS_AR_SIZE),
-        .AR_USER             (SystemControl_SS_AR_USER),
-        .AR_VALID            (SystemControl_SS_AR_VALID),
-        .AW_ADDR             (SystemControl_SS_AW_ADDR),
-        .AW_ATOP             (SystemControl_SS_AW_ATOP),
-        .AW_BURST            (SystemControl_SS_AW_BURST),
-        .AW_CACHE            (SystemControl_SS_AW_CACHE),
-        .AW_ID               (SystemControl_SS_AW_ID),
-        .AW_LEN              (SystemControl_SS_AW_LEN),
-        .AW_LOCK             (SystemControl_SS_AW_LOCK),
-        .AW_PROT             (SystemControl_SS_AW_PROT),
-        .AW_QOS              (SystemControl_SS_AW_QOS),
-        .AW_REGION           (SystemControl_SS_AW_REGION),
-        .AW_SIZE             (SystemControl_SS_AW_SIZE),
-        .AW_USER             (SystemControl_SS_AW_USER),
-        .AW_VALID            (SystemControl_SS_AW_VALID),
-        .B_READY             (SystemControl_SS_B_READY),
-        .R_READY             (SystemControl_SS_R_READY),
-        .W_DATA              (SystemControl_SS_W_DATA),
-        .W_LAST              (SystemControl_SS_W_LAST),
-        .W_STROBE            (SystemControl_SS_W_STROBE),
-        .W_USER              (SystemControl_SS_W_USER),
-        .W_VALID             (SystemControl_SS_W_VALID),
+        // Interface: AXI4LITE_icn
+        .icn_ar_ready_in     (SystemControl_SS_icn_ar_ready_in),
+        .icn_aw_ready_in     (SystemControl_SS_icn_aw_ready_in),
+        .icn_b_resp_in       (SystemControl_SS_icn_b_resp_in),
+        .icn_b_valid_in      (SystemControl_SS_icn_b_valid_in),
+        .icn_r_data_in       (SystemControl_SS_icn_r_data_in),
+        .icn_r_resp_in       (SystemControl_SS_icn_r_resp_in),
+        .icn_r_valid_in      (SystemControl_SS_icn_r_valid_in),
+        .icn_w_ready_in      (SystemControl_SS_icn_w_ready_in),
+        .icn_ar_addr_out     (SystemControl_SS_icn_ar_addr_out),
+        .icn_ar_valid_out    (SystemControl_SS_icn_ar_valid_out),
+        .icn_aw_addr_out     (SystemControl_SS_icn_aw_addr_out),
+        .icn_aw_valid_out    (SystemControl_SS_icn_aw_valid_out),
+        .icn_b_ready_out     (SystemControl_SS_icn_b_ready_out),
+        .icn_r_ready_out     (SystemControl_SS_icn_r_ready_out),
+        .icn_w_data_out      (SystemControl_SS_icn_w_data_out),
+        .icn_w_strb_out      (SystemControl_SS_icn_w_strb_out),
+        .icn_w_valid_out     (SystemControl_SS_icn_w_valid_out),
         // Interface: BootSel
         .boot_sel            (boot_sel),
         // Interface: Clock

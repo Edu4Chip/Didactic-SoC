@@ -26,27 +26,7 @@ module SysCtrl_xbar #(
     parameter                          AXI4LITE_DW      = 32,
     parameter                          AXI_AW           = 32,
     parameter                          AXI_DW           = 32,
-    parameter                          AXI_IDW          = 10,
-    parameter                          AXI_USERW        = 1
 ) (
-    // Interface: AXI4LITE_BootRom
-    input  logic                       BootRom_ar_ready_in,
-    input  logic                       BootRom_aw_ready_in,
-    input  logic [1:0]                 BootRom_b_resp_in,
-    input  logic                       BootRom_b_valid_in,
-    input  logic [AXI4LITE_DW-1:0]     BootRom_r_data_in,
-    input  logic [1:0]                 BootRom_r_resp_in,
-    input  logic                       BootRom_r_valid_in,
-    input  logic                       BootRom_w_ready_in,
-    output logic [AXI4LITE_AW-1:0]       BootRom_ar_addr_out,
-    output logic                       BootRom_ar_valid_out,
-    output logic [AXI4LITE_AW-1:0]     BootRom_aw_addr_out,
-    output logic                       BootRom_aw_valid_out,
-    output logic                       BootRom_b_ready_out,
-    output logic                       BootRom_r_ready_out,
-    output logic [AXI4LITE_DW-1:0]     BootRom_w_data_out,
-    output logic [(AXI4LITE_DW/8)-1:0] BootRom_w_strb_out,
-    output logic                       BootRom_w_valid_out,
 
     // Interface: AXI4LITE_CORE_IMEM
     input  logic [AXI4LITE_AW-1:0]     CoreIMEM_ar_addr_in,
@@ -202,52 +182,24 @@ module SysCtrl_xbar #(
     output logic [(AXI4LITE_DW/8)-1:0] periph_w_strb_out,
     output logic                       periph_w_valid_out,
 
-    // Interface: AXI_ICN
-    input  logic                  AR_READY,
-    input  logic                  AW_READY,
-    input  logic [AXI_IDW-1:0]    B_ID,
-    input  logic [1:0]            B_RESP,
-    input  logic                  B_USER,
-    input  logic                  B_VALID,
-    input  logic [AXI_DW-1:0]     R_DATA,
-    input  logic [AXI_IDW-1:0]    R_ID,
-    input  logic                  R_LAST,
-    input  logic [1:0]            R_RESP,
-    input  logic                  R_USER,
-    input  logic                  R_VALID,
-    input  logic                  W_READY,
-    output logic [AXI_AW-1:0]     AR_ADDR,
-    output logic [1:0]            AR_BURST,
-    output logic [3:0]            AR_CACHE,
-    output logic [AXI_IDW-1:0]    AR_ID,
-    output logic [7:0]            AR_LEN,
-    output logic                  AR_LOCK,
-    output logic [2:0]            AR_PROT,
-    output logic [3:0]            AR_QOS,
-    output logic [2:0]            AR_REGION,
-    output logic [2:0]            AR_SIZE,
-    output logic [AXI_USERW-1:0]  AR_USER,
-    output logic                  AR_VALID,
-    output logic [AXI_AW-1:0]     AW_ADDR,
-    output logic [5:0]            AW_ATOP,
-    output logic [1:0]            AW_BURST,
-    output logic [3:0]            AW_CACHE,
-    output logic [AXI_IDW-1:0]    AW_ID,
-    output logic [7:0]            AW_LEN,
-    output logic                  AW_LOCK,
-    output logic [2:0]            AW_PROT,
-    output logic [3:0]            AW_QOS,
-    output logic [3:0]            AW_REGION,
-    output logic [2:0]            AW_SIZE,
-    output logic                  AW_USER,
-    output logic                  AW_VALID,
-    output logic                  B_READY,
-    output logic                  R_READY,
-    output logic [AXI_DW-1:0]     W_DATA,
-    output logic                  W_LAST,
-    output logic [(AXI_DW/8)-1:0] W_STROBE,
-    output logic [AXI_USERW-1:0]  W_USER,
-    output logic                  W_VALID,
+    // Interface: AXI4LITE_icn
+    input  logic                       icn_ar_ready_in,
+    input  logic                       icn_aw_ready_in,
+    input  logic [1:0]                 icn_b_resp_in,
+    input  logic                       icn_b_valid_in,
+    input  logic [AXI4LITE_DW-1:0]     icn_r_data_in,
+    input  logic [1:0]                 icn_r_resp_in,
+    input  logic                       icn_r_valid_in,
+    input  logic                       icn_w_ready_in,
+    output logic [AXI4LITE_AW-1:0]     icn_ar_addr_out,
+    output logic                       icn_ar_valid_out,
+    output logic [AXI4LITE_AW-1:0]     icn_aw_addr_out,
+    output logic                       icn_aw_valid_out,
+    output logic                       icn_b_ready_out,
+    output logic                       icn_r_ready_out,
+    output logic [AXI4LITE_DW-1:0]     icn_w_data_out,
+    output logic [(AXI4LITE_DW/8)-1:0] icn_w_strb_out,
+    output logic                       icn_w_valid_out,
 
     // Interface: Clock
     input  logic                             clk_i,
@@ -260,16 +212,9 @@ module SysCtrl_xbar #(
   `endif
 
   // TODO: check numbers
-  localparam AXI4LITE_TARGETS = 7;
+  localparam AXI4LITE_TARGETS = 6;
   localparam AXI4LITE_INITIATORS = 3;
 
-  // 
-  AXI_BUS #(
-    .AXI_ADDR_WIDTH(AXI_AW), 
-    .AXI_DATA_WIDTH(AXI_DW), 
-    .AXI_ID_WIDTH(AXI_IDW), 
-    .AXI_USER_WIDTH(AXI_USERW)
-  ) axi4bus ();
 
   AXI_LITE #(
    .AXI_ADDR_WIDTH(AXI4LITE_AW),
@@ -280,16 +225,6 @@ module SysCtrl_xbar #(
    .AXI_ADDR_WIDTH(AXI4LITE_AW),
    .AXI_DATA_WIDTH(AXI4LITE_DW)
   ) axi4lite_init_bus [AXI4LITE_INITIATORS-1:0]();
-
-// 
-axi_lite_to_axi_intf #(
-  .AXI_DATA_WIDTH(AXI4LITE_DW)
-) i_axi_lite_to_axi(
-  .in(axi4lite_target_bus[6]),
-  .slv_aw_cache_i(4'd0),
-  .slv_ar_cache_i(4'd0),
-  .out(axi4bus)
-);
 
   // TODO: Finalize rules and addresses
   localparam NoAddrRules = AXI4LITE_TARGETS;
@@ -302,13 +237,12 @@ axi_lite_to_axi_intf #(
   // TODO: finalize Address table based for xbar
   assign AddrMapXBAR = 
     '{
-      '{idx: 32'd6, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*7-1},//axi
-      '{idx: 32'd5, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*6-1},//ctrl
-      '{idx: 32'd4, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*5-1},//periph
-      '{idx: 32'd3, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*4-1},//dbg
-      '{idx: 32'd2, start_addr: ADDR_BASE+AXI4LITE_SIZE*2, end_addr: ADDR_BASE+AXI4LITE_SIZE*3-1},//dmem
-      '{idx: 32'd1, start_addr: ADDR_BASE+AXI4LITE_SIZE*1, end_addr: ADDR_BASE+AXI4LITE_SIZE*2-1},//imem
-      '{idx: 32'd0, start_addr: ADDR_BASE+AXI4LITE_SIZE*0, end_addr: ADDR_BASE+AXI4LITE_SIZE*1-1}//bootrom
+      '{idx: 32'd5, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*6-1},//axi
+      '{idx: 32'd4, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*5-1},//ctrl
+      '{idx: 32'd3, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*4-1},//periph
+      '{idx: 32'd2, start_addr: ADDR_BASE+AXI4LITE_SIZE*2, end_addr: ADDR_BASE+AXI4LITE_SIZE*3-1},//dbg
+      '{idx: 32'd1, start_addr: ADDR_BASE+AXI4LITE_SIZE*1, end_addr: ADDR_BASE+AXI4LITE_SIZE*2-1},//dmem
+      '{idx: 32'd0, start_addr: ADDR_BASE+AXI4LITE_SIZE*0, end_addr: ADDR_BASE+AXI4LITE_SIZE*1-1} //imem
     };
 
   // check ips\axi\src\axi_pkg.sv for rule deifinitions
@@ -342,86 +276,47 @@ axi_lite_xbar_intf #(
   .default_mst_port_i(9'd0)
 );
 
-// Interface: AXI4LITE_BootRom
-assign axi4lite_target_bus[0].ar_ready = BootRom_ar_ready_in;
-assign axi4lite_target_bus[0].aw_ready = BootRom_aw_ready_in;
-assign axi4lite_target_bus[0].b_resp   = BootRom_b_resp_in;
-assign axi4lite_target_bus[0].b_valid  = BootRom_b_valid_in;
-assign axi4lite_target_bus[0].r_data   = BootRom_r_data_in;
-assign axi4lite_target_bus[0].r_resp   = BootRom_r_resp_in;
-assign axi4lite_target_bus[0].r_valid  = BootRom_r_valid_in;
-assign axi4lite_target_bus[0].w_ready  = BootRom_w_ready_in;
-//
-assign BootRom_ar_addr_out  = axi4lite_target_bus[0].ar_addr;
-assign BootRom_ar_valid_out = axi4lite_target_bus[0].ar_valid;
-assign BootRom_aw_addr_out  = axi4lite_target_bus[0].aw_addr;
-assign BootRom_aw_valid_out = axi4lite_target_bus[0].aw_valid;
-assign BootRom_b_ready_out  = axi4lite_target_bus[0].b_ready;
-assign BootRom_r_ready_out  = axi4lite_target_bus[0].r_ready;
-assign BootRom_w_data_out   = axi4lite_target_bus[0].w_data;
-assign BootRom_w_strb_out   = axi4lite_target_bus[0].w_strb;
-assign BootRom_w_valid_out  = axi4lite_target_bus[0].w_valid;
-
-// Interface: AXI4LITE_CORE_DMEM
-assign axi4lite_init_bus[1].ar_addr  = CoreIMEM_ar_addr_in;
-assign axi4lite_init_bus[1].ar_valid = CoreIMEM_ar_valid_in;
-assign axi4lite_init_bus[1].aw_addr  = CoreIMEM_aw_addr_in;
-assign axi4lite_init_bus[1].aw_valid = CoreIMEM_aw_valid_in;
-assign axi4lite_init_bus[1].b_ready  = CoreIMEM_b_ready_in;
-assign axi4lite_init_bus[1].r_ready  = CoreIMEM_r_ready_in;
-assign axi4lite_init_bus[1].w_data   = CoreIMEM_w_data_in;
-assign axi4lite_init_bus[1].w_strb   = CoreIMEM_w_strb_in;
-assign axi4lite_init_bus[1].w_valid  = CoreIMEM_w_valid_in;
-//
-assign CoreIMEM_ar_ready_out = axi4lite_init_bus[1].ar_ready;
-assign CoreIMEM_aw_ready_out = axi4lite_init_bus[1].aw_ready;
-assign CoreIMEM_b_resp_out   = axi4lite_init_bus[1].b_resp;
-assign CoreIMEM_b_valid_out  = axi4lite_init_bus[1].b_valid;
-assign CoreIMEM_r_data_out   = axi4lite_init_bus[1].r_data;
-assign CoreIMEM_r_resp_out   = axi4lite_init_bus[1].r_resp;
-assign CoreIMEM_r_valid_out  = axi4lite_init_bus[1].r_valid;
-assign CoreIMEM_w_ready_out  = axi4lite_init_bus[1].w_ready;
+// AXI4LITE initiators
 
 // Interface: AXI4LITE_CORE_IMEM
-assign axi4lite_init_bus[0].ar_addr  = CoreDMEM_ar_addr_in;
-assign axi4lite_init_bus[0].ar_valid = CoreDMEM_ar_valid_in;
-assign axi4lite_init_bus[0].aw_addr  = CoreDMEM_aw_addr_in;
-assign axi4lite_init_bus[0].aw_valid = CoreDMEM_aw_valid_in;
-assign axi4lite_init_bus[0].b_ready  = CoreDMEM_b_ready_in;
-assign axi4lite_init_bus[0].r_ready  = CoreDMEM_r_ready_in;
-assign axi4lite_init_bus[0].w_data   = CoreDMEM_w_data_in;
-assign axi4lite_init_bus[0].w_strb   = CoreDMEM_w_strb_in;
-assign axi4lite_init_bus[0].w_valid  = CoreDMEM_w_valid_in;
+assign axi4lite_init_bus[0].ar_addr  = CoreIMEM_ar_addr_in;
+assign axi4lite_init_bus[0].ar_valid = CoreIMEM_ar_valid_in;
+assign axi4lite_init_bus[0].aw_addr  = CoreIMEM_aw_addr_in;
+assign axi4lite_init_bus[0].aw_valid = CoreIMEM_aw_valid_in;
+assign axi4lite_init_bus[0].b_ready  = CoreIMEM_b_ready_in;
+assign axi4lite_init_bus[0].r_ready  = CoreIMEM_r_ready_in;
+assign axi4lite_init_bus[0].w_data   = CoreIMEM_w_data_in;
+assign axi4lite_init_bus[0].w_strb   = CoreIMEM_w_strb_in;
+assign axi4lite_init_bus[0].w_valid  = CoreIMEM_w_valid_in;
 //
-assign CoreDMEM_ar_ready_out = axi4lite_init_bus[0].ar_ready;
-assign CoreDMEM_aw_ready_out = axi4lite_init_bus[0].aw_ready;
-assign CoreDMEM_b_resp_out   = axi4lite_init_bus[0].b_resp; 
-assign CoreDMEM_b_valid_out  = axi4lite_init_bus[0].b_valid;
-assign CoreDMEM_r_data_out   = axi4lite_init_bus[0].r_data; 
-assign CoreDMEM_r_resp_out   = axi4lite_init_bus[0].r_resp; 
-assign CoreDMEM_r_valid_out  = axi4lite_init_bus[0].r_valid;
-assign CoreDMEM_w_ready_out  = axi4lite_init_bus[0].w_ready;
+assign CoreIMEM_ar_ready_out = axi4lite_init_bus[0].ar_ready;
+assign CoreIMEM_aw_ready_out = axi4lite_init_bus[0].aw_ready;
+assign CoreIMEM_b_resp_out   = axi4lite_init_bus[0].b_resp;
+assign CoreIMEM_b_valid_out  = axi4lite_init_bus[0].b_valid;
+assign CoreIMEM_r_data_out   = axi4lite_init_bus[0].r_data;
+assign CoreIMEM_r_resp_out   = axi4lite_init_bus[0].r_resp;
+assign CoreIMEM_r_valid_out  = axi4lite_init_bus[0].r_valid;
+assign CoreIMEM_w_ready_out  = axi4lite_init_bus[0].w_ready;
 
-// Interface: AXI4LITE_CTRL
-assign CtrlReg_ar_addr_out  = axi4lite_target_bus[5].ar_addr;
-assign CtrlReg_ar_valid_out = axi4lite_target_bus[5].ar_valid;
-assign CtrlReg_aw_addr_out  = axi4lite_target_bus[5].aw_addr;
-assign CtrlReg_aw_valid_out = axi4lite_target_bus[5].aw_valid;
-assign CtrlReg_b_ready_out  = axi4lite_target_bus[5].b_ready;
-assign CtrlReg_r_ready_out  = axi4lite_target_bus[5].r_ready;
-assign CtrlReg_w_data_out   = axi4lite_target_bus[5].w_data;
-assign CtrlReg_w_strb_out   = axi4lite_target_bus[5].w_strb;
-assign CtrlReg_w_valid_out  = axi4lite_target_bus[5].w_valid;
+// Interface: AXI4LITE_CORE_DMEM
+assign axi4lite_init_bus[1].ar_addr  = CoreDMEM_ar_addr_in;
+assign axi4lite_init_bus[1].ar_valid = CoreDMEM_ar_valid_in;
+assign axi4lite_init_bus[1].aw_addr  = CoreDMEM_aw_addr_in;
+assign axi4lite_init_bus[1].aw_valid = CoreDMEM_aw_valid_in;
+assign axi4lite_init_bus[1].b_ready  = CoreDMEM_b_ready_in;
+assign axi4lite_init_bus[1].r_ready  = CoreDMEM_r_ready_in;
+assign axi4lite_init_bus[1].w_data   = CoreDMEM_w_data_in;
+assign axi4lite_init_bus[1].w_strb   = CoreDMEM_w_strb_in;
+assign axi4lite_init_bus[1].w_valid  = CoreDMEM_w_valid_in;
 //
-assign axi4lite_target_bus[5].ar_ready = CtrlReg_ar_ready_in;
-assign axi4lite_target_bus[5].aw_ready = CtrlReg_aw_ready_in;
-assign axi4lite_target_bus[5].b_resp   = CtrlReg_b_resp_in;
-assign axi4lite_target_bus[5].b_valid  = CtrlReg_b_valid_in;
-assign axi4lite_target_bus[5].r_data   = CtrlReg_r_data_in;
-assign axi4lite_target_bus[5].r_resp   = CtrlReg_r_resp_in;
-assign axi4lite_target_bus[5].r_valid  = CtrlReg_r_valid_in;
-assign axi4lite_target_bus[5].w_ready  = CtrlReg_w_ready_in;
-//
+assign CoreDMEM_ar_ready_out = axi4lite_init_bus[1].ar_ready;
+assign CoreDMEM_aw_ready_out = axi4lite_init_bus[1].aw_ready;
+assign CoreDMEM_b_resp_out   = axi4lite_init_bus[1].b_resp; 
+assign CoreDMEM_b_valid_out  = axi4lite_init_bus[1].b_valid;
+assign CoreDMEM_r_data_out   = axi4lite_init_bus[1].r_data; 
+assign CoreDMEM_r_resp_out   = axi4lite_init_bus[1].r_resp; 
+assign CoreDMEM_r_valid_out  = axi4lite_init_bus[1].r_valid;
+assign CoreDMEM_w_ready_out  = axi4lite_init_bus[1].w_ready;
 
 // Interface: AXI4LITE_DBG_I
 assign axi4lite_init_bus[2].ar_addr  = DbgI_ar_addr;
@@ -446,132 +341,126 @@ assign DbgI_r_resp   = axi4lite_init_bus[2].r_resp;
 assign DbgI_r_valid  = axi4lite_init_bus[2].r_valid;
 assign DbgI_w_ready  = axi4lite_init_bus[2].w_ready;
 
+// AXI4LITE targets
+
+// Interface: AXI4LITE_IMEM
+assign axi4lite_target_bus[0].ar_ready = IMEM_ar_ready_in;
+assign axi4lite_target_bus[0].aw_ready = IMEM_aw_ready_in;
+assign axi4lite_target_bus[0].b_resp   = IMEM_b_resp_in;
+assign axi4lite_target_bus[0].b_valid  = IMEM_b_valid_in;
+assign axi4lite_target_bus[0].r_data   = IMEM_r_data_in;
+assign axi4lite_target_bus[0].r_resp   = IMEM_r_resp_in;
+assign axi4lite_target_bus[0].r_valid  = IMEM_r_valid_in;
+assign axi4lite_target_bus[0].w_ready  = IMEM_w_ready_in;
+//
+assign IMEM_ar_addr_out  = axi4lite_target_bus[0].ar_addr;
+assign IMEM_ar_valid_out = axi4lite_target_bus[0].ar_valid;
+assign IMEM_aw_addr_out  = axi4lite_target_bus[0].aw_addr;
+assign IMEM_aw_valid_out = axi4lite_target_bus[0].aw_valid;
+assign IMEM_b_ready_out  = axi4lite_target_bus[0].b_ready;
+assign IMEM_r_ready_out  = axi4lite_target_bus[0].r_ready;
+assign IMEM_w_data_out   = axi4lite_target_bus[0].w_data;
+assign IMEM_w_strb_out   = axi4lite_target_bus[0].w_strb;
+assign IMEM_w_valid_out  = axi4lite_target_bus[0].w_valid;
+
+// Interface: AXI4LITE_DMEM
+assign axi4lite_target_bus[1].ar_ready = DMEM_ar_ready_in;
+assign axi4lite_target_bus[1].aw_ready = DMEM_aw_ready_in;
+assign axi4lite_target_bus[1].b_resp   = DMEM_b_resp_in;
+assign axi4lite_target_bus[1].b_valid  = DMEM_b_valid_in;
+assign axi4lite_target_bus[1].r_data   = DMEM_r_data_in;
+assign axi4lite_target_bus[1].r_resp   = DMEM_r_resp_in;
+assign axi4lite_target_bus[1].r_valid  = DMEM_r_valid_in;
+assign axi4lite_target_bus[1].w_ready  = DMEM_w_ready_in;
+//
+assign DMEM_ar_addr_out  = axi4lite_target_bus[1].ar_addr;
+assign DMEM_ar_valid_out = axi4lite_target_bus[1].ar_valid;
+assign DMEM_aw_addr_out  = axi4lite_target_bus[1].aw_addr;
+assign DMEM_aw_valid_out = axi4lite_target_bus[1].aw_valid;
+assign DMEM_b_ready_out  = axi4lite_target_bus[1].b_ready;
+assign DMEM_r_ready_out  = axi4lite_target_bus[1].r_ready;
+assign DMEM_w_data_out   = axi4lite_target_bus[1].w_data;
+assign DMEM_w_strb_out   = axi4lite_target_bus[1].w_strb;
+assign DMEM_w_valid_out  = axi4lite_target_bus[1].w_valid;
+
 // Interface: AXI4LITE_DBG_T
-assign axi4lite_target_bus[3].ar_ready = DbgT_ar_ready_in;
-assign axi4lite_target_bus[3].aw_ready = DbgT_aw_ready_in;
-assign axi4lite_target_bus[3].b_resp   = DbgT_b_resp_in;
-assign axi4lite_target_bus[3].b_valid  = DbgT_b_valid_in;
-assign axi4lite_target_bus[3].r_data   = DbgT_r_data_in;
-assign axi4lite_target_bus[3].r_resp   = DbgT_r_resp_in;
-assign axi4lite_target_bus[3].r_valid  = DbgT_r_valid_in;
-assign axi4lite_target_bus[3].w_ready  = DbgT_w_ready_in;
+assign axi4lite_target_bus[2].ar_ready = DbgT_ar_ready_in;
+assign axi4lite_target_bus[2].aw_ready = DbgT_aw_ready_in;
+assign axi4lite_target_bus[2].b_resp   = DbgT_b_resp_in;
+assign axi4lite_target_bus[2].b_valid  = DbgT_b_valid_in;
+assign axi4lite_target_bus[2].r_data   = DbgT_r_data_in;
+assign axi4lite_target_bus[2].r_resp   = DbgT_r_resp_in;
+assign axi4lite_target_bus[2].r_valid  = DbgT_r_valid_in;
+assign axi4lite_target_bus[2].w_ready  = DbgT_w_ready_in;
 //
-assign DbgT_ar_addr_out  = axi4lite_target_bus[3].ar_addr;
-assign DbgT_ar_valid_out = axi4lite_target_bus[3].ar_valid;
-assign DbgT_aw_addr_out  = axi4lite_target_bus[3].aw_addr;
-assign DbgT_aw_valid_out = axi4lite_target_bus[3].aw_valid;
-assign DbgT_b_ready_out  = axi4lite_target_bus[3].b_ready;
-assign DbgT_r_ready_out  = axi4lite_target_bus[3].r_ready;
-assign DbgT_w_data_out   = axi4lite_target_bus[3].w_data;
-assign DbgT_w_strb_out   = axi4lite_target_bus[3].w_strb;
-assign DbgT_w_valid_out  = axi4lite_target_bus[3].w_valid;
+assign DbgT_ar_addr_out  = axi4lite_target_bus[2].ar_addr;
+assign DbgT_ar_valid_out = axi4lite_target_bus[2].ar_valid;
+assign DbgT_aw_addr_out  = axi4lite_target_bus[2].aw_addr;
+assign DbgT_aw_valid_out = axi4lite_target_bus[2].aw_valid;
+assign DbgT_b_ready_out  = axi4lite_target_bus[2].b_ready;
+assign DbgT_r_ready_out  = axi4lite_target_bus[2].r_ready;
+assign DbgT_w_data_out   = axi4lite_target_bus[2].w_data;
+assign DbgT_w_strb_out   = axi4lite_target_bus[2].w_strb;
+assign DbgT_w_valid_out  = axi4lite_target_bus[2].w_valid;
 
-// dmem
-assign axi4lite_target_bus[2].ar_ready = DMEM_ar_ready_in;
-assign axi4lite_target_bus[2].aw_ready = DMEM_aw_ready_in;
-assign axi4lite_target_bus[2].b_resp   = DMEM_b_resp_in;
-assign axi4lite_target_bus[2].b_valid  = DMEM_b_valid_in;
-assign axi4lite_target_bus[2].r_data   = DMEM_r_data_in;
-assign axi4lite_target_bus[2].r_resp   = DMEM_r_resp_in;
-assign axi4lite_target_bus[2].r_valid  = DMEM_r_valid_in;
-assign axi4lite_target_bus[2].w_ready  = DMEM_w_ready_in;
+ // Interface: AXI4LITE_periph
+assign axi4lite_target_bus[3].ar_ready = periph_ar_ready_in;
+assign axi4lite_target_bus[3].aw_ready = periph_aw_ready_in;
+assign axi4lite_target_bus[3].b_resp   = periph_b_resp_in;
+assign axi4lite_target_bus[3].b_valid  = periph_b_valid_in;
+assign axi4lite_target_bus[3].r_data   = periph_r_data_in;
+assign axi4lite_target_bus[3].r_resp   = periph_r_resp_in;
+assign axi4lite_target_bus[3].r_valid  = periph_r_valid_in;
+assign axi4lite_target_bus[3].w_ready  = periph_w_ready_in;
 //
-assign DMEM_ar_addr_out  = axi4lite_target_bus[2].ar_addr;
-assign DMEM_ar_valid_out = axi4lite_target_bus[2].ar_valid;
-assign DMEM_aw_addr_out  = axi4lite_target_bus[2].aw_addr;
-assign DMEM_aw_valid_out = axi4lite_target_bus[2].aw_valid;
-assign DMEM_b_ready_out  = axi4lite_target_bus[2].b_ready;
-assign DMEM_r_ready_out  = axi4lite_target_bus[2].r_ready;
-assign DMEM_w_data_out   = axi4lite_target_bus[2].w_data;
-assign DMEM_w_strb_out   = axi4lite_target_bus[2].w_strb;
-assign DMEM_w_valid_out  = axi4lite_target_bus[2].w_valid;
+assign periph_ar_addr_out  = axi4lite_target_bus[3].ar_addr;
+assign periph_ar_valid_out = axi4lite_target_bus[3].ar_valid;
+assign periph_aw_addr_out  = axi4lite_target_bus[3].aw_addr;
+assign periph_aw_valid_out = axi4lite_target_bus[3].aw_valid;
+assign periph_b_ready_out  = axi4lite_target_bus[3].b_ready;
+assign periph_r_ready_out  = axi4lite_target_bus[3].r_ready;
+assign periph_w_data_out   = axi4lite_target_bus[3].w_data;
+assign periph_w_strb_out   = axi4lite_target_bus[3].w_strb;
+assign periph_w_valid_out  = axi4lite_target_bus[3].w_valid;
 
-// imem
-assign axi4lite_target_bus[1].ar_ready = IMEM_ar_ready_in;
-assign axi4lite_target_bus[1].aw_ready = IMEM_aw_ready_in;
-assign axi4lite_target_bus[1].b_resp   = IMEM_b_resp_in;
-assign axi4lite_target_bus[1].b_valid  = IMEM_b_valid_in;
-assign axi4lite_target_bus[1].r_data   = IMEM_r_data_in;
-assign axi4lite_target_bus[1].r_resp   = IMEM_r_resp_in;
-assign axi4lite_target_bus[1].r_valid  = IMEM_r_valid_in;
-assign axi4lite_target_bus[1].w_ready  = IMEM_w_ready_in;
+// Interface: AXI4LITE_CTRL
+assign axi4lite_target_bus[4].ar_ready = CtrlReg_ar_ready_in;
+assign axi4lite_target_bus[4].aw_ready = CtrlReg_aw_ready_in;
+assign axi4lite_target_bus[4].b_resp   = CtrlReg_b_resp_in;
+assign axi4lite_target_bus[4].b_valid  = CtrlReg_b_valid_in;
+assign axi4lite_target_bus[4].r_data   = CtrlReg_r_data_in;
+assign axi4lite_target_bus[4].r_resp   = CtrlReg_r_resp_in;
+assign axi4lite_target_bus[4].r_valid  = CtrlReg_r_valid_in;
+assign axi4lite_target_bus[4].w_ready  = CtrlReg_w_ready_in;
 //
-assign IMEM_ar_addr_out  = axi4lite_target_bus[1].ar_addr;
-assign IMEM_ar_valid_out = axi4lite_target_bus[1].ar_valid;
-assign IMEM_aw_addr_out  = axi4lite_target_bus[1].aw_addr;
-assign IMEM_aw_valid_out = axi4lite_target_bus[1].aw_valid;
-assign IMEM_b_ready_out  = axi4lite_target_bus[1].b_ready;
-assign IMEM_r_ready_out  = axi4lite_target_bus[1].r_ready;
-assign IMEM_w_data_out   = axi4lite_target_bus[1].w_data;
-assign IMEM_w_strb_out   = axi4lite_target_bus[1].w_strb;
-assign IMEM_w_valid_out  = axi4lite_target_bus[1].w_valid;
+assign CtrlReg_ar_addr_out  = axi4lite_target_bus[4].ar_addr;
+assign CtrlReg_ar_valid_out = axi4lite_target_bus[4].ar_valid;
+assign CtrlReg_aw_addr_out  = axi4lite_target_bus[4].aw_addr;
+assign CtrlReg_aw_valid_out = axi4lite_target_bus[4].aw_valid;
+assign CtrlReg_b_ready_out  = axi4lite_target_bus[4].b_ready;
+assign CtrlReg_r_ready_out  = axi4lite_target_bus[4].r_ready;
+assign CtrlReg_w_data_out   = axi4lite_target_bus[4].w_data;
+assign CtrlReg_w_strb_out   = axi4lite_target_bus[4].w_strb;
+assign CtrlReg_w_valid_out  = axi4lite_target_bus[4].w_valid;
 
-// sysctrl periph assigns
-assign axi4lite_target_bus[4].ar_ready = periph_ar_ready_in;
-assign axi4lite_target_bus[4].aw_ready = periph_aw_ready_in;
-assign axi4lite_target_bus[4].b_resp   = periph_b_resp_in;
-assign axi4lite_target_bus[4].b_valid  = periph_b_valid_in;
-assign axi4lite_target_bus[4].r_data   = periph_r_data_in;
-assign axi4lite_target_bus[4].r_resp   = periph_r_resp_in;
-assign axi4lite_target_bus[4].r_valid  = periph_r_valid_in;
-assign axi4lite_target_bus[4].w_ready  = periph_w_ready_in;
+// Interface: AXI4LITE_icn
+assign axi4lite_target_bus[5].ar_ready = CtrlReg_ar_ready_in;
+assign axi4lite_target_bus[5].aw_ready = CtrlReg_aw_ready_in;
+assign axi4lite_target_bus[5].b_resp   = CtrlReg_b_resp_in;
+assign axi4lite_target_bus[5].b_valid  = CtrlReg_b_valid_in;
+assign axi4lite_target_bus[5].r_data   = CtrlReg_r_data_in;
+assign axi4lite_target_bus[5].r_resp   = CtrlReg_r_resp_in;
+assign axi4lite_target_bus[5].r_valid  = CtrlReg_r_valid_in;
+assign axi4lite_target_bus[5].w_ready  = CtrlReg_w_ready_in;
 //
-assign periph_ar_addr_out  = axi4lite_target_bus[4].ar_addr;
-assign periph_ar_valid_out = axi4lite_target_bus[4].ar_valid;
-assign periph_aw_addr_out  = axi4lite_target_bus[4].aw_addr;
-assign periph_aw_valid_out = axi4lite_target_bus[4].aw_valid;
-assign periph_b_ready_out  = axi4lite_target_bus[4].b_ready;
-assign periph_r_ready_out  = axi4lite_target_bus[4].r_ready;
-assign periph_w_data_out   = axi4lite_target_bus[4].w_data;
-assign periph_w_strb_out   = axi4lite_target_bus[4].w_strb;
-assign periph_w_valid_out  = axi4lite_target_bus[4].w_valid;
-
-// axi4 assigns
-assign AR_ADDR   = axi4bus.ar_addr;
-assign AR_BURST  = axi4bus.ar_burst;
-assign AR_CACHE  = axi4bus.ar_cache;
-assign AR_ID     = axi4bus.ar_id;
-assign AR_LEN    = axi4bus.ar_len;
-assign AR_LOCK   = axi4bus.ar_lock;
-assign AR_PROT   = axi4bus.ar_prot;
-assign AR_QOS    = axi4bus.ar_qos;
-assign AR_REGION = axi4bus.ar_region;
-assign AR_SIZE   = axi4bus.ar_size;
-assign AR_USER   = axi4bus.ar_user;
-assign AR_VALID  = axi4bus.ar_valid;
-assign AW_ADDR   = axi4bus.aw_addr;
-assign AW_ATOP   = axi4bus.aw_atop;
-assign AW_BURST  = axi4bus.aw_burst;
-assign AW_CACHE  = axi4bus.aw_cache;
-assign AW_ID     = axi4bus.aw_id;
-assign AW_LEN    = axi4bus.aw_len;
-assign AW_LOCK   = axi4bus.aw_lock;
-assign AW_PROT   = axi4bus.aw_prot;
-assign AW_QOS    = axi4bus.aw_qos;
-assign AW_REGION = axi4bus.aw_region;
-assign AW_SIZE   = axi4bus.aw_size;
-assign AW_USER   = axi4bus.aw_user;
-assign AW_VALID  = axi4bus.aw_valid;
-assign B_READY   = axi4bus.b_ready;
-assign R_READY   = axi4bus.r_ready;
-assign W_DATA    = axi4bus.w_data;
-assign W_LAST    = axi4bus.w_last;
-assign W_STROBE  = axi4bus.w_strb;
-assign W_USER    = axi4bus.w_user;
-assign W_VALID   = axi4bus.w_valid;
-//
-assign axi4bus.ar_ready  = AR_READY;
-assign axi4bus.aw_ready  = AW_READY;
-assign axi4bus.b_id      = B_ID;
-assign axi4bus.b_resp    = B_RESP;
-assign axi4bus.b_user    = B_USER;
-assign axi4bus.b_valid   = B_VALID;
-assign axi4bus.r_data    = R_DATA;
-assign axi4bus.r_id      = R_ID;
-assign axi4bus.r_last    = R_LAST;
-assign axi4bus.r_resp    = R_RESP;
-assign axi4bus.r_user    = R_USER;
-assign axi4bus.r_valid   = R_VALID;
-assign axi4bus.w_ready   = W_READY;
+assign CtrlReg_ar_addr_out  = axi4lite_target_bus[5].ar_addr;
+assign CtrlReg_ar_valid_out = axi4lite_target_bus[5].ar_valid;
+assign CtrlReg_aw_addr_out  = axi4lite_target_bus[5].aw_addr;
+assign CtrlReg_aw_valid_out = axi4lite_target_bus[5].aw_valid;
+assign CtrlReg_b_ready_out  = axi4lite_target_bus[5].b_ready;
+assign CtrlReg_r_ready_out  = axi4lite_target_bus[5].r_ready;
+assign CtrlReg_w_data_out   = axi4lite_target_bus[5].w_data;
+assign CtrlReg_w_strb_out   = axi4lite_target_bus[5].w_strb;
+assign CtrlReg_w_valid_out  = axi4lite_target_bus[5].w_valid;
 
 endmodule

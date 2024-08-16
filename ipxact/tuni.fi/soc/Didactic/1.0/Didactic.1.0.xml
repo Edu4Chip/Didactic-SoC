@@ -678,42 +678,42 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:40:23 on 12.07.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 11:27:32 on 16.08.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:40:23 on 12.07.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 11:27:32 on 16.08.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:40:23 on 12.07.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 11:27:32 on 16.08.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_1_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:40:23 on 12.07.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 11:27:32 on 16.08.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_2_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:40:23 on 12.07.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 11:27:32 on 16.08.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_3_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:40:23 on 12.07.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 11:27:32 on 16.08.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:40:23 on 12.07.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 11:27:32 on 16.08.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_peripherals_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:40:23 on 12.07.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 11:27:32 on 16.08.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -743,14 +743,6 @@ Spec:
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:description>SoC GPIO Cell count. Default 2x pmod = 8.</ipxact:description>
 			<ipxact:value>8</ipxact:value>
-		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_c4588cc5_5105_434c_8c8c_6f02585bd287" resolve="user">
-			<ipxact:name>AXI_USERW</ipxact:name>
-			<ipxact:value>1</ipxact:value>
-		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_50ed0345_2dfe_40da_9702_935759c30ab7" resolve="user">
-			<ipxact:name>AXI_IDW</ipxact:name>
-			<ipxact:value>10</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_ede66365_60a5_4c40_9bff_4d53c0d80d9d" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>

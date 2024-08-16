@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 12.07.2024
-// Creation time : 09:40:19
+// Creation date : 16.08.2024
+// Creation time : 11:27:28
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -15,61 +15,31 @@
 `endif
 
 module SysCtrl_SS_wrapper_0 #(
-    parameter                              AXI_AW           = 32,
-    parameter                              AXI_DW           = 32,
-    parameter                              AXI_USERW        = 1,
+    parameter                              AXI4LITE_AW      = 32,
+    parameter                              AXI4LITE_DW      = 32,
     parameter                              SS_CTRL_W        = 8,
-    parameter                              AXI_IDW          = 10,
     parameter                              NUM_GPIO         = 8,
     parameter                              IOCELL_COUNT     = 26,
     parameter                              IOCELL_CFGW      = 5
 ) (
-    // Interface: AXI
-    input  logic                        AR_READY,
-    input  logic                        AW_READY,
-    input  logic         [9:0]          B_ID,
-    input  logic         [1:0]          B_RESP,
-    input  logic                        B_USER,
-    input  logic                        B_VALID,
-    input  logic         [31:0]         R_DATA,
-    input  logic         [9:0]          R_ID,
-    input  logic                        R_LAST,
-    input  logic         [1:0]          R_RESP,
-    input  logic         [1:0]          R_USER,
-    input  logic                        R_VALID,
-    input  logic                        W_READY,
-    output logic         [31:0]         AR_ADDR,
-    output logic         [1:0]          AR_BURST,
-    output logic         [3:0]          AR_CACHE,
-    output logic         [9:0]          AR_ID,
-    output logic         [7:0]          AR_LEN,
-    output logic                        AR_LOCK,
-    output logic         [2:0]          AR_PROT,
-    output logic         [3:0]          AR_QOS,
-    output logic         [2:0]          AR_REGION,
-    output logic         [2:0]          AR_SIZE,
-    output logic                        AR_USER,
-    output logic                        AR_VALID,
-    output logic         [31:0]         AW_ADDR,
-    output logic         [5:0]          AW_ATOP,
-    output logic         [1:0]          AW_BURST,
-    output logic         [3:0]          AW_CACHE,
-    output logic         [9:0]          AW_ID,
-    output logic         [7:0]          AW_LEN,
-    output logic                        AW_LOCK,
-    output logic         [2:0]          AW_PROT,
-    output logic         [3:0]          AW_QOS,
-    output logic         [3:0]          AW_REGION,
-    output logic         [2:0]          AW_SIZE,
-    output logic                        AW_USER,
-    output logic                        AW_VALID,
-    output logic                        B_READY,
-    output logic                        R_READY,
-    output logic         [31:0]         W_DATA,
-    output logic                        W_LAST,
-    output logic         [3:0]          W_STROBE,
-    output logic                        W_USER,
-    output logic                        W_VALID,
+    // Interface: AXI4LITE_icn
+    input  logic                        icn_ar_ready_in,
+    input  logic                        icn_aw_ready_in,
+    input  logic         [1:0]          icn_b_resp_in,
+    input  logic                        icn_b_valid_in,
+    input  logic         [31:0]         icn_r_data_in,
+    input  logic         [1:0]          icn_r_resp_in,
+    input  logic                        icn_r_valid_in,
+    input  logic                        icn_w_ready_in,
+    output logic         [31:0]         icn_ar_addr_out,
+    output logic                        icn_ar_valid_out,
+    output logic         [31:0]         icn_aw_addr_out,
+    output logic                        icn_aw_valid_out,
+    output logic                        icn_b_ready_out,
+    output logic                        icn_r_ready_out,
+    output logic         [31:0]         icn_w_data_out,
+    output logic         [3:0]          icn_w_strb_out,
+    output logic                        icn_w_valid_out,
 
     // Interface: BootSel
     inout  wire                         boot_sel,
@@ -211,52 +181,6 @@ module SysCtrl_SS_wrapper_0 #(
     wire       SysCtrl_SS_IRQ2_to_IRQ2_irq;
     // SysCtrl_SS_IRQ1_to_IRQ1 wires:
     wire       SysCtrl_SS_IRQ1_to_IRQ1_irq;
-    // SysCtrl_SS_AXI_to_AXI wires:
-    wire [31:0] SysCtrl_SS_AXI_to_AXI_AR_ADDR;
-    wire [1:0] SysCtrl_SS_AXI_to_AXI_AR_BURST;
-    wire [3:0] SysCtrl_SS_AXI_to_AXI_AR_CACHE;
-    wire [9:0] SysCtrl_SS_AXI_to_AXI_AR_ID;
-    wire [7:0] SysCtrl_SS_AXI_to_AXI_AR_LEN;
-    wire       SysCtrl_SS_AXI_to_AXI_AR_LOCK;
-    wire [2:0] SysCtrl_SS_AXI_to_AXI_AR_PROT;
-    wire [3:0] SysCtrl_SS_AXI_to_AXI_AR_QOS;
-    wire       SysCtrl_SS_AXI_to_AXI_AR_READY;
-    wire [2:0] SysCtrl_SS_AXI_to_AXI_AR_REGION;
-    wire [2:0] SysCtrl_SS_AXI_to_AXI_AR_SIZE;
-    wire       SysCtrl_SS_AXI_to_AXI_AR_USER;
-    wire       SysCtrl_SS_AXI_to_AXI_AR_VALID;
-    wire [31:0] SysCtrl_SS_AXI_to_AXI_AW_ADDR;
-    wire [5:0] SysCtrl_SS_AXI_to_AXI_AW_ATOP;
-    wire [1:0] SysCtrl_SS_AXI_to_AXI_AW_BURST;
-    wire [3:0] SysCtrl_SS_AXI_to_AXI_AW_CACHE;
-    wire [9:0] SysCtrl_SS_AXI_to_AXI_AW_ID;
-    wire [7:0] SysCtrl_SS_AXI_to_AXI_AW_LEN;
-    wire       SysCtrl_SS_AXI_to_AXI_AW_LOCK;
-    wire [2:0] SysCtrl_SS_AXI_to_AXI_AW_PROT;
-    wire [3:0] SysCtrl_SS_AXI_to_AXI_AW_QOS;
-    wire       SysCtrl_SS_AXI_to_AXI_AW_READY;
-    wire [3:0] SysCtrl_SS_AXI_to_AXI_AW_REGION;
-    wire [2:0] SysCtrl_SS_AXI_to_AXI_AW_SIZE;
-    wire       SysCtrl_SS_AXI_to_AXI_AW_USER;
-    wire       SysCtrl_SS_AXI_to_AXI_AW_VALID;
-    wire [9:0] SysCtrl_SS_AXI_to_AXI_B_ID;
-    wire       SysCtrl_SS_AXI_to_AXI_B_READY;
-    wire [1:0] SysCtrl_SS_AXI_to_AXI_B_RESP;
-    wire       SysCtrl_SS_AXI_to_AXI_B_USER;
-    wire       SysCtrl_SS_AXI_to_AXI_B_VALID;
-    wire [31:0] SysCtrl_SS_AXI_to_AXI_R_DATA;
-    wire [9:0] SysCtrl_SS_AXI_to_AXI_R_ID;
-    wire       SysCtrl_SS_AXI_to_AXI_R_LAST;
-    wire       SysCtrl_SS_AXI_to_AXI_R_READY;
-    wire [1:0] SysCtrl_SS_AXI_to_AXI_R_RESP;
-    wire [1:0] SysCtrl_SS_AXI_to_AXI_R_USER;
-    wire       SysCtrl_SS_AXI_to_AXI_R_VALID;
-    wire [31:0] SysCtrl_SS_AXI_to_AXI_W_DATA;
-    wire       SysCtrl_SS_AXI_to_AXI_W_LAST;
-    wire       SysCtrl_SS_AXI_to_AXI_W_READY;
-    wire [3:0] SysCtrl_SS_AXI_to_AXI_W_STROBE;
-    wire       SysCtrl_SS_AXI_to_AXI_W_USER;
-    wire       SysCtrl_SS_AXI_to_AXI_W_VALID;
     // i_io_cell_frame_JTAG_to_JTAG wires:
     // i_io_cell_frame_UART_to_UART wires:
     // i_io_cell_frame_GPIO_to_GPIO wires:
@@ -347,59 +271,49 @@ module SysCtrl_SS_wrapper_0 #(
     wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpi;
     wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpio_oe;
     wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpo;
+    // SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn wires:
+    wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
+    wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
+    wire [1:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID;
+    wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_READY;
+    wire [1:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID;
+    wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
+    wire [3:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
+    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
 
     // SysCtrl_SS port wires:
-    wire [31:0] SysCtrl_SS_AR_ADDR;
-    wire [1:0] SysCtrl_SS_AR_BURST;
-    wire [3:0] SysCtrl_SS_AR_CACHE;
-    wire [9:0] SysCtrl_SS_AR_ID;
-    wire [7:0] SysCtrl_SS_AR_LEN;
-    wire       SysCtrl_SS_AR_LOCK;
-    wire [2:0] SysCtrl_SS_AR_PROT;
-    wire [3:0] SysCtrl_SS_AR_QOS;
-    wire       SysCtrl_SS_AR_READY;
-    wire [2:0] SysCtrl_SS_AR_REGION;
-    wire [2:0] SysCtrl_SS_AR_SIZE;
-    wire       SysCtrl_SS_AR_USER;
-    wire       SysCtrl_SS_AR_VALID;
-    wire [31:0] SysCtrl_SS_AW_ADDR;
-    wire [5:0] SysCtrl_SS_AW_ATOP;
-    wire [1:0] SysCtrl_SS_AW_BURST;
-    wire [3:0] SysCtrl_SS_AW_CACHE;
-    wire [9:0] SysCtrl_SS_AW_ID;
-    wire [7:0] SysCtrl_SS_AW_LEN;
-    wire       SysCtrl_SS_AW_LOCK;
-    wire [2:0] SysCtrl_SS_AW_PROT;
-    wire [3:0] SysCtrl_SS_AW_QOS;
-    wire       SysCtrl_SS_AW_READY;
-    wire [3:0] SysCtrl_SS_AW_REGION;
-    wire [2:0] SysCtrl_SS_AW_SIZE;
-    wire       SysCtrl_SS_AW_USER;
-    wire       SysCtrl_SS_AW_VALID;
-    wire [9:0] SysCtrl_SS_B_ID;
-    wire       SysCtrl_SS_B_READY;
-    wire [1:0] SysCtrl_SS_B_RESP;
-    wire       SysCtrl_SS_B_USER;
-    wire       SysCtrl_SS_B_VALID;
     wire       SysCtrl_SS_BootSel_internal;
-    wire [31:0] SysCtrl_SS_R_DATA;
-    wire [9:0] SysCtrl_SS_R_ID;
-    wire       SysCtrl_SS_R_LAST;
-    wire       SysCtrl_SS_R_READY;
-    wire [1:0] SysCtrl_SS_R_RESP;
-    wire       SysCtrl_SS_R_USER;
-    wire       SysCtrl_SS_R_VALID;
-    wire [31:0] SysCtrl_SS_W_DATA;
-    wire       SysCtrl_SS_W_LAST;
-    wire       SysCtrl_SS_W_READY;
-    wire [3:0] SysCtrl_SS_W_STROBE;
-    wire       SysCtrl_SS_W_USER;
-    wire       SysCtrl_SS_W_VALID;
     wire [129:0] SysCtrl_SS_cell_cfg;
     wire       SysCtrl_SS_clk_internal;
     wire       SysCtrl_SS_fetchEn_internal;
     wire [7:0] SysCtrl_SS_gpio_from_core;
     wire [7:0] SysCtrl_SS_gpio_to_core;
+    wire [31:0] SysCtrl_SS_icn_ar_addr_out;
+    wire       SysCtrl_SS_icn_ar_ready_in;
+    wire       SysCtrl_SS_icn_ar_valid_out;
+    wire [31:0] SysCtrl_SS_icn_aw_addr_out;
+    wire       SysCtrl_SS_icn_aw_ready_in;
+    wire       SysCtrl_SS_icn_aw_valid_out;
+    wire       SysCtrl_SS_icn_b_ready_out;
+    wire [1:0] SysCtrl_SS_icn_b_resp_in;
+    wire       SysCtrl_SS_icn_b_valid_in;
+    wire [31:0] SysCtrl_SS_icn_r_data_in;
+    wire       SysCtrl_SS_icn_r_ready_out;
+    wire [1:0] SysCtrl_SS_icn_r_resp_in;
+    wire       SysCtrl_SS_icn_r_valid_in;
+    wire [31:0] SysCtrl_SS_icn_w_data_out;
+    wire       SysCtrl_SS_icn_w_ready_in;
+    wire [3:0] SysCtrl_SS_icn_w_strb_out;
+    wire       SysCtrl_SS_icn_w_valid_out;
     wire       SysCtrl_SS_irq_0;
     wire       SysCtrl_SS_irq_1;
     wire       SysCtrl_SS_irq_2;
@@ -484,52 +398,24 @@ module SysCtrl_SS_wrapper_0 #(
     wire [3:0] i_pmod_mux_ss_3_pmod_1_gpo;
 
     // Assignments for the ports of the encompassing component:
-    assign AR_ADDR = SysCtrl_SS_AXI_to_AXI_AR_ADDR;
-    assign AR_BURST = SysCtrl_SS_AXI_to_AXI_AR_BURST;
-    assign AR_CACHE = SysCtrl_SS_AXI_to_AXI_AR_CACHE;
-    assign AR_ID = SysCtrl_SS_AXI_to_AXI_AR_ID;
-    assign AR_LEN = SysCtrl_SS_AXI_to_AXI_AR_LEN;
-    assign AR_LOCK = SysCtrl_SS_AXI_to_AXI_AR_LOCK;
-    assign AR_PROT = SysCtrl_SS_AXI_to_AXI_AR_PROT;
-    assign AR_QOS = SysCtrl_SS_AXI_to_AXI_AR_QOS;
-    assign SysCtrl_SS_AXI_to_AXI_AR_READY = AR_READY;
-    assign AR_REGION = SysCtrl_SS_AXI_to_AXI_AR_REGION;
-    assign AR_SIZE = SysCtrl_SS_AXI_to_AXI_AR_SIZE;
-    assign AR_USER = SysCtrl_SS_AXI_to_AXI_AR_USER;
-    assign AR_VALID = SysCtrl_SS_AXI_to_AXI_AR_VALID;
-    assign AW_ADDR = SysCtrl_SS_AXI_to_AXI_AW_ADDR;
-    assign AW_ATOP = SysCtrl_SS_AXI_to_AXI_AW_ATOP;
-    assign AW_BURST = SysCtrl_SS_AXI_to_AXI_AW_BURST;
-    assign AW_CACHE = SysCtrl_SS_AXI_to_AXI_AW_CACHE;
-    assign AW_ID = SysCtrl_SS_AXI_to_AXI_AW_ID;
-    assign AW_LEN = SysCtrl_SS_AXI_to_AXI_AW_LEN;
-    assign AW_LOCK = SysCtrl_SS_AXI_to_AXI_AW_LOCK;
-    assign AW_PROT = SysCtrl_SS_AXI_to_AXI_AW_PROT;
-    assign AW_QOS = SysCtrl_SS_AXI_to_AXI_AW_QOS;
-    assign SysCtrl_SS_AXI_to_AXI_AW_READY = AW_READY;
-    assign AW_REGION = SysCtrl_SS_AXI_to_AXI_AW_REGION;
-    assign AW_SIZE = SysCtrl_SS_AXI_to_AXI_AW_SIZE;
-    assign AW_USER = SysCtrl_SS_AXI_to_AXI_AW_USER;
-    assign AW_VALID = SysCtrl_SS_AXI_to_AXI_AW_VALID;
-    assign SysCtrl_SS_AXI_to_AXI_B_ID = B_ID;
-    assign B_READY = SysCtrl_SS_AXI_to_AXI_B_READY;
-    assign SysCtrl_SS_AXI_to_AXI_B_RESP = B_RESP;
-    assign SysCtrl_SS_AXI_to_AXI_B_USER = B_USER;
-    assign SysCtrl_SS_AXI_to_AXI_B_VALID = B_VALID;
-    assign SysCtrl_SS_AXI_to_AXI_R_DATA = R_DATA;
-    assign SysCtrl_SS_AXI_to_AXI_R_ID = R_ID;
-    assign SysCtrl_SS_AXI_to_AXI_R_LAST = R_LAST;
-    assign R_READY = SysCtrl_SS_AXI_to_AXI_R_READY;
-    assign SysCtrl_SS_AXI_to_AXI_R_RESP = R_RESP;
-    assign SysCtrl_SS_AXI_to_AXI_R_USER = R_USER;
-    assign SysCtrl_SS_AXI_to_AXI_R_VALID = R_VALID;
-    assign W_DATA = SysCtrl_SS_AXI_to_AXI_W_DATA;
-    assign W_LAST = SysCtrl_SS_AXI_to_AXI_W_LAST;
-    assign SysCtrl_SS_AXI_to_AXI_W_READY = W_READY;
-    assign W_STROBE = SysCtrl_SS_AXI_to_AXI_W_STROBE;
-    assign W_USER = SysCtrl_SS_AXI_to_AXI_W_USER;
-    assign W_VALID = SysCtrl_SS_AXI_to_AXI_W_VALID;
     assign clk = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
+    assign icn_ar_addr_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY = icn_ar_ready_in;
+    assign icn_ar_valid_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
+    assign icn_aw_addr_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY = icn_aw_ready_in;
+    assign icn_aw_valid_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
+    assign icn_b_ready_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP = icn_b_resp_in;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID = icn_b_valid_in;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA = icn_r_data_in;
+    assign icn_r_ready_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_READY;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP = icn_r_resp_in;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID = icn_r_valid_in;
+    assign icn_w_data_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_READY = icn_w_ready_in;
+    assign icn_w_strb_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
+    assign icn_w_valid_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
     assign SysCtrl_SS_IRQ0_to_IRQ0_irq = irq_0;
     assign SysCtrl_SS_IRQ1_to_IRQ1_irq = irq_1;
     assign SysCtrl_SS_IRQ2_to_IRQ2_irq = irq_2;
@@ -574,57 +460,29 @@ module SysCtrl_SS_wrapper_0 #(
     assign ss_ctrl_icn = SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl_clk_ctrl;
 
     // SysCtrl_SS assignments:
-    assign SysCtrl_SS_AXI_to_AXI_AR_ADDR = SysCtrl_SS_AR_ADDR;
-    assign SysCtrl_SS_AXI_to_AXI_AR_BURST = SysCtrl_SS_AR_BURST;
-    assign SysCtrl_SS_AXI_to_AXI_AR_CACHE = SysCtrl_SS_AR_CACHE;
-    assign SysCtrl_SS_AXI_to_AXI_AR_ID = SysCtrl_SS_AR_ID;
-    assign SysCtrl_SS_AXI_to_AXI_AR_LEN = SysCtrl_SS_AR_LEN;
-    assign SysCtrl_SS_AXI_to_AXI_AR_LOCK = SysCtrl_SS_AR_LOCK;
-    assign SysCtrl_SS_AXI_to_AXI_AR_PROT = SysCtrl_SS_AR_PROT;
-    assign SysCtrl_SS_AXI_to_AXI_AR_QOS = SysCtrl_SS_AR_QOS;
-    assign SysCtrl_SS_AR_READY = SysCtrl_SS_AXI_to_AXI_AR_READY;
-    assign SysCtrl_SS_AXI_to_AXI_AR_REGION = SysCtrl_SS_AR_REGION;
-    assign SysCtrl_SS_AXI_to_AXI_AR_SIZE = SysCtrl_SS_AR_SIZE;
-    assign SysCtrl_SS_AXI_to_AXI_AR_USER = SysCtrl_SS_AR_USER;
-    assign SysCtrl_SS_AXI_to_AXI_AR_VALID = SysCtrl_SS_AR_VALID;
-    assign SysCtrl_SS_AXI_to_AXI_AW_ADDR = SysCtrl_SS_AW_ADDR;
-    assign SysCtrl_SS_AXI_to_AXI_AW_ATOP = SysCtrl_SS_AW_ATOP;
-    assign SysCtrl_SS_AXI_to_AXI_AW_BURST = SysCtrl_SS_AW_BURST;
-    assign SysCtrl_SS_AXI_to_AXI_AW_CACHE = SysCtrl_SS_AW_CACHE;
-    assign SysCtrl_SS_AXI_to_AXI_AW_ID = SysCtrl_SS_AW_ID;
-    assign SysCtrl_SS_AXI_to_AXI_AW_LEN = SysCtrl_SS_AW_LEN;
-    assign SysCtrl_SS_AXI_to_AXI_AW_LOCK = SysCtrl_SS_AW_LOCK;
-    assign SysCtrl_SS_AXI_to_AXI_AW_PROT = SysCtrl_SS_AW_PROT;
-    assign SysCtrl_SS_AXI_to_AXI_AW_QOS = SysCtrl_SS_AW_QOS;
-    assign SysCtrl_SS_AW_READY = SysCtrl_SS_AXI_to_AXI_AW_READY;
-    assign SysCtrl_SS_AXI_to_AXI_AW_REGION = SysCtrl_SS_AW_REGION;
-    assign SysCtrl_SS_AXI_to_AXI_AW_SIZE = SysCtrl_SS_AW_SIZE;
-    assign SysCtrl_SS_AXI_to_AXI_AW_USER = SysCtrl_SS_AW_USER;
-    assign SysCtrl_SS_AXI_to_AXI_AW_VALID = SysCtrl_SS_AW_VALID;
-    assign SysCtrl_SS_B_ID = SysCtrl_SS_AXI_to_AXI_B_ID;
-    assign SysCtrl_SS_AXI_to_AXI_B_READY = SysCtrl_SS_B_READY;
-    assign SysCtrl_SS_B_RESP = SysCtrl_SS_AXI_to_AXI_B_RESP;
-    assign SysCtrl_SS_B_USER = SysCtrl_SS_AXI_to_AXI_B_USER;
-    assign SysCtrl_SS_B_VALID = SysCtrl_SS_AXI_to_AXI_B_VALID;
     assign SysCtrl_SS_BootSel_internal = i_io_cell_frame_BootSel_internal_to_SysCtrl_SS_BootSel_gpo;
-    assign SysCtrl_SS_R_DATA = SysCtrl_SS_AXI_to_AXI_R_DATA;
-    assign SysCtrl_SS_R_ID = SysCtrl_SS_AXI_to_AXI_R_ID;
-    assign SysCtrl_SS_R_LAST = SysCtrl_SS_AXI_to_AXI_R_LAST;
-    assign SysCtrl_SS_AXI_to_AXI_R_READY = SysCtrl_SS_R_READY;
-    assign SysCtrl_SS_R_RESP = SysCtrl_SS_AXI_to_AXI_R_RESP;
-    assign SysCtrl_SS_R_USER = SysCtrl_SS_AXI_to_AXI_R_USER[0];
-    assign SysCtrl_SS_R_VALID = SysCtrl_SS_AXI_to_AXI_R_VALID;
-    assign SysCtrl_SS_AXI_to_AXI_W_DATA = SysCtrl_SS_W_DATA;
-    assign SysCtrl_SS_AXI_to_AXI_W_LAST = SysCtrl_SS_W_LAST;
-    assign SysCtrl_SS_W_READY = SysCtrl_SS_AXI_to_AXI_W_READY;
-    assign SysCtrl_SS_AXI_to_AXI_W_STROBE = SysCtrl_SS_W_STROBE;
-    assign SysCtrl_SS_AXI_to_AXI_W_USER = SysCtrl_SS_W_USER;
-    assign SysCtrl_SS_AXI_to_AXI_W_VALID = SysCtrl_SS_W_VALID;
     assign SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg = SysCtrl_SS_cell_cfg;
     assign SysCtrl_SS_clk_internal = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
     assign SysCtrl_SS_fetchEn_internal = i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn_gpo;
     assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo = SysCtrl_SS_gpio_from_core;
     assign SysCtrl_SS_gpio_to_core = i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR = SysCtrl_SS_icn_ar_addr_out;
+    assign SysCtrl_SS_icn_ar_ready_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID = SysCtrl_SS_icn_ar_valid_out;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR = SysCtrl_SS_icn_aw_addr_out;
+    assign SysCtrl_SS_icn_aw_ready_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID = SysCtrl_SS_icn_aw_valid_out;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_READY = SysCtrl_SS_icn_b_ready_out;
+    assign SysCtrl_SS_icn_b_resp_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP;
+    assign SysCtrl_SS_icn_b_valid_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID;
+    assign SysCtrl_SS_icn_r_data_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_READY = SysCtrl_SS_icn_r_ready_out;
+    assign SysCtrl_SS_icn_r_resp_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP;
+    assign SysCtrl_SS_icn_r_valid_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA = SysCtrl_SS_icn_w_data_out;
+    assign SysCtrl_SS_icn_w_ready_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB = SysCtrl_SS_icn_w_strb_out;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID = SysCtrl_SS_icn_w_valid_out;
     assign SysCtrl_SS_irq_0 = SysCtrl_SS_IRQ0_to_IRQ0_irq;
     assign SysCtrl_SS_irq_1 = SysCtrl_SS_IRQ1_to_IRQ1_irq;
     assign SysCtrl_SS_irq_2 = SysCtrl_SS_IRQ2_to_IRQ2_irq;
@@ -710,61 +568,31 @@ module SysCtrl_SS_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.0
     SysCtrl_SS_0 #(
-        .AXI_AW              (32),
-        .AXI_DW              (32),
-        .AXI_IDW             (10),
-        .AXI_USERW           (1),
+        .AXI4LITE_AW         (32),
+        .AXI4LITE_DW         (32),
         .IOCELL_CFG_W        (5),
         .IOCELL_COUNT        (26),
         .NUM_GPIO            (8),
         .SS_CTRL_W           (8))
     SysCtrl_SS(
-        // Interface: AXI
-        .AR_READY            (SysCtrl_SS_AR_READY),
-        .AW_READY            (SysCtrl_SS_AW_READY),
-        .B_ID                (SysCtrl_SS_B_ID),
-        .B_RESP              (SysCtrl_SS_B_RESP),
-        .B_USER              (SysCtrl_SS_B_USER),
-        .B_VALID             (SysCtrl_SS_B_VALID),
-        .R_DATA              (SysCtrl_SS_R_DATA),
-        .R_ID                (SysCtrl_SS_R_ID),
-        .R_LAST              (SysCtrl_SS_R_LAST),
-        .R_RESP              (SysCtrl_SS_R_RESP),
-        .R_USER              (SysCtrl_SS_R_USER),
-        .R_VALID             (SysCtrl_SS_R_VALID),
-        .W_READY             (SysCtrl_SS_W_READY),
-        .AR_ADDR             (SysCtrl_SS_AR_ADDR),
-        .AR_BURST            (SysCtrl_SS_AR_BURST),
-        .AR_CACHE            (SysCtrl_SS_AR_CACHE),
-        .AR_ID               (SysCtrl_SS_AR_ID),
-        .AR_LEN              (SysCtrl_SS_AR_LEN),
-        .AR_LOCK             (SysCtrl_SS_AR_LOCK),
-        .AR_PROT             (SysCtrl_SS_AR_PROT),
-        .AR_QOS              (SysCtrl_SS_AR_QOS),
-        .AR_REGION           (SysCtrl_SS_AR_REGION),
-        .AR_SIZE             (SysCtrl_SS_AR_SIZE),
-        .AR_USER             (SysCtrl_SS_AR_USER),
-        .AR_VALID            (SysCtrl_SS_AR_VALID),
-        .AW_ADDR             (SysCtrl_SS_AW_ADDR),
-        .AW_ATOP             (SysCtrl_SS_AW_ATOP),
-        .AW_BURST            (SysCtrl_SS_AW_BURST),
-        .AW_CACHE            (SysCtrl_SS_AW_CACHE),
-        .AW_ID               (SysCtrl_SS_AW_ID),
-        .AW_LEN              (SysCtrl_SS_AW_LEN),
-        .AW_LOCK             (SysCtrl_SS_AW_LOCK),
-        .AW_PROT             (SysCtrl_SS_AW_PROT),
-        .AW_QOS              (SysCtrl_SS_AW_QOS),
-        .AW_REGION           (SysCtrl_SS_AW_REGION),
-        .AW_SIZE             (SysCtrl_SS_AW_SIZE),
-        .AW_USER             (SysCtrl_SS_AW_USER),
-        .AW_VALID            (SysCtrl_SS_AW_VALID),
-        .B_READY             (SysCtrl_SS_B_READY),
-        .R_READY             (SysCtrl_SS_R_READY),
-        .W_DATA              (SysCtrl_SS_W_DATA),
-        .W_LAST              (SysCtrl_SS_W_LAST),
-        .W_STROBE            (SysCtrl_SS_W_STROBE),
-        .W_USER              (SysCtrl_SS_W_USER),
-        .W_VALID             (SysCtrl_SS_W_VALID),
+        // Interface: AXI4LITE_icn
+        .icn_ar_ready_in     (SysCtrl_SS_icn_ar_ready_in),
+        .icn_aw_ready_in     (SysCtrl_SS_icn_aw_ready_in),
+        .icn_b_resp_in       (SysCtrl_SS_icn_b_resp_in),
+        .icn_b_valid_in      (SysCtrl_SS_icn_b_valid_in),
+        .icn_r_data_in       (SysCtrl_SS_icn_r_data_in),
+        .icn_r_resp_in       (SysCtrl_SS_icn_r_resp_in),
+        .icn_r_valid_in      (SysCtrl_SS_icn_r_valid_in),
+        .icn_w_ready_in      (SysCtrl_SS_icn_w_ready_in),
+        .icn_ar_addr_out     (SysCtrl_SS_icn_ar_addr_out),
+        .icn_ar_valid_out    (SysCtrl_SS_icn_ar_valid_out),
+        .icn_aw_addr_out     (SysCtrl_SS_icn_aw_addr_out),
+        .icn_aw_valid_out    (SysCtrl_SS_icn_aw_valid_out),
+        .icn_b_ready_out     (SysCtrl_SS_icn_b_ready_out),
+        .icn_r_ready_out     (SysCtrl_SS_icn_r_ready_out),
+        .icn_w_data_out      (SysCtrl_SS_icn_w_data_out),
+        .icn_w_strb_out      (SysCtrl_SS_icn_w_strb_out),
+        .icn_w_valid_out     (SysCtrl_SS_icn_w_valid_out),
         // Interface: BootSel
         .BootSel_internal    (SysCtrl_SS_BootSel_internal),
         // Interface: Clk

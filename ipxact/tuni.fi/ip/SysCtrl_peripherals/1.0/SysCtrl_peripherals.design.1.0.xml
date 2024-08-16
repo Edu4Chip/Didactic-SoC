@@ -194,7 +194,7 @@
 			<ipxact:name>APB_AW</ipxact:name>
 			<ipxact:value>12</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_4a3460b5_b700_4fb1_833e_2c6da785453c" resolve="user">
+		<ipxact:parameter parameterId="uuid_4a3460b5_b700_4fb1_833e_2c6da785453c" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:value>6</ipxact:value>
 		</ipxact:parameter>

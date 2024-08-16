@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 12.07.2024
-// Creation time : 09:40:19
+// Creation date : 16.08.2024
+// Creation time : 11:27:28
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -15,62 +15,32 @@
 `endif
 
 module SysCtrl_SS_0 #(
-    parameter                              AXI_AW           = 32,
-    parameter                              AXI_DW           = 32,
-    parameter                              AXI_IDW          = 10,
-    parameter                              AXI_USERW        = 1,
+    parameter                              AXI4LITE_AW      = 32,
+    parameter                              AXI4LITE_DW      = 32,
     parameter                              IOCELL_CFG_W     = 5,
     parameter                              IOCELL_COUNT     = 26,    // update this value manually to match cell numbers
     parameter                              NUM_GPIO         = 8,
     parameter                              SS_CTRL_W        = 8,
     parameter                              IO_CFG_W         = 5
 ) (
-    // Interface: AXI
-    input  logic                        AR_READY,
-    input  logic                        AW_READY,
-    input  logic         [9:0]          B_ID,
-    input  logic         [1:0]          B_RESP,
-    input  logic                        B_USER,
-    input  logic                        B_VALID,
-    input  logic         [31:0]         R_DATA,
-    input  logic         [9:0]          R_ID,
-    input  logic                        R_LAST,
-    input  logic         [1:0]          R_RESP,
-    input  logic                        R_USER,
-    input  logic                        R_VALID,
-    input  logic                        W_READY,
-    output logic         [31:0]         AR_ADDR,
-    output logic         [1:0]          AR_BURST,
-    output logic         [3:0]          AR_CACHE,
-    output logic         [9:0]          AR_ID,
-    output logic         [7:0]          AR_LEN,
-    output logic                        AR_LOCK,
-    output logic         [2:0]          AR_PROT,
-    output logic         [3:0]          AR_QOS,
-    output logic         [2:0]          AR_REGION,
-    output logic         [2:0]          AR_SIZE,
-    output logic                        AR_USER,
-    output logic                        AR_VALID,
-    output logic         [31:0]         AW_ADDR,
-    output logic         [5:0]          AW_ATOP,
-    output logic         [1:0]          AW_BURST,
-    output logic         [3:0]          AW_CACHE,
-    output logic         [9:0]          AW_ID,
-    output logic         [7:0]          AW_LEN,
-    output logic                        AW_LOCK,
-    output logic         [2:0]          AW_PROT,
-    output logic         [3:0]          AW_QOS,
-    output logic         [3:0]          AW_REGION,
-    output logic         [2:0]          AW_SIZE,
-    output logic                        AW_USER,
-    output logic                        AW_VALID,
-    output logic                        B_READY,
-    output logic                        R_READY,
-    output logic         [31:0]         W_DATA,
-    output logic                        W_LAST,
-    output logic         [3:0]          W_STROBE,
-    output logic                        W_USER,
-    output logic                        W_VALID,
+    // Interface: AXI4LITE_icn
+    input  logic                        icn_ar_ready_in,
+    input  logic                        icn_aw_ready_in,
+    input  logic         [1:0]          icn_b_resp_in,
+    input  logic                        icn_b_valid_in,
+    input  logic         [31:0]         icn_r_data_in,
+    input  logic         [1:0]          icn_r_resp_in,
+    input  logic                        icn_r_valid_in,
+    input  logic                        icn_w_ready_in,
+    output logic         [31:0]         icn_ar_addr_out,
+    output logic                        icn_ar_valid_out,
+    output logic         [31:0]         icn_aw_addr_out,
+    output logic                        icn_aw_valid_out,
+    output logic                        icn_b_ready_out,
+    output logic                        icn_r_ready_out,
+    output logic         [31:0]         icn_w_data_out,
+    output logic         [3:0]          icn_w_strb_out,
+    output logic                        icn_w_valid_out,
 
     // Interface: BootSel
     input  logic                        BootSel_internal,
@@ -199,52 +169,6 @@ module SysCtrl_SS_0 #(
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_READY;
     wire [31:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB;
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID;
-    // Ctrl_xbar_AXI_ICN_to_AXI wires:
-    wire [31:0] Ctrl_xbar_AXI_ICN_to_AXI_AR_ADDR;
-    wire [1:0] Ctrl_xbar_AXI_ICN_to_AXI_AR_BURST;
-    wire [3:0] Ctrl_xbar_AXI_ICN_to_AXI_AR_CACHE;
-    wire [9:0] Ctrl_xbar_AXI_ICN_to_AXI_AR_ID;
-    wire [7:0] Ctrl_xbar_AXI_ICN_to_AXI_AR_LEN;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_AR_LOCK;
-    wire [2:0] Ctrl_xbar_AXI_ICN_to_AXI_AR_PROT;
-    wire [3:0] Ctrl_xbar_AXI_ICN_to_AXI_AR_QOS;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_AR_READY;
-    wire [2:0] Ctrl_xbar_AXI_ICN_to_AXI_AR_REGION;
-    wire [2:0] Ctrl_xbar_AXI_ICN_to_AXI_AR_SIZE;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_AR_USER;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_AR_VALID;
-    wire [31:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_ADDR;
-    wire [5:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_ATOP;
-    wire [1:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_BURST;
-    wire [3:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_CACHE;
-    wire [9:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_ID;
-    wire [7:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_LEN;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_AW_LOCK;
-    wire [2:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_PROT;
-    wire [3:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_QOS;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_AW_READY;
-    wire [3:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_REGION;
-    wire [2:0] Ctrl_xbar_AXI_ICN_to_AXI_AW_SIZE;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_AW_USER;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_AW_VALID;
-    wire [9:0] Ctrl_xbar_AXI_ICN_to_AXI_B_ID;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_B_READY;
-    wire [1:0] Ctrl_xbar_AXI_ICN_to_AXI_B_RESP;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_B_USER;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_B_VALID;
-    wire [31:0] Ctrl_xbar_AXI_ICN_to_AXI_R_DATA;
-    wire [9:0] Ctrl_xbar_AXI_ICN_to_AXI_R_ID;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_R_LAST;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_R_READY;
-    wire [1:0] Ctrl_xbar_AXI_ICN_to_AXI_R_RESP;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_R_USER;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_R_VALID;
-    wire [31:0] Ctrl_xbar_AXI_ICN_to_AXI_W_DATA;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_W_LAST;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_W_READY;
-    wire [3:0] Ctrl_xbar_AXI_ICN_to_AXI_W_STROBE;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_W_USER;
-    wire       Ctrl_xbar_AXI_ICN_to_AXI_W_VALID;
     // SS_Ctrl_reg_array_rst_icn_to_Reset_ICN wires:
     wire       SS_Ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
     // SS_Ctrl_reg_array_rst_ss_0_to_Reset_SS_0 wires:
@@ -366,13 +290,6 @@ module SysCtrl_SS_0 #(
     wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_READY;
     wire [3:0] axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_STRB;
     wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_VALID;
-    // BootRom_axi_bridge_Mem_to_BootRom_mem wires:
-    wire [31:0] BootRom_axi_bridge_Mem_to_BootRom_mem_ADDR;
-    wire [3:0] BootRom_axi_bridge_Mem_to_BootRom_mem_BE;
-    wire [31:0] BootRom_axi_bridge_Mem_to_BootRom_mem_RDATA;
-    wire       BootRom_axi_bridge_Mem_to_BootRom_mem_REQ;
-    wire [31:0] BootRom_axi_bridge_Mem_to_BootRom_mem_WDATA;
-    wire       BootRom_axi_bridge_Mem_to_BootRom_mem_WE;
     // axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM wires:
     wire [31:0] axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_ADDR;
     wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_READY;
@@ -398,24 +315,6 @@ module SysCtrl_SS_0 #(
     wire       axi_imem_bridge_Mem_to_i_imem_mem_REQ;
     wire [31:0] axi_imem_bridge_Mem_to_i_imem_mem_WDATA;
     wire       axi_imem_bridge_Mem_to_i_imem_mem_WE;
-    // BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom wires:
-    wire [31:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_ADDR;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_READY;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_VALID;
-    wire [31:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_ADDR;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_READY;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_VALID;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_B_READY;
-    wire [1:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_B_RESP;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_B_VALID;
-    wire [31:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_DATA;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_READY;
-    wire [1:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_RESP;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_VALID;
-    wire [31:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_DATA;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_READY;
-    wire [3:0] BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_STRB;
-    wire       BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_VALID;
     // core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM wires:
     wire [31:0] core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR;
     wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_READY;
@@ -486,6 +385,24 @@ module SysCtrl_SS_0 #(
     wire       Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WE;
     // SS_Ctrl_reg_array_pmod_sel_to_bus wires:
     wire [7:0] SS_Ctrl_reg_array_pmod_sel_to_bus_gpo;
+    // Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn wires:
+    wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
+    wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
+    wire [1:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID;
+    wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_READY;
+    wire [1:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID;
+    wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
+    wire [3:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
+    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
 
     // Ad-hoc wires:
     wire       Ibex_Core_irq_fast_i_to_irq_1;
@@ -497,39 +414,6 @@ module SysCtrl_SS_0 #(
     wire [1:0] i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
     wire [6:0] Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
 
-    // BootRom port wires:
-    wire [31:0] BootRom_addr_i;
-    wire [3:0] BootRom_be_i;
-    wire       BootRom_clk_i;
-    wire [31:0] BootRom_rdata_o;
-    wire       BootRom_req_i;
-    wire       BootRom_rst_ni;
-    wire       BootRom_we_i;
-    // BootRom_axi_bridge port wires:
-    wire [31:0] BootRom_axi_bridge_addr_o;
-    wire [31:0] BootRom_axi_bridge_ar_addr_i;
-    wire       BootRom_axi_bridge_ar_ready_o;
-    wire       BootRom_axi_bridge_ar_valid_i;
-    wire [31:0] BootRom_axi_bridge_aw_addr_i;
-    wire       BootRom_axi_bridge_aw_ready_o;
-    wire       BootRom_axi_bridge_aw_valid_i;
-    wire       BootRom_axi_bridge_b_ready_i;
-    wire [1:0] BootRom_axi_bridge_b_resp_o;
-    wire       BootRom_axi_bridge_b_valid_o;
-    wire [3:0] BootRom_axi_bridge_be_o;
-    wire       BootRom_axi_bridge_clk_i;
-    wire [31:0] BootRom_axi_bridge_r_data_o;
-    wire       BootRom_axi_bridge_r_ready_i;
-    wire [1:0] BootRom_axi_bridge_r_resp_o;
-    wire       BootRom_axi_bridge_r_valid_o;
-    wire [31:0] BootRom_axi_bridge_rdata_i;
-    wire       BootRom_axi_bridge_req_o;
-    wire       BootRom_axi_bridge_rst_ni;
-    wire [31:0] BootRom_axi_bridge_w_data_i;
-    wire       BootRom_axi_bridge_w_ready_o;
-    wire [3:0] BootRom_axi_bridge_w_strb_i;
-    wire       BootRom_axi_bridge_w_valid_i;
-    wire       BootRom_axi_bridge_we_o;
     // Ctrl_reg_bridge port wires:
     wire [31:0] Ctrl_reg_bridge_addr_o;
     wire [31:0] Ctrl_reg_bridge_ar_addr_i;
@@ -557,55 +441,6 @@ module SysCtrl_SS_0 #(
     wire [31:0] Ctrl_reg_bridge_wdata_o;
     wire       Ctrl_reg_bridge_we_o;
     // Ctrl_xbar port wires:
-    wire [31:0] Ctrl_xbar_AR_ADDR;
-    wire [1:0] Ctrl_xbar_AR_BURST;
-    wire [3:0] Ctrl_xbar_AR_CACHE;
-    wire [9:0] Ctrl_xbar_AR_ID;
-    wire [7:0] Ctrl_xbar_AR_LEN;
-    wire       Ctrl_xbar_AR_LOCK;
-    wire [2:0] Ctrl_xbar_AR_PROT;
-    wire [3:0] Ctrl_xbar_AR_QOS;
-    wire       Ctrl_xbar_AR_READY;
-    wire [2:0] Ctrl_xbar_AR_REGION;
-    wire [2:0] Ctrl_xbar_AR_SIZE;
-    wire       Ctrl_xbar_AR_USER;
-    wire       Ctrl_xbar_AR_VALID;
-    wire [31:0] Ctrl_xbar_AW_ADDR;
-    wire [5:0] Ctrl_xbar_AW_ATOP;
-    wire [1:0] Ctrl_xbar_AW_BURST;
-    wire [3:0] Ctrl_xbar_AW_CACHE;
-    wire [9:0] Ctrl_xbar_AW_ID;
-    wire [7:0] Ctrl_xbar_AW_LEN;
-    wire       Ctrl_xbar_AW_LOCK;
-    wire [2:0] Ctrl_xbar_AW_PROT;
-    wire [3:0] Ctrl_xbar_AW_QOS;
-    wire       Ctrl_xbar_AW_READY;
-    wire [3:0] Ctrl_xbar_AW_REGION;
-    wire [2:0] Ctrl_xbar_AW_SIZE;
-    wire       Ctrl_xbar_AW_USER;
-    wire       Ctrl_xbar_AW_VALID;
-    wire [9:0] Ctrl_xbar_B_ID;
-    wire       Ctrl_xbar_B_READY;
-    wire [1:0] Ctrl_xbar_B_RESP;
-    wire       Ctrl_xbar_B_USER;
-    wire       Ctrl_xbar_B_VALID;
-    wire [31:0] Ctrl_xbar_BootRom_ar_addr_out;
-    wire       Ctrl_xbar_BootRom_ar_ready_in;
-    wire       Ctrl_xbar_BootRom_ar_valid_out;
-    wire [31:0] Ctrl_xbar_BootRom_aw_addr_out;
-    wire       Ctrl_xbar_BootRom_aw_ready_in;
-    wire       Ctrl_xbar_BootRom_aw_valid_out;
-    wire       Ctrl_xbar_BootRom_b_ready_out;
-    wire [1:0] Ctrl_xbar_BootRom_b_resp_in;
-    wire       Ctrl_xbar_BootRom_b_valid_in;
-    wire [31:0] Ctrl_xbar_BootRom_r_data_in;
-    wire       Ctrl_xbar_BootRom_r_ready_out;
-    wire [1:0] Ctrl_xbar_BootRom_r_resp_in;
-    wire       Ctrl_xbar_BootRom_r_valid_in;
-    wire [31:0] Ctrl_xbar_BootRom_w_data_out;
-    wire       Ctrl_xbar_BootRom_w_ready_in;
-    wire [3:0] Ctrl_xbar_BootRom_w_strb_out;
-    wire       Ctrl_xbar_BootRom_w_valid_out;
     wire [31:0] Ctrl_xbar_CoreDMEM_ar_addr_in;
     wire       Ctrl_xbar_CoreDMEM_ar_ready_out;
     wire       Ctrl_xbar_CoreDMEM_ar_valid_in;
@@ -727,20 +562,24 @@ module SysCtrl_SS_0 #(
     wire       Ctrl_xbar_IMEM_w_ready_in;
     wire [3:0] Ctrl_xbar_IMEM_w_strb_out;
     wire       Ctrl_xbar_IMEM_w_valid_out;
-    wire [31:0] Ctrl_xbar_R_DATA;
-    wire [9:0] Ctrl_xbar_R_ID;
-    wire       Ctrl_xbar_R_LAST;
-    wire       Ctrl_xbar_R_READY;
-    wire [1:0] Ctrl_xbar_R_RESP;
-    wire       Ctrl_xbar_R_USER;
-    wire       Ctrl_xbar_R_VALID;
-    wire [31:0] Ctrl_xbar_W_DATA;
-    wire       Ctrl_xbar_W_LAST;
-    wire       Ctrl_xbar_W_READY;
-    wire [3:0] Ctrl_xbar_W_STROBE;
-    wire       Ctrl_xbar_W_USER;
-    wire       Ctrl_xbar_W_VALID;
     wire       Ctrl_xbar_clk_i;
+    wire [31:0] Ctrl_xbar_icn_ar_addr_out;
+    wire       Ctrl_xbar_icn_ar_ready_in;
+    wire       Ctrl_xbar_icn_ar_valid_out;
+    wire [31:0] Ctrl_xbar_icn_aw_addr_out;
+    wire       Ctrl_xbar_icn_aw_ready_in;
+    wire       Ctrl_xbar_icn_aw_valid_out;
+    wire       Ctrl_xbar_icn_b_ready_out;
+    wire [1:0] Ctrl_xbar_icn_b_resp_in;
+    wire       Ctrl_xbar_icn_b_valid_in;
+    wire [31:0] Ctrl_xbar_icn_r_data_in;
+    wire       Ctrl_xbar_icn_r_ready_out;
+    wire [1:0] Ctrl_xbar_icn_r_resp_in;
+    wire       Ctrl_xbar_icn_r_valid_in;
+    wire [31:0] Ctrl_xbar_icn_w_data_out;
+    wire       Ctrl_xbar_icn_w_ready_in;
+    wire [3:0] Ctrl_xbar_icn_w_strb_out;
+    wire       Ctrl_xbar_icn_w_valid_out;
     wire [31:0] Ctrl_xbar_periph_ar_addr_out;
     wire       Ctrl_xbar_periph_ar_ready_in;
     wire       Ctrl_xbar_periph_ar_valid_out;
@@ -1012,57 +851,29 @@ module SysCtrl_SS_0 #(
     wire       jtag_dbg_wrapper_target_w_valid;
 
     // Assignments for the ports of the encompassing component:
-    assign AR_ADDR = Ctrl_xbar_AXI_ICN_to_AXI_AR_ADDR;
-    assign AR_BURST = Ctrl_xbar_AXI_ICN_to_AXI_AR_BURST;
-    assign AR_CACHE = Ctrl_xbar_AXI_ICN_to_AXI_AR_CACHE;
-    assign AR_ID = Ctrl_xbar_AXI_ICN_to_AXI_AR_ID;
-    assign AR_LEN = Ctrl_xbar_AXI_ICN_to_AXI_AR_LEN;
-    assign AR_LOCK = Ctrl_xbar_AXI_ICN_to_AXI_AR_LOCK;
-    assign AR_PROT = Ctrl_xbar_AXI_ICN_to_AXI_AR_PROT;
-    assign AR_QOS = Ctrl_xbar_AXI_ICN_to_AXI_AR_QOS;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_READY = AR_READY;
-    assign AR_REGION = Ctrl_xbar_AXI_ICN_to_AXI_AR_REGION;
-    assign AR_SIZE = Ctrl_xbar_AXI_ICN_to_AXI_AR_SIZE;
-    assign AR_USER = Ctrl_xbar_AXI_ICN_to_AXI_AR_USER;
-    assign AR_VALID = Ctrl_xbar_AXI_ICN_to_AXI_AR_VALID;
-    assign AW_ADDR = Ctrl_xbar_AXI_ICN_to_AXI_AW_ADDR;
-    assign AW_ATOP = Ctrl_xbar_AXI_ICN_to_AXI_AW_ATOP;
-    assign AW_BURST = Ctrl_xbar_AXI_ICN_to_AXI_AW_BURST;
-    assign AW_CACHE = Ctrl_xbar_AXI_ICN_to_AXI_AW_CACHE;
-    assign AW_ID = Ctrl_xbar_AXI_ICN_to_AXI_AW_ID;
-    assign AW_LEN = Ctrl_xbar_AXI_ICN_to_AXI_AW_LEN;
-    assign AW_LOCK = Ctrl_xbar_AXI_ICN_to_AXI_AW_LOCK;
-    assign AW_PROT = Ctrl_xbar_AXI_ICN_to_AXI_AW_PROT;
-    assign AW_QOS = Ctrl_xbar_AXI_ICN_to_AXI_AW_QOS;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_READY = AW_READY;
-    assign AW_REGION = Ctrl_xbar_AXI_ICN_to_AXI_AW_REGION;
-    assign AW_SIZE = Ctrl_xbar_AXI_ICN_to_AXI_AW_SIZE;
-    assign AW_USER = Ctrl_xbar_AXI_ICN_to_AXI_AW_USER;
-    assign AW_VALID = Ctrl_xbar_AXI_ICN_to_AXI_AW_VALID;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_B_ID = B_ID;
-    assign B_READY = Ctrl_xbar_AXI_ICN_to_AXI_B_READY;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_B_RESP = B_RESP;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_B_USER = B_USER;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_B_VALID = B_VALID;
     assign SS_Ctrl_reg_array_BootSel_to_BootSel_gpo = BootSel_internal;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_R_DATA = R_DATA;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_R_ID = R_ID;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_R_LAST = R_LAST;
-    assign R_READY = Ctrl_xbar_AXI_ICN_to_AXI_R_READY;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_R_RESP = R_RESP;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_R_USER = R_USER;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_R_VALID = R_VALID;
-    assign W_DATA = Ctrl_xbar_AXI_ICN_to_AXI_W_DATA;
-    assign W_LAST = Ctrl_xbar_AXI_ICN_to_AXI_W_LAST;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_W_READY = W_READY;
-    assign W_STROBE = Ctrl_xbar_AXI_ICN_to_AXI_W_STROBE;
-    assign W_USER = Ctrl_xbar_AXI_ICN_to_AXI_W_USER;
-    assign W_VALID = Ctrl_xbar_AXI_ICN_to_AXI_W_VALID;
     assign cell_cfg = SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
     assign i_SysCtrl_peripherals_Clock_to_Clk_clk = clk_internal;
     assign Ibex_Core_FetchEn_to_FetchEn_gpo = fetchEn_internal;
     assign gpio_from_core = i_SysCtrl_peripherals_GPIO_to_GPIO_gpo;
     assign i_SysCtrl_peripherals_GPIO_to_GPIO_gpi = gpio_to_core;
+    assign icn_ar_addr_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY = icn_ar_ready_in;
+    assign icn_ar_valid_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
+    assign icn_aw_addr_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY = icn_aw_ready_in;
+    assign icn_aw_valid_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
+    assign icn_b_ready_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP = icn_b_resp_in;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID = icn_b_valid_in;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA = icn_r_data_in;
+    assign icn_r_ready_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_READY;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP = icn_r_resp_in;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID = icn_r_valid_in;
+    assign icn_w_data_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_READY = icn_w_ready_in;
+    assign icn_w_strb_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
+    assign icn_w_valid_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
     assign Ibex_Core_irq_fast_i_to_irq_0 = irq_0;
     assign Ibex_Core_irq_fast_i_to_irq_1 = irq_1;
     assign Ibex_Core_irq_fast_i_to_irq_2 = irq_2;
@@ -1096,39 +907,6 @@ module SysCtrl_SS_0 #(
     assign i_SysCtrl_peripherals_UART_to_UART_uart_rx = uart_rx_internal;
     assign uart_tx_internal = i_SysCtrl_peripherals_UART_to_UART_uart_tx;
 
-    // BootRom assignments:
-    assign BootRom_addr_i = BootRom_axi_bridge_Mem_to_BootRom_mem_ADDR;
-    assign BootRom_be_i = BootRom_axi_bridge_Mem_to_BootRom_mem_BE;
-    assign BootRom_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign BootRom_axi_bridge_Mem_to_BootRom_mem_RDATA = BootRom_rdata_o;
-    assign BootRom_req_i = BootRom_axi_bridge_Mem_to_BootRom_mem_REQ;
-    assign BootRom_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign BootRom_we_i = BootRom_axi_bridge_Mem_to_BootRom_mem_WE;
-    // BootRom_axi_bridge assignments:
-    assign BootRom_axi_bridge_Mem_to_BootRom_mem_ADDR = BootRom_axi_bridge_addr_o;
-    assign BootRom_axi_bridge_ar_addr_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_ADDR;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_READY = BootRom_axi_bridge_ar_ready_o;
-    assign BootRom_axi_bridge_ar_valid_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_VALID;
-    assign BootRom_axi_bridge_aw_addr_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_ADDR;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_READY = BootRom_axi_bridge_aw_ready_o;
-    assign BootRom_axi_bridge_aw_valid_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_VALID;
-    assign BootRom_axi_bridge_b_ready_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_B_READY;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_B_RESP = BootRom_axi_bridge_b_resp_o;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_B_VALID = BootRom_axi_bridge_b_valid_o;
-    assign BootRom_axi_bridge_Mem_to_BootRom_mem_BE = BootRom_axi_bridge_be_o;
-    assign BootRom_axi_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_DATA = BootRom_axi_bridge_r_data_o;
-    assign BootRom_axi_bridge_r_ready_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_READY;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_RESP = BootRom_axi_bridge_r_resp_o;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_VALID = BootRom_axi_bridge_r_valid_o;
-    assign BootRom_axi_bridge_rdata_i = BootRom_axi_bridge_Mem_to_BootRom_mem_RDATA;
-    assign BootRom_axi_bridge_Mem_to_BootRom_mem_REQ = BootRom_axi_bridge_req_o;
-    assign BootRom_axi_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign BootRom_axi_bridge_w_data_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_DATA;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_READY = BootRom_axi_bridge_w_ready_o;
-    assign BootRom_axi_bridge_w_strb_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_STRB;
-    assign BootRom_axi_bridge_w_valid_i = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_VALID;
-    assign BootRom_axi_bridge_Mem_to_BootRom_mem_WE = BootRom_axi_bridge_we_o;
     // Ctrl_reg_bridge assignments:
     assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_ADDR = Ctrl_reg_bridge_addr_o;
     assign Ctrl_reg_bridge_ar_addr_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_ADDR;
@@ -1156,55 +934,6 @@ module SysCtrl_SS_0 #(
     assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WDATA = Ctrl_reg_bridge_wdata_o;
     assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WE = Ctrl_reg_bridge_we_o;
     // Ctrl_xbar assignments:
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_ADDR = Ctrl_xbar_AR_ADDR;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_BURST = Ctrl_xbar_AR_BURST;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_CACHE = Ctrl_xbar_AR_CACHE;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_ID = Ctrl_xbar_AR_ID;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_LEN = Ctrl_xbar_AR_LEN;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_LOCK = Ctrl_xbar_AR_LOCK;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_PROT = Ctrl_xbar_AR_PROT;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_QOS = Ctrl_xbar_AR_QOS;
-    assign Ctrl_xbar_AR_READY = Ctrl_xbar_AXI_ICN_to_AXI_AR_READY;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_REGION = Ctrl_xbar_AR_REGION;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_SIZE = Ctrl_xbar_AR_SIZE;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_USER = Ctrl_xbar_AR_USER;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AR_VALID = Ctrl_xbar_AR_VALID;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_ADDR = Ctrl_xbar_AW_ADDR;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_ATOP = Ctrl_xbar_AW_ATOP;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_BURST = Ctrl_xbar_AW_BURST;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_CACHE = Ctrl_xbar_AW_CACHE;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_ID = Ctrl_xbar_AW_ID;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_LEN = Ctrl_xbar_AW_LEN;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_LOCK = Ctrl_xbar_AW_LOCK;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_PROT = Ctrl_xbar_AW_PROT;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_QOS = Ctrl_xbar_AW_QOS;
-    assign Ctrl_xbar_AW_READY = Ctrl_xbar_AXI_ICN_to_AXI_AW_READY;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_REGION = Ctrl_xbar_AW_REGION;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_SIZE = Ctrl_xbar_AW_SIZE;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_USER = Ctrl_xbar_AW_USER;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_AW_VALID = Ctrl_xbar_AW_VALID;
-    assign Ctrl_xbar_B_ID = Ctrl_xbar_AXI_ICN_to_AXI_B_ID;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_B_READY = Ctrl_xbar_B_READY;
-    assign Ctrl_xbar_B_RESP = Ctrl_xbar_AXI_ICN_to_AXI_B_RESP;
-    assign Ctrl_xbar_B_USER = Ctrl_xbar_AXI_ICN_to_AXI_B_USER;
-    assign Ctrl_xbar_B_VALID = Ctrl_xbar_AXI_ICN_to_AXI_B_VALID;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_ADDR = Ctrl_xbar_BootRom_ar_addr_out;
-    assign Ctrl_xbar_BootRom_ar_ready_in = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_READY;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AR_VALID = Ctrl_xbar_BootRom_ar_valid_out;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_ADDR = Ctrl_xbar_BootRom_aw_addr_out;
-    assign Ctrl_xbar_BootRom_aw_ready_in = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_READY;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_AW_VALID = Ctrl_xbar_BootRom_aw_valid_out;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_B_READY = Ctrl_xbar_BootRom_b_ready_out;
-    assign Ctrl_xbar_BootRom_b_resp_in = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_B_RESP;
-    assign Ctrl_xbar_BootRom_b_valid_in = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_B_VALID;
-    assign Ctrl_xbar_BootRom_r_data_in = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_DATA;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_READY = Ctrl_xbar_BootRom_r_ready_out;
-    assign Ctrl_xbar_BootRom_r_resp_in = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_RESP;
-    assign Ctrl_xbar_BootRom_r_valid_in = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_R_VALID;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_DATA = Ctrl_xbar_BootRom_w_data_out;
-    assign Ctrl_xbar_BootRom_w_ready_in = BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_READY;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_STRB = Ctrl_xbar_BootRom_w_strb_out;
-    assign BootRom_axi_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_BootRom_W_VALID = Ctrl_xbar_BootRom_w_valid_out;
     assign Ctrl_xbar_CoreDMEM_ar_addr_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR;
     assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_READY = Ctrl_xbar_CoreDMEM_ar_ready_out;
     assign Ctrl_xbar_CoreDMEM_ar_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_VALID;
@@ -1326,20 +1055,24 @@ module SysCtrl_SS_0 #(
     assign Ctrl_xbar_IMEM_w_ready_in = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_READY;
     assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_STRB = Ctrl_xbar_IMEM_w_strb_out;
     assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_VALID = Ctrl_xbar_IMEM_w_valid_out;
-    assign Ctrl_xbar_R_DATA = Ctrl_xbar_AXI_ICN_to_AXI_R_DATA;
-    assign Ctrl_xbar_R_ID = Ctrl_xbar_AXI_ICN_to_AXI_R_ID;
-    assign Ctrl_xbar_R_LAST = Ctrl_xbar_AXI_ICN_to_AXI_R_LAST;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_R_READY = Ctrl_xbar_R_READY;
-    assign Ctrl_xbar_R_RESP = Ctrl_xbar_AXI_ICN_to_AXI_R_RESP;
-    assign Ctrl_xbar_R_USER = Ctrl_xbar_AXI_ICN_to_AXI_R_USER;
-    assign Ctrl_xbar_R_VALID = Ctrl_xbar_AXI_ICN_to_AXI_R_VALID;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_W_DATA = Ctrl_xbar_W_DATA;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_W_LAST = Ctrl_xbar_W_LAST;
-    assign Ctrl_xbar_W_READY = Ctrl_xbar_AXI_ICN_to_AXI_W_READY;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_W_STROBE = Ctrl_xbar_W_STROBE;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_W_USER = Ctrl_xbar_W_USER;
-    assign Ctrl_xbar_AXI_ICN_to_AXI_W_VALID = Ctrl_xbar_W_VALID;
     assign Ctrl_xbar_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR = Ctrl_xbar_icn_ar_addr_out;
+    assign Ctrl_xbar_icn_ar_ready_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID = Ctrl_xbar_icn_ar_valid_out;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR = Ctrl_xbar_icn_aw_addr_out;
+    assign Ctrl_xbar_icn_aw_ready_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID = Ctrl_xbar_icn_aw_valid_out;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_READY = Ctrl_xbar_icn_b_ready_out;
+    assign Ctrl_xbar_icn_b_resp_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP;
+    assign Ctrl_xbar_icn_b_valid_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID;
+    assign Ctrl_xbar_icn_r_data_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_READY = Ctrl_xbar_icn_r_ready_out;
+    assign Ctrl_xbar_icn_r_resp_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP;
+    assign Ctrl_xbar_icn_r_valid_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA = Ctrl_xbar_icn_w_data_out;
+    assign Ctrl_xbar_icn_w_ready_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB = Ctrl_xbar_icn_w_strb_out;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID = Ctrl_xbar_icn_w_valid_out;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_ADDR = Ctrl_xbar_periph_ar_addr_out;
     assign Ctrl_xbar_periph_ar_ready_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_READY;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_PROT[0] = Ctrl_xbar_periph_ar_valid_out;
@@ -1621,60 +1354,6 @@ module SysCtrl_SS_0 #(
     assign jtag_dbg_wrapper_target_w_strb = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_STRB;
     assign jtag_dbg_wrapper_target_w_valid = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_VALID;
 
-    // IP-XACT VLNV: tuni.fi:ip:BootRom:1.0
-    BootRom     BootRom(
-        // Interface: Clock
-        .clk_i               (BootRom_clk_i),
-        // Interface: Reset
-        .rst_ni              (BootRom_rst_ni),
-        // Interface: mem
-        .addr_i              (BootRom_addr_i),
-        .be_i                (BootRom_be_i),
-        .req_i               (BootRom_req_i),
-        .we_i                (BootRom_we_i),
-        .rdata_o             (BootRom_rdata_o),
-        // These ports are not in any interface
-        .wdata_i             (32'h0),
-        .wuser_i             (1'b0),
-        .ruser_o             ());
-
-    // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
-    mem_axi_bridge #(
-        .MEM_AW              (32),
-        .MEM_DW              (32),
-        .AXI_AW              (32),
-        .AXI_DW              (32))
-    BootRom_axi_bridge(
-        // Interface: AXI4LITE
-        .ar_addr_i           (BootRom_axi_bridge_ar_addr_i),
-        .ar_valid_i          (BootRom_axi_bridge_ar_valid_i),
-        .aw_addr_i           (BootRom_axi_bridge_aw_addr_i),
-        .aw_valid_i          (BootRom_axi_bridge_aw_valid_i),
-        .b_ready_i           (BootRom_axi_bridge_b_ready_i),
-        .r_ready_i           (BootRom_axi_bridge_r_ready_i),
-        .w_data_i            (BootRom_axi_bridge_w_data_i),
-        .w_strb_i            (BootRom_axi_bridge_w_strb_i),
-        .w_valid_i           (BootRom_axi_bridge_w_valid_i),
-        .ar_ready_o          (BootRom_axi_bridge_ar_ready_o),
-        .aw_ready_o          (BootRom_axi_bridge_aw_ready_o),
-        .b_resp_o            (BootRom_axi_bridge_b_resp_o),
-        .b_valid_o           (BootRom_axi_bridge_b_valid_o),
-        .r_data_o            (BootRom_axi_bridge_r_data_o),
-        .r_resp_o            (BootRom_axi_bridge_r_resp_o),
-        .r_valid_o           (BootRom_axi_bridge_r_valid_o),
-        .w_ready_o           (BootRom_axi_bridge_w_ready_o),
-        // Interface: Clock
-        .clk_i               (BootRom_axi_bridge_clk_i),
-        // Interface: Mem
-        .rdata_i             (BootRom_axi_bridge_rdata_i),
-        .addr_o              (BootRom_axi_bridge_addr_o),
-        .be_o                (BootRom_axi_bridge_be_o),
-        .req_o               (BootRom_axi_bridge_req_o),
-        .wdata_o             (),
-        .we_o                (BootRom_axi_bridge_we_o),
-        // Interface: Reset
-        .rst_ni              (BootRom_axi_bridge_rst_ni));
-
     // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
     mem_axi_bridge #(
         .MEM_AW              (32),
@@ -1715,30 +1394,8 @@ module SysCtrl_SS_0 #(
     // IP-XACT VLNV: tuni.fi:ip:SysCtrl_xbar:1.0
     SysCtrl_xbar #(
         .AXI4LITE_DW         (32),
-        .AXI4LITE_AW         (32),
-        .AXI_IDW             (10),
-        .AXI_DW              (32),
-        .AXI_AW              (32),
-        .AXI_USERW           (1))
+        .AXI4LITE_AW         (32))
     Ctrl_xbar(
-        // Interface: AXI4LITE_BootRom
-        .BootRom_ar_ready_in (Ctrl_xbar_BootRom_ar_ready_in),
-        .BootRom_aw_ready_in (Ctrl_xbar_BootRom_aw_ready_in),
-        .BootRom_b_resp_in   (Ctrl_xbar_BootRom_b_resp_in),
-        .BootRom_b_valid_in  (Ctrl_xbar_BootRom_b_valid_in),
-        .BootRom_r_data_in   (Ctrl_xbar_BootRom_r_data_in),
-        .BootRom_r_resp_in   (Ctrl_xbar_BootRom_r_resp_in),
-        .BootRom_r_valid_in  (Ctrl_xbar_BootRom_r_valid_in),
-        .BootRom_w_ready_in  (Ctrl_xbar_BootRom_w_ready_in),
-        .BootRom_ar_addr_out (Ctrl_xbar_BootRom_ar_addr_out),
-        .BootRom_ar_valid_out(Ctrl_xbar_BootRom_ar_valid_out),
-        .BootRom_aw_addr_out (Ctrl_xbar_BootRom_aw_addr_out),
-        .BootRom_aw_valid_out(Ctrl_xbar_BootRom_aw_valid_out),
-        .BootRom_b_ready_out (Ctrl_xbar_BootRom_b_ready_out),
-        .BootRom_r_ready_out (Ctrl_xbar_BootRom_r_ready_out),
-        .BootRom_w_data_out  (Ctrl_xbar_BootRom_w_data_out),
-        .BootRom_w_strb_out  (Ctrl_xbar_BootRom_w_strb_out),
-        .BootRom_w_valid_out (Ctrl_xbar_BootRom_w_valid_out),
         // Interface: AXI4LITE_CORE_DMEM
         .CoreIMEM_ar_addr_in (Ctrl_xbar_CoreIMEM_ar_addr_in),
         .CoreIMEM_ar_valid_in(Ctrl_xbar_CoreIMEM_ar_valid_in),
@@ -1867,6 +1524,24 @@ module SysCtrl_SS_0 #(
         .IMEM_w_data_out     (Ctrl_xbar_IMEM_w_data_out),
         .IMEM_w_strb_out     (Ctrl_xbar_IMEM_w_strb_out),
         .IMEM_w_valid_out    (Ctrl_xbar_IMEM_w_valid_out),
+        // Interface: AXI4LITE_icn
+        .icn_ar_ready_in     (Ctrl_xbar_icn_ar_ready_in),
+        .icn_aw_ready_in     (Ctrl_xbar_icn_aw_ready_in),
+        .icn_b_resp_in       (Ctrl_xbar_icn_b_resp_in),
+        .icn_b_valid_in      (Ctrl_xbar_icn_b_valid_in),
+        .icn_r_data_in       (Ctrl_xbar_icn_r_data_in),
+        .icn_r_resp_in       (Ctrl_xbar_icn_r_resp_in),
+        .icn_r_valid_in      (Ctrl_xbar_icn_r_valid_in),
+        .icn_w_ready_in      (Ctrl_xbar_icn_w_ready_in),
+        .icn_ar_addr_out     (Ctrl_xbar_icn_ar_addr_out),
+        .icn_ar_valid_out    (Ctrl_xbar_icn_ar_valid_out),
+        .icn_aw_addr_out     (Ctrl_xbar_icn_aw_addr_out),
+        .icn_aw_valid_out    (Ctrl_xbar_icn_aw_valid_out),
+        .icn_b_ready_out     (Ctrl_xbar_icn_b_ready_out),
+        .icn_r_ready_out     (Ctrl_xbar_icn_r_ready_out),
+        .icn_w_data_out      (Ctrl_xbar_icn_w_data_out),
+        .icn_w_strb_out      (Ctrl_xbar_icn_w_strb_out),
+        .icn_w_valid_out     (Ctrl_xbar_icn_w_valid_out),
         // Interface: AXI4LITE_periph
         .periph_ar_ready_in  (Ctrl_xbar_periph_ar_ready_in),
         .periph_aw_ready_in  (Ctrl_xbar_periph_aw_ready_in),
@@ -1885,52 +1560,6 @@ module SysCtrl_SS_0 #(
         .periph_w_data_out   (Ctrl_xbar_periph_w_data_out),
         .periph_w_strb_out   (Ctrl_xbar_periph_w_strb_out),
         .periph_w_valid_out  (Ctrl_xbar_periph_w_valid_out),
-        // Interface: AXI_ICN
-        .AR_READY            (Ctrl_xbar_AR_READY),
-        .AW_READY            (Ctrl_xbar_AW_READY),
-        .B_ID                (Ctrl_xbar_B_ID),
-        .B_RESP              (Ctrl_xbar_B_RESP),
-        .B_USER              (Ctrl_xbar_B_USER),
-        .B_VALID             (Ctrl_xbar_B_VALID),
-        .R_DATA              (Ctrl_xbar_R_DATA),
-        .R_ID                (Ctrl_xbar_R_ID),
-        .R_LAST              (Ctrl_xbar_R_LAST),
-        .R_RESP              (Ctrl_xbar_R_RESP),
-        .R_USER              (Ctrl_xbar_R_USER),
-        .R_VALID             (Ctrl_xbar_R_VALID),
-        .W_READY             (Ctrl_xbar_W_READY),
-        .AR_ADDR             (Ctrl_xbar_AR_ADDR),
-        .AR_BURST            (Ctrl_xbar_AR_BURST),
-        .AR_CACHE            (Ctrl_xbar_AR_CACHE),
-        .AR_ID               (Ctrl_xbar_AR_ID),
-        .AR_LEN              (Ctrl_xbar_AR_LEN),
-        .AR_LOCK             (Ctrl_xbar_AR_LOCK),
-        .AR_PROT             (Ctrl_xbar_AR_PROT),
-        .AR_QOS              (Ctrl_xbar_AR_QOS),
-        .AR_REGION           (Ctrl_xbar_AR_REGION),
-        .AR_SIZE             (Ctrl_xbar_AR_SIZE),
-        .AR_USER             (Ctrl_xbar_AR_USER),
-        .AR_VALID            (Ctrl_xbar_AR_VALID),
-        .AW_ADDR             (Ctrl_xbar_AW_ADDR),
-        .AW_ATOP             (Ctrl_xbar_AW_ATOP),
-        .AW_BURST            (Ctrl_xbar_AW_BURST),
-        .AW_CACHE            (Ctrl_xbar_AW_CACHE),
-        .AW_ID               (Ctrl_xbar_AW_ID),
-        .AW_LEN              (Ctrl_xbar_AW_LEN),
-        .AW_LOCK             (Ctrl_xbar_AW_LOCK),
-        .AW_PROT             (Ctrl_xbar_AW_PROT),
-        .AW_QOS              (Ctrl_xbar_AW_QOS),
-        .AW_REGION           (Ctrl_xbar_AW_REGION),
-        .AW_SIZE             (Ctrl_xbar_AW_SIZE),
-        .AW_USER             (Ctrl_xbar_AW_USER),
-        .AW_VALID            (Ctrl_xbar_AW_VALID),
-        .B_READY             (Ctrl_xbar_B_READY),
-        .R_READY             (Ctrl_xbar_R_READY),
-        .W_DATA              (Ctrl_xbar_W_DATA),
-        .W_LAST              (Ctrl_xbar_W_LAST),
-        .W_STROBE            (Ctrl_xbar_W_STROBE),
-        .W_USER              (Ctrl_xbar_W_USER),
-        .W_VALID             (Ctrl_xbar_W_VALID),
         // Interface: Clock
         .clk_i               (Ctrl_xbar_clk_i),
         // Interface: Reset

@@ -13,16 +13,14 @@
 					<ipxact:configurableElementValue referenceId="uuid_67b72383_784d_4df0_8167_b40e00ce315e">uuid_440c5d94_8fbc_4214_9e9f_0e3ebe07713a</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_72c6e7c1_9fda_400e_ae82_b5a26eb1a676">uuid_f09214e6_f6ad_46c5_82d4_6db4487f6682</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4">uuid_307fdbc0_bba6_4bdc_8d08_f894f2074bdb</ipxact:configurableElementValue>
-					<ipxact:configurableElementValue referenceId="uuid_b19f9e43_dcca_45a6_84e6_2eae6f88d91c">uuid_d2d6936f_cf38_444a_9d66_18e5f81e7146</ipxact:configurableElementValue>
-					<ipxact:configurableElementValue referenceId="uuid_00bc8b4d_584b_469d_878c_d64754de140f">uuid_52deb35d_3f8f_4bee_9e7d_2530db65d5b3</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c">uuid_36c8065c_bd31_4a74_abbc_9590aabb8135</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_acf5c976_d744_4d71_b8fe_289308668ff7">uuid_850a8cb9_7faf_453f_9770_9f53bfc52157</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{ccb0ec58-12f1-40a1-96d3-571b848e265d}</kactus2:uuid>
 				<kactus2:position x="1040" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="AXI" x="110" y="710"/>
 					<kactus2:portPosition busRef="BootSel" x="-110" y="550"/>
 					<kactus2:portPosition busRef="Clk" x="-110" y="510"/>
 					<kactus2:portPosition busRef="FetchEn" x="-110" y="570"/>
@@ -47,6 +45,7 @@
 					<kactus2:portPosition busRef="UART" x="-110" y="720"/>
 					<kactus2:portPosition busRef="io_cell_cfg" x="-110" y="350"/>
 					<kactus2:portPosition busRef="pmod_sel" x="-110" y="430"/>
+					<kactus2:portPosition busRef="AXI4LITE_icn" x="110" y="720"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_upper_tieoff" x="110" y="750"/>
@@ -153,11 +152,6 @@
 			<ipxact:name>SysCtrl_SS_IRQ1_to_IRQ1</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="IRQ1"/>
 			<ipxact:hierInterface busRef="IRQ1"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SysCtrl_SS_AXI_to_AXI</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="AXI"/>
-			<ipxact:hierInterface busRef="AXI"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
 			<ipxact:name>i_io_cell_frame_JTAG_to_JTAG</ipxact:name>
@@ -339,23 +333,20 @@
 			<ipxact:activeInterface componentInstanceRef="i_pmod_mux" busRef="ss_3_pmod_1"/>
 			<ipxact:hierInterface busRef="ss_3_pmod_gpio_1"/>
 		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="AXI4LITE_icn"/>
+			<ipxact:hierInterface busRef="AXI4LITE_icn"/>
+		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:parameters>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_9130a023_5127_4659_8cd3_f94ce31ec91a" resolve="user">
-			<ipxact:name>AXI_AW</ipxact:name>
+			<ipxact:name>AXI4LITE_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_440c5d94_8fbc_4214_9e9f_0e3ebe07713a" resolve="user">
-			<ipxact:name>AXI_DW</ipxact:name>
+			<ipxact:name>AXI4LITE_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
-		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d2d6936f_cf38_444a_9d66_18e5f81e7146" resolve="user">
-			<ipxact:name>AXI_USERW</ipxact:name>
-			<ipxact:value>1</ipxact:value>
-		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_52deb35d_3f8f_4bee_9e7d_2530db65d5b3" resolve="user">
-			<ipxact:name>AXI_IDW</ipxact:name>
-			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_307fdbc0_bba6_4bdc_8d08_f894f2074bdb" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
@@ -369,7 +360,7 @@
 			<ipxact:name>IOCELL_CFGW</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_850a8cb9_7faf_453f_9770_9f53bfc52157" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_850a8cb9_7faf_453f_9770_9f53bfc52157" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:value>2</ipxact:value>
 		</ipxact:parameter>
@@ -390,6 +381,8 @@
 		<kactus2:routes>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl" kactus2:offPage="false">
 				<kactus2:position x="1150" y="110"/>
+				<kactus2:position x="1240" y="110"/>
+				<kactus2:position x="1240" y="110"/>
 				<kactus2:position x="1260" y="110"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl" kactus2:offPage="false">
@@ -415,10 +408,6 @@
 			<kactus2:route kactus2:connRef="SysCtrl_SS_IRQ1_to_IRQ1" kactus2:offPage="false">
 				<kactus2:position x="1150" y="610"/>
 				<kactus2:position x="1260" y="610"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SysCtrl_SS_AXI_to_AXI" kactus2:offPage="false">
-				<kactus2:position x="1150" y="770"/>
-				<kactus2:position x="1260" y="770"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_io_cell_frame_JTAG_to_JTAG" kactus2:offPage="false">
 				<kactus2:position x="170" y="100"/>
@@ -582,12 +571,11 @@
 				<kactus2:position x="710" y="370"/>
 				<kactus2:position x="820" y="370"/>
 			</kactus2:route>
+			<kactus2:route kactus2:connRef="SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn" kactus2:offPage="false">
+				<kactus2:position x="1150" y="780"/>
+				<kactus2:position x="1260" y="780"/>
+			</kactus2:route>
 		</kactus2:routes>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>AXI</kactus2:name>
-			<kactus2:position x="1260" y="770"/>
-			<kactus2:direction x="-1" y="0"/>
-		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>BootSel</kactus2:name>
 			<kactus2:position x="60" y="420"/>
@@ -762,5 +750,10 @@ For ASIC, replace with tech files.</kactus2:content>
 			<kactus2:timestamp>05.07.2024 11:51</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:adHocVisibilities/>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>AXI4LITE_icn</kactus2:name>
+			<kactus2:position x="1260" y="780"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>
