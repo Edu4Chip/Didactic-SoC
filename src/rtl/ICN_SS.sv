@@ -74,8 +74,8 @@ module ICN_SS #(
   `endif
   
   AXI_LITE #(
-   .AXI_ADDR_WIDTH(AXI_AW),
-   .AXI_DATA_WIDTH(AXI_DW)
+   .AXI_ADDR_WIDTH(AXI4LITE_AW),
+   .AXI_DATA_WIDTH(AXI4LITE_DW)
   ) axi4lite_bus ();
 
 // Interface: AXI4LITE_icn
@@ -118,8 +118,8 @@ module ICN_SS #(
   axi_lite_to_apb_intf #(
     .NoApbSlaves(APB_TARGETS),
     .NoRules(NoAddrRules),
-    .AddrWidth(AXI_AW),
-    .DataWidth(AXI_DW),
+    .AddrWidth(AXI4LITE_AW),
+    .DataWidth(AXI4LITE_DW),
     .rule_t(rule_t)
     )
   i_axi_lite_to_apb_intf(
