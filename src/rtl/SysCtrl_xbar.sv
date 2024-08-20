@@ -23,9 +23,7 @@
 
 module SysCtrl_xbar #(
     parameter                          AXI4LITE_AW      = 32,
-    parameter                          AXI4LITE_DW      = 32,
-    parameter                          AXI_AW           = 32,
-    parameter                          AXI_DW           = 32
+    parameter                          AXI4LITE_DW      = 32
 ) (
 
     // Interface: AXI4LITE_CORE_IMEM
@@ -245,20 +243,20 @@ module SysCtrl_xbar #(
       '{idx: 32'd0, start_addr: ADDR_BASE+AXI4LITE_SIZE*0, end_addr: ADDR_BASE+AXI4LITE_SIZE*1-1} //imem
     };
 
-  // check ips\axi\src\axi_pkg.sv for rule deifinitions
+  // check ips\axi\src\axi_pkg.sv for rule definitions
   localparam axi_pkg::xbar_cfg_t xbar_cfg = '{
     NoSlvPorts:         AXI4LITE_INITIATORS,
     NoMstPorts:         AXI4LITE_TARGETS,
     MaxMstTrans:        1,  
     MaxSlvTrans:        1,  
     FallThrough:        1'b0,
-    LatencyMode:        axi_pkg::CUT_ALL_AX,
+    LatencyMode:        axi_pkg::CUT_ALL_PORTS,//axi_pkg::CUT_ALL_AX,
     PipelineStages:     0,
-    AxiIdWidthSlvPorts: 10,
-    AxiIdUsedSlvPorts:  8,
+    AxiIdWidthSlvPorts: '0,
+    AxiIdUsedSlvPorts:  '0,
     UniqueIds:          1,
-    AxiAddrWidth:       AXI_AW,
-    AxiDataWidth:       AXI_DW,
+    AxiAddrWidth:       AXI4LITE_AW,
+    AxiDataWidth:       AXI4LITE_DW,
     NoAddrRules:        AXI4LITE_TARGETS
   };
                     

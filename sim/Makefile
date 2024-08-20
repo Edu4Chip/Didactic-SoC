@@ -18,6 +18,9 @@ DUT_LIBS = \
 	-L $(BUILD_DIR)/didactic_lib \
 	-L $(BUILD_DIR)/tb_lib \
 
+SUPPRESS = \
+	-suppress vsim-3009 \
+
 env:
 	mkdir -p $(BUILD_DIR)/compile
 	mkdir -p $(BUILD_DIR)/opt
@@ -81,8 +84,8 @@ elaborate: library_mapping
 
 run_sim:
 	cd $(BUILD_DIR)
-	vsim \
-	$(DUT_LIBS) \
+	vsim -c \
+	$(DUT_LIBS) $(SUPPRESS) \
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT)_opt \
 	-do "run 1ms" \
