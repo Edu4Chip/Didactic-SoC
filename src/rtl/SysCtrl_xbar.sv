@@ -444,23 +444,23 @@ assign CtrlReg_w_strb_out   = axi4lite_target_bus[4].w_strb;
 assign CtrlReg_w_valid_out  = axi4lite_target_bus[4].w_valid;
 
 // Interface: AXI4LITE_icn
-assign axi4lite_target_bus[5].ar_ready = CtrlReg_ar_ready_in;
-assign axi4lite_target_bus[5].aw_ready = CtrlReg_aw_ready_in;
-assign axi4lite_target_bus[5].b_resp   = CtrlReg_b_resp_in;
-assign axi4lite_target_bus[5].b_valid  = CtrlReg_b_valid_in;
-assign axi4lite_target_bus[5].r_data   = CtrlReg_r_data_in;
-assign axi4lite_target_bus[5].r_resp   = CtrlReg_r_resp_in;
-assign axi4lite_target_bus[5].r_valid  = CtrlReg_r_valid_in;
-assign axi4lite_target_bus[5].w_ready  = CtrlReg_w_ready_in;
+assign axi4lite_target_bus[5].ar_ready = icn_ar_ready_in;
+assign axi4lite_target_bus[5].aw_ready = icn_aw_ready_in;
+assign axi4lite_target_bus[5].b_resp   = icn_b_resp_in;
+assign axi4lite_target_bus[5].b_valid  = icn_b_valid_in;
+assign axi4lite_target_bus[5].r_data   = icn_r_data_in;
+assign axi4lite_target_bus[5].r_resp   = icn_r_resp_in;
+assign axi4lite_target_bus[5].r_valid  = icn_r_valid_in;
+assign axi4lite_target_bus[5].w_ready  = icn_w_ready_in;
 //
-assign CtrlReg_ar_addr_out  = axi4lite_target_bus[5].ar_addr;
-assign CtrlReg_ar_valid_out = axi4lite_target_bus[5].ar_valid;
-assign CtrlReg_aw_addr_out  = axi4lite_target_bus[5].aw_addr;
-assign CtrlReg_aw_valid_out = axi4lite_target_bus[5].aw_valid;
-assign CtrlReg_b_ready_out  = axi4lite_target_bus[5].b_ready;
-assign CtrlReg_r_ready_out  = axi4lite_target_bus[5].r_ready;
-assign CtrlReg_w_data_out   = axi4lite_target_bus[5].w_data;
-assign CtrlReg_w_strb_out   = axi4lite_target_bus[5].w_strb;
-assign CtrlReg_w_valid_out  = axi4lite_target_bus[5].w_valid;
+assign icn_ar_addr_out  = axi4lite_target_bus[5].ar_addr;
+assign icn_ar_valid_out = axi4lite_target_bus[5].ar_valid;
+assign icn_aw_addr_out  = axi4lite_target_bus[5].aw_addr;
+assign icn_aw_valid_out = axi4lite_target_bus[5].aw_valid;
+assign icn_b_ready_out  = axi4lite_target_bus[5].b_ready;
+assign icn_r_ready_out  = axi4lite_target_bus[5].r_ready;
+assign icn_w_data_out   = axi4lite_target_bus[5].w_data;
+assign icn_w_strb_out   = axi4lite_target_bus[5].w_strb;
+assign icn_w_valid_out  = axi4lite_target_bus[5].w_valid;
 
 endmodule
