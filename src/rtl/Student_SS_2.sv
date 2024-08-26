@@ -61,7 +61,7 @@ module student_ss_2(
 // this file contains minimal functionality to avoid breaking anything in other ends of the chip.
 
 assign PSELERR = 'd0;
-assign PSREADY = 'd0;
+assign PREADY = 'd0;
 assign PRDATA  = 'd0;
 assign irq_2     = 'd0;
 

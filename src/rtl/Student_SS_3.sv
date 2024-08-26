@@ -55,8 +55,8 @@ module Student_SS_3(
 `endif
 
 // TODO: Replace this with your module implementation
-assign PSELERR = 'd0;
-assign PSREADY = 'd0;
+assign PSLVERR = 'd0;
+assign PREADY = 'd0;
 assign PRDATA  = 'd0;
 assign irq_3     = 'd0;
 
