@@ -1,5 +1,6 @@
 build/
 obj_dir/
 logs/
+*.wlf
 modelsim.ini
 transcript

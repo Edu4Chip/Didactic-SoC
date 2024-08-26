@@ -63,7 +63,7 @@ module student_ss_2(
 assign PSELERR = 'd0;
 assign PSREADY = 'd0;
 assign PRDATA  = 'd0;
-assign irq     = 'd0;
+assign irq_2     = 'd0;
 
 assign ana_core_in ='d0;
 assign ana_core_out ='d0;

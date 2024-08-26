@@ -58,7 +58,7 @@ module Student_SS_3(
 assign PSELERR = 'd0;
 assign PSREADY = 'd0;
 assign PRDATA  = 'd0;
-assign irq     = 'd0;
+assign irq_3     = 'd0;
 
 
 assign pmod_1_gpo =  3'h0;

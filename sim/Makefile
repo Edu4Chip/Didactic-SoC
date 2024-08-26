@@ -18,8 +18,24 @@ DUT_LIBS = \
 	-L $(BUILD_DIR)/didactic_lib \
 	-L $(BUILD_DIR)/tb_lib \
 
-SUPPRESS = \
+VSIM_OPTS = \
 	-suppress vsim-3009 \
+	+acc=npr \
+#	-novopt \
+
+
+VOPT_OPTS = \
+	-check_synthesis \
+	-compat \
+	-sv \
+	-suppress vopt-2577 \
+	+acc=npr \
+#	-pedanticerrors \
+
+VLOG_OPTS = \
+	-svinputport=compat \
+	-override_timescale="1ns/1ps" \
+	-suppress vlog-2583
 
 env:
 	mkdir -p $(BUILD_DIR)/compile
@@ -40,7 +56,7 @@ compile: env compile_pulp compile_ibex compile_riscv_dbg compile_tech_generic co
 compile_pulp:
 	vlib $(BUILD_DIR)/pulp_lib
 	vmap pulp_lib $(BUILD_DIR)/pulp_lib
-	vlog -sv -work pulp_lib +incdir+../ips/common_cells/include/ +incdir+../ips/axi/include/ \
+	vlog -sv -work pulp_lib $(VLOG_OPTS) +incdir+../ips/common_cells/include/ +incdir+../ips/axi/include/ \
 	-F ../src/pulp-reused-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_pulp.log
 
 compile_ibex:
@@ -70,22 +86,23 @@ compile_didactic:
 compile_tb:
 	vlib $(BUILD_DIR)/tb_lib
 	vmap tb_lib $(BUILD_DIR)/tb_lib
-	vlog -sv -work tb_lib $(DUT_LIBS) +define+USE_UART \
+	vlog -sv -work tb_lib $(DUT_LIBS)  \
 	-F ../src/tb-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_tb.log
+#+define+USE_UART
 
 elaborate: library_mapping
 	cd $(BUILD_DIR)
 	vopt \
-	$(DUT_LIBS) \
+	$(DUT_LIBS) $(VOPT_OPTS) \
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT) \
 	-o $(DUT)_opt \
 	-l $(BUILD_DIR)/opt/$(START_TIME)_vopt.log
 
-run_sim:
+run_sim: library_mapping
 	cd $(BUILD_DIR)
-	vsim -c \
-	$(DUT_LIBS) $(SUPPRESS) \
+	vsim \
+	$(DUT_LIBS) $(VSIM_OPTS) \
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT)_opt \
 	-do "run 1ms" \
