@@ -88,7 +88,7 @@ module tb_didactic();
   tri1 dut_jtag_tck;
   tri1 dut_jtag_tdi;
   tri1 dut_jtag_tms;
-  tri1 dut_jtag_tdo;
+  wire dut_jtag_tdo;
 
   logic jtag_trstn = 1'b0;
   logic jtag_tck = 1'b0;
@@ -100,7 +100,7 @@ module tb_didactic();
   assign dut_jtag_tck = jtag_tck;
   assign dut_jtag_tdi = jtag_tdi;
   assign dut_jtag_tms = jtag_tms;
-  assign dut_jtag_tdo = dut_jtag_tdo;
+  assign jtag_tdo = dut_jtag_tdo;
 
   tri0 dut_bootsel;
 
