@@ -134,7 +134,7 @@ module student_ss_1 #(
     pmod_0_gpo <= field_0 [3:0];
   end
 
-assign irq = 1'b0;
+assign irq_1 = 1'b0;
 // set as always outs
 assign pmod_0_gpio_oe = 4'h0;
 // set as always ins
