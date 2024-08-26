@@ -640,6 +640,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_ar_addr_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -648,6 +649,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_ar_valid_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -656,6 +658,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_aw_addr_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -664,6 +667,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_aw_valid_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -672,6 +676,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_b_ready_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -680,6 +685,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_b_resp_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -688,6 +694,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_b_valid_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -696,6 +703,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_r_data_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -704,6 +712,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_r_ready_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -712,6 +721,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_r_resp_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -720,6 +730,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_r_valid_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -728,6 +739,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_aw_ready_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -736,6 +748,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_w_data_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -744,6 +757,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_w_ready_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -752,6 +766,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_w_strb_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -760,6 +775,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_w_valid_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -768,6 +784,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_ar_ready_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
