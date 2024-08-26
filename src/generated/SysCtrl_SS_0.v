@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 16.08.2024
-// Creation time : 11:27:28
+// Creation date : 26.08.2024
+// Creation time : 13:19:07
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -9,10 +9,6 @@
 // This file was generated based on IP-XACT component tuni.fi:subsystem:SysCtrl_SS:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem/SysCtrl_SS/1.0/SysCtrl_SS.1.0.xml
 //-----------------------------------------------------------------------------
-
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/SysCtrl_SS_0.sv"
-`endif
 
 module SysCtrl_SS_0 #(
     parameter                              AXI4LITE_AW      = 32,
@@ -934,40 +930,40 @@ module SysCtrl_SS_0 #(
     assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WDATA = Ctrl_reg_bridge_wdata_o;
     assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WE = Ctrl_reg_bridge_we_o;
     // Ctrl_xbar assignments:
-    assign Ctrl_xbar_CoreDMEM_ar_addr_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_READY = Ctrl_xbar_CoreDMEM_ar_ready_out;
-    assign Ctrl_xbar_CoreDMEM_ar_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_VALID;
-    assign Ctrl_xbar_CoreDMEM_aw_addr_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_ADDR;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_READY = Ctrl_xbar_CoreDMEM_aw_ready_out;
-    assign Ctrl_xbar_CoreDMEM_aw_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_VALID;
-    assign Ctrl_xbar_CoreDMEM_b_ready_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_RESP = Ctrl_xbar_CoreDMEM_b_resp_out;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_VALID = Ctrl_xbar_CoreDMEM_b_valid_out;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_DATA = Ctrl_xbar_CoreDMEM_r_data_out;
-    assign Ctrl_xbar_CoreDMEM_r_ready_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_RESP = Ctrl_xbar_CoreDMEM_r_resp_out;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_VALID = Ctrl_xbar_CoreDMEM_r_valid_out;
-    assign Ctrl_xbar_CoreDMEM_w_data_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_DATA;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_READY = Ctrl_xbar_CoreDMEM_w_ready_out;
-    assign Ctrl_xbar_CoreDMEM_w_strb_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_STRB;
-    assign Ctrl_xbar_CoreDMEM_w_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_VALID;
-    assign Ctrl_xbar_CoreIMEM_ar_addr_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_ADDR;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_READY = Ctrl_xbar_CoreIMEM_ar_ready_out;
-    assign Ctrl_xbar_CoreIMEM_ar_valid_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_VALID;
-    assign Ctrl_xbar_CoreIMEM_aw_addr_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_ADDR;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_READY = Ctrl_xbar_CoreIMEM_aw_ready_out;
-    assign Ctrl_xbar_CoreIMEM_aw_valid_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_VALID;
-    assign Ctrl_xbar_CoreIMEM_b_ready_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_RESP = Ctrl_xbar_CoreIMEM_b_resp_out;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_VALID = Ctrl_xbar_CoreIMEM_b_valid_out;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_DATA = Ctrl_xbar_CoreIMEM_r_data_out;
-    assign Ctrl_xbar_CoreIMEM_r_ready_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_RESP = Ctrl_xbar_CoreIMEM_r_resp_out;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_VALID = Ctrl_xbar_CoreIMEM_r_valid_out;
-    assign Ctrl_xbar_CoreIMEM_w_data_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_DATA;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_READY = Ctrl_xbar_CoreIMEM_w_ready_out;
-    assign Ctrl_xbar_CoreIMEM_w_strb_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_STRB;
-    assign Ctrl_xbar_CoreIMEM_w_valid_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_VALID;
+    assign Ctrl_xbar_CoreDMEM_ar_addr_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_ADDR;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_READY = Ctrl_xbar_CoreDMEM_ar_ready_out;
+    assign Ctrl_xbar_CoreDMEM_ar_valid_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_VALID;
+    assign Ctrl_xbar_CoreDMEM_aw_addr_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_ADDR;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_READY = Ctrl_xbar_CoreDMEM_aw_ready_out;
+    assign Ctrl_xbar_CoreDMEM_aw_valid_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_VALID;
+    assign Ctrl_xbar_CoreDMEM_b_ready_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_READY;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_RESP = Ctrl_xbar_CoreDMEM_b_resp_out;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_VALID = Ctrl_xbar_CoreDMEM_b_valid_out;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_DATA = Ctrl_xbar_CoreDMEM_r_data_out;
+    assign Ctrl_xbar_CoreDMEM_r_ready_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_READY;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_RESP = Ctrl_xbar_CoreDMEM_r_resp_out;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_VALID = Ctrl_xbar_CoreDMEM_r_valid_out;
+    assign Ctrl_xbar_CoreDMEM_w_data_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_DATA;
+    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_READY = Ctrl_xbar_CoreDMEM_w_ready_out;
+    assign Ctrl_xbar_CoreDMEM_w_strb_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_STRB;
+    assign Ctrl_xbar_CoreDMEM_w_valid_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_VALID;
+    assign Ctrl_xbar_CoreIMEM_ar_addr_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_READY = Ctrl_xbar_CoreIMEM_ar_ready_out;
+    assign Ctrl_xbar_CoreIMEM_ar_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_VALID;
+    assign Ctrl_xbar_CoreIMEM_aw_addr_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_ADDR;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_READY = Ctrl_xbar_CoreIMEM_aw_ready_out;
+    assign Ctrl_xbar_CoreIMEM_aw_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_VALID;
+    assign Ctrl_xbar_CoreIMEM_b_ready_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_READY;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_RESP = Ctrl_xbar_CoreIMEM_b_resp_out;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_VALID = Ctrl_xbar_CoreIMEM_b_valid_out;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_DATA = Ctrl_xbar_CoreIMEM_r_data_out;
+    assign Ctrl_xbar_CoreIMEM_r_ready_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_READY;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_RESP = Ctrl_xbar_CoreIMEM_r_resp_out;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_VALID = Ctrl_xbar_CoreIMEM_r_valid_out;
+    assign Ctrl_xbar_CoreIMEM_w_data_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_DATA;
+    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_READY = Ctrl_xbar_CoreIMEM_w_ready_out;
+    assign Ctrl_xbar_CoreIMEM_w_strb_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_STRB;
+    assign Ctrl_xbar_CoreIMEM_w_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_VALID;
     assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_ADDR = Ctrl_xbar_CtrlReg_ar_addr_out;
     assign Ctrl_xbar_CtrlReg_ar_ready_in = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_READY;
     assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_VALID = Ctrl_xbar_CtrlReg_ar_valid_out;
@@ -1397,24 +1393,6 @@ module SysCtrl_SS_0 #(
         .AXI4LITE_AW         (32))
     Ctrl_xbar(
         // Interface: AXI4LITE_CORE_DMEM
-        .CoreIMEM_ar_addr_in (Ctrl_xbar_CoreIMEM_ar_addr_in),
-        .CoreIMEM_ar_valid_in(Ctrl_xbar_CoreIMEM_ar_valid_in),
-        .CoreIMEM_aw_addr_in (Ctrl_xbar_CoreIMEM_aw_addr_in),
-        .CoreIMEM_aw_valid_in(Ctrl_xbar_CoreIMEM_aw_valid_in),
-        .CoreIMEM_b_ready_in (Ctrl_xbar_CoreIMEM_b_ready_in),
-        .CoreIMEM_r_ready_in (Ctrl_xbar_CoreIMEM_r_ready_in),
-        .CoreIMEM_w_data_in  (Ctrl_xbar_CoreIMEM_w_data_in),
-        .CoreIMEM_w_strb_in  (Ctrl_xbar_CoreIMEM_w_strb_in),
-        .CoreIMEM_w_valid_in (Ctrl_xbar_CoreIMEM_w_valid_in),
-        .CoreIMEM_ar_ready_out(Ctrl_xbar_CoreIMEM_ar_ready_out),
-        .CoreIMEM_aw_ready_out(Ctrl_xbar_CoreIMEM_aw_ready_out),
-        .CoreIMEM_b_resp_out (Ctrl_xbar_CoreIMEM_b_resp_out),
-        .CoreIMEM_b_valid_out(Ctrl_xbar_CoreIMEM_b_valid_out),
-        .CoreIMEM_r_data_out (Ctrl_xbar_CoreIMEM_r_data_out),
-        .CoreIMEM_r_resp_out (Ctrl_xbar_CoreIMEM_r_resp_out),
-        .CoreIMEM_r_valid_out(Ctrl_xbar_CoreIMEM_r_valid_out),
-        .CoreIMEM_w_ready_out(Ctrl_xbar_CoreIMEM_w_ready_out),
-        // Interface: AXI4LITE_CORE_IMEM
         .CoreDMEM_ar_addr_in (Ctrl_xbar_CoreDMEM_ar_addr_in),
         .CoreDMEM_ar_valid_in(Ctrl_xbar_CoreDMEM_ar_valid_in),
         .CoreDMEM_aw_addr_in (Ctrl_xbar_CoreDMEM_aw_addr_in),
@@ -1432,6 +1410,24 @@ module SysCtrl_SS_0 #(
         .CoreDMEM_r_resp_out (Ctrl_xbar_CoreDMEM_r_resp_out),
         .CoreDMEM_r_valid_out(Ctrl_xbar_CoreDMEM_r_valid_out),
         .CoreDMEM_w_ready_out(Ctrl_xbar_CoreDMEM_w_ready_out),
+        // Interface: AXI4LITE_CORE_IMEM
+        .CoreIMEM_ar_addr_in (Ctrl_xbar_CoreIMEM_ar_addr_in),
+        .CoreIMEM_ar_valid_in(Ctrl_xbar_CoreIMEM_ar_valid_in),
+        .CoreIMEM_aw_addr_in (Ctrl_xbar_CoreIMEM_aw_addr_in),
+        .CoreIMEM_aw_valid_in(Ctrl_xbar_CoreIMEM_aw_valid_in),
+        .CoreIMEM_b_ready_in (Ctrl_xbar_CoreIMEM_b_ready_in),
+        .CoreIMEM_r_ready_in (Ctrl_xbar_CoreIMEM_r_ready_in),
+        .CoreIMEM_w_data_in  (Ctrl_xbar_CoreIMEM_w_data_in),
+        .CoreIMEM_w_strb_in  (Ctrl_xbar_CoreIMEM_w_strb_in),
+        .CoreIMEM_w_valid_in (Ctrl_xbar_CoreIMEM_w_valid_in),
+        .CoreIMEM_ar_ready_out(Ctrl_xbar_CoreIMEM_ar_ready_out),
+        .CoreIMEM_aw_ready_out(Ctrl_xbar_CoreIMEM_aw_ready_out),
+        .CoreIMEM_b_resp_out (Ctrl_xbar_CoreIMEM_b_resp_out),
+        .CoreIMEM_b_valid_out(Ctrl_xbar_CoreIMEM_b_valid_out),
+        .CoreIMEM_r_data_out (Ctrl_xbar_CoreIMEM_r_data_out),
+        .CoreIMEM_r_resp_out (Ctrl_xbar_CoreIMEM_r_resp_out),
+        .CoreIMEM_r_valid_out(Ctrl_xbar_CoreIMEM_r_valid_out),
+        .CoreIMEM_w_ready_out(Ctrl_xbar_CoreIMEM_w_ready_out),
         // Interface: AXI4LITE_CTRL
         .CtrlReg_ar_ready_in (Ctrl_xbar_CtrlReg_ar_ready_in),
         .CtrlReg_aw_ready_in (Ctrl_xbar_CtrlReg_aw_ready_in),

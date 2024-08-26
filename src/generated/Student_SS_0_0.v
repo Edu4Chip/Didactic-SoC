@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_0_0.v
-// Creation date : 16.08.2024
-// Creation time : 11:27:28
+// Creation date : 26.08.2024
+// Creation time : 13:19:07
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -9,10 +9,6 @@
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:Student_SS_0:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_0/1.0/Student_SS_0.1.0.xml
 //-----------------------------------------------------------------------------
-
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/Student_SS_0_0.sv"
-`endif
 
 module Student_SS_0_0 #(
     parameter                              APB_DW           = 32,
