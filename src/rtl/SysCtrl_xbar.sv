@@ -296,6 +296,9 @@ assign CoreIMEM_r_resp_out   = axi4lite_init_bus[0].r_resp;
 assign CoreIMEM_r_valid_out  = axi4lite_init_bus[0].r_valid;
 assign CoreIMEM_w_ready_out  = axi4lite_init_bus[0].w_ready;
 
+//assign axi4lite_init_bus[0].ar_prot = 'd0;
+//assign axi4lite_init_bus[0].aw_prot = 'd0;
+
 // Interface: AXI4LITE_CORE_DMEM
 assign axi4lite_init_bus[1].ar_addr  = CoreDMEM_ar_addr_in;
 assign axi4lite_init_bus[1].ar_valid = CoreDMEM_ar_valid_in;
@@ -316,6 +319,9 @@ assign CoreDMEM_r_resp_out   = axi4lite_init_bus[1].r_resp;
 assign CoreDMEM_r_valid_out  = axi4lite_init_bus[1].r_valid;
 assign CoreDMEM_w_ready_out  = axi4lite_init_bus[1].w_ready;
 
+assign axi4lite_init_bus[0].ar_prot = 'd0;
+assign axi4lite_init_bus[0].aw_prot = 'd0;
+
 // Interface: AXI4LITE_DBG_I
 assign axi4lite_init_bus[2].ar_addr  = DbgI_ar_addr;
 assign axi4lite_init_bus[2].ar_valid = DbgI_ar_valid;
@@ -327,8 +333,8 @@ assign axi4lite_init_bus[2].w_data   = DbgI_w_data;
 assign axi4lite_init_bus[2].w_strb   = DbgI_w_strb;
 assign axi4lite_init_bus[2].w_valid  = DbgI_w_valid;
 //
-assign axi4lite_init_bus[2].aw_prot = DbgI_aw_prot;
 assign axi4lite_init_bus[2].ar_prot = DbgI_ar_prot;
+assign axi4lite_init_bus[2].aw_prot = DbgI_aw_prot;
 //
 assign DbgI_ar_ready = axi4lite_init_bus[2].ar_ready;
 assign DbgI_aw_ready = axi4lite_init_bus[2].aw_ready;

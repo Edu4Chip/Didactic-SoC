@@ -25,8 +25,6 @@ VSIM_OPTS = \
 
 
 VOPT_OPTS = \
-	-check_synthesis \
-	-compat \
 	-sv \
 	-suppress vopt-2577 \
 	+acc=npr \
