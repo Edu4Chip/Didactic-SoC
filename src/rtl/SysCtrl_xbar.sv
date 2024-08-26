@@ -250,7 +250,7 @@ module SysCtrl_xbar #(
     MaxMstTrans:        1,  
     MaxSlvTrans:        1,  
     FallThrough:        1'b0,
-    LatencyMode:        axi_pkg::CUT_ALL_PORTS,//axi_pkg::CUT_ALL_AX,
+    LatencyMode:        axi_pkg::CUT_ALL_AX,//CUT_ALL_AX,CUT_ALL_PORTS
     PipelineStages:     0,
     AxiIdWidthSlvPorts: '0,
     AxiIdUsedSlvPorts:  '0,

@@ -98,6 +98,9 @@ module ICN_SS #(
   assign icn_r_valid_out  = axi4lite_bus.r_valid;
   assign icn_w_ready_out  = axi4lite_bus.w_ready;
   
+  assign axi4lite_bus.ar_prot = 'd0;
+  assign axi4lite_bus.aw_prot = 'd0;
+
 
   // TODO: Finalize APB addr decoding
   localparam NoAddrRules =APB_TARGETS;

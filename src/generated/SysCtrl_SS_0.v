@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 26.08.2024
-// Creation time : 15:52:05
+// Creation time : 16:24:21
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -1577,7 +1577,7 @@ module SysCtrl_SS_0 #(
         .data_err_i          (Ibex_Core_data_err_i),
         .data_gnt_i          (Ibex_Core_data_gnt_i),
         .data_rdata_i        (Ibex_Core_data_rdata_i),
-        .data_rdata_intg_i   (),
+        .data_rdata_intg_i   (7'h0),
         .data_rvalid_i       (Ibex_Core_data_rvalid_i),
         .data_addr_o         (Ibex_Core_data_addr_o),
         .data_be_o           (Ibex_Core_data_be_o),

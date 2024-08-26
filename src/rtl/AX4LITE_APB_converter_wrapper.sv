@@ -96,6 +96,10 @@ module AX4LITE_APB_converter_wrapper #(
   assign r_resp = axi4lite_bus.r_resp;
   assign r_valid = axi4lite_bus.r_valid;
   assign w_ready = axi4lite_bus.w_ready;
+  
+  assign axi4lite_bus.ar_prot = 'd0;
+  assign axi4lite_bus.aw_prot = 'd0;
+
 
   // TODO: Finalize APB addr configs
   localparam NoAddrRules = APB_TARGETS;
