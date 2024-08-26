@@ -447,7 +447,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
+							<ipxact:defaultValue>'d0</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -469,7 +469,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
+							<ipxact:defaultValue>'d0</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -557,7 +557,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
+							<ipxact:defaultValue>'d0</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -601,7 +601,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
+							<ipxact:defaultValue>'d0</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -623,7 +623,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
+							<ipxact:defaultValue>'d0</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>

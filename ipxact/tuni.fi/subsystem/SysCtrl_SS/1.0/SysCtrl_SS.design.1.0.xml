@@ -64,10 +64,10 @@
 					<kactus2:portPosition busRef="AXI4LITE_DBG_T" x="-110" y="660"/>
 					<kactus2:portPosition busRef="AXI4LITE_DMEM" x="-110" y="70"/>
 					<kactus2:portPosition busRef="AXI4LITE_IMEM" x="-110" y="190"/>
+					<kactus2:portPosition busRef="AXI4LITE_icn" x="110" y="410"/>
 					<kactus2:portPosition busRef="AXI4LITE_periph" x="110" y="180"/>
 					<kactus2:portPosition busRef="Clock" x="110" y="530"/>
 					<kactus2:portPosition busRef="Reset" x="110" y="580"/>
-					<kactus2:portPosition busRef="AXI4LITE_icn" x="110" y="410"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -1191,6 +1191,11 @@
 			<kactus2:position x="60" y="540"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>AXI4LITE_icn</kactus2:name>
+			<kactus2:position x="1780" y="470"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
 		<kactus2:note>
 			<kactus2:position x="1150" y="270"/>
 			<kactus2:content>This ICN xbar remaps addresses to CPU.</kactus2:content>
@@ -1202,12 +1207,6 @@
 			<kactus2:content>Initial core choice is IBEX RV core</kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>22.04.2024 14:01</kactus2:timestamp>
-		</kactus2:note>
-		<kactus2:note>
-			<kactus2:position x="530" y="950"/>
-			<kactus2:content>TODO: Find out whether we should be including Bootrom.</kactus2:content>
-			<kactus2:associations/>
-			<kactus2:timestamp>22.04.2024 14:03</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:note>
 			<kactus2:position x="840" y="970"/>
@@ -1231,10 +1230,5 @@ Reduces area if taken to use.</kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>23.04.2024 09:49</kactus2:timestamp>
 		</kactus2:note>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>AXI4LITE_icn</kactus2:name>
-			<kactus2:position x="1780" y="470"/>
-			<kactus2:direction x="-1" y="0"/>
-		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>

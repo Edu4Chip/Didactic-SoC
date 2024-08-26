@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 26.08.2024
-// Creation time : 13:19:07
+// Creation time : 15:52:05
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -1809,10 +1809,10 @@ module SysCtrl_SS_0 #(
         .w_valid_o           (core_imem_bridge_w_valid_o),
         // Interface: mem
         .addr_i              (core_imem_bridge_addr_i),
-        .be_i                (),
+        .be_i                (4'd0),
         .req_i               (core_imem_bridge_req_i),
-        .wdata_i             (),
-        .we_i                (),
+        .wdata_i             (32'd0),
+        .we_i                (0),
         .err_o               (core_imem_bridge_err_o),
         .gnt_o               (core_imem_bridge_gnt_o),
         .rdata_o             (core_imem_bridge_rdata_o),
