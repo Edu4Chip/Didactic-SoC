@@ -21,14 +21,11 @@ DUT_LIBS = \
 VSIM_OPTS = \
 	-suppress vsim-3009 \
 	+acc=npr \
-#	-novopt \
-
 
 VOPT_OPTS = \
 	-sv \
 	-suppress vopt-2577 \
 	+acc=npr \
-#	-pedanticerrors \
 
 VLOG_OPTS = \
 	-svinputport=compat \
@@ -88,10 +85,13 @@ compile_tb:
 	-F ../src/tb-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_tb.log
 #+define+USE_UART
 
+# once regurarly running programs instead sanity, reverse this condition 
+SANITY_CHECK ?= 1
 elaborate: library_mapping
 	cd $(BUILD_DIR)
 	vopt \
 	$(DUT_LIBS) $(VOPT_OPTS) \
+	-gDM_SANITY_TESTCASES=$(SANITY_CHECK) \
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT) \
 	-o $(DUT)_opt \

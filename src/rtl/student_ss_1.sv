@@ -140,6 +140,8 @@ assign pmod_0_gpio_oe = 4'h0;
 // set as always ins
 assign pmod_1_gpio_oe = 4'hF;
 
+//tieoff pmod_0 outputs as it is not in use
+assign pmod_1_gpo = 4'h0;  
 
 /////// SVA /////////
 
