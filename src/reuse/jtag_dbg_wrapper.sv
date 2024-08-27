@@ -75,7 +75,7 @@ module jtag_dbg_wrapper #(
     input     logic                          clk_i,
 
     // Interface: Debug
-    output    logic                          debug_reg_irq_o,
+    output    logic                          debug_req_irq_o,
 
     // Interface: JTAG
     input     logic                          jtag_tck_i,

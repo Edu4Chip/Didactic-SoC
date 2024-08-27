@@ -252,8 +252,8 @@ module SysCtrl_xbar #(
     FallThrough:        1'b0,
     LatencyMode:        axi_pkg::CUT_ALL_AX,//CUT_ALL_AX,CUT_ALL_PORTS
     PipelineStages:     0,
-    AxiIdWidthSlvPorts: '0,
-    AxiIdUsedSlvPorts:  '0,
+    AxiIdWidthSlvPorts: 0,
+    AxiIdUsedSlvPorts:  0,
     UniqueIds:          1,
     AxiAddrWidth:       AXI4LITE_AW,
     AxiDataWidth:       AXI4LITE_DW,
