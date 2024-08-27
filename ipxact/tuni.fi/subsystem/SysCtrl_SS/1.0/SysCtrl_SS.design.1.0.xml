@@ -184,7 +184,12 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>Ibex_Core</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="lowRISC" name="ibex" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="lowRISC" name="ibex" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_a3dee705_1899_4f10_bb7e_eed480a6c4cc">'h01200816</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_db4ff119_295e_4928_a759_bdf24abd066a">'h01200800</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{1fe3671e-5c1d-47eb-842d-c62a7cff1f9b}</kactus2:uuid>
 				<kactus2:position x="600" y="330"/>

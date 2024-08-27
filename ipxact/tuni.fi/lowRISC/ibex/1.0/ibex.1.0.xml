@@ -1476,11 +1476,11 @@ ibex commit sha: 1774cbbbe334dff1e762c8308c911a33b3bda515</ipxact:description>
 			<ipxact:name>RndCnstLfsrPerm</ipxact:name>
 			<ipxact:value>RndCnstLfsrPermDefault</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_db4ff119_295e_4928_a759_bdf24abd066a">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_db4ff119_295e_4928_a759_bdf24abd066a" resolve="user">
 			<ipxact:name>DmHaltAddr</ipxact:name>
 			<ipxact:value>32'h1A110800</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_a3dee705_1899_4f10_bb7e_eed480a6c4cc">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_a3dee705_1899_4f10_bb7e_eed480a6c4cc" resolve="user">
 			<ipxact:name>DmExceptionAddr</ipxact:name>
 			<ipxact:value>32'h1A110808</ipxact:value>
 		</ipxact:parameter>
