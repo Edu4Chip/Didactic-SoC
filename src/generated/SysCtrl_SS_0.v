@@ -127,6 +127,10 @@ module SysCtrl_SS_0 #(
     input  logic         [14:0]         irq_upper_tieoff
 );
 
+`ifdef VERILATOR
+  `include "verification/verilator/src/hdl/ms/SysCtrl_SS_0.sv"
+`endif
+
     // i_SysCtrl_peripherals_GPIO_to_GPIO wires:
     wire [7:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpi;
     wire [7:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpo;
