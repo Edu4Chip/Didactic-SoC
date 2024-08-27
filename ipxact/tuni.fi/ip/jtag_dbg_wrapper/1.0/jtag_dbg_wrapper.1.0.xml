@@ -704,7 +704,7 @@
 								<ipxact:name>debug_req</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>debug_reg_irq_o</ipxact:name>
+								<ipxact:name>debug_req_irq_o</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -804,7 +804,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>debug_reg_irq_o</ipxact:name>
+				<ipxact:name>debug_req_irq_o</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
