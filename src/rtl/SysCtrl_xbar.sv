@@ -265,7 +265,7 @@ axi_lite_xbar_intf #(
   .rule_t(rule_t)
 ) i_axi_lite_xbar(
   .clk_i(clk_i),
-  .rst_ni(rst_ni),
+  .rst_ni(reset_ni),
   .test_i(1'b0),
   .slv_ports(axi4lite_init_bus),
   .mst_ports(axi4lite_target_bus),
