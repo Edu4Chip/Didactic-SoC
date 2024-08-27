@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 26.08.2024
-// Creation time : 16:24:21
+// Creation date : 27.08.2024
+// Creation time : 08:49:45
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -126,9 +126,6 @@ module SysCtrl_SS_0 #(
     // These ports are not in any interface
     input  logic         [14:0]         irq_upper_tieoff
 );
-    `ifdef VERILATOR
-        `include "verification/verilator/src/hdl/ms/SysCtrl_SS_0.sv"
-    `endif
 
     // i_SysCtrl_peripherals_GPIO_to_GPIO wires:
     wire [7:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpi;
@@ -802,7 +799,7 @@ module SysCtrl_SS_0 #(
     // jtag_dbg_wrapper port wires:
     wire       jtag_dbg_wrapper_clk_i;
     wire       jtag_dbg_wrapper_core_reset;
-    wire       jtag_dbg_wrapper_debug_reg_irq_o;
+    wire       jtag_dbg_wrapper_debug_req_irq_o;
     wire [31:0] jtag_dbg_wrapper_init_ar_addr;
     wire [3:0] jtag_dbg_wrapper_init_ar_prot;
     wire       jtag_dbg_wrapper_init_ar_ready;
@@ -1306,7 +1303,7 @@ module SysCtrl_SS_0 #(
     // jtag_dbg_wrapper assignments:
     assign jtag_dbg_wrapper_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset_reset = jtag_dbg_wrapper_core_reset;
-    assign jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req = jtag_dbg_wrapper_debug_reg_irq_o;
+    assign jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req = jtag_dbg_wrapper_debug_req_irq_o;
     assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_ADDR = jtag_dbg_wrapper_init_ar_addr;
     assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT = jtag_dbg_wrapper_init_ar_prot;
     assign jtag_dbg_wrapper_init_ar_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_READY;
@@ -1954,7 +1951,7 @@ module SysCtrl_SS_0 #(
         // Interface: Clock
         .clk_i               (jtag_dbg_wrapper_clk_i),
         // Interface: Debug
-        .debug_reg_irq_o     (jtag_dbg_wrapper_debug_reg_irq_o),
+        .debug_req_irq_o     (jtag_dbg_wrapper_debug_req_irq_o),
         // Interface: JTAG
         .jtag_tck_i          (jtag_dbg_wrapper_jtag_tck_i),
         .jtag_td_i           (jtag_dbg_wrapper_jtag_td_i),
