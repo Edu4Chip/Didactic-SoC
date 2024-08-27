@@ -25,7 +25,7 @@ VSIM_OPTS = \
 VOPT_OPTS = \
 	-sv \
 	-suppress vopt-2577 \
-	+acc=npr \
+	-voptargs=+acc=npr \
 
 VLOG_OPTS = \
 	-svinputport=compat \

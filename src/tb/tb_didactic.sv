@@ -104,7 +104,7 @@ module tb_didactic();
 
   tri0 dut_bootsel;
 
-  tri1 dut_fetch_en;
+  tri0 dut_fetch_en;
 
   tri1 dut_ana_in_0;
   tri1 dut_ana_in_1;
@@ -138,7 +138,7 @@ module tb_didactic();
     $display("[TB] Time %g ns - Reset on, start wait 3ms", $time);
     #3ms;
 
-    $display("[TB] Time %g ns - Reset is about to be lifterd", $time);
+    $display("[TB] Time %g ns - Reset is about to be lifted", $time);
     reset = 1'b1;
 
     $display("[TB] Time %g ns - Reset lift", $time);
