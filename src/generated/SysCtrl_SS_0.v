@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 28.08.2024
-// Creation time : 15:05:32
+// Creation time : 15:41:14
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -1092,7 +1092,7 @@ module SysCtrl_SS_0 #(
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA = Ibex_Core_data_wdata_o;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_WE = Ibex_Core_data_we_o;
     assign Ibex_Core_debug_req_i = jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req;
-    assign Ibex_Core_fetch_enable_i[0] = SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo[0];
+    assign Ibex_Core_fetch_enable_i = SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo[3:0];
     assign Ibex_Core_imem_to_core_imem_bridge_mem_ADDR = Ibex_Core_instr_addr_o;
     assign Ibex_Core_instr_err_i = Ibex_Core_imem_to_core_imem_bridge_mem_ERR;
     assign Ibex_Core_instr_gnt_i = Ibex_Core_imem_to_core_imem_bridge_mem_GNT;
