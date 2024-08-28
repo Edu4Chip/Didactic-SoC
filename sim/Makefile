@@ -20,12 +20,12 @@ DUT_LIBS = \
 
 VSIM_OPTS = \
 	-suppress vsim-3009 \
-	+acc=npr \
+	-voptargs=+acc=npr \
 
 VOPT_OPTS = \
 	-sv \
 	-suppress vopt-2577 \
-	-voptargs=+acc=npr \
+	+acc=npr \
 
 VLOG_OPTS = \
 	-svinputport=compat \
