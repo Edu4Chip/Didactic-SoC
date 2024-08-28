@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 27.08.2024
-// Creation time : 15:44:38
+// Creation date : 28.08.2024
+// Creation time : 08:50:13
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -1564,8 +1564,8 @@ module SysCtrl_SS_0 #(
 
     // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.0
     ibex_top #(
-        .DmHaltAddr          (437323776),
-        .DmExceptionAddr     (437323784))
+        .DmHaltAddr          (18876416),
+        .DmExceptionAddr     (18876438))
     Ibex_Core(
         // Interface: Clock
         .clk_i               (Ibex_Core_clk_i),
