@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 26.08.2024
-// Creation time : 16:24:21
+// Creation date : 28.08.2024
+// Creation time : 15:05:32
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -21,16 +21,10 @@ module Didactic #(
     parameter                              SS_CTRL_W        = 8,    // SoC SS control width
     parameter                              NUM_GPIO         = 8,    // SoC GPIO Cell count. Default 2x pmod = 8.
     parameter                              IOCELL_CFG_W     = 5,    // Tech cell control width.
-    parameter                              IOCELL_COUNT     = 26    // Controller IO  cell count
+    parameter                              IOCELL_COUNT     = 17    // number of configurable io cells in design. Total 24? + analog + power.
 ) (
-    // Interface: BootSel
-    inout  wire                         boot_sel,
-
     // Interface: Clock
     inout  wire                         clk_in,
-
-    // Interface: FetchEn
-    inout  wire                         fetch_en,
 
     // Interface: GPIO
     inout  wire          [7:0]          gpio,
@@ -61,8 +55,6 @@ module Didactic #(
 
     // SystemControl_SS_UART_to_UART wires:
     // SystemControl_SS_SPI_to_SPI wires:
-    // SystemControl_SS_FetchEn_to_FetchEn wires:
-    // SystemControl_SS_BootSel_to_BootSel wires:
     // SystemControl_SS_GPIO_to_GPIO wires:
     // SystemControl_SS_Reset_to_Reset wires:
     // SystemControl_SS_Clock_to_Clock wires:
@@ -734,7 +726,7 @@ module Didactic #(
         .AXI4LITE_DW         (32),
         .SS_CTRL_W           (8),
         .NUM_GPIO            (8),
-        .IOCELL_COUNT        (26),
+        .IOCELL_COUNT        (17),
         .IOCELL_CFGW         (5))
     SystemControl_SS(
         // Interface: AXI4LITE_icn
@@ -755,14 +747,10 @@ module Didactic #(
         .icn_w_data_out      (SystemControl_SS_icn_w_data_out),
         .icn_w_strb_out      (SystemControl_SS_icn_w_strb_out),
         .icn_w_valid_out     (SystemControl_SS_icn_w_valid_out),
-        // Interface: BootSel
-        .boot_sel            (boot_sel),
         // Interface: Clock
         .clock               (clk_in),
         // Interface: Clock_int
         .clk                 (SystemControl_SS_clk),
-        // Interface: FetchEn
-        .fetch_en            (fetch_en),
         // Interface: GPIO
         .gpio                (gpio[7:0]),
         // Interface: ICN_SS_Ctrl

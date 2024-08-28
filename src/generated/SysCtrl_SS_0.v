@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 28.08.2024
-// Creation time : 08:50:13
+// Creation time : 15:05:32
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -14,7 +14,7 @@ module SysCtrl_SS_0 #(
     parameter                              AXI4LITE_AW      = 32,
     parameter                              AXI4LITE_DW      = 32,
     parameter                              IOCELL_CFG_W     = 5,
-    parameter                              IOCELL_COUNT     = 26,    // update this value manually to match cell numbers
+    parameter                              IOCELL_COUNT     = 17,    // update this value manually to match cell numbers
     parameter                              NUM_GPIO         = 8,
     parameter                              SS_CTRL_W        = 8,
     parameter                              IO_CFG_W         = 5
@@ -38,14 +38,8 @@ module SysCtrl_SS_0 #(
     output logic         [3:0]          icn_w_strb_out,
     output logic                        icn_w_valid_out,
 
-    // Interface: BootSel
-    input  logic                        BootSel_internal,
-
     // Interface: Clk
     input  logic                        clk_internal,
-
-    // Interface: FetchEn
-    input  logic                        fetchEn_internal,
 
     // Interface: GPIO
     input  logic         [7:0]          gpio_to_core,
@@ -118,7 +112,7 @@ module SysCtrl_SS_0 #(
     output logic                        uart_tx_internal,
 
     // Interface: io_cell_cfg
-    output logic         [129:0]        cell_cfg,
+    output logic         [84:0]         cell_cfg,
 
     // Interface: pmod_sel
     output logic         [7:0]          pmod_sel,
@@ -191,7 +185,7 @@ module SysCtrl_SS_0 #(
     wire [7:0] SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
     wire       SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
     // SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg wires:
-    wire [129:0] SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
+    wire [84:0] SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
     // jtag_dbg_wrapper_JTAG_to_JTAG wires:
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tck;
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tdi;
@@ -217,10 +211,6 @@ module SysCtrl_SS_0 #(
     wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_READY;
     wire [3:0] Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_STRB;
     wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_VALID;
-    // SS_Ctrl_reg_array_BootSel_to_BootSel wires:
-    wire       SS_Ctrl_reg_array_BootSel_to_BootSel_gpo;
-    // Ibex_Core_FetchEn_to_FetchEn wires:
-    wire       Ibex_Core_FetchEn_to_FetchEn_gpo;
     // core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM wires:
     wire [31:0] core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_ADDR;
     wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_READY;
@@ -400,6 +390,8 @@ module SysCtrl_SS_0 #(
     wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
     wire [3:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
     wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
+    // SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn wires:
+    wire [4:0] SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo;
 
     // Ad-hoc wires:
     wire       Ibex_Core_irq_fast_i_to_irq_1;
@@ -619,9 +611,9 @@ module SysCtrl_SS_0 #(
     // SS_Ctrl_reg_array port wires:
     wire [31:0] SS_Ctrl_reg_array_addr_in;
     wire [3:0] SS_Ctrl_reg_array_be_in;
-    wire       SS_Ctrl_reg_array_bootsel;
-    wire [129:0] SS_Ctrl_reg_array_cell_cfg;
+    wire [84:0] SS_Ctrl_reg_array_cell_cfg;
     wire       SS_Ctrl_reg_array_clk;
+    wire [4:0] SS_Ctrl_reg_array_fetch_en;
     wire       SS_Ctrl_reg_array_irq_en_0;
     wire       SS_Ctrl_reg_array_irq_en_1;
     wire       SS_Ctrl_reg_array_irq_en_2;
@@ -848,10 +840,8 @@ module SysCtrl_SS_0 #(
     wire       jtag_dbg_wrapper_target_w_valid;
 
     // Assignments for the ports of the encompassing component:
-    assign SS_Ctrl_reg_array_BootSel_to_BootSel_gpo = BootSel_internal;
     assign cell_cfg = SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
     assign i_SysCtrl_peripherals_Clock_to_Clk_clk = clk_internal;
-    assign Ibex_Core_FetchEn_to_FetchEn_gpo = fetchEn_internal;
     assign gpio_from_core = i_SysCtrl_peripherals_GPIO_to_GPIO_gpo;
     assign i_SysCtrl_peripherals_GPIO_to_GPIO_gpi = gpio_to_core;
     assign icn_ar_addr_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
@@ -1102,8 +1092,7 @@ module SysCtrl_SS_0 #(
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA = Ibex_Core_data_wdata_o;
     assign Ibex_Core_dmem_to_core_dmem_bridge_mem_WE = Ibex_Core_data_we_o;
     assign Ibex_Core_debug_req_i = jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req;
-    assign Ibex_Core_fetch_enable_i[3:1] = 'd0;
-    assign Ibex_Core_fetch_enable_i[0] = Ibex_Core_FetchEn_to_FetchEn_gpo;
+    assign Ibex_Core_fetch_enable_i[0] = SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo[0];
     assign Ibex_Core_imem_to_core_imem_bridge_mem_ADDR = Ibex_Core_instr_addr_o;
     assign Ibex_Core_instr_err_i = Ibex_Core_imem_to_core_imem_bridge_mem_ERR;
     assign Ibex_Core_instr_gnt_i = Ibex_Core_imem_to_core_imem_bridge_mem_GNT;
@@ -1123,9 +1112,9 @@ module SysCtrl_SS_0 #(
     // SS_Ctrl_reg_array assignments:
     assign SS_Ctrl_reg_array_addr_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_ADDR;
     assign SS_Ctrl_reg_array_be_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_BE;
-    assign SS_Ctrl_reg_array_bootsel = SS_Ctrl_reg_array_BootSel_to_BootSel_gpo;
     assign SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg = SS_Ctrl_reg_array_cell_cfg;
     assign SS_Ctrl_reg_array_clk = i_SysCtrl_peripherals_Clock_to_Clk_clk;
+    assign SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo = SS_Ctrl_reg_array_fetch_en;
     assign SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en = SS_Ctrl_reg_array_irq_en_0;
     assign SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en = SS_Ctrl_reg_array_irq_en_1;
     assign SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en = SS_Ctrl_reg_array_irq_en_2;
@@ -1564,8 +1553,8 @@ module SysCtrl_SS_0 #(
 
     // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.0
     ibex_top #(
-        .DmHaltAddr          (18876416),
-        .DmExceptionAddr     (18876438))
+        .DmHaltAddr          (16910336),
+        .DmExceptionAddr     (16910358))
     Ibex_Core(
         // Interface: Clock
         .clk_i               (Ibex_Core_clk_i),
@@ -1598,14 +1587,14 @@ module SysCtrl_SS_0 #(
         .instr_addr_o        (Ibex_Core_instr_addr_o),
         .instr_req_o         (Ibex_Core_instr_req_o),
         // These ports are not in any interface
-        .boot_addr_i         (32'h1010000),
+        .boot_addr_i         (32'h1000000),
         .hart_id_i           (32'h0),
         .irq_external_i      (1'b0),
         .irq_nm_i            (1'b0),
         .irq_software_i      (1'b0),
         .irq_timer_i         (1'b0),
         .ram_cfg_i           ('h0),
-        .scan_rst_ni         (1'b0),
+        .scan_rst_ni         (1'b1),
         .scramble_key_i      (128'd0),
         .scramble_key_valid_i(1'b0),
         .scramble_nonce_i    (64'd0),
@@ -1620,18 +1609,18 @@ module SysCtrl_SS_0 #(
 
     // IP-XACT VLNV: tuni.fi:ip:SS_Ctrl_reg_array:1.0
     SS_Ctrl_reg_array #(
-        .IOCELL_COUNT        (26),
+        .IOCELL_COUNT        (17),
         .IOCELL_CFG_W        (5),
         .AW                  (32),
         .DW                  (32),
         .SS_CTRL_W           (8))
     SS_Ctrl_reg_array(
-        // Interface: BootSel
-        .bootsel             (SS_Ctrl_reg_array_bootsel),
         // Interface: Clock
         .clk                 (SS_Ctrl_reg_array_clk),
         // Interface: Reset
         .reset               (SS_Ctrl_reg_array_reset),
+        // Interface: fetch_en
+        .fetch_en            (SS_Ctrl_reg_array_fetch_en),
         // Interface: icn_ss_ctrl
         .ss_ctrl_icn         (SS_Ctrl_reg_array_ss_ctrl_icn),
         // Interface: io_cfg
