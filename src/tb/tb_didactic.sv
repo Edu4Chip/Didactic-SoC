@@ -102,10 +102,6 @@ module tb_didactic();
   assign dut_jtag_tms = jtag_tms;
   assign jtag_tdo = dut_jtag_tdo;
 
-  tri0 dut_bootsel;
-
-  tri0 dut_fetch_en;
-
   tri1 dut_ana_in_0;
   tri1 dut_ana_in_1;
   tri1 dut_ana_out_0;
@@ -243,12 +239,8 @@ module tb_didactic();
  Didactic #(
   // no top params allowed
   )i_didactic (
-    // Interface: BootSel
-    .boot_sel(dut_bootsel),
     // Interface: Clock
     .clk_in(dut_clk),
-    // Interface: FetchEn
-    .fetch_en(dut_fetch_en),
     // Interface: GPIO
     .gpio({dut_gpio_7,dut_gpio_6,dut_gpio_5,dut_gpio_4,dut_gpio_3,dut_gpio_2,dut_gpio_1,dut_gpio_0}),
     // Interface: JTAG
@@ -270,8 +262,6 @@ module tb_didactic();
     .ana_core_in({dut_ana_in_0,   cdut_ana_in_1}),
     .ana_core_out({dut_ana_out_0, dut_ana_out_1})
   );
-
-
 
 /////////////////////
 // periph sim  models 

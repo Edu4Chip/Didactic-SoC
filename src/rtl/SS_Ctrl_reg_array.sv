@@ -82,7 +82,7 @@ module SS_Ctrl_reg_array #(
     output logic [SS_CTRL_W-1:0]          ss_ctrl_3,
 
     // Interface: pmod_ctrl
-    output logic [7:0] pmod_sel
+    output logic [7:0] pmod_sel,
 
     // Interface: fetch_en
     output logic [4:0] fetch_en
@@ -287,7 +287,7 @@ assign cell_cfg[84:64]  = io_cell_cfg_2_reg;
 
 assign pmod_sel = pmod_sel_reg;
 
-assign fetch_en = fetch_en_reg[4:0]
+assign fetch_en = fetch_en_reg[4:0];
 
 // this file can be recreated by kamel once memory design is finalized.
 // ipxact register map needs to be synced to this rtl first

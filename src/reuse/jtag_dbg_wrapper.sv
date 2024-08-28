@@ -274,6 +274,6 @@ logic [DBG_BUS_WIDTH-1:0]     dbg_m_rdata_s;
   );
 
   // ibex core reset control with debug module
-  assign core_reset =  (~ndmreset_o) & rstn_i;
+  assign core_reset = rstn_i & ~(ndmreset_o);
 
 endmodule
