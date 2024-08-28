@@ -21,9 +21,8 @@
 				<kactus2:uuid>{ccb0ec58-12f1-40a1-96d3-571b848e265d}</kactus2:uuid>
 				<kactus2:position x="1040" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="BootSel" x="-110" y="550"/>
+					<kactus2:portPosition busRef="AXI4LITE_icn" x="110" y="720"/>
 					<kactus2:portPosition busRef="Clk" x="-110" y="510"/>
-					<kactus2:portPosition busRef="FetchEn" x="-110" y="570"/>
 					<kactus2:portPosition busRef="GPIO" x="-110" y="390"/>
 					<kactus2:portPosition busRef="ICN_SS_Ctrl" x="110" y="50"/>
 					<kactus2:portPosition busRef="IRQ0" x="110" y="510"/>
@@ -45,7 +44,6 @@
 					<kactus2:portPosition busRef="UART" x="-110" y="720"/>
 					<kactus2:portPosition busRef="io_cell_cfg" x="-110" y="350"/>
 					<kactus2:portPosition busRef="pmod_sel" x="-110" y="430"/>
-					<kactus2:portPosition busRef="AXI4LITE_icn" x="110" y="720"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_upper_tieoff" x="110" y="750"/>
@@ -184,16 +182,6 @@
 			<ipxact:hierInterface busRef="Clock"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>i_io_cell_frame_FetchEn_to_FetchEn</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="FetchEn"/>
-			<ipxact:hierInterface busRef="FetchEn"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>i_io_cell_frame_BootSel_to_BootSel</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="BootSel"/>
-			<ipxact:hierInterface busRef="BootSel"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
 			<ipxact:name>i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="JTAG_internal"/>
 			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="JTAG"/>
@@ -204,11 +192,6 @@
 			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="Clk"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>i_io_cell_frame_BootSel_internal_to_SysCtrl_SS_BootSel</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="BootSel_internal"/>
-			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="BootSel"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
 			<ipxact:name>i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="SPI_internal"/>
 			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="SPI"/>
@@ -217,11 +200,6 @@
 			<ipxact:name>i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="UART_internal"/>
 			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="UART"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="FetchEn_internal"/>
-			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="FetchEn"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
 			<ipxact:name>i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset</ipxact:name>
@@ -433,14 +411,6 @@
 				<kactus2:position x="170" y="340"/>
 				<kactus2:position x="60" y="340"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="i_io_cell_frame_FetchEn_to_FetchEn" kactus2:offPage="false">
-				<kactus2:position x="170" y="380"/>
-				<kactus2:position x="60" y="380"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="i_io_cell_frame_BootSel_to_BootSel" kactus2:offPage="false">
-				<kactus2:position x="170" y="420"/>
-				<kactus2:position x="60" y="420"/>
-			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG" kactus2:offPage="false">
 				<kactus2:position x="390" y="670"/>
 				<kactus2:position x="930" y="670"/>
@@ -449,10 +419,6 @@
 				<kactus2:position x="390" y="570"/>
 				<kactus2:position x="930" y="570"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="i_io_cell_frame_BootSel_internal_to_SysCtrl_SS_BootSel" kactus2:offPage="false">
-				<kactus2:position x="390" y="610"/>
-				<kactus2:position x="930" y="610"/>
-			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI" kactus2:offPage="false">
 				<kactus2:position x="390" y="710"/>
 				<kactus2:position x="930" y="710"/>
@@ -460,10 +426,6 @@
 			<kactus2:route kactus2:connRef="i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART" kactus2:offPage="false">
 				<kactus2:position x="390" y="780"/>
 				<kactus2:position x="930" y="780"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="i_io_cell_frame_FetchEn_internal_to_SysCtrl_SS_FetchEn" kactus2:offPage="false">
-				<kactus2:position x="390" y="630"/>
-				<kactus2:position x="930" y="630"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset" kactus2:offPage="false">
 				<kactus2:position x="390" y="550"/>
@@ -475,6 +437,8 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl" kactus2:offPage="false">
 				<kactus2:position x="1150" y="150"/>
+				<kactus2:position x="1240" y="150"/>
+				<kactus2:position x="1240" y="150"/>
 				<kactus2:position x="1260" y="150"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_Reset_SS_0_to_Reset_SS_0" kactus2:offPage="false">
@@ -577,11 +541,6 @@
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:interfaceGraphics>
-			<kactus2:name>BootSel</kactus2:name>
-			<kactus2:position x="60" y="420"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
 			<kactus2:name>Clock</kactus2:name>
 			<kactus2:position x="60" y="340"/>
 			<kactus2:direction x="1" y="0"/>
@@ -590,11 +549,6 @@
 			<kactus2:name>Clock_int</kactus2:name>
 			<kactus2:position x="1260" y="730"/>
 			<kactus2:direction x="-1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>FetchEn</kactus2:name>
-			<kactus2:position x="60" y="380"/>
-			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>GPIO</kactus2:name>
@@ -741,8 +695,13 @@
 			<kactus2:position x="820" y="370"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>AXI4LITE_icn</kactus2:name>
+			<kactus2:position x="1260" y="780"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
 		<kactus2:note>
-			<kactus2:position x="130" y="650"/>
+			<kactus2:position x="180" y="390"/>
 			<kactus2:content>This module contains tech IO cells. Insert ifdef clauses to RTL file to get platform specific cells inserted.
 
 For ASIC, replace with tech files.</kactus2:content>
@@ -750,10 +709,5 @@ For ASIC, replace with tech files.</kactus2:content>
 			<kactus2:timestamp>05.07.2024 11:51</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:adHocVisibilities/>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>AXI4LITE_icn</kactus2:name>
-			<kactus2:position x="1260" y="780"/>
-			<kactus2:direction x="-1" y="0"/>
-		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>

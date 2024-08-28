@@ -555,7 +555,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>32'h0101_0000</ipxact:defaultValue>
+							<ipxact:defaultValue>32'h0100_0000</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -1137,6 +1137,11 @@
 							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue>ibex_pkg::IbexMuBiOn</ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -1224,7 +1229,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b0</ipxact:defaultValue>
+							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>

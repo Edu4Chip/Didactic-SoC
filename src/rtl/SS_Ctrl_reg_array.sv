@@ -29,8 +29,6 @@ module SS_Ctrl_reg_array #(
     parameter DW = 32,
     parameter SS_CTRL_W = 31 // configurable up to 31 bits
 ) (
-    // Interface: BootSel
-    input  logic bootsel,
 
     // Interface: Clock
     input  logic clk,
@@ -45,12 +43,12 @@ module SS_Ctrl_reg_array #(
     output logic [(IOCELL_CFG_W*IOCELL_COUNT)-1:0] cell_cfg,
 
     // Interface: mem_reg_if
-    input  logic [AW-1:0] addr_in,
-    input  logic [DW/8-1:0]  be_in,
-    input  logic        req_in,
-    input  logic [DW-1:0] wdata_in,
-    input  logic        we_in,
-    output logic [DW-1:0] rdata_out,
+    input  logic [AW-1:0]   addr_in,
+    input  logic [DW/8-1:0] be_in,
+    input  logic            req_in,
+    input  logic [DW-1:0]   wdata_in,
+    input  logic            we_in,
+    output logic [DW-1:0]   rdata_out,
 
     // Interface: rst_icn
     output logic reset_icn,
@@ -85,12 +83,14 @@ module SS_Ctrl_reg_array #(
 
     // Interface: pmod_ctrl
     output logic [7:0] pmod_sel
+
+    // Interface: fetch_en
+    output logic [4:0] fetch_en
 );
   `ifdef VERILATOR
     `include "verification/verilator/src/hdl/ms/SS_Ctrl_reg_array.sv"
   `endif
 
-  logic [31:0] bootSel_reg;
   logic [31:0] ss_rst_reg;
   logic [31:0] icn_rst_ctrl_reg;
   logic [31:0] ss_0_ctrl_reg;
@@ -109,12 +109,12 @@ module SS_Ctrl_reg_array #(
   logic [31:0] io_cell_cfg_7_reg;
   logic [31:0] io_cell_cfg_8_reg;
   logic [31:0] pmod_sel_reg;
+  logic [31:0] fetch_en_reg;
 
     // FFs for write or read/write registers
     always_ff @( posedge clk or negedge reset )
     begin : control_register_ff
     if (~reset) begin
-        bootSel_reg <= 'h0;
         ss_rst_reg <= 'h0;
         icn_rst_ctrl_reg <= 'h0;
         ss_0_ctrl_reg <= 'h0;
@@ -133,17 +133,13 @@ module SS_Ctrl_reg_array #(
         io_cell_cfg_7_reg <= 'h0;
         io_cell_cfg_8_reg <= 'h0;
         pmod_sel_reg <= 'h0;
+        fetch_en_reg <= 'h5;
     end
     else begin
-      bootSel_reg[0] = bootsel;
 
-    
      if (we_in) begin 
         case (addr_in)
 
-        'h0: begin
-            bootSel_reg[31:1] <= wdata_in[ 31:1 ];
-        end
         'h4: begin
             ss_rst_reg <= wdata_in[ 31:0 ];
         end
@@ -195,6 +191,9 @@ module SS_Ctrl_reg_array #(
         'h58: begin
             pmod_sel_reg <= wdata_in[ 31:0 ];
         end
+        'h60: begin
+            fetch_en_reg <= wdata_in[ 31:0 ];
+        end
         endcase
      end
     end
@@ -205,9 +204,6 @@ module SS_Ctrl_reg_array #(
       rdata_out = 0;
       case(addr_in)
 
-        'h0: begin
-            rdata_out =bootSel_reg;
-        end
         'h4: begin
             rdata_out =ss_rst_reg;
         end
@@ -256,6 +252,9 @@ module SS_Ctrl_reg_array #(
         'h54: begin
             rdata_out =pmod_sel_reg;
         end
+        'h54: begin
+            rdata_out = fetch_en_reg;
+        end
     endcase
 end // read_logic
 
@@ -263,7 +262,6 @@ end // read_logic
 
 
 // assign outs
-
 
 assign reset_icn = ss_rst_reg[0];
 assign reset_ss_0 = ss_rst_reg[1];
@@ -281,16 +279,16 @@ assign ss_ctrl_3 = ss_3_ctrl_reg[SS_CTRL_W-1:0];
 assign ss_ctrl_icn = icn_rst_ctrl_reg[SS_CTRL_W-1:0];
 
 
-//  continuos reg assigns for now
+//  continuous reg assigns for now
 assign cell_cfg[31:0]  = io_cell_cfg_reg;
 assign cell_cfg[63:32]  = io_cell_cfg_1_reg;
-assign cell_cfg[95:64]  = io_cell_cfg_2_reg;
-assign cell_cfg[119:96]  = io_cell_cfg_3_reg[23:0];
-// 127
-//assign cell_cfg[139:128]  = io_cell_cfg_4_reg[10:0];
+assign cell_cfg[84:64]  = io_cell_cfg_2_reg;
+
 
 assign pmod_sel = pmod_sel_reg;
 
+assign fetch_en = fetch_en_reg[4:0]
 
-// this can be recreated by kamel once memory design is finalized
+// this file can be recreated by kamel once memory design is finalized.
+// ipxact register map needs to be synced to this rtl first
 endmodule

@@ -21,10 +21,9 @@
 				<kactus2:uuid>{1b2f10de-b1b3-480c-a12a-4664c7b6e58b}</kactus2:uuid>
 				<kactus2:position x="280" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="BootSel" x="-110" y="240"/>
+					<kactus2:portPosition busRef="AXI4LITE_icn" x="110" y="140"/>
 					<kactus2:portPosition busRef="Clock" x="-110" y="360"/>
 					<kactus2:portPosition busRef="Clock_int" x="110" y="50"/>
-					<kactus2:portPosition busRef="FetchEn" x="-110" y="200"/>
 					<kactus2:portPosition busRef="GPIO" x="-110" y="280"/>
 					<kactus2:portPosition busRef="ICN_SS_Ctrl" x="110" y="90"/>
 					<kactus2:portPosition busRef="IRQ0" x="110" y="370"/>
@@ -51,7 +50,7 @@
 					<kactus2:portPosition busRef="ss_2_pmod_gpio_1" x="110" y="720"/>
 					<kactus2:portPosition busRef="ss_3_pmod_gpio_0" x="110" y="760"/>
 					<kactus2:portPosition busRef="ss_3_pmod_gpio_1" x="110" y="780"/>
-					<kactus2:portPosition busRef="AXI4LITE_icn" x="110" y="140"/>
+					<kactus2:portPosition busRef="Reset_icn" x="110" y="550"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -73,10 +72,10 @@
 					<kactus2:portPosition busRef="APB2" x="110" y="490"/>
 					<kactus2:portPosition busRef="APB3" x="110" y="690"/>
 					<kactus2:portPosition busRef="AXI" x="-110" y="120"/>
-					<kactus2:portPosition busRef="Clock" x="-110" y="50"/>
-					<kactus2:portPosition busRef="Reset" x="-110" y="540"/>
-					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="90"/>
 					<kactus2:portPosition busRef="AXI4LITE_icn" x="-110" y="140"/>
+					<kactus2:portPosition busRef="Clock" x="-110" y="50"/>
+					<kactus2:portPosition busRef="Reset" x="-110" y="550"/>
+					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="90"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -178,16 +177,6 @@
 			<ipxact:name>SystemControl_SS_SPI_to_SPI</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="SPI"/>
 			<ipxact:hierInterface busRef="SPI"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_FetchEn_to_FetchEn</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="FetchEn"/>
-			<ipxact:hierInterface busRef="FetchEn"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_BootSel_to_BootSel</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="BootSel"/>
-			<ipxact:hierInterface busRef="BootSel"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
 			<ipxact:name>SystemControl_SS_GPIO_to_GPIO</ipxact:name>
@@ -422,14 +411,6 @@
 				<kactus2:position x="170" y="180"/>
 				<kactus2:position x="60" y="180"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_FetchEn_to_FetchEn" kactus2:offPage="false">
-				<kactus2:position x="170" y="260"/>
-				<kactus2:position x="60" y="260"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_BootSel_to_BootSel" kactus2:offPage="false">
-				<kactus2:position x="170" y="300"/>
-				<kactus2:position x="60" y="300"/>
-			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_GPIO_to_GPIO" kactus2:offPage="false">
 				<kactus2:position x="170" y="340"/>
 				<kactus2:position x="60" y="340"/>
@@ -507,8 +488,8 @@
 				<kactus2:position x="60" y="220"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Reset_icn_to_ICN_SS_Reset" kactus2:offPage="false">
-				<kactus2:position x="390" y="600"/>
-				<kactus2:position x="490" y="600"/>
+				<kactus2:position x="390" y="610"/>
+				<kactus2:position x="490" y="610"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Reset_SS_0_to_Student_SS_0_Reset" kactus2:offPage="true">
 				<kactus2:position x="420" y="520"/>
@@ -600,16 +581,6 @@
 		<kactus2:interfaceGraphics>
 			<kactus2:name>GPIO</kactus2:name>
 			<kactus2:position x="60" y="340"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>BootSel</kactus2:name>
-			<kactus2:position x="60" y="300"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>FetchEn</kactus2:name>
-			<kactus2:position x="60" y="260"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>

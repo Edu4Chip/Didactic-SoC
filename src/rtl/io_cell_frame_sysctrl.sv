@@ -27,11 +27,6 @@ module io_cell_frame_sysctrl #(
     parameter IOCELL_COUNT = 26,
     parameter NUM_GPIO = 8
   )(
-    // Interface: BootSel
-    inout  wire        boot_sel,
-
-    // Interface: BootSel_internal
-    output logic       BootSel_internal,
 
     // Interface: Cfg
     input  logic [(IOCELL_CFG_W*IOCELL_COUNT)-1:0] cell_cfg,
@@ -41,12 +36,6 @@ module io_cell_frame_sysctrl #(
 
     // Interface: Clock_internal
     output logic       clk_internal,
-
-    // Interface: FetchEn
-    inout  wire        fetch_en,
-
-    // Interface: FetchEn_internal
-    output logic       fetchEn_internal,
 
     // Interface: GPIO
     inout  wire  [NUM_GPIO-1:0] gpio,
@@ -116,13 +105,6 @@ module io_cell_frame_sysctrl #(
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio6(.FROM_CORE(gpio_from_core[6]), .TO_CORE(gpio_to_core[6]), .PAD(gpio[6]), .io_cell_cfg(cell_cfg[7*IOCELL_CFG_W-1:6*IOCELL_CFG_W]));
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio7(.FROM_CORE(gpio_from_core[7]), .TO_CORE(gpio_to_core[7]), .PAD(gpio[7]), .io_cell_cfg(cell_cfg[8*IOCELL_CFG_W-1:7*IOCELL_CFG_W]));
 
-  // bootSel
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_bootsel(.FROM_CORE(1'b0), .TO_CORE(BootSel_internal), .PAD(boot_sel), .io_cell_cfg(cell_cfg[9*IOCELL_CFG_W-1:8*IOCELL_CFG_W]));
-
-  // fetchEn
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_fetchen(.FROM_CORE(1'b0), .TO_CORE(fetchEn_internal), .PAD(fetch_en), .io_cell_cfg(cell_cfg[10*IOCELL_CFG_W-1:9*IOCELL_CFG_W]));
-
-
   // jtag
   io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tck (.FROM_CORE(1'b0),              .TO_CORE(jtag_tck_internal),  .PAD(jtag_tck),  .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
   io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tms (.FROM_CORE(1'b0),              .TO_CORE(jtag_tms_internal),  .PAD(jtag_tms),  .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
@@ -131,16 +113,16 @@ module io_cell_frame_sysctrl #(
   io_cell_wrapper#(.CELL_TYPE(1), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tdo (.FROM_CORE(jtag_tdo_internal), .TO_CORE(),                   .PAD(jtag_tdo),  .io_cell_cfg({IOCELL_CFG_W{1'b0}}));
 
   // spi
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_sck  (.FROM_CORE(spim_sck_internal),     .TO_CORE(),                      .PAD(spi_sck),     .io_cell_cfg(cell_cfg[16*IOCELL_CFG_W-1:15*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_csn0 (.FROM_CORE(spim_csn_internal[0]),  .TO_CORE(),                      .PAD(spi_csn[0]),  .io_cell_cfg(cell_cfg[17*IOCELL_CFG_W-1:16*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_csn1 (.FROM_CORE(spim_csn_internal[1]),  .TO_CORE(),                      .PAD(spi_csn[1]),  .io_cell_cfg(cell_cfg[18*IOCELL_CFG_W-1:17*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data0(.FROM_CORE(spim_mosi_internal[0]), .TO_CORE(spim_miso_internal[0]), .PAD(spi_data[0]), .io_cell_cfg(cell_cfg[19*IOCELL_CFG_W-1:18*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data1(.FROM_CORE(spim_mosi_internal[1]), .TO_CORE(spim_miso_internal[1]), .PAD(spi_data[1]), .io_cell_cfg(cell_cfg[20*IOCELL_CFG_W-1:19*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data2(.FROM_CORE(spim_mosi_internal[2]), .TO_CORE(spim_miso_internal[2]), .PAD(spi_data[2]), .io_cell_cfg(cell_cfg[21*IOCELL_CFG_W-1:20*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data3(.FROM_CORE(spim_mosi_internal[3]), .TO_CORE(spim_miso_internal[3]), .PAD(spi_data[3]), .io_cell_cfg(cell_cfg[22*IOCELL_CFG_W-1:21*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_sck  (.FROM_CORE(spim_sck_internal),     .TO_CORE(),                      .PAD(spi_sck),     .io_cell_cfg(cell_cfg[9*IOCELL_CFG_W-1:8*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_csn0 (.FROM_CORE(spim_csn_internal[0]),  .TO_CORE(),                      .PAD(spi_csn[0]),  .io_cell_cfg(cell_cfg[10*IOCELL_CFG_W-1:9*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_csn1 (.FROM_CORE(spim_csn_internal[1]),  .TO_CORE(),                      .PAD(spi_csn[1]),  .io_cell_cfg(cell_cfg[11*IOCELL_CFG_W-1:10*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data0(.FROM_CORE(spim_mosi_internal[0]), .TO_CORE(spim_miso_internal[0]), .PAD(spi_data[0]), .io_cell_cfg(cell_cfg[12*IOCELL_CFG_W-1:11*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data1(.FROM_CORE(spim_mosi_internal[1]), .TO_CORE(spim_miso_internal[1]), .PAD(spi_data[1]), .io_cell_cfg(cell_cfg[13*IOCELL_CFG_W-1:12*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data2(.FROM_CORE(spim_mosi_internal[2]), .TO_CORE(spim_miso_internal[2]), .PAD(spi_data[2]), .io_cell_cfg(cell_cfg[14*IOCELL_CFG_W-1:13*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data3(.FROM_CORE(spim_mosi_internal[3]), .TO_CORE(spim_miso_internal[3]), .PAD(spi_data[3]), .io_cell_cfg(cell_cfg[15*IOCELL_CFG_W-1:14*IOCELL_CFG_W]));
 
   // uart
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_uart_rx(.FROM_CORE(1'b0),             .TO_CORE(uart_rx_internal), .PAD(uart_rx), .io_cell_cfg(cell_cfg[23*IOCELL_CFG_W-1:22*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(1), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_uart_tx(.FROM_CORE(uart_tx_internal), .TO_CORE(),                 .PAD(uart_tx), .io_cell_cfg(cell_cfg[24*IOCELL_CFG_W-1:23*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_uart_rx(.FROM_CORE(1'b0),             .TO_CORE(uart_rx_internal), .PAD(uart_rx), .io_cell_cfg(cell_cfg[16*IOCELL_CFG_W-1:15*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(1), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_uart_tx(.FROM_CORE(uart_tx_internal), .TO_CORE(),                 .PAD(uart_tx), .io_cell_cfg(cell_cfg[17*IOCELL_CFG_W-1:16*IOCELL_CFG_W]));
 
 endmodule

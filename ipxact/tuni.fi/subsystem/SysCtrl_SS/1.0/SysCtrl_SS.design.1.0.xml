@@ -163,12 +163,11 @@
 				<kactus2:uuid>{d29faeea-3c09-42a1-863b-702901c54da1}</kactus2:uuid>
 				<kactus2:position x="280" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="BootSel" x="110" y="110"/>
 					<kactus2:portPosition busRef="Clock" x="110" y="50"/>
 					<kactus2:portPosition busRef="Reset" x="110" y="70"/>
 					<kactus2:portPosition busRef="icn_ss_ctrl" x="-110" y="210"/>
 					<kactus2:portPosition busRef="io_cfg" x="-110" y="400"/>
-					<kactus2:portPosition busRef="mem_reg_if" x="110" y="320"/>
+					<kactus2:portPosition busRef="mem_reg_if" x="110" y="400"/>
 					<kactus2:portPosition busRef="pmod_sel" x="-110" y="380"/>
 					<kactus2:portPosition busRef="rst_icn" x="-110" y="40"/>
 					<kactus2:portPosition busRef="rst_ss_0" x="-110" y="60"/>
@@ -179,6 +178,7 @@
 					<kactus2:portPosition busRef="ss_ctrl_1" x="-110" y="250"/>
 					<kactus2:portPosition busRef="ss_ctrl_2" x="-110" y="270"/>
 					<kactus2:portPosition busRef="ss_ctrl_3" x="-110" y="290"/>
+					<kactus2:portPosition busRef="fetch_en" x="110" y="340"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -186,8 +186,8 @@
 			<ipxact:instanceName>Ibex_Core</ipxact:instanceName>
 			<ipxact:componentRef vendor="tuni.fi" library="lowRISC" name="ibex" version="1.0">
 				<ipxact:configurableElementValues>
-					<ipxact:configurableElementValue referenceId="uuid_a3dee705_1899_4f10_bb7e_eed480a6c4cc">'h01200816</ipxact:configurableElementValue>
-					<ipxact:configurableElementValue referenceId="uuid_db4ff119_295e_4928_a759_bdf24abd066a">'h01200800</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_a3dee705_1899_4f10_bb7e_eed480a6c4cc">'h01020816</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_db4ff119_295e_4928_a759_bdf24abd066a">'h01020800</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -200,9 +200,9 @@
 					<kactus2:portPosition busRef="Reset" x="-110" y="330"/>
 					<kactus2:portPosition busRef="dmem" x="110" y="100"/>
 					<kactus2:portPosition busRef="imem" x="110" y="240"/>
+					<kactus2:portPosition busRef="FetchEn" x="-110" y="70"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
-					<kactus2:adHocVisible portName="fetch_enable_i" x="110" y="60"/>
 					<kactus2:adHocVisible portName="irq_fast_i" x="-110" y="430"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
@@ -434,16 +434,6 @@
 			<ipxact:hierInterface busRef="Clk"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>SS_Ctrl_reg_array_BootSel_to_BootSel</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SS_Ctrl_reg_array" busRef="BootSel"/>
-			<ipxact:hierInterface busRef="BootSel"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>Ibex_Core_FetchEn_to_FetchEn</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Ibex_Core" busRef="FetchEn"/>
-			<ipxact:hierInterface busRef="FetchEn"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
 			<ipxact:name>core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="core_dmem_bridge" busRef="axi4lite"/>
 			<ipxact:activeInterface componentInstanceRef="Ctrl_xbar" busRef="AXI4LITE_CORE_DMEM"/>
@@ -573,6 +563,11 @@
 			<ipxact:activeInterface componentInstanceRef="Ctrl_xbar" busRef="AXI4LITE_icn"/>
 			<ipxact:hierInterface busRef="AXI4LITE_icn"/>
 		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="SS_Ctrl_reg_array" busRef="fetch_en"/>
+			<ipxact:activeInterface componentInstanceRef="Ibex_Core" busRef="FetchEn"/>
+		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
 		<ipxact:adHocConnection>
@@ -692,20 +687,6 @@
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:externalPortReference>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
-		<ipxact:adHocConnection>
-			<ipxact:name>Ibex_Core_fetch_enable_i_to_tiedValue</ipxact:name>
-			<ipxact:tiedValue>'d0</ipxact:tiedValue>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="Ibex_Core" portRef="fetch_enable_i">
-					<ipxact:partSelect>
-						<ipxact:range>
-							<ipxact:left>3</ipxact:left>
-							<ipxact:right>1</ipxact:right>
-						</ipxact:range>
-					</ipxact:partSelect>
-				</ipxact:internalPortReference>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>
@@ -888,14 +869,6 @@
 				<kactus2:position x="460" y="370"/>
 				<kactus2:position x="1750" y="590"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_BootSel_to_BootSel" kactus2:offPage="true">
-				<kactus2:position x="420" y="170"/>
-				<kactus2:position x="1750" y="110"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Ibex_Core_FetchEn_to_FetchEn" kactus2:offPage="true">
-				<kactus2:position x="740" y="370"/>
-				<kactus2:position x="1750" y="70"/>
-			</kactus2:route>
 			<kactus2:route kactus2:connRef="core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM" kactus2:offPage="false">
 				<kactus2:position x="1030" y="390"/>
 				<kactus2:position x="1130" y="390"/>
@@ -1027,8 +1000,8 @@
 			<kactus2:route kactus2:connRef="Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if" kactus2:offPage="false">
 				<kactus2:position x="390" y="550"/>
 				<kactus2:position x="410" y="550"/>
-				<kactus2:position x="410" y="380"/>
-				<kactus2:position x="390" y="380"/>
+				<kactus2:position x="410" y="460"/>
+				<kactus2:position x="390" y="460"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i" kactus2:offPage="false">
 				<kactus2:position x="1450" y="820"/>
@@ -1068,6 +1041,10 @@
 				<kactus2:position x="1350" y="470"/>
 				<kactus2:position x="1780" y="470"/>
 			</kactus2:route>
+			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn" kactus2:offPage="false">
+				<kactus2:position x="390" y="400"/>
+				<kactus2:position x="490" y="400"/>
+			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>
 			<kactus2:adHocVisible portName="irq_0" x="60" y="840"/>
@@ -1102,11 +1079,6 @@
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
-			<kactus2:name>BootSel</kactus2:name>
-			<kactus2:position x="1780" y="110"/>
-			<kactus2:direction x="-1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
 			<kactus2:name>Reset</kactus2:name>
 			<kactus2:position x="1780" y="640"/>
 			<kactus2:direction x="-1" y="0"/>
@@ -1125,11 +1097,6 @@
 			<kactus2:name>SS_Ctrl_2</kactus2:name>
 			<kactus2:position x="60" y="390"/>
 			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>FetchEn</kactus2:name>
-			<kactus2:position x="1780" y="70"/>
-			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>io_cell_cfg</kactus2:name>
