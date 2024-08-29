@@ -227,7 +227,7 @@ module SysCtrl_xbar #(
   // TODO: Finalize rules and addresses
   localparam NoAddrRules = AXI4LITE_TARGETS;
   localparam ADDR_BASE   = 32'h0100_0000;
-  localparam AXI4LITE_SIZE    = 'h10000;
+  localparam AXI4LITE_SIZE    = 'h1_0000;
   
   typedef axi_pkg::xbar_rule_32_t rule_t;
   
@@ -235,8 +235,8 @@ module SysCtrl_xbar #(
   // TODO: finalize Address table based for xbar
   assign AddrMapXBAR = 
     '{
-      '{idx: 32'd5, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*6-1},//axi
-      '{idx: 32'd4, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*5-1},//ctrl
+      '{idx: 32'd5, start_addr: ADDR_BASE+AXI4LITE_SIZE*5, end_addr: ADDR_BASE+AXI4LITE_SIZE*6-1},//icn. 
+      '{idx: 32'd4, start_addr: ADDR_BASE+AXI4LITE_SIZE*4, end_addr: ADDR_BASE+AXI4LITE_SIZE*5-1},//ctrl
       '{idx: 32'd3, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*4-1},//periph
       '{idx: 32'd2, start_addr: ADDR_BASE+AXI4LITE_SIZE*2, end_addr: ADDR_BASE+AXI4LITE_SIZE*3-1},//dbg
       '{idx: 32'd1, start_addr: ADDR_BASE+AXI4LITE_SIZE*1, end_addr: ADDR_BASE+AXI4LITE_SIZE*2-1},//dmem

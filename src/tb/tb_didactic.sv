@@ -46,7 +46,7 @@ module tb_didactic();
   // xbar base h0100_0000
   // imem offset h1_000
   // binary offset h80
-  logic [31:0] begin_imem = 32'h0101_0080;
+  logic [31:0] begin_imem = 32'h0100_0080;
 
   int exit_status = `EXIT_ERROR; // default
   int num_err = 0;
