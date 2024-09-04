@@ -99,7 +99,7 @@ elaborate: library_mapping
 
 run_sim: library_mapping
 	cd $(BUILD_DIR)
-	vsim \
+	vsim -c \
 	$(DUT_LIBS) $(VSIM_OPTS) \
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT)_opt \

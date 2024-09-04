@@ -29,15 +29,15 @@ module tb_didactic();
 
   // default paths
   parameter string STIMULI_FILE = "build/stim.txt";
-  parameter string ELFT_FILE = "build/bin.elf";
+  parameter string ELF_FILE = "build/bin.elf";
 
   parameter BAUDRATE = 115200;
 /////////////////////////////
 // test setup
 ////////////////////////////////
 
-  int    num_stim;
-  logic [95:0] stimuli  [100000:0]; // array for the stimulus vectors
+  int          num_stim;
+  logic [95:0] stimuli [100000:0]; // array for the stimulus vectors
 
   logic [255:0][31:0]   jtag_data;
 
