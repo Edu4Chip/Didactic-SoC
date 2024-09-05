@@ -28,8 +28,8 @@ module tb_didactic();
   parameter DM_SANITY_TESTCASES = 1;
 
   // default paths
-  parameter string STIMULI_FILE = "build/stim.txt";
-  parameter string ELF_FILE = "build/bin.elf";
+  parameter string STIMULI_FILE = "build/sw/stim.txt";
+  parameter string ELF_FILE = "build/sw/test.elf";
 
   parameter BAUDRATE = 115200;
 /////////////////////////////
