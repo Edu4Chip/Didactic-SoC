@@ -5,19 +5,27 @@
 #   -Matti Käyrä (matti.kayra@tuni.fi)
 ###
 
-TEST_CASE ?= blink
+TESTCASE ?= blink
 START_TIME=`date +%F_%H:%M`
 SHELL = bash
 BUILD_DIR ?= ../build
+CC=riscv32-unknown-elf-gcc
+CFLAGS=-O0 -g -ffunction-sections -fdata-sections
+ELF2HEX_BIN ?= riscv32-unknown-elf-elf2hex
 
 env:
 	mkdir -p $(BUILD_DIR)/sw
-	echo "prerequisite: local install of RISCV32 toolchain"
+	echo "prerequisite: local install of RISCV32 toolchain + elf2hex"
 
 build_test:
-	riscv32-unknown-elf-gcc -march=rv32imc -mabi=ilp32 -D__riscv__ -O3 -ffunction-sections -fdata-sections -c -g $(TEST_CASE)/$(TEST_CASE).c -lm -lgcc -static -o $(BUILD_DIR)/sw/test.o
+	$(CC) -march=rv32imc -D__riscv__ $(CFLAGS) -c $(TESTCASE)/$(TESTCASE).c -o $(BUILD_DIR)/sw/$(TESTCASE).o 
+	$(CC) -march=rv32imc -D__riscv__ $(CFLAGS) -DLANGUAGE_ASSEBMLY -c common/crt0.S -o $(BUILD_DIR)/sw/crt0.o
+	$(CC) -march=rv32imc -Tcommon/link.ld $(BUILD_DIR)/sw/$(TESTCASE).o $(BUILD_DIR)/sw/crt0.o -nostartfiles -nostdlib -Wl,--gc-sections -o $(BUILD_DIR)/sw/$(TESTCASE).elf
 
-link_test:
-	riscv32-unknown-elf-gcc -march=rv32imc -mabi=ilp32 -Tcommon/link.ld -nostartfiles $(BUILD_DIR)/sw/test.o -o $(BUILD_DIR)/sw/test.elf
+hex_test:
+	$(ELF2HEX_BIN) --bit-width 32 --input $(BUILD_DIR)/sw/$(TESTCASE).elf --output $(BUILD_DIR)/sw/test.hex
+	python3 endian.py $(BUILD_DIR)/sw/test.hex $(BUILD_DIR)/sw/$(TESTCASE).hex
 
-test: env build_test link_test
+# TODO: check endianess of produced hex
+
+test: env build_test hex_test

@@ -1530,7 +1530,8 @@ package jtag_pkg;
 
       task load_L2(
          input int   num_stim,
-         ref   logic [95:0] stimuli [100000:0],
+         input logic [31:0] base_addr,
+         ref   logic [31:0] stimuli [100000:0],
          ref   logic s_tck,
          ref   logic s_tms,
          ref   logic s_trstn,
@@ -1538,8 +1539,8 @@ package jtag_pkg;
          ref   logic s_tdo
       );
 
-         logic [1:0][31:0]   jtag_data;
-         logic [31:0]        jtag_addr;
+         logic [31:0]        jtag_data;
+         //logic [31:0]        jtag_addr;
          logic [31:0]        spi_addr;
          logic [31:0]        spi_addr_old;
          logic               more_stim = 1;
@@ -1547,33 +1548,31 @@ package jtag_pkg;
          logic [31:0]        dm_data;
          logic [6:0]         dm_addr;
 
-         spi_addr        = stimuli[num_stim][95:64]; // assign address
-         jtag_data[0]    = stimuli[num_stim][63:0];  // assign data
+         spi_addr        = base_addr; // assign address
+         jtag_data    = stimuli[num_stim][31:0];  // assign data
 
          this.set_sbreadonaddr(1'b0, s_tck, s_tms, s_trstn, s_tdi, s_tdo);
          this.set_sbautoincrement(1'b0, s_tck, s_tms, s_trstn, s_tdi, s_tdo);
 
          $display("[JTAG] Loading L2 with debug module jtag interface");
 
-         spi_addr_old = spi_addr - 32'h8;
+         spi_addr_old = spi_addr - 32'h4;
 
          while (more_stim) begin // loop until we have no more stimuli
 
-            jtag_addr = stimuli[num_stim][95:64];
-            for (int i=0;i<256;i=i+2) begin
-               spi_addr       = stimuli[num_stim][95:64]; // assign address
-               jtag_data[0]   = stimuli[num_stim][31:0];  // assign data
-               jtag_data[1]   = stimuli[num_stim][63:32]; // assign data
+            //jtag_addr = stimuli[num_stim][95:64];
+       //     for (int i=0;i<256;i=i+2) begin
+               jtag_data   = stimuli[num_stim][31:0];  // assign data
 
-               if (spi_addr != (spi_addr_old + 32'h8))
+               if (spi_addr != (spi_addr_old + 32'h4))
                   begin
-                     spi_addr_old = spi_addr - 32'h8;
+                     spi_addr_old = spi_addr - 32'h4;
                      break;
                   end
                else begin
                   num_stim = num_stim + 1;
                end
-               if (num_stim > $size(stimuli) || stimuli[num_stim]===96'bx ) begin // make sure we have more stimuli
+               if (num_stim > $size(stimuli) || stimuli[num_stim]===32'bx ) begin // make sure we have more stimuli
                   more_stim = 0;                    // if not set variable to 0, will prevent additional stimuli to be applied
                   break;
                end
@@ -1594,7 +1593,7 @@ package jtag_pkg;
                this.set_dmi(
                   2'b10,           //write
                   7'h3C,           //sbdata0,
-                  jtag_data[0],    //data
+                  jtag_data,    //data
                   {dm_addr, dm_data, dm_op},
                   s_tck,
                   s_tms,
@@ -1602,8 +1601,12 @@ package jtag_pkg;
                   s_tdi,
                   s_tdo
                );
-               //$display("[JTAG] Loading L2 - Written %x at %x (%t)", jtag_data[0], spi_addr[31:0], $realtime);
-               this.set_dmi(
+               $display("[JTAG] Loading L2 - Written %x at %x (%t)", jtag_data, spi_addr[31:0], $realtime);
+   
+   
+               spi_addr    = spi_addr +'h4; // assign address
+   
+    /*           this.set_dmi(
                   2'b10,             //write
                   7'h39,             //sbaddress0,
                   spi_addr[31:0]+4, //bootaddress
@@ -1625,9 +1628,9 @@ package jtag_pkg;
                   s_trstn,
                   s_tdi,
                   s_tdo
-               );
-            end
-            $display("[JTAG] Loading L2 - Written up to %x (%t)", spi_addr[31:0]+4, $realtime);
+               );*/
+          //  end
+            //$display("[JTAG] Loading L2 - Written up to %x (%t)", spi_addr[31:0]+4, $realtime);
 
          end
          this.set_sbreadonaddr(1'b1, s_tck, s_tms, s_trstn, s_tdi, s_tdo);

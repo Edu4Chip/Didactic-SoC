@@ -86,12 +86,15 @@ compile_tb:
 #+define+USE_UART
 
 # once regurarly running programs instead sanity, reverse this condition 
-SANITY_CHECK ?= 1
+SANITY_CHECK ?= 0
+TESTCASE ?= blink
+GUI ?= ""
 elaborate: library_mapping
 	cd $(BUILD_DIR)
 	vopt \
 	$(DUT_LIBS) $(VOPT_OPTS) \
 	-gDM_SANITY_TESTCASES=$(SANITY_CHECK) \
+	-gTESTCASE=$(TESTCASE) \
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT) \
 	-o $(DUT)_opt \
@@ -99,9 +102,9 @@ elaborate: library_mapping
 
 run_sim: library_mapping
 	cd $(BUILD_DIR)
-	vsim -c \
+	vsim $(GUI) \
 	$(DUT_LIBS) $(VSIM_OPTS) \
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT)_opt \
-	-do "run 1ms" \
+	-do "run 1ms;" \
 	-l $(BUILD_DIR)/sim/$(START_TIME)_sim.log

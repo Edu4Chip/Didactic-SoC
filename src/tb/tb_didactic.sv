@@ -28,8 +28,8 @@ module tb_didactic();
   parameter DM_SANITY_TESTCASES = 1;
 
   // default paths
-  parameter string STIMULI_FILE = "build/sw/stim.txt";
-  parameter string ELF_FILE = "build/sw/test.elf";
+  parameter string TESTCASE = "blink";
+  parameter string HEX_LOCATION = "../build/sw/";
 
   parameter BAUDRATE = 115200;
 /////////////////////////////
@@ -37,16 +37,17 @@ module tb_didactic();
 ////////////////////////////////
 
   int          num_stim;
-  logic [95:0] stimuli [100000:0]; // array for the stimulus vectors
+  logic [31:0] stimuli [100000:0]; // array for the stimulus vectors
 
-  logic [255:0][31:0]   jtag_data;
+  logic [1:0][31:0]   jtag_data;
 
   logic [9:0]  FC_CORE_ID = 'd0;
 
   // xbar base h0100_0000
-  // imem offset h1_000
+  // imem offset h_0000
   // binary offset h80
-  logic [31:0] begin_imem = 32'h0100_0080;
+  logic [31:0] begin_imem = 32'h0100_0000;
+  logic [31:0] boot_addr = begin_imem+'h80;
 
   int exit_status = `EXIT_ERROR; // default
   int num_err = 0;
@@ -163,14 +164,14 @@ module tb_didactic();
     debug_mode_if.halt_harts(jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
 
     $display("[TB] Time %g ns - Writing the boot address into dpc", $time);
-    debug_mode_if.write_reg_abstract_cmd(riscv::CSR_DPC, begin_imem, jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
+    debug_mode_if.write_reg_abstract_cmd(riscv::CSR_DPC, boot_addr, jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
 
 
 
     if(DM_SANITY_TESTCASES == 1) begin
 
 
-      debug_mode_if.run_dm_tests(FC_CORE_ID, begin_imem, error, num_err, jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
+      debug_mode_if.run_dm_tests(FC_CORE_ID, boot_addr, error, num_err, jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
        
       // check DM test status
       if (num_err == 0) begin
@@ -188,10 +189,10 @@ module tb_didactic();
     
     // program load & execute
 
-      $readmemh(STIMULI_FILE, stimuli);
+      $readmemh({HEX_LOCATION,TESTCASE,".hex"}, stimuli);
 
       // start program upload
-      debug_mode_if.load_L2(num_stim, stimuli, jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
+      debug_mode_if.load_L2(num_stim, begin_imem, stimuli, jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
     
 
       debug_mode_if.init_dmi_access(jtag_tck, jtag_tms, jtag_trstn, jtag_tdi);
@@ -211,8 +212,8 @@ module tb_didactic();
       // poll
       while(jtag_data[0][31] == 0) begin
         // todo: wire core status register
-        debug_mode_if.readMem(32'h1A1040A0, jtag_data[0], jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
-        #50us;
+        debug_mode_if.readMem(32'h010240A0, jtag_data[0], jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
+        #100us;
       end
 
       // Check exit status

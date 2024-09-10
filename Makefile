@@ -15,6 +15,7 @@
 # Common shell variables
 SHELL=bash
 BUILD_DIR ?= $(realpath $(CURDIR))/build/
+TEST ?= blink
 
 
 # Fetch submodule revisions and 
@@ -64,10 +65,15 @@ run_sim: check-env
 # sw targets
 ######################################################################
 #
-## compile sw binary with chosen tools
-#run_sim: check-env
-#	$(MAKE) -C sw build_sw BUILD_DIR=$(BUILD_DIR) TEST_CASE=$(HELLO)
-#
+build_test: check-env
+	$(MAKE) -C sw test BUILD_DIR=$(BUILD_DIR) TESTCASE=$(TEST)
+
+######################################################################
+# full flow targets
+######################################################################
+
+test_all: check-env compile elaborate build_test run_sim
+
 ######################################################################
 # verilator targets
 ######################################################################

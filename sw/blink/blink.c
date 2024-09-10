@@ -20,8 +20,9 @@ int main() {
   *(unsigned int*)(ADDR+0x0C) = led_off;
   int i = 0;
   while(i<10) {
-	*(unsigned int*)(ADDR+0x0C) = led_on;
-	*(unsigned int*)(ADDR+0x0C) = led_off;
+	  *(unsigned int*)(ADDR+0x0C) = led_on;
+	  *(unsigned int*)(ADDR+0x0C) = led_off;
+    i++;
   }
   
   return 0;
