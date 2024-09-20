@@ -14,7 +14,6 @@ enum TestBenchState {
   starting,
   assert_reset,
   deassert_reset,
-  assert_fetch_enable,
   finished,
   waiting,
 };
@@ -72,10 +71,6 @@ int main(int argc, char** argv) {
         break;
       case TestBenchState::deassert_reset:
         task_deassert_reset(context, model);
-        tb_state = TestBenchState::assert_fetch_enable;
-        break;
-      case TestBenchState::assert_fetch_enable:
-        task_assert_fetch_enable(context, model);
         tb_state = TestBenchState::waiting;
         tb_state_after_waiting = TestBenchState::finished;
         clock_cycles_to_wait = 10;

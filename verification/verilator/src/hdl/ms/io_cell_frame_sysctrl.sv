@@ -1,9 +1,9 @@
 `INCREMENT_CYCLE_COUNT(clk_in)
 `include "verification/verilator/src/generated/hdl/ms/io_cell_frame_sysctrl.sv"
 
-`CHECK_SIGNAL_PROPAGATION(boot_sel, BootSel_internal)
+// TODO: cell_cfg
+//`CHECK_SIGNAL_PROPAGATION(boot_sel, BootSel_internal)
 `CHECK_SIGNAL_PROPAGATION(clk_in, clk_internal)
-`CHECK_SIGNAL_PROPAGATION(fetch_en, fetchEn_internal)
 // TODO: GPIO
 `CHECK_SIGNAL_PROPAGATION(jtag_tck, jtag_tck_internal)
 `CHECK_SIGNAL_PROPAGATION(jtag_tdi, jtag_tdi_internal)
@@ -17,7 +17,5 @@
 
 `ifdef FIX_SIGNAL_PROPAGATION
   // FIXME: temporary solution to fix signal propagation, remove when fixed in HDL
-  assign BootSel_internal = boot_sel;
   assign clk_internal = clk_in;
-  assign fetchEn_internal = fetch_en;
 `endif
