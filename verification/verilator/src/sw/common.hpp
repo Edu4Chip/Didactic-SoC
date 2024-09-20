@@ -143,11 +143,7 @@ void schedule_task(std::vector<ScheduledTask>& tasks, const SimulationTime time,
 
 void task_initialize(const ContextPointer& context, const ModelPointer& model) {
   std::cout << "[" << context->time() << "] " << __func__ << std::endl;
-  model->ana_core_in = 0;
-  model->ana_core_out = 0;
-  model->boot_sel = 0;
   model->clk_in = 0;
-  model->fetch_en = 0;
   model->gpio = 0;
   model->jtag_tck = 0;
   model->jtag_tdi = 0;
@@ -160,6 +156,8 @@ void task_initialize(const ContextPointer& context, const ModelPointer& model) {
   model->spi_sck = 0;
   model->uart_rx = 0;
   model->uart_tx = 0;
+  model->ana_core_in = 0;
+  model->ana_core_out = 0;
 }
 
 void task_assert_reset(const ContextPointer& context, const ModelPointer& model) {
@@ -170,11 +168,6 @@ void task_assert_reset(const ContextPointer& context, const ModelPointer& model)
 void task_deassert_reset(const ContextPointer& context, const ModelPointer& model) {
   std::cout << "[" << context->time() << "] " << __func__ << std::endl;
   model->reset = 1;
-}
-
-void task_assert_fetch_enable(const ContextPointer& context, const ModelPointer& model) {
-  std::cout << "[" << context->time() << "] " << __func__ << std::endl;
-  model->fetch_en = 1;
 }
 
 #endif /* COMMON_H */

@@ -31,7 +31,6 @@ int main(int argc, char** argv) {
   schedule_task(scheduled_tasks, 2, task_initialize);
   schedule_task(scheduled_tasks, 4, task_assert_reset);
   schedule_task(scheduled_tasks, 6, task_deassert_reset);
-  schedule_task(scheduled_tasks, 8, task_assert_fetch_enable);
 
   // Run simulation
   const size_t maximum_iterations = 50;

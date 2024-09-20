@@ -594,6 +594,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_ar_addr_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -602,6 +603,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_ar_valid_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -610,6 +612,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_aw_addr_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -618,6 +621,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_aw_valid_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -626,6 +630,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_b_ready_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -634,6 +639,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_b_resp_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -642,6 +648,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_b_valid_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -650,6 +657,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_r_data_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -658,6 +666,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_r_ready_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -666,6 +675,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_r_resp_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -674,6 +684,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_r_valid_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -682,6 +693,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_aw_ready_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -690,6 +702,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_w_data_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -698,6 +711,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_w_ready_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -706,6 +720,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_w_strb_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -714,6 +729,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_w_valid_in</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -722,6 +738,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_ar_ready_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -732,28 +749,28 @@
 	<ipxact:addressSpaces>
 		<ipxact:addressSpace>
 			<ipxact:name>interconnect</ipxact:name>
-			<ipxact:range>'hFFFF</ipxact:range>
+			<ipxact:range>'h4000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:segments>
 				<ipxact:segment>
 					<ipxact:name>SS_0</ipxact:name>
 					<ipxact:addressOffset>'h0</ipxact:addressOffset>
-					<ipxact:range>'h100</ipxact:range>
+					<ipxact:range>'h1000</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>SS_1</ipxact:name>
-					<ipxact:addressOffset>'h100</ipxact:addressOffset>
-					<ipxact:range>'h100</ipxact:range>
+					<ipxact:addressOffset>'h1000</ipxact:addressOffset>
+					<ipxact:range>'h1000</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>SS_2</ipxact:name>
-					<ipxact:addressOffset>'h200</ipxact:addressOffset>
-					<ipxact:range>'h100</ipxact:range>
+					<ipxact:addressOffset>'h2000</ipxact:addressOffset>
+					<ipxact:range>'h1000</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>SS_3</ipxact:name>
-					<ipxact:addressOffset>'h300</ipxact:addressOffset>
-					<ipxact:range>'h100</ipxact:range>
+					<ipxact:addressOffset>'h3000</ipxact:addressOffset>
+					<ipxact:range>'h1000</ipxact:range>
 				</ipxact:segment>
 			</ipxact:segments>
 		</ipxact:addressSpace>
@@ -1334,11 +1351,6 @@
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:kts_attributes>
-			<kactus2:kts_productHier>IP</kactus2:kts_productHier>
-			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
-			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
-		</kactus2:kts_attributes>
 		<kactus2:fileDependencies>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
 				<kactus2:fileRef1>../../../../../src/rtl/ICN_SS.sv</kactus2:fileRef1>
@@ -1356,5 +1368,10 @@
 				<ipxact:description>Submodule instantiation of module axi_lite_to_apb_intf</ipxact:description>
 			</kactus2:fileDependency>
 		</kactus2:fileDependencies>
+		<kactus2:kts_attributes>
+			<kactus2:kts_productHier>IP</kactus2:kts_productHier>
+			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
+			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
+		</kactus2:kts_attributes>
 	</ipxact:vendorExtensions>
 </ipxact:component>
