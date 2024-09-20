@@ -10,6 +10,10 @@
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_1/1.0/Student_SS_1.1.0.xml
 //-----------------------------------------------------------------------------
 
+`ifdef VERILATOR
+    `include "verification/verilator/src/hdl/nms/Student_SS_1_0.sv"
+`endif
+
 module Student_SS_1_0 #(
     parameter                              APB_AW           = 32,
     parameter                              APB_DW           = 32
