@@ -23,9 +23,6 @@ build_test:
 	$(CC) -march=rv32imc -Tcommon/link.ld $(BUILD_DIR)/sw/$(TESTCASE).o $(BUILD_DIR)/sw/crt0.o -nostartfiles -nostdlib -Wl,--gc-sections -o $(BUILD_DIR)/sw/$(TESTCASE).elf
 
 hex_test:
-	$(ELF2HEX_BIN) --bit-width 32 --input $(BUILD_DIR)/sw/$(TESTCASE).elf --output $(BUILD_DIR)/sw/test.hex
-	python3 endian.py $(BUILD_DIR)/sw/test.hex $(BUILD_DIR)/sw/$(TESTCASE).hex
-
-# TODO: check endianess of produced hex
+	$(ELF2HEX_BIN) --bit-width 32 --input $(BUILD_DIR)/sw/$(TESTCASE).elf --output $(BUILD_DIR)/sw/$(TESTCASE).hex
 
 test: env build_test hex_test

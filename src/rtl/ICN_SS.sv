@@ -103,13 +103,11 @@ module ICN_SS #(
 
 
   // TODO: Finalize APB addr decoding
-  localparam NoAddrRules =APB_TARGETS;
-  localparam ADDR_BASE=32'h0150_0000;
-  localparam APB_SIZE='h1000;
+  localparam NoAddrRules = APB_TARGETS;
+  localparam ADDR_BASE   = 32'h0105_0000;
+  localparam APB_SIZE    = 'h1000;
 
-  typedef axi_pkg::xbar_rule_32_t rule_t;
-
-  rule_t [NoAddrRules-1:0] AddrMapAPB;
+  axi_pkg::xbar_rule_32_t [NoAddrRules-1:0] AddrMapAPB;
   // TODO: finalize Address table based on APB Subsystems
   assign AddrMapAPB = '{
                          '{idx: 32'd3, start_addr: ADDR_BASE+APB_SIZE*3, end_addr: ADDR_BASE+APB_SIZE*4-1},
@@ -123,7 +121,7 @@ module ICN_SS #(
     .NoRules(NoAddrRules),
     .AddrWidth(AXI4LITE_AW),
     .DataWidth(AXI4LITE_DW),
-    .rule_t(rule_t)
+    .rule_t(axi_pkg::xbar_rule_32_t)
     )
   i_axi_lite_to_apb_intf(
     .clk_i(clk),

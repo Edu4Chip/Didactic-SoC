@@ -228,10 +228,8 @@ module SysCtrl_xbar #(
   localparam NoAddrRules = AXI4LITE_TARGETS;
   localparam ADDR_BASE   = 32'h0100_0000;
   localparam AXI4LITE_SIZE    = 'h1_0000;
-  
-  typedef axi_pkg::xbar_rule_32_t rule_t;
-  
-  rule_t [NoAddrRules-1:0] AddrMapXBAR;
+
+  axi_pkg::xbar_rule_32_t [NoAddrRules-1:0] AddrMapXBAR;
   // TODO: finalize Address table based for xbar
   assign AddrMapXBAR = 
     '{
@@ -262,7 +260,7 @@ module SysCtrl_xbar #(
                     
 axi_lite_xbar_intf #(
   .Cfg(xbar_cfg),
-  .rule_t(rule_t)
+  .rule_t(axi_pkg::xbar_rule_32_t)
 ) i_axi_lite_xbar(
   .clk_i(clk_i),
   .rst_ni(reset_ni),

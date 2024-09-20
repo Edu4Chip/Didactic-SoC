@@ -4,3 +4,4 @@ logs/
 *.wlf
 modelsim.ini
 transcript
+etch*

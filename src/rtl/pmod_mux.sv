@@ -9,7 +9,12 @@
 // This file was generated based on IP-XACT component tuni.fi:ip:pmod_mux:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/ip/pmod_mux/1.0/pmod_mux.1.0.xml
 //-----------------------------------------------------------------------------
-
+/*
+  Contributors:
+    * Matti Käyrä (matti.kayra@tuni.fi)
+  Description:
+    * 
+*/
 `ifdef VERILATOR
    `include "verification/verilator/src/hdl/nms/pmod_mux.sv"
 `endif

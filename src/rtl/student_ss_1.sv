@@ -45,18 +45,18 @@ module student_ss_1 #(
     input  logic              reset_int,
 
     // Interface: ss_ctrl
-    input logic              irq_en_1,
-    input logic [7:0]        ss_ctrl_1,
+    input  logic              irq_en_1,
+    input  logic [7:0]        ss_ctrl_1,
     
     //Interface: GPIO pmod 0
-    input  logic [3:0] pmod_0_gpi,
-    output logic [3:0] pmod_0_gpo,
-    output logic [3:0] pmod_0_gpio_oe,
+    input  logic [3:0]        pmod_0_gpi,
+    output logic [3:0]        pmod_0_gpo,
+    output logic [3:0]        pmod_0_gpio_oe,
 
     //Interface: GPIO pmod 1
-    input  logic [3:0] pmod_1_gpi,
-    output logic [3:0] pmod_1_gpo,
-    output logic [3:0] pmod_1_gpio_oe
+    input  logic [3:0]        pmod_1_gpi,
+    output logic [3:0]        pmod_1_gpo,
+    output logic [3:0]        pmod_1_gpio_oe
 );
   `ifdef VERILATOR
     `include "verification/verilator/src/hdl/ms/student_ss_1.sv"
@@ -69,7 +69,7 @@ module student_ss_1 #(
   logic PREADY_reg;
 
   always_ff @(posedge clk_in or negedge reset_int)
-  output_w_r: begin
+  begin: output_w_r
     if (~reset_int) begin
       PSLVERR_reg <=1'b0;
       PRDATA_reg  <='d0;
@@ -125,23 +125,24 @@ module student_ss_1 #(
   end
 
   always_comb
-    output_assignment : begin
+    begin : output_assignment
 
     PSLVERR <= PSLVERR_reg;
     PRDATA  <= PRDATA_reg;
     PREADY  <= PREADY_reg;
 
     pmod_0_gpo <= field_0 [3:0];
+
   end
 
-assign irq_1 = 1'b0;
-// set as always outs
-assign pmod_0_gpio_oe = 4'h0;
-// set as always ins
-assign pmod_1_gpio_oe = 4'hF;
+  assign irq_1 = 1'b0;
+  // set as always outs
+  assign pmod_0_gpio_oe = 4'h0;
+  // set as always ins
+  assign pmod_1_gpio_oe = 4'hF;
 
-//tieoff pmod_0 outputs as it is not in use
-assign pmod_1_gpo = 4'h0;  
+  //tieoff pmod_0 outputs as it is not in use
+  assign pmod_1_gpo = 4'h0;  
 
 /////// SVA /////////
 

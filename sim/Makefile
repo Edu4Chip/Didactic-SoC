@@ -57,7 +57,7 @@ compile_pulp:
 compile_ibex:
 	vlib $(BUILD_DIR)/ibex_lib
 	vmap ibex_lib $(BUILD_DIR)/ibex_lib
-	vlog -sv -work ibex_lib +define+SYNTHESIS +incdir+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl +incdir+../ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
+	vlog -sv -work ibex_lib +incdir+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl +incdir+../ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
 	-F ../src/ibex-reused-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_ibex.log
 
 compile_riscv_dbg:
@@ -106,5 +106,5 @@ run_sim: library_mapping
 	$(DUT_LIBS) $(VSIM_OPTS) \
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT)_opt \
-	-do "run 1ms;" \
+	-do "run 0ms;" \
 	-l $(BUILD_DIR)/sim/$(START_TIME)_sim.log

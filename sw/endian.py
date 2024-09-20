@@ -6,7 +6,7 @@
     *   - Jarkko Passi
         - Arto Oinonen (arto.oinonen@tuni.fi)
     * Notes:
-    *   - 
+    *   - currently unneeded
     */"""
 	
 import sys

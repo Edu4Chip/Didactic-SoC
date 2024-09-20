@@ -12,6 +12,7 @@
 
 reset_handler:
   la x2, stack
+/* la ra, 0x010240A0 */
   j main
 
   .global changeStack

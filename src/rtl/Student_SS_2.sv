@@ -9,6 +9,12 @@
 // This file was generated based on IP-XACT component tuni.fi:subsystem:student_ss_2:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem/student_ss_2/1.0/student_ss_2.1.0.xml
 //-----------------------------------------------------------------------------
+/*
+  Contributors:
+    * Matti Käyrä (matti.kayra@tuni.fi)
+  Description:
+    * example student area tieoff code
+*/
 
 `ifdef VERILATOR
     `include "verification/verilator/src/hdl/nms/Student_SS_2.sv"
@@ -39,18 +45,18 @@ module student_ss_2(
     input  logic [7:0]  ss_ctrl_2,
 
     // interface: analog_IO
-    inout wire [1:0] ana_core_out,
-    inout wire [1:0] ana_core_in,
+    inout wire [1:0]    ana_core_out,
+    inout wire [1:0]    ana_core_in,
     
     //Interface: GPIO pmod 0
-    input  logic [3:0] pmod_0_gpi,
-    output logic [3:0] pmod_0_gpo,
-    output logic [3:0] pmod_0_gpio_oe,
+    input  logic [3:0]  pmod_0_gpi,
+    output logic [3:0]  pmod_0_gpo,
+    output logic [3:0]  pmod_0_gpio_oe,
 
     //Interface: GPIO pmod 1
-    input  logic [3:0] pmod_1_gpi,
-    output logic [3:0] pmod_1_gpo,
-    output logic [3:0] pmod_1_gpio_oe
+    input  logic [3:0]  pmod_1_gpi,
+    output logic [3:0]  pmod_1_gpo,
+    output logic [3:0]  pmod_1_gpio_oe
 );
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
@@ -60,19 +66,17 @@ module student_ss_2(
 
 // this file contains minimal functionality to avoid breaking anything in other ends of the chip.
 
-assign PSELERR = 'd0;
-assign PREADY = 'd0;
-assign PRDATA  = 'd0;
-assign irq_2     = 'd0;
+  assign PSELERR = 'd0;
+  assign PREADY  = 'd0;
+  assign PRDATA  = 'd0;
+  assign irq_2   = 'd0;
 
-assign ana_core_in ='d0;
-assign ana_core_out ='d0;
+  assign ana_core_in  = 'd0;
+  assign ana_core_out = 'd0;
 
-assign pmod_1_gpo =  3'h0;
-assign pmod_1_gpio_oe = 3'h0;
-assign pmod_0_gpo  = 3'h0;
-assign pmod_0_gpio_oe = 3'h0;
-
-
+  assign pmod_1_gpo     = 3'h0;
+  assign pmod_1_gpio_oe = 3'h0;
+  assign pmod_0_gpo     = 3'h0;
+  assign pmod_0_gpio_oe = 3'h0;
 
 endmodule
