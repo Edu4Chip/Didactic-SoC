@@ -39,7 +39,7 @@ module tb_didactic();
   int          num_stim;
   logic [31:0] stimuli [100000:0]; // array for the stimulus vectors
 
-  logic [1:0][31:0]   jtag_data;
+  logic [31:0]   jtag_data;
 
   logic [9:0]  FC_CORE_ID = 'd0;
 
@@ -47,11 +47,11 @@ module tb_didactic();
   // imem offset h_0000
   // binary offset h80
   logic [31:0] begin_imem = 32'h0100_0000;
-  logic [31:0] boot_addr = begin_imem+'h80;
+  logic [31:0] boot_addr  = begin_imem +'h80;
 
-  int exit_status = `EXIT_ERROR; // default
-  int num_err = 0;
-  logic        error = 'd0;
+  int   exit_status = `EXIT_ERROR; // default
+  int   num_err = 0;
+  logic error = 'd0;
 
 /////////////////////////////
 // wiring
@@ -62,7 +62,7 @@ module tb_didactic();
   tri0 dut_clk;
   tri0 dut_reset;
 
-  assign dut_clk = clk;
+  assign dut_clk   = clk;
   assign dut_reset = reset;
 
   tri0 dut_uart_rx;
@@ -80,9 +80,9 @@ module tb_didactic();
   tri1 dut_gpio_1;
   tri0 dut_gpio_2;
   tri1 dut_gpio_3;
-  tri1 dut_gpio_4;
+  tri0 dut_gpio_4;
   tri1 dut_gpio_5;
-  tri1 dut_gpio_6;
+  tri0 dut_gpio_6;
   tri1 dut_gpio_7;
 
   tri1 dut_jtag_trstn;
@@ -92,16 +92,16 @@ module tb_didactic();
   wire dut_jtag_tdo;
 
   logic jtag_trstn = 1'b0;
-  logic jtag_tck = 1'b0;
-  logic jtag_tdi = 1'b0;
-  logic jtag_tms = 1'b0;
+  logic jtag_tck   = 1'b0;
+  logic jtag_tdi   = 1'b0;
+  logic jtag_tms   = 1'b0;
   logic jtag_tdo;
 
   assign dut_jtag_trstn = jtag_trstn;
-  assign dut_jtag_tck = jtag_tck;
-  assign dut_jtag_tdi = jtag_tdi;
-  assign dut_jtag_tms = jtag_tms;
-  assign jtag_tdo = dut_jtag_tdo;
+  assign dut_jtag_tck   = jtag_tck;
+  assign dut_jtag_tdi   = jtag_tdi;
+  assign dut_jtag_tms   = jtag_tms;
+  assign jtag_tdo       = dut_jtag_tdo;
 
   tri1 dut_ana_in_0;
   tri1 dut_ana_in_1;
@@ -207,23 +207,23 @@ module tb_didactic();
       // wait for end of computation signal
       $display("[TB] Time %g ns - Waiting for end of computation", $time);
 
-      jtag_data[0] = 0;
+      jtag_data = 0;
 
       // poll
-      while(jtag_data[0][31] == 0) begin
+      while(jtag_data[31] == 0) begin
         // todo: wire core status register
-        debug_mode_if.readMem(32'h01024380, jtag_data[0], jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
+        debug_mode_if.readMem(32'h01020380, jtag_data, jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
         #100us;
       end
 
       // Check exit status
-      if (jtag_data[0][30:0] == 0) begin
+      if (jtag_data[30:0] == 0) begin
         exit_status = `EXIT_SUCCESS;
-        $display("[TB] Time %g ns - JTAG RETURN OK: Received status core: 0x%h", $time, jtag_data[0][30:0]);
+        $display("[TB] Time %g ns - JTAG RETURN OK: Received status core: 0x%h", $time, jtag_data[30:0]);
       end
       else begin
         exit_status = `EXIT_FAIL;
-        $display("[TB] Time %g ns - JTAG RETURN FAILURE: core status: 0x%h", $time, jtag_data[0][30:0]);
+        $display("[TB] Time %g ns - JTAG RETURN FAILURE: core status: 0x%h", $time, jtag_data[30:0]);
       end
       $stop;
 
@@ -233,9 +233,9 @@ module tb_didactic();
     $stop;
 
   end
-/////////////////////////////
+/////////////////////////////////////////////////////
 // dut
-////////////////////////////////
+/////////////////////////////////////////////////////
 
  Didactic #(
   // no top params allowed
@@ -254,19 +254,20 @@ module tb_didactic();
     .reset(dut_reset),
     // Interface: SPI
     .spi_csn({dut_csn1,dut_csn0}),
-    .spi_data({dut_spi_data0,dut_spi_data1,dut_spi_data2,dut_spi_data3}),
+    .spi_data({dut_spi_data3, dut_spi_data2, dut_spi_data1, dut_spi_data0}),
     .spi_sck(dut_spi_sck),
     // Interface: UART
     .uart_rx(dut_uart_rx),
     .uart_tx(dut_uart_tx),
     // Interface: analog_if
-    .ana_core_in({dut_ana_in_0,   cdut_ana_in_1}),
-    .ana_core_out({dut_ana_out_0, dut_ana_out_1})
+    .ana_core_in({dut_ana_in_1, dut_ana_in_0}),
+    .ana_core_out({dut_ana_out_1, dut_ana_out_0})
   );
 
-/////////////////////
-// periph sim  models 
-/////////////////////
+///////////////////////////////////////////////////////////////
+// periph sim models 
+///////////////////////////////////////////////////////////////
+// if tb module is not in use, loopback uart
 `ifdef USE_UART
   uart_tb_rx #(
     .BAUD_RATE ( BAUDRATE   ),
@@ -276,7 +277,8 @@ module tb_didactic();
     .rx_en     ( 1'b1       ),//if included by define, always en
     .word_done (            )
  );
-
+`else
+  assign dut_uart_rx = dut_uart_tx;
 `endif
 
 endmodule

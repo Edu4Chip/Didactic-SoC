@@ -10,7 +10,7 @@ START_TIME=`date +%F_%H:%M`
 SHELL = bash
 BUILD_DIR ?= ../build
 CC=riscv32-unknown-elf-gcc
-CFLAGS=-O0 -g -ffunction-sections -fdata-sections
+CFLAGS=-O0 -g -ffunction-sections -fdata-sections -Icommon/
 ELF2HEX_BIN ?= riscv32-unknown-elf-elf2hex
 
 env:
