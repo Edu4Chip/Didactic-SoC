@@ -88,7 +88,7 @@ compile_tb:
 # once regurarly running programs instead sanity, reverse this condition 
 SANITY_CHECK ?= 0
 TESTCASE ?= blink
-GUI ?= ""
+GUI ?= "-c"
 elaborate: library_mapping
 	cd $(BUILD_DIR)
 	vopt \

@@ -4,6 +4,7 @@
  *   - crt0 file
  * Contributors:
  *   - Antti Nurmi (antti.nurmi@tuni.fi)
+ *   - Matti Käyrä (matti.kayra@tuni.fi)
  * Notes:
  *   - Minimimal implementation, no irq support
  */
@@ -12,8 +13,16 @@
 
 reset_handler:
   la x2, stack
-/* la ra, 0x010240A0 */
+  la ra, postMain 
   j main
+
+/* Didactic specific return code pass over through jtag */
+  .global postMain
+postMain:
+  li t0, 0x01024380
+  li t1, 0x80000000
+  or a0, a0, t1
+  sw a0, 0(t0)
 
   .global changeStack
 changeStack:
