@@ -29,10 +29,10 @@ module AX4LITE_APB_converter_wrapper #(
 )(
   // Interface: AXI4LITE
   input  logic [AXI_AW-1:0]     ar_addr,
-  input  logic [2:0]            ar_prot,
+  input  logic [3:0]            ar_prot,
   input  logic                  ar_valid,
   input  logic [AXI_AW-1:0]     aw_addr,
-  input  logic [2:0]            aw_prot,
+  input  logic [3:0]            aw_prot,
   input  logic                  aw_valid,
   input  logic                  b_ready,
   input  logic                  r_ready,
@@ -97,7 +97,6 @@ module AX4LITE_APB_converter_wrapper #(
   assign r_valid  = axi4lite_bus.r_valid;
   assign w_ready  = axi4lite_bus.w_ready;
   
-
   // TODO: Finalize APB addr configs
   localparam NoAddrRules = APB_TARGETS;
   localparam ADDR_BASE   = 32'h0103_0000;
@@ -106,9 +105,9 @@ module AX4LITE_APB_converter_wrapper #(
   axi_pkg::xbar_rule_32_t [NoAddrRules-1:0] AddrMapAPB;
   // TODO: finalize Address table based on APB Subsystems
   assign AddrMapAPB = '{
-                         '{idx: 32'd2, start_addr: ADDR_BASE+APB_SIZE*2, end_addr: ADDR_BASE+APB_SIZE*3-1},
-                         '{idx: 32'd1, start_addr: ADDR_BASE+APB_SIZE*1, end_addr: ADDR_BASE+APB_SIZE*2-1},
-                         '{idx: 32'd0, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1-1}
+                         '{idx: 32'd2, start_addr: ADDR_BASE+APB_SIZE*2, end_addr: ADDR_BASE+APB_SIZE*3-1},//spi
+                         '{idx: 32'd1, start_addr: ADDR_BASE+APB_SIZE*1, end_addr: ADDR_BASE+APB_SIZE*2-1},//uart
+                         '{idx: 32'd0, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1-1} //gpio
                          };
 
   axi_lite_to_apb_intf #(

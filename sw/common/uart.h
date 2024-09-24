@@ -13,17 +13,17 @@
 
 #include <stdint.h>
 
-#define PERIPH_BASE 0x01030000
-#define UART_OFFSET 0x200
+#define PERIPH_BASE 0x01030100u
+#define UART_OFFSET 0x100u
 
-#define RBR_THR_DLL *( volatile uint32_t* )(PERIPH_BASE + UART_OFFSET + 0x00u)
-#define IER_DLM     *( volatile uint32_t* )(PERIPH_BASE + UART_OFFSET + 0x04u)
-#define IIR_FCR     *( volatile uint32_t* )(PERIPH_BASE + UART_OFFSET + 0x08u)
-#define LCR         *( volatile uint32_t* )(PERIPH_BASE + UART_OFFSET + 0x0Cu)
-#define MCR         *( volatile uint32_t* )(PERIPH_BASE + UART_OFFSET + 0x10u) 
-#define LSR         *( volatile uint32_t* )(PERIPH_BASE + UART_OFFSET + 0x14u) 
-#define MSR         *( volatile uint32_t* )(PERIPH_BASE + UART_OFFSET + 0x18u) 
-#define SCR         *( volatile uint32_t* )(PERIPH_BASE + UART_OFFSET + 0x1Cu)
+#define RBR_THR_DLL *( volatile uint32_t* )(PERIPH_BASE + 0x00u)
+#define IER_DLM     *( volatile uint32_t* )(PERIPH_BASE + 0x04u)
+#define IIR_FCR     *( volatile uint32_t* )(PERIPH_BASE + 0x08u)
+#define LCR         *( volatile uint32_t* )(PERIPH_BASE + 0x0Cu)
+#define MCR         *( volatile uint32_t* )(PERIPH_BASE + 0x10u) 
+#define LSR         *( volatile uint32_t* )(PERIPH_BASE + 0x14u) 
+#define MSR         *( volatile uint32_t* )(PERIPH_BASE + 0x18u) 
+#define SCR         *( volatile uint32_t* )(PERIPH_BASE + 0x1Cu)
 
 void uart_init(){
   IIR_FCR = 1u;
