@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 28.08.2024
-// Creation time : 15:05:32
+// Creation date : 24.09.2024
+// Creation time : 08:37:17
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -9,6 +9,10 @@
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/SysCtrl_SS_wrapper/1.0/SysCtrl_SS_wrapper.1.0.xml
 //-----------------------------------------------------------------------------
+
+`ifdef VERILATOR
+    `include "verification/verilator/src/hdl/nms/SysCtrl_SS_wrapper_0.sv"
+`endif
 
 module SysCtrl_SS_wrapper_0 #(
     parameter                              AXI4LITE_AW      = 32,
@@ -153,7 +157,7 @@ module SysCtrl_SS_wrapper_0 #(
 );
 
 `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/SysCtrl_SS_wrapper_0.sv"
+    `include "verification/verilator/src/hdl/ms/SysCtrl_SS_wrapper_0.sv"
 `endif
 
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:

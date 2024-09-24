@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 28.08.2024
-// Creation time : 15:41:14
+// Creation date : 24.09.2024
+// Creation time : 08:37:17
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -1573,7 +1573,7 @@ module SysCtrl_SS_0 #(
         .data_err_i          (Ibex_Core_data_err_i),
         .data_gnt_i          (Ibex_Core_data_gnt_i),
         .data_rdata_i        (Ibex_Core_data_rdata_i),
-        .data_rdata_intg_i   (7'hFF),
+        .data_rdata_intg_i   (7'h0),
         .data_rvalid_i       (Ibex_Core_data_rvalid_i),
         .data_addr_o         (Ibex_Core_data_addr_o),
         .data_be_o           (Ibex_Core_data_be_o),
@@ -1585,7 +1585,7 @@ module SysCtrl_SS_0 #(
         .instr_err_i         (Ibex_Core_instr_err_i),
         .instr_gnt_i         (Ibex_Core_instr_gnt_i),
         .instr_rdata_i       (Ibex_Core_instr_rdata_i),
-        .instr_rdata_intg_i  (7'hFF),
+        .instr_rdata_intg_i  (7'h0),
         .instr_rvalid_i      (Ibex_Core_instr_rvalid_i),
         .instr_addr_o        (Ibex_Core_instr_addr_o),
         .instr_req_o         (Ibex_Core_instr_req_o),
@@ -1808,7 +1808,7 @@ module SysCtrl_SS_0 #(
         .be_i                (4'd0),
         .req_i               (core_imem_bridge_req_i),
         .wdata_i             (32'd0),
-        .we_i                (0),
+        .we_i                (1'd0),
         .err_o               (core_imem_bridge_err_o),
         .gnt_o               (core_imem_bridge_gnt_o),
         .rdata_o             (core_imem_bridge_rdata_o),

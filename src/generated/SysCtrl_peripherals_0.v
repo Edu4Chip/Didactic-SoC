@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 28.08.2024
-// Creation time : 15:05:32
+// Creation date : 24.09.2024
+// Creation time : 08:37:17
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -306,7 +306,7 @@ module SysCtrl_peripherals_0 #(
     // APB_UART assignments:
     assign APB_UART_CLK = APB_SPI_Clock_to_Clock_clk;
     assign APB_UART_IRQ_to_IRQ_UART_irq = APB_UART_INT;
-    assign APB_UART_PADDR = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PADDR[2:0];
+    assign APB_UART_PADDR[2:0] = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PADDR[4:2];
     assign APB_UART_PENABLE = AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PENABLE;
     assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PRDATA = APB_UART_PRDATA;
     assign AX4LITE_APB_converter_wrapper_APB_UART_to_APB_UART_APB_PREADY = APB_UART_PREADY;
