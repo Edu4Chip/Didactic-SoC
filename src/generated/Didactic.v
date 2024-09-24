@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
 // Creation date : 24.09.2024
-// Creation time : 08:37:17
+// Creation time : 09:47:39
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -164,9 +164,11 @@ module Didactic #(
     wire [3:0] Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1_gpo;
     // ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn wires:
     wire [31:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_ADDR;
+    wire [3:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_PROT;
     wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_READY;
     wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_VALID;
     wire [31:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_ADDR;
+    wire [3:0] ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_PROT;
     wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_READY;
     wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_VALID;
     wire       ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_READY;
@@ -192,9 +194,11 @@ module Didactic #(
     wire       ICN_SS_PWRITE;
     wire       ICN_SS_clk;
     wire [31:0] ICN_SS_icn_ar_addr_in;
+    wire [3:0] ICN_SS_icn_ar_prot_in;
     wire       ICN_SS_icn_ar_ready_out;
     wire       ICN_SS_icn_ar_valid_in;
     wire [31:0] ICN_SS_icn_aw_addr_in;
+    wire [3:0] ICN_SS_icn_aw_prot_in;
     wire       ICN_SS_icn_aw_ready_out;
     wire       ICN_SS_icn_aw_valid_in;
     wire       ICN_SS_icn_b_ready_in;
@@ -293,9 +297,11 @@ module Didactic #(
     // SystemControl_SS port wires:
     wire       SystemControl_SS_clk;
     wire [31:0] SystemControl_SS_icn_ar_addr_out;
+    wire [3:0] SystemControl_SS_icn_ar_prot_out;
     wire       SystemControl_SS_icn_ar_ready_in;
     wire       SystemControl_SS_icn_ar_valid_out;
     wire [31:0] SystemControl_SS_icn_aw_addr_out;
+    wire [3:0] SystemControl_SS_icn_aw_prot_out;
     wire       SystemControl_SS_icn_aw_ready_in;
     wire       SystemControl_SS_icn_aw_valid_out;
     wire       SystemControl_SS_icn_b_ready_out;
@@ -389,9 +395,11 @@ module Didactic #(
     assign ICN_SS_APB0_to_Student_SS_0_APB_PWRITE = ICN_SS_PWRITE;
     assign ICN_SS_clk = SystemControl_SS_Clock_int_to_ICN_SS_Clock_clk;
     assign ICN_SS_icn_ar_addr_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_ADDR;
+    assign ICN_SS_icn_ar_prot_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_PROT;
     assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_READY = ICN_SS_icn_ar_ready_out;
     assign ICN_SS_icn_ar_valid_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_VALID;
     assign ICN_SS_icn_aw_addr_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_ADDR;
+    assign ICN_SS_icn_aw_prot_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_PROT;
     assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_READY = ICN_SS_icn_aw_ready_out;
     assign ICN_SS_icn_aw_valid_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_VALID;
     assign ICN_SS_icn_b_ready_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_READY;
@@ -490,9 +498,11 @@ module Didactic #(
     // SystemControl_SS assignments:
     assign SystemControl_SS_Clock_int_to_ICN_SS_Clock_clk = SystemControl_SS_clk;
     assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_ADDR = SystemControl_SS_icn_ar_addr_out;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_PROT = SystemControl_SS_icn_ar_prot_out;
     assign SystemControl_SS_icn_ar_ready_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_READY;
     assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AR_VALID = SystemControl_SS_icn_ar_valid_out;
     assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_ADDR = SystemControl_SS_icn_aw_addr_out;
+    assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_PROT = SystemControl_SS_icn_aw_prot_out;
     assign SystemControl_SS_icn_aw_ready_in = ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_READY;
     assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_AW_VALID = SystemControl_SS_icn_aw_valid_out;
     assign ICN_SS_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn_B_READY = SystemControl_SS_icn_b_ready_out;
@@ -557,8 +567,10 @@ module Didactic #(
     ICN_SS(
         // Interface: AXI4LITE_icn
         .icn_ar_addr_in      (ICN_SS_icn_ar_addr_in),
+        .icn_ar_prot_in      (ICN_SS_icn_ar_prot_in),
         .icn_ar_valid_in     (ICN_SS_icn_ar_valid_in),
         .icn_aw_addr_in      (ICN_SS_icn_aw_addr_in),
+        .icn_aw_prot_in      (ICN_SS_icn_aw_prot_in),
         .icn_aw_valid_in     (ICN_SS_icn_aw_valid_in),
         .icn_b_ready_in      (ICN_SS_icn_b_ready_in),
         .icn_r_ready_in      (ICN_SS_icn_r_ready_in),
@@ -739,8 +751,10 @@ module Didactic #(
         .icn_r_valid_in      (SystemControl_SS_icn_r_valid_in),
         .icn_w_ready_in      (SystemControl_SS_icn_w_ready_in),
         .icn_ar_addr_out     (SystemControl_SS_icn_ar_addr_out),
+        .icn_ar_prot_out     (SystemControl_SS_icn_ar_prot_out),
         .icn_ar_valid_out    (SystemControl_SS_icn_ar_valid_out),
         .icn_aw_addr_out     (SystemControl_SS_icn_aw_addr_out),
+        .icn_aw_prot_out     (SystemControl_SS_icn_aw_prot_out),
         .icn_aw_valid_out    (SystemControl_SS_icn_aw_valid_out),
         .icn_b_ready_out     (SystemControl_SS_icn_b_ready_out),
         .icn_r_ready_out     (SystemControl_SS_icn_r_ready_out),

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
 // Creation date : 24.09.2024
-// Creation time : 08:37:17
+// Creation time : 09:47:39
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -23,10 +23,10 @@ module SysCtrl_peripherals_0 #(
 ) (
     // Interface: AXI4LITE
     input  logic         [31:0]         ar_addr,
-    input  logic         [2:0]          ar_prot,
+    input  logic         [3:0]          ar_prot,
     input  logic                        ar_valid,
     input  logic         [31:0]         aw_addr,
-    input  logic         [2:0]          aw_prot,
+    input  logic         [3:0]          aw_prot,
     input  logic                        aw_valid,
     input  logic                        b_ready,
     input  logic                        r_ready,
@@ -113,11 +113,11 @@ module SysCtrl_peripherals_0 #(
     wire       APB_GPIO_IRQ_to_IRQ_GPIO_irq;
     // AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE wires:
     wire [31:0] AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AR_ADDR;
-    wire [2:0] AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AR_PROT;
+    wire [3:0] AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AR_PROT;
     wire       AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AR_READY;
     wire       AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AR_VALID;
     wire [31:0] AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AW_ADDR;
-    wire [2:0] AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AW_PROT;
+    wire [3:0] AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AW_PROT;
     wire       AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AW_READY;
     wire       AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_AW_VALID;
     wire       AX4LITE_APB_converter_wrapper_AXI4LITE_to_AXI4LITE_B_READY;
@@ -209,11 +209,11 @@ module SysCtrl_peripherals_0 #(
     wire [31:0] AX4LITE_APB_converter_wrapper_PWDATA;
     wire       AX4LITE_APB_converter_wrapper_PWRITE;
     wire [31:0] AX4LITE_APB_converter_wrapper_ar_addr;
-    wire [2:0] AX4LITE_APB_converter_wrapper_ar_prot;
+    wire [3:0] AX4LITE_APB_converter_wrapper_ar_prot;
     wire       AX4LITE_APB_converter_wrapper_ar_ready;
     wire       AX4LITE_APB_converter_wrapper_ar_valid;
     wire [31:0] AX4LITE_APB_converter_wrapper_aw_addr;
-    wire [2:0] AX4LITE_APB_converter_wrapper_aw_prot;
+    wire [3:0] AX4LITE_APB_converter_wrapper_aw_prot;
     wire       AX4LITE_APB_converter_wrapper_aw_ready;
     wire       AX4LITE_APB_converter_wrapper_aw_valid;
     wire       AX4LITE_APB_converter_wrapper_b_ready;
