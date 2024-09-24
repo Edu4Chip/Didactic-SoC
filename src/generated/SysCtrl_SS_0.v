@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 24.09.2024
-// Creation time : 08:37:17
+// Creation time : 09:47:39
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -33,8 +33,10 @@ module SysCtrl_SS_0 #(
     input  logic                        icn_r_valid_in,
     input  logic                        icn_w_ready_in,
     output logic         [31:0]         icn_ar_addr_out,
+    output logic         [3:0]          icn_ar_prot_out,
     output logic                        icn_ar_valid_out,
     output logic         [31:0]         icn_aw_addr_out,
+    output logic         [3:0]          icn_aw_prot_out,
     output logic                        icn_aw_valid_out,
     output logic                        icn_b_ready_out,
     output logic                        icn_r_ready_out,
@@ -145,11 +147,11 @@ module SysCtrl_SS_0 #(
     wire       i_SysCtrl_peripherals_Reset_to_Reset_reset;
     // i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph wires:
     wire [31:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_ADDR;
-    wire [2:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_PROT;
+    wire [3:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_PROT;
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_READY;
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_VALID;
     wire [31:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_ADDR;
-    wire [2:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_PROT;
+    wire [3:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_PROT;
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_READY;
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_VALID;
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_READY;
@@ -161,7 +163,7 @@ module SysCtrl_SS_0 #(
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_VALID;
     wire [31:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_DATA;
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_READY;
-    wire [31:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB;
+    wire [3:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB;
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID;
     // SS_Ctrl_reg_array_rst_icn_to_Reset_ICN wires:
     wire       SS_Ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
@@ -377,9 +379,11 @@ module SysCtrl_SS_0 #(
     wire [7:0] SS_Ctrl_reg_array_pmod_sel_to_bus_gpo;
     // Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn wires:
     wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
+    wire [3:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT;
     wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
     wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
     wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
+    wire [3:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT;
     wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
     wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
     wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
@@ -502,11 +506,11 @@ module SysCtrl_SS_0 #(
     wire [3:0] Ctrl_xbar_DMEM_w_strb_out;
     wire       Ctrl_xbar_DMEM_w_valid_out;
     wire [31:0] Ctrl_xbar_DbgI_ar_addr;
-    wire [2:0] Ctrl_xbar_DbgI_ar_prot;
+    wire [3:0] Ctrl_xbar_DbgI_ar_prot;
     wire       Ctrl_xbar_DbgI_ar_ready;
     wire       Ctrl_xbar_DbgI_ar_valid;
     wire [31:0] Ctrl_xbar_DbgI_aw_addr;
-    wire [2:0] Ctrl_xbar_DbgI_aw_prot;
+    wire [3:0] Ctrl_xbar_DbgI_aw_prot;
     wire       Ctrl_xbar_DbgI_aw_ready;
     wire       Ctrl_xbar_DbgI_aw_valid;
     wire       Ctrl_xbar_DbgI_b_ready;
@@ -556,9 +560,11 @@ module SysCtrl_SS_0 #(
     wire       Ctrl_xbar_IMEM_w_valid_out;
     wire       Ctrl_xbar_clk_i;
     wire [31:0] Ctrl_xbar_icn_ar_addr_out;
+    wire [3:0] Ctrl_xbar_icn_ar_prot_out;
     wire       Ctrl_xbar_icn_ar_ready_in;
     wire       Ctrl_xbar_icn_ar_valid_out;
     wire [31:0] Ctrl_xbar_icn_aw_addr_out;
+    wire [3:0] Ctrl_xbar_icn_aw_prot_out;
     wire       Ctrl_xbar_icn_aw_ready_in;
     wire       Ctrl_xbar_icn_aw_valid_out;
     wire       Ctrl_xbar_icn_b_ready_out;
@@ -573,9 +579,11 @@ module SysCtrl_SS_0 #(
     wire [3:0] Ctrl_xbar_icn_w_strb_out;
     wire       Ctrl_xbar_icn_w_valid_out;
     wire [31:0] Ctrl_xbar_periph_ar_addr_out;
+    wire [3:0] Ctrl_xbar_periph_ar_prot_out;
     wire       Ctrl_xbar_periph_ar_ready_in;
     wire       Ctrl_xbar_periph_ar_valid_out;
     wire [31:0] Ctrl_xbar_periph_aw_addr_out;
+    wire [3:0] Ctrl_xbar_periph_aw_prot_out;
     wire       Ctrl_xbar_periph_aw_ready_in;
     wire       Ctrl_xbar_periph_aw_valid_out;
     wire       Ctrl_xbar_periph_b_ready_out;
@@ -746,11 +754,11 @@ module SysCtrl_SS_0 #(
     wire       core_imem_bridge_w_valid_o;
     // i_SysCtrl_peripherals port wires:
     wire [31:0] i_SysCtrl_peripherals_ar_addr;
-    wire [2:0] i_SysCtrl_peripherals_ar_prot;
+    wire [3:0] i_SysCtrl_peripherals_ar_prot;
     wire       i_SysCtrl_peripherals_ar_ready;
     wire       i_SysCtrl_peripherals_ar_valid;
     wire [31:0] i_SysCtrl_peripherals_aw_addr;
-    wire [2:0] i_SysCtrl_peripherals_aw_prot;
+    wire [3:0] i_SysCtrl_peripherals_aw_prot;
     wire       i_SysCtrl_peripherals_aw_ready;
     wire       i_SysCtrl_peripherals_aw_valid;
     wire       i_SysCtrl_peripherals_b_ready;
@@ -848,9 +856,11 @@ module SysCtrl_SS_0 #(
     assign gpio_from_core = i_SysCtrl_peripherals_GPIO_to_GPIO_gpo;
     assign i_SysCtrl_peripherals_GPIO_to_GPIO_gpi = gpio_to_core;
     assign icn_ar_addr_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
+    assign icn_ar_prot_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT;
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY = icn_ar_ready_in;
     assign icn_ar_valid_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
     assign icn_aw_addr_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
+    assign icn_aw_prot_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT;
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY = icn_aw_ready_in;
     assign icn_aw_valid_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
     assign icn_b_ready_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
@@ -993,11 +1003,11 @@ module SysCtrl_SS_0 #(
     assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_STRB = Ctrl_xbar_DMEM_w_strb_out;
     assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_VALID = Ctrl_xbar_DMEM_w_valid_out;
     assign Ctrl_xbar_DbgI_ar_addr = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_ADDR;
-    assign Ctrl_xbar_DbgI_ar_prot = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT[2:0];
+    assign Ctrl_xbar_DbgI_ar_prot[2:0] = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT[2:0];
     assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_READY = Ctrl_xbar_DbgI_ar_ready;
     assign Ctrl_xbar_DbgI_ar_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_VALID;
     assign Ctrl_xbar_DbgI_aw_addr = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_ADDR;
-    assign Ctrl_xbar_DbgI_aw_prot = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_PROT[2:0];
+    assign Ctrl_xbar_DbgI_aw_prot[2:0] = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_PROT[2:0];
     assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_READY = Ctrl_xbar_DbgI_aw_ready;
     assign Ctrl_xbar_DbgI_aw_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_VALID;
     assign Ctrl_xbar_DbgI_b_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_READY;
@@ -1047,9 +1057,11 @@ module SysCtrl_SS_0 #(
     assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_VALID = Ctrl_xbar_IMEM_w_valid_out;
     assign Ctrl_xbar_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR = Ctrl_xbar_icn_ar_addr_out;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT = Ctrl_xbar_icn_ar_prot_out;
     assign Ctrl_xbar_icn_ar_ready_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID = Ctrl_xbar_icn_ar_valid_out;
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR = Ctrl_xbar_icn_aw_addr_out;
+    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT = Ctrl_xbar_icn_aw_prot_out;
     assign Ctrl_xbar_icn_aw_ready_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID = Ctrl_xbar_icn_aw_valid_out;
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_READY = Ctrl_xbar_icn_b_ready_out;
@@ -1064,10 +1076,11 @@ module SysCtrl_SS_0 #(
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB = Ctrl_xbar_icn_w_strb_out;
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID = Ctrl_xbar_icn_w_valid_out;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_ADDR = Ctrl_xbar_periph_ar_addr_out;
+    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_PROT = Ctrl_xbar_periph_ar_prot_out;
     assign Ctrl_xbar_periph_ar_ready_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_READY;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_PROT[0] = Ctrl_xbar_periph_ar_valid_out;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_VALID = Ctrl_xbar_periph_ar_valid_out;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_ADDR = Ctrl_xbar_periph_aw_addr_out;
+    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_PROT = Ctrl_xbar_periph_aw_prot_out;
     assign Ctrl_xbar_periph_aw_ready_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_READY;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_VALID = Ctrl_xbar_periph_aw_valid_out;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_READY = Ctrl_xbar_periph_b_ready_out;
@@ -1078,9 +1091,8 @@ module SysCtrl_SS_0 #(
     assign Ctrl_xbar_periph_r_resp_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_RESP;
     assign Ctrl_xbar_periph_r_valid_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_VALID;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_DATA = Ctrl_xbar_periph_w_data_out;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB = Ctrl_xbar_periph_w_data_out;
     assign Ctrl_xbar_periph_w_ready_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_READY;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_PROT = Ctrl_xbar_periph_w_strb_out[2:0];
+    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB = Ctrl_xbar_periph_w_strb_out;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID = Ctrl_xbar_periph_w_valid_out;
     assign Ctrl_xbar_reset_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     // Ibex_Core assignments:
@@ -1276,7 +1288,7 @@ module SysCtrl_SS_0 #(
     assign i_SysCtrl_peripherals_UART_to_UART_uart_tx = i_SysCtrl_peripherals_uart_tx_internal;
     assign i_SysCtrl_peripherals_w_data = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_DATA;
     assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_READY = i_SysCtrl_peripherals_w_ready;
-    assign i_SysCtrl_peripherals_w_strb = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB[3:0];
+    assign i_SysCtrl_peripherals_w_strb = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB;
     assign i_SysCtrl_peripherals_w_valid = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID;
     // i_dmem assignments:
     assign i_dmem_addr_i = i_dmem_mem_to_axi_dmem_bridge_Mem_ADDR[9:0];
@@ -1523,8 +1535,10 @@ module SysCtrl_SS_0 #(
         .icn_r_valid_in      (Ctrl_xbar_icn_r_valid_in),
         .icn_w_ready_in      (Ctrl_xbar_icn_w_ready_in),
         .icn_ar_addr_out     (Ctrl_xbar_icn_ar_addr_out),
+        .icn_ar_prot_out     (Ctrl_xbar_icn_ar_prot_out),
         .icn_ar_valid_out    (Ctrl_xbar_icn_ar_valid_out),
         .icn_aw_addr_out     (Ctrl_xbar_icn_aw_addr_out),
+        .icn_aw_prot_out     (Ctrl_xbar_icn_aw_prot_out),
         .icn_aw_valid_out    (Ctrl_xbar_icn_aw_valid_out),
         .icn_b_ready_out     (Ctrl_xbar_icn_b_ready_out),
         .icn_r_ready_out     (Ctrl_xbar_icn_r_ready_out),
@@ -1541,8 +1555,10 @@ module SysCtrl_SS_0 #(
         .periph_r_valid_in   (Ctrl_xbar_periph_r_valid_in),
         .periph_w_ready_in   (Ctrl_xbar_periph_w_ready_in),
         .periph_ar_addr_out  (Ctrl_xbar_periph_ar_addr_out),
+        .periph_ar_prot_out  (Ctrl_xbar_periph_ar_prot_out),
         .periph_ar_valid_out (Ctrl_xbar_periph_ar_valid_out),
         .periph_aw_addr_out  (Ctrl_xbar_periph_aw_addr_out),
+        .periph_aw_prot_out  (Ctrl_xbar_periph_aw_prot_out),
         .periph_aw_valid_out (Ctrl_xbar_periph_aw_valid_out),
         .periph_b_ready_out  (Ctrl_xbar_periph_b_ready_out),
         .periph_r_ready_out  (Ctrl_xbar_periph_r_ready_out),

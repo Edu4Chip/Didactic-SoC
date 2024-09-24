@@ -29,10 +29,10 @@ module AX4LITE_APB_converter_wrapper #(
 )(
   // Interface: AXI4LITE
   input  logic [AXI_AW-1:0]     ar_addr,
-  input  logic [2:0]            ar_prot,
+  input  logic [3:0]            ar_prot,
   input  logic                  ar_valid,
   input  logic [AXI_AW-1:0]     aw_addr,
-  input  logic [2:0]            aw_prot,
+  input  logic [3:0]            aw_prot,
   input  logic                  aw_valid,
   input  logic                  b_ready,
   input  logic                  r_ready,

@@ -30,69 +30,70 @@ module jtag_dbg_wrapper #(
     parameter                              AXI_DW           = 32,
     parameter                              DM_BASE_ADDRESS  = 'h1000,
     parameter                              DM_ID_VALUE  =  32'hf007ba11
-) (
+  )(
     // Interface: AXI4LITE_I
-    input  logic                        init_ar_ready,
-    input  logic                        init_aw_ready,
-    input  logic         [1:0]          init_b_resp,
-    input  logic                        init_b_valid,
-    input  logic         [AXI_DW-1:0]   init_r_data,
-    input  logic         [1:0]          init_r_resp,
-    input  logic                        init_r_valid,
-    input  logic                        init_w_ready,
-    output logic         [AXI_AW-1:0]   init_ar_addr,
-    output logic                        init_ar_valid,
-    output logic         [3:0]          init_ar_prot,
-    output logic         [AXI_AW-1:0]   init_aw_addr,
-    output logic                        init_aw_valid,
-    output logic         [3:0]          init_aw_prot,
-    output logic                        init_b_ready,
-    output logic                        init_r_ready,
-    output logic         [AXI_DW-1:0]     init_w_data,
-    output logic         [(AXI_DW/8)-1:0] init_w_strb,
-    output logic                          init_w_valid,
+    input  logic                  init_ar_ready,
+    input  logic                  init_aw_ready,
+    input  logic [1:0]            init_b_resp,
+    input  logic                  init_b_valid,
+    input  logic [AXI_DW-1:0]     init_r_data,
+    input  logic [1:0]            init_r_resp,
+    input  logic                  init_r_valid,
+    input  logic                  init_w_ready,
+    output logic [AXI_AW-1:0]     init_ar_addr,
+    output logic                  init_ar_valid,
+    output logic [3:0]            init_ar_prot,
+    output logic [AXI_AW-1:0]     init_aw_addr,
+    output logic                  init_aw_valid,
+    output logic [3:0]            init_aw_prot,
+    output logic                  init_b_ready,
+    output logic                  init_r_ready,
+    output logic [AXI_DW-1:0]     init_w_data,
+    output logic [(AXI_DW/8)-1:0] init_w_strb,
+    output logic                  init_w_valid,
 
     // Interface: AXI4LITE_T
-    input  logic          [AXI_AW-1:0]  target_ar_addr,
-    input  logic                        target_ar_valid,
-    input  logic         [AXI_AW-1:0]   target_aw_addr,
-    input  logic                        target_aw_valid,
-    input  logic                        target_b_ready,
-    input  logic                        target_r_ready,
-    input  logic          [AXI_DW-1:0]  target_w_data,
-    input  logic         [(AXI_DW/8)-1:0] target_w_strb,
-    input  logic                        target_w_valid,
-    output logic                        target_ar_ready,
-    output logic                        target_aw_ready,
-    output logic         [1:0]          target_b_resp,
-    output logic                        target_b_valid,
-    output logic         [AXI_DW-1:0]   target_r_data,
-    output logic         [1:0]          target_r_resp,
-    output logic                        target_r_valid,
-    output logic                        target_w_ready,
+    input  logic [AXI_AW-1:0]     target_ar_addr,
+    input  logic                  target_ar_valid,
+    input  logic [AXI_AW-1:0]     target_aw_addr,
+    input  logic                  target_aw_valid,
+    input  logic                  target_b_ready,
+    input  logic                  target_r_ready,
+    input  logic [AXI_DW-1:0]     target_w_data,
+    input  logic [(AXI_DW/8)-1:0] target_w_strb,
+    input  logic                  target_w_valid,
+    output logic                  target_ar_ready,
+    output logic                  target_aw_ready,
+    output logic [1:0]            target_b_resp,
+    output logic                  target_b_valid,
+    output logic [AXI_DW-1:0]     target_r_data,
+    output logic [1:0]            target_r_resp,
+    output logic                  target_r_valid,
+    output logic                  target_w_ready,
 
     // Interface: Clock
-    input     logic                          clk_i,
+    input  logic                  clk_i,
 
     // Interface: Debug
-    output    logic                          debug_req_irq_o,
+    output logic                  debug_req_irq_o,
 
     // Interface: JTAG
-    input     logic                          jtag_tck_i,
-    input     logic                          jtag_td_i,
-    input     logic                          jtag_tms_i,
-    input     logic                          jtag_trst_ni,
-    output     logic                         jtag_td_o,
+    input  logic                  jtag_tck_i,
+    input  logic                  jtag_td_i,
+    input  logic                  jtag_tms_i,
+    input  logic                  jtag_trst_ni,
+    output logic                  jtag_td_o,
 
     // Interface: Reset
-    input      logic                         rstn_i,
+    input  logic                  rstn_i,
 
     // Interface: core_reset
-    output      logic                        core_reset,
+    output logic                  core_reset,
 
     // These ports are not in any interface
-    output        logic                      ndmreset_o
-);
+    output logic                  ndmreset_o
+  );
+
 `ifdef VERILATOR
   `include "verification/verilator/src/hdl/ms/jtag_dbg_wrapper.sv"
 `endif

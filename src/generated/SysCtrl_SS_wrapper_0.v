@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 24.09.2024
-// Creation time : 08:37:17
+// Creation time : 09:47:39
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -32,8 +32,10 @@ module SysCtrl_SS_wrapper_0 #(
     input  logic                        icn_r_valid_in,
     input  logic                        icn_w_ready_in,
     output logic         [31:0]         icn_ar_addr_out,
+    output logic         [3:0]          icn_ar_prot_out,
     output logic                        icn_ar_valid_out,
     output logic         [31:0]         icn_aw_addr_out,
+    output logic         [3:0]          icn_aw_prot_out,
     output logic                        icn_aw_valid_out,
     output logic                        icn_b_ready_out,
     output logic                        icn_r_ready_out,
@@ -262,9 +264,11 @@ module SysCtrl_SS_wrapper_0 #(
     wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpo;
     // SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn wires:
     wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
+    wire [3:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT;
     wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
     wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
     wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
+    wire [3:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT;
     wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
     wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
     wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
@@ -285,9 +289,11 @@ module SysCtrl_SS_wrapper_0 #(
     wire [7:0] SysCtrl_SS_gpio_from_core;
     wire [7:0] SysCtrl_SS_gpio_to_core;
     wire [31:0] SysCtrl_SS_icn_ar_addr_out;
+    wire [3:0] SysCtrl_SS_icn_ar_prot_out;
     wire       SysCtrl_SS_icn_ar_ready_in;
     wire       SysCtrl_SS_icn_ar_valid_out;
     wire [31:0] SysCtrl_SS_icn_aw_addr_out;
+    wire [3:0] SysCtrl_SS_icn_aw_prot_out;
     wire       SysCtrl_SS_icn_aw_ready_in;
     wire       SysCtrl_SS_icn_aw_valid_out;
     wire       SysCtrl_SS_icn_b_ready_out;
@@ -385,9 +391,11 @@ module SysCtrl_SS_wrapper_0 #(
     // Assignments for the ports of the encompassing component:
     assign clk = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
     assign icn_ar_addr_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
+    assign icn_ar_prot_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY = icn_ar_ready_in;
     assign icn_ar_valid_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
     assign icn_aw_addr_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
+    assign icn_aw_prot_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY = icn_aw_ready_in;
     assign icn_aw_valid_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
     assign icn_b_ready_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
@@ -450,9 +458,11 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo = SysCtrl_SS_gpio_from_core;
     assign SysCtrl_SS_gpio_to_core = i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR = SysCtrl_SS_icn_ar_addr_out;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT = SysCtrl_SS_icn_ar_prot_out;
     assign SysCtrl_SS_icn_ar_ready_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID = SysCtrl_SS_icn_ar_valid_out;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR = SysCtrl_SS_icn_aw_addr_out;
+    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT = SysCtrl_SS_icn_aw_prot_out;
     assign SysCtrl_SS_icn_aw_ready_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID = SysCtrl_SS_icn_aw_valid_out;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_READY = SysCtrl_SS_icn_b_ready_out;
@@ -566,8 +576,10 @@ module SysCtrl_SS_wrapper_0 #(
         .icn_r_valid_in      (SysCtrl_SS_icn_r_valid_in),
         .icn_w_ready_in      (SysCtrl_SS_icn_w_ready_in),
         .icn_ar_addr_out     (SysCtrl_SS_icn_ar_addr_out),
+        .icn_ar_prot_out     (SysCtrl_SS_icn_ar_prot_out),
         .icn_ar_valid_out    (SysCtrl_SS_icn_ar_valid_out),
         .icn_aw_addr_out     (SysCtrl_SS_icn_aw_addr_out),
+        .icn_aw_prot_out     (SysCtrl_SS_icn_aw_prot_out),
         .icn_aw_valid_out    (SysCtrl_SS_icn_aw_valid_out),
         .icn_b_ready_out     (SysCtrl_SS_icn_b_ready_out),
         .icn_r_ready_out     (SysCtrl_SS_icn_r_ready_out),

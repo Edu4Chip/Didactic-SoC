@@ -85,10 +85,10 @@ module SysCtrl_xbar #(
 
     // Interface: AXI4LITE_DBG_I
     input  logic [AXI4LITE_AW-1:0]     DbgI_ar_addr,
-    input  logic [2:0]                 DbgI_ar_prot,
+    input  logic [3:0]                 DbgI_ar_prot,
     input  logic                       DbgI_ar_valid,
     input  logic [AXI4LITE_AW-1:0]     DbgI_aw_addr,
-    input  logic [2:0]                 DbgI_aw_prot,
+    input  logic [3:0]                 DbgI_aw_prot,
     input  logic                       DbgI_aw_valid,
     input  logic                       DbgI_b_ready,
     input  logic                       DbgI_r_ready,
@@ -171,8 +171,10 @@ module SysCtrl_xbar #(
     input  logic                       periph_r_valid_in,
     input  logic                       periph_w_ready_in,
     output logic [AXI4LITE_AW-1:0]     periph_ar_addr_out,
+    output logic [3:0]                 periph_ar_prot_out,
     output logic                       periph_ar_valid_out,
     output logic [AXI4LITE_AW-1:0]     periph_aw_addr_out,
+    output logic [3:0]                 periph_aw_prot_out,
     output logic                       periph_aw_valid_out,
     output logic                       periph_b_ready_out,
     output logic                       periph_r_ready_out,
@@ -190,8 +192,10 @@ module SysCtrl_xbar #(
     input  logic                       icn_r_valid_in,
     input  logic                       icn_w_ready_in,
     output logic [AXI4LITE_AW-1:0]     icn_ar_addr_out,
+    output logic [3:0]                 icn_ar_prot_out,
     output logic                       icn_ar_valid_out,
     output logic [AXI4LITE_AW-1:0]     icn_aw_addr_out,
+    output logic [3:0]                 icn_aw_prot_out,
     output logic                       icn_aw_valid_out,
     output logic                       icn_b_ready_out,
     output logic                       icn_r_ready_out,
@@ -205,14 +209,14 @@ module SysCtrl_xbar #(
     // Interface: Reset
     input  logic                             reset_ni
 );
+
   `ifdef VERILATOR
     `include "verification/verilator/src/hdl/ms/SysCtrl_xbar.sv"
   `endif
 
-  // TODO: check numbers
+  // TODO: adjust numbers based on targets
   localparam AXI4LITE_TARGETS = 6;
   localparam AXI4LITE_INITIATORS = 3;
-
 
   AXI_LITE #(
    .AXI_ADDR_WIDTH(AXI4LITE_AW),
@@ -285,8 +289,8 @@ assign axi4lite_init_bus[0].w_data   = CoreIMEM_w_data_in;
 assign axi4lite_init_bus[0].w_strb   = CoreIMEM_w_strb_in;
 assign axi4lite_init_bus[0].w_valid  = CoreIMEM_w_valid_in;
 //
-assign axi4lite_init_bus[0].ar_prot = 'd0;
-assign axi4lite_init_bus[0].aw_prot = 'd0;
+assign axi4lite_init_bus[0].ar_prot = 3'd0;
+assign axi4lite_init_bus[0].aw_prot = 3'd0;
 //
 assign CoreIMEM_ar_ready_out = axi4lite_init_bus[0].ar_ready;
 assign CoreIMEM_aw_ready_out = axi4lite_init_bus[0].aw_ready;
@@ -308,8 +312,8 @@ assign axi4lite_init_bus[1].w_data   = CoreDMEM_w_data_in;
 assign axi4lite_init_bus[1].w_strb   = CoreDMEM_w_strb_in;
 assign axi4lite_init_bus[1].w_valid  = CoreDMEM_w_valid_in;
 //
-assign axi4lite_init_bus[1].ar_prot = 'd0;
-assign axi4lite_init_bus[1].aw_prot = 'd0;
+assign axi4lite_init_bus[1].ar_prot = 3'd0;
+assign axi4lite_init_bus[1].aw_prot = 3'd0;
 //
 assign CoreDMEM_ar_ready_out = axi4lite_init_bus[1].ar_ready;
 assign CoreDMEM_aw_ready_out = axi4lite_init_bus[1].aw_ready;
@@ -416,8 +420,10 @@ assign axi4lite_target_bus[3].r_valid  = periph_r_valid_in;
 assign axi4lite_target_bus[3].w_ready  = periph_w_ready_in;
 //
 assign periph_ar_addr_out  = axi4lite_target_bus[3].ar_addr;
+assign periph_ar_prot_out  = axi4lite_target_bus[3].ar_prot;
 assign periph_ar_valid_out = axi4lite_target_bus[3].ar_valid;
 assign periph_aw_addr_out  = axi4lite_target_bus[3].aw_addr;
+assign periph_aw_prot_out  = axi4lite_target_bus[3].aw_prot;
 assign periph_aw_valid_out = axi4lite_target_bus[3].aw_valid;
 assign periph_b_ready_out  = axi4lite_target_bus[3].b_ready;
 assign periph_r_ready_out  = axi4lite_target_bus[3].r_ready;
@@ -456,8 +462,10 @@ assign axi4lite_target_bus[5].r_valid  = icn_r_valid_in;
 assign axi4lite_target_bus[5].w_ready  = icn_w_ready_in;
 //
 assign icn_ar_addr_out  = axi4lite_target_bus[5].ar_addr;
+assign icn_ar_prot_out  = axi4lite_target_bus[5].ar_prot;
 assign icn_ar_valid_out = axi4lite_target_bus[5].ar_valid;
 assign icn_aw_addr_out  = axi4lite_target_bus[5].aw_addr;
+assign icn_aw_prot_out  = axi4lite_target_bus[5].aw_prot;
 assign icn_aw_valid_out = axi4lite_target_bus[5].aw_valid;
 assign icn_b_ready_out  = axi4lite_target_bus[5].b_ready;
 assign icn_r_ready_out  = axi4lite_target_bus[5].r_ready;
