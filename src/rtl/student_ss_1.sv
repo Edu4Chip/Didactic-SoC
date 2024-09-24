@@ -69,7 +69,7 @@ module student_ss_1 #(
   logic PREADY_reg;
 
   always_ff @(posedge clk_in or negedge reset_int)
-  begin: output_w_r
+   begin: output_w_r
     if (~reset_int) begin
       PSLVERR_reg <=1'b0;
       PRDATA_reg  <='d0;
