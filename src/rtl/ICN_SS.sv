@@ -33,8 +33,10 @@ module ICN_SS #(
 
     // AXI4LITE
     input  logic [AXI4LITE_AW-1:0]     icn_ar_addr_in,
+    input  logic [3:0]                 icn_ar_prot_in,
     input  logic                       icn_ar_valid_in,
     input  logic [AXI4LITE_AW-1:0]     icn_aw_addr_in,
+    input  logic [3:0]                 icn_aw_prot_in,
     input  logic                       icn_aw_valid_in,
     input  logic                       icn_b_ready_in,
     input  logic                       icn_r_ready_in,
@@ -98,8 +100,8 @@ module ICN_SS #(
   assign icn_r_valid_out  = axi4lite_bus.r_valid;
   assign icn_w_ready_out  = axi4lite_bus.w_ready;
   
-  assign axi4lite_bus.ar_prot = 'd0;
-  assign axi4lite_bus.aw_prot = 'd0;
+  assign axi4lite_bus.ar_prot = icn_ar_prot_in;
+  assign axi4lite_bus.aw_prot = icn_aw_prot_in;
 
 
   // TODO: Finalize APB addr decoding

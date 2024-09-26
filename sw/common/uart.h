@@ -13,19 +13,27 @@
 
 #include <stdint.h>
 
-#define PERIPH_BASE 0x01030100u
-#define UART_OFFSET 0x100u
+#define PERIPH_BASE 0x01030100
+#define UART_OFFSET 0x100
 
-#define RBR_THR_DLL *( volatile uint32_t* )(PERIPH_BASE + 0x00u)
-#define IER_DLM     *( volatile uint32_t* )(PERIPH_BASE + 0x04u)
-#define IIR_FCR     *( volatile uint32_t* )(PERIPH_BASE + 0x08u)
-#define LCR         *( volatile uint32_t* )(PERIPH_BASE + 0x0Cu)
-#define MCR         *( volatile uint32_t* )(PERIPH_BASE + 0x10u) 
-#define LSR         *( volatile uint32_t* )(PERIPH_BASE + 0x14u) 
-#define MSR         *( volatile uint32_t* )(PERIPH_BASE + 0x18u) 
-#define SCR         *( volatile uint32_t* )(PERIPH_BASE + 0x1Cu)
+#define RBR_THR_DLL *( volatile uint32_t* )(0x01030100)
+#define IER_DLM     *( volatile uint32_t* )(0x01030104)
+#define IIR_FCR     *( volatile uint32_t* )(0x01030108)
+#define LCR         *( volatile uint32_t* )(0x0103010C)
+#define MCR         *( volatile uint32_t* )(0x01030110) 
+#define LSR         *( volatile uint32_t* )(0x01030114) 
+#define MSR         *( volatile uint32_t* )(0x01030118) 
+#define SCR         *( volatile uint32_t* )(0x0103011C)
 
 void uart_init(){
+  // io cells are currently set to one directionals. change of dir would be like this:
+/*  // set rx io cells as receive
+  volatile uint32_t temp =   *( volatile uint32_t* )(0x010400034);
+
+  *( volatile uint32_t* )(0x010400034) = temp | u1<<11;
+*/
+
+  // init uart settings (for loopback)
   IIR_FCR = 1u;
   LCR = (1u<<7 | 3u);
   RBR_THR_DLL = 195u;
@@ -37,7 +45,24 @@ void uart_init(){
 
 void uart_print(const char str[]){
   for (int i = 0; str[i] != '\0'; i++) {
+  
     RBR_THR_DLL = str[i];
+
+    // poll when char has been sent
+    // improvement: IRQ based
+
+
+//    volatile int temp = LSR;
+//    while(temp != 0){
+//      temp = LSR;
+//      
+//    }
+//  }
+  volatile uint32_t wait_loop=0;
+  while(wait_loop<500){
+    asm("nop");
+    wait_loop++;
+  }
   }
 }
 
@@ -45,11 +70,17 @@ int uart_loopback_test(){
   
   RBR_THR_DLL = 'K';
   volatile char tmp_val='O';
+  volatile uint32_t wait_loop=0;
+  while(wait_loop<500){
+    asm("nop");
+    wait_loop++;
+  }
+
   tmp_val = RBR_THR_DLL;
   if (tmp_val == 'K'){
     return 0; // pass
   }else{
-	return 1; // failure
+    return 1; // failure
   }
 }
 

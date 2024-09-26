@@ -47,7 +47,7 @@ compile: check-env
 
 # potentionally elaborate hw library with chosen tools
 elaborate: check-env
-	$(MAKE) -C sim elaborate BUILD_DIR=$(BUILD_DIR)
+	$(MAKE) -C sim elaborate BUILD_DIR=$(BUILD_DIR) TESTCASE=$(TEST)
 
 # Potentionally split this to multiple subtasks
 syn: check-env

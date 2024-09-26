@@ -270,7 +270,7 @@ module tb_didactic();
 // if tb module is not in use, loopback uart
 `ifdef USE_UART
   uart_tb_rx #(
-    .BAUD_RATE ( BAUDRATE   ),
+    .BAUD_RATE ( 2560   ),
     .PARITY_EN ( 0          )
   ) i_uart_rx (
     .rx        ( dut_uart_tx),

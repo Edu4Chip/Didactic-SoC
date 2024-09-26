@@ -10,6 +10,9 @@ SHELL = bash
 
 DUT = tb_didactic
 
+TB_DEFINES = \
+	+define+USE_UART \
+
 DUT_LIBS = \
 	-L $(BUILD_DIR)/pulp_lib \
 	-L $(BUILD_DIR)/ibex_lib \
@@ -81,7 +84,7 @@ compile_didactic:
 compile_tb:
 	vlib $(BUILD_DIR)/tb_lib
 	vmap tb_lib $(BUILD_DIR)/tb_lib
-	vlog -sv -work tb_lib $(DUT_LIBS)  \
+	vlog -sv -work tb_lib $(TB_DEFINES) $(DUT_LIBS)  \
 	-F ../src/tb-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_tb.log
 #+define+USE_UART
 

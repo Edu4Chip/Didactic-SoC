@@ -94,7 +94,6 @@ module io_cell_frame_sysctrl #(
   // clk
   io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_clk(.FROM_CORE(1'b0), .TO_CORE(clk_internal), .PAD(clk_in), .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
 
-
   // gpio
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio0(.FROM_CORE(gpio_from_core[0]), .TO_CORE(gpio_to_core[0]), .PAD(gpio[0]), .io_cell_cfg(cell_cfg[1*IOCELL_CFG_W-1:0*IOCELL_CFG_W]));
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio1(.FROM_CORE(gpio_from_core[1]), .TO_CORE(gpio_to_core[1]), .PAD(gpio[1]), .io_cell_cfg(cell_cfg[2*IOCELL_CFG_W-1:1*IOCELL_CFG_W]));
