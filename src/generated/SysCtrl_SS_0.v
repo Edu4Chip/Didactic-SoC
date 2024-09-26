@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 24.09.2024
-// Creation time : 09:47:39
+// Creation date : 26.09.2024
+// Creation time : 12:18:21
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -401,7 +401,6 @@ module SysCtrl_SS_0 #(
     wire [4:0] SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo;
 
     // Ad-hoc wires:
-    wire       Ibex_Core_irq_fast_i_to_irq_1;
     wire       Ibex_Core_irq_fast_i_to_irq_0;
     wire       Ibex_Core_irq_fast_i_to_irq_3;
     wire       Ibex_Core_irq_fast_i_to_irq_2;
@@ -409,6 +408,7 @@ module SysCtrl_SS_0 #(
     wire       i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
     wire [1:0] i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
     wire [6:0] Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
+    wire       Ibex_Core_irq_fast_i_to_irq_1;
 
     // Ctrl_reg_bridge port wires:
     wire [31:0] Ctrl_reg_bridge_addr_o;
@@ -1122,7 +1122,6 @@ module SysCtrl_SS_0 #(
     assign Ibex_Core_irq_fast_i[1] = i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
     assign Ibex_Core_irq_fast_i[3:2] = i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
     assign Ibex_Core_irq_fast_i[0] = i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i;
-    assign Ibex_Core_irq_fast_i = 0;
     assign Ibex_Core_rst_ni = jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset_reset;
     // SS_Ctrl_reg_array assignments:
     assign SS_Ctrl_reg_array_addr_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_ADDR;

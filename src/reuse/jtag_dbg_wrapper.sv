@@ -179,20 +179,20 @@ logic [DBG_BUS_WIDTH-1:0]     dbg_m_rdata_s;
   assign init_ar_prot = '0;
 
   mem_axi_bridge #(
-    .MEM_AW    ( DBG_BUS_WIDTH  ),
-    .MEM_DW    ( DBG_BUS_WIDTH  ),
-    .AXI_AW    ( AXI_AW ),
-    .AXI_DW    ( AXI_DW ),
-    .ADDR_MASK ( 'h0            )
+    .MEM_AW    ( DBG_BUS_WIDTH ),
+    .MEM_DW    ( DBG_BUS_WIDTH ),
+    .AXI_AW    ( AXI_AW        ),
+    .AXI_DW    ( AXI_DW        ),
+    .ADDR_MASK ( 'h0           )
   ) i_axi_lite2debug_bridge (
-    .clk_i      ( clk_i                     ),
-    .rst_ni     ( rstn_i                    ),
-    .req_o      ( dbg_s_req_s               ),
-    .we_o       ( dbg_s_we_s                ),
-    .addr_o     ( dbg_s_addr_s              ),
-    .wdata_o    ( dbg_s_wdata_s             ),
-    .be_o       ( dbg_s_be_s                ),
-    .rdata_i    ( dbg_s_rdata_s             ),
+    .clk_i      ( clk_i             ),
+    .rst_ni     ( rstn_i            ),
+    .req_o      ( dbg_s_req_s       ),
+    .we_o       ( dbg_s_we_s        ),
+    .addr_o     ( dbg_s_addr_s      ),
+    .wdata_o    ( dbg_s_wdata_s     ),
+    .be_o       ( dbg_s_be_s        ),
+    .rdata_i    ( dbg_s_rdata_s     ),
     .aw_addr_i  ( target_aw_addr    ),
     .aw_valid_i ( target_aw_valid   ),
     .aw_ready_o ( target_aw_ready   ),
