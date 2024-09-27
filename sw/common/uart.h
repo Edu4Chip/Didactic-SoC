@@ -48,21 +48,23 @@ void uart_print(const char str[]){
   
     RBR_THR_DLL = str[i];
 
-    // poll when char has been sent
-    // improvement: IRQ based
+    // best: IRQ based
+    // TBD
 
+    // better: poll when char has been sent
+    //    volatile int temp = LSR;
+    //    while(temp != 0){
+    //      temp = LSR;
+    //      
+    //    }
+    //  }
 
-//    volatile int temp = LSR;
-//    while(temp != 0){
-//      temp = LSR;
-//      
-//    }
-//  }
-  volatile uint32_t wait_loop=0;
-  while(wait_loop<500){
-    asm("nop");
-    wait_loop++;
-  }
+    // basic: manually nop until time has passed
+    volatile uint32_t wait_loop=0;
+    while(wait_loop<500){
+      asm("nop");
+      wait_loop++;
+    }
   }
 }
 
