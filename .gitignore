@@ -5,3 +5,4 @@ logs/
 modelsim.ini
 transcript
 etch*
+sim/stdout/uart

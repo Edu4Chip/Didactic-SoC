@@ -104,6 +104,7 @@ elaborate: library_mapping
 	-l $(BUILD_DIR)/opt/$(START_TIME)_vopt.log
 
 run_sim: library_mapping
+	mkdir -p stdout &&	touch stdout/uart
 	cd $(BUILD_DIR)
 	vsim $(GUI) \
 	$(DUT_LIBS) $(VSIM_OPTS) \
