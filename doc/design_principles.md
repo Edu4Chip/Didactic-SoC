@@ -1,6 +1,6 @@
 # Design principles
 
-Considerations were done to formalize design proposals. These items are in priority order.
+Considerations were done to formalize design proposals.
 
 * Simplicity
 

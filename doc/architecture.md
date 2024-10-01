@@ -2,15 +2,15 @@
 
 based on design principles architecture was created to section the student areas from the staff parts.
 
-SoC will have single clock domain, and each subsystem will be controllable.
+SoC will have single clock domain, and each subsystem will be separately controllable and isolatable.
 
 ## Student section
 
-Each SoC will have a number of sections for students that is fully customizeable. This will affect top ICN. Interface will be APB bus, control signals and (optional) interrupt line.
+Each SoC will have a number of sections for students that is fully customizeable. If number of student systems are changed, it will affect top ICN. Interface will be APB bus, control signals and (optional) interrupt line.
 
 It is up to each tapeout to specify the requirements and design for each of the student modules. Back up designs should exist for substitution should any one of these fail to meet quality requirements.
 
-exact area and more details of the system will be specified on various things such as technology node and frequencies, power requirements etc.
+Exact area and more details of the system will be specified on various things such as technology node and frequencies, power requirements etc.
 
 ## Staff section
 
@@ -18,9 +18,9 @@ This section of the SoC will be more complex, it will contain the control and co
 
 * core (riscv ibex in this example)
 
-* memory (i and d memories, bootrom)
+* memory (i and d memories)
 
-* peripheral devices
+* peripheral devices (uart, spi, gpio)
 
 * control registers for subsystem (if we have ipxact memory map available, TAU can generate this with Kamel meta model combined with Kactus2)
 
@@ -29,4 +29,3 @@ This section of the SoC will be more complex, it will contain the control and co
 * tech cells (such as IOs etc)
 
 Lot of the exact details will be refined further as the project continues.
-

@@ -1,6 +1,6 @@
 # Verification
 
-basic test bench and their features are not currently preset.
+basic testbench and program loading is completed. Testbench alters software file target based on variables on elaboration command.
 
 ## Keelhaul
 

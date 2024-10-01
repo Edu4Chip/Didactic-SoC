@@ -4,7 +4,7 @@ This file will contain some instructions how to contribute to this project.
 
 ## Branches
 
-When merging branches, branch should always sync itself to main branch before accepting merge. This protects XML files from being faultily merged. Sometimes default merge rules work with them just fine, but sometimes the merges behave erraticly.
+When merging branches, branch should always sync itself to main branch before accepting merge. This protects XML files from being faultily merged by automation. Sometimes default merge rules work with them just fine, but sometimes the merges can behave erraticly.
 
 E.G. Require merge of main to branch before accepting any requests.
 
