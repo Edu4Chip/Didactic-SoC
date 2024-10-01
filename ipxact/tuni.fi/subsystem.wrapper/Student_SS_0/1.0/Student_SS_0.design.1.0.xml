@@ -31,9 +31,9 @@
 					<kactus2:portPosition busRef="IRQ" x="110" y="160"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="180"/>
 					<kactus2:portPosition busRef="clk" x="-110" y="60"/>
-					<kactus2:portPosition busRef="reset" x="110" y="40"/>
-					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="250"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="210"/>
+					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="250"/>
+					<kactus2:portPosition busRef="reset" x="110" y="40"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -141,6 +141,14 @@
 				<kactus2:position x="820" y="270"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Student_area_0_pmod_gpio_1_to_pmod_gpio_1" kactus2:offPage="false">
+				<kactus2:position x="710" y="310"/>
+				<kactus2:position x="820" y="310"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_area_0_pmod_gpio_0_to_bus_1" kactus2:offPage="false">
+				<kactus2:position x="710" y="270"/>
+				<kactus2:position x="820" y="270"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_area_0_pmod_gpio_1_to_bus" kactus2:offPage="false">
 				<kactus2:position x="710" y="310"/>
 				<kactus2:position x="820" y="310"/>
 			</kactus2:route>

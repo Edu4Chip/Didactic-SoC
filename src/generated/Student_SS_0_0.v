@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_0_0.v
-// Creation date : 26.09.2024
-// Creation time : 12:18:21
+// Creation date : 01.10.2024
+// Creation time : 13:27:56
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.2 64-bit
@@ -92,7 +92,7 @@ module Student_SS_0_0 #(
     wire       SS_cg_clk_out;
     wire       SS_cg_en;
     // Student_area_0 port wires:
-    wire [31:0] Student_area_0_PADDR;
+    wire [11:0] Student_area_0_PADDR;
     wire       Student_area_0_PENABLE;
     wire [31:0] Student_area_0_PRDATA;
     wire       Student_area_0_PREADY;
@@ -139,7 +139,7 @@ module Student_SS_0_0 #(
     assign SS_cg_clk_out_to_Student_area_0_clk_clk = SS_cg_clk_out;
     assign SS_cg_en = SS_cg_en_to_clk_ctrl;
     // Student_area_0 assignments:
-    assign Student_area_0_PADDR = Student_area_0_APB_to_APB_PADDR;
+    assign Student_area_0_PADDR = Student_area_0_APB_to_APB_PADDR[11:0];
     assign Student_area_0_PENABLE = Student_area_0_APB_to_APB_PENABLE;
     assign Student_area_0_APB_to_APB_PRDATA = Student_area_0_PRDATA;
     assign Student_area_0_APB_to_APB_PREADY = Student_area_0_PREADY;
@@ -170,7 +170,7 @@ module Student_SS_0_0 #(
 
     // IP-XACT VLNV: tuni.fi:subsystem:Student_area_0:1.0
     Student_area_0 #(
-        .APB_AW              (10),
+        .APB_AW              (12),
         .APB_DW              (32))
     Student_area_0(
         // Interface: APB
