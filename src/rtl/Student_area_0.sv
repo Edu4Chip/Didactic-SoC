@@ -22,7 +22,7 @@
 `endif
 
 module Student_area_0 #(
-    parameter APB_AW = 32,
+    parameter APB_AW = 12,
     parameter APB_DW = 32
   )(
     // Interface: APB

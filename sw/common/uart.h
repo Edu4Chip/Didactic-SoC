@@ -8,7 +8,7 @@
  * notes:
  *    - addresses are to be moved to common mem map header
  */
-#ifndef __URAT_H__
+#ifndef __UART_H__
 #define __UART_H__
 
 #include <stdint.h>

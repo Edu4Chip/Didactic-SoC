@@ -170,7 +170,7 @@ module Student_SS_0_0 #(
 
     // IP-XACT VLNV: tuni.fi:subsystem:Student_area_0:1.0
     Student_area_0 #(
-        .APB_AW              (32),
+        .APB_AW              (10),
         .APB_DW              (32))
     Student_area_0(
         // Interface: APB

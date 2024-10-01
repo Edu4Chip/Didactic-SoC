@@ -36,9 +36,9 @@ VLOG_OPTS = \
 	-suppress vlog-2583
 
 env:
-	mkdir -p $(BUILD_DIR)/compile
-	mkdir -p $(BUILD_DIR)/opt
-	mkdir -p $(BUILD_DIR)/sim
+	mkdir -p $(BUILD_DIR)/logs/compile
+	mkdir -p $(BUILD_DIR)/logs/opt
+	mkdir -p $(BUILD_DIR)/logs/sim
 
 library_mapping: 
 	cd $(BUILD_DIR)
@@ -55,37 +55,37 @@ compile_pulp:
 	vlib $(BUILD_DIR)/pulp_lib
 	vmap pulp_lib $(BUILD_DIR)/pulp_lib
 	vlog -sv -work pulp_lib $(VLOG_OPTS) +incdir+../ips/common_cells/include/ +incdir+../ips/axi/include/ \
-	-F ../src/pulp-reused-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_pulp.log
+	-F ../src/pulp-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_pulp.log
 
 compile_ibex:
 	vlib $(BUILD_DIR)/ibex_lib
 	vmap ibex_lib $(BUILD_DIR)/ibex_lib
 	vlog -sv -work ibex_lib +define+SYNTHESIS +incdir+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl +incdir+../ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
-	-F ../src/ibex-reused-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_ibex.log
+	-F ../src/ibex-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_ibex.log
 
 compile_riscv_dbg:
 	vlib $(BUILD_DIR)/riscv_dbg_lib
 	vmap riscv_dbg_lib $(BUILD_DIR)/riscv_dbg_lib
 	vlog -sv -work riscv_dbg_lib  \
-	-F ../src/riscv_dbg-reused-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_riscv_dbg.log
+	-F ../src/riscv_dbg-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_riscv_dbg.log
 
 compile_tech_generic:
 	vlib $(BUILD_DIR)/tech_generic_lib
 	vmap tech_generic_lib $(BUILD_DIR)/tech_generic_lib
 	vlog -sv -work tech_generic_lib  \
-	-F ../src/sim-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_tech_generic.log
+	-F ../src/sim-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_tech_generic.log
 
 compile_didactic:
 	vlib $(BUILD_DIR)/didactic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
 	vlog -sv -work didactic_lib +incdir+../ips/common_cells/include/ +incdir+../ips/axi/include/ $(DUT_LIBS) \
-	-F ../src/sv-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_didactic.log
+	-F ../src/sv-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
 
 compile_tb:
 	vlib $(BUILD_DIR)/tb_lib
 	vmap tb_lib $(BUILD_DIR)/tb_lib
 	vlog -sv -work tb_lib $(TB_DEFINES) $(DUT_LIBS)  \
-	-F ../src/tb-files.list -l $(BUILD_DIR)/compile/$(START_TIME)_tb.log
+	-F ../src/tb-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_tb.log
 #+define+USE_UART
 
 # once regurarly running programs instead sanity, reverse this condition 
@@ -101,7 +101,7 @@ elaborate: library_mapping
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT) \
 	-o $(DUT)_opt \
-	-l $(BUILD_DIR)/opt/$(START_TIME)_vopt.log
+	-l $(BUILD_DIR)/logs/opt/$(START_TIME)_vopt.log
 
 run_sim: library_mapping
 	mkdir -p stdout &&	touch stdout/uart
@@ -111,4 +111,4 @@ run_sim: library_mapping
 	-work $(BUILD_DIR)/tb_lib \
 	$(DUT)_opt \
 	-do "run 0ms;" \
-	-l $(BUILD_DIR)/sim/$(START_TIME)_sim.log
+	-l $(BUILD_DIR)/logs/sim/$(START_TIME)_sim.log

@@ -89,29 +89,16 @@ module pmod_mux #(
   always_comb 
     mux_process : begin
 
-    //  all io ctrl bits. overwrite io dir bit for each ss branch.
+    // all io ctrl bits. overwrite io dir bit for each ss branch.
     cell_cfg_to_io = cell_cfg_from_core;
 
-    // always  gpio to controller core
+    // always direct gpi to controller core
     // disable inputs from subsystems not in use.
     gpio_to_core = gpio_from_io;
 
     unique case(pmod_sel)
       0: begin
-         gpio_to_io = gpio_from_core;
-
-         ss_0_pmod_0_gpi = 'h0;
-         ss_0_pmod_1_gpi = 'h0;
-         ss_1_pmod_0_gpi = 'h0;
-         ss_1_pmod_1_gpi = 'h0;
-         ss_2_pmod_0_gpi = 'h0;
-         ss_2_pmod_1_gpi = 'h0;
-         ss_3_pmod_0_gpi = 'h0;
-         ss_3_pmod_1_gpi = 'h0;
-
-      end
-      1: begin
-         gpio_to_io = {ss_0_pmod_1_gpo,ss_0_pmod_0_gpo};
+        gpio_to_io = {ss_0_pmod_1_gpo,ss_0_pmod_0_gpo};
         for(int i = 1; i < 5; i++) begin
              cell_cfg_to_io[(i-1)*IOCELL_CFG_W]               =ss_0_pmod_0_gpio_oe[i];
              cell_cfg_to_io[4*IOCELL_CFG_W+(i-1)*IOCELL_CFG_W]=ss_0_pmod_1_gpio_oe[i];
@@ -125,8 +112,8 @@ module pmod_mux #(
          ss_3_pmod_0_gpi = 'h0;
          ss_3_pmod_1_gpi = 'h0;
       end
-      2: begin
-         gpio_to_io = {ss_1_pmod_1_gpo,ss_1_pmod_0_gpo};
+      1: begin
+        gpio_to_io = {ss_1_pmod_1_gpo,ss_1_pmod_0_gpo};
         for(int i = 1; i < 5; i++) begin
              cell_cfg_to_io[(i-1)*IOCELL_CFG_W]               =ss_1_pmod_0_gpio_oe[i];
              cell_cfg_to_io[4*IOCELL_CFG_W+(i-1)*IOCELL_CFG_W]=ss_1_pmod_1_gpio_oe[i];
@@ -141,8 +128,8 @@ module pmod_mux #(
          ss_3_pmod_1_gpi = 'h0;
 
       end
-      3: begin
-         gpio_to_io = {ss_2_pmod_1_gpo,ss_2_pmod_0_gpo};
+      2: begin
+        gpio_to_io = {ss_2_pmod_1_gpo,ss_2_pmod_0_gpo};
         for(int i = 1; i < 5; i++) begin
              cell_cfg_to_io[(i-1)*IOCELL_CFG_W]               =ss_2_pmod_0_gpio_oe[i];
              cell_cfg_to_io[4*IOCELL_CFG_W+(i-1)*IOCELL_CFG_W]=ss_2_pmod_1_gpio_oe[i];
@@ -156,8 +143,8 @@ module pmod_mux #(
          ss_3_pmod_0_gpi = 'h0;
          ss_3_pmod_1_gpi = 'h0;
       end
-      4: begin
-         gpio_to_io = {ss_3_pmod_1_gpo,ss_3_pmod_0_gpo};
+      3: begin
+        gpio_to_io = {ss_3_pmod_1_gpo,ss_3_pmod_0_gpo};
         for(int i = 1; i < 5; i++) begin
              cell_cfg_to_io[(i-1)*IOCELL_CFG_W]               =ss_3_pmod_0_gpio_oe[i];
              cell_cfg_to_io[4*IOCELL_CFG_W+(i-1)*IOCELL_CFG_W]=ss_3_pmod_1_gpio_oe[i];

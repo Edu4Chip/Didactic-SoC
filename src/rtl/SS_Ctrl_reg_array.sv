@@ -132,13 +132,13 @@ module SS_Ctrl_reg_array #(
         io_cell_cfg_6_reg <= 'h0;
         io_cell_cfg_7_reg <= 'h0;
         io_cell_cfg_8_reg <= 'h0;
-        pmod_sel_reg <= 'h0;
+        pmod_sel_reg <= 'h4;
         fetch_en_reg <= 'h5;
     end
     else begin
 
      if (we_in) begin 
-        case (addr_in)
+        case (addr_in[16:0])
 
         'h4: begin
             ss_rst_reg <= wdata_in[ 31:0 ];
@@ -202,7 +202,7 @@ module SS_Ctrl_reg_array #(
     always_comb // read process
     begin : read_logic
       rdata_out = 0;
-      case(addr_in)
+      case(addr_in[16:0])
 
         'h4: begin
             rdata_out =ss_rst_reg;
