@@ -2,9 +2,9 @@
  * name: uart.h
  * contributor(S):
  *    - Matti Käyrä	(matti.kayra@tuni.fi)
+ *    - Mohamed Soliman (mohamed.w.soliman.tuni.fi)
  * description:
  *    - helper functions to use uart
- *    - 
  * notes:
  *    - addresses are to be moved to common mem map header
  */
@@ -33,13 +33,13 @@ void uart_init(){
   *( volatile uint32_t* )(0x010400034) = temp | u1<<11;
 */
 
-  // init uart settings (for loopback)
+  // init uart settings (for typical tx/rx setup)
   IIR_FCR = 1u;
   LCR = (1u<<7 | 3u);
-  RBR_THR_DLL = 195u;
+  RBR_THR_DLL = 13u;//divisor to define baudrate: 38400 = frequncy/(16*)
   LCR = 3u;
-  IER_DLM = 1u;//enable transmitter holding register empty interrupt
-  IIR_FCR = 2u;
+  IER_DLM = 1u;// enable transmitter holding register empty interrupt
+  IIR_FCR = 2u; // receiver fifo reset
 
 }
 

@@ -225,10 +225,13 @@ module tb_didactic();
         exit_status = `EXIT_FAIL;
         $display("[TB] Time %g ns - JTAG RETURN FAILURE: core status: 0x%h", $time, jtag_data[30:0]);
       end
+      #1ms;//wait to get prints etc out of the tb
       $stop;
 
 
     end
+
+    #1ms;//wait to get prints etc out of the tb
 
     $stop;
 
@@ -270,7 +273,7 @@ module tb_didactic();
 // if tb module is not in use, loopback uart
 `ifdef USE_UART
   uart_tb_rx #(
-    .BAUD_RATE ( 2560   ),
+    .BAUD_RATE ( 38400      ),
     .PARITY_EN ( 0          )
   ) i_uart_rx (
     .rx        ( dut_uart_tx),
