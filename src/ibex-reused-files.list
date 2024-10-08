@@ -1,6 +1,8 @@
 # ibex core related files
 
 # prim generic packages
+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_mubi_pkg.sv
+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count_pkg.sv
 ../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv 
 ../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv 
 ../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv
