@@ -27,7 +27,6 @@
 
 // Generated DPI bindings
 #include "../verification/verilator/src/generated/sw/AX4LITE_APB_converter_wrapper.cpp"
-#include "../verification/verilator/src/generated/sw/BootRom.cpp"
 #include "../verification/verilator/src/generated/sw/Didactic.cpp"
 #include "../verification/verilator/src/generated/sw/ICN_SS.cpp"
 #include "../verification/verilator/src/generated/sw/SS_Ctrl_reg_array.cpp"
