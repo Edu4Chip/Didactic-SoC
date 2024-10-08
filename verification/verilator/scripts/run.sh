@@ -39,6 +39,7 @@ verilator \
     -I./ips/ibex/rtl \
     -I./ips/ibex/vendor/lowrisc_ip/ip/prim/rtl \
     -I./ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
+    -F verification/verilator/src/hdl/fixes.list \
     -F src/pulp-reused-files.list \
     -F src/riscv_dbg-reused-files.list \
     -F src/ibex-reused-files.list \
