@@ -18,11 +18,11 @@
 #define CTRL_BASE 0x01040000
 
 #define RST_OFFSET      0x4
-#define SS0_CTRL_OFFSET 0x8
-#define SS1_CTRL_OFFSET 0xC
-#define SS2_CTRL_OFFSET 0x10
+#define SS0_CTRL_OFFSET 0xC
+#define SS1_CTRL_OFFSET 0x10
+#define SS2_CTRL_OFFSET 0x14
 #define SS3_CTRL_OFFSET 0x18
-#define PMOD_OFFSET     0x58
+#define PMOD_OFFSET     0x24
 
 #define RST_CTRL  *( volatile uint32_t* )(CTRL_BASE+RST_OFFSET)
 #define SS0_CTRL  *( volatile uint32_t* )(CTRL_BASE+SS0_CTRL_OFFSET)
