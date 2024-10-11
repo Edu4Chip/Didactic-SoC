@@ -13,7 +13,6 @@
 #define __SOC_CTRL_H__
 
 #include <stdint.h>
-#include "uart.h"
 
 #define CTRL_BASE 0x01040000
 
@@ -59,7 +58,6 @@ void ss_init(const uint32_t target_ss){
     default:
       // error handling
       asm("nop");
-      uart_print("error branch");
   }
 
 }
