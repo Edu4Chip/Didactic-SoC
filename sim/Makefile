@@ -1,8 +1,11 @@
-####
-# Didactic SoC 
+############################################
 # Sim makefile for questa/modelsim
-# 
-###
+# Project: Edu4chip
+# SoC: Didactic
+# Contributors: 
+# * Matti Käyrä (Matti.kayra@tuni.fi)
+#
+###############################################
 
 BUILD_DIR ?= $(realpath $(CURDIR))/../build
 START_TIME=`date +%F_%H:%M`
@@ -12,6 +15,7 @@ DUT = tb_didactic
 
 TB_DEFINES = \
 	+define+USE_UART \
+	+define+USE_SPI \
 
 DUT_LIBS = \
 	-L $(BUILD_DIR)/pulp_lib \

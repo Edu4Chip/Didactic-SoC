@@ -112,9 +112,9 @@ module io_cell_frame_sysctrl #(
   io_cell_wrapper#(.CELL_TYPE(1), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tdo (.FROM_CORE(jtag_tdo_internal), .TO_CORE(),                   .PAD(jtag_tdo),  .io_cell_cfg({IOCELL_CFG_W{1'b0}}));
 
   // spi
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_sck  (.FROM_CORE(spim_sck_internal),     .TO_CORE(),                      .PAD(spi_sck),     .io_cell_cfg(cell_cfg[9*IOCELL_CFG_W-1:8*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_csn0 (.FROM_CORE(spim_csn_internal[0]),  .TO_CORE(),                      .PAD(spi_csn[0]),  .io_cell_cfg(cell_cfg[10*IOCELL_CFG_W-1:9*IOCELL_CFG_W]));
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_csn1 (.FROM_CORE(spim_csn_internal[1]),  .TO_CORE(),                      .PAD(spi_csn[1]),  .io_cell_cfg(cell_cfg[11*IOCELL_CFG_W-1:10*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(1), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_sck  (.FROM_CORE(spim_sck_internal),     .TO_CORE(),                      .PAD(spi_sck),     .io_cell_cfg(cell_cfg[9*IOCELL_CFG_W-1:8*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(1), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_csn0 (.FROM_CORE(spim_csn_internal[0]),  .TO_CORE(),                      .PAD(spi_csn[0]),  .io_cell_cfg(cell_cfg[10*IOCELL_CFG_W-1:9*IOCELL_CFG_W]));
+  io_cell_wrapper#(.CELL_TYPE(1), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_csn1 (.FROM_CORE(spim_csn_internal[1]),  .TO_CORE(),                      .PAD(spi_csn[1]),  .io_cell_cfg(cell_cfg[11*IOCELL_CFG_W-1:10*IOCELL_CFG_W]));
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data0(.FROM_CORE(spim_mosi_internal[0]), .TO_CORE(spim_miso_internal[0]), .PAD(spi_data[0]), .io_cell_cfg(cell_cfg[12*IOCELL_CFG_W-1:11*IOCELL_CFG_W]));
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data1(.FROM_CORE(spim_mosi_internal[1]), .TO_CORE(spim_miso_internal[1]), .PAD(spi_data[1]), .io_cell_cfg(cell_cfg[13*IOCELL_CFG_W-1:12*IOCELL_CFG_W]));
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data2(.FROM_CORE(spim_mosi_internal[2]), .TO_CORE(spim_miso_internal[2]), .PAD(spi_data[2]), .io_cell_cfg(cell_cfg[14*IOCELL_CFG_W-1:13*IOCELL_CFG_W]));

@@ -1,7 +1,7 @@
 ########################################
 # Top repository makefile
 # Project: Edu4chip
-# SoC:
+# SoC: Didactic
 #
 # Description:
 # * Top level commands to enable "make <command>"

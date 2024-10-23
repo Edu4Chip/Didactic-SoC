@@ -64,10 +64,8 @@ void ss_init(const uint32_t target_ss){
 
 void ss_reset(const uint32_t target_ss){
   // reset: reset + clock disabled + irq disabled
-  // init: reset + clock enable
-  volatile uint32_t mask = RST_CTRL;
-  //     old value | target ss bit | icn reset
-  RST_CTRL = (mask | 2u<<target_ss | 1u);
+  volatile uint32_t mask = 0;
+
 
   switch (target_ss)
   {
@@ -112,7 +110,7 @@ void ss_reset(const uint32_t target_ss){
 }
 
 void pmod_target(const uint32_t target_ss){
-  // indexing: ss numbering and everything else is sysctrl
+  // indexing: ss numbers. all other values route gpios from sysctrl
   PMOD_CTRL = target_ss;
 }
 
