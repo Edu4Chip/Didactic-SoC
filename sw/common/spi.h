@@ -62,11 +62,11 @@ void spi_read(uint32_t addr){
            //data      addr    cmd
   SPILEN = (32u<<16 | 32u<<8 | 8u);
   SPIADR = 35u;
-            //En interrupt  //En counter    //CNTRX
+           //En interrupt  //En counter    //CNTRX
   INTCFG = (1u<<31        | 1u<<30        | 1u<<24);
   SPICMD = 11u<<24; //read command
   SPIDUM = 33u;
-            //CS    //RD
+           //CS    //RD
   STATUS = (1u<<8 | 1u<<0);
 }
 
