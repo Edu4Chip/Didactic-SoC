@@ -53,36 +53,12 @@ library_mapping:
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
 	vmap tb_lib $(BUILD_DIR)/tb_lib
 
-compile: env compile_pulp compile_ibex compile_riscv_dbg compile_tech_generic compile_didactic compile_tb 
-
-compile_pulp:
-	vlib $(BUILD_DIR)/pulp_lib
-	vmap pulp_lib $(BUILD_DIR)/pulp_lib
-	vlog -sv -work pulp_lib $(VLOG_OPTS) +incdir+$(COMMON_CELLS_DIR)/include/ +incdir+$(AXI_DIR)/include/ \
-	-F ../src/pulp-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_pulp.log
-
-compile_ibex:
-	vlib $(BUILD_DIR)/ibex_lib
-	vmap ibex_lib $(BUILD_DIR)/ibex_lib
-	vlog -sv -work ibex_lib +define+SYNTHESIS +incdir+$(IBEX_DIR)/vendor/lowrisc_ip/ip/prim/rtl +incdir+$(IBEX_DIR)/vendor/lowrisc_ip/dv/sv/dv_utils \
-	-F ../src/ibex-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_ibex.log
-
-compile_riscv_dbg:
-	vlib $(BUILD_DIR)/riscv_dbg_lib
-	vmap riscv_dbg_lib $(BUILD_DIR)/riscv_dbg_lib
-	vlog -sv -work riscv_dbg_lib  \
-	-F ../src/riscv_dbg-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_riscv_dbg.log
-
-compile_tech_generic:
-	vlib $(BUILD_DIR)/tech_generic_lib
-	vmap tech_generic_lib $(BUILD_DIR)/tech_generic_lib
-	vlog -sv -work tech_generic_lib  \
-	-F ../src/sim-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_tech_generic.log
+compile: env compile_didactic compile_tb 
 
 compile_didactic:
 	vlib $(BUILD_DIR)/didactic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
-	vlog -sv -work didactic_lib +incdir+../ips/common_cells/include/ +incdir+../ips/axi/include/ $(DUT_LIBS) \
+	vlog -sv -work didactic_lib +incdir+$(COMMON_CELLS_DIR)/include/ +incdir+$(AXI_DIR)/include/ $(DUT_LIBS) \
 	-F ../src/sv-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
 
 compile_tb:
