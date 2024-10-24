@@ -6,3 +6,4 @@ modelsim.ini
 transcript
 etch*
 sim/stdout/uart
+.bender
