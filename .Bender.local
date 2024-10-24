@@ -1,0 +1,5 @@
+overrides:
+   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", rev: "10dac0ff3387e14b1129be33cad1e9a7d71aed7f" }
+   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "f82caeb7f7d89427f05e9af5ed31e0675efe0d83" }
+   axi: { git: "https://github.com/pulp-platform/axi.git", rev: "4e54ac6766b160217a83a74d5a23af9bbf59e6ee" }
+   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg.git", rev: "618ee6e0e2610ef47e0dcc4df6748af3dffff731" }

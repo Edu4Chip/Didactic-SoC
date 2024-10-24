@@ -35,6 +35,10 @@ VLOG_OPTS = \
 	-override_timescale="1ns/1ps" \
 	-suppress vlog-2583
 
+COMMON_CELLS_DIR ?= $(shell bender path common_cells)
+AXI_DIR          ?= $(shell bender path axi)
+IBEX_DIR         ?= $(BUILD_DIR)/../vendor_ips/ibex
+
 env:
 	mkdir -p $(BUILD_DIR)/logs/compile
 	mkdir -p $(BUILD_DIR)/logs/opt
@@ -54,13 +58,13 @@ compile: env compile_pulp compile_ibex compile_riscv_dbg compile_tech_generic co
 compile_pulp:
 	vlib $(BUILD_DIR)/pulp_lib
 	vmap pulp_lib $(BUILD_DIR)/pulp_lib
-	vlog -sv -work pulp_lib $(VLOG_OPTS) +incdir+../ips/common_cells/include/ +incdir+../ips/axi/include/ \
+	vlog -sv -work pulp_lib $(VLOG_OPTS) +incdir+$(COMMON_CELLS_DIR)/include/ +incdir+$(AXI_DIR)/include/ \
 	-F ../src/pulp-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_pulp.log
 
 compile_ibex:
 	vlib $(BUILD_DIR)/ibex_lib
 	vmap ibex_lib $(BUILD_DIR)/ibex_lib
-	vlog -sv -work ibex_lib +define+SYNTHESIS +incdir+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl +incdir+../ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
+	vlog -sv -work ibex_lib +define+SYNTHESIS +incdir+$(IBEX_DIR)/vendor/lowrisc_ip/ip/prim/rtl +incdir+$(IBEX_DIR)/vendor/lowrisc_ip/dv/sv/dv_utils \
 	-F ../src/ibex-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_ibex.log
 
 compile_riscv_dbg:

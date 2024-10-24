@@ -4,21 +4,88 @@ package:
     - "Antti Nurmi <antti.nurmi@tuni.fi>"
     - "Matti Käyrä <matti.kayra@tuni.fi>"
 
-dependencies:           # TODO: semantic versions prefered over commit hashes
+dependencies:           # TODO: only 1st level dependencies needed, also semantic versions prefered over commit hashes
   apb_gpio:           { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "f82caeb7f7d89427f05e9af5ed31e0675efe0d83" }      
-  apb_spi_master:     { git: "https://github.com/pulp-platform/apb_spi_master.git", rev: "3fce81084b15870f4bd9da7806cf950774f9672e" }      
   apb_uart:           { git: "https://github.com/pulp-platform/apb_uart.git", rev: "6c7dde3d749ac8274377745c105da8c8b8cd27c6" }      
   axi:                { git: "https://github.com/pulp-platform/axi.git", rev: "4e54ac6766b160217a83a74d5a23af9bbf59e6ee" }       
-  axi_spi_master:     { git: "https://github.com/pulp-platform/axi_spi_master.git", rev: "ee219078353a76e468674c25675f5b7fe5f51127" }       
   common_cells:       { git: "https://github.com/pulp-platform/common_cells.git", rev: "10dac0ff3387e14b1129be33cad1e9a7d71aed7f" }      
   pulp:               { git: "https://github.com/pulp-platform/pulp.git", rev: "b6ae54700b76395b049742ebfc52c5aaf6e148a5" }       
   riscv-dbg:          { git: "https://github.com/pulp-platform/riscv-dbg.git", rev: "618ee6e0e2610ef47e0dcc4df6748af3dffff731" }         
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" }         
 
 sources:
-  - src/rtl/generated/Didactic.v
+
+  - target: ibex
+    files:
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv" 
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv" 
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv"
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv"
+      - "vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv"
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv"
+      - "vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv"
+      - "vendor_ips/ibex/rtl/ibex_pkg.sv"
+      - "vendor_ips/ibex/rtl/ibex_csr.sv" 
+      - "vendor_ips/ibex/rtl/ibex_compressed_decoder.sv"
+      - "vendor_ips/ibex/rtl/ibex_decoder.sv"
+      - "vendor_ips/ibex/rtl/ibex_counter.sv"
+      - "vendor_ips/ibex/rtl/ibex_alu.sv"
+      - "vendor_ips/ibex/rtl/ibex_fetch_fifo.sv" 
+      - "vendor_ips/ibex/rtl/ibex_prefetch_buffer.sv" 
+      - "vendor_ips/ibex/rtl/ibex_multdiv_fast.sv"
+      - "vendor_ips/ibex/rtl/ibex_register_file_ff.sv" 
+      - "vendor_ips/ibex/rtl/ibex_ex_block.sv"
+      - "vendor_ips/ibex/rtl/ibex_controller.sv" 
+      - "vendor_ips/ibex/rtl/ibex_cs_registers.sv"
+      - "vendor_ips/ibex/rtl/ibex_pmp.sv"
+      - "vendor_ips/ibex/rtl/ibex_if_stage.sv" 
+      - "vendor_ips/ibex/rtl/ibex_id_stage.sv" 
+      - "vendor_ips/ibex/rtl/ibex_load_store_unit.sv" 
+      - "vendor_ips/ibex/rtl/ibex_wb_stage.sv"
+      - "vendor_ips/ibex/rtl/ibex_core.sv"
+      - "vendor_ips/ibex/rtl/ibex_top.sv"
+
+  - target: didactic_top
+    files:
+    - src/rtl/generated/Didactic.v
 
 vendor_package:
   - name: ibex
     target_dir: vendor_ips/ibex
     upstream: { git: "https://github.com/lowRISC/ibex", rev: "53888bcdf4ca3c07e5e715fb6386cb4cc643a61b" }
+    include_from_upstream:
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv" 
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv" 
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv"
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv"
+      - "vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv"
+      - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv"
+      - "vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv"
+      - "vendor_ips/ibex/rtl/ibex_pkg.sv"
+      - "vendor_ips/ibex/rtl/ibex_csr.sv" 
+      - "vendor_ips/ibex/rtl/ibex_compressed_decoder.sv"
+      - "vendor_ips/ibex/rtl/ibex_decoder.sv"
+      - "vendor_ips/ibex/rtl/ibex_counter.sv"
+      - "vendor_ips/ibex/rtl/ibex_alu.sv"
+      - "vendor_ips/ibex/rtl/ibex_fetch_fifo.sv" 
+      - "vendor_ips/ibex/rtl/ibex_prefetch_buffer.sv" 
+      - "vendor_ips/ibex/rtl/ibex_multdiv_fast.sv"
+      - "vendor_ips/ibex/rtl/ibex_register_file_ff.sv" 
+      - "vendor_ips/ibex/rtl/ibex_ex_block.sv"
+      - "vendor_ips/ibex/rtl/ibex_controller.sv" 
+      - "vendor_ips/ibex/rtl/ibex_cs_registers.sv"
+      - "vendor_ips/ibex/rtl/ibex_pmp.sv"
+      - "vendor_ips/ibex/rtl/ibex_if_stage.sv" 
+      - "vendor_ips/ibex/rtl/ibex_id_stage.sv" 
+      - "vendor_ips/ibex/rtl/ibex_load_store_unit.sv" 
+      - "vendor_ips/ibex/rtl/ibex_wb_stage.sv"
+      - "vendor_ips/ibex/rtl/ibex_core.sv"
+      - "vendor_ips/ibex/rtl/ibex_top.sv"
+
+  - name: apb_spi_master
+    target_dir: vendor_ips/apb_spi_master
+    upstream: { git: "https://github.com/pulp-platform/apb_spi_master.git", rev: "3fce81084b15870f4bd9da7806cf950774f9672e" }   
+  - name: axi_spi_master
+    target_dir: vendor_ips/axi_spi_master
+    upstream: { git: "https://github.com/pulp-platform/axi_spi_master.git", rev: "ee219078353a76e468674c25675f5b7fe5f51127" }       
+     

@@ -6,11 +6,12 @@ packages:
       Git: https://github.com/pulp-platform/adv_dbg_if.git
     dependencies: []
   apb:
-    revision: d077333a7e5cc80008935dc2761440532dfdce81
-    version: 0.1.0
+    revision: 77ddf073f194d44b9119949d2421be59789e69ae
+    version: 0.2.4
     source:
       Git: https://github.com/pulp-platform/apb
-    dependencies: []
+    dependencies:
+    - common_cells
   apb2per:
     revision: 6fc13fc0bfa71772d91391893e57306d0d95befa
     version: 0.1.0
@@ -51,12 +52,6 @@ packages:
       Git: https://github.com/pulp-platform/apb_node.git
     dependencies:
     - apb
-  apb_spi_master:
-    revision: 3fce81084b15870f4bd9da7806cf950774f9672e
-    version: 0.1.0
-    source:
-      Git: https://github.com/pulp-platform/apb_spi_master.git
-    dependencies: []
   apb_uart:
     revision: 6c7dde3d749ac8274377745c105da8c8b8cd27c6
     version: 0.2.1
@@ -66,8 +61,8 @@ packages:
     - apb
     - register_interface
   axi:
-    revision: 2f395b176bee1c769c80f060a4345fda965bb04b
-    version: 0.38.0
+    revision: 4e54ac6766b160217a83a74d5a23af9bbf59e6ee
+    version: null
     source:
       Git: https://github.com/pulp-platform/axi.git
     dependencies:
@@ -96,12 +91,6 @@ packages:
       Git: https://github.com/pulp-platform/axi_slice.git
     dependencies:
     - common_cells
-  axi_spi_master:
-    revision: ee219078353a76e468674c25675f5b7fe5f51127
-    version: 0.1.1
-    source:
-      Git: https://github.com/pulp-platform/axi_spi_master.git
-    dependencies: []
   cluster_interconnect:
     revision: 7d0a4f8acae71a583a6713cab5554e60b9bb8d27
     version: 1.2.1
@@ -117,8 +106,8 @@ packages:
     dependencies:
     - hci
   common_cells:
-    revision: c27bce39ebb2e6bae52f60960814a2afca7bd4cb
-    version: 1.37.0
+    revision: 10dac0ff3387e14b1129be33cad1e9a7d71aed7f
+    version: null
     source:
       Git: https://github.com/pulp-platform/common_cells.git
     dependencies:
@@ -363,11 +352,13 @@ packages:
     - axi
     - common_cells
   riscv-dbg:
-    revision: e19d69efe7d7e4da6c25ed91d5e7f501ab52dd68
-    version: 0.4.1
+    revision: 618ee6e0e2610ef47e0dcc4df6748af3dffff731
+    version: null
     source:
       Git: https://github.com/pulp-platform/riscv-dbg.git
-    dependencies: []
+    dependencies:
+    - common_cells
+    - tech_cells_generic
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
     version: 1.1.1
