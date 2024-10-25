@@ -69,7 +69,7 @@ compile: env compile_didactic compile_tb
 compile_didactic:
 	vlib $(BUILD_DIR)/didactic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
-	vlog -sv -work didactic_lib +define+INC_ASSERT \
+	vlog -sv -work didactic_lib +define+INC_ASSERT +define+SYNTHESIS \
 	$(INCLUDES) $(DUT_LIBS) \
 	$(VLOG_OPTS) $(SIM_FLIST) -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
 
