@@ -12,6 +12,7 @@ DUT = tb_didactic
 
 TB_DEFINES = \
 	+define+USE_UART \
+	+define+INC_ASSERT
 
 DUT_LIBS = \
 	-L $(BUILD_DIR)/didactic_lib \
@@ -19,6 +20,7 @@ DUT_LIBS = \
 
 VSIM_OPTS = \
 	-suppress vsim-3009 \
+	-suppress vsim-8386 \
 	-voptargs=+acc=npr \
 
 VOPT_OPTS = \
@@ -67,7 +69,7 @@ compile: env compile_didactic compile_tb
 compile_didactic:
 	vlib $(BUILD_DIR)/didactic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
-	vlog -sv -work didactic_lib \
+	vlog -sv -work didactic_lib +define+INC_ASSERT \
 	$(INCLUDES) $(DUT_LIBS) \
 	$(VLOG_OPTS) $(SIM_FLIST) -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
 

@@ -23,6 +23,7 @@ sources:
       - "vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv"
       - "vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv"
       - "vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv"
+      - "vendor_ips/ibex/syn/rtl/prim_clock_gating.v"
       - "vendor_ips/ibex/rtl/ibex_pkg.sv"
       - "vendor_ips/ibex/rtl/ibex_csr.sv" 
       - "vendor_ips/ibex/rtl/ibex_compressed_decoder.sv"
@@ -46,15 +47,20 @@ sources:
       
       - vendor_ips/apb_spi_master/apb_spi_master.sv
       - vendor_ips/apb_spi_master/spi_master_apb_if.sv
-      - vendor_ips/apb_spi_master/spi_master_fifo.sv
-      - vendor_ips/apb_spi_master/spi_master_tx.sv
-      - vendor_ips/apb_spi_master/spi_master_rx.sv
+
+      - vendor_ips/axi_spi_master/spi_master_fifo.sv
+      - vendor_ips/axi_spi_master/spi_master_tx.sv
+      - vendor_ips/axi_spi_master/spi_master_rx.sv
+      - vendor_ips/axi_spi_master/spi_master_controller.sv
+      - vendor_ips/axi_spi_master/spi_master_clkgen.sv
 
   - target: didactic_top
     files:
     - src/reuse/sp_sram.sv
     - src/rtl/io_cell_frame_sysctrl.sv
     - src/tech_generic/io_cell_wrapper.sv
+    - src/tech_generic/tech_cg.sv
+    - src/tech_generic/io_cell.sv
     - src/reuse/jtag_dbg_wrapper.sv
     - src/reuse/mem_axi_bridge.sv
     - src/reuse/ibex_axi_bridge.sv
@@ -65,6 +71,8 @@ sources:
     - src/generated/SysCtrl_peripherals_0.v
     - src/rtl/AX4LITE_APB_converter_wrapper.sv
     - src/rtl/ICN_SS.sv
+    - src/rtl/SysCtrl_xbar.sv
+    - src/rtl/SS_Ctrl_reg_array.sv
     - src/generated/SysCtrl_SS_0.v
     - src/generated/SysCtrl_SS_wrapper_0.v
     - src/generated/Didactic.v
@@ -93,6 +101,7 @@ vendor_package:
       - "dv/uvm/core_ibex/common/prim/prim_pkg.sv"
       - "vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv"
       - "dv/uvm/core_ibex/common/prim/prim_buf.sv"
+      - "syn/rtl/prim_clock_gating.v"
       - "rtl/ibex_pkg.sv"
       - "rtl/ibex_pmp_reset_default.svh"
       - "rtl/ibex_csr.sv" 
@@ -127,10 +136,13 @@ vendor_package:
     include_from_upstream:
       - apb_spi_master.sv
       - spi_master_apb_if.sv
+
+  - name: axi_spi_master
+    target_dir: vendor_ips/axi_spi_master
+    upstream: { git: "https://github.com/pulp-platform/axi_spi_master.git", rev: "ee219078353a76e468674c25675f5b7fe5f51127" }       
+    include_from_upstream:
       - spi_master_fifo.sv
       - spi_master_tx.sv
-      - spi_master_rx.sv
-  #- name: axi_spi_master
-  #  target_dir: vendor_ips/axi_spi_master
-  #  upstream: { git: "https://github.com/pulp-platform/axi_spi_master.git", rev: "ee219078353a76e468674c25675f5b7fe5f51127" }       
-     
+      - spi_master_rx.sv     
+      - spi_master_controller.sv     
+      - spi_master_clkgen.sv     
