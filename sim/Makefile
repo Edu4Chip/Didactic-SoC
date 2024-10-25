@@ -14,10 +14,6 @@ TB_DEFINES = \
 	+define+USE_UART \
 
 DUT_LIBS = \
-	-L $(BUILD_DIR)/pulp_lib \
-	-L $(BUILD_DIR)/ibex_lib \
-	-L $(BUILD_DIR)/riscv_dbg_lib \
-	-L $(BUILD_DIR)/tech_generic_lib \
 	-L $(BUILD_DIR)/didactic_lib \
 	-L $(BUILD_DIR)/tb_lib \
 
@@ -35,9 +31,26 @@ VLOG_OPTS = \
 	-override_timescale="1ns/1ps" \
 	-suppress vlog-2583
 
-COMMON_CELLS_DIR ?= $(shell bender path common_cells)
-AXI_DIR          ?= $(shell bender path axi)
+BENDER ?= bender
+
+
+COMMON_CELLS_DIR ?= $(shell $(BENDER) path common_cells)
+AXI_DIR          ?= $(shell $(BENDER) path axi)
+APB_DIR          ?= $(shell $(BENDER) path apb)
+REGIF_DIR        ?= $(shell $(BENDER) path register_interface)
 IBEX_DIR         ?= $(BUILD_DIR)/../vendor_ips/ibex
+
+SIM_FLIST        ?= $(shell $(BENDER) script flist -t didactic_top -t vendor -t simulation)
+
+INCLUDES ?= \
+	+incdir+$(COMMON_CELLS_DIR)/include \
+	+incdir+$(AXI_DIR)/include \
+	+incdir+$(APB_DIR)/include \
+	+incdir+$(REGIF_DIR)/include \
+	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/dv/sv/dv_utils \
+	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/ip/prim/rtl \
+	+incdir+$(IBEX_DIR)/rtl
+
 
 env:
 	mkdir -p $(BUILD_DIR)/logs/compile
@@ -46,10 +59,6 @@ env:
 
 library_mapping: 
 	cd $(BUILD_DIR)
-	vmap pulp_lib $(BUILD_DIR)/pulp_lib
-	vmap ibex_lib $(BUILD_DIR)/ibex_lib
-	vmap riscv_dbg_lib $(BUILD_DIR)/riscv_dbg_lib
-	vmap tech_generic_lib $(BUILD_DIR)/tech_generic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
 	vmap tb_lib $(BUILD_DIR)/tb_lib
 
@@ -58,14 +67,15 @@ compile: env compile_didactic compile_tb
 compile_didactic:
 	vlib $(BUILD_DIR)/didactic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
-	vlog -sv -work didactic_lib +incdir+$(COMMON_CELLS_DIR)/include/ +incdir+$(AXI_DIR)/include/ $(DUT_LIBS) \
-	-F ../src/sv-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
+	vlog -sv -work didactic_lib \
+	$(INCLUDES) $(DUT_LIBS) \
+	$(VLOG_OPTS) $(SIM_FLIST) -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
 
 compile_tb:
 	vlib $(BUILD_DIR)/tb_lib
 	vmap tb_lib $(BUILD_DIR)/tb_lib
-	vlog -sv -work tb_lib $(TB_DEFINES) $(DUT_LIBS)  \
-	-F ../src/tb-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_tb.log
+	vlog -sv -work tb_lib $(TB_DEFINES) $(DUT_LIBS) $(INCLUDES) \
+	$(SIM_FLIST) -l $(BUILD_DIR)/logs/compile/$(START_TIME)_tb.log
 #+define+USE_UART
 
 # once regurarly running programs instead sanity, reverse this condition 
