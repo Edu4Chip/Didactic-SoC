@@ -23,6 +23,24 @@ verification/verilator/scripts/do_fix.sh
 
 # FIXME: "FIX_SIGNAL_PROPAGATION" is a temporary solution to fix signal propagation, remove when fixed in HDL
 
+BUILD_DIR=$PWD/build
+COMMON_CELLS_DIR=$(bender path common_cells)
+AXI_DIR=$(bender path axi)
+APB_DIR=$(bender path apb)
+REGIF_DIR=$(bender path register_interface)
+IBEX_DIR=$BUILD_DIR/../vendor_ips/ibex
+
+SIM_FLIST=$(bender script flist -t didactic_top -t vendor -t simulation -t verilator)
+
+INCLUDES=\
+	-I$COMMON_CELLS_DIR/include/ \
+	-I$AXI_DIR/include/ \
+	-I$APB_DIR/include/ \
+	-I$REGIF_DIR/include/ \
+	-I$IBEX_DIR/vendor/lowrisc_ip/dv/sv/dv_utils/ \
+	-I$IBEX_DIR/vendor/lowrisc_ip/ip/prim/rtl/ \
+	-I$IBEX_DIR/rtl/
+
 verilator \
     --cc \
     --exe \
@@ -34,16 +52,8 @@ verilator \
     -Wno-lint \
     -Wno-style \
     -Wno-BLKANDNBLK \
-    -I./ips/common_cells/include \
-    -I./ips/axi/include \
-    -I./ips/ibex/rtl \
-    -I./ips/ibex/vendor/lowrisc_ip/ip/prim/rtl \
-    -I./ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
-    -F src/pulp-reused-files.list \
-    -F src/riscv_dbg-reused-files.list \
-    -F src/ibex-reused-files.list \
-    -F src/sv-files.list \
-    -F src/sim-files.list \
+    $INCLUDES \
+    $SIM_FLIST \
     -DFIX_SIGNAL_PROPAGATION \
     verification/verilator/src/sw/${EXECUTABLE}.cpp
 verilator_exit_code=$?
