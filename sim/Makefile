@@ -18,10 +18,11 @@ DUT_LIBS = \
 	-L $(BUILD_DIR)/didactic_lib \
 	-L $(BUILD_DIR)/tb_lib \
 
+# vsim-8386: suppress bit-to-reg assignment errors
 VSIM_OPTS = \
 	-suppress vsim-3009 \
-	-suppress vsim-8386 \
 	-voptargs=+acc=npr \
+	-suppress vsim-8386 \
 
 VOPT_OPTS = \
 	-sv \
