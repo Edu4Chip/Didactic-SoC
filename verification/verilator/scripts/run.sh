@@ -32,6 +32,10 @@ IBEX_DIR=$BUILD_DIR/../vendor_ips/ibex
 
 SIM_FLIST=$(bender script flist -t didactic_top -t vendor -t tech_cells_generic_exclude_deprecated)
 
+DEFINES="\
+	+define+SYNTHESIS \
+	"
+
 INCLUDES="\
 	-I$COMMON_CELLS_DIR/include/ \
 	-I$AXI_DIR/include/ \
@@ -41,17 +45,25 @@ INCLUDES="\
 	-I$IBEX_DIR/vendor/lowrisc_ip/ip/prim/rtl/ \
 	-I$IBEX_DIR/rtl/"
 
+WARN_SUPPRESS="\
+    -Wno-context \
+    -Wno-fatal \
+    -Wno-lint \
+    -Wno-style \
+    -Wno-BLKANDNBLK \
+    -Wno-WIDTHCONCAT \
+    -Wno-STMTDLY \
+    -Wno-TIMESCALEMOD \
+    -Wno-REDEFMACRO"
+
 verilator \
     --cc \
     --exe \
     --top-module Didactic \
     --no-timing \
     --trace \
-    -Wno-context \
-    -Wno-fatal \
-    -Wno-lint \
-    -Wno-style \
-    -Wno-BLKANDNBLK \
+    $DEFINES \
+    $WARN_SUPPRESS \
     $INCLUDES \
     $SIM_FLIST \
     -DFIX_SIGNAL_PROPAGATION \
