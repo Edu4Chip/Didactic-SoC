@@ -30,16 +30,16 @@ APB_DIR=$(bender path apb)
 REGIF_DIR=$(bender path register_interface)
 IBEX_DIR=$BUILD_DIR/../vendor_ips/ibex
 
-SIM_FLIST=$(bender script flist -t didactic_top -t vendor -t simulation -t verilator)
+SIM_FLIST=$(bender script flist -t didactic_top -t vendor -t tech_cells_generic_exclude_deprecated)
 
-INCLUDES=\
+INCLUDES="\
 	-I$COMMON_CELLS_DIR/include/ \
 	-I$AXI_DIR/include/ \
 	-I$APB_DIR/include/ \
 	-I$REGIF_DIR/include/ \
 	-I$IBEX_DIR/vendor/lowrisc_ip/dv/sv/dv_utils/ \
 	-I$IBEX_DIR/vendor/lowrisc_ip/ip/prim/rtl/ \
-	-I$IBEX_DIR/rtl/
+	-I$IBEX_DIR/rtl/"
 
 verilator \
     --cc \

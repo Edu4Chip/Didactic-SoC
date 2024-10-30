@@ -78,7 +78,7 @@ sources:
     - src/generated/SysCtrl_SS_wrapper_0.v
     - src/generated/Didactic.v
 
-  - target: simulation
+  - target: not(synthesis)
     files:
     - vendor_ips/pulp/rtl/tb/riscv_pkg.sv
     - vendor_ips/pulp/rtl/vip/uart_tb_rx.sv
