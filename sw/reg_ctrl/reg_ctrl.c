@@ -1,11 +1,11 @@
 /*
- * name: 
- * contributor(S):
+ * Name: reg ctrl
+ * Contributor(s):
  *    - Matti Käyrä (matti.kayra@tuni.fi)
- * description:
+ * Description:
  *    - test program to test some subsystem controls and pmod routing
  *    - 
- * notes:
+ * Notes:
  */
 
 //#include "uart.h"

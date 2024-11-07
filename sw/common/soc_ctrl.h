@@ -1,11 +1,11 @@
 /*
- * name: soc_ctrl
- * contributor(S):
+ * Name: soc_ctrl
+ * Contributor(S):
  *    - Matti Käyrä (matti.kayra@tuni.fi)
- * description:
+ * Description:
  *    - helper functions to control didcatic soc
  *    - 
- * notes:
+ * Notes:
  *    - addresses are to be moved to common mem map header
  */
 

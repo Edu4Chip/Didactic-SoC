@@ -1,14 +1,14 @@
 /*
-  Contributors:
-    * Matti Käyrä (matti.kayra@tuni.fi)
-  Description:
-    * tb for didactic soc
-    * extent of behavior defined later
-    * this testbench is based partially on pulp repository module:
-      ../ips/pulp/rtl/tb/tb_pulp.sv
-  Notes:
-    * 
-*/
+ * Contributors:
+ *   - Matti Käyrä (matti.kayra@tuni.fi)
+ * Description:
+ *   - tb for didactic soc
+ *   - extent of behavior defined later
+ *   - this testbench is based partially on pulp repository module:
+ *     ../ips/pulp/rtl/tb/tb_pulp.sv
+ * Notes:
+ *   - 
+ */
 
 // modelsim exit codes 
 `define EXIT_SUCCESS  0

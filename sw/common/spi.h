@@ -1,11 +1,13 @@
 /*
- * name: spi.h
- * contributor(S):
+ * Name: spi
+ * Contributor(s):
  *    - Matti Käyrä (matti.kayra@tuni.fi)
- * description:
+ *    - Mohamed Soliman (mohamed.w.soliman.tuni.fi)
+ * Description:
  *    - helper functions to use spi
  *    -
- * notes:
+ * Notes:
+*     - addresses are to be moved to common mem map header
  */
 #ifndef __SPI_H__
 #define __SPI_H__

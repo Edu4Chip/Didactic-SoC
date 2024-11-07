@@ -1174,7 +1174,7 @@ module SysCtrl_SS_0 #(
     assign i_dmem_mem_to_axi_dmem_bridge_Mem_WDATA = axi_dmem_bridge_wdata_o;
     assign i_dmem_mem_to_axi_dmem_bridge_Mem_WE = axi_dmem_bridge_we_o;
     // axi_imem_bridge assignments:
-    assign axi_imem_bridge_Mem_to_i_imem_mem_ADDR = axi_imem_bridge_addr_o;
+    assign axi_imem_bridge_Mem_to_i_imem_mem_ADDR = {2'b00,axi_imem_bridge_addr_o[31:2]};
     assign axi_imem_bridge_ar_addr_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_ADDR;
     assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_READY = axi_imem_bridge_ar_ready_o;
     assign axi_imem_bridge_ar_valid_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_VALID;
