@@ -899,26 +899,26 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ibex_Core_irq_fast_i_to_irq_3" kactus2:offPage="false">
 				<kactus2:position x="60" y="1080"/>
-				<kactus2:position x="450" y="1080"/>
-				<kactus2:position x="450" y="760"/>
+				<kactus2:position x="470" y="1080"/>
+				<kactus2:position x="470" y="760"/>
 				<kactus2:position x="490" y="760"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ibex_Core_irq_fast_i_to_irq_2" kactus2:offPage="false">
 				<kactus2:position x="60" y="1000"/>
-				<kactus2:position x="450" y="1000"/>
-				<kactus2:position x="450" y="760"/>
+				<kactus2:position x="470" y="1000"/>
+				<kactus2:position x="470" y="760"/>
 				<kactus2:position x="490" y="760"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ibex_Core_irq_fast_i_to_irq_1" kactus2:offPage="false">
 				<kactus2:position x="60" y="920"/>
-				<kactus2:position x="450" y="920"/>
-				<kactus2:position x="450" y="760"/>
+				<kactus2:position x="470" y="920"/>
+				<kactus2:position x="470" y="760"/>
 				<kactus2:position x="490" y="760"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ibex_Core_irq_fast_i_to_irq_0" kactus2:offPage="false">
 				<kactus2:position x="60" y="840"/>
-				<kactus2:position x="450" y="840"/>
-				<kactus2:position x="450" y="760"/>
+				<kactus2:position x="470" y="840"/>
+				<kactus2:position x="470" y="760"/>
 				<kactus2:position x="490" y="760"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Core_irq_fast_i_to_irq_3" kactus2:offPage="false">
@@ -1005,20 +1005,20 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i" kactus2:offPage="false">
 				<kactus2:position x="1450" y="820"/>
-				<kactus2:position x="450" y="820"/>
-				<kactus2:position x="450" y="760"/>
+				<kactus2:position x="470" y="820"/>
+				<kactus2:position x="470" y="760"/>
 				<kactus2:position x="490" y="760"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i" kactus2:offPage="false">
 				<kactus2:position x="1450" y="870"/>
-				<kactus2:position x="450" y="870"/>
-				<kactus2:position x="450" y="760"/>
+				<kactus2:position x="470" y="870"/>
+				<kactus2:position x="470" y="760"/>
 				<kactus2:position x="490" y="760"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i" kactus2:offPage="false">
 				<kactus2:position x="1450" y="920"/>
-				<kactus2:position x="450" y="920"/>
-				<kactus2:position x="450" y="760"/>
+				<kactus2:position x="470" y="920"/>
+				<kactus2:position x="470" y="760"/>
 				<kactus2:position x="490" y="760"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ibex_Core_irq_fast_i_to_irq_upper_tieoff" kactus2:offPage="false">

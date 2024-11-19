@@ -1,11 +1,11 @@
 /*
- * name: blink.c
- * contributor(S):
+ * Name: blink.c
+ * Contributor(s):
  *    - Matti Käyrä (matti.kayra@tuni.fi) 
- * description:
+ * Description:
  *    - "Led blinker" for sim
  *    - raw pointers
- * notes:
+ * Notes:
  */
 
 #include <stdint.h>

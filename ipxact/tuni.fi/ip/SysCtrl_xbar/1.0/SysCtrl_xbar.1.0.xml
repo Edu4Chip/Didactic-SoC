@@ -644,7 +644,14 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:mirroredTarget>
+				<ipxact:baseAddresses>
+					<ipxact:remapAddresses>
+						<ipxact:remapAddress>'h01040000</ipxact:remapAddress>
+					</ipxact:remapAddresses>
+					<ipxact:range>'hffff</ipxact:range>
+				</ipxact:baseAddresses>
+			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_DBG_I</ipxact:name>
@@ -1278,7 +1285,14 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:mirroredTarget>
+				<ipxact:baseAddresses>
+					<ipxact:remapAddresses>
+						<ipxact:remapAddress>'h01020000</ipxact:remapAddress>
+					</ipxact:remapAddresses>
+					<ipxact:range>'hffff</ipxact:range>
+				</ipxact:baseAddresses>
+			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_DMEM</ipxact:name>
@@ -1563,7 +1577,14 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:mirroredTarget>
+				<ipxact:baseAddresses>
+					<ipxact:remapAddresses>
+						<ipxact:remapAddress>'h01010000</ipxact:remapAddress>
+					</ipxact:remapAddresses>
+					<ipxact:range>'hffff</ipxact:range>
+				</ipxact:baseAddresses>
+			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_IMEM</ipxact:name>
@@ -1848,7 +1869,14 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:mirroredTarget>
+				<ipxact:baseAddresses>
+					<ipxact:remapAddresses>
+						<ipxact:remapAddress>'h01000000</ipxact:remapAddress>
+					</ipxact:remapAddresses>
+					<ipxact:range>'hffff</ipxact:range>
+				</ipxact:baseAddresses>
+			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>AXI4LITE_periph</ipxact:name>
@@ -2031,7 +2059,14 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:mirroredTarget>
+				<ipxact:baseAddresses>
+					<ipxact:remapAddresses>
+						<ipxact:remapAddress>'h01030000</ipxact:remapAddress>
+					</ipxact:remapAddresses>
+					<ipxact:range>'hffff</ipxact:range>
+				</ipxact:baseAddresses>
+			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>Clock</ipxact:name>
@@ -2242,6 +2277,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_ar_prot_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -2250,11 +2286,19 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_aw_prot_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:mirroredTarget/>
+			<ipxact:mirroredTarget>
+				<ipxact:baseAddresses>
+					<ipxact:remapAddresses>
+						<ipxact:remapAddress>'h01050000</ipxact:remapAddress>
+					</ipxact:remapAddresses>
+					<ipxact:range>'hffff</ipxact:range>
+				</ipxact:baseAddresses>
+			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:channels>

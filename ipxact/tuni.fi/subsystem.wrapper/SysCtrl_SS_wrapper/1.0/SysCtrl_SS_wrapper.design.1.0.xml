@@ -359,8 +359,6 @@
 		<kactus2:routes>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl" kactus2:offPage="false">
 				<kactus2:position x="1150" y="110"/>
-				<kactus2:position x="1240" y="110"/>
-				<kactus2:position x="1240" y="110"/>
 				<kactus2:position x="1260" y="110"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl" kactus2:offPage="false">
@@ -437,8 +435,6 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl" kactus2:offPage="false">
 				<kactus2:position x="1150" y="150"/>
-				<kactus2:position x="1240" y="150"/>
-				<kactus2:position x="1240" y="150"/>
 				<kactus2:position x="1260" y="150"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_Reset_SS_0_to_Reset_SS_0" kactus2:offPage="false">

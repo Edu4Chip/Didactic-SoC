@@ -1036,6 +1036,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_ar_prot_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
@@ -1044,6 +1045,7 @@
 							<ipxact:physicalPort>
 								<ipxact:name>icn_aw_prot_out</ipxact:name>
 							</ipxact:physicalPort>
+							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>

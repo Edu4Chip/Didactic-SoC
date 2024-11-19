@@ -1,11 +1,11 @@
 /*
- * name: 
- * contributor(S):
+ * Name: 
+ * Contributor(s):
  *    - Matti Käyrä (matti.kayra@tuni.fi)
- * description:
+ * Description:
  *    - test program to test some subsystem controls and pmod routing
  *    - 
- * notes:
+ * Notes:
  */
 
 //#include "uart.h"
@@ -33,7 +33,7 @@ int main(){
 
   for (uint32_t i=0; i<5; i++){
     ss_init(i);
-	ss_reset(i);
+	  ss_reset(i);
   }
 
   return 0;

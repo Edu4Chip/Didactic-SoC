@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 01.10.2024
-// Creation time : 13:27:56
+// Creation date : 18.11.2024
+// Creation time : 15:22:14
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.2 64-bit
+// Tool : Kactus2 3.13.3 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem:SysCtrl_SS:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem/SysCtrl_SS/1.0/SysCtrl_SS.1.0.xml
@@ -1288,7 +1288,7 @@ module SysCtrl_SS_0 #(
     assign i_SysCtrl_peripherals_w_strb = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB;
     assign i_SysCtrl_peripherals_w_valid = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID;
     // i_dmem assignments:
-    assign i_dmem_addr_i = i_dmem_mem_to_axi_dmem_bridge_Mem_ADDR[9:0];
+    assign i_dmem_addr_i[7:0] = i_dmem_mem_to_axi_dmem_bridge_Mem_ADDR[9:2];
     assign i_dmem_be_i = i_dmem_mem_to_axi_dmem_bridge_Mem_BE;
     assign i_dmem_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign i_dmem_mem_to_axi_dmem_bridge_Mem_RDATA = i_dmem_rdata_o;
@@ -1297,7 +1297,7 @@ module SysCtrl_SS_0 #(
     assign i_dmem_wdata_i = i_dmem_mem_to_axi_dmem_bridge_Mem_WDATA;
     assign i_dmem_we_i = i_dmem_mem_to_axi_dmem_bridge_Mem_WE;
     // i_imem assignments:
-    assign i_imem_addr_i = axi_imem_bridge_Mem_to_i_imem_mem_ADDR[9:0];
+    assign i_imem_addr_i[7:0] = axi_imem_bridge_Mem_to_i_imem_mem_ADDR[9:2];
     assign i_imem_be_i = axi_imem_bridge_Mem_to_i_imem_mem_BE;
     assign i_imem_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
     assign axi_imem_bridge_Mem_to_i_imem_mem_RDATA = i_imem_rdata_o;
@@ -1568,7 +1568,7 @@ module SysCtrl_SS_0 #(
         .reset_ni            (Ctrl_xbar_reset_ni));
 
     // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.0
-    ibex_top #(
+    ibex_top_tracing #(
         .DmHaltAddr          (16910336),
         .DmExceptionAddr     (16910358))
     Ibex_Core(

@@ -36,6 +36,7 @@
 					<kactus2:portPosition busRef="Reset_SS_1" x="110" y="480"/>
 					<kactus2:portPosition busRef="Reset_SS_2" x="110" y="500"/>
 					<kactus2:portPosition busRef="Reset_SS_3" x="110" y="520"/>
+					<kactus2:portPosition busRef="Reset_icn" x="110" y="550"/>
 					<kactus2:portPosition busRef="SPI" x="-110" y="120"/>
 					<kactus2:portPosition busRef="SS_0_Ctrl" x="110" y="270"/>
 					<kactus2:portPosition busRef="SS_1_Ctrl" x="110" y="290"/>
@@ -50,7 +51,6 @@
 					<kactus2:portPosition busRef="ss_2_pmod_gpio_1" x="110" y="720"/>
 					<kactus2:portPosition busRef="ss_3_pmod_gpio_0" x="110" y="760"/>
 					<kactus2:portPosition busRef="ss_3_pmod_gpio_1" x="110" y="780"/>
-					<kactus2:portPosition busRef="Reset_icn" x="110" y="550"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>

@@ -199,8 +199,8 @@
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
-				<ipxact:addressSpaceRef addressSpaceRef="ibex_dmem">
-					<ipxact:baseAddress>'h20000</ipxact:baseAddress>
+				<ipxact:addressSpaceRef addressSpaceRef="full">
+					<ipxact:baseAddress>'h01010000</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -278,8 +278,8 @@
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
-				<ipxact:addressSpaceRef addressSpaceRef="ibex_imem">
-					<ipxact:baseAddress>'h10000</ipxact:baseAddress>
+				<ipxact:addressSpaceRef addressSpaceRef="full">
+					<ipxact:baseAddress>'h01000000</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -318,6 +318,12 @@
 			<ipxact:width>32</ipxact:width>
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:addressSpace>
+		<ipxact:addressSpace>
+			<ipxact:name>full</ipxact:name>
+			<ipxact:range>'hFFFFFFFF</ipxact:range>
+			<ipxact:width>32</ipxact:width>
+			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+		</ipxact:addressSpace>
 	</ipxact:addressSpaces>
 	<ipxact:memoryMaps>
 		<ipxact:memoryMap>
@@ -328,6 +334,13 @@
 			</ipxact:subspaceMap>
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:memoryMap>
+		<ipxact:memoryMap>
+			<ipxact:name>memoryMap_0</ipxact:name>
+			<ipxact:subspaceMap initiatorRef="imem">
+				<ipxact:name>subspaceMap</ipxact:name>
+				<ipxact:baseAddress>'h0</ipxact:baseAddress>
+			</ipxact:subspaceMap>
+		</ipxact:memoryMap>
 	</ipxact:memoryMaps>
 	<ipxact:model>
 		<ipxact:views>
@@ -335,6 +348,11 @@
 				<ipxact:name>flat_verilog</ipxact:name>
 				<ipxact:envIdentifier>Verilog:kactus2.cs.tut.fi:</ipxact:envIdentifier>
 				<ipxact:componentInstantiationRef>verilog_implementation</ipxact:componentInstantiationRef>
+			</ipxact:view>
+			<ipxact:view>
+				<ipxact:name>flat_tracing</ipxact:name>
+				<ipxact:envIdentifier>Verilog:kactus2.cs.tut.fi:</ipxact:envIdentifier>
+				<ipxact:componentInstantiationRef>tracer_implementation</ipxact:componentInstantiationRef>
 			</ipxact:view>
 		</ipxact:views>
 		<ipxact:instantiations>
@@ -438,6 +456,109 @@
 					<ipxact:moduleParameter parameterId="uuid_9269a4ab_b53b_4d5a_94c9_c23c8ae849d6" usageType="nontyped">
 						<ipxact:name>RndCnstIbexNonce</ipxact:name>
 						<ipxact:value>64'hf79780bc735f3843</ipxact:value>
+					</ipxact:moduleParameter>
+				</ipxact:moduleParameters>
+			</ipxact:componentInstantiation>
+			<ipxact:componentInstantiation>
+				<ipxact:name>tracer_implementation</ipxact:name>
+				<ipxact:language>Verilog</ipxact:language>
+				<ipxact:moduleName>ibex_top_tracing</ipxact:moduleName>
+				<ipxact:moduleParameters>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_ac008d23_cadf_4a77_b2c0_2aed067d1469" type="bit">
+						<ipxact:name>BranchPredictor</ipxact:name>
+						<ipxact:value>uuid_14f31470_ab63_4706_bb2d_3bf6a8e4bd25</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_439b91e9_6142_4c5d_a724_dd572dcd5a42">
+						<ipxact:name>RV32B</ipxact:name>
+						<ipxact:value>uuid_4fef434c_1236_4d76_a1d4_3d4717f56665</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_e5ae0ec0_64c1_494f_b0e0_833dc086cda3">
+						<ipxact:name>PMPGranularity</ipxact:name>
+						<ipxact:value>uuid_377e4451_12fc_4610_a9f4_ae38fe28cff7</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_5944e7b5_5bc1_42ee_ad79_d35bde56a81f" type="bit">
+						<ipxact:name>PMPEnable</ipxact:name>
+						<ipxact:value>uuid_bf30a1b4_4ca6_472c_86b3_a6e1ccafc62a</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_4a1c34c6_34d3_41a1_b5de_d8601db15228">
+						<ipxact:name>MHPMCounterWidth</ipxact:name>
+						<ipxact:value>uuid_063c6662_e6cd_4ebf_bb06_73722b2d80c4</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_9c879776_5194_4ddf_a95c_1c8e489b1f04">
+						<ipxact:name>MHPMCounterNum</ipxact:name>
+						<ipxact:value>uuid_9c512faf_0d8a_4b0b_8532_1db19305b893</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_4f7cf69e_293e_45c8_9158_40e105b6fa52" type="bit">
+						<ipxact:name>ICacheECC</ipxact:name>
+						<ipxact:value>uuid_bd0f18fb_bce9_4f52_9699_db6ffe05b6fb</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_ec4d1851_9254_470a_91f1_9f30cc2be0dc" type="bit">
+						<ipxact:name>ICache</ipxact:name>
+						<ipxact:value>uuid_1e85c16c_89bd_4045_b032_959f56e6955a</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_e96a289c_4f02_44be_b392_badbfa57cb68" type="bit">
+						<ipxact:name>ICacheScramble</ipxact:name>
+						<ipxact:value>uuid_ea356e9d_56b3_4902_a46f_8cd2e4fd3847</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_656ece16_62d5_4481_a753_9bb46d98b4e6">
+						<ipxact:name>DmHaltAddr</ipxact:name>
+						<ipxact:value>uuid_db4ff119_295e_4928_a759_bdf24abd066a</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_fbc9d4cf_a2bf_4dc9_8993_1783d77700eb">
+						<ipxact:name>DmExceptionAddr</ipxact:name>
+						<ipxact:value>uuid_a3dee705_1899_4f10_bb7e_eed480a6c4cc</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_a0ab1a97_3f80_4316_8bdf_2bae3013143e" type="bit">
+						<ipxact:name>DbgTriggerEn</ipxact:name>
+						<ipxact:value>uuid_dd731943_3716_4102_bbf2_c50f816d7568</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_a501b001_fc40_432c_9363_3d747aeb93d7">
+						<ipxact:name>RndCnstLfsrSeed</ipxact:name>
+						<ipxact:value>uuid_135ad218_e725_4f23_8f24_930387e33128</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_a7410ee7_188e_4a07_85e4_0b6414bde60b">
+						<ipxact:name>RndCnstLfsrPerm</ipxact:name>
+						<ipxact:value>uuid_17e660f0_f6b9_4d87_8d15_bc9b76ab41fb</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_f13af229_9471_48ed_989a_d45927cbec34" type="bit">
+						<ipxact:name>WritebackStage</ipxact:name>
+						<ipxact:value>uuid_b0724dfa_43ed_4e40_a968_3ef790419586</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_13f70255_2341_4f5f_8483_6216f1558d81" type="bit">
+						<ipxact:name>SecureIbex</ipxact:name>
+						<ipxact:value>uuid_c97098d1_b8c1_4279_baa8_5406bb6012c1</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_dac9eae2_dd47_4932_b52d_d3c0e49d0006">
+						<ipxact:name>RndCnstIbexNonce</ipxact:name>
+						<ipxact:value>64'hf79780bc735f3843</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_b0eba7b4_0388_4b44_a7f5_78b9f441a7a1">
+						<ipxact:name>RndCnstIbexKey</ipxact:name>
+						<ipxact:value>128'h14e8cecae3040d5e12286bb3cc113298</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_42a058dd_fd33_447c_8c06_23ff705fe6a5">
+						<ipxact:name>RegFile</ipxact:name>
+						<ipxact:value>uuid_1938fbd5_6ca7_4b31_ad1a_6a61ae2ceb47</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_1b391a29_b375_4d6b_b750_590bb4c0b3a3">
+						<ipxact:name>RV32M</ipxact:name>
+						<ipxact:value>uuid_c9619ec7_b9ef_433d_8401_b683e8972cda</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_ff218c05_a501_4a72_aeda_6a3ee627063f" type="bit">
+						<ipxact:name>RV32E</ipxact:name>
+						<ipxact:value>uuid_3873e5bc_3152_418b_8c8e_2cc89e3b1fbe</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_cb3f9a61_1f5f_4472_9211_2ccc624fb481">
+						<ipxact:name>PMPNumRegions</ipxact:name>
+						<ipxact:value>uuid_6dd0fcb6_8474_4444_baa5_50c69ad4c1fd</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_a87b300f_5a87_47b5_951b_d4195c141027">
+						<ipxact:name>DbgHwBreakNum</ipxact:name>
+						<ipxact:value>uuid_2ab2dd77_3455_4164_9cd9_78720e4158df</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter kactus2:arrayLeft="0" kactus2:arrayRight="0" parameterId="uuid_0f39aa20_e4f0_40c9_b31c_c695d5b38277" type="bit">
+						<ipxact:name>BranchTargetALU</ipxact:name>
+						<ipxact:value>uuid_1e5d28c8_6274_4749_88b3_4aa6a2283da3</ipxact:value>
 					</ipxact:moduleParameter>
 				</ipxact:moduleParameters>
 			</ipxact:componentInstantiation>
@@ -1375,10 +1496,16 @@
 	</ipxact:fileSets>
 	<ipxact:cpus>
 		<ipxact:cpu>
-			<ipxact:name>ibex_core</ipxact:name>
+			<ipxact:name>ibex_icore</ipxact:name>
 			<ipxact:range>8</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:memoryMapRef>memoryMap</ipxact:memoryMapRef>
+		</ipxact:cpu>
+		<ipxact:cpu>
+			<ipxact:name>ibex_dcore</ipxact:name>
+			<ipxact:range>8</ipxact:range>
+			<ipxact:width>32</ipxact:width>
+			<ipxact:memoryMapRef>memoryMap_0</ipxact:memoryMapRef>
 		</ipxact:cpu>
 	</ipxact:cpus>
 	<ipxact:description>IBEX cpu top ipxact interface model. Core by lowRISC. IPXACT by TUNI.

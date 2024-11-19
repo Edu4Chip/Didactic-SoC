@@ -1,10 +1,10 @@
 /*
- * name: 
- * contributor(S):
+ * Name: 
+ * Contributor(S):
  *    - Matti Käyrä (matti.kayra@tuni.fi)
- * description:
+ * Description:
  *    - uart tx to rx loopback test
- * notes:
+ * Notes:
  *    - compile tb without uart receiver to enable loopback
  */
 #include "uart.h"

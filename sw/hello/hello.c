@@ -1,10 +1,10 @@
 /*
- * name: 
- * contributor(S):
+ * Name: 
+ * Contributor(s):
  *    - Matti Käyrä (matti.kayra@tuni.fi)
- * description:
+ * Description:
  *    - hello world for didactic soc
- * notes:
+ * Notes:
  *    - compile tb lib with uart receiver define
  */
 #include "uart.h"

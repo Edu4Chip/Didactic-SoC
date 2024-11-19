@@ -598,42 +598,97 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 12:18:25 on 26.09.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 12:18:25 on 26.09.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 12:18:25 on 26.09.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_1_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 12:18:25 on 26.09.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_2_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 12:18:25 on 26.09.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_3_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 12:18:25 on 26.09.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 12:18:25 on 26.09.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_peripherals_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 12:18:25 on 26.09.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+		</ipxact:fileSet>
+		<ipxact:fileSet>
+			<ipxact:name>configurations</ipxact:name>
+			<ipxact:file>
+				<ipxact:name>Didactic.1.0_renodeConfiguration.json</ipxact:name>
+				<ipxact:fileType user="json">user</ipxact:fileType>
+			</ipxact:file>
+			<ipxact:file>
+				<ipxact:name>Didactic.1.0_svdConfiguration.json</ipxact:name>
+				<ipxact:fileType user="json">user</ipxact:fileType>
+			</ipxact:file>
+		</ipxact:fileSet>
+		<ipxact:fileSet>
+			<ipxact:name>tracer</ipxact:name>
+			<ipxact:group>generatedFiles</ipxact:group>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/generated/Student_SS_1_0.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/generated/Student_SS_2_0.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/generated/Student_SS_3_0.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
+			</ipxact:file>
+			<ipxact:file>
+				<ipxact:name>../../../../../src/generated/SysCtrl_peripherals_0.v</ipxact:name>
+				<ipxact:fileType>verilogSource</ipxact:fileType>
+				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>

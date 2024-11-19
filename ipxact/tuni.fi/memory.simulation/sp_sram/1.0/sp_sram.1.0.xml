@@ -75,9 +75,19 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>ADDR</ipxact:name>
+								<ipxact:range>
+									<ipxact:left>$clog2(uuid_55d6171d_2137_4f9e_b780_12fe7c36b023)-1</ipxact:left>
+									<ipxact:right>2</ipxact:right>
+								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>addr_i</ipxact:name>
+								<ipxact:partSelect>
+									<ipxact:range>
+										<ipxact:left>$clog2(uuid_55d6171d_2137_4f9e_b780_12fe7c36b023)-1-2</ipxact:left>
+										<ipxact:right>0</ipxact:right>
+									</ipxact:range>
+								</ipxact:partSelect>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -285,6 +295,9 @@
 				<ipxact:name>../../../../../src/reuse/sp_sram.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:description>Sram sim model. Supports memory preloading.</ipxact:description>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>a7e43f914bf14cd6960217665d54cede970fa477</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -304,5 +317,17 @@
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
+		<kactus2:fileDependencies>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/reuse/sp_sram.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/nms/sp_sram.sv</kactus2:fileRef2>
+				<ipxact:description>Include reference to verification/verilator/src/hdl/nms/sp_sram.sv</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/reuse/sp_sram.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/ms/sp_sram.sv</kactus2:fileRef2>
+				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/sp_sram.sv</ipxact:description>
+			</kactus2:fileDependency>
+		</kactus2:fileDependencies>
 	</ipxact:vendorExtensions>
 </ipxact:component>
