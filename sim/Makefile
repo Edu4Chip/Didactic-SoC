@@ -62,12 +62,13 @@ compile_pulp:
 	vlog -sv -work pulp_lib $(VLOG_OPTS) +incdir+../ips/common_cells/include/ +incdir+../ips/axi/include/ \
 	-F ../src/pulp-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_pulp.log
 
+#simulation currently utilizes tracer for debugging. this requires suppress + RVFI define.
 compile_ibex:
 	vlib $(BUILD_DIR)/ibex_lib
 	vmap ibex_lib $(BUILD_DIR)/ibex_lib
 	vlog -sv -work ibex_lib -suppress vlog-2244 +define+SYNTHESIS +define+RVFI +incdir+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl +incdir+../ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
 	-F ../src/ibex-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_ibex.log
-# +define+RVFI
+
 compile_riscv_dbg:
 	vlib $(BUILD_DIR)/riscv_dbg_lib
 	vmap riscv_dbg_lib $(BUILD_DIR)/riscv_dbg_lib
