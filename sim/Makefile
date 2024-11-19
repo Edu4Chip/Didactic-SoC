@@ -37,7 +37,8 @@ VOPT_OPTS = \
 VLOG_OPTS = \
 	-svinputport=compat \
 	-override_timescale="1ns/1ps" \
-	-suppress vlog-2583
+	-suppress vlog-2583 \
+	
 
 env:
 	mkdir -p $(BUILD_DIR)/logs/compile
@@ -64,9 +65,9 @@ compile_pulp:
 compile_ibex:
 	vlib $(BUILD_DIR)/ibex_lib
 	vmap ibex_lib $(BUILD_DIR)/ibex_lib
-	vlog -sv -work ibex_lib +define+SYNTHESIS +incdir+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl +incdir+../ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
+	vlog -sv -work ibex_lib -suppress vlog-2244 +define+SYNTHESIS +define+RVFI +incdir+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl +incdir+../ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
 	-F ../src/ibex-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_ibex.log
-
+# +define+RVFI
 compile_riscv_dbg:
 	vlib $(BUILD_DIR)/riscv_dbg_lib
 	vmap riscv_dbg_lib $(BUILD_DIR)/riscv_dbg_lib

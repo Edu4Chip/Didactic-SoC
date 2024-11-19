@@ -17,6 +17,8 @@
 
 # actual ibex source files
 ../ips/ibex/rtl/ibex_pkg.sv 
+../ips/ibex/rtl/ibex_tracer_pkg.sv 
+../ips/ibex/rtl/ibex_tracer.sv
 ../ips/ibex/rtl/ibex_csr.sv 
 ../ips/ibex/rtl/ibex_compressed_decoder.sv 
 ../ips/ibex/rtl/ibex_decoder.sv 
@@ -36,3 +38,4 @@
 ../ips/ibex/rtl/ibex_wb_stage.sv 
 ../ips/ibex/rtl/ibex_core.sv 
 ../ips/ibex/rtl/ibex_top.sv 
+../ips/ibex/rtl/ibex_top_tracing.sv 
