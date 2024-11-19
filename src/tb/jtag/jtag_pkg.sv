@@ -1574,7 +1574,7 @@ package jtag_pkg;
                end
                if (num_stim > $size(stimuli) || stimuli[num_stim]===32'bx ) begin // make sure we have more stimuli
                   more_stim = 0;                    // if not set variable to 0, will prevent additional stimuli to be applied
-                  break;
+                  //break;
                end
                spi_addr_old = spi_addr;
 
