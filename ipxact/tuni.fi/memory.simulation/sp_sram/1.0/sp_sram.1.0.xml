@@ -76,7 +76,7 @@
 							<ipxact:logicalPort>
 								<ipxact:name>ADDR</ipxact:name>
 								<ipxact:range>
-									<ipxact:left>$clog2(uuid_55d6171d_2137_4f9e_b780_12fe7c36b023)-1</ipxact:left>
+									<ipxact:left>$clog2(uuid_55d6171d_2137_4f9e_b780_12fe7c36b023)-1+2</ipxact:left>
 									<ipxact:right>2</ipxact:right>
 								</ipxact:range>
 							</ipxact:logicalPort>
@@ -84,7 +84,7 @@
 								<ipxact:name>addr_i</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
-										<ipxact:left>$clog2(uuid_55d6171d_2137_4f9e_b780_12fe7c36b023)-1-2</ipxact:left>
+										<ipxact:left>$clog2(uuid_55d6171d_2137_4f9e_b780_12fe7c36b023)-1</ipxact:left>
 										<ipxact:right>0</ipxact:right>
 									</ipxact:range>
 								</ipxact:partSelect>
@@ -312,11 +312,6 @@
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:kts_attributes>
-			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
-			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
-			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
-		</kactus2:kts_attributes>
 		<kactus2:fileDependencies>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
 				<kactus2:fileRef1>../../../../../src/reuse/sp_sram.sv</kactus2:fileRef1>
@@ -329,5 +324,10 @@
 				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/sp_sram.sv</ipxact:description>
 			</kactus2:fileDependency>
 		</kactus2:fileDependencies>
+		<kactus2:kts_attributes>
+			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
+			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
+			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
+		</kactus2:kts_attributes>
 	</ipxact:vendorExtensions>
 </ipxact:component>

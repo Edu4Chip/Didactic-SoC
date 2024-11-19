@@ -599,6 +599,9 @@
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>2ab96a628f339484f2f4955e1e8bca5c0f185980</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
@@ -609,86 +612,46 @@
 				<ipxact:name>../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>4339ef5aee13113af65a6bb5618128a9539e5b3b</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_1_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>3a0ffccd1bbe1f79def702c4fe4d1cc592041d9f</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_2_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>6a4c8fba69600a7c985c252d544da53eb3417104</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_3_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>a46852108b67a744518074a5f657d04577b357aa</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>6113cbe95d072114b07bfaca6d28b68b17c342be</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_peripherals_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
-			</ipxact:file>
-		</ipxact:fileSet>
-		<ipxact:fileSet>
-			<ipxact:name>configurations</ipxact:name>
-			<ipxact:file>
-				<ipxact:name>Didactic.1.0_renodeConfiguration.json</ipxact:name>
-				<ipxact:fileType user="json">user</ipxact:fileType>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>Didactic.1.0_svdConfiguration.json</ipxact:name>
-				<ipxact:fileType user="json">user</ipxact:fileType>
-			</ipxact:file>
-		</ipxact:fileSet>
-		<ipxact:fileSet>
-			<ipxact:name>tracer</ipxact:name>
-			<ipxact:group>generatedFiles</ipxact:group>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/generated/Student_SS_1_0.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/generated/Student_SS_2_0.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/generated/Student_SS_3_0.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
-			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/generated/SysCtrl_peripherals_0.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:20 on 18.11.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -738,5 +701,97 @@ Spec:
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Fixed</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
+		<kactus2:fileDependencies>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Didactic.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/ICN_SS.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module ICN_SS</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Didactic.v</kactus2:fileRef1>
+				<kactus2:fileRef2>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module SysCtrl_SS_wrapper_0</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/Student_area_0.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module Student_area_0</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_1_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/student_ss_1.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module student_ss_1</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_1_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_2_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_2_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/student_ss_2.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module student_ss_2</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_3_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_3_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/Student_SS_3.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module Student_SS_3</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/mem_axi_bridge.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module mem_axi_bridge</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/SysCtrl_xbar.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module SysCtrl_xbar</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/ibex_top_tracing.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module ibex_top_tracing</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/SS_Ctrl_reg_array.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module SS_Ctrl_reg_array</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/ibex_axi_bridge.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module ibex_axi_bridge</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>../../../../../src/generated/SysCtrl_peripherals_0.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module SysCtrl_peripherals_0</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/sp_sram.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module sp_sram</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/jtag_dbg_wrapper.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module jtag_dbg_wrapper</ipxact:description>
+			</kactus2:fileDependency>
+		</kactus2:fileDependencies>
 	</ipxact:vendorExtensions>
 </ipxact:component>
