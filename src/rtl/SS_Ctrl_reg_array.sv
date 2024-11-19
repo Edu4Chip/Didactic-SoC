@@ -160,8 +160,8 @@ module SS_Ctrl_reg_array #(
         'h64: io_cell_cfg_reg[15] <= wdata_in[ 31:0 ];
         'h68: io_cell_cfg_reg[16] <= wdata_in[ 31:0 ];
 
-        'h6C: io_cell_cfg_reg[17] <= wdata_in[ 31:0 ];
-        'h70: io_cell_cfg_reg[18] <= wdata_in[ 31:0 ];
+        //'h6C: io_cell_cfg_reg[17] <= wdata_in[ 31:0 ];
+        //'h70: io_cell_cfg_reg[18] <= wdata_in[ 31:0 ];
         endcase
      end
     end
@@ -169,6 +169,7 @@ module SS_Ctrl_reg_array #(
 
     always_comb // read process
     begin : read_logic
+      rdata_out = 'h0;
       case(addr_in[16:0])
 
         'h0:  rdata_out = fetch_en_reg;
@@ -206,9 +207,8 @@ module SS_Ctrl_reg_array #(
         'h64: rdata_out = io_cell_cfg_reg[15];
         'h68: rdata_out = io_cell_cfg_reg[16];
         // reserves
-        'h6C: rdata_out = io_cell_cfg_reg[17];
-        'h70: rdata_out = io_cell_cfg_reg[18];
-        default: rdata_out = 'h0;
+        //'h6C: rdata_out = io_cell_cfg_reg[17];
+        //'h70: rdata_out = io_cell_cfg_reg[18];
 
     endcase
 

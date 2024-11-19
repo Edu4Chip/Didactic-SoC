@@ -8,5 +8,6 @@ tb/jtag/jtag_pkg.sv
 #../ips/pulp/rtl/tb/jtag_pkg.sv
 
 ../ips/pulp/rtl/vip/uart_tb_rx.sv
+tb/spi/if_spi_slave.sv
 
 tb/tb_didactic.sv

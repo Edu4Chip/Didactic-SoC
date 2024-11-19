@@ -1,11 +1,11 @@
 /*
- * name: uart.h
- * contributor(S):
+ * Name: uart
+ * Contributor(s):
  *    - Matti Käyrä	(matti.kayra@tuni.fi)
  *    - Mohamed Soliman (mohamed.w.soliman.tuni.fi)
- * description:
+ * Description:
  *    - helper functions to use uart
- * notes:
+ * Notes:
  *    - addresses are to be moved to common mem map header
  */
 #ifndef __UART_H__

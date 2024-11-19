@@ -1,5 +1,5 @@
 /*
- * Name: 
+ * Name: reg ctrl
  * Contributor(s):
  *    - Matti Käyrä (matti.kayra@tuni.fi)
  * Description:
@@ -12,7 +12,6 @@
 #include "soc_ctrl.h"
 
 int main(){
-  int errors=0;
 
  // uart_init();
 
@@ -36,6 +35,20 @@ int main(){
 	  ss_reset(i);
   }
 
-  return 0;
+//  uart_print("1. phase done");
+
+  volatile uint32_t errors=0;
+  volatile uint32_t read_val=0;
+  volatile uint32_t ones= 0xFFFFFFFF;
+
+  for(uint32_t i=0; i < 27; i++ ){
+    *(volatile uint32_t*)(CTRL_BASE+i*4)=ones;
+	read_val=*(volatile uint32_t*)(CTRL_BASE+i*4);
+	if (read_val!=ones){
+		errors++;
+	}
+  }
+
+  return errors;
 
 }

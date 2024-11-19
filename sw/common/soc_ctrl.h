@@ -1,11 +1,11 @@
 /*
- * name: soc_ctrl
- * contributor(S):
+ * Name: soc_ctrl
+ * Contributor(S):
  *    - Matti Käyrä (matti.kayra@tuni.fi)
- * description:
+ * Description:
  *    - helper functions to control didcatic soc
  *    - 
- * notes:
+ * Notes:
  *    - addresses are to be moved to common mem map header
  */
 
@@ -13,7 +13,6 @@
 #define __SOC_CTRL_H__
 
 #include <stdint.h>
-#include "uart.h"
 
 #define CTRL_BASE 0x01040000
 
@@ -59,17 +58,14 @@ void ss_init(const uint32_t target_ss){
     default:
       // error handling
       asm("nop");
-      uart_print("error branch");
   }
 
 }
 
 void ss_reset(const uint32_t target_ss){
   // reset: reset + clock disabled + irq disabled
-  // init: reset + clock enable
-  volatile uint32_t mask = RST_CTRL;
-  //     old value | target ss bit | icn reset
-  RST_CTRL = (mask | 2u<<target_ss | 1u);
+  volatile uint32_t mask = 0;
+
 
   switch (target_ss)
   {
@@ -114,7 +110,7 @@ void ss_reset(const uint32_t target_ss){
 }
 
 void pmod_target(const uint32_t target_ss){
-  // indexing: ss numbering and everything else is sysctrl
+  // indexing: ss numbers. all other values route gpios from sysctrl
   PMOD_CTRL = target_ss;
 }
 

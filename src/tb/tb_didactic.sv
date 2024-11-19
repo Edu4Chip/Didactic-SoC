@@ -1,14 +1,14 @@
 /*
-  Contributors:
-    * Matti Käyrä (matti.kayra@tuni.fi)
-  Description:
-    * tb for didactic soc
-    * extent of behavior defined later
-    * this testbench is based partially on pulp repository module:
-      ../ips/pulp/rtl/tb/tb_pulp.sv
-  Notes:
-    * 
-*/
+ * Contributors:
+ *   - Matti Käyrä (matti.kayra@tuni.fi)
+ * Description:
+ *   - tb for didactic soc
+ *   - extent of behavior defined later
+ *   - this testbench is based partially on pulp repository module:
+ *     ../ips/pulp/rtl/tb/tb_pulp.sv
+ * Notes:
+ *   - 
+ */
 
 // modelsim exit codes 
 `define EXIT_SUCCESS  0
@@ -68,8 +68,8 @@ module tb_didactic();
   tri0 dut_uart_rx;
   tri0 dut_uart_tx;
   
-  tri1 dut_csn0;
-  tri1 dut_csn1;
+  tri1 dut_spi_csn0;
+  tri1 dut_spi_csn1;
   tri1 dut_spi_sck;
   tri1 dut_spi_data0;
   tri1 dut_spi_data1;
@@ -256,7 +256,7 @@ module tb_didactic();
     // Interface: Reset
     .reset(dut_reset),
     // Interface: SPI
-    .spi_csn({dut_csn1,dut_csn0}),
+    .spi_csn({dut_spi_csn1,dut_spi_csn0}),
     .spi_data({dut_spi_data3, dut_spi_data2, dut_spi_data1, dut_spi_data0}),
     .spi_sck(dut_spi_sck),
     // Interface: UART
@@ -282,6 +282,27 @@ module tb_didactic();
  );
 `else
   assign dut_uart_rx = dut_uart_tx;
+`endif
+
+// this spi model utilizes only single lane
+// replicate pulpino spi data return from:
+// https://github.com/pulp-platform/pulpino/blob/master/tb/tb.sv#L364
+`ifdef USE_SPI
+
+  spi_slave tb_if_spi_slave();
+
+  assign tb_if_spi_slave.csn = dut_spi_csn0;
+  assign tb_if_spi_slave.clk = dut_spi_sck;
+  assign dut_spi_data0 = tb_if_spi_slave.sdi[0];
+
+  initial begin
+    // do two returns of data
+    for (int i = 0; i < 2; i++) begin
+      tb_if_spi_slave.wait_csn(0);
+      tb_if_spi_slave.send(0,{>>{8'h38}});
+    end
+  end
+
 `endif
 
 endmodule
