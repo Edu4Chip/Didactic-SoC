@@ -21,9 +21,8 @@ TEST ?= blink
 # Fetch submodule revisions and 
 # save work in submodules to stashes - avoid data loss by accidents
 repository_init:
-	git fetch
-	git submodule foreach 'git stash'
-	git submodule update --init --recursive
+	bender update
+	bender vendor init
 
 check-env:
 	mkdir -p $(BUILD_DIR)/logs/compile
