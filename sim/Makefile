@@ -20,13 +20,13 @@ TB_DEFINES = \
 	+define+USE_SPI 
 
 DUT_DEFINES = \
-	+define+INC_ASSERT \
 	+define+SYNTHESIS \
-	+define+RVFI
+	+define+RVFI \
+#	+define+INC_ASSERT \
 
 DUT_LIBS = \
 	-L $(BUILD_DIR)/didactic_lib \
-	-L $(BUILD_DIR)/tb_lib \
+#	-L $(BUILD_DIR)/tb_lib \
 
 # vsim-8386: suppress bit-to-reg assignment errors
 VSIM_OPTS = \
@@ -76,13 +76,14 @@ library_mapping:
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
 	vmap tb_lib $(BUILD_DIR)/tb_lib
 
-compile: env compile_didactic compile_tb 
+compile: env compile_didactic 
 
 compile_didactic:
 	vlib $(BUILD_DIR)/didactic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
-	vlog -sv -work didactic_lib $(DUT_DEFINES) $(INCLUDES) $(DUT_LIBS) \
+	vlog -sv -work didactic_lib $(DUT_DEFINES) $(TB_DEFINES) $(INCLUDES) $(DUT_LIBS) \
 	$(VLOG_OPTS) $(SIM_FLIST) -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
+
 
 compile_tb:
 	vlib $(BUILD_DIR)/tb_lib
@@ -99,7 +100,7 @@ elaborate: library_mapping
 	$(DUT_LIBS) $(VOPT_OPTS) \
 	-gDM_SANITY_TESTCASES=$(SANITY_CHECK) \
 	-gTESTCASE=$(TESTCASE) \
-	-work $(BUILD_DIR)/tb_lib \
+	-work $(BUILD_DIR)/didactic_lib \
 	$(DUT) \
 	-o $(DUT)_opt \
 	-l $(BUILD_DIR)/logs/opt/$(START_TIME)_vopt.log
@@ -109,7 +110,7 @@ run_sim: library_mapping
 	cd $(BUILD_DIR)
 	vsim $(GUI) \
 	$(DUT_LIBS) $(VSIM_OPTS) \
-	-work $(BUILD_DIR)/tb_lib \
+	-work $(BUILD_DIR)/didactic_lib \
 	$(DUT)_opt \
 	-do "run 0ms;" \
 	-l $(BUILD_DIR)/logs/sim/$(START_TIME)_sim.log
