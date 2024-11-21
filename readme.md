@@ -6,6 +6,8 @@ See Doc Folder for more extensive documentation and guides as well as contributi
 
 ## Get started
 
+This repository uses Bender, install instructions [here](https://github.com/pulp-platform/bender).
+
 After cloning this repository, run `make repository_init` to fetch all of the submodules to correct versions.
 
 ## Basic simulation flow

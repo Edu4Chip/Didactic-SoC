@@ -7,3 +7,5 @@ transcript
 etch*
 sim/stdout/uart
 sim/trace_core*.log
+.bender
+vendor_ips

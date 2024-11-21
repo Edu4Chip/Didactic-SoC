@@ -4,7 +4,9 @@
 # SoC: Didactic
 # Contributors: 
 # * Matti Käyrä (Matti.kayra@tuni.fi)
-#
+# * Antti Nurmi (Antti.nurmi@tuni.fi)
+# Notes:
+# * 
 ###############################################
 
 BUILD_DIR ?= $(realpath $(CURDIR))/../build
@@ -13,32 +15,61 @@ SHELL = bash
 
 DUT = tb_didactic
 
+# TB defines enable tb peripherals
 TB_DEFINES = \
 	+define+USE_UART \
-	+define+USE_SPI \
+	+define+USE_SPI 
+
+# Dut defines:
+# * RVFi required by tracer
+# * Synthesis disables verification assertions within
+# pulp / ibex codes. we assume they are working packages,
+# so disabled by default.
+DUT_DEFINES = \
+	+define+SYNTHESIS \
+	+define+RVFI \
+#	+define+INC_ASSERT \
 
 DUT_LIBS = \
-	-L $(BUILD_DIR)/pulp_lib \
-	-L $(BUILD_DIR)/ibex_lib \
-	-L $(BUILD_DIR)/riscv_dbg_lib \
-	-L $(BUILD_DIR)/tech_generic_lib \
 	-L $(BUILD_DIR)/didactic_lib \
-	-L $(BUILD_DIR)/tb_lib \
+#	-L $(BUILD_DIR)/tb_lib \
 
+# vsim-8386: suppress bit-to-reg assignment errors
 VSIM_OPTS = \
 	-suppress vsim-3009 \
 	-voptargs=+acc=npr \
+	-suppress vsim-8386 \
 
 VOPT_OPTS = \
 	-sv \
 	-suppress vopt-2577 \
 	+acc=npr \
 
+# vlog-2244: tracer Variable implicitly static
 VLOG_OPTS = \
 	-svinputport=compat \
-	-override_timescale="1ns/1ps" \
 	-suppress vlog-2583 \
-	
+	-suppress vlog-2244 \
+
+BENDER ?= bender
+
+COMMON_CELLS_DIR ?= $(shell $(BENDER) path common_cells)
+AXI_DIR          ?= $(shell $(BENDER) path axi)
+APB_DIR          ?= $(shell $(BENDER) path apb)
+REGIF_DIR        ?= $(shell $(BENDER) path register_interface)
+IBEX_DIR         ?= $(BUILD_DIR)/../vendor_ips/ibex
+
+SIM_FLIST        ?= $(shell $(BENDER) script flist -t didactic_top -t vendor -t simulation)
+
+INCLUDES ?= \
+	+incdir+$(COMMON_CELLS_DIR)/include \
+	+incdir+$(AXI_DIR)/include \
+	+incdir+$(APB_DIR)/include \
+	+incdir+$(REGIF_DIR)/include \
+	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/dv/sv/dv_utils \
+	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/ip/prim/rtl \
+	+incdir+$(IBEX_DIR)/rtl
+
 
 env:
 	mkdir -p $(BUILD_DIR)/logs/compile
@@ -47,54 +78,24 @@ env:
 
 library_mapping: 
 	cd $(BUILD_DIR)
-	vmap pulp_lib $(BUILD_DIR)/pulp_lib
-	vmap ibex_lib $(BUILD_DIR)/ibex_lib
-	vmap riscv_dbg_lib $(BUILD_DIR)/riscv_dbg_lib
-	vmap tech_generic_lib $(BUILD_DIR)/tech_generic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
 	vmap tb_lib $(BUILD_DIR)/tb_lib
 
-compile: env compile_pulp compile_ibex compile_riscv_dbg compile_tech_generic compile_didactic compile_tb 
-
-compile_pulp:
-	vlib $(BUILD_DIR)/pulp_lib
-	vmap pulp_lib $(BUILD_DIR)/pulp_lib
-	vlog -sv -work pulp_lib $(VLOG_OPTS) +incdir+../ips/common_cells/include/ +incdir+../ips/axi/include/ \
-	-F ../src/pulp-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_pulp.log
-
-#simulation currently utilizes tracer for debugging. this requires suppress + RVFI define.
-compile_ibex:
-	vlib $(BUILD_DIR)/ibex_lib
-	vmap ibex_lib $(BUILD_DIR)/ibex_lib
-	vlog -sv -work ibex_lib -suppress vlog-2244 +define+SYNTHESIS +define+RVFI +incdir+../ips/ibex/vendor/lowrisc_ip/ip/prim/rtl +incdir+../ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
-	-F ../src/ibex-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_ibex.log
-
-compile_riscv_dbg:
-	vlib $(BUILD_DIR)/riscv_dbg_lib
-	vmap riscv_dbg_lib $(BUILD_DIR)/riscv_dbg_lib
-	vlog -sv -work riscv_dbg_lib  \
-	-F ../src/riscv_dbg-reused-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_riscv_dbg.log
-
-compile_tech_generic:
-	vlib $(BUILD_DIR)/tech_generic_lib
-	vmap tech_generic_lib $(BUILD_DIR)/tech_generic_lib
-	vlog -sv -work tech_generic_lib  \
-	-F ../src/sim-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_tech_generic.log
+compile: env compile_didactic 
 
 compile_didactic:
 	vlib $(BUILD_DIR)/didactic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
-	vlog -sv -work didactic_lib +incdir+../ips/common_cells/include/ +incdir+../ips/axi/include/ $(DUT_LIBS) \
-	-F ../src/sv-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
+	vlog -sv -work didactic_lib $(DUT_DEFINES) $(TB_DEFINES) $(INCLUDES) $(DUT_LIBS) \
+	$(VLOG_OPTS) $(SIM_FLIST) -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
+
 
 compile_tb:
 	vlib $(BUILD_DIR)/tb_lib
 	vmap tb_lib $(BUILD_DIR)/tb_lib
-	vlog -sv -work tb_lib $(TB_DEFINES) $(DUT_LIBS)  \
-	-F ../src/tb-files.list -l $(BUILD_DIR)/logs/compile/$(START_TIME)_tb.log
-#+define+USE_UART
+	vlog -sv -work tb_lib $(TB_DEFINES) $(DUT_LIBS) $(INCLUDES) \
+	$(SIM_FLIST) -l $(BUILD_DIR)/logs/compile/$(START_TIME)_tb.log
 
-# once regurarly running programs instead sanity, reverse this condition 
 SANITY_CHECK ?= 0
 TESTCASE ?= blink
 GUI ?= "-c"
@@ -104,7 +105,7 @@ elaborate: library_mapping
 	$(DUT_LIBS) $(VOPT_OPTS) \
 	-gDM_SANITY_TESTCASES=$(SANITY_CHECK) \
 	-gTESTCASE=$(TESTCASE) \
-	-work $(BUILD_DIR)/tb_lib \
+	-work $(BUILD_DIR)/didactic_lib \
 	$(DUT) \
 	-o $(DUT)_opt \
 	-l $(BUILD_DIR)/logs/opt/$(START_TIME)_vopt.log
@@ -114,7 +115,7 @@ run_sim: library_mapping
 	cd $(BUILD_DIR)
 	vsim $(GUI) \
 	$(DUT_LIBS) $(VSIM_OPTS) \
-	-work $(BUILD_DIR)/tb_lib \
+	-work $(BUILD_DIR)/didactic_lib \
 	$(DUT)_opt \
 	-do "run 0ms;" \
 	-l $(BUILD_DIR)/logs/sim/$(START_TIME)_sim.log
