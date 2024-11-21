@@ -42,7 +42,6 @@ VOPT_OPTS = \
 # vlog-2244: tracer Variable implicitly static
 VLOG_OPTS = \
 	-svinputport=compat \
-	-override_timescale="1ns/1ps" \
 	-suppress vlog-2583 \
 	-suppress vlog-2244 \
 
