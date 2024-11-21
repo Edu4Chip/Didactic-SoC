@@ -15,10 +15,16 @@ SHELL = bash
 
 DUT = tb_didactic
 
+# TB defines enable tb peripherals
 TB_DEFINES = \
 	+define+USE_UART \
 	+define+USE_SPI 
 
+# Dut defines:
+# * RVFi required by tracer
+# * Synthesis disables verification assertions within
+# pulp / ibex codes. we assume they are working packages,
+# so disabled by default.
 DUT_DEFINES = \
 	+define+SYNTHESIS \
 	+define+RVFI \

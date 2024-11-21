@@ -11,10 +11,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_8e134934_f295_4f1a_bb41_31c15f7e7b6c</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_8e134934_f295_4f1a_bb41_31c15f7e7b6c</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -69,10 +71,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_8e134934_f295_4f1a_bb41_31c15f7e7b6c</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_8e134934_f295_4f1a_bb41_31c15f7e7b6c</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -142,10 +146,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_5e2592df_b7ae_44bd_9ee1_cf647a2432f0</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_5e2592df_b7ae_44bd_9ee1_cf647a2432f0</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -230,10 +236,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_5e2592df_b7ae_44bd_9ee1_cf647a2432f0</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_5e2592df_b7ae_44bd_9ee1_cf647a2432f0</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -258,10 +266,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_5e2592df_b7ae_44bd_9ee1_cf647a2432f0/8</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_5e2592df_b7ae_44bd_9ee1_cf647a2432f0/8</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -282,6 +292,16 @@
 			</ipxact:wire>
 		</ipxact:port>
 	</ipxact:ports>
+	<ipxact:parameters>
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_8e134934_f295_4f1a_bb41_31c15f7e7b6c">
+			<ipxact:name>ADDR_WIDTH</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="6" parameterId="uuid_5e2592df_b7ae_44bd_9ee1_cf647a2432f0">
+			<ipxact:name>DATA_WIDTH</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 	</ipxact:vendorExtensions>
