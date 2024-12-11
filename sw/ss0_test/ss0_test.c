@@ -17,7 +17,7 @@ int main(){
   ss_init(0);
   volatile uint32_t temp_0 = 0xFF;
   // this is basic read operation
-  temp_0 = *( volatile uint32_t* ) 0x010500000;
+  temp_0 = *( volatile uint32_t* ) 0x01050000;
   // check if value updated
   if (temp_0 == 0xFF){
     errors++;
@@ -26,7 +26,7 @@ int main(){
   // this is basic write operation
   *( volatile uint32_t* ) 0x010500000 = 0xFF;
 
-  temp_0 = *( volatile uint32_t* ) 0x010500000;
+  temp_0 = *( volatile uint32_t* ) 0x01050000;
   // recheck that value updated to register
   if(temp_0 != 0xFF){
     errors++;
