@@ -82,6 +82,8 @@
 					<kactus2:portPosition busRef="SPI_internal" x="110" y="650"/>
 					<kactus2:portPosition busRef="UART" x="-110" y="80"/>
 					<kactus2:portPosition busRef="UART_internal" x="110" y="720"/>
+					<kactus2:portPosition busRef="high_speed_clock_internal" x="110" y="800"/>
+					<kactus2:portPosition busRef="high_speed_clock" x="-110" y="320"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -316,6 +318,16 @@
 			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="AXI4LITE_icn"/>
 			<ipxact:hierInterface busRef="AXI4LITE_icn"/>
 		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>i_io_cell_frame_high_speed_clock_to_high_speed_clock</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="high_speed_clock"/>
+			<ipxact:hierInterface busRef="high_speed_clock"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="high_speed_clock_internal"/>
+			<ipxact:hierInterface busRef="high_speed_clock_internal"/>
+		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:parameters>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_9130a023_5127_4659_8cd3_f94ce31ec91a" resolve="user">
@@ -535,6 +547,14 @@
 				<kactus2:position x="1150" y="780"/>
 				<kactus2:position x="1260" y="780"/>
 			</kactus2:route>
+			<kactus2:route kactus2:connRef="i_io_cell_frame_high_speed_clock_to_high_speed_clock" kactus2:offPage="false">
+				<kactus2:position x="170" y="380"/>
+				<kactus2:position x="60" y="380"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal" kactus2:offPage="false">
+				<kactus2:position x="390" y="860"/>
+				<kactus2:position x="1260" y="860"/>
+			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>Clock</kactus2:name>
@@ -697,7 +717,7 @@
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:note>
-			<kactus2:position x="180" y="390"/>
+			<kactus2:position x="220" y="180"/>
 			<kactus2:content>This module contains tech IO cells. Insert ifdef clauses to RTL file to get platform specific cells inserted.
 
 For ASIC, replace with tech files.</kactus2:content>
@@ -705,5 +725,15 @@ For ASIC, replace with tech files.</kactus2:content>
 			<kactus2:timestamp>05.07.2024 11:51</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:adHocVisibilities/>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>high_speed_clock</kactus2:name>
+			<kactus2:position x="60" y="380"/>
+			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>high_speed_clock_internal</kactus2:name>
+			<kactus2:position x="1260" y="860"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>

@@ -47,3 +47,15 @@ module i_cell (
   assign TO_CORE = PAD;
 
 endmodule
+
+module clk_cell (
+    // On-chip
+    output logic CLK_TO_CORE,
+    // Off-chip
+    inout  wire  CLK_P_PAD,
+    inout  wire  CLK_N_PAD
+  );
+
+  assign CLK_TO_CORE = CLK_P_PAD;
+
+endmodule

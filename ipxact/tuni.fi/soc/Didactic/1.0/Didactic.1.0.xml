@@ -238,6 +238,36 @@
 				<ipxact:group>external_io</ipxact:group>
 			</ipxact:system>
 		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>high_speed_clock</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="clock" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="clock.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>xtal_in</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>high_speed_clk_p_in</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>xtal_out</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>high_speed_clk_n_in</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:system>
+				<ipxact:group>external_io</ipxact:group>
+			</ipxact:system>
+		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
 		<ipxact:views>
@@ -589,6 +619,50 @@
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>high_speed_clk_p_in</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>high_speed_clk_n_in</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:fileSets>
@@ -598,7 +672,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:56:40 on 11.12.2024 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>2ab96a628f339484f2f4955e1e8bca5c0f185980</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -606,12 +680,12 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:56:40 on 11.12.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:56:40 on 11.12.2024 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>4339ef5aee13113af65a6bb5618128a9539e5b3b</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -619,7 +693,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_1_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:56:40 on 11.12.2024 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>3a0ffccd1bbe1f79def702c4fe4d1cc592041d9f</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -627,7 +701,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_2_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:56:40 on 11.12.2024 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>6a4c8fba69600a7c985c252d544da53eb3417104</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -635,7 +709,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_3_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:56:40 on 11.12.2024 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>a46852108b67a744518074a5f657d04577b357aa</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -643,7 +717,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:56:40 on 11.12.2024 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>6113cbe95d072114b07bfaca6d28b68b17c342be</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -651,7 +725,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_peripherals_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:27:57 on 01.10.2024 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:56:40 on 11.12.2024 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -695,12 +769,6 @@ Spec:
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:author>Matti Käyrä</kactus2:author>
-		<kactus2:version>3,13,0,0</kactus2:version>
-		<kactus2:kts_attributes>
-			<kactus2:kts_productHier>SoC</kactus2:kts_productHier>
-			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
-			<kactus2:kts_firmness>Fixed</kactus2:kts_firmness>
-		</kactus2:kts_attributes>
 		<kactus2:fileDependencies>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
 				<kactus2:fileRef1>../../../../../src/generated/Didactic.v</kactus2:fileRef1>
@@ -793,5 +861,11 @@ Spec:
 				<ipxact:description>Submodule instantiation of module jtag_dbg_wrapper</ipxact:description>
 			</kactus2:fileDependency>
 		</kactus2:fileDependencies>
+		<kactus2:version>3,13,0,0</kactus2:version>
+		<kactus2:kts_attributes>
+			<kactus2:kts_productHier>SoC</kactus2:kts_productHier>
+			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
+			<kactus2:kts_firmness>Fixed</kactus2:kts_firmness>
+		</kactus2:kts_attributes>
 	</ipxact:vendorExtensions>
 </ipxact:component>

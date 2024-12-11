@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 26.09.2024
-// Creation time : 12:18:21
+// Creation date : 11.12.2024
+// Creation time : 14:56:31
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.2 64-bit
+// Tool : Kactus2 3.13.3 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:ip:SysCtrl_peripherals:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/ip/SysCtrl_peripherals/1.0/SysCtrl_peripherals.1.0.xml

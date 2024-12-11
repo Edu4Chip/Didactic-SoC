@@ -45,6 +45,9 @@ module Student_area_0 #(
     // Interface: clk
     input  logic              clk_in,
 
+    // Interface: high_speed_clock
+    input  logic              high_speed_clk,
+
     // Interface: reset
     input  logic              rst,
 

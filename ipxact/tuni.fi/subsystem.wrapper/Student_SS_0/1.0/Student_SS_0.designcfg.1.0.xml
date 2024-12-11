@@ -6,7 +6,11 @@
 	<ipxact:version>1.0</ipxact:version>
 	<ipxact:designRef vendor="tuni.fi" library="subsystem.wrapper" name="Student_SS_0.design" version="1.0"/>
 	<ipxact:viewConfiguration>
-		<ipxact:instanceName>SS_cg</ipxact:instanceName>
+		<ipxact:instanceName>ss_cg</ipxact:instanceName>
+		<ipxact:view viewRef="flat_verilog"/>
+	</ipxact:viewConfiguration>
+	<ipxact:viewConfiguration>
+		<ipxact:instanceName>ss_high_speed_cg</ipxact:instanceName>
 		<ipxact:view viewRef="flat_verilog"/>
 	</ipxact:viewConfiguration>
 	<ipxact:vendorExtensions>

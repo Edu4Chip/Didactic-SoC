@@ -31,7 +31,7 @@
 				<ipxact:onSystem>
 					<ipxact:group>external_io</ipxact:group>
 					<ipxact:presence>optional</ipxact:presence>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>inout</ipxact:direction>
 				</ipxact:onSystem>
 			</ipxact:wire>
 		</ipxact:port>
@@ -44,7 +44,7 @@
 				<ipxact:onSystem>
 					<ipxact:group>external_io</ipxact:group>
 					<ipxact:presence>optional</ipxact:presence>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>inout</ipxact:direction>
 				</ipxact:onSystem>
 			</ipxact:wire>
 		</ipxact:port>

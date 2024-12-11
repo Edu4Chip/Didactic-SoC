@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_1_0.v
-// Creation date : 26.09.2024
-// Creation time : 12:18:21
+// Creation date : 11.12.2024
+// Creation time : 14:56:31
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.2 64-bit
+// Tool : Kactus2 3.13.3 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:Student_SS_1:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_1/1.0/Student_SS_1.1.0.xml
@@ -41,6 +41,9 @@ module Student_SS_1_0 #(
     input  logic                        irq_en_1,
     input  logic         [7:0]          ss_ctrl_1,
 
+    // Interface: high_speed_clk
+    input                               clk_1,
+
     // Interface: pmod_gpio_0
     input  logic         [3:0]          pmod_0_gpi,
     output logic         [3:0]          pmod_0_gpio_oe,
@@ -55,13 +58,13 @@ module Student_SS_1_0 #(
         `include "verification/verilator/src/hdl/ms/Student_SS_1_0.sv"
     `endif
 
-    // tech_cg_0_clk_in_to_Clock wires:
-    wire       tech_cg_0_clk_in_to_Clock_clk;
+    // ss_cg_clk_in_to_Clock wires:
+    wire       ss_cg_clk_in_to_Clock_clk;
     // student_ss_1_ss_ctrl_to_SS_Ctrl wires:
     wire [7:0] student_ss_1_ss_ctrl_to_SS_Ctrl_clk_ctrl;
     wire       student_ss_1_ss_ctrl_to_SS_Ctrl_irq_en;
-    // tech_cg_0_clk_out_to_student_ss_1_Clock wires:
-    wire       tech_cg_0_clk_out_to_student_ss_1_Clock_clk;
+    // ss_cg_clk_out_to_student_ss_1_Clock wires:
+    wire       ss_cg_clk_out_to_student_ss_1_Clock_clk;
     // student_ss_1_Reset_to_Reset wires:
     wire       student_ss_1_Reset_to_Reset_reset;
     // student_ss_1_APB_to_APB wires:
@@ -83,10 +86,23 @@ module Student_SS_1_0 #(
     wire [3:0] student_ss_1_pmod_gpio_1_to_bus_gpi;
     wire [3:0] student_ss_1_pmod_gpio_1_to_bus_gpio_oe;
     wire [3:0] student_ss_1_pmod_gpio_1_to_bus_gpo;
+    // student_ss_1_high_speed_clock_to_ss_high_speed_cg_clk_out wires:
+    wire       student_ss_1_high_speed_clock_to_ss_high_speed_cg_clk_out_clk;
+    // ss_high_speed_cg_clk_in_to_high_speed_clk wires:
+    wire       ss_high_speed_cg_clk_in_to_high_speed_clk_clk;
 
     // Ad-hoc wires:
-    wire       tech_cg_0_en_to_ss_ctrl_1;
+    wire       ss_cg_en_to_ss_ctrl_1;
+    wire       ss_high_speed_cg_en_to_ss_ctrl_1;
 
+    // ss_cg port wires:
+    wire       ss_cg_clk;
+    wire       ss_cg_clk_out;
+    wire       ss_cg_en;
+    // ss_high_speed_cg port wires:
+    wire       ss_high_speed_cg_clk;
+    wire       ss_high_speed_cg_clk_out;
+    wire       ss_high_speed_cg_en;
     // student_ss_1 port wires:
     wire [9:0] student_ss_1_PADDR;
     wire       student_ss_1_PENABLE;
@@ -97,6 +113,7 @@ module Student_SS_1_0 #(
     wire [31:0] student_ss_1_PWDATA;
     wire       student_ss_1_PWRITE;
     wire       student_ss_1_clk_in;
+    wire       student_ss_1_high_speed_clk;
     wire       student_ss_1_irq_1;
     wire       student_ss_1_irq_en_1;
     wire [3:0] student_ss_1_pmod_0_gpi;
@@ -107,10 +124,6 @@ module Student_SS_1_0 #(
     wire [3:0] student_ss_1_pmod_1_gpo;
     wire       student_ss_1_reset_int;
     wire [7:0] student_ss_1_ss_ctrl_1;
-    // tech_cg_0 port wires:
-    wire       tech_cg_0_clk;
-    wire       tech_cg_0_clk_out;
-    wire       tech_cg_0_en;
 
     // Assignments for the ports of the encompassing component:
     assign student_ss_1_APB_to_APB_PADDR = PADDR;
@@ -121,7 +134,8 @@ module Student_SS_1_0 #(
     assign PSELERR = student_ss_1_APB_to_APB_PSLVERR;
     assign student_ss_1_APB_to_APB_PWDATA = PWDATA;
     assign student_ss_1_APB_to_APB_PWRITE = PWRITE;
-    assign tech_cg_0_clk_in_to_Clock_clk = clk;
+    assign ss_cg_clk_in_to_Clock_clk = clk;
+    assign ss_high_speed_cg_clk_in_to_high_speed_clk_clk = clk_1;
     assign irq_1 = student_ss_1_IRQ_to_IRQ_irq;
     assign student_ss_1_ss_ctrl_to_SS_Ctrl_irq_en = irq_en_1;
     assign student_ss_1_pmod_gpio_0_to_bus_1_gpi = pmod_0_gpi;
@@ -132,8 +146,17 @@ module Student_SS_1_0 #(
     assign pmod_1_gpo = student_ss_1_pmod_gpio_1_to_bus_gpo;
     assign student_ss_1_Reset_to_Reset_reset = reset_int;
     assign student_ss_1_ss_ctrl_to_SS_Ctrl_clk_ctrl = ss_ctrl_1;
-    assign tech_cg_0_en_to_ss_ctrl_1 = ss_ctrl_1[0];
+    assign ss_cg_en_to_ss_ctrl_1 = ss_ctrl_1[0];
+    assign ss_high_speed_cg_en_to_ss_ctrl_1 = ss_ctrl_1[1];
 
+    // ss_cg assignments:
+    assign ss_cg_clk = ss_cg_clk_in_to_Clock_clk;
+    assign ss_cg_clk_out_to_student_ss_1_Clock_clk = ss_cg_clk_out;
+    assign ss_cg_en = ss_cg_en_to_ss_ctrl_1;
+    // ss_high_speed_cg assignments:
+    assign ss_high_speed_cg_clk = ss_high_speed_cg_clk_in_to_high_speed_clk_clk;
+    assign student_ss_1_high_speed_clock_to_ss_high_speed_cg_clk_out_clk = ss_high_speed_cg_clk_out;
+    assign ss_high_speed_cg_en = ss_high_speed_cg_en_to_ss_ctrl_1;
     // student_ss_1 assignments:
     assign student_ss_1_PADDR = student_ss_1_APB_to_APB_PADDR[9:0];
     assign student_ss_1_PENABLE = student_ss_1_APB_to_APB_PENABLE;
@@ -143,7 +166,8 @@ module Student_SS_1_0 #(
     assign student_ss_1_APB_to_APB_PSLVERR = student_ss_1_PSLVERR;
     assign student_ss_1_PWDATA = student_ss_1_APB_to_APB_PWDATA;
     assign student_ss_1_PWRITE = student_ss_1_APB_to_APB_PWRITE;
-    assign student_ss_1_clk_in = tech_cg_0_clk_out_to_student_ss_1_Clock_clk;
+    assign student_ss_1_clk_in = ss_cg_clk_out_to_student_ss_1_Clock_clk;
+    assign student_ss_1_high_speed_clk = student_ss_1_high_speed_clock_to_ss_high_speed_cg_clk_out_clk;
     assign student_ss_1_IRQ_to_IRQ_irq = student_ss_1_irq_1;
     assign student_ss_1_irq_en_1 = student_ss_1_ss_ctrl_to_SS_Ctrl_irq_en;
     assign student_ss_1_pmod_0_gpi = student_ss_1_pmod_gpio_0_to_bus_1_gpi;
@@ -154,10 +178,24 @@ module Student_SS_1_0 #(
     assign student_ss_1_pmod_gpio_1_to_bus_gpo = student_ss_1_pmod_1_gpo;
     assign student_ss_1_reset_int = student_ss_1_Reset_to_Reset_reset;
     assign student_ss_1_ss_ctrl_1 = student_ss_1_ss_ctrl_to_SS_Ctrl_clk_ctrl;
-    // tech_cg_0 assignments:
-    assign tech_cg_0_clk = tech_cg_0_clk_in_to_Clock_clk;
-    assign tech_cg_0_clk_out_to_student_ss_1_Clock_clk = tech_cg_0_clk_out;
-    assign tech_cg_0_en = tech_cg_0_en_to_ss_ctrl_1;
+
+    // IP-XACT VLNV: tuni.fi:tech:tech_cg:1.0
+    tech_cg ss_cg(
+        // Interface: clk_in
+        .clk                 (ss_cg_clk),
+        // Interface: clk_out
+        .clk_out             (ss_cg_clk_out),
+        // These ports are not in any interface
+        .en                  (ss_cg_en));
+
+    // IP-XACT VLNV: tuni.fi:tech:tech_cg:1.0
+    tech_cg ss_high_speed_cg(
+        // Interface: clk_in
+        .clk                 (ss_high_speed_cg_clk),
+        // Interface: clk_out
+        .clk_out             (ss_high_speed_cg_clk_out),
+        // These ports are not in any interface
+        .en                  (ss_high_speed_cg_en));
 
     // IP-XACT VLNV: tuni.fi:subsystem:student_ss_1:1.0
     student_ss_1     student_ss_1(
@@ -176,6 +214,8 @@ module Student_SS_1_0 #(
         .irq_1               (student_ss_1_irq_1),
         // Interface: Reset
         .reset_int           (student_ss_1_reset_int),
+        // Interface: high_speed_clock
+        .high_speed_clk      (student_ss_1_high_speed_clk),
         // Interface: pmod_gpio_0
         .pmod_0_gpi          (student_ss_1_pmod_0_gpi),
         .pmod_0_gpio_oe      (student_ss_1_pmod_0_gpio_oe),
@@ -187,15 +227,6 @@ module Student_SS_1_0 #(
         // Interface: ss_ctrl
         .irq_en_1            (student_ss_1_irq_en_1),
         .ss_ctrl_1           (student_ss_1_ss_ctrl_1));
-
-    // IP-XACT VLNV: tuni.fi:tech:tech_cg:1.0
-    tech_cg tech_cg_0(
-        // Interface: clk_in
-        .clk                 (tech_cg_0_clk),
-        // Interface: clk_out
-        .clk_out             (tech_cg_0_clk_out),
-        // These ports are not in any interface
-        .en                  (tech_cg_0_en));
 
 
 endmodule

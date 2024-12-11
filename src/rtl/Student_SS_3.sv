@@ -34,6 +34,9 @@ module Student_SS_3(
     // Interface: Clock
     input  logic        clk_in,
 
+    // Interface: high_speed_clock
+    input  logic        high_speed_clk,
+
     // Interface: IRQ
     output logic        irq_3,
 

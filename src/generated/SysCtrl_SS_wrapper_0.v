@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 18.11.2024
-// Creation time : 15:22:14
+// Creation date : 11.12.2024
+// Creation time : 14:56:31
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -116,6 +116,13 @@ module SysCtrl_SS_wrapper_0 #(
     // Interface: UART
     inout  wire                         uart_rx,
     inout  wire                         uart_tx,
+
+    // Interface: high_speed_clock
+    inout  wire                         high_speed_clk_n_in,
+    inout  wire                         high_speed_clk_p_in,
+
+    // Interface: high_speed_clock_internal
+    output logic                        high_speed_clk_internal,
 
     // Interface: ss_0_pmod_gpio_0
     input  logic         [3:0]          ss_0_pmo_0_gpio_oe,
@@ -282,6 +289,9 @@ module SysCtrl_SS_wrapper_0 #(
     wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
     wire [3:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
     wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
+    // i_io_cell_frame_high_speed_clock_to_high_speed_clock wires:
+    // i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal wires:
+    wire       i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal_clk;
 
     // SysCtrl_SS port wires:
     wire [84:0] SysCtrl_SS_cell_cfg;
@@ -343,6 +353,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire       i_io_cell_frame_clk_internal;
     wire [7:0] i_io_cell_frame_gpio_from_core;
     wire [7:0] i_io_cell_frame_gpio_to_core;
+    wire       i_io_cell_frame_high_speed_clk_internal;
     wire       i_io_cell_frame_jtag_tck_internal;
     wire       i_io_cell_frame_jtag_tdi_internal;
     wire       i_io_cell_frame_jtag_tdo_internal;
@@ -390,6 +401,7 @@ module SysCtrl_SS_wrapper_0 #(
 
     // Assignments for the ports of the encompassing component:
     assign clk = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
+    assign high_speed_clk_internal = i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal_clk;
     assign icn_ar_addr_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
     assign icn_ar_prot_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY = icn_ar_ready_in;
@@ -512,6 +524,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk = i_io_cell_frame_clk_internal;
     assign i_io_cell_frame_gpio_from_core = i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
     assign i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi = i_io_cell_frame_gpio_to_core;
+    assign i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal_clk = i_io_cell_frame_high_speed_clk_internal;
     assign i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tck = i_io_cell_frame_jtag_tck_internal;
     assign i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tdi = i_io_cell_frame_jtag_tdi_internal;
     assign i_io_cell_frame_jtag_tdo_internal = i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tdo;
@@ -693,7 +706,12 @@ module SysCtrl_SS_wrapper_0 #(
         .uart_tx             (uart_tx),
         // Interface: UART_internal
         .uart_tx_internal    (i_io_cell_frame_uart_tx_internal),
-        .uart_rx_internal    (i_io_cell_frame_uart_rx_internal));
+        .uart_rx_internal    (i_io_cell_frame_uart_rx_internal),
+        // Interface: high_speed_clock
+        .high_speed_clk_n_i  (high_speed_clk_n_in),
+        .high_speed_clk_p_i  (high_speed_clk_p_in),
+        // Interface: high_speed_clock_internal
+        .high_speed_clk_internal(i_io_cell_frame_high_speed_clk_internal));
 
     // IP-XACT VLNV: tuni.fi:ip:pmod_mux:1.0
     pmod_mux #(

@@ -37,6 +37,13 @@ module io_cell_frame_sysctrl #(
     // Interface: Clock_internal
     output logic       clk_internal,
 
+    // Interface: high_speed_clock
+    inout  wire        high_speed_clk_p_i,
+    inout  wire        high_speed_clk_n_i,
+
+    // Interface: high_speed_clock_internal
+    output logic       high_speed_clk_internal,
+
     // Interface: GPIO
     inout  wire  [NUM_GPIO-1:0] gpio,
 
@@ -93,6 +100,8 @@ module io_cell_frame_sysctrl #(
   io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_rst(.FROM_CORE(1'b0), .TO_CORE(reset_internal), .PAD(reset), .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
   // clk
   io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_clk(.FROM_CORE(1'b0), .TO_CORE(clk_internal), .PAD(clk_in), .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
+  // high-speed clk
+  clk_cell i_clk_cell(.CLK_P_PAD(high_speed_clk_p_i), .CLK_N_PAD(high_speed_clk_n_i), .CLK_TO_CORE(high_speed_clk_internal));
 
   // gpio
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_gpio0(.FROM_CORE(gpio_from_core[0]), .TO_CORE(gpio_to_core[0]), .PAD(gpio[0]), .io_cell_cfg(cell_cfg[1*IOCELL_CFG_W-1:0*IOCELL_CFG_W]));
