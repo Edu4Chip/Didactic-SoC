@@ -16,6 +16,9 @@
 `define EXIT_ERROR   -1
 
 `define CLK_PERIOD 125ns // 8 MHz generic quarts oscillator?
+`define FAST_CLK_PERIOD 1ns // fast input
+// fast clk makes sim run very slow, disable it by default
+//`define ACTIVE_FAST_CLK 1
 
 `timescale 1ns/1ps
 
@@ -58,12 +61,17 @@ module tb_didactic();
 ////////////////////////////////
   logic clk = 1'b0;
   logic reset = 1'b0;
+  logic fast_clk = 1'b0;
   
   tri0 dut_clk;
+  tri0 dut_fast_clk;
+  tri0 dut_fast_clk_neg;
   tri0 dut_reset;
 
-  assign dut_clk   = clk;
-  assign dut_reset = reset;
+  assign dut_clk      = clk;
+  assign dut_reset    = reset;
+  assign dut_fast_clk = fast_clk;
+  assign dut_fast_clk_neg = ~fast_clk;
 
   tri0 dut_uart_rx;
   tri0 dut_uart_tx;
@@ -125,6 +133,14 @@ module tb_didactic();
     forever clk = #(`CLK_PERIOD/2) ~clk;
   end
 
+`ifdef ACTIVE_FAST_CLK
+  initial
+  begin
+    #(`FAST_CLK_PERIOD/2);
+    fast_clk = 1'b1;
+    forever fast_clk = #(`FAST_CLK_PERIOD/2) ~fast_clk;
+  end
+`endif
 /////////////////////////////
 // TB behavioral
 ////////////////////////////////
@@ -264,7 +280,9 @@ module tb_didactic();
     .uart_tx(dut_uart_tx),
     // Interface: analog_if
     .ana_core_in({dut_ana_in_1, dut_ana_in_0}),
-    .ana_core_out({dut_ana_out_1, dut_ana_out_0})
+    .ana_core_out({dut_ana_out_1, dut_ana_out_0}),
+    .high_speed_clk_n_in(dut_fast_clk_neg),
+    .high_speed_clk_p_in(dut_fast_clk)
   );
 
 ///////////////////////////////////////////////////////////////
