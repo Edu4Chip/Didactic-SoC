@@ -62,8 +62,41 @@ void ss_init(const uint32_t target_ss){
 
 }
 
+void ss_init_high_speed(const uint32_t target_ss){
+  // init: reset + clock enable
+  volatile uint32_t mask = RST_CTRL;
+  //     old value | target ss bit | icn reset
+  RST_CTRL = (mask | 2u<<target_ss | 1u);
+
+  // switch case for clock enabling
+  switch (target_ss)
+  {
+    case 0:
+      mask = SS0_CTRL;
+      SS0_CTRL = (mask | 2u);
+      break;
+    case 1:
+      mask = SS1_CTRL;
+      SS1_CTRL = (mask | 2u);
+      break;
+    case 2:
+      mask = SS2_CTRL;
+      SS2_CTRL = (mask | 2u);
+      break;
+    case 3:
+      mask = SS3_CTRL;
+      SS3_CTRL = (mask | 2u);
+      break;
+    default:
+      // error handling
+      asm("nop");
+  }
+
+}
+
+
 void ss_reset(const uint32_t target_ss){
-  // reset: reset + clock disabled + irq disabled
+  // reset: reset + clock/high speed clock disabled + irq disabled
   volatile uint32_t mask = 0;
 
 
@@ -73,37 +106,37 @@ void ss_reset(const uint32_t target_ss){
       mask = RST_CTRL;
       RST_CTRL = mask & ~(2u<<target_ss);
       mask = SS0_CTRL;
-      SS0_CTRL = (mask & ~(1u));
+      SS0_CTRL = (mask & ~(3u));
       break;
     case 1:
       mask = RST_CTRL;
       RST_CTRL = mask & ~(2u<<target_ss);
       mask = SS1_CTRL;
-      SS1_CTRL = (mask & ~(1u));
+      SS1_CTRL = (mask & ~(3u));
       break;
     case 2:
       mask = RST_CTRL;
       RST_CTRL = mask & ~(2u<<target_ss);
       mask = SS2_CTRL;
-      SS2_CTRL = (mask & ~(1u));
+      SS2_CTRL = (mask & ~(3u));
       break;
     case 3:
       mask = RST_CTRL;
       RST_CTRL = mask & ~(2u<<target_ss);
       mask = SS3_CTRL;
-      SS3_CTRL = (mask & ~(1u));
+      SS3_CTRL = (mask & ~(3u));
       break;
     default:
       // if targeting other number than specific ss, reset all
       RST_CTRL = 0u;
       mask = SS0_CTRL;
-      SS0_CTRL = (mask & ~(1u));
+      SS0_CTRL = (mask & ~(3u));
       mask = SS1_CTRL;
-      SS1_CTRL = (mask & ~(1u));
+      SS1_CTRL = (mask & ~(3u));
       mask = SS2_CTRL;
-      SS2_CTRL = (mask & ~(1u));
+      SS2_CTRL = (mask & ~(3u));
       mask = SS3_CTRL;
-      SS3_CTRL = (mask & ~(1u));
+      SS3_CTRL = (mask & ~(3u));
       
   }
 
