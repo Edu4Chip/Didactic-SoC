@@ -32,7 +32,6 @@ DUT_DEFINES = \
 
 DUT_LIBS = \
 	-L $(BUILD_DIR)/didactic_lib \
-#	-L $(BUILD_DIR)/tb_lib \
 
 # vsim-8386: suppress bit-to-reg assignment errors
 VSIM_OPTS = \
@@ -79,22 +78,14 @@ env:
 library_mapping: 
 	cd $(BUILD_DIR)
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
-	vmap tb_lib $(BUILD_DIR)/tb_lib
 
-compile: env compile_didactic 
+compile: env compile_didactic
 
 compile_didactic:
 	vlib $(BUILD_DIR)/didactic_lib
 	vmap didactic_lib $(BUILD_DIR)/didactic_lib
 	vlog -sv -work didactic_lib $(DUT_DEFINES) $(TB_DEFINES) $(INCLUDES) $(DUT_LIBS) \
 	$(VLOG_OPTS) $(SIM_FLIST) -l $(BUILD_DIR)/logs/compile/$(START_TIME)_didactic.log
-
-
-compile_tb:
-	vlib $(BUILD_DIR)/tb_lib
-	vmap tb_lib $(BUILD_DIR)/tb_lib
-	vlog -sv -work tb_lib $(TB_DEFINES) $(DUT_LIBS) $(INCLUDES) \
-	$(SIM_FLIST) -l $(BUILD_DIR)/logs/compile/$(START_TIME)_tb.log
 
 SANITY_CHECK ?= 0
 TESTCASE ?= blink
