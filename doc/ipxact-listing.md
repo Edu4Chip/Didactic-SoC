@@ -15,7 +15,7 @@ This is listing of IPXACT interfaces contained with this repository.
 | Name | Description | Notes |
 |-|-|-|
 | APB | advanced peripheral bus | |
-| AXI | advanced extensible interface 4 | |
+| AXI | advanced extensible interface 4 |not used as part of the SoC |
 | Clock |||
 | Reset |||
 | SS control |||
@@ -25,11 +25,12 @@ This is listing of IPXACT interfaces contained with this repository.
 | SDIO |||
 | JTAG |||
 | IRQ |||
+| debug |||
 | AXI4LITE |||
 | generic.memory |||
 | ibex.memory |||
 | io_cell_cfg |||
-| |||
+| analog|generic interface for analog designs||
 
 More to be added as work progresses.
 

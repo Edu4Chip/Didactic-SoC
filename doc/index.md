@@ -10,12 +10,14 @@ It contains among other things:
 
 * Workings of a SoC to be completed as collaboration project
 
-In future it is hoped to have also
-
 * scripts and commands to simulate and synthesize the project using open source tools
+
+* baremetal software compilation flow
+
+* common baremetal headers
+
+In future it is hoped to have also
 
 * regression testing suite for GitHub
 
 * extensive documentation 
-
-* software compilation and design flow

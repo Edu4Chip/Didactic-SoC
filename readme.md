@@ -8,7 +8,7 @@ See Doc Folder for more extensive documentation and guides as well as contributi
 
 This repository uses Bender, install instructions [here](https://github.com/pulp-platform/bender).
 
-After cloning this repository, run `make repository_init` to fetch all of the submodules to correct versions.
+After cloning this repository, run `make repository_init` to fetch all of the submodules to correct versions. Bender initialization will offer user to resolve dependencies interactively. In these, it is correct to resolve to use ones linked by this repository. Generally these are updated to be latest releases (in either tag or hash form).
 
 ## Basic simulation flow
 
@@ -18,21 +18,23 @@ This will build HW libraries (`Questa`), executable binary (`riscv-toolchain`), 
 
 ## Folders
 
-Doc: Full documentation is gathered within doc folder.
+.bender: open source IP are added to this project as bender dependencies. These are part of bender.yml and this folder is created by bender tool. Folder itself is not part of the repository. 
 
-ips: open source IP are added to this folders as git submodules. We prefer to have all of the modules up to latest versions, but this is confirmed case by case when we are ready to run simulations/synthesis.
+build: Not included by git repository. Created as part of make commands to contain all tool outputs.
+
+Doc: Full documentation is gathered within doc folder.
 
 ipxact: XML files of IPXACT definitions are kept within this folder.
 
 sim: Simulation Makefiles and scripts are kept in this folder. Additionally, supporting files for waveform generation can be added here. 
 
-* All tool scripts need to include capability of targeting filelists with `relative path` from filelist to file and `# symbol for comments`. `Empty lines` must be okay, too. 
+* All tool scripts need to include capability of targeting bender with scripts or make commands. Calling bender with particular commands produce output of files to target the build with. Examples are provided for questa and verilator uses.
 
-src: RTL source files are added to this folder in relevant subfolders. In addition, filelists for SoC compilation are kept here. If your RTL is not publicly available, create a tieoff module to allow others to proceed with their work. (Tieoff: interface .sv/.v/.vhd with all outputs being driven with inactive constants, genrally 0's.)
+src: RTL source files are added to this folder in relevant subfolders. If your RTL is not publicly available, create a tieoff module to allow others to proceed with their work. (Tieoff: interface .sv/.v/.vhd with all outputs being driven with inactive constants, likes 0's.)
 
-sw: baremetal programs and their flow.
+sw: baremetal programs and their flow. These include common headers and simple test cases to run on RISC-V core.
 
-syn: Synthesis Makefiles and commands. Same as with sim folder.
+syn: Synthesis Makefiles and commands.
 
 Verification: Contains experimental verilator verification setup.
 
@@ -40,7 +42,7 @@ Verification: Contains experimental verilator verification setup.
 
 * simulation flow currently only supports .v / .sv files.
 
-* SW common functions are missing (eg. `print_with_uart("message");` -style commands).
+* SW common functions are missing some desirable features (eg. uart overloading for printing int values).
 
 * irq support for baremetal c programs. `crt0.S` implementation is minimal (WIP).
 
@@ -48,7 +50,7 @@ Verification: Contains experimental verilator verification setup.
 
 * Documentation is incomplete. Once complete, it should contain details why certain template architecture was chosen as well as more extensive documentation what is included where. Additionally, template documentation should be added for "student" systems to document themselves.
 
-* pcb related items such as external clock frequency, connetivity.
+* pcb related items such as external clock frequency, connetivity. Initial assumption is external 8 MHz oscillator.
 
 ## What is excluded from repository
 
