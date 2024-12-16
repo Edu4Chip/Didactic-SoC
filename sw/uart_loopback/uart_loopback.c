@@ -18,9 +18,9 @@ int main() {
   if(temp == 0){
     return 0; // success
   }else if(temp == 1){
-	  return 1; // failure
+    return 1; // failure
   }else{
-	  return 499;//just random number 
+    return 499;//just random number 
   }
   
   
