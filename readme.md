@@ -3,6 +3,11 @@
 This is the common chip template for the Edu4chip project. It is created with IPXACT modeling using the Kactus2 tool. Source files are reused from both open source and previous projects. This project is licensed under the terms of the Solderpad Hardware License v2.1.
 
 See Doc Folder for more extensive documentation and guides as well as contribution guidelines (to be written).
+## Architecture
+
+Didactic aims to be simple but relevant SoC.
+
+![Didactic SoC architecture](doc/figures/didactic_architecture.drawio.svg "SoC Architecture Diagram")
 
 ## Get started
 
