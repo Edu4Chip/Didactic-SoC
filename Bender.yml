@@ -97,7 +97,7 @@ sources:
 vendor_package:
   - name: ibex
     target_dir: vendor_ips/ibex
-    upstream: { git: "https://github.com/lowRISC/ibex", rev: "53888bcdf4ca3c07e5e715fb6386cb4cc643a61b" }
+    upstream: { git: "https://github.com/lowRISC/ibex", rev: "667fd20d2ede51caececccbcbda3652074424ce2" }
     include_from_upstream:
       - "vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv"
       - "vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv"
@@ -116,7 +116,6 @@ vendor_package:
       - "rtl/ibex_pkg.sv"
       - "rtl/ibex_tracer_pkg.sv"
       - "rtl/ibex_tracer.sv"
-      - "rtl/ibex_pmp_reset_default.svh"
       - "rtl/ibex_csr.sv"
       - "rtl/ibex_compressed_decoder.sv"
       - "rtl/ibex_decoder.sv"
