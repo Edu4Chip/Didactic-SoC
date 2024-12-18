@@ -8,7 +8,7 @@ dependencies:           # TODO: only 1st level dependencies needed, also semanti
   apb_gpio:           { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "f82caeb7f7d89427f05e9af5ed31e0675efe0d83" }
   apb_uart:           { git: "https://github.com/pulp-platform/apb_uart.git", rev: "6c7dde3d749ac8274377745c105da8c8b8cd27c6" }
   axi:                { git: "https://github.com/pulp-platform/axi.git", rev: "4e54ac6766b160217a83a74d5a23af9bbf59e6ee" }
-  common_cells:       { git: "https://github.com/pulp-platform/common_cells.git", rev: "10dac0ff3387e14b1129be33cad1e9a7d71aed7f" }
+  common_cells:       { git: "https://github.com/pulp-platform/common_cells.git", rev: "f36828f3fd76fa6c79f80cb495829cf967bcf20c" }
   riscv-dbg:          { git: "https://github.com/pulp-platform/riscv-dbg.git", rev: "618ee6e0e2610ef47e0dcc4df6748af3dffff731" }
 #  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" }
 
