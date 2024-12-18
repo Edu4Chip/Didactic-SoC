@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_2_0.v
 // Creation date : 18.12.2024
-// Creation time : 14:34:23
+// Creation time : 14:46:37
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -114,7 +114,7 @@ module Student_SS_2_0 #(
     wire [31:0] student_ss_2_PRDATA;
     wire       student_ss_2_PREADY;
     wire       student_ss_2_PSEL;
-    wire       student_ss_2_PSELERR;
+    wire       student_ss_2_PSLVERR;
     wire [31:0] student_ss_2_PWDATA;
     wire       student_ss_2_PWRITE;
     wire       student_ss_2_clk_in;
@@ -168,7 +168,7 @@ module Student_SS_2_0 #(
     assign student_ss_2_APB_to_APB_PRDATA = student_ss_2_PRDATA;
     assign student_ss_2_APB_to_APB_PREADY = student_ss_2_PREADY;
     assign student_ss_2_PSEL = student_ss_2_APB_to_APB_PSEL;
-    assign student_ss_2_APB_to_APB_PSLVERR = student_ss_2_PSELERR;
+    assign student_ss_2_APB_to_APB_PSLVERR = student_ss_2_PSLVERR;
     assign student_ss_2_PWDATA = student_ss_2_APB_to_APB_PWDATA;
     assign student_ss_2_PWRITE = student_ss_2_APB_to_APB_PWRITE;
     assign student_ss_2_clk_in = ss_cg_clk_out_to_student_ss_2_Clock_clk;
@@ -212,7 +212,7 @@ module Student_SS_2_0 #(
         .PWRITE              (student_ss_2_PWRITE),
         .PRDATA              (student_ss_2_PRDATA),
         .PREADY              (student_ss_2_PREADY),
-        .PSELERR             (student_ss_2_PSELERR),
+        .PSLVERR             (student_ss_2_PSLVERR),
         // Interface: Clock
         .clk_in              (student_ss_2_clk_in),
         // Interface: IRQ
