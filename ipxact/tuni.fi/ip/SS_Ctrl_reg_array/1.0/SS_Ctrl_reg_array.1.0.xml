@@ -427,22 +427,25 @@
 			<ipxact:name>sysctrl_ctrl_reg_array</ipxact:name>
 			<ipxact:addressBlock misalignmentAllowed="true">
 				<ipxact:name>registerBlock</ipxact:name>
+				<ipxact:description>* IO cells cfg registers are 32 bits but only connected for IOCELL_CFG_W number of bits. Rest are reserved for updates.
+* SS control registers are 32 bits but only connected for SS_CTRL_W number of bits. 31th bit is IRQ en. 0th bit is global clock control. 1st bit is Rest are reserverd
+</ipxact:description>
 				<ipxact:baseAddress>'h0</ipxact:baseAddress>
-				<ipxact:range>'h58</ipxact:range>
+				<ipxact:range>'h6C</ipxact:range>
 				<ipxact:width>32</ipxact:width>
 				<ipxact:register>
-					<ipxact:name>BootSel</ipxact:name>
-					<ipxact:description>boot select option reg with bit [0]</ipxact:description>
+					<ipxact:name>fetch_en</ipxact:name>
+					<ipxact:description>fetch enable register</ipxact:description>
 					<ipxact:addressOffset>'h0</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>BootReg</ipxact:name>
-						<ipxact:description>boot type selection register</ipxact:description>
+						<ipxact:name>fetch_en_reg</ipxact:name>
+						<ipxact:description>controls instruction fetch of Ibex RISC-V core</ipxact:description>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>2</ipxact:bitWidth>
 						<ipxact:resets>
 							<ipxact:reset>
-								<ipxact:value>'b1</ipxact:value>
+								<ipxact:value>'h5</ipxact:value>
 							</ipxact:reset>
 						</ipxact:resets>
 						<ipxact:fieldAccessPolicies>
@@ -461,26 +464,51 @@
 						<ipxact:name>ss_3_rst</ipxact:name>
 						<ipxact:bitOffset>4</ipxact:bitOffset>
 						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 					<ipxact:field>
 						<ipxact:name>ss_2_rst</ipxact:name>
 						<ipxact:bitOffset>3</ipxact:bitOffset>
 						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 					<ipxact:field>
 						<ipxact:name>ss_1_rst</ipxact:name>
 						<ipxact:bitOffset>2</ipxact:bitOffset>
 						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 					<ipxact:field>
 						<ipxact:name>ss_0_rst</ipxact:name>
 						<ipxact:bitOffset>1</ipxact:bitOffset>
 						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 					<ipxact:field>
 						<ipxact:name>icn_rst</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
@@ -490,19 +518,60 @@
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
 						<ipxact:name>icn_ctrl</ipxact:name>
+						<ipxact:description>Connected to ICN SS with width of SS_CTRL_W. Currently not used in ICN.</ipxact:description>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>ss_0_ctrl</ipxact:name>
 					<ipxact:description>SS 0 control</ipxact:description>
-					<ipxact:addressOffset>'h0C</ipxact:addressOffset>
+					<ipxact:addressOffset>'hC</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>ctrl_ss_0</ipxact:name>
+						<ipxact:name>ss0_irq_en</ipxact:name>
+						<ipxact:bitOffset>31</ipxact:bitOffset>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss0_reserved</ipxact:name>
+						<ipxact:bitOffset>2</ipxact:bitOffset>
+						<ipxact:bitWidth>29</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss0_fast_clk_en</ipxact:name>
+						<ipxact:bitOffset>1</ipxact:bitOffset>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss0_clk_en</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
-						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
@@ -511,9 +580,44 @@
 					<ipxact:addressOffset>'h10</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>ctrl_ss_1</ipxact:name>
+						<ipxact:name>ss1_clk_en</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
-						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss1_fast_clk_en</ipxact:name>
+						<ipxact:bitOffset>1</ipxact:bitOffset>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss1_reserved</ipxact:name>
+						<ipxact:bitOffset>2</ipxact:bitOffset>
+						<ipxact:bitWidth>29</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss1_irq_en</ipxact:name>
+						<ipxact:bitOffset>31</ipxact:bitOffset>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
@@ -522,9 +626,44 @@
 					<ipxact:addressOffset>'h14</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>ctrl_ss_2</ipxact:name>
+						<ipxact:name>ss2_clk_en</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
-						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss2_fast_clk_en</ipxact:name>
+						<ipxact:bitOffset>1</ipxact:bitOffset>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss2_reserved</ipxact:name>
+						<ipxact:bitOffset>2</ipxact:bitOffset>
+						<ipxact:bitWidth>29</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss2_irq_en</ipxact:name>
+						<ipxact:bitOffset>31</ipxact:bitOffset>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
@@ -533,130 +672,354 @@
 					<ipxact:addressOffset>'h18</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>ctrl_ss_3</ipxact:name>
+						<ipxact:name>ss3_clk_en</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
-						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss3_fast_clk_en</ipxact:name>
+						<ipxact:bitOffset>1</ipxact:bitOffset>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss3_reserved</ipxact:name>
+						<ipxact:bitOffset>2</ipxact:bitOffset>
+						<ipxact:bitWidth>29</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>ss3_irq_en</ipxact:name>
+						<ipxact:bitOffset>31</ipxact:bitOffset>
+						<ipxact:bitWidth>1</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>ss_ctrl_reserved_0</ipxact:name>
 					<ipxact:description>reserved addr for additional ss</ipxact:description>
-					<ipxact:addressOffset>'h20</ipxact:addressOffset>
+					<ipxact:addressOffset>'h1C</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>reserved_ctrl</ipxact:name>
+						<ipxact:name>reserved_ctrl_0</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>pmod_sel</ipxact:name>
+					<ipxact:description>pmod host control</ipxact:description>
+					<ipxact:addressOffset>'h24</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>pmod_ctrl</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>8</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+					<ipxact:field>
+						<ipxact:name>pmod_ctrl_reserved</ipxact:name>
+						<ipxact:bitOffset>8</ipxact:bitOffset>
+						<ipxact:bitWidth>24</ipxact:bitWidth>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>ss_ctrl_reserved_1</ipxact:name>
 					<ipxact:description>reserved addr for additional ss</ipxact:description>
-					<ipxact:addressOffset>'h24</ipxact:addressOffset>
+					<ipxact:addressOffset>'h20</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
 						<ipxact:name>reserved_ctrl_1</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
-					<ipxact:name>io_cell_cfg</ipxact:name>
-					<ipxact:description>io cell cfg</ipxact:description>
+					<ipxact:name>io_cell_cfg_0</ipxact:name>
+					<ipxact:description>pmod 0, gpio 0 io cell cfg</ipxact:description>
 					<ipxact:addressOffset>'h28</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
 						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_1</ipxact:name>
-					<ipxact:description>io cell cfg</ipxact:description>
-					<ipxact:addressOffset>'h30</ipxact:addressOffset>
+					<ipxact:description>pmod 0, gpio 1 io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h2C</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>cell_cfg</ipxact:name>
+						<ipxact:name>gpio0_cell_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_16</ipxact:name>
+					<ipxact:description>uart io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h68</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>uart_cell_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_15</ipxact:name>
+					<ipxact:description>uart io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h64</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>uart_cell_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_14</ipxact:name>
+					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h60</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_13</ipxact:name>
+					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h5c</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_12</ipxact:name>
+					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h58</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_11</ipxact:name>
+					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h54</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_10</ipxact:name>
+					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h50</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_9</ipxact:name>
+					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h4C</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>spi_cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_8</ipxact:name>
-					<ipxact:description>io cell cfg</ipxact:description>
-					<ipxact:addressOffset>'h54</ipxact:addressOffset>
+					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h48</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>cell_cfg</ipxact:name>
+						<ipxact:name>gpio8_cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_7</ipxact:name>
-					<ipxact:description>io cell cfg</ipxact:description>
-					<ipxact:addressOffset>'h50</ipxact:addressOffset>
+					<ipxact:description>pmod 1, gpio 3 io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h44</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>cell_cfg</ipxact:name>
+						<ipxact:name>gpio7_cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_6</ipxact:name>
-					<ipxact:description>io cell cfg</ipxact:description>
-					<ipxact:addressOffset>'h48</ipxact:addressOffset>
+					<ipxact:description>pmod 1, gpio 2 io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h40</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>cell_cfg</ipxact:name>
+						<ipxact:name>gpio6_cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_5</ipxact:name>
-					<ipxact:description>io cell cfg</ipxact:description>
-					<ipxact:addressOffset>'h44</ipxact:addressOffset>
+					<ipxact:description>pmod 1, gpio 1 io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h3C</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>cell_cfg</ipxact:name>
+						<ipxact:name>gpio5_cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_4</ipxact:name>
-					<ipxact:description>io cell cfg</ipxact:description>
-					<ipxact:addressOffset>'h40</ipxact:addressOffset>
+					<ipxact:description>pmod 1, gpio 0 io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h38</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>cell_cfg</ipxact:name>
+						<ipxact:name>gpio4_cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_3</ipxact:name>
-					<ipxact:description>io cell cfg</ipxact:description>
-					<ipxact:addressOffset>'h38</ipxact:addressOffset>
+					<ipxact:description>pmod 0, gpio 3 io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h34</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>cell_cfg</ipxact:name>
+						<ipxact:name>gpio3_cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_2</ipxact:name>
-					<ipxact:description>io cell cfg</ipxact:description>
-					<ipxact:addressOffset>'h34</ipxact:addressOffset>
+					<ipxact:description>pmod 0, gpio 2 io cell cfg</ipxact:description>
+					<ipxact:addressOffset>'h30</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>cell_cfg</ipxact:name>
+						<ipxact:name>gpio1_cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
+						<ipxact:resets>
+							<ipxact:reset>
+								<ipxact:value>'h0</ipxact:value>
+							</ipxact:reset>
+						</ipxact:resets>
 					</ipxact:field>
 				</ipxact:register>
 			</ipxact:addressBlock>
@@ -1242,7 +1605,7 @@
 				<ipxact:name>../../../../../src/rtl/SS_Ctrl_reg_array.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
-					<kactus2:hash>8da70affbb8e740d729ce051a783ef44c24879e9</kactus2:hash>
+					<kactus2:hash>4d35981675f6a900116a3b83687c77c84fa8437e</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
@@ -1272,11 +1635,6 @@
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:kts_attributes>
-			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
-			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
-			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
-		</kactus2:kts_attributes>
 		<kactus2:fileDependencies>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
 				<kactus2:fileRef1>../../../../../src/rtl/SS_Ctrl_reg_array.sv</kactus2:fileRef1>
@@ -1289,5 +1647,10 @@
 				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/SS_Ctrl_reg_array.sv</ipxact:description>
 			</kactus2:fileDependency>
 		</kactus2:fileDependencies>
+		<kactus2:kts_attributes>
+			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
+			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
+			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
+		</kactus2:kts_attributes>
 	</ipxact:vendorExtensions>
 </ipxact:component>

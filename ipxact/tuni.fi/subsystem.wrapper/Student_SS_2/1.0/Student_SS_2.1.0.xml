@@ -62,7 +62,7 @@
 								<ipxact:name>PSLVERR</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>PSELERR</ipxact:name>
+								<ipxact:name>PSLVERR</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -304,7 +304,7 @@
 								<ipxact:name>clk</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>clk_1</ipxact:name>
+								<ipxact:name>high_speed_clk</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 					</ipxact:portMaps>
@@ -438,7 +438,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>PSELERR</ipxact:name>
+				<ipxact:name>PSLVERR</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
@@ -790,7 +790,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>clk_1</ipxact:name>
+				<ipxact:name>high_speed_clk</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -802,7 +802,6 @@
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
 							<ipxact:typeName>logic</ipxact:typeName>
-							<ipxact:viewRef>flat_verilog</ipxact:viewRef>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>

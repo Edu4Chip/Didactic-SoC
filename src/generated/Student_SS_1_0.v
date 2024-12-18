@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_1_0.v
-// Creation date : 11.12.2024
-// Creation time : 14:56:31
+// Creation date : 18.12.2024
+// Creation time : 14:34:23
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -26,10 +26,10 @@ module Student_SS_1_0 #(
     input  logic                        PWRITE,
     output logic         [31:0]         PRDATA,
     output logic                        PREADY,
-    output logic                        PSELERR,
+    output logic                        PSLVERR,
 
     // Interface: Clock
-    input  logic                        clk,
+    input  logic                        clk_in,
 
     // Interface: IRQ
     output logic                        irq_1,
@@ -42,7 +42,7 @@ module Student_SS_1_0 #(
     input  logic         [7:0]          ss_ctrl_1,
 
     // Interface: high_speed_clk
-    input                               clk_1,
+    input  logic                        high_speed_clk,
 
     // Interface: pmod_gpio_0
     input  logic         [3:0]          pmod_0_gpi,
@@ -131,11 +131,11 @@ module Student_SS_1_0 #(
     assign PRDATA = student_ss_1_APB_to_APB_PRDATA;
     assign PREADY = student_ss_1_APB_to_APB_PREADY;
     assign student_ss_1_APB_to_APB_PSEL = PSEL;
-    assign PSELERR = student_ss_1_APB_to_APB_PSLVERR;
+    assign PSLVERR = student_ss_1_APB_to_APB_PSLVERR;
     assign student_ss_1_APB_to_APB_PWDATA = PWDATA;
     assign student_ss_1_APB_to_APB_PWRITE = PWRITE;
-    assign ss_cg_clk_in_to_Clock_clk = clk;
-    assign ss_high_speed_cg_clk_in_to_high_speed_clk_clk = clk_1;
+    assign ss_cg_clk_in_to_Clock_clk = clk_in;
+    assign ss_high_speed_cg_clk_in_to_high_speed_clk_clk = high_speed_clk;
     assign irq_1 = student_ss_1_IRQ_to_IRQ_irq;
     assign student_ss_1_ss_ctrl_to_SS_Ctrl_irq_en = irq_en_1;
     assign student_ss_1_pmod_gpio_0_to_bus_1_gpi = pmod_0_gpi;

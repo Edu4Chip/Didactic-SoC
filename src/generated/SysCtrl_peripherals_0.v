@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 11.12.2024
-// Creation time : 14:56:31
+// Creation date : 18.12.2024
+// Creation time : 14:34:23
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit

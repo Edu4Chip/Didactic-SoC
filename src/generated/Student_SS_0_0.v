@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_0_0.v
-// Creation date : 11.12.2024
-// Creation time : 14:56:31
+// Creation date : 18.12.2024
+// Creation time : 14:34:23
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -26,7 +26,7 @@ module Student_SS_0_0 #(
     input  logic                        PWRITE,
     output logic         [31:0]         PRDATA,
     output logic                        PREADY,
-    output logic                        PSELERR,
+    output logic                        PSLVERR,
 
     // Interface: Clock
     input  logic                        clk,
@@ -131,7 +131,7 @@ module Student_SS_0_0 #(
     assign PRDATA = Student_area_0_APB_to_APB_PRDATA;
     assign PREADY = Student_area_0_APB_to_APB_PREADY;
     assign Student_area_0_APB_to_APB_PSEL = PSEL;
-    assign PSELERR = Student_area_0_APB_to_APB_PSLVERR;
+    assign PSLVERR = Student_area_0_APB_to_APB_PSLVERR;
     assign Student_area_0_APB_to_APB_PWDATA = PWDATA;
     assign Student_area_0_APB_to_APB_PWRITE = PWRITE;
     assign ss_cg_clk_in_to_Clock_clk = clk;

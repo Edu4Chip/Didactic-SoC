@@ -778,6 +778,9 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/rtl/Student_SS_2.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>21191b2449cfa0f2e55e94825e19571cc795cd35</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -787,5 +790,17 @@
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
+		<kactus2:fileDependencies>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/rtl/Student_SS_2.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/nms/Student_SS_2.sv</kactus2:fileRef2>
+				<ipxact:description>Include reference to verification/verilator/src/hdl/nms/Student_SS_2.sv</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/rtl/Student_SS_2.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/ms/Student_SS_2.sv</kactus2:fileRef2>
+				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/Student_SS_2.sv</ipxact:description>
+			</kactus2:fileDependency>
+		</kactus2:fileDependencies>
 	</ipxact:vendorExtensions>
 </ipxact:component>

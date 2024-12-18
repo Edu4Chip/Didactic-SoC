@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_3_0.v
-// Creation date : 11.12.2024
-// Creation time : 14:56:31
+// Creation date : 18.12.2024
+// Creation time : 14:34:23
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -42,7 +42,7 @@ module Student_SS_3_0 #(
     input  logic         [7:0]          ss_ctrl_3,
 
     // Interface: high_speed_clk
-    input                               clk,
+    input  logic                        high_speed_clk,
 
     // Interface: pmod_gpio_0
     input  logic         [3:0]          pmod_0_gpi,
@@ -134,8 +134,8 @@ module Student_SS_3_0 #(
     assign PSLVERR = Student_SS_3_APB_to_APB_PSLVERR;
     assign Student_SS_3_APB_to_APB_PWDATA = PWDATA;
     assign Student_SS_3_APB_to_APB_PWRITE = PWRITE;
-    assign ss_high_speed_cg_clk_in_to_high_speed_clk_clk = clk;
     assign ss_cg_clk_in_to_Clock_clk = clk_in;
+    assign ss_high_speed_cg_clk_in_to_high_speed_clk_clk = high_speed_clk;
     assign irq_3 = Student_SS_3_IRQ_to_IRQ_irq;
     assign Student_SS_3_SS_CTRL_to_SS_Ctrl_irq_en = irq_en_3;
     assign Student_SS_3_pmod_gpio_0_to_bus_gpi = pmod_0_gpi;

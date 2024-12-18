@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 11.12.2024
-// Creation time : 14:56:31
+// Creation date : 18.12.2024
+// Creation time : 14:34:23
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -204,7 +204,7 @@ module Didactic #(
     wire [31:0] Student_SS_0_PRDATA;
     wire       Student_SS_0_PREADY;
     wire       Student_SS_0_PSEL;
-    wire       Student_SS_0_PSELERR;
+    wire       Student_SS_0_PSLVERR;
     wire [31:0] Student_SS_0_PWDATA;
     wire       Student_SS_0_PWRITE;
     wire       Student_SS_0_clk;
@@ -225,11 +225,11 @@ module Didactic #(
     wire [31:0] Student_SS_1_PRDATA;
     wire       Student_SS_1_PREADY;
     wire       Student_SS_1_PSEL;
-    wire       Student_SS_1_PSELERR;
+    wire       Student_SS_1_PSLVERR;
     wire [31:0] Student_SS_1_PWDATA;
     wire       Student_SS_1_PWRITE;
-    wire       Student_SS_1_clk;
-    wire       Student_SS_1_clk_1;
+    wire       Student_SS_1_clk_in;
+    wire       Student_SS_1_high_speed_clk;
     wire       Student_SS_1_irq_1;
     wire       Student_SS_1_irq_en_1;
     wire [3:0] Student_SS_1_pmod_0_gpi;
@@ -246,11 +246,11 @@ module Didactic #(
     wire [31:0] Student_SS_2_PRDATA;
     wire       Student_SS_2_PREADY;
     wire       Student_SS_2_PSEL;
-    wire       Student_SS_2_PSELERR;
+    wire       Student_SS_2_PSLVERR;
     wire [31:0] Student_SS_2_PWDATA;
     wire       Student_SS_2_PWRITE;
     wire       Student_SS_2_clk;
-    wire       Student_SS_2_clk_1;
+    wire       Student_SS_2_high_speed_clk;
     wire       Student_SS_2_irq_2;
     wire       Student_SS_2_irq_en_2;
     wire [3:0] Student_SS_2_pmod_0_gpi;
@@ -270,8 +270,8 @@ module Didactic #(
     wire       Student_SS_3_PSLVERR;
     wire [31:0] Student_SS_3_PWDATA;
     wire       Student_SS_3_PWRITE;
-    wire       Student_SS_3_clk;
     wire       Student_SS_3_clk_in;
+    wire       Student_SS_3_high_speed_clk;
     wire       Student_SS_3_irq_3;
     wire       Student_SS_3_irq_en_3;
     wire [3:0] Student_SS_3_pmod_0_gpi;
@@ -386,7 +386,7 @@ module Didactic #(
     assign interconnect_ss_APB0_to_Student_SS_0_APB_PRDATA = Student_SS_0_PRDATA;
     assign interconnect_ss_APB0_to_Student_SS_0_APB_PREADY = Student_SS_0_PREADY;
     assign Student_SS_0_PSEL = interconnect_ss_APB0_to_Student_SS_0_APB_PSEL;
-    assign interconnect_ss_APB0_to_Student_SS_0_APB_PSLVERR = Student_SS_0_PSELERR;
+    assign interconnect_ss_APB0_to_Student_SS_0_APB_PSLVERR = Student_SS_0_PSLVERR;
     assign Student_SS_0_PWDATA = interconnect_ss_APB0_to_Student_SS_0_APB_PWDATA;
     assign Student_SS_0_PWRITE = interconnect_ss_APB0_to_Student_SS_0_APB_PWRITE;
     assign Student_SS_0_clk = SystemControl_SS_Clock_int_to_interconnect_ss_Clock_clk;
@@ -407,11 +407,11 @@ module Didactic #(
     assign interconnect_ss_APB1_to_Student_SS_1_APB_PRDATA = Student_SS_1_PRDATA;
     assign interconnect_ss_APB1_to_Student_SS_1_APB_PREADY = Student_SS_1_PREADY;
     assign Student_SS_1_PSEL = interconnect_ss_APB1_to_Student_SS_1_APB_PSEL;
-    assign interconnect_ss_APB1_to_Student_SS_1_APB_PSLVERR = Student_SS_1_PSELERR;
+    assign interconnect_ss_APB1_to_Student_SS_1_APB_PSLVERR = Student_SS_1_PSLVERR;
     assign Student_SS_1_PWDATA = interconnect_ss_APB1_to_Student_SS_1_APB_PWDATA;
     assign Student_SS_1_PWRITE = interconnect_ss_APB1_to_Student_SS_1_APB_PWRITE;
-    assign Student_SS_1_clk = SystemControl_SS_Clock_int_to_interconnect_ss_Clock_clk;
-    assign Student_SS_1_clk_1 = SystemControl_SS_high_speed_clock_internal_to_Student_SS_0_high_speed_clk_in_clk;
+    assign Student_SS_1_clk_in = SystemControl_SS_Clock_int_to_interconnect_ss_Clock_clk;
+    assign Student_SS_1_high_speed_clk = SystemControl_SS_high_speed_clock_internal_to_Student_SS_0_high_speed_clk_in_clk;
     assign SystemControl_SS_IRQ1_to_Student_SS_1_IRQ_irq = Student_SS_1_irq_1;
     assign Student_SS_1_irq_en_1 = SystemControl_SS_SS_1_Ctrl_to_Student_SS_1_SS_Ctrl_irq_en;
     assign Student_SS_1_pmod_0_gpi = Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0_gpi;
@@ -428,11 +428,11 @@ module Didactic #(
     assign interconnect_ss_APB2_to_Student_SS_2_APB_PRDATA = Student_SS_2_PRDATA;
     assign interconnect_ss_APB2_to_Student_SS_2_APB_PREADY = Student_SS_2_PREADY;
     assign Student_SS_2_PSEL = interconnect_ss_APB2_to_Student_SS_2_APB_PSEL;
-    assign interconnect_ss_APB2_to_Student_SS_2_APB_PSLVERR = Student_SS_2_PSELERR;
+    assign interconnect_ss_APB2_to_Student_SS_2_APB_PSLVERR = Student_SS_2_PSLVERR;
     assign Student_SS_2_PWDATA = interconnect_ss_APB2_to_Student_SS_2_APB_PWDATA;
     assign Student_SS_2_PWRITE = interconnect_ss_APB2_to_Student_SS_2_APB_PWRITE;
     assign Student_SS_2_clk = SystemControl_SS_Clock_int_to_interconnect_ss_Clock_clk;
-    assign Student_SS_2_clk_1 = SystemControl_SS_high_speed_clock_internal_to_Student_SS_0_high_speed_clk_in_clk;
+    assign Student_SS_2_high_speed_clk = SystemControl_SS_high_speed_clock_internal_to_Student_SS_0_high_speed_clk_in_clk;
     assign SystemControl_SS_IRQ2_to_Student_SS_2_IRQ_irq = Student_SS_2_irq_2;
     assign Student_SS_2_irq_en_2 = SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl_irq_en;
     assign Student_SS_2_pmod_0_gpi = Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0_gpi;
@@ -452,8 +452,8 @@ module Didactic #(
     assign interconnect_ss_APB3_to_Student_SS_3_APB_PSLVERR = Student_SS_3_PSLVERR;
     assign Student_SS_3_PWDATA = interconnect_ss_APB3_to_Student_SS_3_APB_PWDATA;
     assign Student_SS_3_PWRITE = interconnect_ss_APB3_to_Student_SS_3_APB_PWRITE;
-    assign Student_SS_3_clk = SystemControl_SS_high_speed_clock_internal_to_Student_SS_0_high_speed_clk_in_clk;
     assign Student_SS_3_clk_in = SystemControl_SS_Clock_int_to_interconnect_ss_Clock_clk;
+    assign Student_SS_3_high_speed_clk = SystemControl_SS_high_speed_clock_internal_to_Student_SS_0_high_speed_clk_in_clk;
     assign SystemControl_SS_IRQ3_to_Student_SS_3_IRQ_irq = Student_SS_3_irq_3;
     assign Student_SS_3_irq_en_3 = SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl_irq_en;
     assign Student_SS_3_pmod_0_gpi = Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0_gpi;
@@ -597,7 +597,7 @@ module Didactic #(
         .PWRITE              (Student_SS_0_PWRITE),
         .PRDATA              (Student_SS_0_PRDATA),
         .PREADY              (Student_SS_0_PREADY),
-        .PSELERR             (Student_SS_0_PSELERR),
+        .PSLVERR             (Student_SS_0_PSLVERR),
         // Interface: Clock
         .clk                 (Student_SS_0_clk),
         // Interface: IRQ
@@ -631,9 +631,9 @@ module Didactic #(
         .PWRITE              (Student_SS_1_PWRITE),
         .PRDATA              (Student_SS_1_PRDATA),
         .PREADY              (Student_SS_1_PREADY),
-        .PSELERR             (Student_SS_1_PSELERR),
+        .PSLVERR             (Student_SS_1_PSLVERR),
         // Interface: Clock
-        .clk                 (Student_SS_1_clk),
+        .clk_in              (Student_SS_1_clk_in),
         // Interface: IRQ
         .irq_1               (Student_SS_1_irq_1),
         // Interface: Reset
@@ -642,7 +642,7 @@ module Didactic #(
         .irq_en_1            (Student_SS_1_irq_en_1),
         .ss_ctrl_1           (Student_SS_1_ss_ctrl_1),
         // Interface: high_speed_clk
-        .clk_1               (Student_SS_1_clk_1),
+        .high_speed_clk      (Student_SS_1_high_speed_clk),
         // Interface: pmod_gpio_0
         .pmod_0_gpi          (Student_SS_1_pmod_0_gpi),
         .pmod_0_gpio_oe      (Student_SS_1_pmod_0_gpio_oe),
@@ -665,7 +665,7 @@ module Didactic #(
         .PWRITE              (Student_SS_2_PWRITE),
         .PRDATA              (Student_SS_2_PRDATA),
         .PREADY              (Student_SS_2_PREADY),
-        .PSELERR             (Student_SS_2_PSELERR),
+        .PSLVERR             (Student_SS_2_PSLVERR),
         // Interface: Clock
         .clk                 (Student_SS_2_clk),
         // Interface: IRQ
@@ -679,7 +679,7 @@ module Didactic #(
         .ana_core_in         (ana_core_in[1:0]),
         .ana_core_out        (ana_core_out[1:0]),
         // Interface: high_speed_clk
-        .clk_1               (Student_SS_2_clk_1),
+        .high_speed_clk      (Student_SS_2_high_speed_clk),
         // Interface: pmod_gpio_0
         .pmod_0_gpi          (Student_SS_2_pmod_0_gpi),
         .pmod_0_gpio_oe      (Student_SS_2_pmod_0_gpio_oe),
@@ -713,7 +713,7 @@ module Didactic #(
         .irq_en_3            (Student_SS_3_irq_en_3),
         .ss_ctrl_3           (Student_SS_3_ss_ctrl_3),
         // Interface: high_speed_clk
-        .clk                 (Student_SS_3_clk),
+        .high_speed_clk      (Student_SS_3_high_speed_clk),
         // Interface: pmod_gpio_0
         .pmod_0_gpi          (Student_SS_3_pmod_0_gpi),
         .pmod_0_gpio_oe      (Student_SS_3_pmod_0_gpio_oe),

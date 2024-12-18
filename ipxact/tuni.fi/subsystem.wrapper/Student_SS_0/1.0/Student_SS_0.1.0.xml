@@ -62,7 +62,7 @@
 								<ipxact:name>PSLVERR</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>PSELERR</ipxact:name>
+								<ipxact:name>PSLVERR</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -406,7 +406,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>PSELERR</ipxact:name>
+				<ipxact:name>PSLVERR</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
@@ -688,20 +688,6 @@
 			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
-	<ipxact:fileSets>
-		<ipxact:fileSet>
-			<ipxact:name>rtl</ipxact:name>
-			<ipxact:group>generatedFiles</ipxact:group>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:isStructural>true</ipxact:isStructural>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>66249f86a650f506addb8b2db04b2c6320250aff</kactus2:hash>
-				</ipxact:vendorExtensions>
-			</ipxact:file>
-		</ipxact:fileSet>
-	</ipxact:fileSets>
 	<ipxact:parameters>
 		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_9811eb96_811c_4e28_9ec6_1859828cd1be" resolve="user">
 			<ipxact:name>APB_DW</ipxact:name>
@@ -713,18 +699,33 @@
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:fileDependencies>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
-			</kactus2:fileDependency>
-		</kactus2:fileDependencies>
 		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>IP</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
+		<kactus2:fileDependencies>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/nms/Student_SS_0_0.sv</kactus2:fileRef2>
+				<ipxact:description>Include reference to verification/verilator/src/hdl/nms/Student_SS_0_0.sv</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/ms/Student_SS_0_0.sv</kactus2:fileRef2>
+				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/Student_SS_0_0.sv</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/Student_area_0.v</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module Student_area_0</ipxact:description>
+			</kactus2:fileDependency>
+		</kactus2:fileDependencies>
 	</ipxact:vendorExtensions>
 </ipxact:component>

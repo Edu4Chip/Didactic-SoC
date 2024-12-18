@@ -29,7 +29,7 @@ module student_ss_2(
     input  logic        PWRITE,
     output logic [31:0] PRDATA,
     output logic        PREADY,
-    output logic        PSELERR,
+    output logic        PSLVERR,
 
     // Interface: Clock
     input  logic        clk_in,
@@ -69,7 +69,7 @@ module student_ss_2(
 
 // this file contains minimal functionality to avoid breaking anything in other ends of the chip.
 
-  assign PSELERR = 'd0;
+  assign PSLVERR = 'd0;
   assign PREADY  = 'd0;
   assign PRDATA  = 'd0;
   assign irq_2   = 'd0;
