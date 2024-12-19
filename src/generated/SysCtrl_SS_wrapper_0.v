@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 18.12.2024
-// Creation time : 14:34:23
+// Creation date : 19.12.2024
+// Creation time : 12:36:36
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -55,17 +55,8 @@ module SysCtrl_SS_wrapper_0 #(
     // Interface: ICN_SS_Ctrl
     output logic         [7:0]          ss_ctrl_icn,
 
-    // Interface: IRQ0
-    input  logic                        irq_0,
-
-    // Interface: IRQ1
-    input  logic                        irq_1,
-
-    // Interface: IRQ2
-    input  logic                        irq_2,
-
-    // Interface: IRQ3
-    input  logic                        irq_3,
+    // Interface: IRQ
+    input  logic         [3:0]          irq_i,
 
     // Interface: JTAG
     inout  wire                         jtag_tck,
@@ -77,17 +68,8 @@ module SysCtrl_SS_wrapper_0 #(
     // Interface: Reset
     inout  wire                         reset,
 
-    // Interface: Reset_SS_0
-    output logic                        reset_ss_0,
-
-    // Interface: Reset_SS_1
-    output logic                        reset_ss_1,
-
-    // Interface: Reset_SS_2
-    output logic                        reset_ss_2,
-
-    // Interface: Reset_SS_3
-    output logic                        reset_ss_3,
+    // Interface: Reset_SS
+    output logic         [3:0]          reset_ss,
 
     // Interface: Reset_icn
     output logic                        reset_int,
@@ -177,14 +159,6 @@ module SysCtrl_SS_wrapper_0 #(
     // SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl wires:
     wire [7:0] SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_irq_en;
-    // SysCtrl_SS_IRQ0_to_IRQ0 wires:
-    wire       SysCtrl_SS_IRQ0_to_IRQ0_irq;
-    // SysCtrl_SS_IRQ3_to_IRQ3 wires:
-    wire       SysCtrl_SS_IRQ3_to_IRQ3_irq;
-    // SysCtrl_SS_IRQ2_to_IRQ2 wires:
-    wire       SysCtrl_SS_IRQ2_to_IRQ2_irq;
-    // SysCtrl_SS_IRQ1_to_IRQ1 wires:
-    wire       SysCtrl_SS_IRQ1_to_IRQ1_irq;
     // i_io_cell_frame_JTAG_to_JTAG wires:
     // i_io_cell_frame_UART_to_UART wires:
     // i_io_cell_frame_GPIO_to_GPIO wires:
@@ -215,14 +189,6 @@ module SysCtrl_SS_wrapper_0 #(
     // SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl wires:
     wire [7:0] SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_irq_en;
-    // SysCtrl_SS_Reset_SS_0_to_bus_3 wires:
-    wire       SysCtrl_SS_Reset_SS_0_to_bus_3_reset;
-    // SysCtrl_SS_Reset_SS_3_to_bus wires:
-    wire       SysCtrl_SS_Reset_SS_3_to_bus_reset;
-    // SysCtrl_SS_Reset_SS_1_to_bus_2 wires:
-    wire       SysCtrl_SS_Reset_SS_1_to_bus_2_reset;
-    // SysCtrl_SS_Reset_SS_2_to_bus_1 wires:
-    wire       SysCtrl_SS_Reset_SS_2_to_bus_1_reset;
     // SysCtrl_SS_Reset_ICN_to_Reset_icn wires:
     wire       SysCtrl_SS_Reset_ICN_to_Reset_icn_reset;
     // i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg wires:
@@ -292,6 +258,10 @@ module SysCtrl_SS_wrapper_0 #(
     // i_io_cell_frame_high_speed_clock_to_high_speed_clock wires:
     // i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal wires:
     wire       i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal_clk;
+    // SysCtrl_SS_Reset_SS_to_Reset_SS wires:
+    wire [3:0] SysCtrl_SS_Reset_SS_to_Reset_SS_reset;
+    // SysCtrl_SS_IRQ_to_IRQ wires:
+    wire [3:0] SysCtrl_SS_IRQ_to_IRQ_irq;
 
     // SysCtrl_SS port wires:
     wire [84:0] SysCtrl_SS_cell_cfg;
@@ -317,10 +287,6 @@ module SysCtrl_SS_wrapper_0 #(
     wire       SysCtrl_SS_icn_w_ready_in;
     wire [3:0] SysCtrl_SS_icn_w_strb_out;
     wire       SysCtrl_SS_icn_w_valid_out;
-    wire       SysCtrl_SS_irq_0;
-    wire       SysCtrl_SS_irq_1;
-    wire       SysCtrl_SS_irq_2;
-    wire       SysCtrl_SS_irq_3;
     wire       SysCtrl_SS_irq_en_0;
     wire       SysCtrl_SS_irq_en_1;
     wire       SysCtrl_SS_irq_en_2;
@@ -333,10 +299,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [7:0] SysCtrl_SS_pmod_sel;
     wire       SysCtrl_SS_reset_icn;
     wire       SysCtrl_SS_reset_internal;
-    wire       SysCtrl_SS_reset_ss_0;
-    wire       SysCtrl_SS_reset_ss_1;
-    wire       SysCtrl_SS_reset_ss_2;
-    wire       SysCtrl_SS_reset_ss_3;
+    wire [3:0] SysCtrl_SS_reset_ss;
     wire [1:0] SysCtrl_SS_spim_csn_internal;
     wire [3:0] SysCtrl_SS_spim_miso_internal;
     wire [3:0] SysCtrl_SS_spim_mosi_internal;
@@ -346,6 +309,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [7:0] SysCtrl_SS_ss_ctrl_2;
     wire [7:0] SysCtrl_SS_ss_ctrl_3;
     wire [7:0] SysCtrl_SS_ss_ctrl_icn;
+    wire [3:0] SysCtrl_SS_sysctrl_irq_i;
     wire       SysCtrl_SS_uart_rx_internal;
     wire       SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame port wires:
@@ -421,19 +385,13 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_READY = icn_w_ready_in;
     assign icn_w_strb_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
     assign icn_w_valid_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
-    assign SysCtrl_SS_IRQ0_to_IRQ0_irq = irq_0;
-    assign SysCtrl_SS_IRQ1_to_IRQ1_irq = irq_1;
-    assign SysCtrl_SS_IRQ2_to_IRQ2_irq = irq_2;
-    assign SysCtrl_SS_IRQ3_to_IRQ3_irq = irq_3;
     assign irq_en_0 = SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_irq_en;
     assign irq_en_1 = SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_irq_en;
     assign irq_en_2 = SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_irq_en;
     assign irq_en_3 = SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_irq_en;
+    assign SysCtrl_SS_IRQ_to_IRQ_irq = irq_i;
     assign reset_int = SysCtrl_SS_Reset_ICN_to_Reset_icn_reset;
-    assign reset_ss_0 = SysCtrl_SS_Reset_SS_0_to_bus_3_reset;
-    assign reset_ss_1 = SysCtrl_SS_Reset_SS_1_to_bus_2_reset;
-    assign reset_ss_2 = SysCtrl_SS_Reset_SS_2_to_bus_1_reset;
-    assign reset_ss_3 = SysCtrl_SS_Reset_SS_3_to_bus_reset;
+    assign reset_ss = SysCtrl_SS_Reset_SS_to_Reset_SS_reset;
     assign ss_0_pmo_0_gpi = i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpi;
     assign i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpio_oe = ss_0_pmo_0_gpio_oe;
     assign i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpo = ss_0_pmo_0_gpo;
@@ -488,10 +446,6 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_icn_w_ready_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB = SysCtrl_SS_icn_w_strb_out;
     assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID = SysCtrl_SS_icn_w_valid_out;
-    assign SysCtrl_SS_irq_0 = SysCtrl_SS_IRQ0_to_IRQ0_irq;
-    assign SysCtrl_SS_irq_1 = SysCtrl_SS_IRQ1_to_IRQ1_irq;
-    assign SysCtrl_SS_irq_2 = SysCtrl_SS_IRQ2_to_IRQ2_irq;
-    assign SysCtrl_SS_irq_3 = SysCtrl_SS_IRQ3_to_IRQ3_irq;
     assign SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_irq_en = SysCtrl_SS_irq_en_0;
     assign SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_irq_en = SysCtrl_SS_irq_en_1;
     assign SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_irq_en = SysCtrl_SS_irq_en_2;
@@ -504,10 +458,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo = SysCtrl_SS_pmod_sel;
     assign SysCtrl_SS_Reset_ICN_to_Reset_icn_reset = SysCtrl_SS_reset_icn;
     assign SysCtrl_SS_reset_internal = i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
-    assign SysCtrl_SS_Reset_SS_0_to_bus_3_reset = SysCtrl_SS_reset_ss_0;
-    assign SysCtrl_SS_Reset_SS_1_to_bus_2_reset = SysCtrl_SS_reset_ss_1;
-    assign SysCtrl_SS_Reset_SS_2_to_bus_1_reset = SysCtrl_SS_reset_ss_2;
-    assign SysCtrl_SS_Reset_SS_3_to_bus_reset = SysCtrl_SS_reset_ss_3;
+    assign SysCtrl_SS_Reset_SS_to_Reset_SS_reset = SysCtrl_SS_reset_ss;
     assign i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_csn = SysCtrl_SS_spim_csn_internal;
     assign SysCtrl_SS_spim_miso_internal = i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_miso;
     assign i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_mosi = SysCtrl_SS_spim_mosi_internal;
@@ -517,6 +468,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_2;
     assign SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_3;
     assign SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_icn;
+    assign SysCtrl_SS_sysctrl_irq_i = SysCtrl_SS_IRQ_to_IRQ_irq;
     assign SysCtrl_SS_uart_rx_internal = i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_rx;
     assign i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_tx = SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame assignments:
@@ -606,14 +558,8 @@ module SysCtrl_SS_wrapper_0 #(
         .gpio_from_core      (SysCtrl_SS_gpio_from_core),
         // Interface: ICN_SS_Ctrl
         .ss_ctrl_icn         (SysCtrl_SS_ss_ctrl_icn),
-        // Interface: IRQ0
-        .irq_0               (SysCtrl_SS_irq_0),
-        // Interface: IRQ1
-        .irq_1               (SysCtrl_SS_irq_1),
-        // Interface: IRQ2
-        .irq_2               (SysCtrl_SS_irq_2),
-        // Interface: IRQ3
-        .irq_3               (SysCtrl_SS_irq_3),
+        // Interface: IRQ
+        .sysctrl_irq_i       (SysCtrl_SS_sysctrl_irq_i),
         // Interface: JTAG
         .jtag_tck_internal   (SysCtrl_SS_jtag_tck_internal),
         .jtag_tdi_internal   (SysCtrl_SS_jtag_tdi_internal),
@@ -624,14 +570,8 @@ module SysCtrl_SS_wrapper_0 #(
         .reset_internal      (SysCtrl_SS_reset_internal),
         // Interface: Reset_ICN
         .reset_icn           (SysCtrl_SS_reset_icn),
-        // Interface: Reset_SS_0
-        .reset_ss_0          (SysCtrl_SS_reset_ss_0),
-        // Interface: Reset_SS_1
-        .reset_ss_1          (SysCtrl_SS_reset_ss_1),
-        // Interface: Reset_SS_2
-        .reset_ss_2          (SysCtrl_SS_reset_ss_2),
-        // Interface: Reset_SS_3
-        .reset_ss_3          (SysCtrl_SS_reset_ss_3),
+        // Interface: Reset_SS
+        .reset_ss            (SysCtrl_SS_reset_ss),
         // Interface: SPI
         .spim_miso_internal  (SysCtrl_SS_spim_miso_internal),
         .spim_csn_internal   (SysCtrl_SS_spim_csn_internal),

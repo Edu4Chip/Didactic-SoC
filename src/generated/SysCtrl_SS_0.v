@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 18.12.2024
-// Creation time : 14:34:23
+// Creation date : 19.12.2024
+// Creation time : 12:36:36
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -53,17 +53,8 @@ module SysCtrl_SS_0 #(
     // Interface: ICN_SS_Ctrl
     output logic         [7:0]          ss_ctrl_icn,
 
-    // Interface: IRQ0
-    input  logic                        irq_0,
-
-    // Interface: IRQ1
-    input  logic                        irq_1,
-
-    // Interface: IRQ2
-    input  logic                        irq_2,
-
-    // Interface: IRQ3
-    input  logic                        irq_3,
+    // Interface: IRQ
+    input  logic         [3:0]          sysctrl_irq_i,
 
     // Interface: JTAG
     input  logic                        jtag_tck_internal,
@@ -78,17 +69,8 @@ module SysCtrl_SS_0 #(
     // Interface: Reset_ICN
     output logic                        reset_icn,
 
-    // Interface: Reset_SS_0
-    output logic                        reset_ss_0,
-
-    // Interface: Reset_SS_1
-    output logic                        reset_ss_1,
-
-    // Interface: Reset_SS_2
-    output logic                        reset_ss_2,
-
-    // Interface: Reset_SS_3
-    output logic                        reset_ss_3,
+    // Interface: Reset_SS
+    output logic         [3:0]          reset_ss,
 
     // Interface: SPI
     input  logic         [3:0]          spim_miso_internal,
@@ -166,14 +148,6 @@ module SysCtrl_SS_0 #(
     wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID;
     // SS_Ctrl_reg_array_rst_icn_to_Reset_ICN wires:
     wire       SS_Ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
-    // SS_Ctrl_reg_array_rst_ss_0_to_Reset_SS_0 wires:
-    wire       SS_Ctrl_reg_array_rst_ss_0_to_Reset_SS_0_reset;
-    // SS_Ctrl_reg_array_rst_ss_1_to_Reset_SS_1 wires:
-    wire       SS_Ctrl_reg_array_rst_ss_1_to_Reset_SS_1_reset;
-    // SS_Ctrl_reg_array_rst_ss_2_to_Reset_SS_2 wires:
-    wire       SS_Ctrl_reg_array_rst_ss_2_to_Reset_SS_2_reset;
-    // SS_Ctrl_reg_array_rst_ss_3_to_Reset_SS_3 wires:
-    wire       SS_Ctrl_reg_array_rst_ss_3_to_Reset_SS_3_reset;
     // SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl wires:
     wire [7:0] SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
     // SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0 wires:
@@ -398,16 +372,15 @@ module SysCtrl_SS_0 #(
     wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
     // SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn wires:
     wire [4:0] SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo;
+    // SS_Ctrl_reg_array_rst_ss_to_Reset_SS wires:
+    wire [3:0] SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset;
 
     // Ad-hoc wires:
-    wire       Ibex_Core_irq_fast_i_to_irq_0;
-    wire       Ibex_Core_irq_fast_i_to_irq_3;
-    wire       Ibex_Core_irq_fast_i_to_irq_2;
     wire       i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i;
     wire       i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
     wire [1:0] i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
     wire [6:0] Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
-    wire       Ibex_Core_irq_fast_i_to_irq_1;
+    wire [3:0] Ibex_Core_irq_fast_i_to_sysctrl_irq_i;
 
     // Ctrl_reg_bridge port wires:
     wire [31:0] Ctrl_reg_bridge_addr_o;
@@ -873,10 +846,6 @@ module SysCtrl_SS_0 #(
     assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_READY = icn_w_ready_in;
     assign icn_w_strb_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
     assign icn_w_valid_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
-    assign Ibex_Core_irq_fast_i_to_irq_0 = irq_0;
-    assign Ibex_Core_irq_fast_i_to_irq_1 = irq_1;
-    assign Ibex_Core_irq_fast_i_to_irq_2 = irq_2;
-    assign Ibex_Core_irq_fast_i_to_irq_3 = irq_3;
     assign irq_en_0 = SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en;
     assign irq_en_1 = SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
     assign irq_en_2 = SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
@@ -890,10 +859,7 @@ module SysCtrl_SS_0 #(
     assign pmod_sel = SS_Ctrl_reg_array_pmod_sel_to_bus_gpo;
     assign reset_icn = SS_Ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
     assign i_SysCtrl_peripherals_Reset_to_Reset_reset = reset_internal;
-    assign reset_ss_0 = SS_Ctrl_reg_array_rst_ss_0_to_Reset_SS_0_reset;
-    assign reset_ss_1 = SS_Ctrl_reg_array_rst_ss_1_to_Reset_SS_1_reset;
-    assign reset_ss_2 = SS_Ctrl_reg_array_rst_ss_2_to_Reset_SS_2_reset;
-    assign reset_ss_3 = SS_Ctrl_reg_array_rst_ss_3_to_Reset_SS_3_reset;
+    assign reset_ss = SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset;
     assign spim_csn_internal = i_SysCtrl_peripherals_SPI_to_SPI_csn;
     assign i_SysCtrl_peripherals_SPI_to_SPI_miso = spim_miso_internal;
     assign spim_mosi_internal = i_SysCtrl_peripherals_SPI_to_SPI_mosi;
@@ -903,6 +869,7 @@ module SysCtrl_SS_0 #(
     assign ss_ctrl_2 = SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
     assign ss_ctrl_3 = SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
     assign ss_ctrl_icn = SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
+    assign Ibex_Core_irq_fast_i_to_sysctrl_irq_i = sysctrl_irq_i;
     assign i_SysCtrl_peripherals_UART_to_UART_uart_rx = uart_rx_internal;
     assign uart_tx_internal = i_SysCtrl_peripherals_UART_to_UART_uart_tx;
 
@@ -1113,11 +1080,8 @@ module SysCtrl_SS_0 #(
     assign Ibex_Core_instr_rdata_i = Ibex_Core_imem_to_core_imem_bridge_mem_RDATA;
     assign Ibex_Core_imem_to_core_imem_bridge_mem_REQ = Ibex_Core_instr_req_o;
     assign Ibex_Core_instr_rvalid_i = Ibex_Core_imem_to_core_imem_bridge_mem_RVALID;
-    assign Ibex_Core_irq_fast_i[4] = Ibex_Core_irq_fast_i_to_irq_0;
-    assign Ibex_Core_irq_fast_i[5] = Ibex_Core_irq_fast_i_to_irq_1;
-    assign Ibex_Core_irq_fast_i[6] = Ibex_Core_irq_fast_i_to_irq_2;
-    assign Ibex_Core_irq_fast_i[7] = Ibex_Core_irq_fast_i_to_irq_3;
     assign Ibex_Core_irq_fast_i[14:8] = Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
+    assign Ibex_Core_irq_fast_i[7:4] = Ibex_Core_irq_fast_i_to_sysctrl_irq_i;
     assign Ibex_Core_irq_fast_i[1] = i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
     assign Ibex_Core_irq_fast_i[3:2] = i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
     assign Ibex_Core_irq_fast_i[0] = i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i;
@@ -1137,10 +1101,10 @@ module SysCtrl_SS_0 #(
     assign SS_Ctrl_reg_array_req_in = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_REQ;
     assign SS_Ctrl_reg_array_reset = i_SysCtrl_peripherals_Reset_to_Reset_reset;
     assign SS_Ctrl_reg_array_rst_icn_to_Reset_ICN_reset = SS_Ctrl_reg_array_reset_icn;
-    assign SS_Ctrl_reg_array_rst_ss_0_to_Reset_SS_0_reset = SS_Ctrl_reg_array_reset_ss_0;
-    assign SS_Ctrl_reg_array_rst_ss_1_to_Reset_SS_1_reset = SS_Ctrl_reg_array_reset_ss_1;
-    assign SS_Ctrl_reg_array_rst_ss_2_to_Reset_SS_2_reset = SS_Ctrl_reg_array_reset_ss_2;
-    assign SS_Ctrl_reg_array_rst_ss_3_to_Reset_SS_3_reset = SS_Ctrl_reg_array_reset_ss_3;
+    assign SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset[0] = SS_Ctrl_reg_array_reset_ss_0;
+    assign SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset[1] = SS_Ctrl_reg_array_reset_ss_1;
+    assign SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset[2] = SS_Ctrl_reg_array_reset_ss_2;
+    assign SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset[3] = SS_Ctrl_reg_array_reset_ss_3;
     assign SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl = SS_Ctrl_reg_array_ss_ctrl_0;
     assign SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl = SS_Ctrl_reg_array_ss_ctrl_1;
     assign SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl = SS_Ctrl_reg_array_ss_ctrl_2;
@@ -1653,13 +1617,10 @@ module SysCtrl_SS_0 #(
         .pmod_sel            (SS_Ctrl_reg_array_pmod_sel),
         // Interface: rst_icn
         .reset_icn           (SS_Ctrl_reg_array_reset_icn),
-        // Interface: rst_ss_0
+        // Interface: rst_ss
         .reset_ss_0          (SS_Ctrl_reg_array_reset_ss_0),
-        // Interface: rst_ss_1
         .reset_ss_1          (SS_Ctrl_reg_array_reset_ss_1),
-        // Interface: rst_ss_2
         .reset_ss_2          (SS_Ctrl_reg_array_reset_ss_2),
-        // Interface: rst_ss_3
         .reset_ss_3          (SS_Ctrl_reg_array_reset_ss_3),
         // Interface: ss_ctrl_0
         .irq_en_0            (SS_Ctrl_reg_array_irq_en_0),

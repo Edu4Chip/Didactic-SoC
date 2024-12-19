@@ -115,7 +115,7 @@
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{fd9ee647-b78c-4ca1-a4ee-dd99cc7f5165}</kactus2:uuid>
-				<kactus2:position x="280" y="620"/>
+				<kactus2:position x="280" y="580"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="AXI4LITE_I" x="110" y="150"/>
 					<kactus2:portPosition busRef="AXI4LITE_T" x="110" y="130"/>
@@ -166,19 +166,16 @@
 					<kactus2:portPosition busRef="Clock" x="110" y="50"/>
 					<kactus2:portPosition busRef="Reset" x="110" y="70"/>
 					<kactus2:portPosition busRef="fetch_en" x="110" y="340"/>
-					<kactus2:portPosition busRef="icn_ss_ctrl" x="-110" y="210"/>
-					<kactus2:portPosition busRef="io_cfg" x="-110" y="400"/>
-					<kactus2:portPosition busRef="mem_reg_if" x="110" y="400"/>
-					<kactus2:portPosition busRef="pmod_sel" x="-110" y="380"/>
+					<kactus2:portPosition busRef="icn_ss_ctrl" x="-110" y="120"/>
+					<kactus2:portPosition busRef="io_cfg" x="-110" y="320"/>
+					<kactus2:portPosition busRef="mem_reg_if" x="110" y="360"/>
+					<kactus2:portPosition busRef="pmod_sel" x="-110" y="360"/>
 					<kactus2:portPosition busRef="rst_icn" x="-110" y="40"/>
-					<kactus2:portPosition busRef="rst_ss_0" x="-110" y="60"/>
-					<kactus2:portPosition busRef="rst_ss_1" x="-110" y="80"/>
-					<kactus2:portPosition busRef="rst_ss_2" x="-110" y="100"/>
-					<kactus2:portPosition busRef="rst_ss_3" x="-110" y="120"/>
-					<kactus2:portPosition busRef="ss_ctrl_0" x="-110" y="230"/>
-					<kactus2:portPosition busRef="ss_ctrl_1" x="-110" y="250"/>
-					<kactus2:portPosition busRef="ss_ctrl_2" x="-110" y="270"/>
-					<kactus2:portPosition busRef="ss_ctrl_3" x="-110" y="290"/>
+					<kactus2:portPosition busRef="ss_ctrl_0" x="-110" y="160"/>
+					<kactus2:portPosition busRef="ss_ctrl_1" x="-110" y="200"/>
+					<kactus2:portPosition busRef="ss_ctrl_2" x="-110" y="240"/>
+					<kactus2:portPosition busRef="ss_ctrl_3" x="-110" y="280"/>
+					<kactus2:portPosition busRef="rst_ss" x="-110" y="80"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -195,10 +192,10 @@
 				<kactus2:position x="600" y="330"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
-					<kactus2:portPosition busRef="Debug" x="-110" y="350"/>
+					<kactus2:portPosition busRef="Debug" x="-110" y="310"/>
 					<kactus2:portPosition busRef="FetchEn" x="-110" y="70"/>
 					<kactus2:portPosition busRef="IRQ_fast" x="-110" y="410"/>
-					<kactus2:portPosition busRef="Reset" x="-110" y="330"/>
+					<kactus2:portPosition busRef="Reset" x="-110" y="290"/>
 					<kactus2:portPosition busRef="dmem" x="110" y="100"/>
 					<kactus2:portPosition busRef="imem" x="110" y="240"/>
 				</kactus2:portPositions>
@@ -278,7 +275,7 @@
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{0782b6d1-1eae-48b2-9796-2b1a566b389a}</kactus2:uuid>
-				<kactus2:position x="280" y="510"/>
+				<kactus2:position x="280" y="470"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="AXI4LITE" x="110" y="60"/>
 					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
@@ -322,26 +319,6 @@
 			<ipxact:name>SS_Ctrl_reg_array_rst_icn_to_Reset_ICN</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="SS_Ctrl_reg_array" busRef="rst_icn"/>
 			<ipxact:hierInterface busRef="Reset_ICN"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SS_Ctrl_reg_array_rst_ss_0_to_Reset_SS_0</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SS_Ctrl_reg_array" busRef="rst_ss_0"/>
-			<ipxact:hierInterface busRef="Reset_SS_0"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SS_Ctrl_reg_array_rst_ss_1_to_Reset_SS_1</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SS_Ctrl_reg_array" busRef="rst_ss_1"/>
-			<ipxact:hierInterface busRef="Reset_SS_1"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SS_Ctrl_reg_array_rst_ss_2_to_Reset_SS_2</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SS_Ctrl_reg_array" busRef="rst_ss_2"/>
-			<ipxact:hierInterface busRef="Reset_SS_2"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SS_Ctrl_reg_array_rst_ss_3_to_Reset_SS_3</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SS_Ctrl_reg_array" busRef="rst_ss_3"/>
-			<ipxact:hierInterface busRef="Reset_SS_3"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
 			<ipxact:name>SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl</ipxact:name>
@@ -568,50 +545,13 @@
 			<ipxact:activeInterface componentInstanceRef="SS_Ctrl_reg_array" busRef="fetch_en"/>
 			<ipxact:activeInterface componentInstanceRef="Ibex_Core" busRef="FetchEn"/>
 		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>SS_Ctrl_reg_array_rst_ss_to_Reset_SS</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="SS_Ctrl_reg_array" busRef="rst_ss"/>
+			<ipxact:hierInterface busRef="Reset_SS"/>
+		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
-		<ipxact:adHocConnection>
-			<ipxact:name>Ibex_Core_irq_fast_i_to_irq_0</ipxact:name>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="Ibex_Core" portRef="irq_fast_i">
-					<ipxact:partSelect>
-						<ipxact:range>
-							<ipxact:left>4</ipxact:left>
-							<ipxact:right>4</ipxact:right>
-						</ipxact:range>
-					</ipxact:partSelect>
-				</ipxact:internalPortReference>
-				<ipxact:externalPortReference portRef="irq_0"/>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
-		<ipxact:adHocConnection>
-			<ipxact:name>Ibex_Core_irq_fast_i_to_irq_3</ipxact:name>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="Ibex_Core" portRef="irq_fast_i">
-					<ipxact:partSelect>
-						<ipxact:range>
-							<ipxact:left>7</ipxact:left>
-							<ipxact:right>7</ipxact:right>
-						</ipxact:range>
-					</ipxact:partSelect>
-				</ipxact:internalPortReference>
-				<ipxact:externalPortReference portRef="irq_3"/>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
-		<ipxact:adHocConnection>
-			<ipxact:name>Ibex_Core_irq_fast_i_to_irq_2</ipxact:name>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="Ibex_Core" portRef="irq_fast_i">
-					<ipxact:partSelect>
-						<ipxact:range>
-							<ipxact:left>6</ipxact:left>
-							<ipxact:right>6</ipxact:right>
-						</ipxact:range>
-					</ipxact:partSelect>
-				</ipxact:internalPortReference>
-				<ipxact:externalPortReference portRef="irq_2"/>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
 		<ipxact:adHocConnection>
 			<ipxact:name>i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i</ipxact:name>
 			<ipxact:portReferences>
@@ -676,17 +616,17 @@
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
 		<ipxact:adHocConnection>
-			<ipxact:name>Ibex_Core_irq_fast_i_to_irq_1</ipxact:name>
+			<ipxact:name>Ibex_Core_irq_fast_i_to_sysctrl_irq_i</ipxact:name>
 			<ipxact:portReferences>
 				<ipxact:internalPortReference componentInstanceRef="Ibex_Core" portRef="irq_fast_i">
 					<ipxact:partSelect>
 						<ipxact:range>
-							<ipxact:left>5</ipxact:left>
-							<ipxact:right>5</ipxact:right>
+							<ipxact:left>7</ipxact:left>
+							<ipxact:right>4</ipxact:right>
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:internalPortReference>
-				<ipxact:externalPortReference portRef="irq_1"/>
+				<ipxact:externalPortReference portRef="sysctrl_irq_i"/>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>
@@ -757,88 +697,50 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_rst_icn_to_Reset_ICN" kactus2:offPage="false">
 				<kactus2:position x="170" y="100"/>
-				<kactus2:position x="110" y="100"/>
-				<kactus2:position x="110" y="70"/>
-				<kactus2:position x="60" y="70"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_rst_ss_0_to_Reset_SS_0" kactus2:offPage="false">
-				<kactus2:position x="170" y="120"/>
-				<kactus2:position x="100" y="120"/>
-				<kactus2:position x="100" y="110"/>
-				<kactus2:position x="60" y="110"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_rst_ss_1_to_Reset_SS_1" kactus2:offPage="false">
-				<kactus2:position x="170" y="140"/>
-				<kactus2:position x="80" y="140"/>
-				<kactus2:position x="80" y="150"/>
-				<kactus2:position x="60" y="150"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_rst_ss_2_to_Reset_SS_2" kactus2:offPage="false">
-				<kactus2:position x="170" y="160"/>
-				<kactus2:position x="90" y="160"/>
-				<kactus2:position x="90" y="190"/>
-				<kactus2:position x="60" y="190"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_rst_ss_3_to_Reset_SS_3" kactus2:offPage="false">
-				<kactus2:position x="170" y="180"/>
-				<kactus2:position x="110" y="180"/>
-				<kactus2:position x="110" y="230"/>
-				<kactus2:position x="60" y="230"/>
+				<kactus2:position x="60" y="100"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl" kactus2:offPage="false">
-				<kactus2:position x="170" y="270"/>
-				<kactus2:position x="60" y="270"/>
+				<kactus2:position x="170" y="180"/>
+				<kactus2:position x="60" y="180"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0" kactus2:offPage="false">
-				<kactus2:position x="170" y="290"/>
-				<kactus2:position x="100" y="290"/>
-				<kactus2:position x="100" y="310"/>
-				<kactus2:position x="60" y="310"/>
+				<kactus2:position x="170" y="220"/>
+				<kactus2:position x="60" y="220"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1" kactus2:offPage="false">
-				<kactus2:position x="170" y="310"/>
-				<kactus2:position x="110" y="310"/>
-				<kactus2:position x="110" y="350"/>
-				<kactus2:position x="60" y="350"/>
+				<kactus2:position x="170" y="260"/>
+				<kactus2:position x="60" y="260"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2" kactus2:offPage="false">
-				<kactus2:position x="170" y="330"/>
-				<kactus2:position x="120" y="330"/>
-				<kactus2:position x="120" y="390"/>
-				<kactus2:position x="60" y="390"/>
+				<kactus2:position x="170" y="300"/>
+				<kactus2:position x="60" y="300"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3" kactus2:offPage="false">
-				<kactus2:position x="170" y="350"/>
-				<kactus2:position x="130" y="350"/>
-				<kactus2:position x="130" y="430"/>
-				<kactus2:position x="60" y="430"/>
+				<kactus2:position x="170" y="340"/>
+				<kactus2:position x="60" y="340"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg" kactus2:offPage="false">
-				<kactus2:position x="170" y="460"/>
-				<kactus2:position x="110" y="460"/>
-				<kactus2:position x="110" y="470"/>
-				<kactus2:position x="60" y="470"/>
+				<kactus2:position x="170" y="380"/>
+				<kactus2:position x="60" y="380"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_JTAG_to_JTAG" kactus2:offPage="false">
-				<kactus2:position x="170" y="710"/>
-				<kactus2:position x="80" y="710"/>
-				<kactus2:position x="80" y="670"/>
+				<kactus2:position x="170" y="670"/>
 				<kactus2:position x="60" y="670"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL" kactus2:offPage="true">
-				<kactus2:position x="420" y="570"/>
+				<kactus2:position x="420" y="530"/>
 				<kactus2:position x="1100" y="760"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ctrl_reg_bridge_Clock_to_Clk" kactus2:offPage="true">
-				<kactus2:position x="140" y="550"/>
+				<kactus2:position x="140" y="510"/>
 				<kactus2:position x="1750" y="590"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ctrl_reg_bridge_Reset_to_Reset" kactus2:offPage="true">
-				<kactus2:position x="140" y="570"/>
+				<kactus2:position x="140" y="530"/>
 				<kactus2:position x="1750" y="640"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_Clock_to_Clk" kactus2:offPage="true">
-				<kactus2:position x="140" y="660"/>
+				<kactus2:position x="140" y="620"/>
 				<kactus2:position x="1750" y="590"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_Clock_to_Clk" kactus2:offPage="true">
@@ -970,24 +872,24 @@
 				<kactus2:position x="1130" y="520"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T" kactus2:offPage="true">
-				<kactus2:position x="420" y="750"/>
+				<kactus2:position x="420" y="710"/>
 				<kactus2:position x="1100" y="720"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I" kactus2:offPage="true">
-				<kactus2:position x="420" y="770"/>
+				<kactus2:position x="420" y="730"/>
 				<kactus2:position x="1100" y="690"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_Reset_to_Reset" kactus2:offPage="true">
-				<kactus2:position x="140" y="680"/>
+				<kactus2:position x="140" y="640"/>
 				<kactus2:position x="1750" y="640"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset" kactus2:offPage="false">
-				<kactus2:position x="390" y="660"/>
-				<kactus2:position x="490" y="660"/>
+				<kactus2:position x="390" y="620"/>
+				<kactus2:position x="490" y="620"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug" kactus2:offPage="false">
-				<kactus2:position x="390" y="680"/>
-				<kactus2:position x="490" y="680"/>
+				<kactus2:position x="390" y="640"/>
+				<kactus2:position x="490" y="640"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ctrl_xbar_Clock_to_Clk" kactus2:offPage="false">
 				<kactus2:position x="1350" y="590"/>
@@ -998,10 +900,10 @@
 				<kactus2:position x="1780" y="640"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if" kactus2:offPage="false">
-				<kactus2:position x="390" y="550"/>
-				<kactus2:position x="410" y="550"/>
-				<kactus2:position x="410" y="460"/>
-				<kactus2:position x="390" y="460"/>
+				<kactus2:position x="390" y="510"/>
+				<kactus2:position x="410" y="510"/>
+				<kactus2:position x="410" y="420"/>
+				<kactus2:position x="390" y="420"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i" kactus2:offPage="false">
 				<kactus2:position x="1450" y="820"/>
@@ -1032,10 +934,8 @@
 				<kactus2:position x="60" y="540"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_pmod_sel_to_bus" kactus2:offPage="false">
-				<kactus2:position x="170" y="440"/>
-				<kactus2:position x="100" y="440"/>
-				<kactus2:position x="100" y="540"/>
-				<kactus2:position x="60" y="540"/>
+				<kactus2:position x="170" y="420"/>
+				<kactus2:position x="60" y="420"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn" kactus2:offPage="false">
 				<kactus2:position x="1350" y="470"/>
@@ -1057,13 +957,20 @@
 				<kactus2:position x="450" y="920"/>
 				<kactus2:position x="60" y="920"/>
 			</kactus2:route>
+			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_rst_ss_to_Reset_SS" kactus2:offPage="false">
+				<kactus2:position x="170" y="140"/>
+				<kactus2:position x="60" y="140"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Ibex_Core_irq_fast_i_to_sysctrl_irq_i" kactus2:offPage="false">
+				<kactus2:position x="490" y="760"/>
+				<kactus2:position x="470" y="760"/>
+				<kactus2:position x="470" y="800"/>
+				<kactus2:position x="60" y="800"/>
+			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>
-			<kactus2:adHocVisible portName="irq_0" x="60" y="840"/>
-			<kactus2:adHocVisible portName="irq_1" x="60" y="920"/>
-			<kactus2:adHocVisible portName="irq_2" x="60" y="1000"/>
-			<kactus2:adHocVisible portName="irq_3" x="60" y="1080"/>
 			<kactus2:adHocVisible portName="irq_upper_tieoff" x="60" y="760"/>
+			<kactus2:adHocVisible portName="sysctrl_irq_i" x="60" y="800"/>
 		</kactus2:adHocVisibilities>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>JTAG</kactus2:name>
@@ -1072,17 +979,17 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>SS_Ctrl_3</kactus2:name>
-			<kactus2:position x="60" y="430"/>
+			<kactus2:position x="60" y="340"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>Reset_ICN</kactus2:name>
-			<kactus2:position x="60" y="70"/>
+			<kactus2:position x="60" y="100"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>SS_Ctrl_1</kactus2:name>
-			<kactus2:position x="60" y="350"/>
+			<kactus2:position x="60" y="260"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -1107,17 +1014,17 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>SS_Ctrl_2</kactus2:name>
-			<kactus2:position x="60" y="390"/>
+			<kactus2:position x="60" y="300"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>io_cell_cfg</kactus2:name>
-			<kactus2:position x="60" y="470"/>
+			<kactus2:position x="60" y="380"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>ICN_SS_Ctrl</kactus2:name>
-			<kactus2:position x="60" y="270"/>
+			<kactus2:position x="60" y="180"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -1147,32 +1054,17 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>SS_Ctrl_0</kactus2:name>
-			<kactus2:position x="60" y="310"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>Reset_SS_1</kactus2:name>
-			<kactus2:position x="60" y="150"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>Reset_SS_2</kactus2:name>
-			<kactus2:position x="60" y="190"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>Reset_SS_3</kactus2:name>
-			<kactus2:position x="60" y="230"/>
+			<kactus2:position x="60" y="220"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>Reset_SS_0</kactus2:name>
-			<kactus2:position x="60" y="110"/>
+			<kactus2:position x="60" y="130"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>pmod_sel</kactus2:name>
-			<kactus2:position x="60" y="540"/>
+			<kactus2:position x="60" y="420"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -1187,7 +1079,7 @@
 			<kactus2:timestamp>22.04.2024 14:00</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:note>
-			<kactus2:position x="520" y="580"/>
+			<kactus2:position x="520" y="660"/>
 			<kactus2:content>Initial core choice is IBEX RV core</kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>22.04.2024 14:01</kactus2:timestamp>
@@ -1199,13 +1091,7 @@
 			<kactus2:timestamp>22.04.2024 14:03</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:note>
-			<kactus2:position x="230" y="180"/>
-			<kactus2:content>TODO: finalize needed control registers. If required, regen with Kamel-tool.</kactus2:content>
-			<kactus2:associations/>
-			<kactus2:timestamp>22.04.2024 14:04</kactus2:timestamp>
-		</kactus2:note>
-		<kactus2:note>
-			<kactus2:position x="1760" y="720"/>
+			<kactus2:position x="840" y="610"/>
 			<kactus2:content>The converter bridges could be removed if XBAR is updated to use OBI standard XBAR.
 
 Pulp project provides sample ips, but maturity not known currently.
@@ -1214,5 +1100,15 @@ Reduces area if taken to use.</kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>23.04.2024 09:49</kactus2:timestamp>
 		</kactus2:note>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>Reset_SS</kactus2:name>
+			<kactus2:position x="60" y="140"/>
+			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>IRQ</kactus2:name>
+			<kactus2:position x="60" y="840"/>
+			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>
