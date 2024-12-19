@@ -169,7 +169,9 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target/>
+			<ipxact:target>
+				<ipxact:memoryMapRef memoryMapRef="apb_uart"/>
+			</ipxact:target>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>IRQ</ipxact:name>
@@ -726,9 +728,10 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 	<ipxact:fileSets>
 		<ipxact:fileSet>
 			<ipxact:name>rtl</ipxact:name>
+			<ipxact:description>If open source ip revision is updated, these paths neeed to be updated.</ipxact:description>
 			<ipxact:group>sourceFiles</ipxact:group>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/apb_uart.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/apb_uart.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:description>top level uart module</ipxact:description>
 				<ipxact:vendorExtensions>
@@ -736,74 +739,74 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_clock_div.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/slib_clock_div.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>b39a4f22e035cb3841e0e6d327e449199252b860</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_counter.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/slib_counter.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>e0bcd3efa350c855e3795017c8642be24fd88288</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_edge_detect.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/slib_edge_detect.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>772e53944ccf24ce6a1f03e9418cfa940c2fdf3b</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_fifo.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/slib_fifo.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>112acc7582f7faca94a625bb0e5c7917c3c74570</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_input_filter.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/slib_input_filter.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>44fb43700909b755b0757f505b45669847d61902</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_input_sync.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/slib_input_sync.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>e219e38ac6a3dd8801e566f2f1c6e5f68f670708</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/slib_mv_filter.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/slib_mv_filter.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>3a02bbfb2c36c344ef3b39264bad339db5d2ce37</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/uart_baudgen.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/uart_baudgen.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>b178ec9acf9ef6e54bf46a8ec1f7dc6f5e82100d</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/uart_interrupt.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/uart_interrupt.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>8cc07e85f6dba6593a0f829ada6980b98ef73bea</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/uart_receiver.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/uart_receiver.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_uart/src/uart_transmitter.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/apb_uart/src/uart_transmitter.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 		</ipxact:fileSet>
@@ -817,62 +820,5 @@ DLL writes/reads into/from the 8 LSBs in the divisor		</ipxact:description>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Fixed</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
-		<kactus2:fileDependencies>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../ips/apb_uart/src/slib_input_sync.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module slib_input_sync</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../ips/apb_uart/src/slib_input_filter.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module slib_input_filter</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../ips/apb_uart/src/uart_interrupt.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module uart_interrupt</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../ips/apb_uart/src/slib_edge_detect.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module slib_edge_detect</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../ips/apb_uart/src/uart_baudgen.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module uart_baudgen</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../ips/apb_uart/src/slib_clock_div.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module slib_clock_div</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../ips/apb_uart/src/slib_fifo.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module slib_fifo</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../ips/apb_uart/src/uart_transmitter.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module uart_transmitter</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../ips/apb_uart/src/uart_receiver.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module uart_receiver</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/rx_state_type.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module rx_state_type</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../ips/apb_uart/src/apb_uart.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tx_state_type.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tx_state_type</ipxact:description>
-			</kactus2:fileDependency>
-		</kactus2:fileDependencies>
 	</ipxact:vendorExtensions>
 </ipxact:component>

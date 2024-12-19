@@ -964,32 +964,32 @@ SPI address and writing the data.
 			<ipxact:name>rtl</ipxact:name>
 			<ipxact:group>sourceFiles</ipxact:group>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_spi_master/apb_spi_master.sv</ipxact:name>
+				<ipxact:name>../../../../../vendor_ips/apb_spi_master/apb_spi_master.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:description>top level spi master module</ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_spi_master/spi_master_apb_if.sv</ipxact:name>
+				<ipxact:name>../../../../../vendor_ips/apb_spi_master/spi_master_apb_if.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_spi_master/spi_master_clkgen.sv</ipxact:name>
+				<ipxact:name>../../../../../vendor_ips/apb_spi_master/spi_master_clkgen.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_spi_master/spi_master_controller.sv</ipxact:name>
+				<ipxact:name>../../../../../vendor_ips/apb_spi_master/spi_master_controller.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_spi_master/spi_master_fifo.sv</ipxact:name>
+				<ipxact:name>../../../../../vendor_ips/apb_spi_master/spi_master_fifo.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_spi_master/spi_master_rx.sv</ipxact:name>
+				<ipxact:name>../../../../../vendor_ips/apb_spi_master/spi_master_rx.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_spi_master/spi_master_tx.sv</ipxact:name>
+				<ipxact:name>../../../../../vendor_ips/apb_spi_master/spi_master_tx.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 		</ipxact:fileSet>

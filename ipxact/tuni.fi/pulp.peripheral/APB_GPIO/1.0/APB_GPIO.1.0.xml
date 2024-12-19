@@ -955,9 +955,10 @@ if unneeded.</ipxact:description>
 	<ipxact:fileSets>
 		<ipxact:fileSet>
 			<ipxact:name>rtl</ipxact:name>
+			<ipxact:description>Path contains revision so if it is updated, path needs to be updated as well.</ipxact:description>
 			<ipxact:group>sourceFiles</ipxact:group>
 			<ipxact:file>
-				<ipxact:name>../../../../../ips/apb_gpio/rtl/apb_gpio.sv</ipxact:name>
+				<ipxact:name>../../../../../.bender/git/checkouts/apb_gpio-f882c1c8a370562e/apb_gpio/rtl/apb_gpio.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 		</ipxact:fileSet>

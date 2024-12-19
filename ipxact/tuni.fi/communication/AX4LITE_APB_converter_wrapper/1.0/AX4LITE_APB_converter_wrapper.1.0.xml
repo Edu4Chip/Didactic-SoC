@@ -44,7 +44,7 @@
 							<ipxact:logicalPort>
 								<ipxact:name>PRDATA</ipxact:name>
 								<ipxact:range>
-									<ipxact:left>31</ipxact:left>
+									<ipxact:left>uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8-1</ipxact:left>
 									<ipxact:right>0</ipxact:right>
 								</ipxact:range>
 							</ipxact:logicalPort>
@@ -52,8 +52,8 @@
 								<ipxact:name>PRDATA</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
-										<ipxact:left>31</ipxact:left>
-										<ipxact:right>0</ipxact:right>
+										<ipxact:left>uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8*1-1</ipxact:left>
+										<ipxact:right>uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8*0</ipxact:right>
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
@@ -172,7 +172,7 @@
 							<ipxact:logicalPort>
 								<ipxact:name>PRDATA</ipxact:name>
 								<ipxact:range>
-									<ipxact:left>31</ipxact:left>
+									<ipxact:left>uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8-1</ipxact:left>
 									<ipxact:right>0</ipxact:right>
 								</ipxact:range>
 							</ipxact:logicalPort>
@@ -180,8 +180,8 @@
 								<ipxact:name>PRDATA</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
-										<ipxact:left>95</ipxact:left>
-										<ipxact:right>64</ipxact:right>
+										<ipxact:left>uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8*3-1</ipxact:left>
+										<ipxact:right>uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8*2</ipxact:right>
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
@@ -267,7 +267,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
-					<ipxact:baseAddress>200</ipxact:baseAddress>
+					<ipxact:baseAddress>100</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -300,7 +300,7 @@
 							<ipxact:logicalPort>
 								<ipxact:name>PRDATA</ipxact:name>
 								<ipxact:range>
-									<ipxact:left>31</ipxact:left>
+									<ipxact:left>uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8-1</ipxact:left>
 									<ipxact:right>0</ipxact:right>
 								</ipxact:range>
 							</ipxact:logicalPort>
@@ -308,8 +308,8 @@
 								<ipxact:name>PRDATA</ipxact:name>
 								<ipxact:partSelect>
 									<ipxact:range>
-										<ipxact:left>63</ipxact:left>
-										<ipxact:right>32</ipxact:right>
+										<ipxact:left>uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8*2-1</ipxact:left>
+										<ipxact:right>uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8</ipxact:right>
 									</ipxact:range>
 								</ipxact:partSelect>
 							</ipxact:physicalPort>
@@ -395,7 +395,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
-					<ipxact:baseAddress>300</ipxact:baseAddress>
+					<ipxact:baseAddress>200</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -642,18 +642,13 @@
 					<ipxact:range>'h100</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
-					<ipxact:name>SDIO</ipxact:name>
+					<ipxact:name>SPI</ipxact:name>
 					<ipxact:addressOffset>'h100</ipxact:addressOffset>
 					<ipxact:range>'h100</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
-					<ipxact:name>SPI</ipxact:name>
-					<ipxact:addressOffset>'h200</ipxact:addressOffset>
-					<ipxact:range>'h100</ipxact:range>
-				</ipxact:segment>
-				<ipxact:segment>
 					<ipxact:name>UART</ipxact:name>
-					<ipxact:addressOffset>'h300</ipxact:addressOffset>
+					<ipxact:addressOffset>'h200</ipxact:addressOffset>
 					<ipxact:range>'h100</ipxact:range>
 				</ipxact:segment>
 			</ipxact:segments>
@@ -1310,7 +1305,7 @@
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 10:07:47 on 19.02.2024 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
-					<kactus2:hash>1ed3250c5758269e8ba9a00ac8fd702c935792af</kactus2:hash>
+					<kactus2:hash>dcebbee36aec4d56aef511900c2e1553b4bec18e</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
@@ -1324,7 +1319,7 @@
 			<ipxact:name>APB_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8" resolve="user">
+		<ipxact:parameter kactus2:usageCount="11" parameterId="uuid_d3dfe8aa_cbb1_4cbe_8177_1192002cd3d8" resolve="user">
 			<ipxact:name>APB_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
@@ -1338,22 +1333,27 @@
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:fileDependencies>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/AXI_LITE.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module AXI_LITE</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/axi_lite_to_apb_intf.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module axi_lite_to_apb_intf</ipxact:description>
-			</kactus2:fileDependency>
-		</kactus2:fileDependencies>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
+		<kactus2:fileDependencies>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/axi_lite_to_apb_intf.sv</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module axi_lite_to_apb_intf</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/nms/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef2>
+				<ipxact:description>Include reference to verification/verilator/src/hdl/nms/AX4LITE_APB_converter_wrapper.sv</ipxact:description>
+			</kactus2:fileDependency>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/ms/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef2>
+				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/AX4LITE_APB_converter_wrapper.sv</ipxact:description>
+			</kactus2:fileDependency>
+		</kactus2:fileDependencies>
 	</ipxact:vendorExtensions>
 </ipxact:component>
