@@ -24,6 +24,7 @@ postMain:
   li t1, 0x80000000
   or a0, a0, t1
   sw a0, 0(t0)
+  wfi
 
   .global changeStack
 changeStack:
