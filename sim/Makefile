@@ -108,5 +108,5 @@ run_sim: library_mapping
 	$(DUT_LIBS) $(VSIM_OPTS) \
 	-work $(BUILD_DIR)/didactic_lib \
 	$(DUT)_opt \
-	-do "run 0ms;" \
+	-do "run -all; exit" \
 	-l $(BUILD_DIR)/logs/sim/$(START_TIME)_sim.log
