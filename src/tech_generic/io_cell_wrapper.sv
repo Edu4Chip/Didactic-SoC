@@ -5,6 +5,7 @@
     * Matti Käyrä (matti.kayra@tuni.fi)
   Description:
     * Wrapper module for IO cell selection
+    * XILINX FPGA IOBUF or Simulation model
 */
 
 module io_cell_wrapper #(
@@ -19,35 +20,62 @@ module io_cell_wrapper #(
 
   generate
     if (CELL_TYPE == 0) begin: gen_io_cell
+      `ifndef FPGA
+        io_cell #(
+            .CONF_WIDTH(IOCELL_CFG_W)
+        ) i_io_cell(
+            .io_cell_cfg(io_cell_cfg),
+            .FROM_CORE(FROM_CORE),
+            .TO_CORE(TO_CORE),
+            .PAD(PAD)
+        );
 
-      io_cell #(
-          .CONF_WIDTH(IOCELL_CFG_W)
-      ) i_io_cell(
-          .io_cell_cfg(io_cell_cfg),
-          .FROM_CORE(FROM_CORE),
-          .TO_CORE(TO_CORE),
-          .PAD(PAD)
-      );
+      `else
+        IOBUF i_iobuf(
+          .T (io_cell_cfg[0]), 
+          .I (FROM_CORE),
+          .O (O),
+          .IO(PAD)
+        );
+      `endif
 
     end
     if (CELL_TYPE == 1) begin: gen_o_cell
+      `ifndef FPGA
+        o_cell i_o_cell(
+            .FROM_CORE(FROM_CORE),
+            .PAD(PAD)
+        );
+        assign TO_CORE = 1'b0;
 
-      o_cell i_o_cell(
-          .FROM_CORE(FROM_CORE),
-          .PAD(PAD)
-      );
-      
-      assign TO_CORE = 1'b0;
+      `else
+        IOBUF i_o_iobuf(
+          .T (1'b0), 
+          .I (FROM_CORE),
+          .O (TO_CORE),
+          .IO(PAD)
+        );
+      `endif
 
     end
     if (CELL_TYPE == 2) begin: gen_i_cell
+      `ifndef FPGA
+        i_cell i_i_cell(
+            .TO_CORE(TO_CORE),
+            .PAD(PAD)
+        );
 
-      i_cell i_i_cell(
-          .TO_CORE(TO_CORE),
-          .PAD(PAD)
-      );
+      `else
+        IOBUF i_i_iobuf(
+          .T (1'b1), 
+          .I (FROM_CORE),
+          .O (TO_CORE),
+          .IO(PAD)
+        );
+      `endif
 
     end
+
   endgenerate
 
 endmodule
