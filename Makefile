@@ -17,10 +17,17 @@ SHELL=bash
 BUILD_DIR ?= $(realpath $(CURDIR))/build/
 TEST ?= blink
 
-.PHONY: clean
-clean:
+.PHONY: clean_ips
+clean_ips:
 	rm .bender -fr
+	rm vendor_ips -fr
 
+.PHONY: clean_build
+clean_build:
+	rm build -fr
+
+.PHONY: clean_all
+clean_all: clean_ips clean_build
 
 # Fetch submodule revisions and 
 # save work in submodules to stashes - avoid data loss by accidents
