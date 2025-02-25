@@ -107,6 +107,10 @@ run_sim: library_mapping
 	vsim $(GUI) \
 	$(DUT_LIBS) $(VSIM_OPTS) \
 	-work $(BUILD_DIR)/didactic_lib \
+	-wlf wave.wlf \
 	$(DUT)_opt \
-	-do "run -all; exit" \
+	-do " \
+		log -r /*; \
+		run -all; \
+		exit" \
 	-l $(BUILD_DIR)/logs/sim/$(START_TIME)_sim.log
