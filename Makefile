@@ -17,6 +17,10 @@ SHELL=bash
 BUILD_DIR ?= $(realpath $(CURDIR))/build/
 TEST ?= blink
 
+.PHONY: clean
+clean:
+	rm .bender -fr
+
 
 # Fetch submodule revisions and 
 # save work in submodules to stashes - avoid data loss by accidents

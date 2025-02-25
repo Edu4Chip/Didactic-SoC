@@ -8,4 +8,5 @@ etch*
 sim/stdout/uart
 sim/trace_core*.log
 .bender
+Bender.lock
 vendor_ips
