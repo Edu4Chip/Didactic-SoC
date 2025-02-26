@@ -13,7 +13,7 @@ int main() {
 
   uart_init();
   
-  print_uart("hello from didactic!\n");
+  print_uart("hello from didactic, COMP.CE.250!\n");
   
   return 0;
 }
