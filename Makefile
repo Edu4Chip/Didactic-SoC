@@ -85,6 +85,11 @@ build_test: check-env
 
 test_all: check-env compile elaborate build_test run_sim
 
+
+excercise_checker:
+	@echo "TODO: implement"
+
+
 ######################################################################
 # verilator targets
 ######################################################################

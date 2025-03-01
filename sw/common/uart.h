@@ -12,6 +12,8 @@
 #define __UART_H__
 
 #include <stdint.h>
+#include <stdarg.h>
+
 
 #define PERIPH_BASE 0x01030100
 #define UART_OFFSET 0x100
@@ -64,6 +66,42 @@ void print_uart(const char *str)
         ++cur;
     }
     
+}
+
+void bin_to_hex(uint8_t inp, uint8_t res[2])
+{   
+    uint8_t inp_low = (inp & 0xf);
+    uint8_t inp_high = ((inp >> 4) & 0xf);
+
+    res[1] = inp_low < 10 ? inp_low + 48 : inp_low + 55;
+    res[0] = inp_high < 10 ? inp_high + 48 : inp_high + 55;
+}
+
+void print_uart_int(uint32_t addr)
+{
+    int i;
+    for (i = 3; i > -1; i--)
+    {
+        uint8_t cur = (addr >> (i * 8)) & 0xff;
+        uint8_t hex[2];
+        bin_to_hex(cur, hex);
+        write_serial(hex[0]);
+        write_serial(hex[1]);
+    }
+}
+
+// super bare-bones mock printf
+void fprint(const char* str, ...){
+  va_list args; 
+  va_start(args, str);
+  for (int i = 0; str[i] != '\0'; i++){
+    if (str[i] == '%') {
+      print_uart_int(va_arg(args, int));
+      i++;
+    }
+    else
+      write_serial(str[i]); 
+  }
 }
 
 int uart_loopback_test(){

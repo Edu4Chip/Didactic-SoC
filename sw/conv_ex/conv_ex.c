@@ -11,7 +11,13 @@ int main() {
 
   uart_init();
   
-  print_uart("hello from 2D conv, COMP.CE.250!\n");
+  const uint32_t test_code = 0x250;
+
+  fprint("hello from 2D conv, COMP.CE.%x!\n", test_code);
+
+  volatile uint32_t DMEM_FIRST = *(uint32_t*)(0x01010000);
+  fprint("DMEM first value: %x\n", DMEM_FIRST);
+
   
   return 0;
 }

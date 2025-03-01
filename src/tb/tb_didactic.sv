@@ -150,11 +150,9 @@ module tb_didactic();
     automatic string DataStim = "../../project/gen/all_formated.hex";
     int fd;
 
-    $display("[TB] Preloading reference data to 0x01010000, weights to 0x01010000+X");
-    //$fatal("TODO: add readmemh");
+    $display("[TB] Preloading reference data, weights to 0x01010000");
     fd = $fopen(DataStim, "r");
 
-    $display(fd);
     if (fd) begin
       $readmemh(DataStim, i_didactic.SystemControl_SS.SysCtrl_SS.i_dmem.ram);
       $display("[TB] Successfully loaded data stim");
