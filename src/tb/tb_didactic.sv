@@ -153,12 +153,7 @@ module tb_didactic();
     $display("[TB] Preloading reference data, weights to 0x01010000");
     fd = $fopen(DataStim, "r");
 
-    if (fd) begin
-      $readmemh(DataStim, i_didactic.SystemControl_SS.SysCtrl_SS.i_dmem.ram);
-      $display("[TB] Successfully loaded data stim");
-    end else begin
-      $fatal("[TB] Error loading file!");
-    end
+
 
     //asserting global reset
     reset = 1'b0;
@@ -172,6 +167,13 @@ module tb_didactic();
     #3ms;
 
     $display("[TB] Time %g ns - execute for 3ms", $time);
+
+    if (fd) begin
+      $readmemh(DataStim, i_didactic.SystemControl_SS.SysCtrl_SS.i_dmem.ram);
+      $display("[TB] Successfully loaded data stim");
+    end else begin
+      $fatal("[TB] Error loading file!");
+    end
 
     // light testing jtag features
     jtag_pkg::jtag_reset      (jtag_tck, jtag_tms, jtag_trstn, jtag_tdi);
