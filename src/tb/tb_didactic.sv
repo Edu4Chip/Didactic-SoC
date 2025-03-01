@@ -146,6 +146,10 @@ module tb_didactic();
 ////////////////////////////////
   initial
   begin
+
+    $display("[TB] Preloading reference data to 0x01010000, weights to 0x01010000+X");
+    $fatal("TODO: add readmemh");
+
     //asserting global reset
     reset = 1'b0;
     $display("[TB] Time %g ns - Reset on, start wait 3ms", $time);
@@ -286,7 +290,7 @@ module tb_didactic();
   );
 
 ///////////////////////////////////////////////////////////////
-// periph sim models 
+// periph sim models
 ///////////////////////////////////////////////////////////////
 // if tb module is not in use, loopback uart
 `ifdef USE_UART

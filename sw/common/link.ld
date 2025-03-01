@@ -39,24 +39,24 @@ SECTIONS
   .data : ALIGN(4)
   {
     *(.data*);
-  } > DMEM
+  } > IMEM
 
   .sdata : ALIGN(4)
   {
     *(.sdata*);
-  } > DMEM
+  } > IMEM
 
   .bss (NOLOAD) :
   {
     *(.bss*)
     *(COMMON)
-  } > DMEM
+  } > IMEM
  
   .stack (NOLOAD) : 
   {
     . = ALIGN(4);
     stack = . + STACK_SIZE;
-  } > DMEM
+  } > IMEM
 
   _end = . ;
 }
