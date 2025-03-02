@@ -12,6 +12,7 @@ BUILD_DIR ?= ../build
 CC=riscv32-unknown-elf-gcc
 CFLAGS=-O3 -g -ffunction-sections -fdata-sections -Icommon/
 ELF2HEX_BIN ?= riscv32-unknown-elf-elf2hex
+OBJDUMP ?= riscv32-unknown-elf-objdump
 
 env:
 	mkdir -p $(BUILD_DIR)/sw
@@ -25,4 +26,8 @@ build_test:
 hex_test:
 	$(ELF2HEX_BIN) --bit-width 32 --input $(BUILD_DIR)/sw/$(TESTCASE).elf --output $(BUILD_DIR)/sw/$(TESTCASE).hex
 
-test: env build_test hex_test
+objdump:
+	$(OBJDUMP) $(BUILD_DIR)/sw/$(TESTCASE).elf -D > $(BUILD_DIR)/sw/$(TESTCASE).asm
+
+
+test: env build_test hex_test objdump
