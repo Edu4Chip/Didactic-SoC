@@ -23,7 +23,8 @@ int main() {
 
   uint8_t mat_test[4][4] = {{0}}; 
   init_matrix(4, mat_test, 0x01010000);
-  fprint("matrix test: %x\n", mat_test[0][0]);
+  fprint("matrix test:\n");
+  print_matrix(4, mat_test);
 
   fprint("DMEM first value: %x\n", DMEM_FIRST);
   fprint("DMEM second value: %x\n", DMEM_SECOND);
