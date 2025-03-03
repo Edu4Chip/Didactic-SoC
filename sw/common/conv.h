@@ -21,11 +21,12 @@ void init_matrix (uint8_t dimension, uint8_t mat[dimension][dimension], uint32_t
     }
     */
     for (int i=0; i<dimension; i++){
-        for (int j=0; i<dimension; j++){
-            mat[i][j] = *(uint32_t*)(base);
+        for (int j=0; j<dimension; j++){
+            mat[i][j] = 1; //*(volatile uint32_t*)(base);
             //mat[i][0] = *(uint32_t*)(base);
         }
     }
+
 }
 
 #endif //__CONV_H__
