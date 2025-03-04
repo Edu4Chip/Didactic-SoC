@@ -11,8 +11,9 @@
 void init_matrix (uint8_t dim, uint8_t mat[dim][dim], uint32_t base){
     uint8_t size = dim*dim;
     fprint("size: %x\n", size);
-    for (int offset=0; offset<size; offset += 4){
+    for (int offset=0; offset != size; offset += 4){
         volatile uint32_t word_line = *(uint32_t*)(base + offset);
+        fprint("Word: %x\n", word_line);
         uint8_t bytes[4]; // extract big-endian bytes
         bytes[0] =   ((word_line>>24)&0xff);             // move byte 3 to byte 0
         bytes[2] =   ((word_line<<8)&0xff0000)    >> 16; // move byte 1 to byte 2
@@ -23,7 +24,7 @@ void init_matrix (uint8_t dim, uint8_t mat[dim][dim], uint32_t base){
             int x = pos / dim;
             int y = pos % dim;
 
-            fprint("bytes: %x, pos: %x, offset: %x\n", bytes[pos], pos, offset);
+            fprint("bytes: %x, pos: %x\n", bytes[pos], pos);
             mat[x][y] = bytes[pos];//big_endian << pos*8;
         }
         
