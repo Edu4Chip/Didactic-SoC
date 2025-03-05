@@ -34,7 +34,6 @@ clean_all: clean_ips clean_build
 repository_init:
 	bender update
 	bender vendor init
-	git submodule update --init --recursive
 
 check-env:
 	mkdir -p $(BUILD_DIR)/logs/compile
