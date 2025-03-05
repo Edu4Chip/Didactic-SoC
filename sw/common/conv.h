@@ -37,7 +37,7 @@ void init_matrix (uint8_t dim, uint8_t mat[dim][dim], uint32_t base){
     }
 }
 
-void print_matrix (uint8_t dim, uint8_t mat[dim][dim]){
+void print_matrix (uint8_t dim, uint32_t mat[dim][dim]){
     fprint("[");
     for (int i=0; i<dim; i++){
         fprint("[");
@@ -47,6 +47,15 @@ void print_matrix (uint8_t dim, uint8_t mat[dim][dim]){
         }
         if (i != dim-1) fprint("]\n ");
         else fprint("]]\n\r ");
+    }
+}
+
+// Print matrix in flat form for automated checking
+void print_matrix_flat (uint8_t dim, uint32_t mat[dim][dim]){
+    for (int i=0; i<dim; i++){
+        for (int j=0; j<dim; j++){
+            fprint("%x\n", mat[i][j]);
+        }
     }
 }
 
@@ -60,14 +69,24 @@ void get_submatrix (uint8_t res_dim, uint8_t src_dim, int pos_x, int pos_y,
 }
 
 void matmul (uint8_t dim, uint8_t mat_a[dim][dim], 
-    uint8_t mat_b[dim][dim], uint8_t mat_res[dim][dim]){
+    uint8_t mat_b[dim][dim], uint32_t mat_res[dim][dim]){
         for (int i = 0; i < 2; i++){
             for (int j = 0; j < 2; j++){
                 for (int k = 0; k < 2; k++){
-                    mat_res[i][j] += mat_a[i][k] * mat_b[k][j];
+                    mat_res[i][j] += (uint16_t) mat_a[i][k] * (uint16_t) mat_b[k][j];
                 }
             }
         }
     }
+
+uint32_t accumulate(uint8_t dim, uint32_t mat[dim][dim]){
+    uint32_t acc = 0;
+    for (int i = 0; i < dim; i++){
+        for (int j = 0; j < dim; j++){
+            acc += mat[i][j];
+        }
+    }
+    return acc;
+}
 
 #endif //__CONV_H__

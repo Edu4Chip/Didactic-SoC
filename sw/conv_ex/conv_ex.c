@@ -12,34 +12,28 @@
 int main() {
 
   uart_init();
-  
-  const uint32_t test_code = 0x250;
+  fprint("Initializing conv_ex test\n");
 
-  fprint("hello from 2D conv, COMP.CE.%x!\n", test_code);
+  // TODO: clear CSRs
 
-  volatile uint32_t DMEM_FIRST  = *(uint32_t*)(0x01010000);
-  volatile uint32_t DMEM_SECOND = *(uint32_t*)(0x0101000C);
+  uint8_t  mat_test[4][4] = {{0}};
+  uint8_t  wgt_test[2][2] = {{0}}; 
+  uint32_t conv_res[3][3] = {{0}}; 
 
-  uint32_t mult_res = DMEM_FIRST * DMEM_SECOND;
-
-  uint8_t mat_test[4][4] = {{0}}; 
-  uint8_t  mat_two[4][4] = {{0}}; 
-  uint8_t wgt_test[2][2] = {{0}}; 
   init_matrix(4, mat_test, 0x01010000);
-  init_matrix(4, mat_two, 0x01010010);
   init_matrix(2, wgt_test, 0x01010000 + 0x40);
-  fprint("matrix test:\n");
-  print_matrix(4, mat_test);
-  print_matrix(4, mat_two);
-  print_matrix(2, wgt_test);
 
-  uint8_t sub_mat[2][2] = {{0}};
-  uint8_t res_mat[2][2] = {{0}};
-  get_submatrix(2, 4, 1, 1, mat_test, sub_mat);
-  fprint("Look here:\n");
-  print_matrix(2, sub_mat);
-  matmul(2, sub_mat, wgt_test, res_mat);
-  print_matrix(2, res_mat);
+  for (int j = 0; j < 3; j++){
+    for (int i = 0; i < 3; i++){
+      uint8_t window[2][2] = {{0}};
+      uint32_t result[2][2] = {{0}};
+      get_submatrix(2, 4, j, i, mat_test, window);
+      matmul(2, window, wgt_test, result);
+      conv_res[i][j] = accumulate(2, result);
+    }
+  }
+
+  print_matrix_flat(3, conv_res);
 
   return 0;
 }
