@@ -5,6 +5,7 @@
  * Description:
  *    - (Mock) 2D convolution application for course project
  */
+#include <stdlib.h>
 #include "uart.h"
 #include "conv.h"
 
@@ -32,6 +33,13 @@ int main() {
   print_matrix(4, mat_two);
   print_matrix(2, wgt_test);
 
+  uint8_t sub_mat[2][2] = {{0}};
+  uint8_t res_mat[2][2] = {{0}};
+  get_submatrix(2, 4, 1, 1, mat_test, sub_mat);
+  fprint("Look here:\n");
+  print_matrix(2, sub_mat);
+  matmul(2, sub_mat, wgt_test, res_mat);
+  print_matrix(2, res_mat);
 
   return 0;
 }

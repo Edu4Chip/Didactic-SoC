@@ -48,7 +48,26 @@ void print_matrix (uint8_t dim, uint8_t mat[dim][dim]){
         if (i != dim-1) fprint("]\n ");
         else fprint("]]\n\r ");
     }
-
 }
+
+void get_submatrix (uint8_t res_dim, uint8_t src_dim, int pos_x, int pos_y,
+    uint8_t src_mat[src_dim][src_dim], uint8_t res_mat[res_dim][res_dim]){
+    for (int i = 0; i<res_dim; i++){
+        for (int j = 0; j<res_dim; j++){
+            res_mat[i][j] = src_mat[i+pos_x][j+pos_y];
+        }
+    }
+}
+
+void matmul (uint8_t dim, uint8_t mat_a[dim][dim], 
+    uint8_t mat_b[dim][dim], uint8_t mat_res[dim][dim]){
+        for (int i = 0; i < 2; i++){
+            for (int j = 0; j < 2; j++){
+                for (int k = 0; k < 2; k++){
+                    mat_res[i][j] += mat_a[i][k] * mat_b[k][j];
+                }
+            }
+        }
+    }
 
 #endif //__CONV_H__
