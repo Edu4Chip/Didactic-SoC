@@ -86,7 +86,10 @@ build_test: check-env
 test_all: check-env compile elaborate build_test run_sim
 
 gen_reference:
-	@echo "TODO: implement"
+	./reference/algorithm.py \
+	--input reference/input/data.hex \
+	--weight reference/input/weight.hex \
+	--output reference/gen/output.hex
 
 excercise_checker:
 	@echo "TODO: implement"

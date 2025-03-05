@@ -3,6 +3,7 @@ obj_dir/
 logs/
 *.wlf
 modelsim.ini
+reference/gen
 transcript
 etch*
 sim/stdout/uart
