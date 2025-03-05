@@ -90,6 +90,8 @@ gen_reference:
 	--input reference/input/data.hex \
 	--weight reference/input/weight.hex \
 	--output reference/gen/output.hex
+	cp reference/gen/input_formated.hex reference/gen/all_formated.hex
+	cat reference/gen/weight_formated.hex >> reference/gen/all_formated.hex
 
 excercise_checker:
 	@echo "TODO: implement"

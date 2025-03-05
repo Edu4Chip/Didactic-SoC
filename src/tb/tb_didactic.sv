@@ -147,7 +147,7 @@ module tb_didactic();
   initial
   begin
 
-    automatic string DataStim = "../../project/gen/all_formated.hex";
+    automatic string DataStim = "../reference/gen/all_formated.hex";
     int fd;
 
     $display("[TB] Preloading reference data, weights to 0x01010000");
