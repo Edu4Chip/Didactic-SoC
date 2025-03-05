@@ -46,7 +46,7 @@ void print_matrix (uint8_t dim, uint8_t mat[dim][dim]){
             if (j != dim-1) fprint(", ");
         }
         if (i != dim-1) fprint("]\n ");
-        else fprint("]]\n ");
+        else fprint("]]\n\r ");
     }
 
 }

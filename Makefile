@@ -85,7 +85,7 @@ build_test: check-env
 
 test_all: check-env compile elaborate build_test run_sim
 
-reference_data:
+gen_reference:
 	@echo "TODO: implement"
 
 excercise_checker:
