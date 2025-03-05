@@ -77,8 +77,8 @@ def main():
     data    = read_file(args.input)
     weights = read_file(args.weight)
 
-    print("Data:\n", data)
-    print("Weights:\n", weights)
+    print("Convolution Data:\n", data)
+    print("Convolution Weights:\n", weights)
 
     MULT_PER_CONV = 3*3
     NUM_OPS       = 4
@@ -104,8 +104,8 @@ def main():
     write_file(args.output, all_conv, 3, 8)
 
     # input files in simulator-friendly format
-    write_file("gen/input_formated.hex", data, 4, 2)
-    write_file("gen/weight_formated.hex", weights, 2, 2)
+    write_file("reference/gen/input_formated.hex", data, 4, 2)
+    write_file("reference/gen/weight_formated.hex", weights, 2, 2)
 
 if __name__ == "__main__":
     main()
