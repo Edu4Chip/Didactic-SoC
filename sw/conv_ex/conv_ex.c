@@ -56,12 +56,12 @@ int main() {
   /// DO NOT EDIT ANYTHING BELOW THIS LINE !!! ///
   ////////////////////////////////////////////////
 
+  asm("fence"); // signal test critical section end
+
   uint32_t mcycle    = csr_read(CSR_MCYCLE);
   uint32_t mcycleh   = csr_read(CSR_MCYCLEH);
   uint32_t minstret  = csr_read(CSR_MINSTRET);
   uint32_t minstreth = csr_read(CSR_MINSTRETH);
-
-  asm("fence"); // signal test critical section end
 
   // print out cycle count and retired instruction count
   fprint("mcycleh:   %x, mcycle:   %x\n", mcycleh, mcycle);
