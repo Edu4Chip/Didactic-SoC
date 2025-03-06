@@ -38,7 +38,7 @@ def read_file(input):
 def write_file(file, data, dim, elem_size):
     with open(file, 'w') as file:
 
-        data = np.asarray([[[f'{z:0{elem_size}x}' for z in y] for y in x] for x in data])
+        data = np.asarray([[[f'{z:0{elem_size}X}' for z in y] for y in x] for x in data])
 
         for i in range(4):
             allign = 0

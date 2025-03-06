@@ -93,7 +93,10 @@ gen_reference:
 	cat reference/gen/weight_formated.hex >> reference/gen/all_formated.hex
 
 excercise_checker:
-	@echo "TODO: implement"
+	@awk '/#######/{y=1;next}y' sim/stdout/uart > build/tmp_res.hex
+	@./scripts/checker.sh build/tmp_res.hex reference/gen/output.hex
+	@rm build/tmp_res.hex
+
 
 
 ######################################################################

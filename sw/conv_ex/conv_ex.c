@@ -23,24 +23,23 @@ int main() {
 
   asm("fence"); // signal test critical section start
 
+  uint32_t conv_res[4][3][3];
+
   for (int conv_count = 0; conv_count < 4; conv_count++){
-    
-  }
+    uint8_t  mat_test[4][4];
+    uint8_t  wgt_test[2][2]; 
+      
+    init_matrix(4, mat_test, 0x01010000 + 10 * conv_count);
+    init_matrix(2, wgt_test, 0x01010040 + 4  * conv_count);
 
-  uint8_t  mat_test[4][4] = {{0}};
-  uint8_t  wgt_test[2][2] = {{0}}; 
-  uint32_t conv_res[3][3] = {{0}}; 
-
-  init_matrix(4, mat_test, 0x01010000);
-  init_matrix(2, wgt_test, 0x01010000 + 0x40);
-
-  for (int j = 0; j < 3; j++){
-    for (int i = 0; i < 3; i++){
-      uint8_t window[2][2] = {{0}};
-      uint32_t result[2][2] = {{0}};
-      get_submatrix(2, 4, j, i, mat_test, window);
-      matmul(2, window, wgt_test, result);
-      conv_res[i][j] = accumulate(2, result);
+    for (int j = 0; j < 3; j++){
+      for (int i = 0; i < 3; i++){
+        uint8_t  window[2][2]; 
+        uint32_t result[2][2];
+        get_submatrix(2, 4, j, i, mat_test, window);
+        matmul(2, window, wgt_test, result);
+        conv_res[conv_count][i][j] = accumulate(2, result);
+      }
     }
   }
 
@@ -55,7 +54,10 @@ int main() {
   fprint("mcycleh:   %x, mcycle:   %x\n", mcycleh, mcycle);
   fprint("minstreth: %x, minstret: %x\n", minstreth, minstret);
 
-  print_matrix_flat(3, conv_res);
+  fprint("PRINTING FLATTENED RESULT\n#########################\n");
+  for (int conv_count = 0; conv_count < 4; conv_count++){
+    print_matrix_flat(3, conv_res[conv_count]);
+  }
 
   return 0;
 }
