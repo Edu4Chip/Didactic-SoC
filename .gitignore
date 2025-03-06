@@ -6,7 +6,7 @@ modelsim.ini
 reference/gen
 transcript
 etch*
-sim/stdout/uart
+sim/stdout/uart*
 sim/trace_core*.log
 .bender
 Bender.lock

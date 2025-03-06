@@ -89,7 +89,7 @@ sources:
   - target: not(synthesis)
     files:
     - vendor_ips/pulp/rtl/tb/riscv_pkg.sv
-    - vendor_ips/pulp/rtl/vip/uart_tb_rx.sv
+    - src/tb/uart_tb_rx.sv
     - src/tb/spi/if_spi_slave.sv
     - src/tb/jtag/jtag_pkg.sv
     - src/tb/tb_didactic.sv
@@ -141,7 +141,6 @@ vendor_package:
     upstream: { git: "https://github.com/pulp-platform/pulp.git", rev: "b6ae54700b76395b049742ebfc52c5aaf6e148a5" }
     include_from_upstream:
       - rtl/tb/riscv_pkg.sv
-      - rtl/vip/uart_tb_rx.sv
 
   - name: apb_spi_master
     target_dir: vendor_ips/apb_spi_master

@@ -10,12 +10,18 @@
 #include "conv.h"
 #include "csr.h"
 
+#define InMatDim  4
+#define WgtMatDim 2
+#define MultDim   2
+#define OutMatDim 3
+
 int main() {
 
   uart_init();
-  fprint("Initializing conv_ex test\n");
+  fprint("Running 4 convolutions with 4x4 data, 2x2 weight\n");
 
-  // TODO: clear CSRs
+  uint32_t conv_res[4][OutMatDim][OutMatDim];
+
   csr_write(CSR_MCYCLE,    0);
   csr_write(CSR_MCYCLEH,   0);
   csr_write(CSR_MINSTRET,  0);
@@ -23,25 +29,32 @@ int main() {
 
   asm("fence"); // signal test critical section start
 
-  uint32_t conv_res[4][3][3];
+  ////////////////////////////////////////////////
+  /// DO NOT EDIT ANYTHING ABOVE THIS LINE !!! ///
 
   for (int conv_count = 0; conv_count < 4; conv_count++){
-    uint8_t  mat_test[4][4];
-    uint8_t  wgt_test[2][2]; 
-      
-    init_matrix(4, mat_test, 0x01010000 + 10 * conv_count);
-    init_matrix(2, wgt_test, 0x01010040 + 4  * conv_count);
 
+    uint8_t  data[InMatDim][InMatDim];
+    uint8_t  wgt[WgtMatDim][WgtMatDim]; 
+    
+    // populate matrices from preloaded memory
+    init_matrix(InMatDim, data, 0x01010000 + 0x10 * conv_count);
+    init_matrix(WgtMatDim, wgt, 0x01010040 + 0x4  * conv_count);
+
+    // compute convolution
     for (int j = 0; j < 3; j++){
       for (int i = 0; i < 3; i++){
-        uint8_t  window[2][2]; 
-        uint32_t result[2][2];
-        get_submatrix(2, 4, j, i, mat_test, window);
-        matmul(2, window, wgt_test, result);
-        conv_res[conv_count][i][j] = accumulate(2, result);
+        uint8_t  window[MultDim][MultDim] = {{0}}; 
+        uint16_t result[MultDim][MultDim] = {{0}};
+        get_submatrix(MultDim, InMatDim, j, i, data, window);
+        matmul(MultDim, window, wgt, result);
+        conv_res[conv_count][i][j] = accumulate(MultDim, result);
       }
     }
   }
+
+  /// DO NOT EDIT ANYTHING BELOW THIS LINE !!! ///
+  ////////////////////////////////////////////////
 
   uint32_t mcycle    = csr_read(CSR_MCYCLE);
   uint32_t mcycleh   = csr_read(CSR_MCYCLEH);
