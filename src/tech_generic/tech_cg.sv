@@ -16,7 +16,13 @@ module tech_cg
 
   logic en_latched;
 
-  `ifndef FPGA   
+  `ifdef FPGA   
+    BUFGCE i_bufgce (
+      .O(clk_out),
+      .CE(en), // CE = 0, clock disabled
+      .I(clk)
+    );
+  `else
 
     always_latch begin
       if (clk == 1'b0) begin
@@ -25,15 +31,6 @@ module tech_cg
     end
 
     assign clk_out = clk & en_latched;
-
-  `else
-
-    BUFGCE i_bufgce (
-      .O(clk_out),
-      .CE(en), // CE = 0, clock disabled
-      .I(clk)
-
-    );
 
   `endif
 

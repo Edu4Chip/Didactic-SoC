@@ -1533,7 +1533,17 @@ module SysCtrl_SS_0 #(
         .reset_ni            (Ctrl_xbar_reset_ni));
 
     // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.0
-    ibex_top_tracing #(
+`ifdef FPGA
+  `define FPGAorASIC
+`elsif ASIC
+  `define FPGAorASIC
+`endif
+
+`ifndef FPGAorASIC
+    ibex_top_tracing  #(
+`else
+    ibex_top #(
+`endif
         .DmHaltAddr          (16910336),
         .DmExceptionAddr     (16910358))
     Ibex_Core(
@@ -1880,7 +1890,7 @@ module SysCtrl_SS_0 #(
     // IP-XACT VLNV: tuni.fi:ip:jtag_dbg_wrapper:1.0
     jtag_dbg_wrapper #(
         .AXI_AW              (32),
-        .DM_BASE_ADDRESS     (4096),
+        .DM_BASE_ADDRESS     ('h0),
         .AXI_DW              (32),
         .DM_ID_VALUE         (470810337))
     jtag_dbg_wrapper(

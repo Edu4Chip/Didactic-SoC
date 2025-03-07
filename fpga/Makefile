@@ -1,18 +1,21 @@
-####
+######################################
 # Didactic SoC 
 # FPGA flow makefile
 # Contributor(s):
 #   -Matti Käyrä (matti.kayra@tuni.fi)
-###
+######################################
 
-START_TIME=`date +%F_%H:%M`
 SHELL = bash
-BUILD_DIR ?= ../build
-PROJECT:=Didactic
-VIVADO?=vivado
+VIVADO ?= vivado
+
+export START_TIME=`date +%F_%H:%M`
+export BUILD_DIR ?= ../build
+export PROJECT ?= z1
 
 all_xilinx:
-	$(VIVADO) -mode batch -notrace -source xilinx/run.tcl
+	cd $(BUILD_DIR)
+	$(VIVADO) -mode batch -notrace -source ../fpga/xilinx/run.tcl  
 
 all_xilinx_gui:
-	$(VIVADO) -mode gui -source xilinx/run.tcl &
+	cd $(BUILD_DIR)
+	$(VIVADO) -mode gui -source ../fpga/xilinx/run.tcl &

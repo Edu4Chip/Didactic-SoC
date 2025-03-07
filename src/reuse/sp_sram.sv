@@ -76,7 +76,7 @@ module sp_sram #(
   assign r_user_o = 1'b0;
 
 `else /****************************** FPGA MODEL ******************************/
-
+/*
   xilinx_sp_BRAM #(
     .RAM_WIDTH ( DATA_WIDTH ),
     .RAM_DEPTH ( NUM_WORDS  ),
@@ -89,7 +89,51 @@ module sp_sram #(
     .ena   ( 1'b1    ),    
     .douta ( rdata_o )    
   );
+*/
+   // BRAM_SINGLE_MACRO: Single Port RAM
+   //                    Artix-7
+   // Xilinx HDL Language Template, version 2024.2
+
+   /////////////////////////////////////////////////////////////////////
+   //  READ_WIDTH | BRAM_SIZE | READ Depth  | ADDR Width |            //
+   // WRITE_WIDTH |           | WRITE Depth |            |  WE Width  //
+   // ============|===========|=============|============|============//
+   //    37-72    |  "36Kb"   |      512    |    9-bit   |    8-bit   //
+   //    19-36    |  "36Kb"   |     1024    |   10-bit   |    4-bit   //
+   //    19-36    |  "18Kb"   |      512    |    9-bit   |    4-bit   //
+   //    10-18    |  "36Kb"   |     2048    |   11-bit   |    2-bit   //
+   //    10-18    |  "18Kb"   |     1024    |   10-bit   |    2-bit   //
+   //     5-9     |  "36Kb"   |     4096    |   12-bit   |    1-bit   //
+   //     5-9     |  "18Kb"   |     2048    |   11-bit   |    1-bit   //
+   //     3-4     |  "36Kb"   |     8192    |   13-bit   |    1-bit   //
+   //     3-4     |  "18Kb"   |     4096    |   12-bit   |    1-bit   //
+   //       2     |  "36Kb"   |    16384    |   14-bit   |    1-bit   //
+   //       2     |  "18Kb"   |     8192    |   13-bit   |    1-bit   //
+   //       1     |  "36Kb"   |    32768    |   15-bit   |    1-bit   //
+   //       1     |  "18Kb"   |    16384    |   14-bit   |    1-bit   //
+   /////////////////////////////////////////////////////////////////////
+
+   BRAM_SINGLE_MACRO #(
+      .BRAM_SIZE("18Kb"), // Target BRAM, "18Kb" or "36Kb" 
+      .INIT_FILE ("NONE"),
+      .WRITE_WIDTH(DATA_WIDTH), // Valid values are 1-72 (37-72 only valid when BRAM_SIZE="36Kb")
+      .READ_WIDTH(DATA_WIDTH)  // Valid values are 1-72 (37-72 only valid when BRAM_SIZE="36Kb")
+   ) BRAM_SINGLE_MACRO_inst (
+      .DO(rdata_o),       // Output data, width defined by READ_WIDTH parameter
+      .ADDR(addr_i),   // Input address, width defined by read/write port depth
+      .CLK(clk_i),     // 1-bit input clock
+      .DI(wdata_i),       // Input data port, width defined by WRITE_WIDTH parameter
+      .EN(1'b1),       // 1-bit input RAM enable
+      .REGCE(1'b0), // 1-bit input output register enable
+      .RST(RST),     // 1-bit input reset
+      .WE(we_i)        // Input write enable, width defined by write port depth
+   );
+
+   // End of BRAM_SINGLE_MACRO_inst instantiation
+	
 
 `endif /***********************************************************************/
+
+assign ruser = 1'b0;
 
 endmodule

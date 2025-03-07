@@ -6,7 +6,8 @@
   Description:
     * Simulation model for simple IO cells
     * cfg[0] direction select, rest reserved for additional CFG based on cell
-    * Replace this file for FPGA and ASIC specific ones on those platforms 
+    * 
+
 */
 
 module io_cell #(
@@ -56,6 +57,21 @@ module clk_cell (
     inout  wire  CLK_N_PAD
   );
 
-  assign CLK_TO_CORE = CLK_P_PAD;
-
+  `ifdef FPGA
+    IOBUF i_clk_p_iobuf(
+      .T (1'b1), 
+      .I (1'b0),
+      .O (CLK_TO_CORE),
+      .IO(CLK_P_PAD)
+    );
+    IOBUF i_clk_n_iobuf(
+      .T (1'b1), 
+      .I (1'b0),
+      .O (),
+      .IO(CLK_N_PAD)
+    );
+  `else
+    assign CLK_TO_CORE = CLK_P_PAD;
+  `endif
+  
 endmodule
