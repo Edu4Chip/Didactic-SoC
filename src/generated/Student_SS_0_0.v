@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_0_0.v
-// Creation date : 19.12.2024
-// Creation time : 12:36:36
+// Creation date : 07.03.2025
+// Creation time : 09:00:35
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -22,6 +22,7 @@ module Student_SS_0_0 #(
     input  logic         [31:0]         PADDR,
     input  logic                        PENABLE,
     input  logic                        PSEL,
+    input  logic         [3:0]          PSTRB,
     input  logic         [31:0]         PWDATA,
     input  logic                        PWRITE,
     output logic         [31:0]         PRDATA,
@@ -69,6 +70,7 @@ module Student_SS_0_0 #(
     wire       Student_area_0_APB_to_APB_PREADY;
     wire       Student_area_0_APB_to_APB_PSEL;
     wire       Student_area_0_APB_to_APB_PSLVERR;
+    wire [3:0] Student_area_0_APB_to_APB_PSTRB;
     wire [31:0] Student_area_0_APB_to_APB_PWDATA;
     wire       Student_area_0_APB_to_APB_PWRITE;
     // Student_area_0_reset_to_Reset wires:
@@ -102,6 +104,7 @@ module Student_SS_0_0 #(
     wire       Student_area_0_PREADY;
     wire       Student_area_0_PSEL;
     wire       Student_area_0_PSLVERR;
+    wire [3:0] Student_area_0_PSTRB;
     wire [31:0] Student_area_0_PWDATA;
     wire       Student_area_0_PWRITE;
     wire [7:0] Student_area_0_clk_ctrl;
@@ -132,6 +135,7 @@ module Student_SS_0_0 #(
     assign PREADY = Student_area_0_APB_to_APB_PREADY;
     assign Student_area_0_APB_to_APB_PSEL = PSEL;
     assign PSLVERR = Student_area_0_APB_to_APB_PSLVERR;
+    assign Student_area_0_APB_to_APB_PSTRB = PSTRB;
     assign Student_area_0_APB_to_APB_PWDATA = PWDATA;
     assign Student_area_0_APB_to_APB_PWRITE = PWRITE;
     assign ss_cg_clk_in_to_Clock_clk = clk;
@@ -156,6 +160,7 @@ module Student_SS_0_0 #(
     assign Student_area_0_APB_to_APB_PREADY = Student_area_0_PREADY;
     assign Student_area_0_PSEL = Student_area_0_APB_to_APB_PSEL;
     assign Student_area_0_APB_to_APB_PSLVERR = Student_area_0_PSLVERR;
+    assign Student_area_0_PSTRB = Student_area_0_APB_to_APB_PSTRB;
     assign Student_area_0_PWDATA = Student_area_0_APB_to_APB_PWDATA;
     assign Student_area_0_PWRITE = Student_area_0_APB_to_APB_PWRITE;
     assign Student_area_0_clk_ctrl = Student_area_0_SS_Ctrl_to_SS_Ctrl_clk_ctrl;
@@ -188,6 +193,7 @@ module Student_SS_0_0 #(
         .PADDR               (Student_area_0_PADDR),
         .PENABLE             (Student_area_0_PENABLE),
         .PSEL                (Student_area_0_PSEL),
+        .PSTRB               (Student_area_0_PSTRB),
         .PWDATA              (Student_area_0_PWDATA),
         .PWRITE              (Student_area_0_PWRITE),
         .PRDATA              (Student_area_0_PRDATA),

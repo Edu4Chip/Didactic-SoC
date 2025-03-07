@@ -26,14 +26,15 @@ module Student_area_0 #(
     parameter APB_DW = 32
   )(
     // Interface: APB
-    input  logic [APB_AW-1:0] PADDR,
-    input  logic              PENABLE,
-    input  logic              PSEL,
-    input  logic [APB_DW-1:0] PWDATA,
-    input  logic              PWRITE,
-    output logic [APB_DW-1:0] PRDATA,
-    output logic              PREADY,
-    output logic              PSLVERR,
+    input  logic [APB_AW-1:0]   PADDR,
+    input  logic                PENABLE,
+    input  logic                PSEL,
+    input  logic [APB_DW-1:0]   PWDATA,
+    input  logic                PWRITE,
+    input  logic [APB_DW/8-1:0] PSTRB,
+    output logic [APB_DW-1:0]   PRDATA,
+    output logic                PREADY,
+    output logic                PSLVERR,
 
     // Interface: IRQ
     output logic              irq,

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_3_0.v
-// Creation date : 19.12.2024
-// Creation time : 12:36:36
+// Creation date : 07.03.2025
+// Creation time : 09:00:35
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -22,6 +22,7 @@ module Student_SS_3_0 #(
     input  logic         [31:0]         PADDR,
     input  logic                        PENABLE,
     input  logic                        PSEL,
+    input  logic         [3:0]          PSTRB,
     input  logic         [31:0]         PWDATA,
     input  logic                        PWRITE,
     output logic         [31:0]         PRDATA,
@@ -69,6 +70,7 @@ module Student_SS_3_0 #(
     wire       Student_SS_3_APB_to_APB_PREADY;
     wire       Student_SS_3_APB_to_APB_PSEL;
     wire       Student_SS_3_APB_to_APB_PSLVERR;
+    wire [3:0] Student_SS_3_APB_to_APB_PSTRB;
     wire [31:0] Student_SS_3_APB_to_APB_PWDATA;
     wire       Student_SS_3_APB_to_APB_PWRITE;
     // Student_SS_3_SS_CTRL_to_SS_Ctrl wires:
@@ -148,6 +150,7 @@ module Student_SS_3_0 #(
     assign Student_SS_3_SS_CTRL_to_SS_Ctrl_clk_ctrl = ss_ctrl_3;
     assign ss_cg_en_to_ss_ctrl_3 = ss_ctrl_3;
     assign ss_high_speed_cg_en_to_ss_ctrl_3 = ss_ctrl_3[1];
+
 
     // Student_SS_3 assignments:
     assign Student_SS_3_PADDR = Student_SS_3_APB_to_APB_PADDR;

@@ -69,7 +69,8 @@ module ICN_SS #(
     output logic                            PENABLE,
     output logic [APB_TARGETS-1:0]          PSEL,
     output logic [APB_DW-1:0]               PWDATA,
-    output logic                            PWRITE
+    output logic                            PWRITE,
+    output logic [APB_DW/8-1:0]             PSTRB
 );
   `ifdef VERILATOR
     `include "verification/verilator/src/hdl/ms/ICN_SS.sv"
@@ -137,7 +138,7 @@ module ICN_SS #(
     .penable_o(PENABLE),
     .pwrite_o(PWRITE),
     .pwdata_o(PWDATA),
-    .pstrb_o(),
+    .pstrb_o(PSTRB),
     .pready_i(PREADY),
     .prdata_i(PRDATA),
     .pslverr_i(PSLVERR),
