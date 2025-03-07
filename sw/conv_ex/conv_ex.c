@@ -9,6 +9,7 @@
 #include "uart.h"
 #include "conv.h"
 #include "csr.h"
+#include "soc_ctrl.h"
 
 #define InMatDim  4
 #define WgtMatDim 2
@@ -18,6 +19,8 @@
 int main() {
 
   uart_init();
+  ss_init(0);
+
   fprint("Running 4 convolutions with 4x4 data, 2x2 weight\n");
 
   uint32_t conv_res[4][OutMatDim][OutMatDim];
