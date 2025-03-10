@@ -14,10 +14,12 @@
 				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_0e8467dc_1006_4b1c_a733_feb76f90fee5-1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_0e8467dc_1006_4b1c_a733_feb76f90fee5-1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -45,10 +47,12 @@
 				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5-1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5-1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -106,10 +110,12 @@
 				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5-1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5-1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -129,7 +135,32 @@
 				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
+		<ipxact:port>
+			<ipxact:logicalName>PSTRB</ipxact:logicalName>
+			<ipxact:wire>
+				<ipxact:onInitiator>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5/8-1</ipxact:width>
+					<ipxact:direction>out</ipxact:direction>
+				</ipxact:onInitiator>
+				<ipxact:onTarget>
+					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5/8-1</ipxact:width>
+					<ipxact:direction>in</ipxact:direction>
+				</ipxact:onTarget>
+			</ipxact:wire>
+		</ipxact:port>
 	</ipxact:ports>
+	<ipxact:parameters>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_0e8467dc_1006_4b1c_a733_feb76f90fee5">
+			<ipxact:name>ADDR_WIDTH</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5">
+			<ipxact:name>DATA_WIDTH</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 	</ipxact:vendorExtensions>

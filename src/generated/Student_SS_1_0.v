@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_1_0.v
-// Creation date : 19.12.2024
-// Creation time : 12:36:36
+// Creation date : 07.03.2025
+// Creation time : 09:00:35
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -22,6 +22,7 @@ module Student_SS_1_0 #(
     input  logic         [31:0]         PADDR,
     input  logic                        PENABLE,
     input  logic                        PSEL,
+    input  logic         [3:0]          PSTRB,
     input  logic         [31:0]         PWDATA,
     input  logic                        PWRITE,
     output logic         [31:0]         PRDATA,
@@ -74,6 +75,7 @@ module Student_SS_1_0 #(
     wire       student_ss_1_APB_to_APB_PREADY;
     wire       student_ss_1_APB_to_APB_PSEL;
     wire       student_ss_1_APB_to_APB_PSLVERR;
+    wire [3:0] student_ss_1_APB_to_APB_PSTRB;
     wire [31:0] student_ss_1_APB_to_APB_PWDATA;
     wire       student_ss_1_APB_to_APB_PWRITE;
     // student_ss_1_IRQ_to_IRQ wires:
@@ -110,6 +112,7 @@ module Student_SS_1_0 #(
     wire       student_ss_1_PREADY;
     wire       student_ss_1_PSEL;
     wire       student_ss_1_PSLVERR;
+    wire [3:0] student_ss_1_PSTRB;
     wire [31:0] student_ss_1_PWDATA;
     wire       student_ss_1_PWRITE;
     wire       student_ss_1_clk_in;
@@ -132,6 +135,7 @@ module Student_SS_1_0 #(
     assign PREADY = student_ss_1_APB_to_APB_PREADY;
     assign student_ss_1_APB_to_APB_PSEL = PSEL;
     assign PSLVERR = student_ss_1_APB_to_APB_PSLVERR;
+    assign student_ss_1_APB_to_APB_PSTRB = PSTRB;
     assign student_ss_1_APB_to_APB_PWDATA = PWDATA;
     assign student_ss_1_APB_to_APB_PWRITE = PWRITE;
     assign ss_cg_clk_in_to_Clock_clk = clk_in;
@@ -164,6 +168,7 @@ module Student_SS_1_0 #(
     assign student_ss_1_APB_to_APB_PREADY = student_ss_1_PREADY;
     assign student_ss_1_PSEL = student_ss_1_APB_to_APB_PSEL;
     assign student_ss_1_APB_to_APB_PSLVERR = student_ss_1_PSLVERR;
+    assign student_ss_1_PSTRB = student_ss_1_APB_to_APB_PSTRB;
     assign student_ss_1_PWDATA = student_ss_1_APB_to_APB_PWDATA;
     assign student_ss_1_PWRITE = student_ss_1_APB_to_APB_PWRITE;
     assign student_ss_1_clk_in = ss_cg_clk_out_to_student_ss_1_Clock_clk;
@@ -203,6 +208,7 @@ module Student_SS_1_0 #(
         .PADDR               (student_ss_1_PADDR),
         .PENABLE             (student_ss_1_PENABLE),
         .PSEL                (student_ss_1_PSEL),
+        .PSTRB               (student_ss_1_PSTRB),
         .PWDATA              (student_ss_1_PWDATA),
         .PWRITE              (student_ss_1_PWRITE),
         .PRDATA              (student_ss_1_PRDATA),

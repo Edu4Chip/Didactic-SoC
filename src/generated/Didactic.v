@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 19.12.2024
-// Creation time : 12:36:36
+// Creation date : 07.03.2025
+// Creation time : 09:00:35
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -83,6 +83,7 @@ module Didactic #(
     wire       interconnect_ss_APB0_to_Student_SS_0_APB_PREADY;
     wire       interconnect_ss_APB0_to_Student_SS_0_APB_PSEL;
     wire       interconnect_ss_APB0_to_Student_SS_0_APB_PSLVERR;
+    wire [3:0] interconnect_ss_APB0_to_Student_SS_0_APB_PSTRB;
     wire [31:0] interconnect_ss_APB0_to_Student_SS_0_APB_PWDATA;
     wire       interconnect_ss_APB0_to_Student_SS_0_APB_PWRITE;
     // interconnect_ss_APB1_to_Student_SS_1_APB wires:
@@ -92,6 +93,7 @@ module Didactic #(
     wire       interconnect_ss_APB1_to_Student_SS_1_APB_PREADY;
     wire       interconnect_ss_APB1_to_Student_SS_1_APB_PSEL;
     wire       interconnect_ss_APB1_to_Student_SS_1_APB_PSLVERR;
+    wire [3:0] interconnect_ss_APB1_to_Student_SS_1_APB_PSTRB;
     wire [31:0] interconnect_ss_APB1_to_Student_SS_1_APB_PWDATA;
     wire       interconnect_ss_APB1_to_Student_SS_1_APB_PWRITE;
     // SystemControl_SS_SS_1_Ctrl_to_Student_SS_1_SS_Ctrl wires:
@@ -104,6 +106,7 @@ module Didactic #(
     wire       interconnect_ss_APB2_to_Student_SS_2_APB_PREADY;
     wire       interconnect_ss_APB2_to_Student_SS_2_APB_PSEL;
     wire       interconnect_ss_APB2_to_Student_SS_2_APB_PSLVERR;
+    wire [3:0] interconnect_ss_APB2_to_Student_SS_2_APB_PSTRB;
     wire [31:0] interconnect_ss_APB2_to_Student_SS_2_APB_PWDATA;
     wire       interconnect_ss_APB2_to_Student_SS_2_APB_PWRITE;
     // SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl wires:
@@ -122,6 +125,7 @@ module Didactic #(
     wire       interconnect_ss_APB3_to_Student_SS_3_APB_PREADY;
     wire       interconnect_ss_APB3_to_Student_SS_3_APB_PSEL;
     wire       interconnect_ss_APB3_to_Student_SS_3_APB_PSLVERR;
+    wire [3:0] interconnect_ss_APB3_to_Student_SS_3_APB_PSTRB;
     wire [31:0] interconnect_ss_APB3_to_Student_SS_3_APB_PWDATA;
     wire       interconnect_ss_APB3_to_Student_SS_3_APB_PWRITE;
     // Student_SS_2_analog_if_to_bus wires:
@@ -199,6 +203,7 @@ module Didactic #(
     wire       Student_SS_0_PREADY;
     wire       Student_SS_0_PSEL;
     wire       Student_SS_0_PSLVERR;
+    wire [3:0] Student_SS_0_PSTRB;
     wire [31:0] Student_SS_0_PWDATA;
     wire       Student_SS_0_PWRITE;
     wire       Student_SS_0_clk;
@@ -220,6 +225,7 @@ module Didactic #(
     wire       Student_SS_1_PREADY;
     wire       Student_SS_1_PSEL;
     wire       Student_SS_1_PSLVERR;
+    wire [3:0] Student_SS_1_PSTRB;
     wire [31:0] Student_SS_1_PWDATA;
     wire       Student_SS_1_PWRITE;
     wire       Student_SS_1_clk_in;
@@ -241,6 +247,7 @@ module Didactic #(
     wire       Student_SS_2_PREADY;
     wire       Student_SS_2_PSEL;
     wire       Student_SS_2_PSLVERR;
+    wire [3:0] Student_SS_2_PSTRB;
     wire [31:0] Student_SS_2_PWDATA;
     wire       Student_SS_2_PWRITE;
     wire       Student_SS_2_clk;
@@ -262,6 +269,7 @@ module Didactic #(
     wire       Student_SS_3_PREADY;
     wire       Student_SS_3_PSEL;
     wire       Student_SS_3_PSLVERR;
+    wire [3:0] Student_SS_3_PSTRB;
     wire [31:0] Student_SS_3_PWDATA;
     wire       Student_SS_3_PWRITE;
     wire       Student_SS_3_clk_in;
@@ -341,6 +349,7 @@ module Didactic #(
     wire [3:0] interconnect_ss_PREADY;
     wire [3:0] interconnect_ss_PSEL;
     wire [3:0] interconnect_ss_PSLVERR;
+    wire [3:0] interconnect_ss_PSTRB;
     wire [31:0] interconnect_ss_PWDATA;
     wire       interconnect_ss_PWRITE;
     wire       interconnect_ss_clk;
@@ -375,6 +384,7 @@ module Didactic #(
     assign interconnect_ss_APB0_to_Student_SS_0_APB_PREADY = Student_SS_0_PREADY;
     assign Student_SS_0_PSEL = interconnect_ss_APB0_to_Student_SS_0_APB_PSEL;
     assign interconnect_ss_APB0_to_Student_SS_0_APB_PSLVERR = Student_SS_0_PSLVERR;
+    assign Student_SS_0_PSTRB = interconnect_ss_APB0_to_Student_SS_0_APB_PSTRB;
     assign Student_SS_0_PWDATA = interconnect_ss_APB0_to_Student_SS_0_APB_PWDATA;
     assign Student_SS_0_PWRITE = interconnect_ss_APB0_to_Student_SS_0_APB_PWRITE;
     assign Student_SS_0_clk = SystemControl_SS_Clock_int_to_interconnect_ss_Clock_clk;
@@ -396,6 +406,7 @@ module Didactic #(
     assign interconnect_ss_APB1_to_Student_SS_1_APB_PREADY = Student_SS_1_PREADY;
     assign Student_SS_1_PSEL = interconnect_ss_APB1_to_Student_SS_1_APB_PSEL;
     assign interconnect_ss_APB1_to_Student_SS_1_APB_PSLVERR = Student_SS_1_PSLVERR;
+    assign Student_SS_1_PSTRB = interconnect_ss_APB1_to_Student_SS_1_APB_PSTRB;
     assign Student_SS_1_PWDATA = interconnect_ss_APB1_to_Student_SS_1_APB_PWDATA;
     assign Student_SS_1_PWRITE = interconnect_ss_APB1_to_Student_SS_1_APB_PWRITE;
     assign Student_SS_1_clk_in = SystemControl_SS_Clock_int_to_interconnect_ss_Clock_clk;
@@ -417,6 +428,7 @@ module Didactic #(
     assign interconnect_ss_APB2_to_Student_SS_2_APB_PREADY = Student_SS_2_PREADY;
     assign Student_SS_2_PSEL = interconnect_ss_APB2_to_Student_SS_2_APB_PSEL;
     assign interconnect_ss_APB2_to_Student_SS_2_APB_PSLVERR = Student_SS_2_PSLVERR;
+    assign Student_SS_2_PSTRB = interconnect_ss_APB2_to_Student_SS_2_APB_PSTRB;
     assign Student_SS_2_PWDATA = interconnect_ss_APB2_to_Student_SS_2_APB_PWDATA;
     assign Student_SS_2_PWRITE = interconnect_ss_APB2_to_Student_SS_2_APB_PWRITE;
     assign Student_SS_2_clk = SystemControl_SS_Clock_int_to_interconnect_ss_Clock_clk;
@@ -438,6 +450,7 @@ module Didactic #(
     assign interconnect_ss_APB3_to_Student_SS_3_APB_PREADY = Student_SS_3_PREADY;
     assign Student_SS_3_PSEL = interconnect_ss_APB3_to_Student_SS_3_APB_PSEL;
     assign interconnect_ss_APB3_to_Student_SS_3_APB_PSLVERR = Student_SS_3_PSLVERR;
+    assign Student_SS_3_PSTRB = interconnect_ss_APB3_to_Student_SS_3_APB_PSTRB;
     assign Student_SS_3_PWDATA = interconnect_ss_APB3_to_Student_SS_3_APB_PWDATA;
     assign Student_SS_3_PWRITE = interconnect_ss_APB3_to_Student_SS_3_APB_PWRITE;
     assign Student_SS_3_clk_in = SystemControl_SS_Clock_int_to_interconnect_ss_Clock_clk;
@@ -541,6 +554,10 @@ module Didactic #(
     assign interconnect_ss_PSLVERR[2] = interconnect_ss_APB2_to_Student_SS_2_APB_PSLVERR;
     assign interconnect_ss_PSLVERR[1] = interconnect_ss_APB1_to_Student_SS_1_APB_PSLVERR;
     assign interconnect_ss_PSLVERR[0] = interconnect_ss_APB0_to_Student_SS_0_APB_PSLVERR;
+    assign interconnect_ss_APB3_to_Student_SS_3_APB_PSTRB = interconnect_ss_PSTRB;
+    assign interconnect_ss_APB2_to_Student_SS_2_APB_PSTRB = interconnect_ss_PSTRB;
+    assign interconnect_ss_APB1_to_Student_SS_1_APB_PSTRB = interconnect_ss_PSTRB;
+    assign interconnect_ss_APB0_to_Student_SS_0_APB_PSTRB = interconnect_ss_PSTRB;
     assign interconnect_ss_APB3_to_Student_SS_3_APB_PWDATA = interconnect_ss_PWDATA;
     assign interconnect_ss_APB2_to_Student_SS_2_APB_PWDATA = interconnect_ss_PWDATA;
     assign interconnect_ss_APB1_to_Student_SS_1_APB_PWDATA = interconnect_ss_PWDATA;
@@ -581,6 +598,7 @@ module Didactic #(
         .PADDR               (Student_SS_0_PADDR),
         .PENABLE             (Student_SS_0_PENABLE),
         .PSEL                (Student_SS_0_PSEL),
+        .PSTRB               (Student_SS_0_PSTRB),
         .PWDATA              (Student_SS_0_PWDATA),
         .PWRITE              (Student_SS_0_PWRITE),
         .PRDATA              (Student_SS_0_PRDATA),
@@ -615,6 +633,7 @@ module Didactic #(
         .PADDR               (Student_SS_1_PADDR),
         .PENABLE             (Student_SS_1_PENABLE),
         .PSEL                (Student_SS_1_PSEL),
+        .PSTRB               (Student_SS_1_PSTRB),
         .PWDATA              (Student_SS_1_PWDATA),
         .PWRITE              (Student_SS_1_PWRITE),
         .PRDATA              (Student_SS_1_PRDATA),
@@ -649,6 +668,7 @@ module Didactic #(
         .PADDR               (Student_SS_2_PADDR),
         .PENABLE             (Student_SS_2_PENABLE),
         .PSEL                (Student_SS_2_PSEL),
+        .PSTRB               (Student_SS_2_PSTRB),
         .PWDATA              (Student_SS_2_PWDATA),
         .PWRITE              (Student_SS_2_PWRITE),
         .PRDATA              (Student_SS_2_PRDATA),
@@ -686,6 +706,7 @@ module Didactic #(
         .PADDR               (Student_SS_3_PADDR),
         .PENABLE             (Student_SS_3_PENABLE),
         .PSEL                (Student_SS_3_PSEL),
+        .PSTRB               (Student_SS_3_PSTRB),
         .PWDATA              (Student_SS_3_PWDATA),
         .PWRITE              (Student_SS_3_PWRITE),
         .PRDATA              (Student_SS_3_PRDATA),
@@ -858,6 +879,7 @@ module Didactic #(
         .PADDR               (interconnect_ss_PADDR),
         .PENABLE             (interconnect_ss_PENABLE),
         .PSEL                (interconnect_ss_PSEL),
+        .PSTRB               (interconnect_ss_PSTRB),
         .PWDATA              (interconnect_ss_PWDATA),
         .PWRITE              (interconnect_ss_PWRITE));
 
