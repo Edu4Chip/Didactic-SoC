@@ -23,7 +23,7 @@ TEST ?= blink
 repository_init:
 	bender update
 	bender vendor init
-	git submodule update --init --recursive
+#	git submodule update --init --recursive
 
 check-env:
 	mkdir -p $(BUILD_DIR)/logs/compile

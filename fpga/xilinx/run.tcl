@@ -12,6 +12,7 @@ if { ![info exists CPUS] } {
 #
 set PROJECT $::env(PROJECT)
 set START $::env(START_TIME)
+set BUILD_DIR $::env(BUILD_DIR)
 
 if { $PROJECT eq "z1" } {
   set XILINX_PART xc7z020clg400-1
@@ -46,28 +47,20 @@ set INCLUDE_DIRS [list  \
 
 set_property include_dirs $INCLUDE_DIRS [current_fileset]
 
-#set_property include_dirs $INCLUDE_DIRS [current_fileset -simset]
-#set_property is_global_include true [get_files $DIR/../$IBEX_PATH/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh]
-#set_property include_dirs {{$COMMON_CELLS_DIR/include} {$AXI_DIR/include} {$APB_DIR/include} {$REGIF_DIR/include} {$IBEX_PATH/vendor/lowrisc_ip/dv/sv/dv_utils} {$IBEX_PATH/vendor/lowrisc_ip/ip/prim/rtl} {$IBEX_PATH/rtl}} [current_fileset]
-
-#set_property include_dirs {{/$COMMON_CELLS_DIR/include} {/$AXI_DIR/include} {/$APB_DIR/include} {/$REGIF_DIR/include} {/$IBEX_PATH/vendor/lowrisc_ip/dv/sv/dv_utils} {/$IBEX_PATH/vendor/lowrisc_ip/ip/prim/rtl} {/$IBEX_PATH/rtl} /home/kayra/Didactic-SoC/.bender/git/checkouts/apb-1e206aeb3ca38a11/include /home/kayra/Didactic-SoC/.bender/git/checkouts/axi-aae2d6c181d6f97b/include /home/kayra/Didactic-SoC/.bender/git/checkouts/common_cells-3bd5b2d671aaec0e/include /home/kayra/Didactic-SoC/.bender/git/checkouts/register_interface-26afcadbe8460c5f/include} [current_fileset]
-
 # File read
 add_files -norecurse -scan_for_includes [exec bender script flist -t rtl -t vendor -t synthesis]
 
 set_property file_type SystemVerilog [get_files *.v]
 
-#set_property is_global_include true [get_files $IBEX_PATH/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh]
+# 
 set_property is_global_include true [get_files prim_assert_dummy_macros.svh]
 
-set DEFINES "FPGA=1 SYNTHESIS=1"
-            
-set_property verilog_define { SYNTHESIS=1 FPGA=1 } [current_fileset]
+# Use xilinx specific cg          
+set_property verilog_define { SYNTHESIS=1 FPGA=1 PRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx} [current_fileset]
 
 set_property source_mgmt_mode None [current_project]
 
 set_property top Didactic [current_fileset]
-#set_property top Didactic [get_filesets sim_1]
 
 update_compile_order -fileset sources_1
 
@@ -86,7 +79,7 @@ open_run synth_1 -name netlist_1
 set_property needs_refresh false [get_runs synth_1]
 
 # Launch Implementation
-
+# default strategy creates issues with hold. we trade runtime to get timing correct.
 set_property STEPS.OPT_DESIGN.IS_ENABLED true [get_runs impl_1]
 set_property STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE ExploreWithAggressiveHoldFix [get_runs impl_1]
 
@@ -101,10 +94,8 @@ open_run impl_1
 
 # Generate reports
 exec mkdir -p $BUILD_DIR/fpga
-#exec rm -rf $BUILD_DIR/fpga_reports/*
 
 check_timing                                                          -file $BUILD_DIR/fpga/$START_$PROJECT.check_timing.rpt
 report_timing -max_paths 50 -nworst 50 -delay_type max -sort_by slack -file $BUILD_DIR/fpga/$START_$PROJECT.timing_WORST_50.rpt
 report_timing -nworst 1 -delay_type max -sort_by group                -file $BUILD_DIR/fpga/$START_$PROJECT.timing.rpt
 report_utilization -hierarchical                                      -file $BUILD_DIR/fpga/$START_$PROJECT.utilization.rpt
-

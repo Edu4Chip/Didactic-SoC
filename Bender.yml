@@ -9,7 +9,7 @@ dependencies:           # TODO: only 1st level dependencies needed, also semanti
   apb_uart:           { git: "https://github.com/pulp-platform/apb_uart.git", rev: "6c7dde3d749ac8274377745c105da8c8b8cd27c6" }
   axi:                { git: "https://github.com/pulp-platform/axi.git", version:  0.39.6 }
   common_cells:       { git: "https://github.com/pulp-platform/common_cells.git", rev: "f36828f3fd76fa6c79f80cb495829cf967bcf20c" }
-  riscv-dbg:          { git: "https://github.com/pulp-platform/riscv-dbg.git", rev: "618ee6e0e2610ef47e0dcc4df6748af3dffff731" }
+  riscv-dbg:          { git: "https://github.com/pulp-platform/riscv-dbg.git", version: 0.8.1 }
 #  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" }
 
 sources:
@@ -25,7 +25,6 @@ sources:
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh
       - vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv
-      - vendor_ips/ibex/syn/rtl/prim_clock_gating.v
       - vendor_ips/ibex/rtl/ibex_pkg.sv
       - vendor_ips/ibex/rtl/ibex_csr.sv
       - vendor_ips/ibex/rtl/ibex_compressed_decoder.sv
@@ -61,8 +60,13 @@ sources:
       - vendor_ips/ibex/rtl/ibex_tracer_pkg.sv
       - vendor_ips/ibex/rtl/ibex_tracer.sv
       - vendor_ips/ibex/rtl/ibex_top_tracing.sv
+      # TODO: 
+      - vendor_ips/ibex/syn/rtl/prim_clock_gating.v
 
-
+  - target: any(xilinx,fpga,synthesis)
+    files:
+      - vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_clock_gating.sv
+      - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_xilinx/rtl/prim_xilinx_clock_gating.sv
 
   - target: rtl
     files:
