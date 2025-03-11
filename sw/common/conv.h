@@ -116,11 +116,24 @@ uint32_t accumulate(uint8_t dim, uint16_t mat[dim][dim]){
     return acc;
 }
 
+
+/* UTILITY FUNCTIONS FOR LAB2->*/
+/////////////////////////////////
+
 // Function to emulate DMA API, offload 32-bit data movement
 void move(uint32_t src, uint32_t  dst, uint32_t word_size){
     for (uint32_t i = 0; i < word_size; i++){
         *(volatile uint32_t*)(dst+i*4) = *(volatile uint32_t*) (src+i*4);
     }
 }
+
+// Sum two 16-bit half-words in 32-bit word
+uint32_t halfsum(uint32_t twohalves) {
+    uint32_t res = 0;
+    res += (uint16_t) twohalves;
+    res += (uint16_t) (twohalves >> 16);
+    return res;
+}
+
 
 #endif //__CONV_H__

@@ -2,8 +2,8 @@
 // File          : Student_area_0.v
 // Creation date : 15.02.2024
 // Creation time : 14:58:02
-// Description   : 
-// Created by    : 
+// Description   :
+// Created by    :
 // Tool : Kactus2 3.13.1 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:ip:Student_area_0:1.0
@@ -12,6 +12,7 @@
 /*
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
+    * Antti Nurmi (antti.nurmi@tuni.fi)
   Description:
     * example student area rtl code without io cells
     * original interface created with kactus2. Do not rewrite from kactus.
@@ -61,82 +62,95 @@ module Student_area_0 #(
     output logic [3:0]        pmod_1_gpo,
     output logic [3:0]        pmod_1_gpio_oe
 );
-  `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/Student_area_0.sv"
-  `endif
 
-  logic PSLVERR_reg      ;
-  logic [31:0] PRDATA_reg;
-  logic PREADY_reg       ;
-  logic [31:0] field_0   ;
+// T2.1: How many parallel matmul units are required
+//       to parallelize one convolution in our application?
+localparam int unsigned NrMatMul = 0;
 
-  always_ff @(posedge clk_in or negedge rst)
-  output_w_r: begin
+// T2.2: Declare signals for two input and one output buffers
+//       to feed and consume from the matmul units. Hardware
+//       buffer size should be optimized; what is the minimal
+//       ammount of stored data required for *one* convolution?
+//
+//       IMPORTANT! APB bus accesses are simplest to implement
+//       if the base element width (Y) is alligned with APB_DW
+//       where convenient.
+
+// logic [X-1:0][Y-1:0] *_buffer_d, *_buffer_q;
+
+
+// T2.3: Register buffer signals.
+always_ff @( posedge clk_in or negedge rst )
+  begin
     if (~rst) begin
-      PSLVERR_reg <=  1'b0;
-      PRDATA_reg  <=   'd0;
-      PREADY_reg  <=  1'b0;
-      field_0     <= 32'd0;
-
-    end
-    else begin
-
-      if(PSEL) begin
-        //if access already happened, cut the response signals
-        if (PREADY_reg == 1 && PSLVERR_reg == 1 ) begin
-          PSLVERR_reg <= 1'b0;
-          // error signal does not require it's own process as it
-          // can't be without ready
-          PREADY_reg <= 1'b0;
-        end
-        else if (PREADY_reg == 1) begin
-          PREADY_reg <= 1'b0;
-        end
-        else if(PWRITE) begin // write 
-            if(PADDR == 0) begin
-              field_0 <= PWDATA;
-              PSLVERR_reg <= 1'b0;
-              PREADY_reg  <= 1'b1;
-            end
-            else begin // psel
-                PSLVERR_reg <= 1'b0;
-                PREADY_reg  <= 1'b0;
-            end
-        end
-        else begin // read
-            if(PADDR == 0) begin
-              PRDATA_reg <= field_0;
-              PSLVERR_reg <= 1'b0;
-              PREADY_reg  <= 1'b1;
-            end
-        end
-      end
-      else begin // psel
-        PSLVERR_reg <= 1'b0;
-        PREADY_reg  <= 1'b0;
-      end
+    end else begin
     end
   end
 
-  always_comb
-    output_assignment : begin
-
-    PSLVERR <= PSLVERR_reg;
-    PRDATA  <= PRDATA_reg;
-    PREADY  <= PREADY_reg;
+always_comb
+  begin : apb_access
+    // T2.4: Implement combinational APB access to the previously
+    //       declared buffers.
+    //
+    //       Mandatory: Write access to input buffers, read access from output.
+    //       Optional: Read access to input buffers.
+    //
+    //       Some tips:
+    //         - Assign all signals driven by this process a sensible default
+    //           value right at the start of the block, override in conditional
+    //           statements. For an overview of the APB protocol, see:
+    //           https://documentation-service.arm.com/static/60d5b505677cf7536a55c245?token=
+    //         - Address decoding is best implemented with `case`-statements. To match ranges
+    //           rather than single values, try
+    //           ```
+    //              unique case (<switch>) inside
+    //                 [RangeStart:RangeEnd]: begin
+    //                     ...
+    //                 end
+    //           ```
   end
 
-  assign irq            = 1'b0;
-  assign pmod_1_gpo     = 3'h0;
-  assign pmod_1_gpio_oe = 3'h0;
-  assign pmod_0_gpo     = 3'h0;
-  assign pmod_0_gpio_oe = 3'h0;
 
-/////// SVA /////////
+generate
 
-`ifndef SYNTHESIS
-// insert here unsynthesizeable verification assertions.
-`endif
+  logic [NrMatMul-1:0][31:0] window;
 
+  for (genvar i=0; i<NrMatMul; i++)
+    begin : g_conv
+      // T2.5: The 2x2 * 2x2 matmul unit expects operand bytes to be supplied
+      //       as follows:
+      //           operand_*_i = {B3, B2, B1, B0}; <-> | B3, B2 |
+      //                                               | B1, B0 |
+      //
+      //       Following the reference algorithm, implement the windowing
+      //       of the input matrix here by assigning the appropriate slices
+      //       to `window[i]`, used as one of the matmul inputs.
+
+      // assign window[i] = ...
+
+      // T2.5: Assign operand_b_i, result_o to appropriate buffers.
+      matmul #(
+      ) i_matmul (
+        .clk_i       (clk_in),
+        .rst_ni      (rst),
+        .operand_a_i (window[i]),
+        .operand_b_i (),
+        .result_o    ()
+      );
+    end
+
+endgenerate
+
+// Temporary tieoffs
+assign PREADY  = PENABLE & PSEL;
+assign PSLVERR = 'h0;
+
+assign irq = 0;
+
+assign pmod_0_gpo = 0;
+assign pmod_1_gpo = 0;
+
+assign pmod_0_gpio_oe = 0;
+assign pmod_1_gpio_oe = 0;
 
 endmodule

@@ -74,6 +74,8 @@ sources:
     - src/generated/Student_SS_3_0.v
     - src/generated/SysCtrl_peripherals_0.v
     - src/rtl/AX4LITE_APB_converter_wrapper.sv
+    - src/rtl/multiplier.sv
+    - src/rtl/matmul.sv
     - src/rtl/ICN_SS.sv
     - src/rtl/SysCtrl_xbar.sv
     - src/rtl/SS_Ctrl_reg_array.sv

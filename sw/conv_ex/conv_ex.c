@@ -16,6 +16,15 @@
 #define MultDim   2
 #define OutMatDim 3
 
+#define DATA_BASE   0x01010000
+#define DATA_SIZE   0x10
+
+#define WEIGHT_BASE 0x01010040
+#define WEIGHT_SIZE 0x4
+
+#define MATMUL_BASE 0x01050000
+
+
 int main() {
 
   uart_init();
@@ -41,12 +50,12 @@ int main() {
     uint8_t  wgt[WgtMatDim][WgtMatDim]; 
     
     // populate matrices from preloaded memory
-    init_matrix(InMatDim, data, 0x01010000 + 0x10 * conv_count);
-    init_matrix(WgtMatDim, wgt, 0x01010040 + 0x4  * conv_count);
+    init_matrix(InMatDim, data, DATA_BASE   + DATA_SIZE   * conv_count);
+    init_matrix(WgtMatDim, wgt, WEIGHT_BASE + WEIGHT_SIZE * conv_count);
 
     // compute convolution
-    for (int j = 0; j < 3; j++){
-      for (int i = 0; i < 3; i++){
+    for (int j = 0; j < 3; j++){   // columns
+      for (int i = 0; i < 3; i++){ // rows
         uint8_t  window[MultDim][MultDim] = {{0}}; 
         uint16_t result[MultDim][MultDim] = {{0}};
         get_submatrix(MultDim, InMatDim, j, i, data, window);
