@@ -1578,7 +1578,7 @@ module SysCtrl_SS_0 #(
         .instr_addr_o        (Ibex_Core_instr_addr_o),
         .instr_req_o         (Ibex_Core_instr_req_o),
         // These ports are not in any interface
-        .boot_addr_i         (32'h1000000),
+        .boot_addr_i         (32'h01040100),
         .hart_id_i           (32'h0),
         .irq_external_i      (1'b0),
         .irq_nm_i            (1'b0),

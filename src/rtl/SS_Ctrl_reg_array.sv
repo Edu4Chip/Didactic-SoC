@@ -103,6 +103,9 @@ module SS_Ctrl_reg_array #(
   logic [31:0] pmod_sel_reg;
   logic [IOCELL_COUNT-1:0][31:0] io_cell_cfg_reg;
 
+  logic [31:0] boot_reg_0;
+  logic [31:0] boot_reg_1;
+
     // FFs for write or read/write registers
     always_ff @( posedge clk or negedge reset )
     begin : control_register_ff
@@ -120,48 +123,54 @@ module SS_Ctrl_reg_array #(
         for(int i=0; i < IOCELL_COUNT; i++) begin
           io_cell_cfg_reg[i] <= 'h0;
         end
+        boot_reg_0 <= 'h6f;
+        boot_reg_1 <= 'h6f;
     end
     else begin
 
      if (we_in) begin
         case (addr_in[16:0])
-        'h0:  fetch_en_reg       <= wdata_in[ 31:0 ];
-        'h4:  ss_rst_reg         <= wdata_in[ 31:0 ];
+        'h0:  fetch_en_reg       <= wdata_in;
+        'h4:  ss_rst_reg         <= wdata_in;
 
-        'h8:  icn_ctrl_reg       <= wdata_in[ 31:0 ];
-        'hC:  ss_0_ctrl_reg      <= wdata_in[ 31:0 ];
-        'h10: ss_1_ctrl_reg      <= wdata_in[ 31:0 ];
-        'h14: ss_2_ctrl_reg      <= wdata_in[ 31:0 ];
-        'h18: ss_3_ctrl_reg      <= wdata_in[ 31:0 ];
+        'h8:  icn_ctrl_reg       <= wdata_in;
+        'hC:  ss_0_ctrl_reg      <= wdata_in;
+        'h10: ss_1_ctrl_reg      <= wdata_in;
+        'h14: ss_2_ctrl_reg      <= wdata_in;
+        'h18: ss_3_ctrl_reg      <= wdata_in;
 
-        'h1C: ss_ctrl_reserved_0_reg <= wdata_in[ 31:0 ];
-        'h20: ss_ctrl_reserved_1_reg <= wdata_in[ 31:0 ];
+        'h1C: ss_ctrl_reserved_0_reg <= wdata_in;
+        'h20: ss_ctrl_reserved_1_reg <= wdata_in;
 
-        'h24: pmod_sel_reg        <= wdata_in[ 31:0 ];
+        'h24: pmod_sel_reg        <= wdata_in;
 
-        'h28: io_cell_cfg_reg[0]  <= wdata_in[ 31:0 ];
-        'h2C: io_cell_cfg_reg[1]  <= wdata_in[ 31:0 ];
-        'h30: io_cell_cfg_reg[2]  <= wdata_in[ 31:0 ];
-        'h34: io_cell_cfg_reg[3]  <= wdata_in[ 31:0 ];
+        'h28: io_cell_cfg_reg[0]  <= wdata_in;
+        'h2C: io_cell_cfg_reg[1]  <= wdata_in;
+        'h30: io_cell_cfg_reg[2]  <= wdata_in;
+        'h34: io_cell_cfg_reg[3]  <= wdata_in;
 
-        'h38: io_cell_cfg_reg[4]  <= wdata_in[ 31:0 ];
-        'h3C: io_cell_cfg_reg[5]  <= wdata_in[ 31:0 ];
-        'h40: io_cell_cfg_reg[6]  <= wdata_in[ 31:0 ];
-        'h44: io_cell_cfg_reg[7]  <= wdata_in[ 31:0 ];
+        'h38: io_cell_cfg_reg[4]  <= wdata_in;
+        'h3C: io_cell_cfg_reg[5]  <= wdata_in;
+        'h40: io_cell_cfg_reg[6]  <= wdata_in;
+        'h44: io_cell_cfg_reg[7]  <= wdata_in;
 
-        'h48: io_cell_cfg_reg[8]  <= wdata_in[ 31:0 ];
-        'h4C: io_cell_cfg_reg[9]  <= wdata_in[ 31:0 ];
-        'h50: io_cell_cfg_reg[10] <= wdata_in[ 31:0 ];
-        'h54: io_cell_cfg_reg[11] <= wdata_in[ 31:0 ];
-        'h58: io_cell_cfg_reg[12] <= wdata_in[ 31:0 ];
-        'h5C: io_cell_cfg_reg[13] <= wdata_in[ 31:0 ];
-        'h60: io_cell_cfg_reg[14] <= wdata_in[ 31:0 ];
+        'h48: io_cell_cfg_reg[8]  <= wdata_in;
+        'h4C: io_cell_cfg_reg[9]  <= wdata_in;
+        'h50: io_cell_cfg_reg[10] <= wdata_in;
+        'h54: io_cell_cfg_reg[11] <= wdata_in;
+        'h58: io_cell_cfg_reg[12] <= wdata_in;
+        'h5C: io_cell_cfg_reg[13] <= wdata_in;
+        'h60: io_cell_cfg_reg[14] <= wdata_in;
 
-        'h64: io_cell_cfg_reg[15] <= wdata_in[ 31:0 ];
-        'h68: io_cell_cfg_reg[16] <= wdata_in[ 31:0 ];
+        'h64: io_cell_cfg_reg[15] <= wdata_in;
+        'h68: io_cell_cfg_reg[16] <= wdata_in;
 
-        //'h6C: io_cell_cfg_reg[17] <= wdata_in[ 31:0 ];
-        //'h70: io_cell_cfg_reg[18] <= wdata_in[ 31:0 ];
+        //'h6C: io_cell_cfg_reg[17] <= wdata_in;
+        //'h70: io_cell_cfg_reg[18] <= wdata_in;
+
+        'h100: boot_reg_0 <= wdata_in;
+        'h104: boot_reg_1 <= wdata_in;
+
         endcase
      end
     end
@@ -209,6 +218,9 @@ module SS_Ctrl_reg_array #(
         // reserves
         //'h6C: rdata_out = io_cell_cfg_reg[17];
         //'h70: rdata_out = io_cell_cfg_reg[18];
+
+        'h100: rdata_out = boot_reg_0;
+        'h104: rdata_out = boot_reg_1;
 
     endcase
 
