@@ -128,7 +128,7 @@ generate
 
       // assign window[i] = ...
 
-      // T2.5: Assign operand_b_i, result_o to appropriate buffers.
+      // T2.6: Assign operand_b_i, result_o to appropriate buffers.
       matmul #(
       ) i_matmul (
         .clk_i       (clk_in),
