@@ -26,9 +26,9 @@ TB_DEFINES = \
 # pulp / ibex codes. we assume they are working packages,
 # so disabled by default.
 DUT_DEFINES = \
-	+define+SYNTHESIS \
 	+define+RVFI \
-#	+define+INC_ASSERT \
+	+define+INC_ASSERT \
+#	+define+SYNTHESIS \
 
 DUT_LIBS = \
 	-L $(BUILD_DIR)/didactic_lib \

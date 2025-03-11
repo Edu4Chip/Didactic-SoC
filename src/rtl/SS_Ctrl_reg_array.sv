@@ -105,6 +105,8 @@ module SS_Ctrl_reg_array #(
 
   logic [31:0] boot_reg_0;
   logic [31:0] boot_reg_1;
+  logic [31:0] boot_reg_2;
+  logic [31:0] boot_reg_3;
 
     // FFs for write or read/write registers
     always_ff @( posedge clk or negedge reset )
@@ -125,6 +127,8 @@ module SS_Ctrl_reg_array #(
         end
         boot_reg_0 <= 'h6f;
         boot_reg_1 <= 'h6f;
+        boot_reg_2 <= 'h6f;
+        boot_reg_3 <= 'h6f;
     end
     else begin
 
@@ -170,6 +174,8 @@ module SS_Ctrl_reg_array #(
 
         'h100: boot_reg_0 <= wdata_in;
         'h104: boot_reg_1 <= wdata_in;
+        'h180: boot_reg_1 <= wdata_in;
+        'h184: boot_reg_1 <= wdata_in;
 
         endcase
      end
@@ -221,6 +227,8 @@ module SS_Ctrl_reg_array #(
 
         'h100: rdata_out = boot_reg_0;
         'h104: rdata_out = boot_reg_1;
+        'h180: rdata_out = boot_reg_2;
+        'h184: rdata_out = boot_reg_3;
 
     endcase
 
