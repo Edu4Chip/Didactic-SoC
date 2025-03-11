@@ -20,7 +20,7 @@ After cloning this repository, run `make repository_init` to fetch all of the de
 
 ## Basic simulation flow
 
-Running Baremetal program on IBEX core has been abstracted to `make test_all TESTC=blink` command.
+Running Baremetal program on IBEX core has been abstracted to `make test_all TEST=blink` command.
 
 This will build HW libraries (`Questa`), executable binary (`riscv-toolchain`), convert binary to hexfile (`elf2hex`) and finally run the simulator (`Questa`). Testcase targets folder in sw folder and expects it to contain .c file with same name. Eg. <code>sw/hello/hello.c</code>.
 

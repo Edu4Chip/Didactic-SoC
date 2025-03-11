@@ -78,6 +78,7 @@ sources:
     - src/rtl/SysCtrl_xbar.sv
     - src/rtl/SS_Ctrl_reg_array.sv
     - src/rtl/pmod_mux.sv
+    - src/generated/DtuSubsystem.sv
     - src/rtl/Student_area_0.sv
     - src/rtl/student_ss_1.sv
     - src/rtl/Student_SS_2.sv
