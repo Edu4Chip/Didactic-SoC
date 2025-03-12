@@ -1538,6 +1538,7 @@ module SysCtrl_SS_0 #(
 `else
     ibex_top #(
 `endif
+        .DmBaseAddr        ('h01020000),
         .DmHaltAddr          (16910336),
         .DmExceptionAddr     (16910358))
     Ibex_Core(
