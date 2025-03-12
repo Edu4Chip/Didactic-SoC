@@ -122,14 +122,17 @@ generate
       //           operand_*_i = {B3, B2, B1, B0}; <-> | B3, B2 |
       //                                               | B1, B0 |
       //
+      //       The result follows the same shape, but the elements are now 16 bits.
+      //
       //       Following the reference algorithm, implement the windowing
       //       of the input matrix here by assigning the appropriate slices
       //       to `window[i]`, used as one of the matmul inputs.
 
       // assign window[i] = ...
 
-      // T2.6: Assign operand_b_i, result_o to appropriate buffers.
+      // T2.6: Assign operand_b_i, result_o to appropriate signals.
       matmul #(
+        .OutputReg (0)
       ) i_matmul (
         .clk_i       (clk_in),
         .rst_ni      (rst),
@@ -137,6 +140,9 @@ generate
         .operand_b_i (),
         .result_o    ()
       );
+
+      // T2.7: Accumulate matmul result in hardware, assign to output buffer.
+
     end
 
 endgenerate

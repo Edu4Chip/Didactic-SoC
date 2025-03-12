@@ -127,13 +127,6 @@ void move(uint32_t src, uint32_t  dst, uint32_t word_size){
     }
 }
 
-// Sum two 16-bit half-words in 32-bit word
-uint32_t halfsum(uint32_t twohalves) {
-    uint32_t res = 0;
-    res += (uint16_t) twohalves;
-    res += (uint16_t) (twohalves >> 16);
-    return res;
-}
 
 
 #endif //__CONV_H__
