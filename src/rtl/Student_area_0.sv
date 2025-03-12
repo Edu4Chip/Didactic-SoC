@@ -97,7 +97,7 @@ always_comb
     //
     //       Some tips:
     //         - Assign all signals driven by this process a sensible default
-    //           value right at the start of the block, override in conditional
+    //           value right at the start of the block, overwrite in conditional
     //           statements. For an overview of the APB protocol, see:
     //           https://documentation-service.arm.com/static/60d5b505677cf7536a55c245?token=
     //         - Address decoding is best implemented with `case`-statements. To match ranges
