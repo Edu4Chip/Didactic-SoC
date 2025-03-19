@@ -11,7 +11,6 @@ if { ![info exists CPUS] } {
 }
 #
 set PROJECT $::env(PROJECT)
-set START $::env(START_TIME)
 set BUILD_DIR $::env(BUILD_DIR)
 
 if { $PROJECT eq "z1" } {
@@ -40,15 +39,15 @@ set INCLUDE_DIRS [list  \
                    $AXI_DIR/include \
                    $APB_DIR/include \
                    $REGIF_DIR/include \
-	               $DIR/../$IBEX_PATH/vendor/lowrisc_ip/dv/sv/dv_utils \
-	               $DIR/../$IBEX_PATH/vendor/lowrisc_ip/ip/prim/rtl \
-	               $DIR/../$IBEX_PATH/rtl \
+	                 $DIR/../$IBEX_PATH/vendor/lowrisc_ip/dv/sv/dv_utils \
+	                 $DIR/../$IBEX_PATH/vendor/lowrisc_ip/ip/prim/rtl \
+	                 $DIR/../$IBEX_PATH/rtl \
                  ]
 
 set_property include_dirs $INCLUDE_DIRS [current_fileset]
 
 # File read
-add_files -norecurse -scan_for_includes [exec bender script flist -t rtl -t vendor -t synthesis]
+add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis]
 
 set_property file_type SystemVerilog [get_files *.v]
 
@@ -80,8 +79,6 @@ set_property needs_refresh false [get_runs synth_1]
 
 # Launch Implementation
 # default strategy creates issues with hold. we trade runtime to get timing correct.
-set_property STEPS.OPT_DESIGN.IS_ENABLED true [get_runs impl_1]
-set_property STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE ExploreWithAggressiveHoldFix [get_runs impl_1]
 
 set_property STEPS.WRITE_BITSTREAM.ARGS.BIN_FILE true [get_runs impl_1]
 
@@ -93,9 +90,9 @@ wait_on_run impl_1
 open_run impl_1
 
 # Generate reports
-exec mkdir -p $BUILD_DIR/fpga
+exec mkdir -p $BUILD_DIR/fpga/logs/
 
-check_timing                                                          -file $BUILD_DIR/fpga/$START_$PROJECT.check_timing.rpt
-report_timing -max_paths 50 -nworst 50 -delay_type max -sort_by slack -file $BUILD_DIR/fpga/$START_$PROJECT.timing_WORST_50.rpt
-report_timing -nworst 1 -delay_type max -sort_by group                -file $BUILD_DIR/fpga/$START_$PROJECT.timing.rpt
-report_utilization -hierarchical                                      -file $BUILD_DIR/fpga/$START_$PROJECT.utilization.rpt
+check_timing                                                          -file $BUILD_DIR/fpga/logs/$PROJECT.check_timing.rpt
+report_timing -max_paths 50 -nworst 50 -delay_type max -sort_by slack -file $BUILD_DIR/fpga/logs/$PROJECT.timing_WORST_50.rpt
+report_timing -nworst 1 -delay_type max -sort_by group                -file $BUILD_DIR/fpga/logs/$PROJECT.timing.rpt
+report_utilization -hierarchical                                      -file $BUILD_DIR/fpga/logs/$PROJECT.utilization.rpt

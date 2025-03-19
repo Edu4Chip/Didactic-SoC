@@ -5,6 +5,7 @@
     * Matti Käyrä (matti.kayra@tuni.fi)
   Description:
     * Simulation model for clock gate
+    * Optional define for Xilinx FPGA cell 
 */
 
 module tech_cg
@@ -17,11 +18,12 @@ module tech_cg
   logic en_latched;
 
   `ifdef FPGA   
-    BUFGCE i_bufgce (
-      .O(clk_out),
-      .CE(en), // CE = 0, clock disabled
-      .I(clk)
-    );
+  assign clk_out = clk;
+   // BUFGCE i_bufgce (
+   //   .O(clk_out),
+   //   .CE(en), // CE = 0, clock disabled
+   //   .I(clk)
+   // );
   `else
 
     always_latch begin

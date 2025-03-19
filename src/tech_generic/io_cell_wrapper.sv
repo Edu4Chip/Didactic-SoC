@@ -24,9 +24,10 @@ module io_cell_wrapper #(
         IOBUF i_iobuf(
           .T (io_cell_cfg[0]), 
           .I (FROM_CORE),
-          .O (O),
+          .O (TO_CORE),
           .IO(PAD)
         );
+        
       `else
         io_cell #(
             .CONF_WIDTH(IOCELL_CFG_W)

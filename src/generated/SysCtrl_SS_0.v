@@ -1885,7 +1885,7 @@ module SysCtrl_SS_0 #(
     // IP-XACT VLNV: tuni.fi:ip:jtag_dbg_wrapper:1.0
     jtag_dbg_wrapper #(
         .AXI_AW              (32),
-        .DM_BASE_ADDRESS     ('h1),
+        .DM_BASE_ADDRESS     ('h01020000),
         .AXI_DW              (32),
         .DM_ID_VALUE         (470810337))
     jtag_dbg_wrapper(

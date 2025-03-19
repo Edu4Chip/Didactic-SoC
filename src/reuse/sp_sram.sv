@@ -16,7 +16,7 @@ module sp_sram #(
   input  logic                         we_i,
   input  logic [$clog2(NUM_WORDS)-1:0] addr_i,
   input  logic [       DATA_WIDTH-1:0] wdata_i,
-  input  logic [ (DATA_WIDTH+7)/8-1:0] be_i,
+  input  logic [     DATA_WIDTH/8-1:0] be_i,
   output logic [       DATA_WIDTH-1:0] rdata_o,
   // ports for compatability only
   output logic                         ruser_o,
@@ -73,7 +73,6 @@ module sp_sram #(
   end
 
   assign rdata_o = ram[raddr_q];
-  assign r_user_o = 1'b0;
 
 `else /****************************** FPGA MODEL ******************************/
 /*
@@ -113,6 +112,12 @@ module sp_sram #(
    //       1     |  "18Kb"   |    16384    |   14-bit   |    1-bit   //
    /////////////////////////////////////////////////////////////////////
 
+   logic [DATA_WIDTH/8:0] we_internal;
+
+   for(genvar i = 0; i < DATA_WIDTH/8; i++) begin
+    assign we_internal[i] = we_i & be_i[i];
+   end
+
    BRAM_SINGLE_MACRO #(
       .BRAM_SIZE("18Kb"), // Target BRAM, "18Kb" or "36Kb" 
       .INIT_FILE ("NONE"),
@@ -125,8 +130,8 @@ module sp_sram #(
       .DI(wdata_i),       // Input data port, width defined by WRITE_WIDTH parameter
       .EN(1'b1),       // 1-bit input RAM enable
       .REGCE(1'b0), // 1-bit input output register enable
-      .RST(RST),     // 1-bit input reset
-      .WE(we_i)        // Input write enable, width defined by write port depth
+      .RST(rst_ni),     // 1-bit input reset
+      .WE(we_internal)        // Input write enable, width defined by write port depth
    );
 
    // End of BRAM_SINGLE_MACRO_inst instantiation
@@ -134,6 +139,6 @@ module sp_sram #(
 
 `endif /***********************************************************************/
 
-assign ruser = 1'b0;
+assign ruser_o = 1'b0;
 
 endmodule

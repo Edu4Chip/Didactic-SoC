@@ -8,7 +8,6 @@
 SHELL = bash
 VIVADO ?= vivado
 
-export START_TIME=`date +%F_%H:%M`
 export BUILD_DIR ?= ../build
 export PROJECT ?= z1
 

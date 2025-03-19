@@ -235,14 +235,15 @@ module SysCtrl_xbar #(
 
   axi_pkg::xbar_rule_32_t [NoAddrRules-1:0] AddrMapXBAR;
   // TODO: finalize Address table based for xbar
+  // >= start, < end
   assign AddrMapXBAR = 
     '{
-      '{idx: 32'd5, start_addr: ADDR_BASE+AXI4LITE_SIZE*5, end_addr: ADDR_BASE+AXI4LITE_SIZE*6-1},//icn. 
-      '{idx: 32'd4, start_addr: ADDR_BASE+AXI4LITE_SIZE*4, end_addr: ADDR_BASE+AXI4LITE_SIZE*5-1},//ctrl
-      '{idx: 32'd3, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*4-1},//periph
-      '{idx: 32'd2, start_addr: ADDR_BASE+AXI4LITE_SIZE*2, end_addr: ADDR_BASE+AXI4LITE_SIZE*3-1},//dbg
-      '{idx: 32'd1, start_addr: ADDR_BASE+AXI4LITE_SIZE*1, end_addr: ADDR_BASE+AXI4LITE_SIZE*2-1},//dmem
-      '{idx: 32'd0, start_addr: ADDR_BASE+AXI4LITE_SIZE*0, end_addr: ADDR_BASE+AXI4LITE_SIZE*1-1} //imem
+      '{idx: 32'd5, start_addr: ADDR_BASE+AXI4LITE_SIZE*5, end_addr: ADDR_BASE+AXI4LITE_SIZE*6},//icn. 
+      '{idx: 32'd4, start_addr: ADDR_BASE+AXI4LITE_SIZE*4, end_addr: ADDR_BASE+AXI4LITE_SIZE*5},//ctrl
+      '{idx: 32'd3, start_addr: ADDR_BASE+AXI4LITE_SIZE*3, end_addr: ADDR_BASE+AXI4LITE_SIZE*4},//periph
+      '{idx: 32'd2, start_addr: ADDR_BASE+AXI4LITE_SIZE*2, end_addr: ADDR_BASE+AXI4LITE_SIZE*3},//dbg
+      '{idx: 32'd1, start_addr: ADDR_BASE+AXI4LITE_SIZE*1, end_addr: ADDR_BASE+AXI4LITE_SIZE*2},//dmem
+      '{idx: 32'd0, start_addr: ADDR_BASE+AXI4LITE_SIZE*0, end_addr: ADDR_BASE+AXI4LITE_SIZE*1} //imem
     };
 
   // check ips\axi\src\axi_pkg.sv for rule definitions
@@ -251,8 +252,8 @@ module SysCtrl_xbar #(
     NoMstPorts:         AXI4LITE_TARGETS,
     MaxMstTrans:        1,  
     MaxSlvTrans:        1,  
-    FallThrough:        1'b0,
-    LatencyMode:        axi_pkg::CUT_ALL_AX,//CUT_ALL_AX,CUT_ALL_PORTS
+    FallThrough:        1'b1,
+    LatencyMode:        axi_pkg::CUT_ALL_PORTS,//NO_LATENCY,//CUT_ALL_AX,CUT_ALL_PORTS
     PipelineStages:     0,
     AxiIdWidthSlvPorts: 0,
     AxiIdUsedSlvPorts:  0,
