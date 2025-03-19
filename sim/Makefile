@@ -58,7 +58,7 @@ APB_DIR          ?= $(shell $(BENDER) path apb)
 REGIF_DIR        ?= $(shell $(BENDER) path register_interface)
 IBEX_DIR         ?= $(BUILD_DIR)/../vendor_ips/ibex
 
-SIM_FLIST        ?= $(shell $(BENDER) script flist -t rtl -t vendor -t simulation)
+SIM_FLIST        ?= $(shell $(BENDER) script flist -t rtl -t vendor -t simulation -t tracer)
 
 INCLUDES ?= \
 	+incdir+$(COMMON_CELLS_DIR)/include \
