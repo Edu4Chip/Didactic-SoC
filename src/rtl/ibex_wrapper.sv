@@ -40,7 +40,7 @@ module ibex_wrapper #(
     parameter lfsr_seed_t                  RndCnstLfsrSeed  = RndCnstLfsrSeedDefault,
     parameter bit                          SecureIbex       = 1'b0,
     parameter bit                          WritebackStage   = 1'b0
-) (
+  )(
     // Interface: Clock
     input  logic                         clk_i,
 

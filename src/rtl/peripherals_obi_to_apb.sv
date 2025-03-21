@@ -55,39 +55,168 @@ module peripherals_obi_to_apb #(
     output logic                        APB_UART_PWRITE,
 
     // Interface: clock
-    input  logic                        clk_internal,
+    input  logic                        clk,
 
     // Interface: obi
-    input                [OBI_CHKW-1:0] achk,
-    input                [OBI_AW-1:0]   addr,
-    input                [OBI_IDW-1:0]  aid,
-    input                [5:0]          atop,
-    input                [OBI_USERW-1:0] auser,
-    input                [OBI_DW/8-1:0] be,
-    input                               dbg,
-    input                [1:0]          memtype,
-    input                [OBI_IDW-1:0]  mid,
-    input                [2:0]          prot,
-    input                               regpar,
-    input                               req,
-    input                               rready,
-    input                [OBI_DW-1:0]   wdata,
-    input                               we,
-    input                [OBI_USERW-1:0] wuser,
-    output                              err,
-    output                              exokay,
-    output                              gnt,
-    output                              gntpar,
-    output               [OBI_CHKW-1:0] rchk,
-    output               [OBI_DW-1:0]   rdata,
-    output               [OBI_IDW-1:0]  rid,
-    output                              rreadypar,
-    output               [OBI_USERW-1:0] ruser,
-    output                              rvalid,
-    output                              rvalidpar,
+    input   logic        [OBI_CHKW-1:0] achk,
+    input   logic        [OBI_AW-1:0]   addr,
+    input   logic        [OBI_IDW-1:0]  aid,
+    input   logic        [5:0]          atop,
+    input   logic        [OBI_USERW-1:0] auser,
+    input   logic        [OBI_DW/8-1:0] be,
+    input   logic                       dbg,
+    input   logic        [1:0]          memtype,
+    input   logic        [OBI_IDW-1:0]  mid,
+    input   logic        [2:0]          prot,
+    input   logic                       req,
+    input   logic                       reqpar,
+    input   logic                       rready,
+    input   logic                       rreadypar,
+    input   logic        [OBI_DW-1:0]   wdata,
+    input   logic                       we,
+    input   logic        [OBI_USERW-1:0] wuser,
+    output  logic                       err,
+    output  logic                       exokay,
+    output  logic                       gnt,
+    output  logic                       gntpar,
+    output  logic        [OBI_CHKW-1:0] rchk,
+    output  logic        [OBI_DW-1:0]   rdata,
+    output  logic        [OBI_IDW-1:0]  rid,
+    output  logic        [OBI_USERW-1:0] ruser,
+    output  logic                       rvalid,
+    output  logic                       rvalidpar,
 
     // Interface: reset
-    input  logic                        reset_internal
+    input  logic                        rst
 );
+  localparam TARGETS = 3;
+  localparam INITIATORS = 1;
+
+  // bus defaults 32 
+  OBI_BUS #() target_bus [TARGETS-1:0]();
+  OBI_BUS #() initiator_bus [INITIATORS-1:0] ();
+  APB #() peripheral_bus [TARGETS-1:0] ();
+
+  typedef struct packed {
+    int unsigned idx;
+    int unsigned start_addr;
+    int unsigned end_addr;
+  } addr_rule_t;
+
+  localparam ADDR_BASE   = 32'h0103_0000;
+  localparam APB_SIZE    = 'h100;
+
+  addr_rule_t [INITIATORS-1:0] peripheral_addr_map;
+
+  assign peripheral_addr_map =
+    '{
+      '{idx: 32'd2, start_addr: ADDR_BASE+APB_SIZE*2, end_addr: ADDR_BASE+APB_SIZE*3-1},//spi
+      '{idx: 32'd1, start_addr: ADDR_BASE+APB_SIZE*1, end_addr: ADDR_BASE+APB_SIZE*2-1},//uart
+      '{idx: 32'd0, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1-1} //gpio
+     };
+
+  obi_xbar_intf #(
+    .NumSbrPorts       (INITIATORS),
+    .NumMgrPorts       (TARGETS),
+    .NumMaxTrans       (1),
+    .NumAddrRules      (INITIATORS),
+    .addr_map_rule_t   (addr_rule_t),
+    .UseIdForRouting   (0)
+  ) i_peripheral_obi_xbar (
+    .clk_i            (clk),
+    .rst_ni           (rst),
+    .testmode_i       (1'b0),
+    .sbr_ports        (initiator_bus),
+    .mgr_ports        (target_bus),
+    .addr_map_i       (peripheral_addr_map),
+    .en_default_idx_i ('0),
+    .default_idx_i    ('0)
+  );
+  
+  obi_to_apb_intf #() i_obi_to_apb_gpio (
+    .clk_i (clk),
+    .rst_ni(rst),
+    .obi_i (target_bus[0]),
+    .apb_o (peripheral_bus[0])
+  );
+
+  obi_to_apb_intf #() i_obi_to_apb_uart (
+    .clk_i (clk),
+    .rst_ni(rst),
+    .obi_i (target_bus[1]),
+    .apb_o (peripheral_bus[1])
+  );
+
+  obi_to_apb_intf #() i_obi_to_apb_spi (
+    .clk_i (clk),
+    .rst_ni(rst),
+    .obi_i (target_bus[2]),
+    .apb_o (peripheral_bus[2])
+  );
+
+   // Interface: apb_gpio
+   assign peripheral_bus[0].prdata = APB_GPIO_PRDATA;
+   assign peripheral_bus[0].pready = APB_GPIO_PREADY;
+   assign peripheral_bus[0].pslverr = APB_GPIO_PSLVERR;
+   assign APB_GPIO_PADDR = peripheral_bus[0].paddr;
+   assign APB_GPIO_PENABLE = peripheral_bus[0].penable;
+   assign APB_GPIO_PSEL = peripheral_bus[0].psel;
+   assign APB_GPIO_PWDATA = peripheral_bus[0].pwdata;
+   assign APB_GPIO_PWRITE = peripheral_bus[0].pwrite;
+
+  // Interface: apb_uart
+   assign peripheral_bus[1].prdata =  APB_UART_PRDATA;
+   assign peripheral_bus[1].pready =  APB_UART_PREADY;
+   assign peripheral_bus[1].pslverr = APB_UART_PSLVERR;
+   assign APB_UART_PADDR = peripheral_bus[1].paddr;
+   assign APB_UART_PENABLE = peripheral_bus[1].penable;
+   assign APB_UART_PSEL = peripheral_bus[1].psel;
+   assign APB_UART_PWDATA = peripheral_bus[1].pwdata;
+   assign APB_UART_PWRITE = peripheral_bus[1].pwrite;
+ 
+  // Interface: apb_spi
+  assign peripheral_bus[2].prdata = APB_SPI_PRDATA;
+  assign peripheral_bus[2].pready = APB_SPI_PREADY;
+  assign peripheral_bus[2].pslverr = APB_SPI_PSLVERR;
+  assign APB_SPI_PADDR = peripheral_bus[2].paddr;
+  assign APB_SPI_PENABLE = peripheral_bus[2].penable;
+  assign APB_SPI_PSEL = peripheral_bus[2].psel;
+  assign APB_SPI_PWDATA = peripheral_bus[2].pwdata;
+  assign APB_SPI_PWRITE = peripheral_bus[2].pwrite;
+
+  // Interface: obi
+  assign initiator_bus.achk = achk;
+  assign initiator_bus.addr = addr;
+  assign initiator_bus.aid = aid;
+  assign initiator_bus.atop = atop;
+  assign initiator_bus.auser = auser;
+  assign initiator_bus.be = be;
+  assign initiator_bus.dbg = dbg;
+  assign initiator_bus.memtype = memtype;
+  assign initiator_bus.mid = mid;
+  assign initiator_bus.prot = prot;
+  assign initiator_bus.req = req;
+  assign initiator_bus.reqpar = reqpar;
+  assign initiator_bus.rready = rready;
+  assign initiator_bus.rreadypar = rreadypar;
+  assign initiator_bus.wdata = wdata;
+  assign initiator_bus.we = we;
+  assign initiator_bus.wuser = wuser;
+
+  // a optional signals such as achk etc
+  // assign initiator_bus.a_optional = 'h0;
+  // r opional sigans such as ruser
+  // initiator_bus.r_optional
+
+  assign err = initiator_bus.err;
+  assign exokay = initiator_bus.exokay ;
+  assign gnt = initiator_bus.gnt;
+  assign gntpar = initiator_bus.gntpar;
+  assign rchk = initiator_bus.rchk;
+  assign rdata = initiator_bus.rdata;
+  assign rid = initiator_bus.rid;
+  assign ruser = initiator_bus.ruser;
+  assign rvalid = initiator_bus.rvalid;
+  assign rvalidpar = initiator_bus.rvalidpar;
 
 endmodule

@@ -213,7 +213,7 @@
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
-			<ipxact:logicalName>regpar</ipxact:logicalName>
+			<ipxact:logicalName>reqpar</ipxact:logicalName>
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
@@ -388,12 +388,12 @@
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>

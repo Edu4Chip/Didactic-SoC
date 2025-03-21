@@ -5,11 +5,13 @@ package:
     - "Matti Käyrä <matti.kayra@tuni.fi>"
 
 dependencies:           # TODO: only 1st level dependencies needed, also semantic versions prefered over commit hashes
-  apb_gpio:           { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "f82caeb7f7d89427f05e9af5ed31e0675efe0d83" }
-  apb_uart:           { git: "https://github.com/pulp-platform/apb_uart.git", rev: "6c7dde3d749ac8274377745c105da8c8b8cd27c6" }
-  axi:                { git: "https://github.com/pulp-platform/axi.git", rev:  "69b2dc5b28379855415f4b007b624648a02431bc" }
-  common_cells:       { git: "https://github.com/pulp-platform/common_cells.git", rev: "9afda9abb565971649c2aa0985639c096f351171" }
-  riscv-dbg:          { git: "https://github.com/pulp-platform/riscv-dbg.git", rev: "618ee6e0e2610ef47e0dcc4df6748af3dffff731" }
+  apb_gpio:     { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "f82caeb7f7d89427f05e9af5ed31e0675efe0d83" }
+  apb_uart:     { git: "https://github.com/pulp-platform/apb_uart.git", rev: "6c7dde3d749ac8274377745c105da8c8b8cd27c6" }
+  axi:          { git: "https://github.com/pulp-platform/axi.git", rev:  "69b2dc5b28379855415f4b007b624648a02431bc" }
+  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", rev: "9afda9abb565971649c2aa0985639c096f351171" }
+  riscv-dbg:    { git: "https://github.com/pulp-platform/riscv-dbg.git", rev: "618ee6e0e2610ef47e0dcc4df6748af3dffff731" }
+  apb:          { git: "https://github.com/pulp-platform/apb.git", rev: "e486aa2b7302e3113414c9e5eeeb10d7e36172eb" }
+  obi:          { git: "https://github.com/pulp-platform/obi.git", rev: "8097928cf1b43712f93d5356f336397879b4ad2c" }
 #  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" }
 
 sources:
