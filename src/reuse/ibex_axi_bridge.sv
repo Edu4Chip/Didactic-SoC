@@ -6,9 +6,6 @@
            Tom Szymkowiak <thomas.szymkowiak@tuni.fi>
 */
 
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/nms/ibex_axi_bridge.sv"
-`endif
 
 module ibex_axi_bridge #(
   /* NOTE: Limitation exists that IBEX DW/AW must be larger or equal to the
@@ -53,9 +50,6 @@ module ibex_axi_bridge #(
   input  logic                  r_valid_i,
   output logic                  r_ready_o
 );
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/ms/ibex_axi_bridge.sv"
-`endif
 
 enum logic [3:0] {
   IDLE,

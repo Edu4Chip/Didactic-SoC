@@ -18,9 +18,6 @@
     * same functionality can be later created by TAU Kamel tool automatically from IPXACT
 */
 
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/SS_Ctrl_reg_array.sv"
-`endif
 
 module SS_Ctrl_reg_array #(
     parameter IOCELL_CFG_W     = 5,
@@ -87,9 +84,7 @@ module SS_Ctrl_reg_array #(
     // Interface: fetch_en
     output logic [4:0] fetch_en
 );
-  `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/SS_Ctrl_reg_array.sv"
-  `endif
+
 
   logic [31:0] fetch_en_reg;
   logic [31:0] ss_rst_reg;
@@ -105,8 +100,8 @@ module SS_Ctrl_reg_array #(
 
   logic [31:0] boot_reg_0;
   logic [31:0] boot_reg_1;
-  logic [31:0] boot_reg_2;
-  logic [31:0] boot_reg_3;
+  logic [31:0] return_reg_0;
+  logic [31:0] return_reg_1;
 
     // FFs for write or read/write registers
     always_ff @( posedge clk or negedge reset )
@@ -127,8 +122,8 @@ module SS_Ctrl_reg_array #(
         end
         boot_reg_0 <= 'h6f;
         boot_reg_1 <= 'h6f;
-        boot_reg_2 <= 'h6f;
-        boot_reg_3 <= 'h6f;
+        return_reg_0 <= 'h6f;
+        return_reg_1 <= 'h6f;
     end
     else begin
 
@@ -174,8 +169,8 @@ module SS_Ctrl_reg_array #(
 
         'h100: boot_reg_0 <= wdata_in;
         'h104: boot_reg_1 <= wdata_in;
-        'h180: boot_reg_1 <= wdata_in;
-        'h184: boot_reg_1 <= wdata_in;
+        'h180: return_reg_0 <= wdata_in;
+        'h184: return_reg_1 <= wdata_in;
 
         endcase
      end
@@ -227,8 +222,8 @@ module SS_Ctrl_reg_array #(
 
         'h100: rdata_out = boot_reg_0;
         'h104: rdata_out = boot_reg_1;
-        'h180: rdata_out = boot_reg_2;
-        'h184: rdata_out = boot_reg_3;
+        'h180: rdata_out = return_reg_0;
+        'h184: rdata_out = return_reg_1;
 
     endcase
 

@@ -1,4 +1,4 @@
-// Description: SRAM Behavioral Model
+// Description: SRAM Behavioral Model / Xilinx FPGA memory
 
 `ifdef VERILATOR
   `include "verification/verilator/src/hdl/nms/sp_sram.sv"

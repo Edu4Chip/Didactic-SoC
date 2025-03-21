@@ -6,9 +6,6 @@
            Tom Szymkowiak <thomas.szymkowiak@tuni.fi>
 */
 
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/nms/mem_axi_bridge.sv"
-`endif
 
 module mem_axi_bridge #(
   /* NOTE: Limitation exists that MEM DW/AW must be larger or equal to the
@@ -51,9 +48,6 @@ module mem_axi_bridge #(
   output logic                  r_valid_o,
   input  logic                  r_ready_i
 );
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/ms/mem_axi_bridge.sv"
-`endif
 
 enum logic [3:0] {
   IDLE,

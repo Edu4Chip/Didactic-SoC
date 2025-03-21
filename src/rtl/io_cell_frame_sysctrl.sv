@@ -17,10 +17,6 @@
     * Contains SoC IO cells
 */
 
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/nms/io_cell_frame_sysctrl.sv"
-`endif
-
 module io_cell_frame_sysctrl #(
     parameter IOCELL_CFG_W = 5,
     // count and modify according to cells
@@ -90,9 +86,6 @@ module io_cell_frame_sysctrl #(
     input  logic       uart_tx_internal,
     output logic       uart_rx_internal
   );
-  `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/io_cell_frame_sysctrl.sv"
-  `endif
 
   // jtag, reset and clk not configurable to avoid locking SoC
 

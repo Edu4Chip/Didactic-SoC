@@ -17,10 +17,6 @@
     * controller cpu internal interconnect, xbar topology
 */
 
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/nms/SysCtrl_xbar.sv"
-`endif
-
 module SysCtrl_xbar #(
     parameter                          AXI4LITE_AW      = 32,
     parameter                          AXI4LITE_DW      = 32
@@ -209,10 +205,6 @@ module SysCtrl_xbar #(
     // Interface: Reset
     input  logic                             reset_ni
 );
-
-  `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/SysCtrl_xbar.sv"
-  `endif
 
   // TODO: adjust numbers based on targets
   localparam AXI4LITE_TARGETS = 6;

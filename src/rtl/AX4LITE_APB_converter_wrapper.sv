@@ -16,10 +16,6 @@
     * example wrapper code for instantiating pulp axi->apb converter module
 */
 
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/nms/AX4LITE_APB_converter_wrapper.sv"
-`endif
-
 module AX4LITE_APB_converter_wrapper #(
   parameter APB_AW      = 32,
   parameter APB_DW      = 32,
@@ -64,10 +60,6 @@ module AX4LITE_APB_converter_wrapper #(
   output logic [APB_DW-1:0]               PWDATA,
   output logic                            PWRITE
 );
-  `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/AX4LITE_APB_converter_wrapper.sv"
-  `endif
-
 
   AXI_LITE #(
    .AXI_ADDR_WIDTH(AXI_AW),

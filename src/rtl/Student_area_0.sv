@@ -17,10 +17,6 @@
     * original interface created with kactus2. Do not rewrite from kactus.
 */
 
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/nms/Student_area_0.sv"
-`endif
-
 module Student_area_0 #(
     parameter APB_AW = 12,
     parameter APB_DW = 32
@@ -62,9 +58,6 @@ module Student_area_0 #(
     output logic [3:0]        pmod_1_gpo,
     output logic [3:0]        pmod_1_gpio_oe
 );
-  `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/Student_area_0.sv"
-  `endif
 
   logic PSLVERR_reg      ;
   logic [31:0] PRDATA_reg;
