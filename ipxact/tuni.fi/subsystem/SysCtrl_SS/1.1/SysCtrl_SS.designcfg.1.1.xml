@@ -6,15 +6,15 @@
 	<ipxact:version>1.1</ipxact:version>
 	<ipxact:designRef vendor="tuni.fi" library="subsystem" name="SysCtrl_SS.design" version="1.1"/>
 	<ipxact:viewConfiguration>
-		<ipxact:instanceName>Ibex_Core</ipxact:instanceName>
-		<ipxact:view viewRef="flat_verilog"/>
-	</ipxact:viewConfiguration>
-	<ipxact:viewConfiguration>
 		<ipxact:instanceName>apb_uart</ipxact:instanceName>
 		<ipxact:view viewRef="flat_verilog"/>
 	</ipxact:viewConfiguration>
 	<ipxact:viewConfiguration>
 		<ipxact:instanceName>apb_gpio</ipxact:instanceName>
+		<ipxact:view viewRef="flat_verilog"/>
+	</ipxact:viewConfiguration>
+	<ipxact:viewConfiguration>
+		<ipxact:instanceName>i_ibex_wrapper</ipxact:instanceName>
 		<ipxact:view viewRef="flat_verilog"/>
 	</ipxact:viewConfiguration>
 	<ipxact:vendorExtensions>

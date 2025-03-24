@@ -849,7 +849,7 @@
 			<ipxact:name>rtl</ipxact:name>
 			<ipxact:group>sourceFiles</ipxact:group>
 			<ipxact:file>
-				<ipxact:name>../../../../src/rtl/jtag_dbg_wrapper_obi.sv</ipxact:name>
+				<ipxact:name>../../../../../src/rtl/jtag_dbg_wrapper_obi.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
 		</ipxact:fileSet>

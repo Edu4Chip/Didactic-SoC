@@ -1359,14 +1359,6 @@
 				<ipxact:name>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/lowRISC/ibex/1.0/../../../../../vendor_ips/ibex/rtl/ibex_wb_stage.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 			</ipxact:file>
-			<ipxact:file>
-				<ipxact:name>../../../../../src/rtl/ibex_wrapper.v</ipxact:name>
-				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 10:54:10 on 21.03.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>297754d54178d8489537748cc17590e6bfb77ffc</kactus2:hash>
-				</ipxact:vendorExtensions>
-			</ipxact:file>
 		</ipxact:fileSet>
 		<ipxact:fileSet>
 			<ipxact:name>wrapper</ipxact:name>
@@ -1374,6 +1366,9 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/rtl/ibex_wrapper.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>1dda5e7a386b2734016c00ca5a000a899d83970f</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>

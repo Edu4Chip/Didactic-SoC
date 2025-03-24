@@ -460,7 +460,230 @@
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>OBI</ipxact:name>
-			<ipxact:busType vendor="" library="" name="" version=""/>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="OBI" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="OBI.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>req</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>req</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>addr</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>addr</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>we</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>we</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>be</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>be</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>wdata</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>wdata</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>auser</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>auser</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>wuser</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>wuser</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gnt</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>gnt</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>aid</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>aid</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>atop</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>atop</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>memtype</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>memtype</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>mid</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>mid</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>dbg</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>dbg</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>reqpar</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>reqpar</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gntpar</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>gntpar</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>achk</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>achk</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>rvalid</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>rvalid</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>rready</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>rready</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>rdata</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>rdata</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>err</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>err</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>ruser</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ruser</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>rid</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>rid</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>exokay</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>exokay</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>rvalidpar</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>rvalidpar</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>rreadypar</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>rreadypar</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>rchk</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>rchk</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>prot</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>prot</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
 			<ipxact:initiator/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
@@ -475,7 +698,7 @@
 		<ipxact:instantiations>
 			<ipxact:designInstantiation>
 				<ipxact:name>design</ipxact:name>
-				<ipxact:designRef vendor="tuni.fi" library="subsystem" name="SysCtrl_SS.design" version="1.0">
+				<ipxact:designRef vendor="tuni.fi" library="subsystem" name="SysCtrl_SS.design" version="1.1">
 					<ipxact:configurableElementValues>
 						<ipxact:configurableElementValue referenceId="uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2">uuid_67b72383_784d_4df0_8167_b40e00ce315e</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_ac754a52_641d_45a0_945d_a6b366405072">uuid_ffd525d4_f60d_47a7_88e8_311b2ff4ba42</ipxact:configurableElementValue>
@@ -483,6 +706,11 @@
 						<ipxact:configurableElementValue referenceId="uuid_f59fdf20_4566_47aa_b925_96a29c6c62dc">uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_af1dc1b2_e8c6_4271_bf5e_082c38a450e4">uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_3777da60_8580_4b50_b427_8bd245188123">uuid_acf5c976_d744_4d71_b8fe_289308668ff7</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_c08c73b3_fefa_4578_bce1_053d8509d33b">uuid_01b77cba_f320_4a01_938e_6a4a424d4030</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_a47ad7ae_dad0_4b6e_955d_391cabefffb6">uuid_a5f1be76_7fb0_43d3_b59b_d40d0d97ebd9</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_9895afc3_9718_40b6_8db4_1571d7218766">uuid_74250635_6f20_42ae_b29c_d3bbe19d7114</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_acdc28be_3b07_4729_b71c_d225e56a85fd">uuid_6473268d_bf0d_4d7f_92ff_ead4827d69b1</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_e8a9235f_50e4_40cb_853f_7d9880d87a54">uuid_e75e8f45_e47f_4724_8fdb_0aa15b6ab0d4</ipxact:configurableElementValue>
 					</ipxact:configurableElementValues>
 				</ipxact:designRef>
 			</ipxact:designInstantiation>
@@ -1177,6 +1405,26 @@
 		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_acf5c976_d744_4d71_b8fe_289308668ff7" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:value>8</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_e75e8f45_e47f_4724_8fdb_0aa15b6ab0d4" resolve="user">
+			<ipxact:name>OBI_IDW</ipxact:name>
+			<ipxact:value>1</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_6473268d_bf0d_4d7f_92ff_ead4827d69b1" resolve="user">
+			<ipxact:name>OBI_CHKW</ipxact:name>
+			<ipxact:value>1</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_74250635_6f20_42ae_b29c_d3bbe19d7114" resolve="user">
+			<ipxact:name>OBI_USERW</ipxact:name>
+			<ipxact:value>1</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_a5f1be76_7fb0_43d3_b59b_d40d0d97ebd9" resolve="user">
+			<ipxact:name>OBI_AW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_01b77cba_f320_4a01_938e_6a4a424d4030" resolve="user">
+			<ipxact:name>OBI_DW</ipxact:name>
+			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

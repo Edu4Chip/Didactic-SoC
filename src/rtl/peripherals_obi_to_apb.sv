@@ -13,7 +13,7 @@
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
   Description:
-
+    * split OBI Bus to 3x APB
 
 */
 
@@ -209,7 +209,7 @@ module peripherals_obi_to_apb #(
   // initiator_bus.r_optional
 
   assign err = initiator_bus.err;
-  assign exokay = initiator_bus.exokay ;
+  assign exokay = initiator_bus.exokay;
   assign gnt = initiator_bus.gnt;
   assign gntpar = initiator_bus.gntpar;
   assign rchk = initiator_bus.rchk;
