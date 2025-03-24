@@ -327,7 +327,7 @@ module sysctrl_obi_xbar #(
       .UseIdForRouting   (0)
   ) i_peripheral_obi_xbar (
       .clk_i            (clk),
-      .rst_ni           (rst),
+      .rst_ni           (reset_n),
       .testmode_i       (1'b0),
       .sbr_ports        (initiator_bus),
       .mgr_ports        (target_bus),

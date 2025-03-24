@@ -189,6 +189,7 @@
 					<kactus2:portPosition busRef="obi_jtag_dm_target" x="-110" y="170"/>
 					<kactus2:portPosition busRef="obi_peripherals" x="-110" y="250"/>
 					<kactus2:portPosition busRef="reset" x="110" y="110"/>
+					<kactus2:portPosition busRef="obi_ctrl" x="-110" y="210"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -447,6 +448,11 @@
 			<ipxact:name>sysctrl_obi_xbar_obi_chip_top_to_OBI</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="sysctrl_obi_xbar" busRef="obi_chip_top"/>
 			<ipxact:hierInterface busRef="OBI"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="ctrl_reg_array" busRef="obi_target"/>
+			<ipxact:activeInterface componentInstanceRef="sysctrl_obi_xbar" busRef="obi_ctrl"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
@@ -755,8 +761,8 @@
 				<kactus2:position x="460" y="710"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_ibex_wrapper_irq_fast_i_to_sysctrl_irq_i" kactus2:offPage="false">
-				<kactus2:position x="60" y="740"/>
-				<kactus2:position x="470" y="740"/>
+				<kactus2:position x="60" y="760"/>
+				<kactus2:position x="470" y="760"/>
 				<kactus2:position x="470" y="710"/>
 				<kactus2:position x="490" y="710"/>
 			</kactus2:route>
@@ -830,10 +836,14 @@
 				<kactus2:position x="1030" y="260"/>
 				<kactus2:position x="1460" y="260"/>
 			</kactus2:route>
+			<kactus2:route kactus2:connRef="ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl" kactus2:offPage="false">
+				<kactus2:position x="390" y="270"/>
+				<kactus2:position x="810" y="270"/>
+			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>
-			<kactus2:adHocVisible portName="irq_upper_tieoff" x="60" y="880"/>
-			<kactus2:adHocVisible portName="sysctrl_irq_i" x="60" y="740"/>
+			<kactus2:adHocVisible portName="irq_upper_tieoff" x="60" y="690"/>
+			<kactus2:adHocVisible portName="sysctrl_irq_i" x="60" y="760"/>
 		</kactus2:adHocVisibilities>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>JTAG</kactus2:name>
@@ -937,7 +947,7 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>IRQ</kactus2:name>
-			<kactus2:position x="60" y="780"/>
+			<kactus2:position x="60" y="820"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -946,13 +956,13 @@
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:note>
-			<kactus2:position x="520" y="800"/>
+			<kactus2:position x="530" y="560"/>
 			<kactus2:content>Initial core choice is IBEX RV core</kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>22.04.2024 14:01</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:note>
-			<kactus2:position x="1220" y="1000"/>
+			<kactus2:position x="520" y="760"/>
 			<kactus2:content>TODO: Define IMEM and DMEM dimensions.</kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>22.04.2024 14:03</kactus2:timestamp>

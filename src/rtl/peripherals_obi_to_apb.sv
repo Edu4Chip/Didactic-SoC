@@ -86,7 +86,7 @@ module peripherals_obi_to_apb #(
     output  logic                       rvalidpar,
 
     // Interface: reset
-    input  logic                        rst
+    input  logic                        reset_n
 );
   localparam TARGETS = 3;
   localparam INITIATORS = 1;
@@ -123,7 +123,7 @@ module peripherals_obi_to_apb #(
     .UseIdForRouting   (0)
   ) i_peripheral_obi_xbar (
     .clk_i            (clk),
-    .rst_ni           (rst),
+    .rst_ni           (reset_n),
     .testmode_i       (1'b0),
     .sbr_ports        (initiator_bus),
     .mgr_ports        (target_bus),
@@ -134,21 +134,21 @@ module peripherals_obi_to_apb #(
   
   obi_to_apb_intf #() i_obi_to_apb_gpio (
     .clk_i (clk),
-    .rst_ni(rst),
+    .rst_ni(reset_n),
     .obi_i (target_bus[0]),
     .apb_o (peripheral_bus[0])
   );
 
   obi_to_apb_intf #() i_obi_to_apb_uart (
     .clk_i (clk),
-    .rst_ni(rst),
+    .rst_ni(reset_n),
     .obi_i (target_bus[1]),
     .apb_o (peripheral_bus[1])
   );
 
   obi_to_apb_intf #() i_obi_to_apb_spi (
     .clk_i (clk),
-    .rst_ni(rst),
+    .rst_ni(reset_n),
     .obi_i (target_bus[2]),
     .apb_o (peripheral_bus[2])
   );

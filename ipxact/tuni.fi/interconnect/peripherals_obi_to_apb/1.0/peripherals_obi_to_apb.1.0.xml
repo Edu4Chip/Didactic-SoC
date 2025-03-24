@@ -249,7 +249,7 @@
 								<ipxact:name>reset</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>rst</ipxact:name>
+								<ipxact:name>reset_n</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -531,7 +531,7 @@
 	<ipxact:addressSpaces>
 		<ipxact:addressSpace>
 			<ipxact:name>peripherals</ipxact:name>
-			<ipxact:range>'hFFFF</ipxact:range>
+			<ipxact:range>'h1_0000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:segments>
 				<ipxact:segment>
@@ -555,7 +555,7 @@
 	<ipxact:model>
 		<ipxact:ports>
 			<ipxact:port>
-				<ipxact:name>rst</ipxact:name>
+				<ipxact:name>reset_n</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
