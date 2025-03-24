@@ -7,7 +7,6 @@
 // Tool : Kactus2 3.13.3 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:interconnect:peripherals_obi_to_apb:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/interconnect/peripherals_obi_to_apb/1.0/peripherals_obi_to_apb.1.0.xml
 //-----------------------------------------------------------------------------
 /*
   Contributors:
@@ -106,7 +105,7 @@ module peripherals_obi_to_apb #(
   localparam ADDR_BASE   = 32'h0103_0000;
   localparam APB_SIZE    = 'h100;
 
-  addr_rule_t [INITIATORS-1:0] peripheral_addr_map;
+  addr_rule_t [TARGETS-1:0] peripheral_addr_map;
 
   assign peripheral_addr_map =
     '{

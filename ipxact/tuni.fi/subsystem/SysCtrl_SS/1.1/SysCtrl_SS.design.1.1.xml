@@ -32,6 +32,7 @@
 					<kactus2:portPosition busRef="ss_ctrl_1" x="-110" y="200"/>
 					<kactus2:portPosition busRef="ss_ctrl_2" x="-110" y="240"/>
 					<kactus2:portPosition busRef="ss_ctrl_3" x="-110" y="280"/>
+					<kactus2:portPosition busRef="obi_target" x="110" y="210"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -184,8 +185,8 @@
 					<kactus2:portPosition busRef="obi_core_imem" x="-110" y="110"/>
 					<kactus2:portPosition busRef="obi_dmem" x="-110" y="90"/>
 					<kactus2:portPosition busRef="obi_imem" x="-110" y="40"/>
-					<kactus2:portPosition busRef="obi_jtag_dm_init" x="-110" y="210"/>
-					<kactus2:portPosition busRef="obi_jtag_dm_target" x="-110" y="180"/>
+					<kactus2:portPosition busRef="obi_jtag_dm_init" x="-110" y="190"/>
+					<kactus2:portPosition busRef="obi_jtag_dm_target" x="-110" y="170"/>
 					<kactus2:portPosition busRef="obi_peripherals" x="-110" y="250"/>
 					<kactus2:portPosition busRef="reset" x="110" y="110"/>
 				</kactus2:portPositions>
@@ -797,11 +798,11 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target" kactus2:offPage="true">
 				<kactus2:position x="420" y="620"/>
-				<kactus2:position x="780" y="240"/>
+				<kactus2:position x="780" y="230"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init" kactus2:offPage="true">
 				<kactus2:position x="420" y="600"/>
-				<kactus2:position x="780" y="270"/>
+				<kactus2:position x="780" y="250"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem" kactus2:offPage="false">
 				<kactus2:position x="710" y="330"/>
