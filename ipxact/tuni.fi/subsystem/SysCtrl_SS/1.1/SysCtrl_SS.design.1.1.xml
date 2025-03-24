@@ -25,6 +25,7 @@
 					<kactus2:portPosition busRef="fetch_en" x="110" y="290"/>
 					<kactus2:portPosition busRef="icn_ss_ctrl" x="-110" y="120"/>
 					<kactus2:portPosition busRef="io_cfg" x="-110" y="320"/>
+					<kactus2:portPosition busRef="obi_target" x="110" y="210"/>
 					<kactus2:portPosition busRef="pmod_sel" x="-110" y="360"/>
 					<kactus2:portPosition busRef="rst_icn" x="-110" y="40"/>
 					<kactus2:portPosition busRef="rst_ss" x="-110" y="80"/>
@@ -32,7 +33,6 @@
 					<kactus2:portPosition busRef="ss_ctrl_1" x="-110" y="200"/>
 					<kactus2:portPosition busRef="ss_ctrl_2" x="-110" y="240"/>
 					<kactus2:portPosition busRef="ss_ctrl_3" x="-110" y="280"/>
-					<kactus2:portPosition busRef="obi_target" x="110" y="210"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -106,10 +106,10 @@
 				<kactus2:position x="1240" y="270"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="APB" x="-110" y="160"/>
+					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
 					<kactus2:portPosition busRef="GPIO" x="110" y="70"/>
 					<kactus2:portPosition busRef="IRQ" x="110" y="120"/>
 					<kactus2:portPosition busRef="Reset_n" x="-110" y="60"/>
-					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="interrupt" x="110" y="140"/>
@@ -124,10 +124,10 @@
 				<kactus2:position x="1240" y="480"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="APB" x="-110" y="90"/>
+					<kactus2:portPosition busRef="Clock" x="-110" y="50"/>
 					<kactus2:portPosition busRef="IRQ" x="110" y="110"/>
 					<kactus2:portPosition busRef="Reset_n" x="-110" y="70"/>
 					<kactus2:portPosition busRef="SPI" x="110" y="70"/>
-					<kactus2:portPosition busRef="Clock" x="-110" y="50"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="events_o" x="110" y="130"/>
@@ -183,13 +183,13 @@
 					<kactus2:portPosition busRef="obi_chip_top" x="110" y="200"/>
 					<kactus2:portPosition busRef="obi_core_dmem" x="-110" y="140"/>
 					<kactus2:portPosition busRef="obi_core_imem" x="-110" y="110"/>
+					<kactus2:portPosition busRef="obi_ctrl" x="-110" y="210"/>
 					<kactus2:portPosition busRef="obi_dmem" x="-110" y="90"/>
 					<kactus2:portPosition busRef="obi_imem" x="-110" y="40"/>
 					<kactus2:portPosition busRef="obi_jtag_dm_init" x="-110" y="190"/>
 					<kactus2:portPosition busRef="obi_jtag_dm_target" x="-110" y="170"/>
 					<kactus2:portPosition busRef="obi_peripherals" x="-110" y="250"/>
 					<kactus2:portPosition busRef="reset" x="110" y="110"/>
-					<kactus2:portPosition busRef="obi_ctrl" x="-110" y="210"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>

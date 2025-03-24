@@ -43,10 +43,6 @@ module student_ss_2(
     input  logic        irq_en_2,
     input  logic [7:0]  ss_ctrl_2,
 
-    // interface: analog_IO
-    inout wire [1:0]    ana_core_out,
-    inout wire [1:0]    ana_core_in,
-    
     //Interface: GPIO pmod 0
     input  logic [3:0]  pmod_0_gpi,
     output logic [3:0]  pmod_0_gpo,
@@ -66,9 +62,6 @@ module student_ss_2(
   assign PREADY  = 'd0;
   assign PRDATA  = 'd0;
   assign irq_2   = 'd0;
-
-  assign ana_core_in  = 'd0;
-  assign ana_core_out = 'd0;
 
   assign pmod_1_gpo     = 3'h0;
   assign pmod_1_gpio_oe = 3'h0;

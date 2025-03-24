@@ -1,48 +1,28 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 07.03.2025
-// Creation time : 09:00:35
+// Creation date : 24.03.2025
+// Creation time : 15:27:19
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
 // Plugin : Verilog generator 2.4
-// This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/SysCtrl_SS_wrapper/1.0/SysCtrl_SS_wrapper.1.0.xml
+// This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.1
+// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/SysCtrl_SS_wrapper/1.1/SysCtrl_SS_wrapper.1.1.xml
 //-----------------------------------------------------------------------------
-
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/SysCtrl_SS_wrapper_0.sv"
-`endif
 
 module SysCtrl_SS_wrapper_0 #(
     parameter                              AXI4LITE_AW      = 32,
     parameter                              AXI4LITE_DW      = 32,
-    parameter                              SS_CTRL_W        = 8,
-    parameter                              NUM_GPIO         = 8,
-    parameter                              IOCELL_COUNT     = 17,
-    parameter                              IOCELL_CFGW      = 5
+    parameter                              SS_CTRL_W        = 5,
+    parameter                              NUM_GPIO         = 4,
+    parameter                              IOCELL_COUNT     = 15,
+    parameter                              IOCELL_CFGW      = 4,
+    parameter                              OBI_DW           = 32,
+    parameter                              OBI_CHKW         = 1,
+    parameter                              OBI_USERW        = 1,
+    parameter                              OBI_IDW          = 1,
+    parameter                              OBI_AW           = 32
 ) (
-    // Interface: AXI4LITE_icn
-    input  logic                        icn_ar_ready_in,
-    input  logic                        icn_aw_ready_in,
-    input  logic         [1:0]          icn_b_resp_in,
-    input  logic                        icn_b_valid_in,
-    input  logic         [31:0]         icn_r_data_in,
-    input  logic         [1:0]          icn_r_resp_in,
-    input  logic                        icn_r_valid_in,
-    input  logic                        icn_w_ready_in,
-    output logic         [31:0]         icn_ar_addr_out,
-    output logic         [3:0]          icn_ar_prot_out,
-    output logic                        icn_ar_valid_out,
-    output logic         [31:0]         icn_aw_addr_out,
-    output logic         [3:0]          icn_aw_prot_out,
-    output logic                        icn_aw_valid_out,
-    output logic                        icn_b_ready_out,
-    output logic                        icn_r_ready_out,
-    output logic         [31:0]         icn_w_data_out,
-    output logic         [3:0]          icn_w_strb_out,
-    output logic                        icn_w_valid_out,
-
     // Interface: Clock
     inout  logic                        clock,
 
@@ -50,10 +30,10 @@ module SysCtrl_SS_wrapper_0 #(
     output logic                        clk,
 
     // Interface: GPIO
-    inout  wire          [7:0]          gpio,
+    inout  wire          [3:0]          gpio,
 
     // Interface: ICN_SS_Ctrl
-    output logic         [7:0]          ss_ctrl_icn,
+    output logic         [4:0]          ss_ctrl_icn,
 
     // Interface: IRQ
     input  logic         [3:0]          irq_i,
@@ -64,6 +44,35 @@ module SysCtrl_SS_wrapper_0 #(
     inout  wire                         jtag_tdo,    // Data can be daisy chained or routed directly back
     inout  wire                         jtag_tms,
     inout  wire                         jtag_trst,
+
+    // Interface: OBI
+    input  logic                        obi_err,
+    input  logic                        obi_exokay,
+    input  logic                        obi_gnt,
+    input  logic                        obi_gntpar,
+    input  logic                        obi_rchk,
+    input  logic         [31:0]         obi_rdata,
+    input  logic         [1:0]          obi_rid,
+    input  logic                        obi_ruser,
+    input  logic                        obi_rvalid,
+    input  logic                        obi_rvalidpar,
+    output logic                        obi_achk,
+    output logic         [31:0]         obi_addr,
+    output logic                        obi_aid,
+    output logic         [5:0]          obi_atop,
+    output logic                        obi_auser,
+    output logic         [3:0]          obi_be,
+    output logic                        obi_dbg,
+    output logic         [1:0]          obi_memtype,
+    output logic                        obi_mid,
+    output logic         [2:0]          obi_prot,
+    output logic                        obi_req,
+    output logic                        obi_reqpar,
+    output logic                        obi_rready,
+    output logic                        obi_rreadypar,
+    output logic         [31:0]         obi_wdata,
+    output logic                        obi_we,
+    output logic                        obi_wuser,
 
     // Interface: Reset
     inout  wire                         reset,
@@ -81,19 +90,19 @@ module SysCtrl_SS_wrapper_0 #(
 
     // Interface: SS_0_Ctrl
     output logic                        irq_en_0,
-    output logic         [7:0]          ss_ctrl_0,
+    output logic         [4:0]          ss_ctrl_0,
 
     // Interface: SS_1_Ctrl
     output logic                        irq_en_1,
-    output logic         [7:0]          ss_ctrl_1,
+    output logic         [4:0]          ss_ctrl_1,
 
     // Interface: SS_2_Ctrl
     output logic                        irq_en_2,
-    output logic         [7:0]          ss_ctrl_2,
+    output logic         [4:0]          ss_ctrl_2,
 
     // Interface: SS_3_Ctrl
     output logic                        irq_en_3,
-    output logic         [7:0]          ss_ctrl_3,
+    output logic         [4:0]          ss_ctrl_3,
 
     // Interface: UART
     inout  wire                         uart_rx,
@@ -147,17 +156,13 @@ module SysCtrl_SS_wrapper_0 #(
     output logic         [3:0]          ss_3_pmod_1_gpi
 );
 
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/SysCtrl_SS_wrapper_0.sv"
-`endif
-
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:
-    wire [7:0] SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl_clk_ctrl;
+    wire [4:0] SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl_clk_ctrl;
     // SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl wires:
-    wire [7:0] SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_clk_ctrl;
+    wire [4:0] SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_irq_en;
     // SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl wires:
-    wire [7:0] SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_clk_ctrl;
+    wire [4:0] SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_irq_en;
     // i_io_cell_frame_JTAG_to_JTAG wires:
     // i_io_cell_frame_UART_to_UART wires:
@@ -184,25 +189,25 @@ module SysCtrl_SS_wrapper_0 #(
     // i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset wires:
     wire       i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
     // SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl wires:
-    wire [7:0] SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_clk_ctrl;
+    wire [4:0] SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_irq_en;
     // SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl wires:
-    wire [7:0] SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_clk_ctrl;
+    wire [4:0] SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_irq_en;
     // SysCtrl_SS_Reset_ICN_to_Reset_icn wires:
     wire       SysCtrl_SS_Reset_ICN_to_Reset_icn_reset;
     // i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg wires:
-    wire [84:0] i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
+    wire [59:0] i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
     // i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel wires:
     wire [7:0] i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo;
     // i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO wires:
-    wire [7:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
-    wire [7:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo;
+    wire [3:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
+    wire [3:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo;
     // SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core wires:
-    wire [84:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
+    wire [59:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
     // i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal wires:
-    wire [7:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
-    wire [7:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
+    wire [3:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
+    wire [3:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
     // i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0 wires:
     wire [3:0] i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpi;
     wire [3:0] i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpio_oe;
@@ -235,26 +240,6 @@ module SysCtrl_SS_wrapper_0 #(
     wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpi;
     wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpio_oe;
     wire [3:0] i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpo;
-    // SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn wires:
-    wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
-    wire [3:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
-    wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
-    wire [3:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
-    wire [1:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID;
-    wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_READY;
-    wire [1:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID;
-    wire [31:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
-    wire [3:0] SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
-    wire       SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
     // i_io_cell_frame_high_speed_clock_to_high_speed_clock wires:
     // i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal wires:
     wire       i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal_clk;
@@ -262,31 +247,40 @@ module SysCtrl_SS_wrapper_0 #(
     wire [3:0] SysCtrl_SS_Reset_SS_to_Reset_SS_reset;
     // SysCtrl_SS_IRQ_to_IRQ wires:
     wire [3:0] SysCtrl_SS_IRQ_to_IRQ_irq;
+    // SysCtrl_SS_OBI_to_OBI wires:
+    wire       SysCtrl_SS_OBI_to_OBI_achk;
+    wire [31:0] SysCtrl_SS_OBI_to_OBI_addr;
+    wire       SysCtrl_SS_OBI_to_OBI_aid;
+    wire [5:0] SysCtrl_SS_OBI_to_OBI_atop;
+    wire       SysCtrl_SS_OBI_to_OBI_auser;
+    wire [3:0] SysCtrl_SS_OBI_to_OBI_be;
+    wire       SysCtrl_SS_OBI_to_OBI_dbg;
+    wire       SysCtrl_SS_OBI_to_OBI_err;
+    wire       SysCtrl_SS_OBI_to_OBI_exokay;
+    wire       SysCtrl_SS_OBI_to_OBI_gnt;
+    wire       SysCtrl_SS_OBI_to_OBI_gntpar;
+    wire [1:0] SysCtrl_SS_OBI_to_OBI_memtype;
+    wire       SysCtrl_SS_OBI_to_OBI_mid;
+    wire [2:0] SysCtrl_SS_OBI_to_OBI_prot;
+    wire       SysCtrl_SS_OBI_to_OBI_rchk;
+    wire [31:0] SysCtrl_SS_OBI_to_OBI_rdata;
+    wire       SysCtrl_SS_OBI_to_OBI_req;
+    wire       SysCtrl_SS_OBI_to_OBI_reqpar;
+    wire [1:0] SysCtrl_SS_OBI_to_OBI_rid;
+    wire       SysCtrl_SS_OBI_to_OBI_rready;
+    wire       SysCtrl_SS_OBI_to_OBI_rreadypar;
+    wire       SysCtrl_SS_OBI_to_OBI_ruser;
+    wire       SysCtrl_SS_OBI_to_OBI_rvalid;
+    wire       SysCtrl_SS_OBI_to_OBI_rvalidpar;
+    wire [31:0] SysCtrl_SS_OBI_to_OBI_wdata;
+    wire       SysCtrl_SS_OBI_to_OBI_we;
+    wire       SysCtrl_SS_OBI_to_OBI_wuser;
 
     // SysCtrl_SS port wires:
-    wire [84:0] SysCtrl_SS_cell_cfg;
+    wire [59:0] SysCtrl_SS_cell_cfg;
     wire       SysCtrl_SS_clk_internal;
-    wire [7:0] SysCtrl_SS_gpio_from_core;
-    wire [7:0] SysCtrl_SS_gpio_to_core;
-    wire [31:0] SysCtrl_SS_icn_ar_addr_out;
-    wire [3:0] SysCtrl_SS_icn_ar_prot_out;
-    wire       SysCtrl_SS_icn_ar_ready_in;
-    wire       SysCtrl_SS_icn_ar_valid_out;
-    wire [31:0] SysCtrl_SS_icn_aw_addr_out;
-    wire [3:0] SysCtrl_SS_icn_aw_prot_out;
-    wire       SysCtrl_SS_icn_aw_ready_in;
-    wire       SysCtrl_SS_icn_aw_valid_out;
-    wire       SysCtrl_SS_icn_b_ready_out;
-    wire [1:0] SysCtrl_SS_icn_b_resp_in;
-    wire       SysCtrl_SS_icn_b_valid_in;
-    wire [31:0] SysCtrl_SS_icn_r_data_in;
-    wire       SysCtrl_SS_icn_r_ready_out;
-    wire [1:0] SysCtrl_SS_icn_r_resp_in;
-    wire       SysCtrl_SS_icn_r_valid_in;
-    wire [31:0] SysCtrl_SS_icn_w_data_out;
-    wire       SysCtrl_SS_icn_w_ready_in;
-    wire [3:0] SysCtrl_SS_icn_w_strb_out;
-    wire       SysCtrl_SS_icn_w_valid_out;
+    wire [3:0] SysCtrl_SS_gpio_from_core;
+    wire [3:0] SysCtrl_SS_gpio_to_core;
     wire       SysCtrl_SS_irq_en_0;
     wire       SysCtrl_SS_irq_en_1;
     wire       SysCtrl_SS_irq_en_2;
@@ -296,7 +290,34 @@ module SysCtrl_SS_wrapper_0 #(
     wire       SysCtrl_SS_jtag_tdo_internal;
     wire       SysCtrl_SS_jtag_tms_internal;
     wire       SysCtrl_SS_jtag_trst_internal;
-    wire [7:0] SysCtrl_SS_pmod_sel;
+    wire       SysCtrl_SS_obi_achk;
+    wire [31:0] SysCtrl_SS_obi_addr;
+    wire       SysCtrl_SS_obi_aid;
+    wire [5:0] SysCtrl_SS_obi_atop;
+    wire       SysCtrl_SS_obi_auser;
+    wire [3:0] SysCtrl_SS_obi_be;
+    wire       SysCtrl_SS_obi_dbg;
+    wire       SysCtrl_SS_obi_err;
+    wire       SysCtrl_SS_obi_exokay;
+    wire       SysCtrl_SS_obi_gnt;
+    wire       SysCtrl_SS_obi_gntpar;
+    wire [1:0] SysCtrl_SS_obi_memtype;
+    wire       SysCtrl_SS_obi_mid;
+    wire [2:0] SysCtrl_SS_obi_prot;
+    wire       SysCtrl_SS_obi_rchk;
+    wire [31:0] SysCtrl_SS_obi_rdata;
+    wire       SysCtrl_SS_obi_req;
+    wire       SysCtrl_SS_obi_reqpar;
+    wire [1:0] SysCtrl_SS_obi_rid;
+    wire       SysCtrl_SS_obi_rready;
+    wire       SysCtrl_SS_obi_rreadypar;
+    wire       SysCtrl_SS_obi_ruser;
+    wire       SysCtrl_SS_obi_rvalid;
+    wire       SysCtrl_SS_obi_rvalidpar;
+    wire [31:0] SysCtrl_SS_obi_wdata;
+    wire       SysCtrl_SS_obi_we;
+    wire       SysCtrl_SS_obi_wuser;
+    wire [3:0] SysCtrl_SS_pmod_sel;
     wire       SysCtrl_SS_reset_icn;
     wire       SysCtrl_SS_reset_internal;
     wire [3:0] SysCtrl_SS_reset_ss;
@@ -304,19 +325,19 @@ module SysCtrl_SS_wrapper_0 #(
     wire [3:0] SysCtrl_SS_spim_miso_internal;
     wire [3:0] SysCtrl_SS_spim_mosi_internal;
     wire       SysCtrl_SS_spim_sck_internal;
-    wire [7:0] SysCtrl_SS_ss_ctrl_0;
-    wire [7:0] SysCtrl_SS_ss_ctrl_1;
-    wire [7:0] SysCtrl_SS_ss_ctrl_2;
-    wire [7:0] SysCtrl_SS_ss_ctrl_3;
-    wire [7:0] SysCtrl_SS_ss_ctrl_icn;
+    wire [4:0] SysCtrl_SS_ss_ctrl_0;
+    wire [4:0] SysCtrl_SS_ss_ctrl_1;
+    wire [4:0] SysCtrl_SS_ss_ctrl_2;
+    wire [4:0] SysCtrl_SS_ss_ctrl_3;
+    wire [4:0] SysCtrl_SS_ss_ctrl_icn;
     wire [3:0] SysCtrl_SS_sysctrl_irq_i;
     wire       SysCtrl_SS_uart_rx_internal;
     wire       SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame port wires:
-    wire [84:0] i_io_cell_frame_cell_cfg;
+    wire [59:0] i_io_cell_frame_cell_cfg;
     wire       i_io_cell_frame_clk_internal;
-    wire [7:0] i_io_cell_frame_gpio_from_core;
-    wire [7:0] i_io_cell_frame_gpio_to_core;
+    wire [3:0] i_io_cell_frame_gpio_from_core;
+    wire [3:0] i_io_cell_frame_gpio_to_core;
     wire       i_io_cell_frame_high_speed_clk_internal;
     wire       i_io_cell_frame_jtag_tck_internal;
     wire       i_io_cell_frame_jtag_tdi_internal;
@@ -331,12 +352,12 @@ module SysCtrl_SS_wrapper_0 #(
     wire       i_io_cell_frame_uart_rx_internal;
     wire       i_io_cell_frame_uart_tx_internal;
     // i_pmod_mux port wires:
-    wire [84:0] i_pmod_mux_cell_cfg_from_core;
-    wire [84:0] i_pmod_mux_cell_cfg_to_io;
-    wire [7:0] i_pmod_mux_gpio_from_core;
-    wire [7:0] i_pmod_mux_gpio_from_io;
-    wire [7:0] i_pmod_mux_gpio_to_core;
-    wire [7:0] i_pmod_mux_gpio_to_io;
+    wire [59:0] i_pmod_mux_cell_cfg_from_core;
+    wire [59:0] i_pmod_mux_cell_cfg_to_io;
+    wire [3:0] i_pmod_mux_gpio_from_core;
+    wire [3:0] i_pmod_mux_gpio_from_io;
+    wire [3:0] i_pmod_mux_gpio_to_core;
+    wire [3:0] i_pmod_mux_gpio_to_io;
     wire [7:0] i_pmod_mux_pmod_sel;
     wire [3:0] i_pmod_mux_ss_0_pmod_0_gpi;
     wire [3:0] i_pmod_mux_ss_0_pmod_0_gpio_oe;
@@ -366,30 +387,38 @@ module SysCtrl_SS_wrapper_0 #(
     // Assignments for the ports of the encompassing component:
     assign clk = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
     assign high_speed_clk_internal = i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal_clk;
-    assign icn_ar_addr_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
-    assign icn_ar_prot_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY = icn_ar_ready_in;
-    assign icn_ar_valid_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
-    assign icn_aw_addr_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
-    assign icn_aw_prot_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY = icn_aw_ready_in;
-    assign icn_aw_valid_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
-    assign icn_b_ready_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP = icn_b_resp_in;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID = icn_b_valid_in;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA = icn_r_data_in;
-    assign icn_r_ready_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_READY;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP = icn_r_resp_in;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID = icn_r_valid_in;
-    assign icn_w_data_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_READY = icn_w_ready_in;
-    assign icn_w_strb_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
-    assign icn_w_valid_out = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
     assign irq_en_0 = SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_irq_en;
     assign irq_en_1 = SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_irq_en;
     assign irq_en_2 = SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_irq_en;
     assign irq_en_3 = SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_irq_en;
     assign SysCtrl_SS_IRQ_to_IRQ_irq = irq_i;
+    assign obi_achk = SysCtrl_SS_OBI_to_OBI_achk;
+    assign obi_addr = SysCtrl_SS_OBI_to_OBI_addr;
+    assign obi_aid = SysCtrl_SS_OBI_to_OBI_aid;
+    assign obi_atop = SysCtrl_SS_OBI_to_OBI_atop;
+    assign obi_auser = SysCtrl_SS_OBI_to_OBI_auser;
+    assign obi_be = SysCtrl_SS_OBI_to_OBI_be;
+    assign obi_dbg = SysCtrl_SS_OBI_to_OBI_dbg;
+    assign SysCtrl_SS_OBI_to_OBI_err = obi_err;
+    assign SysCtrl_SS_OBI_to_OBI_exokay = obi_exokay;
+    assign SysCtrl_SS_OBI_to_OBI_gnt = obi_gnt;
+    assign SysCtrl_SS_OBI_to_OBI_gntpar = obi_gntpar;
+    assign obi_memtype = SysCtrl_SS_OBI_to_OBI_memtype;
+    assign obi_mid = SysCtrl_SS_OBI_to_OBI_mid;
+    assign obi_prot = SysCtrl_SS_OBI_to_OBI_prot;
+    assign SysCtrl_SS_OBI_to_OBI_rchk = obi_rchk;
+    assign SysCtrl_SS_OBI_to_OBI_rdata = obi_rdata;
+    assign obi_req = SysCtrl_SS_OBI_to_OBI_req;
+    assign obi_reqpar = SysCtrl_SS_OBI_to_OBI_reqpar;
+    assign SysCtrl_SS_OBI_to_OBI_rid = obi_rid;
+    assign obi_rready = SysCtrl_SS_OBI_to_OBI_rready;
+    assign obi_rreadypar = SysCtrl_SS_OBI_to_OBI_rreadypar;
+    assign SysCtrl_SS_OBI_to_OBI_ruser = obi_ruser;
+    assign SysCtrl_SS_OBI_to_OBI_rvalid = obi_rvalid;
+    assign SysCtrl_SS_OBI_to_OBI_rvalidpar = obi_rvalidpar;
+    assign obi_wdata = SysCtrl_SS_OBI_to_OBI_wdata;
+    assign obi_we = SysCtrl_SS_OBI_to_OBI_we;
+    assign obi_wuser = SysCtrl_SS_OBI_to_OBI_wuser;
     assign reset_int = SysCtrl_SS_Reset_ICN_to_Reset_icn_reset;
     assign reset_ss = SysCtrl_SS_Reset_SS_to_Reset_SS_reset;
     assign ss_0_pmo_0_gpi = i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpi;
@@ -427,25 +456,6 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_clk_internal = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
     assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo = SysCtrl_SS_gpio_from_core;
     assign SysCtrl_SS_gpio_to_core = i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR = SysCtrl_SS_icn_ar_addr_out;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT = SysCtrl_SS_icn_ar_prot_out;
-    assign SysCtrl_SS_icn_ar_ready_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID = SysCtrl_SS_icn_ar_valid_out;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR = SysCtrl_SS_icn_aw_addr_out;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT = SysCtrl_SS_icn_aw_prot_out;
-    assign SysCtrl_SS_icn_aw_ready_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID = SysCtrl_SS_icn_aw_valid_out;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_READY = SysCtrl_SS_icn_b_ready_out;
-    assign SysCtrl_SS_icn_b_resp_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP;
-    assign SysCtrl_SS_icn_b_valid_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID;
-    assign SysCtrl_SS_icn_r_data_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_READY = SysCtrl_SS_icn_r_ready_out;
-    assign SysCtrl_SS_icn_r_resp_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP;
-    assign SysCtrl_SS_icn_r_valid_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA = SysCtrl_SS_icn_w_data_out;
-    assign SysCtrl_SS_icn_w_ready_in = SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB = SysCtrl_SS_icn_w_strb_out;
-    assign SysCtrl_SS_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID = SysCtrl_SS_icn_w_valid_out;
     assign SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_irq_en = SysCtrl_SS_irq_en_0;
     assign SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_irq_en = SysCtrl_SS_irq_en_1;
     assign SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_irq_en = SysCtrl_SS_irq_en_2;
@@ -455,7 +465,34 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tdo = SysCtrl_SS_jtag_tdo_internal;
     assign SysCtrl_SS_jtag_tms_internal = i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tms;
     assign SysCtrl_SS_jtag_trst_internal = i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_trst;
-    assign i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo = SysCtrl_SS_pmod_sel;
+    assign SysCtrl_SS_OBI_to_OBI_achk = SysCtrl_SS_obi_achk;
+    assign SysCtrl_SS_OBI_to_OBI_addr = SysCtrl_SS_obi_addr;
+    assign SysCtrl_SS_OBI_to_OBI_aid = SysCtrl_SS_obi_aid;
+    assign SysCtrl_SS_OBI_to_OBI_atop = SysCtrl_SS_obi_atop;
+    assign SysCtrl_SS_OBI_to_OBI_auser = SysCtrl_SS_obi_auser;
+    assign SysCtrl_SS_OBI_to_OBI_be = SysCtrl_SS_obi_be;
+    assign SysCtrl_SS_OBI_to_OBI_dbg = SysCtrl_SS_obi_dbg;
+    assign SysCtrl_SS_obi_err = SysCtrl_SS_OBI_to_OBI_err;
+    assign SysCtrl_SS_obi_exokay = SysCtrl_SS_OBI_to_OBI_exokay;
+    assign SysCtrl_SS_obi_gnt = SysCtrl_SS_OBI_to_OBI_gnt;
+    assign SysCtrl_SS_obi_gntpar = SysCtrl_SS_OBI_to_OBI_gntpar;
+    assign SysCtrl_SS_OBI_to_OBI_memtype = SysCtrl_SS_obi_memtype;
+    assign SysCtrl_SS_OBI_to_OBI_mid = SysCtrl_SS_obi_mid;
+    assign SysCtrl_SS_OBI_to_OBI_prot = SysCtrl_SS_obi_prot;
+    assign SysCtrl_SS_obi_rchk = SysCtrl_SS_OBI_to_OBI_rchk;
+    assign SysCtrl_SS_obi_rdata = SysCtrl_SS_OBI_to_OBI_rdata;
+    assign SysCtrl_SS_OBI_to_OBI_req = SysCtrl_SS_obi_req;
+    assign SysCtrl_SS_OBI_to_OBI_reqpar = SysCtrl_SS_obi_reqpar;
+    assign SysCtrl_SS_obi_rid = SysCtrl_SS_OBI_to_OBI_rid;
+    assign SysCtrl_SS_OBI_to_OBI_rready = SysCtrl_SS_obi_rready;
+    assign SysCtrl_SS_OBI_to_OBI_rreadypar = SysCtrl_SS_obi_rreadypar;
+    assign SysCtrl_SS_obi_ruser = SysCtrl_SS_OBI_to_OBI_ruser;
+    assign SysCtrl_SS_obi_rvalid = SysCtrl_SS_OBI_to_OBI_rvalid;
+    assign SysCtrl_SS_obi_rvalidpar = SysCtrl_SS_OBI_to_OBI_rvalidpar;
+    assign SysCtrl_SS_OBI_to_OBI_wdata = SysCtrl_SS_obi_wdata;
+    assign SysCtrl_SS_OBI_to_OBI_we = SysCtrl_SS_obi_we;
+    assign SysCtrl_SS_OBI_to_OBI_wuser = SysCtrl_SS_obi_wuser;
+    assign i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo[3:0] = SysCtrl_SS_pmod_sel;
     assign SysCtrl_SS_Reset_ICN_to_Reset_icn_reset = SysCtrl_SS_reset_icn;
     assign SysCtrl_SS_reset_internal = i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
     assign SysCtrl_SS_Reset_SS_to_Reset_SS_reset = SysCtrl_SS_reset_ss;
@@ -522,35 +559,18 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_pmod_mux_ss_3_pmod_1_gpio_oe = i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpio_oe;
     assign i_pmod_mux_ss_3_pmod_1_gpo = i_pmod_mux_ss_3_pmod_1_to_ss_3_pmod_gpio_1_gpo;
 
-    // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.0
+    // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.1
     SysCtrl_SS_0 #(
-        .AXI4LITE_AW         (32),
-        .AXI4LITE_DW         (32),
-        .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (17),
-        .NUM_GPIO            (8),
-        .SS_CTRL_W           (8))
+        .IOCELL_CFG_W        (4),
+        .IOCELL_COUNT        (15),
+        .NUM_GPIO            (4),
+        .SS_CTRL_W           (5),
+        .OBI_IDW             (1),
+        .OBI_CHKW            (1),
+        .OBI_USERW           (1),
+        .OBI_AW              (32),
+        .OBI_DW              (32))
     SysCtrl_SS(
-        // Interface: AXI4LITE_icn
-        .icn_ar_ready_in     (SysCtrl_SS_icn_ar_ready_in),
-        .icn_aw_ready_in     (SysCtrl_SS_icn_aw_ready_in),
-        .icn_b_resp_in       (SysCtrl_SS_icn_b_resp_in),
-        .icn_b_valid_in      (SysCtrl_SS_icn_b_valid_in),
-        .icn_r_data_in       (SysCtrl_SS_icn_r_data_in),
-        .icn_r_resp_in       (SysCtrl_SS_icn_r_resp_in),
-        .icn_r_valid_in      (SysCtrl_SS_icn_r_valid_in),
-        .icn_w_ready_in      (SysCtrl_SS_icn_w_ready_in),
-        .icn_ar_addr_out     (SysCtrl_SS_icn_ar_addr_out),
-        .icn_ar_prot_out     (SysCtrl_SS_icn_ar_prot_out),
-        .icn_ar_valid_out    (SysCtrl_SS_icn_ar_valid_out),
-        .icn_aw_addr_out     (SysCtrl_SS_icn_aw_addr_out),
-        .icn_aw_prot_out     (SysCtrl_SS_icn_aw_prot_out),
-        .icn_aw_valid_out    (SysCtrl_SS_icn_aw_valid_out),
-        .icn_b_ready_out     (SysCtrl_SS_icn_b_ready_out),
-        .icn_r_ready_out     (SysCtrl_SS_icn_r_ready_out),
-        .icn_w_data_out      (SysCtrl_SS_icn_w_data_out),
-        .icn_w_strb_out      (SysCtrl_SS_icn_w_strb_out),
-        .icn_w_valid_out     (SysCtrl_SS_icn_w_valid_out),
         // Interface: Clk
         .clk_internal        (SysCtrl_SS_clk_internal),
         // Interface: GPIO
@@ -566,6 +586,34 @@ module SysCtrl_SS_wrapper_0 #(
         .jtag_tms_internal   (SysCtrl_SS_jtag_tms_internal),
         .jtag_trst_internal  (SysCtrl_SS_jtag_trst_internal),
         .jtag_tdo_internal   (SysCtrl_SS_jtag_tdo_internal),
+        // Interface: OBI
+        .obi_err             (SysCtrl_SS_obi_err),
+        .obi_exokay          (SysCtrl_SS_obi_exokay),
+        .obi_gnt             (SysCtrl_SS_obi_gnt),
+        .obi_gntpar          (SysCtrl_SS_obi_gntpar),
+        .obi_rchk            (SysCtrl_SS_obi_rchk),
+        .obi_rdata           (SysCtrl_SS_obi_rdata),
+        .obi_rid             (SysCtrl_SS_obi_rid),
+        .obi_ruser           (SysCtrl_SS_obi_ruser),
+        .obi_rvalid          (SysCtrl_SS_obi_rvalid),
+        .obi_rvalidpar       (SysCtrl_SS_obi_rvalidpar),
+        .obi_achk            (SysCtrl_SS_obi_achk),
+        .obi_addr            (SysCtrl_SS_obi_addr),
+        .obi_aid             (SysCtrl_SS_obi_aid),
+        .obi_atop            (SysCtrl_SS_obi_atop),
+        .obi_auser           (SysCtrl_SS_obi_auser),
+        .obi_be              (SysCtrl_SS_obi_be),
+        .obi_dbg             (SysCtrl_SS_obi_dbg),
+        .obi_memtype         (SysCtrl_SS_obi_memtype),
+        .obi_mid             (SysCtrl_SS_obi_mid),
+        .obi_prot            (SysCtrl_SS_obi_prot),
+        .obi_req             (SysCtrl_SS_obi_req),
+        .obi_reqpar          (SysCtrl_SS_obi_reqpar),
+        .obi_rready          (SysCtrl_SS_obi_rready),
+        .obi_rreadypar       (SysCtrl_SS_obi_rreadypar),
+        .obi_wdata           (SysCtrl_SS_obi_wdata),
+        .obi_we              (SysCtrl_SS_obi_we),
+        .obi_wuser           (SysCtrl_SS_obi_wuser),
         // Interface: Reset
         .reset_internal      (SysCtrl_SS_reset_internal),
         // Interface: Reset_ICN
@@ -601,9 +649,9 @@ module SysCtrl_SS_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:subsystem.io:io_cell_frame_sysctrl:1.0
     io_cell_frame_sysctrl #(
-        .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (17),
-        .NUM_GPIO            (8))
+        .IOCELL_CFG_W        (4),
+        .IOCELL_COUNT        (15),
+        .NUM_GPIO            (4))
     i_io_cell_frame(
         // Interface: Cfg
         .cell_cfg            (i_io_cell_frame_cell_cfg),
@@ -612,7 +660,7 @@ module SysCtrl_SS_wrapper_0 #(
         // Interface: Clock_internal
         .clk_internal        (i_io_cell_frame_clk_internal),
         // Interface: GPIO
-        .gpio                (gpio[7:0]),
+        .gpio                (gpio[3:0]),
         // Interface: GPIO_internal
         .gpio_from_core      (i_io_cell_frame_gpio_from_core),
         .gpio_to_core        (i_io_cell_frame_gpio_to_core),
@@ -655,9 +703,9 @@ module SysCtrl_SS_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:ip:pmod_mux:1.0
     pmod_mux #(
-        .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (17),
-        .NUM_GPIO            (8))
+        .IOCELL_CFG_W        (4),
+        .IOCELL_COUNT        (15),
+        .NUM_GPIO            (4))
     i_pmod_mux(
         // Interface: cell_cfg_from_core
         .cell_cfg_from_core  (i_pmod_mux_cell_cfg_from_core),
