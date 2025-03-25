@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 24.03.2025
-// Creation time : 15:27:19
+// Creation date : 25.03.2025
+// Creation time : 09:49:07
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -1206,7 +1206,7 @@ module SysCtrl_SS_0 #(
     assign sysctrl_obi_xbar_instr_aid = 'h0;
     assign sysctrl_obi_xbar_instr_atop = 6'h0;
     assign sysctrl_obi_xbar_instr_auser = 'h0;
-    assign sysctrl_obi_xbar_instr_be = {(uuid_87311856_0555_46db_906a_8fe2eea673db/8){1'b1}};
+    assign sysctrl_obi_xbar_instr_be = ~0;
     assign sysctrl_obi_xbar_instr_dbg = 1'b1;
     assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_err = sysctrl_obi_xbar_instr_err;
     assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_gnt = sysctrl_obi_xbar_instr_gnt;

@@ -7524,11 +7524,6 @@
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:kts_attributes>
-			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
-			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
-			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
-		</kactus2:kts_attributes>
 		<kactus2:fileDependencies>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
 				<kactus2:fileRef1>../../../../../src/rtl/sysctrl_obi_xbar.v</kactus2:fileRef1>
@@ -7541,5 +7536,10 @@
 				<ipxact:description>Submodule instantiation of module obi_xbar_intf</ipxact:description>
 			</kactus2:fileDependency>
 		</kactus2:fileDependencies>
+		<kactus2:kts_attributes>
+			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
+			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
+			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
+		</kactus2:kts_attributes>
 	</ipxact:vendorExtensions>
 </ipxact:component>
