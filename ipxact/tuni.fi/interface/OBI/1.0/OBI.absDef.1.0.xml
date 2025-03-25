@@ -66,7 +66,7 @@
 					<ipxact:width>uuid_87311856_0555_46db_906a_8fe2eea673db/8</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
-				<ipxact:defaultValue>{(uuid_87311856_0555_46db_906a_8fe2eea673db/8){1'b1}}</ipxact:defaultValue>
+				<ipxact:defaultValue>~0</ipxact:defaultValue>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -430,7 +430,7 @@
 		</ipxact:port>
 	</ipxact:ports>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_87311856_0555_46db_906a_8fe2eea673db">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_87311856_0555_46db_906a_8fe2eea673db">
 			<ipxact:name>DATA_WIDTH</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
