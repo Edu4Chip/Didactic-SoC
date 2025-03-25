@@ -30,15 +30,15 @@ module ibex_wrapper #(
     parameter bit                          PMPEnable        = 1'b0,
     parameter unsigned                     PMPGranularity   = 0,
     parameter unsigned                     PMPNumRegions    = 4,
-    parameter rv32b_e                      RV32B            = RV32BNone,
     parameter bit                          RV32E            = 1'b0,
-    parameter rv32m_e                      RV32M            = RV32MNone,
-    parameter regfile_e                    RegFile          = RegFileFF,
     parameter                              RndCnstIbexKey   = 128'h14e8cecae3040d5e12286bb3cc113298,
     parameter                              RndCnstIbexNonce = 64'hf79780bc735f3843,
-    parameter lfsr_perm_t                  RndCnstLfsrPerm  = RndCnstLfsrPermDefault,
-    parameter lfsr_seed_t                  RndCnstLfsrSeed  = RndCnstLfsrSeedDefault,
     parameter bit                          SecureIbex       = 1'b0,
+    parameter ibex_pkg::rv32b_e            RV32B            = ibex_pkg::RV32BNone,
+    parameter ibex_pkg::rv32m_e            RV32M            = ibex_pkg::RV32MNone,
+    parameter ibex_pkg::regfile_e          RegFile          = ibex_pkg::RegFileFF,
+    parameter ibex_pkg::lfsr_perm_t        RndCnstLfsrPerm  = ibex_pkg::RndCnstLfsrPermDefault,
+    parameter ibex_pkg::lfsr_seed_t        RndCnstLfsrSeed  = ibex_pkg::RndCnstLfsrSeedDefault,
     parameter bit                          WritebackStage   = 1'b0
   )(
     // Interface: Clock
@@ -88,9 +88,9 @@ module ibex_wrapper #(
     input  logic                         irq_timer_i,
     input  prim_ram_1p_pkg::ram_1p_cfg_t ram_cfg_i,
     input  logic                         scan_rst_ni,
-    input  logic [SCRAMBLE_KEY_W-1:0]    scramble_key_i,
+    input  logic [ibex_pkg::SCRAMBLE_KEY_W-1:0]    scramble_key_i,
     input  logic                         scramble_key_valid_i,
-    input  logic [SCRAMBLE_NONCE_W-1:0]  scramble_nonce_i,
+    input  logic [ibex_pkg::SCRAMBLE_NONCE_W-1:0]  scramble_nonce_i,
     input  logic                         test_en_i,    // enable all clock gates for testing
     output logic                         alert_major_bus_o,
     output logic                         alert_major_internal_o,

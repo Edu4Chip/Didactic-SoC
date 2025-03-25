@@ -56,6 +56,7 @@ COMMON_CELLS_DIR ?= $(shell $(BENDER) path common_cells)
 AXI_DIR          ?= $(shell $(BENDER) path axi)
 APB_DIR          ?= $(shell $(BENDER) path apb)
 REGIF_DIR        ?= $(shell $(BENDER) path register_interface)
+OBI_DIR          ?= $(shell $(BENDER) path obi)
 IBEX_DIR         ?= $(BUILD_DIR)/../vendor_ips/ibex
 
 SIM_FLIST        ?= $(shell $(BENDER) script flist -t rtl -t vendor -t simulation -t tracer)
@@ -65,6 +66,7 @@ INCLUDES ?= \
 	+incdir+$(AXI_DIR)/include \
 	+incdir+$(APB_DIR)/include \
 	+incdir+$(REGIF_DIR)/include \
+	+incdir+$(OBI_DIR)/include \
 	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/dv/sv/dv_utils \
 	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/ip/prim/rtl \
 	+incdir+$(IBEX_DIR)/rtl
