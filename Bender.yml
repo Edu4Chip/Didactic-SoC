@@ -96,6 +96,11 @@ sources:
     - src/rtl/Student_SS_3.sv
     - src/generated/SysCtrl_SS_0.v
     - src/generated/SysCtrl_SS_wrapper_0.v
+    - src/rtl/jtag_dbg_wrapper_obi.sv
+    - src/rtl/obi_icn_ss.sv
+    - src/rtl/peripherals_obi_to_apb.sv
+    - src/rtl/student_ss_analog.sv
+    - src/reuse/obi_to_apb_intf.sv
     - src/generated/Didactic.v
 
   - target: not(synthesis)

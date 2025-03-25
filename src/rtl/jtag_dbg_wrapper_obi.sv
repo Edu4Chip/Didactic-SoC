@@ -22,12 +22,12 @@
 
 module jtag_dbg_wrapper_obi #(
     parameter                     DM_BASE_ADDRESS  = 'h1000,
-    parameter                     DM_ID_VALUE      =  32'hf007ba11,
-    localparam                    OBI_ID_WIDTH     = 1;
+    parameter                     DM_ID_VALUE      = 32'hf007ba11,
+    localparam                    OBI_ID_WIDTH     = 1,
     localparam                    OBI_AW           = 32,
     localparam                    OBI_DW           = 32,
     localparam                    DBG_BUS_WIDTH    = 32,
-    localparam                    NrHarts          =  1
+    localparam                    NrHarts          = 1
   )(
     // Interface: OBI_I
     input  logic                    initiator_gnt_i,
@@ -120,11 +120,11 @@ logic                         dmi_resp_ready_s;
   );
 
   dm_obi_top #(
-    .IdWidth              ( OBI_ID_WIDTH        )
+    .IdWidth              ( OBI_ID_WIDTH        ),
     .NrHarts              ( NrHarts             ),
     .BusWidth             ( DBG_BUS_WIDTH       ),
     .DmBaseAddress        ( DM_BASE_ADDRESS     ),
-    .SelectableHarts      ( {NrHarts{1'b1}}     ),
+    .SelectableHarts      ( {NrHarts{1'b1}}     )
   ) i_dm_top (
     .clk_i                ( clk_i               ),
     .rst_ni               ( rstn_i              ),
