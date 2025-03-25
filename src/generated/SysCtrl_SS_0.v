@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 25.03.2025
-// Creation time : 10:24:05
+// Creation time : 13:44:27
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -1472,7 +1472,7 @@ module SysCtrl_SS_0 #(
         .instr_addr_o        (i_ibex_wrapper_instr_addr_o),
         .instr_req_o         (i_ibex_wrapper_instr_req_o),
         // These ports are not in any interface
-        .boot_addr_i         (32'h1000000),
+        .boot_addr_i         (32'h1040100),
         .hart_id_i           (32'h0),
         .instr_rdata_intg_i  (7'h0),
         .irq_external_i      (1'b0),

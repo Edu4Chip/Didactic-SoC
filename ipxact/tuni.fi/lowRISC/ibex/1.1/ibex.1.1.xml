@@ -530,7 +530,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>32'h0100_0000</ipxact:defaultValue>
+							<ipxact:defaultValue>32'h01040100</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
