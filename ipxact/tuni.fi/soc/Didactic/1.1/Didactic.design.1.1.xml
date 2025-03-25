@@ -175,14 +175,14 @@
 				<kactus2:uuid>{961dda10-60be-4a4f-809c-8dc414a8a5da}</kactus2:uuid>
 				<kactus2:position x="600" y="60"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="apb_3" x="110" y="790"/>
-					<kactus2:portPosition busRef="apb_2" x="110" y="570"/>
-					<kactus2:portPosition busRef="apb_1" x="110" y="350"/>
-					<kactus2:portPosition busRef="icn_ss_ctrl" x="-110" y="180"/>
 					<kactus2:portPosition busRef="OBI" x="-110" y="460"/>
 					<kactus2:portPosition busRef="apb_0" x="110" y="130"/>
-					<kactus2:portPosition busRef="reset" x="-110" y="120"/>
+					<kactus2:portPosition busRef="apb_1" x="110" y="350"/>
+					<kactus2:portPosition busRef="apb_2" x="110" y="570"/>
+					<kactus2:portPosition busRef="apb_3" x="110" y="790"/>
 					<kactus2:portPosition busRef="clock" x="-110" y="80"/>
+					<kactus2:portPosition busRef="icn_ss_ctrl" x="-110" y="180"/>
+					<kactus2:portPosition busRef="reset" x="-110" y="120"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -711,8 +711,8 @@
 				<kactus2:position x="490" y="240"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="student_ss_analog_analog_bus_to_analog_if" kactus2:offPage="false">
-				<kactus2:position x="1030" y="1000"/>
-				<kactus2:position x="1140" y="1000"/>
+				<kactus2:position x="1030" y="980"/>
+				<kactus2:position x="1140" y="980"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:interfaceGraphics>
@@ -752,7 +752,7 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>analog_if</kactus2:name>
-			<kactus2:position x="1140" y="1000"/>
+			<kactus2:position x="1140" y="980"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
