@@ -118,7 +118,7 @@ module peripherals_obi_to_apb #(
     .NumSbrPorts       (INITIATORS),
     .NumMgrPorts       (TARGETS),
     .NumMaxTrans       (1),
-    .NumAddrRules      (INITIATORS),
+    .NumAddrRules      (TARGETS),
     .addr_map_rule_t   (addr_rule_t),
     .UseIdForRouting   (0)
   ) i_peripheral_obi_xbar (

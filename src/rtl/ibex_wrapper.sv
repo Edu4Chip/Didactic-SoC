@@ -96,7 +96,7 @@ module ibex_wrapper #(
     output logic                         alert_major_internal_o,
     output logic                         alert_minor_o,
     output logic                         core_sleep_o,
-    output crash_dump_t                  crash_dump_o,
+    output ibex_pkg::crash_dump_t                  crash_dump_o,
     output logic                         double_fault_seen_o,
     output logic                         scramble_req_o
 );
@@ -104,10 +104,10 @@ module ibex_wrapper #(
   // If desirable, one can use:
   // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.0
   // to allow core selection by views instead of this extra hierarchy
-  `ifndef SYNTHESIS
-    ibex_top_tracing  #(
-  `else
+  `ifdef SYNTHESIS
     ibex_top #(
+  `else
+    ibex_top_tracing  #(
   `endif
       .DmBaseAddr      ( DmBaseAddr ),
       .DmExceptionAddr ( DmExceptionAddr ),
@@ -124,8 +124,10 @@ module ibex_wrapper #(
       .RV32E           ( RV32E),
       .RV32M           ( RV32M),
       .RegFile         ( RegFile),
+  `ifdef SYNTHESIS
       .RndCnstIbexKey  ( RndCnstIbexKey),
       .RndCnstIbexNonce( RndCnstIbexNonce),
+  `endif
       .RndCnstLfsrPerm ( RndCnstLfsrPerm),
       .RndCnstLfsrSeed ( RndCnstLfsrSeed),
       .SecureIbex      ( SecureIbex),

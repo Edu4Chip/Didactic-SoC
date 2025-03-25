@@ -298,7 +298,7 @@ module sysctrl_obi_xbar #(
   OBI_BUS #() initiator_bus [INITIATORS-1:0]();
 
   localparam ADDR_BASE   = 32'h0100_0000;
-  localparam TARGET_SIZE    = 'h1_0000;
+  localparam TARGET_SIZE = 'h1_0000;
 
   typedef struct packed {
     int unsigned idx;
@@ -319,10 +319,10 @@ module sysctrl_obi_xbar #(
     };
 
   obi_xbar_intf #(
-      .NumSbrPorts       (TARGETS),
-      .NumMgrPorts       (INITIATORS),
+      .NumSbrPorts       (INITIATORS),
+      .NumMgrPorts       (TARGETS),
       .NumMaxTrans       (1),
-      .NumAddrRules      (INITIATORS),
+      .NumAddrRules      (TARGETS),
       .addr_map_rule_t   (addr_rule_t),
       .UseIdForRouting   (0)
   ) i_peripheral_obi_xbar (
@@ -395,16 +395,16 @@ module sysctrl_obi_xbar #(
   assign dmem_wuser = target_bus[1].wuser;
 
   // Interface: obi_jtag_dm_target
-  assign target_bus[2].err dm_target_err;
-  assign target_bus[2].exokay dm_target_exokay;
-  assign target_bus[2].gnt dm_target_gnt;
-  assign target_bus[2].gntpar dm_target_gntpar;
-  assign target_bus[2].rchk dm_target_rchk;
-  assign target_bus[2].rdata dm_target_rdata;
-  assign target_bus[2].rid dm_target_rid;
-  assign target_bus[2].ruser dm_target_ruser;
-  assign target_bus[2].rvalid dm_target_rvalid;
-  assign target_bus[2].rvalidpar dm_target_rvalidpar;
+  assign target_bus[2].err = dm_target_err;
+  assign target_bus[2].exokay = dm_target_exokay;
+  assign target_bus[2].gnt = dm_target_gnt;
+  assign target_bus[2].gntpar = dm_target_gntpar;
+  assign target_bus[2].rchk = dm_target_rchk;
+  assign target_bus[2].rdata = dm_target_rdata;
+  assign target_bus[2].rid = dm_target_rid;
+  assign target_bus[2].ruser = dm_target_ruser;
+  assign target_bus[2].rvalid = dm_target_rvalid;
+  assign target_bus[2].rvalidpar = dm_target_rvalidpar;
   assign dm_target_achk = target_bus[2].achk;
   assign dm_target_addr = target_bus[2].addr;
   assign dm_target_aid = target_bus[2].aid;
