@@ -41,6 +41,7 @@
 			<ipxact:componentRef vendor="tuni.fi" library="lowRISC" name="ibex" version="1.1">
 				<ipxact:configurableElementValues>
 					<ipxact:configurableElementValue referenceId="uuid_db4ff119_295e_4928_a759_bdf24abd066a">'h01020800</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_a3dee705_1899_4f10_bb7e_eed480a6c4cc">'h1020816</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -156,6 +157,7 @@
 			<ipxact:componentRef vendor="tuni.fi" library="ip" name="jtag_dbg_wrapper_obi" version="1.0">
 				<ipxact:configurableElementValues>
 					<ipxact:configurableElementValue referenceId="uuid_d7bb2734_1d0d_4c03_8fa4_ff989442bbfa">32'h1c0ffee1</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_16cbafe0_5682_4fcd_b153_16c0454ac319">'h01020000</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>

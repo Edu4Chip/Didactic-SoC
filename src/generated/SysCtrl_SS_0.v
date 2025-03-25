@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 25.03.2025
-// Creation time : 09:49:07
+// Creation time : 10:24:05
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -1440,7 +1440,7 @@ module SysCtrl_SS_0 #(
     // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.1
     ibex_wrapper #(
         .DmHaltAddr          (16910336),
-        .DmExceptionAddr     (437323784),
+        .DmExceptionAddr     (16910358),
         .DmBaseAddr          (16908288))
     i_ibex_wrapper(
         // Interface: Clock
@@ -1515,7 +1515,7 @@ module SysCtrl_SS_0 #(
 
     // IP-XACT VLNV: tuni.fi:ip:jtag_dbg_wrapper_obi:1.0
     jtag_dbg_wrapper_obi #(
-        .DM_BASE_ADDRESS     (4096),
+        .DM_BASE_ADDRESS     (16908288),
         .DM_ID_VALUE         (470810337))
     jtag_dbg_wrapper(
         // Interface: Clock
