@@ -209,7 +209,7 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
-				<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+				<ipxact:defaultValue>1'b0</ipxact:defaultValue>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -317,7 +317,7 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
-				<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+				<ipxact:defaultValue>1'b0</ipxact:defaultValue>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -349,6 +349,7 @@
 					<ipxact:width>uuid_844ce622_fce8_42b3_9ca8_4712939aa637</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
+				<ipxact:defaultValue>'h0</ipxact:defaultValue>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>
@@ -364,7 +365,7 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
-				<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+				<ipxact:defaultValue>1'b0</ipxact:defaultValue>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>

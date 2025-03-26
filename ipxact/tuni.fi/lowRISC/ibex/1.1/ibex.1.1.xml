@@ -106,14 +106,6 @@
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>rid</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>data_rdata_i</ipxact:name>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
 								<ipxact:name>req</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
@@ -149,7 +141,7 @@
 								<ipxact:name>rdata</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>data_rdata_intg_i</ipxact:name>
+								<ipxact:name>data_rdata_i</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
@@ -515,6 +507,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>boot_addr_i</ipxact:name>
+				<ipxact:description>Didactic specific boot address as default value</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>

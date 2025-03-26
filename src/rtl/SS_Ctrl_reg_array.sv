@@ -127,7 +127,7 @@ module SS_Ctrl_reg_array #(
     end
     else begin
 
-     if (we_in) begin
+     if (we_in && req_in) begin
         case (addr_in[16:0])
         'h0:  fetch_en_reg       <= wdata_in;
         'h4:  ss_rst_reg         <= wdata_in;
@@ -173,59 +173,63 @@ module SS_Ctrl_reg_array #(
         'h184: return_reg_1 <= wdata_in;
 
         endcase
+        
      end
     end
     end // control_register_ff
 
     always_comb // read process
     begin : read_logic
-      rdata_out = 'h0;
-      case(addr_in[16:0])
+      if(~we_in && req_in) begin 
+        rdata_out = 'h0;
+        case(addr_in[16:0])
 
-        'h0:  rdata_out = fetch_en_reg;
-        'h4:  rdata_out = ss_rst_reg;
+          'h0:  rdata_out = fetch_en_reg;
+          'h4:  rdata_out = ss_rst_reg;
 
-        'h8:  rdata_out = icn_ctrl_reg;
-        'hC:  rdata_out = ss_0_ctrl_reg;
-        'h10: rdata_out = ss_1_ctrl_reg;
-        'h14: rdata_out = ss_2_ctrl_reg;
-        'h18: rdata_out = ss_3_ctrl_reg;
+          'h8:  rdata_out = icn_ctrl_reg;
+          'hC:  rdata_out = ss_0_ctrl_reg;
+          'h10: rdata_out = ss_1_ctrl_reg;
+          'h14: rdata_out = ss_2_ctrl_reg;
+          'h18: rdata_out = ss_3_ctrl_reg;
 
-        'h1C: rdata_out = ss_ctrl_reserved_0_reg;
-        'h20: rdata_out = ss_ctrl_reserved_1_reg;
+          'h1C: rdata_out = ss_ctrl_reserved_0_reg;
+          'h20: rdata_out = ss_ctrl_reserved_1_reg;
 
-        'h24: rdata_out = pmod_sel_reg;
-        // gpio 0
-        'h28: rdata_out = io_cell_cfg_reg[0];
-        'h2C: rdata_out = io_cell_cfg_reg[1];
-        'h30: rdata_out = io_cell_cfg_reg[2];
-        'h34: rdata_out = io_cell_cfg_reg[3];
-        // gpio 1
-        'h38: rdata_out = io_cell_cfg_reg[4];
-        'h3C: rdata_out = io_cell_cfg_reg[5];
-        'h40: rdata_out = io_cell_cfg_reg[6];
-        'h44: rdata_out = io_cell_cfg_reg[7];
-        // spi
-        'h48: rdata_out = io_cell_cfg_reg[8];
-        'h4C: rdata_out = io_cell_cfg_reg[9];
-        'h50: rdata_out = io_cell_cfg_reg[10];
-        'h54: rdata_out = io_cell_cfg_reg[11];
-        'h58: rdata_out = io_cell_cfg_reg[12];
-        'h5C: rdata_out = io_cell_cfg_reg[13];
-        'h60: rdata_out = io_cell_cfg_reg[14];
-        // uart
-        'h64: rdata_out = io_cell_cfg_reg[15];
-        'h68: rdata_out = io_cell_cfg_reg[16];
-        // reserves
-        //'h6C: rdata_out = io_cell_cfg_reg[17];
-        //'h70: rdata_out = io_cell_cfg_reg[18];
+          'h24: rdata_out = pmod_sel_reg;
+          // gpio 0
+          'h28: rdata_out = io_cell_cfg_reg[0];
+          'h2C: rdata_out = io_cell_cfg_reg[1];
+          'h30: rdata_out = io_cell_cfg_reg[2];
+          'h34: rdata_out = io_cell_cfg_reg[3];
+          // gpio 1
+          'h38: rdata_out = io_cell_cfg_reg[4];
+          'h3C: rdata_out = io_cell_cfg_reg[5];
+          'h40: rdata_out = io_cell_cfg_reg[6];
+          'h44: rdata_out = io_cell_cfg_reg[7];
+          // spi
+          'h48: rdata_out = io_cell_cfg_reg[8];
+          'h4C: rdata_out = io_cell_cfg_reg[9];
+          'h50: rdata_out = io_cell_cfg_reg[10];
+          'h54: rdata_out = io_cell_cfg_reg[11];
+          'h58: rdata_out = io_cell_cfg_reg[12];
+          'h5C: rdata_out = io_cell_cfg_reg[13];
+          'h60: rdata_out = io_cell_cfg_reg[14];
+          // uart
+          'h64: rdata_out = io_cell_cfg_reg[15];
+          'h68: rdata_out = io_cell_cfg_reg[16];
+          // reserves
+          //'h6C: rdata_out = io_cell_cfg_reg[17];
+          //'h70: rdata_out = io_cell_cfg_reg[18];
 
-        'h100: rdata_out = boot_reg_0;
-        'h104: rdata_out = boot_reg_1;
-        'h180: rdata_out = return_reg_0;
-        'h184: rdata_out = return_reg_1;
+          'h100: rdata_out = boot_reg_0;
+          'h104: rdata_out = boot_reg_1;
+          'h180: rdata_out = return_reg_0;
+          'h184: rdata_out = return_reg_1;
 
-    endcase
+        endcase
+      end
+
 
     for(int i=0; i < IOCELL_COUNT; i++) begin
       cell_cfg[i*IOCELL_CFG_W +:IOCELL_CFG_W] = io_cell_cfg_reg[i];

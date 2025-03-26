@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 26.03.2025
-// Creation time : 10:27:21
+// Creation time : 11:19:10
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -314,7 +314,7 @@ module SysCtrl_SS_0 #(
     wire [31:0] i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rdata;
     wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_req;
     wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_reqpar;
-    wire [31:0] i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rid;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rid;
     wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rready;
     wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rreadypar;
     wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_ruser;
@@ -441,6 +441,7 @@ module SysCtrl_SS_0 #(
     wire       apb_uart_INT_to_i_ibex_wrapper_irq_fast_i;
     wire [1:0] apb_spi_master_events_o_to_i_ibex_wrapper_irq_fast_i;
     wire [3:0] i_ibex_wrapper_irq_fast_i_to_sysctrl_irq_i;
+    wire [6:0] i_ibex_wrapper_irq_fast_i_to_irq_upper_tieoff;
 
     // apb_gpio port wires:
     wire       apb_gpio_HCLK;
@@ -539,7 +540,6 @@ module SysCtrl_SS_0 #(
     wire       i_ibex_wrapper_data_err_i;
     wire       i_ibex_wrapper_data_gnt_i;
     wire [31:0] i_ibex_wrapper_data_rdata_i;
-    wire [6:0] i_ibex_wrapper_data_rdata_intg_i;
     wire       i_ibex_wrapper_data_req_o;
     wire       i_ibex_wrapper_data_rvalid_i;
     wire [31:0] i_ibex_wrapper_data_wdata_o;
@@ -663,6 +663,7 @@ module SysCtrl_SS_0 #(
     wire [2:0] sysctrl_obi_xbar_ctrl_prot;
     wire [31:0] sysctrl_obi_xbar_ctrl_rdata;
     wire       sysctrl_obi_xbar_ctrl_req;
+    wire       sysctrl_obi_xbar_ctrl_rid;
     wire       sysctrl_obi_xbar_ctrl_rready;
     wire       sysctrl_obi_xbar_ctrl_ruser;
     wire [31:0] sysctrl_obi_xbar_ctrl_wdata;
@@ -703,6 +704,7 @@ module SysCtrl_SS_0 #(
     wire [2:0] sysctrl_obi_xbar_dm_init_prot;
     wire [31:0] sysctrl_obi_xbar_dm_init_rdata;
     wire       sysctrl_obi_xbar_dm_init_req;
+    wire       sysctrl_obi_xbar_dm_init_rid;
     wire       sysctrl_obi_xbar_dm_init_rready;
     wire       sysctrl_obi_xbar_dm_init_ruser;
     wire       sysctrl_obi_xbar_dm_init_rvalid;
@@ -743,6 +745,7 @@ module SysCtrl_SS_0 #(
     wire [2:0] sysctrl_obi_xbar_dmem_prot;
     wire [31:0] sysctrl_obi_xbar_dmem_rdata;
     wire       sysctrl_obi_xbar_dmem_req;
+    wire       sysctrl_obi_xbar_dmem_rid;
     wire       sysctrl_obi_xbar_dmem_rready;
     wire       sysctrl_obi_xbar_dmem_ruser;
     wire [31:0] sysctrl_obi_xbar_dmem_wdata;
@@ -761,6 +764,7 @@ module SysCtrl_SS_0 #(
     wire [2:0] sysctrl_obi_xbar_imem_prot;
     wire [31:0] sysctrl_obi_xbar_imem_rdata;
     wire       sysctrl_obi_xbar_imem_req;
+    wire       sysctrl_obi_xbar_imem_rid;
     wire       sysctrl_obi_xbar_imem_rready;
     wire       sysctrl_obi_xbar_imem_ruser;
     wire [31:0] sysctrl_obi_xbar_imem_wdata;
@@ -780,6 +784,7 @@ module SysCtrl_SS_0 #(
     wire [2:0] sysctrl_obi_xbar_instr_prot;
     wire [31:0] sysctrl_obi_xbar_instr_rdata;
     wire       sysctrl_obi_xbar_instr_req;
+    wire       sysctrl_obi_xbar_instr_rid;
     wire       sysctrl_obi_xbar_instr_rready;
     wire       sysctrl_obi_xbar_instr_ruser;
     wire       sysctrl_obi_xbar_instr_rvalid;
@@ -851,6 +856,7 @@ module SysCtrl_SS_0 #(
     assign irq_en_1 = ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
     assign irq_en_2 = ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
     assign irq_en_3 = ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
+    assign i_ibex_wrapper_irq_fast_i_to_irq_upper_tieoff = irq_upper_tieoff[14:8];
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tck = jtag_tck_internal;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tdi = jtag_tdi_internal;
     assign jtag_tdo_internal = jtag_dbg_wrapper_JTAG_to_JTAG_tdo;
@@ -888,7 +894,6 @@ module SysCtrl_SS_0 #(
     assign i_ibex_wrapper_irq_fast_i_to_sysctrl_irq_i = sysctrl_irq_i;
     assign apb_uart_UART_to_UART_uart_rx = uart_rx_internal;
     assign uart_tx_internal = apb_uart_UART_to_UART_uart_tx;
-
 
     // apb_gpio assignments:
     assign apb_gpio_HCLK = jtag_dbg_wrapper_Clock_to_Clk_clk;
@@ -986,8 +991,7 @@ module SysCtrl_SS_0 #(
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_be = i_ibex_wrapper_data_be_o;
     assign i_ibex_wrapper_data_err_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_err;
     assign i_ibex_wrapper_data_gnt_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_gnt;
-    assign i_ibex_wrapper_data_rdata_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rid;
-    assign i_ibex_wrapper_data_rdata_intg_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rdata[6:0];
+    assign i_ibex_wrapper_data_rdata_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rdata;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_req = i_ibex_wrapper_data_req_o;
     assign i_ibex_wrapper_data_rvalid_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rvalid;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_wdata = i_ibex_wrapper_data_wdata_o;
@@ -1003,6 +1007,7 @@ module SysCtrl_SS_0 #(
     assign i_ibex_wrapper_irq_fast_i[0] = apb_gpio_interrupt_to_i_ibex_wrapper_irq_fast_i;
     assign i_ibex_wrapper_irq_fast_i[4:3] = apb_spi_master_events_o_to_i_ibex_wrapper_irq_fast_i;
     assign i_ibex_wrapper_irq_fast_i[1] = apb_uart_INT_to_i_ibex_wrapper_irq_fast_i;
+    assign i_ibex_wrapper_irq_fast_i[14:8] = i_ibex_wrapper_irq_fast_i_to_irq_upper_tieoff;
     assign i_ibex_wrapper_irq_fast_i[7:4] = i_ibex_wrapper_irq_fast_i_to_sysctrl_irq_i;
     assign i_ibex_wrapper_rst_ni = jtag_dbg_wrapper_core_reset_to_i_ibex_wrapper_Reset_reset;
     // i_imem assignments:
@@ -1092,9 +1097,10 @@ module SysCtrl_SS_0 #(
     assign sysctrl_obi_xbar_clk = jtag_dbg_wrapper_Clock_to_Clk_clk;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_addr = sysctrl_obi_xbar_ctrl_addr;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_be = sysctrl_obi_xbar_ctrl_be;
-    assign sysctrl_obi_xbar_ctrl_err = 1'b1;
+    assign sysctrl_obi_xbar_ctrl_err = 1'b0;
     assign sysctrl_obi_xbar_ctrl_rdata = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rdata;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_req = sysctrl_obi_xbar_ctrl_req;
+    assign sysctrl_obi_xbar_ctrl_rid = 'h0;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wdata = sysctrl_obi_xbar_ctrl_wdata;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_we = sysctrl_obi_xbar_ctrl_we;
     assign sysctrl_obi_xbar_data_addr = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_addr;
@@ -1104,7 +1110,6 @@ module SysCtrl_SS_0 #(
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_gnt = sysctrl_obi_xbar_data_gnt;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rdata = sysctrl_obi_xbar_data_rdata;
     assign sysctrl_obi_xbar_data_req = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_req;
-    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rid[0] = sysctrl_obi_xbar_data_rid;
     assign sysctrl_obi_xbar_data_rready = 1'b1;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rvalid = sysctrl_obi_xbar_data_rvalid;
     assign sysctrl_obi_xbar_data_wdata = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_wdata;
@@ -1123,7 +1128,7 @@ module SysCtrl_SS_0 #(
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_addr = sysctrl_obi_xbar_dm_target_addr;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_aid = sysctrl_obi_xbar_dm_target_aid;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_be = sysctrl_obi_xbar_dm_target_be;
-    assign sysctrl_obi_xbar_dm_target_err = 1'b1;
+    assign sysctrl_obi_xbar_dm_target_err = 1'b0;
     assign sysctrl_obi_xbar_dm_target_gnt = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gnt;
     assign sysctrl_obi_xbar_dm_target_rdata = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rdata;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_req = sysctrl_obi_xbar_dm_target_req;
@@ -1133,16 +1138,18 @@ module SysCtrl_SS_0 #(
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_we = sysctrl_obi_xbar_dm_target_we;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_addr = sysctrl_obi_xbar_dmem_addr;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_be = sysctrl_obi_xbar_dmem_be;
-    assign sysctrl_obi_xbar_dmem_err = 1'b1;
+    assign sysctrl_obi_xbar_dmem_err = 1'b0;
     assign sysctrl_obi_xbar_dmem_rdata = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rdata;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_req = sysctrl_obi_xbar_dmem_req;
+    assign sysctrl_obi_xbar_dmem_rid = 'h0;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_wdata = sysctrl_obi_xbar_dmem_wdata;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_we = sysctrl_obi_xbar_dmem_we;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_addr = sysctrl_obi_xbar_imem_addr;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_be = sysctrl_obi_xbar_imem_be;
-    assign sysctrl_obi_xbar_imem_err = 1'b1;
+    assign sysctrl_obi_xbar_imem_err = 1'b0;
     assign sysctrl_obi_xbar_imem_rdata = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rdata;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_req = sysctrl_obi_xbar_imem_req;
+    assign sysctrl_obi_xbar_imem_rid = 'h0;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_wdata = sysctrl_obi_xbar_imem_wdata;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_we = sysctrl_obi_xbar_imem_we;
     assign sysctrl_obi_xbar_instr_addr = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_addr;
@@ -1185,7 +1192,6 @@ module SysCtrl_SS_0 #(
     assign sysctrl_obi_xbar_top_rid = sysctrl_obi_xbar_obi_chip_top_to_OBI_rid[0];
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rready = sysctrl_obi_xbar_top_rready;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rreadypar = sysctrl_obi_xbar_top_rreadypar;
-    assign sysctrl_obi_xbar_top_ruser = sysctrl_obi_xbar_obi_chip_top_to_OBI_ruser;
     assign sysctrl_obi_xbar_top_rvalid = sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalid;
     assign sysctrl_obi_xbar_top_rvalidpar = sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalidpar;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_wdata = sysctrl_obi_xbar_top_wdata;
@@ -1372,7 +1378,6 @@ module SysCtrl_SS_0 #(
         .data_err_i          (i_ibex_wrapper_data_err_i),
         .data_gnt_i          (i_ibex_wrapper_data_gnt_i),
         .data_rdata_i        (i_ibex_wrapper_data_rdata_i),
-        .data_rdata_intg_i   (i_ibex_wrapper_data_rdata_intg_i),
         .data_rvalid_i       (i_ibex_wrapper_data_rvalid_i),
         .data_addr_o         (i_ibex_wrapper_data_addr_o),
         .data_be_o           (i_ibex_wrapper_data_be_o),
@@ -1388,6 +1393,7 @@ module SysCtrl_SS_0 #(
         .instr_req_o         (i_ibex_wrapper_instr_req_o),
         // These ports are not in any interface
         .boot_addr_i         (32'h1040100),
+        .data_rdata_intg_i   (7'h0),
         .hart_id_i           (32'h0),
         .instr_rdata_intg_i  (7'h0),
         .irq_external_i      (1'b0),
@@ -1544,7 +1550,6 @@ module SysCtrl_SS_0 #(
         .top_gntpar          (sysctrl_obi_xbar_top_gntpar),
         .top_rdata           (sysctrl_obi_xbar_top_rdata),
         .top_rid             (sysctrl_obi_xbar_top_rid),
-        .top_ruser           (sysctrl_obi_xbar_top_ruser),
         .top_rvalid          (sysctrl_obi_xbar_top_rvalid),
         .top_rvalidpar       (sysctrl_obi_xbar_top_rvalidpar),
         .top_addr            (sysctrl_obi_xbar_top_addr),
@@ -1587,7 +1592,7 @@ module SysCtrl_SS_0 #(
         .instr_gnt           (sysctrl_obi_xbar_instr_gnt),
         .instr_gntpar        (),
         .instr_rdata         (sysctrl_obi_xbar_instr_rdata),
-        .instr_rid           (),
+        .instr_rid           (sysctrl_obi_xbar_instr_rid),
         .instr_rvalid        (sysctrl_obi_xbar_instr_rvalid),
         .instr_rvalidpar     (),
         // Interface: obi_ctrl
@@ -1595,7 +1600,7 @@ module SysCtrl_SS_0 #(
         .ctrl_gnt            ('h0),
         .ctrl_gntpar         ('h0),
         .ctrl_rdata          (sysctrl_obi_xbar_ctrl_rdata),
-        .ctrl_rid            (),
+        .ctrl_rid            (sysctrl_obi_xbar_ctrl_rid),
         .ctrl_rvalid         (),
         .ctrl_rvalidpar      (),
         .ctrl_addr           (sysctrl_obi_xbar_ctrl_addr),
@@ -1612,7 +1617,7 @@ module SysCtrl_SS_0 #(
         .dmem_gnt            (),
         .dmem_gntpar         (),
         .dmem_rdata          (sysctrl_obi_xbar_dmem_rdata),
-        .dmem_rid            (),
+        .dmem_rid            (sysctrl_obi_xbar_dmem_rid),
         .dmem_rvalid         (),
         .dmem_rvalidpar      (),
         .dmem_addr           (sysctrl_obi_xbar_dmem_addr),
@@ -1629,7 +1634,7 @@ module SysCtrl_SS_0 #(
         .imem_gnt            (),
         .imem_gntpar         (),
         .imem_rdata          (sysctrl_obi_xbar_imem_rdata),
-        .imem_rid            (),
+        .imem_rid            (sysctrl_obi_xbar_imem_rid),
         .imem_rvalid         (),
         .imem_rvalidpar      (),
         .imem_addr           (sysctrl_obi_xbar_imem_addr),
@@ -1656,7 +1661,7 @@ module SysCtrl_SS_0 #(
         .dm_init_gntpar      (),
         .dm_init_rchk        (),
         .dm_init_rdata       (sysctrl_obi_xbar_dm_init_rdata),
-        .dm_init_rid         (),
+        .dm_init_rid         (sysctrl_obi_xbar_dm_init_rid),
         .dm_init_rvalid      (sysctrl_obi_xbar_dm_init_rvalid),
         .dm_init_rvalidpar   (),
         // Interface: obi_jtag_dm_target

@@ -33,7 +33,7 @@ module sysctrl_obi_xbar #(
 //    input  logic         [OBI_CHKW-1:0]  top_rchk,
     input  logic         [OBI_DW-1:0]    top_rdata,
     input  logic         [OBI_IDW-1:0]   top_rid,
-    input  logic         [OBI_USERW-1:0] top_ruser,
+//    input  logic         [OBI_USERW-1:0] top_ruser,
     input  logic                         top_rvalid,
     input  logic                         top_rvalidpar,
 //    output logic         [OBI_CHKW-1:0]  top_achk,
