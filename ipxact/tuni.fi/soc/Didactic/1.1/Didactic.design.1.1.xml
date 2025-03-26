@@ -162,7 +162,7 @@
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
-			<ipxact:instanceName>obi_icn_ss_0</ipxact:instanceName>
+			<ipxact:instanceName>i_obi_icn_ss</ipxact:instanceName>
 			<ipxact:componentRef vendor="tuni.fi" library="interconnect" name="obi_icn_ss" version="1.0">
 				<ipxact:configurableElementValues>
 					<ipxact:configurableElementValue referenceId="uuid_f0cc01a1_7189_492a_8d60_d65a4cc5d8b4">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
@@ -332,44 +332,44 @@
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="high_speed_clock_internal"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>obi_icn_ss_0_apb_0_to_Student_SS_0_APB</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="obi_icn_ss_0" busRef="apb_0"/>
+			<ipxact:name>i_obi_icn_ss_apb_0_to_Student_SS_0_APB</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="i_obi_icn_ss" busRef="apb_0"/>
 			<ipxact:activeInterface componentInstanceRef="Student_SS_0" busRef="APB"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>obi_icn_ss_0_apb_1_to_Student_SS_1_APB</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="obi_icn_ss_0" busRef="apb_1"/>
+			<ipxact:name>i_obi_icn_ss_apb_1_to_Student_SS_1_APB</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="i_obi_icn_ss" busRef="apb_1"/>
 			<ipxact:activeInterface componentInstanceRef="Student_SS_1" busRef="APB"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>obi_icn_ss_0_apb_2_to_Student_SS_2_APB</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="obi_icn_ss_0" busRef="apb_2"/>
+			<ipxact:name>i_obi_icn_ss_apb_2_to_Student_SS_2_APB</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="i_obi_icn_ss" busRef="apb_2"/>
 			<ipxact:activeInterface componentInstanceRef="Student_SS_2" busRef="APB"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>obi_icn_ss_0_apb_3_to_Student_SS_3_APB</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="obi_icn_ss_0" busRef="apb_3"/>
+			<ipxact:name>i_obi_icn_ss_apb_3_to_Student_SS_3_APB</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="i_obi_icn_ss" busRef="apb_3"/>
 			<ipxact:activeInterface componentInstanceRef="Student_SS_3" busRef="APB"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_OBI_to_obi_icn_ss_0_OBI</ipxact:name>
+			<ipxact:name>SystemControl_SS_OBI_to_i_obi_icn_ss_OBI</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="OBI"/>
-			<ipxact:activeInterface componentInstanceRef="obi_icn_ss_0" busRef="OBI"/>
+			<ipxact:activeInterface componentInstanceRef="i_obi_icn_ss" busRef="OBI"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_Clock_int_to_obi_icn_ss_0_clock</ipxact:name>
+			<ipxact:name>SystemControl_SS_Clock_int_to_i_obi_icn_ss_clock</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="Clock_int"/>
-			<ipxact:activeInterface componentInstanceRef="obi_icn_ss_0" busRef="clock"/>
+			<ipxact:activeInterface componentInstanceRef="i_obi_icn_ss" busRef="clock"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>obi_icn_ss_0_reset_to_SystemControl_SS_Reset_icn</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="obi_icn_ss_0" busRef="reset"/>
+			<ipxact:name>i_obi_icn_ss_reset_to_SystemControl_SS_Reset_icn</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="i_obi_icn_ss" busRef="reset"/>
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="Reset_icn"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_ICN_SS_Ctrl_to_obi_icn_ss_0_icn_ss_ctrl</ipxact:name>
+			<ipxact:name>SystemControl_SS_ICN_SS_Ctrl_to_i_obi_icn_ss_icn_ss_ctrl</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ICN_SS_Ctrl"/>
-			<ipxact:activeInterface componentInstanceRef="obi_icn_ss_0" busRef="icn_ss_ctrl"/>
+			<ipxact:activeInterface componentInstanceRef="i_obi_icn_ss" busRef="icn_ss_ctrl"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
 			<ipxact:name>student_ss_analog_analog_bus_to_analog_if</ipxact:name>
@@ -678,35 +678,35 @@
 				<kactus2:position x="780" y="890"/>
 				<kactus2:position x="140" y="540"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="obi_icn_ss_0_apb_0_to_Student_SS_0_APB" kactus2:offPage="false">
+			<kactus2:route kactus2:connRef="i_obi_icn_ss_apb_0_to_Student_SS_0_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="190"/>
 				<kactus2:position x="810" y="190"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="obi_icn_ss_0_apb_1_to_Student_SS_1_APB" kactus2:offPage="false">
+			<kactus2:route kactus2:connRef="i_obi_icn_ss_apb_1_to_Student_SS_1_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="410"/>
 				<kactus2:position x="810" y="410"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="obi_icn_ss_0_apb_2_to_Student_SS_2_APB" kactus2:offPage="false">
+			<kactus2:route kactus2:connRef="i_obi_icn_ss_apb_2_to_Student_SS_2_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="630"/>
 				<kactus2:position x="810" y="630"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="obi_icn_ss_0_apb_3_to_Student_SS_3_APB" kactus2:offPage="false">
+			<kactus2:route kactus2:connRef="i_obi_icn_ss_apb_3_to_Student_SS_3_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="850"/>
 				<kactus2:position x="810" y="850"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_OBI_to_obi_icn_ss_0_OBI" kactus2:offPage="false">
+			<kactus2:route kactus2:connRef="SystemControl_SS_OBI_to_i_obi_icn_ss_OBI" kactus2:offPage="false">
 				<kactus2:position x="390" y="520"/>
 				<kactus2:position x="490" y="520"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_Clock_int_to_obi_icn_ss_0_clock" kactus2:offPage="false">
+			<kactus2:route kactus2:connRef="SystemControl_SS_Clock_int_to_i_obi_icn_ss_clock" kactus2:offPage="false">
 				<kactus2:position x="390" y="140"/>
 				<kactus2:position x="490" y="140"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="obi_icn_ss_0_reset_to_SystemControl_SS_Reset_icn" kactus2:offPage="false">
+			<kactus2:route kactus2:connRef="i_obi_icn_ss_reset_to_SystemControl_SS_Reset_icn" kactus2:offPage="false">
 				<kactus2:position x="490" y="180"/>
 				<kactus2:position x="390" y="180"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_ICN_SS_Ctrl_to_obi_icn_ss_0_icn_ss_ctrl" kactus2:offPage="false">
+			<kactus2:route kactus2:connRef="SystemControl_SS_ICN_SS_Ctrl_to_i_obi_icn_ss_icn_ss_ctrl" kactus2:offPage="false">
 				<kactus2:position x="390" y="240"/>
 				<kactus2:position x="490" y="240"/>
 			</kactus2:route>

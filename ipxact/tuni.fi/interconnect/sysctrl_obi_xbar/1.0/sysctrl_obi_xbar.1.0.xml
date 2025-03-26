@@ -2333,7 +2333,7 @@
 			<ipxact:port>
 				<ipxact:name>top_auser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -2355,7 +2355,7 @@
 			<ipxact:port>
 				<ipxact:name>top_wuser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -2421,7 +2421,7 @@
 			<ipxact:port>
 				<ipxact:name>top_atop</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>5</ipxact:left>
@@ -2443,7 +2443,7 @@
 			<ipxact:port>
 				<ipxact:name>top_memtype</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -2465,7 +2465,7 @@
 			<ipxact:port>
 				<ipxact:name>top_mid</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89-1</ipxact:left>
@@ -2487,7 +2487,7 @@
 			<ipxact:port>
 				<ipxact:name>top_dbg</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -2553,7 +2553,7 @@
 			<ipxact:port>
 				<ipxact:name>top_achk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -2707,7 +2707,7 @@
 			<ipxact:port>
 				<ipxact:name>top_exokay</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -2773,7 +2773,7 @@
 			<ipxact:port>
 				<ipxact:name>top_rchk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -2795,7 +2795,7 @@
 			<ipxact:port>
 				<ipxact:name>top_prot</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>2</ipxact:left>
@@ -2927,7 +2927,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_auser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -2949,7 +2949,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_wuser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -3015,7 +3015,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_atop</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>5</ipxact:left>
@@ -3037,7 +3037,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_memtype</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -3059,7 +3059,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_mid</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89-1</ipxact:left>
@@ -3081,7 +3081,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_dbg</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -3147,7 +3147,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_achk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -3257,7 +3257,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_ruser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -3301,7 +3301,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_exokay</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -3367,7 +3367,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_rchk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -3389,7 +3389,7 @@
 			<ipxact:port>
 				<ipxact:name>periph_prot</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>2</ipxact:left>
@@ -3555,7 +3555,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_auser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -3577,7 +3577,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_wuser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -3643,7 +3643,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_atop</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>5</ipxact:left>
@@ -3665,7 +3665,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_memtype</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -3687,7 +3687,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_mid</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89-1</ipxact:left>
@@ -3709,7 +3709,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_dbg</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -3775,7 +3775,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_achk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -3885,7 +3885,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_ruser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -3929,7 +3929,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_exokay</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -4017,7 +4017,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_prot</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>2</ipxact:left>
@@ -4149,7 +4149,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_auser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -4171,7 +4171,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_wuser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -4237,7 +4237,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_atop</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>5</ipxact:left>
@@ -4259,7 +4259,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_memtype</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -4281,7 +4281,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_mid</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89-1</ipxact:left>
@@ -4303,7 +4303,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_dbg</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -4369,7 +4369,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_achk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -4479,7 +4479,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_ruser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -4523,7 +4523,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_exokay</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -4589,7 +4589,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_rchk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -4611,7 +4611,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_target_prot</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>2</ipxact:left>
@@ -4743,7 +4743,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_auser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -4765,7 +4765,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_wuser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -4831,7 +4831,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_atop</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>5</ipxact:left>
@@ -4853,7 +4853,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_memtype</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -4875,7 +4875,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_mid</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89-1</ipxact:left>
@@ -4897,7 +4897,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_dbg</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -4963,7 +4963,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_achk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -5073,7 +5073,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_ruser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -5117,7 +5117,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_exokay</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -5183,7 +5183,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_rchk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -5205,7 +5205,7 @@
 			<ipxact:port>
 				<ipxact:name>instr_prot</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>2</ipxact:left>
@@ -5337,7 +5337,7 @@
 			<ipxact:port>
 				<ipxact:name>data_auser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -5359,7 +5359,7 @@
 			<ipxact:port>
 				<ipxact:name>data_wuser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -5425,7 +5425,7 @@
 			<ipxact:port>
 				<ipxact:name>data_atop</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>5</ipxact:left>
@@ -5447,7 +5447,7 @@
 			<ipxact:port>
 				<ipxact:name>data_memtype</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -5469,7 +5469,7 @@
 			<ipxact:port>
 				<ipxact:name>data_mid</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89-1</ipxact:left>
@@ -5491,7 +5491,7 @@
 			<ipxact:port>
 				<ipxact:name>data_dbg</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -5557,7 +5557,7 @@
 			<ipxact:port>
 				<ipxact:name>data_achk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -5667,7 +5667,7 @@
 			<ipxact:port>
 				<ipxact:name>data_ruser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -5711,7 +5711,7 @@
 			<ipxact:port>
 				<ipxact:name>data_exokay</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -5777,7 +5777,7 @@
 			<ipxact:port>
 				<ipxact:name>data_rchk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -5799,7 +5799,7 @@
 			<ipxact:port>
 				<ipxact:name>data_prot</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>2</ipxact:left>
@@ -5931,7 +5931,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_auser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -5953,7 +5953,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_wuser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -6019,7 +6019,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_atop</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>5</ipxact:left>
@@ -6041,7 +6041,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_memtype</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -6063,7 +6063,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_mid</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89-1</ipxact:left>
@@ -6085,7 +6085,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_dbg</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -6151,7 +6151,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_achk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -6261,7 +6261,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_ruser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -6305,7 +6305,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_exokay</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -6371,7 +6371,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_rchk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -6393,7 +6393,7 @@
 			<ipxact:port>
 				<ipxact:name>dmem_prot</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>2</ipxact:left>
@@ -6525,7 +6525,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_auser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -6547,7 +6547,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_wuser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -6613,7 +6613,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_atop</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>5</ipxact:left>
@@ -6635,7 +6635,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_memtype</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -6657,7 +6657,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_mid</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89-1</ipxact:left>
@@ -6679,7 +6679,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_dbg</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -6745,7 +6745,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_achk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -6855,7 +6855,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_ruser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -6899,7 +6899,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_exokay</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -6965,7 +6965,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_rchk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -6987,7 +6987,7 @@
 			<ipxact:port>
 				<ipxact:name>imem_prot</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>2</ipxact:left>
@@ -7031,7 +7031,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_exokay</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -7097,7 +7097,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_rchk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -7148,7 +7148,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_ruser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -7199,7 +7199,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_achk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>
@@ -7250,7 +7250,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_atop</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>5</ipxact:left>
@@ -7267,7 +7267,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_auser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -7301,7 +7301,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_dbg</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left></ipxact:left>
@@ -7318,7 +7318,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_memtype</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>1</ipxact:left>
@@ -7335,7 +7335,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_mid</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89-1</ipxact:left>
@@ -7352,7 +7352,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_prot</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>2</ipxact:left>
@@ -7471,7 +7471,7 @@
 			<ipxact:port>
 				<ipxact:name>ctrl_wuser</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_19ade9f6_86ea_41c5_af62_00779bf3a675-1</ipxact:left>
@@ -7492,7 +7492,7 @@
 			<ipxact:name>rtl</ipxact:name>
 			<ipxact:group>generatedFiles</ipxact:group>
 			<ipxact:file>
-				<ipxact:name>../../../../../src/rtl/sysctrl_obi_xbar.v</ipxact:name>
+				<ipxact:name>../../../../../src/rtl/sysctrl_obi_xbar.sv</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 11:37:30 on 24.03.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
@@ -7502,40 +7502,28 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="13" parameterId="uuid_a2cce975_dcab_44d4_8637_8b18ddff9841" resolve="user">
+		<ipxact:parameter kactus2:usageCount="23" parameterId="uuid_a2cce975_dcab_44d4_8637_8b18ddff9841" resolve="user">
 			<ipxact:name>OBI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="24" parameterId="uuid_92bc3882_911b_460b_a778_c71689dcc2f3" resolve="user">
+		<ipxact:parameter kactus2:usageCount="26" parameterId="uuid_92bc3882_911b_460b_a778_c71689dcc2f3" resolve="user">
 			<ipxact:name>OBI_CHKW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="37" parameterId="uuid_fcfdade5_1cbe_43c2_be43_3873e3d5c54a" resolve="user">
+		<ipxact:parameter kactus2:usageCount="65" parameterId="uuid_fcfdade5_1cbe_43c2_be43_3873e3d5c54a" resolve="user">
 			<ipxact:name>OBI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="29" parameterId="uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89" resolve="user">
+		<ipxact:parameter kactus2:usageCount="48" parameterId="uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89" resolve="user">
 			<ipxact:name>OBI_IDW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="31" parameterId="uuid_19ade9f6_86ea_41c5_af62_00779bf3a675" resolve="user">
+		<ipxact:parameter kactus2:usageCount="33" parameterId="uuid_19ade9f6_86ea_41c5_af62_00779bf3a675" resolve="user">
 			<ipxact:name>OBI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:fileDependencies>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/sysctrl_obi_xbar.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/OBI_BUS.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module OBI_BUS</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/sysctrl_obi_xbar.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/obi_xbar_intf.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module obi_xbar_intf</ipxact:description>
-			</kactus2:fileDependency>
-		</kactus2:fileDependencies>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>

@@ -6,7 +6,7 @@
 	<ipxact:version>1.1</ipxact:version>
 	<ipxact:designRef vendor="tuni.fi" library="soc" name="Didactic.design" version="1.1"/>
 	<ipxact:viewConfiguration>
-		<ipxact:instanceName>obi_icn_ss_0</ipxact:instanceName>
+		<ipxact:instanceName>i_obi_icn_ss</ipxact:instanceName>
 		<ipxact:view viewRef="flat_verilog"/>
 	</ipxact:viewConfiguration>
 	<ipxact:vendorExtensions>

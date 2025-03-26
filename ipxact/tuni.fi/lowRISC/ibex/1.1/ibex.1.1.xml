@@ -181,7 +181,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="full">
-					<ipxact:baseAddress>'h01010000</ipxact:baseAddress>
+					<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -257,7 +257,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="full">
-					<ipxact:baseAddress>'h01000000</ipxact:baseAddress>
+					<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -298,7 +298,7 @@
 		</ipxact:addressSpace>
 		<ipxact:addressSpace>
 			<ipxact:name>full</ipxact:name>
-			<ipxact:range>'hFFFFFFFF</ipxact:range>
+			<ipxact:range>'h1_0000_0000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:addressSpace>
