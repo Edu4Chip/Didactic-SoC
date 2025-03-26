@@ -10,7 +10,7 @@ initialize:
     - make repository_init
     - which verilator
     - verilator --version
-    artifacts:
+  artifacts:
     expire_in: "30 mins"
     paths:
       - .bender/git/checkouts/

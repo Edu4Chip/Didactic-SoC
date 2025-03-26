@@ -65,6 +65,7 @@ module ibex_wrapper #(
     output logic         [31:0]          data_addr_o,
     output logic         [3:0]           data_be_o,
     output logic                         data_req_o,
+    output logic                         data_reqpar_o,
     output logic         [31:0]          data_wdata_o,
     output logic                         data_we_o,
 
@@ -75,6 +76,7 @@ module ibex_wrapper #(
     input  logic                         instr_rvalid_i,
     output logic         [31:0]          instr_addr_o,
     output logic                         instr_req_o,
+    output logic                         instr_reqpar_o,
 
     // These ports are not in any interface
     input  logic         [6:0]           instr_rdata_intg_i,
@@ -100,6 +102,15 @@ module ibex_wrapper #(
     output logic                         double_fault_seen_o,
     output logic                         scramble_req_o
 );
+
+  logic data_req_s;
+  logic instr_req_s;
+
+  assign data_req_o = data_req_s;
+  assign data_reqpar_o = ~data_req_s;
+  assign instr_req_o = instr_req_s;
+  assign instr_reqpar_o = ~instr_req_s;
+
 
   // If desirable, one can use:
   // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.0
@@ -152,7 +163,7 @@ module ibex_wrapper #(
       .data_rvalid_i       (data_rvalid_i),
       .data_addr_o         (data_addr_o),
       .data_be_o           (data_be_o),
-      .data_req_o          (data_req_o),
+      .data_req_o          (data_req_s),
       .data_wdata_intg_o   (data_wdata_intg_o),
       .data_wdata_o        (data_wdata_o),
       .data_we_o           (data_we_o),
@@ -163,7 +174,7 @@ module ibex_wrapper #(
       .instr_rdata_intg_i   (instr_rdata_intg_i),
       .instr_rvalid_i       (instr_rvalid_i),
       .instr_addr_o         (instr_addr_o),
-      .instr_req_o          (instr_req_o),
+      .instr_req_o          (instr_req_s),
       // These ports are not in any interface
       .boot_addr_i          (boot_addr_i),
       .hart_id_i            (hart_id_i),
