@@ -31,9 +31,9 @@ module jtag_dbg_wrapper_obi #(
   )(
     // Interface: OBI_I
     input  logic                    initiator_gnt_i,
-    input  logic                    initiator_r_valid_i,
-    input  logic                    initiator_r_err_i,
-    input  logic [OBI_DW-1:0]       initiator_r_rdata_i,
+    input  logic                    initiator_rvalid_i,
+    input  logic                    initiator_err_i,
+    input  logic [OBI_DW-1:0]       initiator_rdata_i,
     output logic                    initiator_req_o,
     output logic [OBI_AW-1:0]       initiator_addr_o,
     output logic                    initiator_we_o,
@@ -152,10 +152,10 @@ logic                         dmi_resp_ready_s;
     .master_wdata_o       ( initiator_wdata_o   ),
     .master_be_o          ( initiator_be_o      ),
     .master_gnt_i         ( initiator_gnt_i     ),
-    .master_r_valid_i     ( initiator_r_valid_i ),
-    .master_r_err_i       ( initiator_r_err_i   ),
-    .master_r_other_err_i ( '0                  ),
-    .master_r_rdata_i     ( initiator_r_rdata_i ),
+    .master_rvalid_i     ( initiator_r_valid_i ),
+    .master_err_i       ( initiator_err_i   ),
+    .master_other_err_i ( '0                  ),
+    .master_rdata_i     ( initiator_r_rdata_i ),
     //
     .dmi_rst_ni           ( rstn_i              ),
     .dmi_req_valid_i      ( dmi_req_valid_s     ),

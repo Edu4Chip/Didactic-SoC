@@ -208,49 +208,49 @@ module obi_icn_ss #(
   assign APB_2_PSTRB = icn_bus[2].pstrb;
 
   // Interface: apb_spi
-  assign icn_bus[2].prdata = APB_3_PRDATA;
-  assign icn_bus[2].pready = APB_3_PREADY;
-  assign icn_bus[2].pslverr = APB_3_PSLVERR;
-  assign APB_3_PADDR = icn_bus[2].paddr;
-  assign APB_3_PENABLE = icn_bus[2].penable;
-  assign APB_3_PSEL = icn_bus[2].psel;
-  assign APB_3_PWDATA = icn_bus[2].pwdata;
-  assign APB_3_PWRITE = icn_bus[2].pwrite;
-  assign APB_3_PSTRB = icn_bus[2].pstrb;
+  assign icn_bus[3].prdata = APB_3_PRDATA;
+  assign icn_bus[3].pready = APB_3_PREADY;
+  assign icn_bus[3].pslverr = APB_3_PSLVERR;
+  assign APB_3_PADDR = icn_bus[3].paddr;
+  assign APB_3_PENABLE = icn_bus[3].penable;
+  assign APB_3_PSEL = icn_bus[3].psel;
+  assign APB_3_PWDATA = icn_bus[3].pwdata;
+  assign APB_3_PWRITE = icn_bus[3].pwrite;
+  assign APB_3_PSTRB = icn_bus[3].pstrb;
 
   // Interface: obi
-  assign initiator_bus.achk = obi_achk;
-  assign initiator_bus.addr = obi_addr;
-  assign initiator_bus.aid = obi_aid;
-  assign initiator_bus.atop = obi_atop;
-  assign initiator_bus.auser = obi_auser;
-  assign initiator_bus.be = obi_be;
-  assign initiator_bus.dbg = obi_dbg;
-  assign initiator_bus.memtype = obi_memtype;
-  assign initiator_bus.mid = obi_mid;
-  assign initiator_bus.prot = obi_prot;
-  assign initiator_bus.req = obi_req;
-  assign initiator_bus.reqpar = obi_reqpar;
-  assign initiator_bus.rready = obi_rready;
-  assign initiator_bus.rreadypar = obi_rreadypar;
-  assign initiator_bus.wdata = obi_wdata;
-  assign initiator_bus.we = obi_we;
-  assign initiator_bus.wuser = obi_wuser;
+//  assign initiator_bus[0].achk = obi_achk;
+  assign initiator_bus[0].addr = obi_addr;
+  assign initiator_bus[0].aid = obi_aid;
+//  assign initiator_bus[0].atop = obi_atop;
+//  assign initiator_bus[0].auser = obi_auser;
+  assign initiator_bus[0].be = obi_be;
+//  assign initiator_bus[0].dbg = obi_dbg;
+//  assign initiator_bus[0].memtype = obi_memtype;
+//  assign initiator_bus[0].mid = obi_mid;
+//  assign initiator_bus[0].prot = obi_prot;
+  assign initiator_bus[0].req = obi_req;
+  assign initiator_bus[0].reqpar = obi_reqpar;
+  assign initiator_bus[0].rready = obi_rready;
+  assign initiator_bus[0].rreadypar = obi_rreadypar;
+  assign initiator_bus[0].wdata = obi_wdata;
+  assign initiator_bus[0].we = obi_we;
+//  assign initiator_bus[0].wuser = obi_wuser;
 
   // a optional signals such as achk etc
   // assign initiator_bus.a_optional = 'h0;
   // r opional sigans such as ruser
   // initiator_bus.r_optional
 
-  assign obi_err = initiator_bus.err;
-  assign obi_exokay = initiator_bus.exokay;
-  assign obi_gnt = initiator_bus.gnt;
-  assign obi_gntpar = initiator_bus.gntpar;
-  assign obi_rchk = initiator_bus.rchk;
-  assign obi_rdata = initiator_bus.rdata;
-  assign obi_rid = initiator_bus.rid;
-  assign obi_ruser = initiator_bus.ruser;
-  assign obi_rvalid = initiator_bus.rvalid;
-  assign obi_rvalidpar = initiator_bus.rvalidpar;
+  assign obi_err = initiator_bus[0].err;
+//  assign obi_exokay = initiator_bus[0].exokay;
+  assign obi_gnt = initiator_bus[0].gnt;
+  assign obi_gntpar = initiator_bus[0].gntpar;
+//  assign obi_rchk = initiator_bus[0].rchk;
+  assign obi_rdata = initiator_bus[0].rdata;
+  assign obi_rid = initiator_bus[0].rid;
+//  assign obi_ruser = initiator_bus[0].ruser;
+  assign obi_rvalid = initiator_bus[0].rvalid;
+  assign obi_rvalidpar = initiator_bus[0].rvalidpar;
 
 endmodule

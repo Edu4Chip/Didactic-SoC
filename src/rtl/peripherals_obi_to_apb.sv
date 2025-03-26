@@ -91,10 +91,6 @@ module peripherals_obi_to_apb #(
   localparam TARGETS = 3;
   localparam INITIATORS = 1;
 
-  // bus defaults 32 
-  OBI_BUS #() target_bus [TARGETS-1:0]();
-  OBI_BUS #() initiator_bus [INITIATORS-1:0] ();
-  APB #() peripheral_bus [TARGETS-1:0] ();
 
   typedef struct packed {
     int unsigned idx;
@@ -113,6 +109,11 @@ module peripherals_obi_to_apb #(
       '{idx: 32'd1, start_addr: ADDR_BASE+APB_SIZE*1, end_addr: ADDR_BASE+APB_SIZE*2-1},//uart
       '{idx: 32'd0, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1-1} //gpio
      };
+
+  // bus defaults 32 
+  OBI_BUS #() target_bus [TARGETS-1:0]();
+  OBI_BUS #() initiator_bus [INITIATORS-1:0] ();
+  APB #() peripheral_bus [TARGETS-1:0] ();
 
   obi_xbar_intf #(
     .NumSbrPorts       (INITIATORS),
@@ -184,38 +185,38 @@ module peripherals_obi_to_apb #(
   assign APB_SPI_PWRITE = peripheral_bus[2].pwrite;
 
   // Interface: obi
-  assign initiator_bus.achk = achk;
-  assign initiator_bus.addr = addr;
-  assign initiator_bus.aid = aid;
-  assign initiator_bus.atop = atop;
-  assign initiator_bus.auser = auser;
-  assign initiator_bus.be = be;
-  assign initiator_bus.dbg = dbg;
-  assign initiator_bus.memtype = memtype;
-  assign initiator_bus.mid = mid;
-  assign initiator_bus.prot = prot;
-  assign initiator_bus.req = req;
-  assign initiator_bus.reqpar = reqpar;
-  assign initiator_bus.rready = rready;
-  assign initiator_bus.rreadypar = rreadypar;
-  assign initiator_bus.wdata = wdata;
-  assign initiator_bus.we = we;
-  assign initiator_bus.wuser = wuser;
+//  assign initiator_bus[0].achk = achk;
+  assign initiator_bus[0].addr = addr;
+  assign initiator_bus[0].aid = aid;
+//  assign initiator_bus[0].atop = atop;
+//  assign initiator_bus[0].auser = auser;
+  assign initiator_bus[0].be = be;
+//  assign initiator_bus[0].dbg = dbg;
+//  assign initiator_bus[0].memtype = memtype;
+//  assign initiator_bus[0].mid = mid;
+//  assign initiator_bus[0].prot = prot;
+  assign initiator_bus[0].req = req;
+  assign initiator_bus[0].reqpar = reqpar;
+  assign initiator_bus[0].rready = rready;
+  assign initiator_bus[0].rreadypar = rreadypar;
+  assign initiator_bus[0].wdata = wdata;
+  assign initiator_bus[0].we = we;
+//  assign initiator_bus[0].wuser = wuser;
 
   // a optional signals such as achk etc
-  // assign initiator_bus.a_optional = 'h0;
+  // assign initiator_bus[0].a_optional = 'h0;
   // r opional sigans such as ruser
-  // initiator_bus.r_optional
+  // initiator_bus[0].r_optional
 
-  assign err = initiator_bus.err;
-  assign exokay = initiator_bus.exokay;
-  assign gnt = initiator_bus.gnt;
-  assign gntpar = initiator_bus.gntpar;
-  assign rchk = initiator_bus.rchk;
-  assign rdata = initiator_bus.rdata;
-  assign rid = initiator_bus.rid;
-  assign ruser = initiator_bus.ruser;
-  assign rvalid = initiator_bus.rvalid;
-  assign rvalidpar = initiator_bus.rvalidpar;
+  assign err = initiator_bus[0].err;
+//  assign exokay = initiator_bus[0].exokay;
+  assign gnt = initiator_bus[0].gnt;
+  assign gntpar = initiator_bus[0].gntpar;
+//  assign rchk = initiator_bus[0].rchk;
+  assign rdata = initiator_bus[0].rdata;
+  assign rid = initiator_bus[0].rid;
+//  assign ruser = initiator_bus[0].ruser;
+  assign rvalid = initiator_bus[0].rvalid;
+  assign rvalidpar = initiator_bus[0].rvalidpar;
 
 endmodule
