@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 26.03.2025
-// Creation time : 10:23:40
+// Creation time : 10:27:21
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -571,11 +571,11 @@ module SysCtrl_SS_0 #(
     wire       jtag_dbg_wrapper_debug_req_irq_o;
     wire [31:0] jtag_dbg_wrapper_initiator_addr_o;
     wire [3:0] jtag_dbg_wrapper_initiator_be_o;
+    wire       jtag_dbg_wrapper_initiator_err_i;
     wire       jtag_dbg_wrapper_initiator_gnt_i;
-    wire       jtag_dbg_wrapper_initiator_r_err_i;
-    wire [31:0] jtag_dbg_wrapper_initiator_r_rdata_i;
-    wire       jtag_dbg_wrapper_initiator_r_valid_i;
+    wire [31:0] jtag_dbg_wrapper_initiator_rdata_i;
     wire       jtag_dbg_wrapper_initiator_req_o;
+    wire       jtag_dbg_wrapper_initiator_rvalid_i;
     wire [31:0] jtag_dbg_wrapper_initiator_wdata_o;
     wire       jtag_dbg_wrapper_initiator_we_o;
     wire       jtag_dbg_wrapper_jtag_tck_i;
@@ -1022,11 +1022,11 @@ module SysCtrl_SS_0 #(
     assign jtag_dbg_wrapper_Debug_to_i_ibex_wrapper_Debug_debug_req = jtag_dbg_wrapper_debug_req_irq_o;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_addr = jtag_dbg_wrapper_initiator_addr_o;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_be = jtag_dbg_wrapper_initiator_be_o;
+    assign jtag_dbg_wrapper_initiator_err_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_err;
     assign jtag_dbg_wrapper_initiator_gnt_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_gnt;
-    assign jtag_dbg_wrapper_initiator_r_err_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_err;
-    assign jtag_dbg_wrapper_initiator_r_rdata_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rdata;
-    assign jtag_dbg_wrapper_initiator_r_valid_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rvalid;
+    assign jtag_dbg_wrapper_initiator_rdata_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rdata;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_req = jtag_dbg_wrapper_initiator_req_o;
+    assign jtag_dbg_wrapper_initiator_rvalid_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rvalid;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_wdata = jtag_dbg_wrapper_initiator_wdata_o;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_we = jtag_dbg_wrapper_initiator_we_o;
     assign jtag_dbg_wrapper_jtag_tck_i = jtag_dbg_wrapper_JTAG_to_JTAG_tck;
@@ -1444,10 +1444,10 @@ module SysCtrl_SS_0 #(
         .jtag_trst_ni        (jtag_dbg_wrapper_jtag_trst_ni),
         .jtag_td_o           (jtag_dbg_wrapper_jtag_td_o),
         // Interface: OBI_I
+        .initiator_err_i     (jtag_dbg_wrapper_initiator_err_i),
         .initiator_gnt_i     (jtag_dbg_wrapper_initiator_gnt_i),
-        .initiator_r_err_i   (jtag_dbg_wrapper_initiator_r_err_i),
-        .initiator_r_rdata_i (jtag_dbg_wrapper_initiator_r_rdata_i),
-        .initiator_r_valid_i (jtag_dbg_wrapper_initiator_r_valid_i),
+        .initiator_rdata_i   (jtag_dbg_wrapper_initiator_rdata_i),
+        .initiator_rvalid_i  (jtag_dbg_wrapper_initiator_rvalid_i),
         .initiator_addr_o    (jtag_dbg_wrapper_initiator_addr_o),
         .initiator_be_o      (jtag_dbg_wrapper_initiator_be_o),
         .initiator_req_o     (jtag_dbg_wrapper_initiator_req_o),
