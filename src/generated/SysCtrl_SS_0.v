@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 26.03.2025
-// Creation time : 10:17:15
+// Creation time : 10:23:40
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -44,32 +44,21 @@ module SysCtrl_SS_0 #(
 
     // Interface: OBI
     input  logic                        obi_err,
-    input  logic                        obi_exokay,
     input  logic                        obi_gnt,
     input  logic                        obi_gntpar,
-    input  logic                        obi_rchk,
     input  logic         [31:0]         obi_rdata,
     input  logic         [1:0]          obi_rid,
-    input  logic                        obi_ruser,
     input  logic                        obi_rvalid,
     input  logic                        obi_rvalidpar,
-    output logic                        obi_achk,
     output logic         [31:0]         obi_addr,
     output logic                        obi_aid,
-    output logic         [5:0]          obi_atop,
-    output logic                        obi_auser,
     output logic         [3:0]          obi_be,
-    output logic                        obi_dbg,
-    output logic         [1:0]          obi_memtype,
-    output logic                        obi_mid,
-    output logic         [2:0]          obi_prot,
     output logic                        obi_req,
     output logic                        obi_reqpar,
     output logic                        obi_rready,
     output logic                        obi_rreadypar,
     output logic         [31:0]         obi_wdata,
     output logic                        obi_we,
-    output logic                        obi_wuser,
 
     // Interface: Reset
     input  logic                        reset_internal,
@@ -867,33 +856,22 @@ module SysCtrl_SS_0 #(
     assign jtag_tdo_internal = jtag_dbg_wrapper_JTAG_to_JTAG_tdo;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tms = jtag_tms_internal;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_trst = jtag_trst_internal;
-    assign obi_achk = sysctrl_obi_xbar_obi_chip_top_to_OBI_achk;
     assign obi_addr = sysctrl_obi_xbar_obi_chip_top_to_OBI_addr;
     assign obi_aid = sysctrl_obi_xbar_obi_chip_top_to_OBI_aid;
-    assign obi_atop = sysctrl_obi_xbar_obi_chip_top_to_OBI_atop;
-    assign obi_auser = sysctrl_obi_xbar_obi_chip_top_to_OBI_auser;
     assign obi_be = sysctrl_obi_xbar_obi_chip_top_to_OBI_be;
-    assign obi_dbg = sysctrl_obi_xbar_obi_chip_top_to_OBI_dbg;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_err = obi_err;
-    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_exokay = obi_exokay;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_gnt = obi_gnt;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_gntpar = obi_gntpar;
-    assign obi_memtype = sysctrl_obi_xbar_obi_chip_top_to_OBI_memtype;
-    assign obi_mid = sysctrl_obi_xbar_obi_chip_top_to_OBI_mid;
-    assign obi_prot = sysctrl_obi_xbar_obi_chip_top_to_OBI_prot;
-    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rchk = obi_rchk;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rdata = obi_rdata;
     assign obi_req = sysctrl_obi_xbar_obi_chip_top_to_OBI_req;
     assign obi_reqpar = sysctrl_obi_xbar_obi_chip_top_to_OBI_reqpar;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rid = obi_rid;
     assign obi_rready = sysctrl_obi_xbar_obi_chip_top_to_OBI_rready;
     assign obi_rreadypar = sysctrl_obi_xbar_obi_chip_top_to_OBI_rreadypar;
-    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_ruser = obi_ruser;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalid = obi_rvalid;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalidpar = obi_rvalidpar;
     assign obi_wdata = sysctrl_obi_xbar_obi_chip_top_to_OBI_wdata;
     assign obi_we = sysctrl_obi_xbar_obi_chip_top_to_OBI_we;
-    assign obi_wuser = sysctrl_obi_xbar_obi_chip_top_to_OBI_wuser;
     assign pmod_sel = ctrl_reg_array_pmod_sel_to_pmod_sel_gpo;
     assign reset_icn = ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
     assign ctrl_reg_array_Reset_to_Reset_reset = reset_internal;

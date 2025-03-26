@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 26.03.2025
-// Creation time : 10:17:15
+// Creation time : 10:23:39
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -47,32 +47,21 @@ module SysCtrl_SS_wrapper_0 #(
 
     // Interface: OBI
     input  logic                        obi_err,
-    input  logic                        obi_exokay,
     input  logic                        obi_gnt,
     input  logic                        obi_gntpar,
-    input  logic                        obi_rchk,
     input  logic         [31:0]         obi_rdata,
     input  logic         [1:0]          obi_rid,
-    input  logic                        obi_ruser,
     input  logic                        obi_rvalid,
     input  logic                        obi_rvalidpar,
-    output logic                        obi_achk,
     output logic         [31:0]         obi_addr,
     output logic                        obi_aid,
-    output logic         [5:0]          obi_atop,
-    output logic                        obi_auser,
     output logic         [3:0]          obi_be,
-    output logic                        obi_dbg,
-    output logic         [1:0]          obi_memtype,
-    output logic                        obi_mid,
-    output logic         [2:0]          obi_prot,
     output logic                        obi_req,
     output logic                        obi_reqpar,
     output logic                        obi_rready,
     output logic                        obi_rreadypar,
     output logic         [31:0]         obi_wdata,
     output logic                        obi_we,
-    output logic                        obi_wuser,
 
     // Interface: Reset
     inout  wire                         reset,
@@ -392,33 +381,22 @@ module SysCtrl_SS_wrapper_0 #(
     assign irq_en_2 = SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_irq_en;
     assign irq_en_3 = SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_irq_en;
     assign SysCtrl_SS_IRQ_to_IRQ_irq = irq_i;
-    assign obi_achk = SysCtrl_SS_OBI_to_OBI_achk;
     assign obi_addr = SysCtrl_SS_OBI_to_OBI_addr;
     assign obi_aid = SysCtrl_SS_OBI_to_OBI_aid;
-    assign obi_atop = SysCtrl_SS_OBI_to_OBI_atop;
-    assign obi_auser = SysCtrl_SS_OBI_to_OBI_auser;
     assign obi_be = SysCtrl_SS_OBI_to_OBI_be;
-    assign obi_dbg = SysCtrl_SS_OBI_to_OBI_dbg;
     assign SysCtrl_SS_OBI_to_OBI_err = obi_err;
-    assign SysCtrl_SS_OBI_to_OBI_exokay = obi_exokay;
     assign SysCtrl_SS_OBI_to_OBI_gnt = obi_gnt;
     assign SysCtrl_SS_OBI_to_OBI_gntpar = obi_gntpar;
-    assign obi_memtype = SysCtrl_SS_OBI_to_OBI_memtype;
-    assign obi_mid = SysCtrl_SS_OBI_to_OBI_mid;
-    assign obi_prot = SysCtrl_SS_OBI_to_OBI_prot;
-    assign SysCtrl_SS_OBI_to_OBI_rchk = obi_rchk;
     assign SysCtrl_SS_OBI_to_OBI_rdata = obi_rdata;
     assign obi_req = SysCtrl_SS_OBI_to_OBI_req;
     assign obi_reqpar = SysCtrl_SS_OBI_to_OBI_reqpar;
     assign SysCtrl_SS_OBI_to_OBI_rid = obi_rid;
     assign obi_rready = SysCtrl_SS_OBI_to_OBI_rready;
     assign obi_rreadypar = SysCtrl_SS_OBI_to_OBI_rreadypar;
-    assign SysCtrl_SS_OBI_to_OBI_ruser = obi_ruser;
     assign SysCtrl_SS_OBI_to_OBI_rvalid = obi_rvalid;
     assign SysCtrl_SS_OBI_to_OBI_rvalidpar = obi_rvalidpar;
     assign obi_wdata = SysCtrl_SS_OBI_to_OBI_wdata;
     assign obi_we = SysCtrl_SS_OBI_to_OBI_we;
-    assign obi_wuser = SysCtrl_SS_OBI_to_OBI_wuser;
     assign reset_int = SysCtrl_SS_Reset_ICN_to_Reset_icn_reset;
     assign reset_ss = SysCtrl_SS_Reset_SS_to_Reset_SS_reset;
     assign ss_0_pmo_0_gpi = i_pmod_mux_ss_0_pmod_0_to_ss_0_pmod_gpio_0_gpi;
@@ -465,33 +443,22 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tdo = SysCtrl_SS_jtag_tdo_internal;
     assign SysCtrl_SS_jtag_tms_internal = i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_tms;
     assign SysCtrl_SS_jtag_trst_internal = i_io_cell_frame_JTAG_internal_to_SysCtrl_SS_JTAG_trst;
-    assign SysCtrl_SS_OBI_to_OBI_achk = SysCtrl_SS_obi_achk;
     assign SysCtrl_SS_OBI_to_OBI_addr = SysCtrl_SS_obi_addr;
     assign SysCtrl_SS_OBI_to_OBI_aid = SysCtrl_SS_obi_aid;
-    assign SysCtrl_SS_OBI_to_OBI_atop = SysCtrl_SS_obi_atop;
-    assign SysCtrl_SS_OBI_to_OBI_auser = SysCtrl_SS_obi_auser;
     assign SysCtrl_SS_OBI_to_OBI_be = SysCtrl_SS_obi_be;
-    assign SysCtrl_SS_OBI_to_OBI_dbg = SysCtrl_SS_obi_dbg;
     assign SysCtrl_SS_obi_err = SysCtrl_SS_OBI_to_OBI_err;
-    assign SysCtrl_SS_obi_exokay = SysCtrl_SS_OBI_to_OBI_exokay;
     assign SysCtrl_SS_obi_gnt = SysCtrl_SS_OBI_to_OBI_gnt;
     assign SysCtrl_SS_obi_gntpar = SysCtrl_SS_OBI_to_OBI_gntpar;
-    assign SysCtrl_SS_OBI_to_OBI_memtype = SysCtrl_SS_obi_memtype;
-    assign SysCtrl_SS_OBI_to_OBI_mid = SysCtrl_SS_obi_mid;
-    assign SysCtrl_SS_OBI_to_OBI_prot = SysCtrl_SS_obi_prot;
-    assign SysCtrl_SS_obi_rchk = SysCtrl_SS_OBI_to_OBI_rchk;
     assign SysCtrl_SS_obi_rdata = SysCtrl_SS_OBI_to_OBI_rdata;
     assign SysCtrl_SS_OBI_to_OBI_req = SysCtrl_SS_obi_req;
     assign SysCtrl_SS_OBI_to_OBI_reqpar = SysCtrl_SS_obi_reqpar;
     assign SysCtrl_SS_obi_rid = SysCtrl_SS_OBI_to_OBI_rid;
     assign SysCtrl_SS_OBI_to_OBI_rready = SysCtrl_SS_obi_rready;
     assign SysCtrl_SS_OBI_to_OBI_rreadypar = SysCtrl_SS_obi_rreadypar;
-    assign SysCtrl_SS_obi_ruser = SysCtrl_SS_OBI_to_OBI_ruser;
     assign SysCtrl_SS_obi_rvalid = SysCtrl_SS_OBI_to_OBI_rvalid;
     assign SysCtrl_SS_obi_rvalidpar = SysCtrl_SS_OBI_to_OBI_rvalidpar;
     assign SysCtrl_SS_OBI_to_OBI_wdata = SysCtrl_SS_obi_wdata;
     assign SysCtrl_SS_OBI_to_OBI_we = SysCtrl_SS_obi_we;
-    assign SysCtrl_SS_OBI_to_OBI_wuser = SysCtrl_SS_obi_wuser;
     assign i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo = SysCtrl_SS_pmod_sel;
     assign SysCtrl_SS_Reset_ICN_to_Reset_icn_reset = SysCtrl_SS_reset_icn;
     assign SysCtrl_SS_reset_internal = i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
@@ -588,32 +555,21 @@ module SysCtrl_SS_wrapper_0 #(
         .jtag_tdo_internal   (SysCtrl_SS_jtag_tdo_internal),
         // Interface: OBI
         .obi_err             (SysCtrl_SS_obi_err),
-        .obi_exokay          (SysCtrl_SS_obi_exokay),
         .obi_gnt             (SysCtrl_SS_obi_gnt),
         .obi_gntpar          (SysCtrl_SS_obi_gntpar),
-        .obi_rchk            (SysCtrl_SS_obi_rchk),
         .obi_rdata           (SysCtrl_SS_obi_rdata),
         .obi_rid             (SysCtrl_SS_obi_rid),
-        .obi_ruser           (SysCtrl_SS_obi_ruser),
         .obi_rvalid          (SysCtrl_SS_obi_rvalid),
         .obi_rvalidpar       (SysCtrl_SS_obi_rvalidpar),
-        .obi_achk            (SysCtrl_SS_obi_achk),
         .obi_addr            (SysCtrl_SS_obi_addr),
         .obi_aid             (SysCtrl_SS_obi_aid),
-        .obi_atop            (SysCtrl_SS_obi_atop),
-        .obi_auser           (SysCtrl_SS_obi_auser),
         .obi_be              (SysCtrl_SS_obi_be),
-        .obi_dbg             (SysCtrl_SS_obi_dbg),
-        .obi_memtype         (SysCtrl_SS_obi_memtype),
-        .obi_mid             (SysCtrl_SS_obi_mid),
-        .obi_prot            (SysCtrl_SS_obi_prot),
         .obi_req             (SysCtrl_SS_obi_req),
         .obi_reqpar          (SysCtrl_SS_obi_reqpar),
         .obi_rready          (SysCtrl_SS_obi_rready),
         .obi_rreadypar       (SysCtrl_SS_obi_rreadypar),
         .obi_wdata           (SysCtrl_SS_obi_wdata),
         .obi_we              (SysCtrl_SS_obi_we),
-        .obi_wuser           (SysCtrl_SS_obi_wuser),
         // Interface: Reset
         .reset_internal      (SysCtrl_SS_reset_internal),
         // Interface: Reset_ICN

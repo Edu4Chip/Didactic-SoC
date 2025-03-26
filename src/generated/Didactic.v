@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
 // Creation date : 26.03.2025
-// Creation time : 10:17:15
+// Creation time : 10:23:39
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -521,33 +521,22 @@ module Didactic #(
     assign SystemControl_SS_irq_i[1] = Student_SS_1_irq_1_to_SystemControl_SS_irq_i;
     assign SystemControl_SS_irq_i[2] = Student_SS_2_irq_2_to_SystemControl_SS_irq_i;
     assign SystemControl_SS_irq_i[3] = Student_SS_3_irq_3_to_SystemControl_SS_irq_i;
-    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_achk = SystemControl_SS_obi_achk;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_addr = SystemControl_SS_obi_addr;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_aid = SystemControl_SS_obi_aid;
-    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_atop = SystemControl_SS_obi_atop;
-    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_auser = SystemControl_SS_obi_auser;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_be = SystemControl_SS_obi_be;
-    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_dbg = SystemControl_SS_obi_dbg;
     assign SystemControl_SS_obi_err = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_err;
-    assign SystemControl_SS_obi_exokay = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_exokay;
     assign SystemControl_SS_obi_gnt = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_gnt;
     assign SystemControl_SS_obi_gntpar = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_gntpar;
-    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_memtype = SystemControl_SS_obi_memtype;
-    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_mid = SystemControl_SS_obi_mid;
-    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_prot = SystemControl_SS_obi_prot;
-    assign SystemControl_SS_obi_rchk = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rchk;
     assign SystemControl_SS_obi_rdata = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rdata;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_req = SystemControl_SS_obi_req;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_reqpar = SystemControl_SS_obi_reqpar;
     assign SystemControl_SS_obi_rid = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rid;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rready = SystemControl_SS_obi_rready;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rreadypar = SystemControl_SS_obi_rreadypar;
-    assign SystemControl_SS_obi_ruser = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_ruser;
     assign SystemControl_SS_obi_rvalid = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rvalid;
     assign SystemControl_SS_obi_rvalidpar = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rvalidpar;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_wdata = SystemControl_SS_obi_wdata;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_we = SystemControl_SS_obi_we;
-    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_wuser = SystemControl_SS_obi_wuser;
     assign i_obi_icn_ss_reset_to_SystemControl_SS_Reset_icn_reset = SystemControl_SS_reset_int;
     assign Student_SS_0_rst_to_SystemControl_SS_reset_ss = SystemControl_SS_reset_ss[0];
     assign Student_SS_1_reset_int_to_SystemControl_SS_reset_ss = SystemControl_SS_reset_ss[1];
@@ -807,32 +796,21 @@ module Didactic #(
         .jtag_trst           (jtag_trst),
         // Interface: OBI
         .obi_err             (SystemControl_SS_obi_err),
-        .obi_exokay          (SystemControl_SS_obi_exokay),
         .obi_gnt             (SystemControl_SS_obi_gnt),
         .obi_gntpar          (SystemControl_SS_obi_gntpar),
-        .obi_rchk            (SystemControl_SS_obi_rchk),
         .obi_rdata           (SystemControl_SS_obi_rdata),
         .obi_rid             (SystemControl_SS_obi_rid),
-        .obi_ruser           (SystemControl_SS_obi_ruser),
         .obi_rvalid          (SystemControl_SS_obi_rvalid),
         .obi_rvalidpar       (SystemControl_SS_obi_rvalidpar),
-        .obi_achk            (SystemControl_SS_obi_achk),
         .obi_addr            (SystemControl_SS_obi_addr),
         .obi_aid             (SystemControl_SS_obi_aid),
-        .obi_atop            (SystemControl_SS_obi_atop),
-        .obi_auser           (SystemControl_SS_obi_auser),
         .obi_be              (SystemControl_SS_obi_be),
-        .obi_dbg             (SystemControl_SS_obi_dbg),
-        .obi_memtype         (SystemControl_SS_obi_memtype),
-        .obi_mid             (SystemControl_SS_obi_mid),
-        .obi_prot            (SystemControl_SS_obi_prot),
         .obi_req             (SystemControl_SS_obi_req),
         .obi_reqpar          (SystemControl_SS_obi_reqpar),
         .obi_rready          (SystemControl_SS_obi_rready),
         .obi_rreadypar       (SystemControl_SS_obi_rreadypar),
         .obi_wdata           (SystemControl_SS_obi_wdata),
         .obi_we              (SystemControl_SS_obi_we),
-        .obi_wuser           (SystemControl_SS_obi_wuser),
         // Interface: Reset
         .reset               (reset),
         // Interface: Reset_SS
