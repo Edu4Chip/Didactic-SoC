@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 26.03.2025
-// Creation time : 11:19:10
+// Creation time : 14:15:04
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -502,6 +502,8 @@ module SysCtrl_SS_0 #(
     wire [84:0] ctrl_reg_array_cell_cfg;
     wire       ctrl_reg_array_clk;
     wire [4:0] ctrl_reg_array_fetch_en;
+    wire       ctrl_reg_array_gnt_o;
+    wire       ctrl_reg_array_gntpar_o;
     wire       ctrl_reg_array_irq_en_0;
     wire       ctrl_reg_array_irq_en_1;
     wire       ctrl_reg_array_irq_en_2;
@@ -515,6 +517,10 @@ module SysCtrl_SS_0 #(
     wire       ctrl_reg_array_reset_ss_1;
     wire       ctrl_reg_array_reset_ss_2;
     wire       ctrl_reg_array_reset_ss_3;
+    wire       ctrl_reg_array_rready;
+    wire       ctrl_reg_array_rreadypar;
+    wire       ctrl_reg_array_rvalid_o;
+    wire       ctrl_reg_array_rvalidpar_o;
     wire [7:0] ctrl_reg_array_ss_ctrl_0;
     wire [7:0] ctrl_reg_array_ss_ctrl_1;
     wire [7:0] ctrl_reg_array_ss_ctrl_2;
@@ -541,6 +547,7 @@ module SysCtrl_SS_0 #(
     wire       i_ibex_wrapper_data_gnt_i;
     wire [31:0] i_ibex_wrapper_data_rdata_i;
     wire       i_ibex_wrapper_data_req_o;
+    wire       i_ibex_wrapper_data_reqpar_o;
     wire       i_ibex_wrapper_data_rvalid_i;
     wire [31:0] i_ibex_wrapper_data_wdata_o;
     wire       i_ibex_wrapper_data_we_o;
@@ -551,6 +558,7 @@ module SysCtrl_SS_0 #(
     wire       i_ibex_wrapper_instr_gnt_i;
     wire [31:0] i_ibex_wrapper_instr_rdata_i;
     wire       i_ibex_wrapper_instr_req_o;
+    wire       i_ibex_wrapper_instr_reqpar_o;
     wire       i_ibex_wrapper_instr_rvalid_i;
     wire [14:0] i_ibex_wrapper_irq_fast_i;
     wire       i_ibex_wrapper_rst_ni;
@@ -658,6 +666,8 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_ctrl_dbg;
     wire       sysctrl_obi_xbar_ctrl_err;
     wire       sysctrl_obi_xbar_ctrl_exokay;
+    wire       sysctrl_obi_xbar_ctrl_gnt;
+    wire       sysctrl_obi_xbar_ctrl_gntpar;
     wire [1:0] sysctrl_obi_xbar_ctrl_memtype;
     wire       sysctrl_obi_xbar_ctrl_mid;
     wire [2:0] sysctrl_obi_xbar_ctrl_prot;
@@ -665,7 +675,10 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_ctrl_req;
     wire       sysctrl_obi_xbar_ctrl_rid;
     wire       sysctrl_obi_xbar_ctrl_rready;
+    wire       sysctrl_obi_xbar_ctrl_rreadypar;
     wire       sysctrl_obi_xbar_ctrl_ruser;
+    wire       sysctrl_obi_xbar_ctrl_rvalid;
+    wire       sysctrl_obi_xbar_ctrl_rvalidpar;
     wire [31:0] sysctrl_obi_xbar_ctrl_wdata;
     wire       sysctrl_obi_xbar_ctrl_we;
     wire       sysctrl_obi_xbar_ctrl_wuser;
@@ -683,6 +696,7 @@ module SysCtrl_SS_0 #(
     wire [2:0] sysctrl_obi_xbar_data_prot;
     wire [31:0] sysctrl_obi_xbar_data_rdata;
     wire       sysctrl_obi_xbar_data_req;
+    wire       sysctrl_obi_xbar_data_reqpar;
     wire       sysctrl_obi_xbar_data_rid;
     wire       sysctrl_obi_xbar_data_rready;
     wire       sysctrl_obi_xbar_data_ruser;
@@ -784,6 +798,7 @@ module SysCtrl_SS_0 #(
     wire [2:0] sysctrl_obi_xbar_instr_prot;
     wire [31:0] sysctrl_obi_xbar_instr_rdata;
     wire       sysctrl_obi_xbar_instr_req;
+    wire       sysctrl_obi_xbar_instr_reqpar;
     wire       sysctrl_obi_xbar_instr_rid;
     wire       sysctrl_obi_xbar_instr_rready;
     wire       sysctrl_obi_xbar_instr_ruser;
@@ -954,6 +969,8 @@ module SysCtrl_SS_0 #(
     assign ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg = ctrl_reg_array_cell_cfg;
     assign ctrl_reg_array_clk = jtag_dbg_wrapper_Clock_to_Clk_clk;
     assign ctrl_reg_array_fetch_en_to_i_ibex_wrapper_FetchEn_gpo = ctrl_reg_array_fetch_en;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gnt = ctrl_reg_array_gnt_o;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gntpar = ctrl_reg_array_gntpar_o;
     assign ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en = ctrl_reg_array_irq_en_0;
     assign ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en = ctrl_reg_array_irq_en_1;
     assign ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en = ctrl_reg_array_irq_en_2;
@@ -967,6 +984,10 @@ module SysCtrl_SS_0 #(
     assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[1] = ctrl_reg_array_reset_ss_1;
     assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[2] = ctrl_reg_array_reset_ss_2;
     assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[3] = ctrl_reg_array_reset_ss_3;
+    assign ctrl_reg_array_rready = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rready;
+    assign ctrl_reg_array_rreadypar = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rreadypar;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalid = ctrl_reg_array_rvalid_o;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalidpar = ctrl_reg_array_rvalidpar_o;
     assign ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl = ctrl_reg_array_ss_ctrl_0;
     assign ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl = ctrl_reg_array_ss_ctrl_1;
     assign ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl = ctrl_reg_array_ss_ctrl_2;
@@ -993,6 +1014,7 @@ module SysCtrl_SS_0 #(
     assign i_ibex_wrapper_data_gnt_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_gnt;
     assign i_ibex_wrapper_data_rdata_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rdata;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_req = i_ibex_wrapper_data_req_o;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_reqpar = i_ibex_wrapper_data_reqpar_o;
     assign i_ibex_wrapper_data_rvalid_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rvalid;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_wdata = i_ibex_wrapper_data_wdata_o;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_we = i_ibex_wrapper_data_we_o;
@@ -1003,6 +1025,7 @@ module SysCtrl_SS_0 #(
     assign i_ibex_wrapper_instr_gnt_i = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_gnt;
     assign i_ibex_wrapper_instr_rdata_i = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rdata;
     assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_req = i_ibex_wrapper_instr_req_o;
+    assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_reqpar = i_ibex_wrapper_instr_reqpar_o;
     assign i_ibex_wrapper_instr_rvalid_i = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rvalid;
     assign i_ibex_wrapper_irq_fast_i[0] = apb_gpio_interrupt_to_i_ibex_wrapper_irq_fast_i;
     assign i_ibex_wrapper_irq_fast_i[4:3] = apb_spi_master_events_o_to_i_ibex_wrapper_irq_fast_i;
@@ -1098,9 +1121,15 @@ module SysCtrl_SS_0 #(
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_addr = sysctrl_obi_xbar_ctrl_addr;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_be = sysctrl_obi_xbar_ctrl_be;
     assign sysctrl_obi_xbar_ctrl_err = 1'b0;
+    assign sysctrl_obi_xbar_ctrl_gnt = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gnt;
+    assign sysctrl_obi_xbar_ctrl_gntpar = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gntpar;
     assign sysctrl_obi_xbar_ctrl_rdata = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rdata;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_req = sysctrl_obi_xbar_ctrl_req;
     assign sysctrl_obi_xbar_ctrl_rid = 'h0;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rready = sysctrl_obi_xbar_ctrl_rready;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rreadypar = sysctrl_obi_xbar_ctrl_rreadypar;
+    assign sysctrl_obi_xbar_ctrl_rvalid = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalid;
+    assign sysctrl_obi_xbar_ctrl_rvalidpar = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalidpar;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wdata = sysctrl_obi_xbar_ctrl_wdata;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_we = sysctrl_obi_xbar_ctrl_we;
     assign sysctrl_obi_xbar_data_addr = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_addr;
@@ -1110,6 +1139,7 @@ module SysCtrl_SS_0 #(
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_gnt = sysctrl_obi_xbar_data_gnt;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rdata = sysctrl_obi_xbar_data_rdata;
     assign sysctrl_obi_xbar_data_req = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_req;
+    assign sysctrl_obi_xbar_data_reqpar = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_reqpar;
     assign sysctrl_obi_xbar_data_rready = 1'b1;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rvalid = sysctrl_obi_xbar_data_rvalid;
     assign sysctrl_obi_xbar_data_wdata = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_wdata;
@@ -1159,6 +1189,7 @@ module SysCtrl_SS_0 #(
     assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_gnt = sysctrl_obi_xbar_instr_gnt;
     assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rdata = sysctrl_obi_xbar_instr_rdata;
     assign sysctrl_obi_xbar_instr_req = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_req;
+    assign sysctrl_obi_xbar_instr_reqpar = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_reqpar;
     assign sysctrl_obi_xbar_instr_rready = 1'b1;
     assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rvalid = sysctrl_obi_xbar_instr_rvalid;
     assign sysctrl_obi_xbar_instr_wdata = 'h0;
@@ -1314,9 +1345,15 @@ module SysCtrl_SS_0 #(
         .addr_in             (ctrl_reg_array_addr_in),
         .be_in               (ctrl_reg_array_be_in),
         .req_in              (ctrl_reg_array_req_in),
+        .rready              (ctrl_reg_array_rready),
+        .rreadypar           (ctrl_reg_array_rreadypar),
         .wdata_in            (ctrl_reg_array_wdata_in),
         .we_in               (ctrl_reg_array_we_in),
+        .gnt_o               (ctrl_reg_array_gnt_o),
+        .gntpar_o            (ctrl_reg_array_gntpar_o),
         .rdata_out           (ctrl_reg_array_rdata_out),
+        .rvalid_o            (ctrl_reg_array_rvalid_o),
+        .rvalidpar_o         (ctrl_reg_array_rvalidpar_o),
         // Interface: pmod_sel
         .pmod_sel            (ctrl_reg_array_pmod_sel),
         // Interface: rst_icn
@@ -1382,6 +1419,7 @@ module SysCtrl_SS_0 #(
         .data_addr_o         (i_ibex_wrapper_data_addr_o),
         .data_be_o           (i_ibex_wrapper_data_be_o),
         .data_req_o          (i_ibex_wrapper_data_req_o),
+        .data_reqpar_o       (i_ibex_wrapper_data_reqpar_o),
         .data_wdata_o        (i_ibex_wrapper_data_wdata_o),
         .data_we_o           (i_ibex_wrapper_data_we_o),
         // Interface: imem
@@ -1391,6 +1429,7 @@ module SysCtrl_SS_0 #(
         .instr_rvalid_i      (i_ibex_wrapper_instr_rvalid_i),
         .instr_addr_o        (i_ibex_wrapper_instr_addr_o),
         .instr_req_o         (i_ibex_wrapper_instr_req_o),
+        .instr_reqpar_o      (i_ibex_wrapper_instr_reqpar_o),
         // These ports are not in any interface
         .boot_addr_i         (32'h1040100),
         .data_rdata_intg_i   (7'h0),
@@ -1566,7 +1605,7 @@ module SysCtrl_SS_0 #(
         .data_aid            (sysctrl_obi_xbar_data_aid),
         .data_be             (sysctrl_obi_xbar_data_be),
         .data_req            (sysctrl_obi_xbar_data_req),
-        .data_reqpar         (),
+        .data_reqpar         (sysctrl_obi_xbar_data_reqpar),
         .data_rready         (sysctrl_obi_xbar_data_rready),
         .data_rreadypar      (),
         .data_wdata          (sysctrl_obi_xbar_data_wdata),
@@ -1583,7 +1622,7 @@ module SysCtrl_SS_0 #(
         .instr_aid           (sysctrl_obi_xbar_instr_aid),
         .instr_be            (sysctrl_obi_xbar_instr_be),
         .instr_req           (sysctrl_obi_xbar_instr_req),
-        .instr_reqpar        (),
+        .instr_reqpar        (sysctrl_obi_xbar_instr_reqpar),
         .instr_rready        (sysctrl_obi_xbar_instr_rready),
         .instr_rreadypar     (),
         .instr_wdata         (sysctrl_obi_xbar_instr_wdata),
@@ -1597,19 +1636,19 @@ module SysCtrl_SS_0 #(
         .instr_rvalidpar     (),
         // Interface: obi_ctrl
         .ctrl_err            (sysctrl_obi_xbar_ctrl_err),
-        .ctrl_gnt            ('h0),
-        .ctrl_gntpar         ('h0),
+        .ctrl_gnt            (sysctrl_obi_xbar_ctrl_gnt),
+        .ctrl_gntpar         (sysctrl_obi_xbar_ctrl_gntpar),
         .ctrl_rdata          (sysctrl_obi_xbar_ctrl_rdata),
         .ctrl_rid            (sysctrl_obi_xbar_ctrl_rid),
-        .ctrl_rvalid         (),
-        .ctrl_rvalidpar      (),
+        .ctrl_rvalid         (sysctrl_obi_xbar_ctrl_rvalid),
+        .ctrl_rvalidpar      (sysctrl_obi_xbar_ctrl_rvalidpar),
         .ctrl_addr           (sysctrl_obi_xbar_ctrl_addr),
         .ctrl_aid            (sysctrl_obi_xbar_ctrl_aid),
         .ctrl_be             (sysctrl_obi_xbar_ctrl_be),
         .ctrl_req            (sysctrl_obi_xbar_ctrl_req),
         .ctrl_reqpar         (),
         .ctrl_rready         (sysctrl_obi_xbar_ctrl_rready),
-        .ctrl_rreadypar      (),
+        .ctrl_rreadypar      (sysctrl_obi_xbar_ctrl_rreadypar),
         .ctrl_wdata          (sysctrl_obi_xbar_ctrl_wdata),
         .ctrl_we             (sysctrl_obi_xbar_ctrl_we),
         // Interface: obi_dmem
