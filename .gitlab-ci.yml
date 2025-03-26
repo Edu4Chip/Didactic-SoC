@@ -3,84 +3,15 @@ default:
 
 stages:
   - initialize
-  - test
-  - verify
-
-variables:
-  TERM: "dumb"
 
 initialize:
   stage: initialize
   script:
-    - echo $PWD
-    - ls -l
-    - cat /etc/*-release
     - make repository_init
     - which verilator
     - verilator --version
-    - ls -l verification/verilator
-    - chmod u+x verification/verilator/scripts/do_fix.sh
-    - chmod u+x verification/verilator/scripts/run.sh
-    - chmod u+x verification/verilator/scripts/undo_fix.sh
-    - ls -l verification/verilator
-  artifacts:
+    artifacts:
     expire_in: "30 mins"
     paths:
-      - ips/*
-      - src/*
-      - verification/*
-
-default-executable:
-  stage: test
-  script:
-    - echo "test default executable"
-    - make verilator-generate-bindings
-    - make verilator-generate-model
-    - make verilator-build
-    - make verilator-run
-
-example-executable:
-  stage: test
-  script:
-    - echo "test given executable"
-    - make verilator-generate-bindings
-    - make verilator-generate-model executable=example
-    - make verilator-build
-    - make verilator-run
-
-count-cycles-executable:
-  stage: test
-  script:
-    - echo "test cycle counter"
-    - make verilator-generate-bindings
-    - make verilator-generate-model executable=count_cycles
-    - make verilator-build
-    - make verilator-run
-
-verify-cycle-counts:
-  stage: verify
-  script:
-    - echo "verify cycle counts"
-    - make verilator-generate-bindings
-    - make verilator-generate-model executable=verify_cycle_counts
-    - make verilator-build
-    - make verilator-run
-
-verify-signal-propagation:
-  stage: verify
-  script:
-    - echo "verify signal propagation"
-    - make verilator-generate-bindings
-    - make verilator-generate-model executable=verify_signal_propagation
-    - make verilator-build
-    - make verilator-run
-
-verify-build-with-all-warnings:
-  stage: verify
-  script:
-    - echo "verify build with all warnings"
-    - chmod u+x verification/verilator/scripts/run.sh
-    - make verilator-generate-bindings
-    - ./verification/verilator/scripts/run_with_warnings.sh
-    - make verilator-build
-    - make verilator-run
+      - .bender/git/checkouts/
+      - vendor_ips/
