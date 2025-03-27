@@ -10,14 +10,52 @@ module sp_sram #(
 
   input  logic                         req_i,
   input  logic                         we_i,
+  input  logic                         rready_i,
   input  logic [$clog2(NUM_WORDS)-1:0] addr_i,
   input  logic [       DATA_WIDTH-1:0] wdata_i,
   input  logic [     DATA_WIDTH/8-1:0] be_i,
   output logic [       DATA_WIDTH-1:0] rdata_o,
+  output logic                         rvalid_o,
+  output logic                         rvalidpar_o,
+  output logic                         gnt_o,
+  output logic                         gntpar_o,
+
   // ports for compatability only
   output logic                         ruser_o,
   input  logic                         wuser_i
 );
+  /******** PARITY *****************/
+  logic rvalid_reg;
+  logic gnt_reg;
+  assign rvalid_o = rvalid_reg;
+  assign rvalidpar_o = ~rvalid_reg;
+  assign gnt_o = gnt_reg;
+  assign gntpar_o = ~gnt_reg;
+
+  /******* handshaking ********/
+  
+  always_ff @( posedge clk_i or negedge rst_ni )
+  begin : control_register_ff
+    if (~rst_ni) begin
+      gnt_reg = 1'b0;
+      rvalid_reg = 1'b0;
+    end
+    else begin
+      if(req_i & gnt_reg) begin
+        gnt_reg <= 1'b0;
+        rvalid_reg <= 1'b1;
+      end
+      else if(~rready_i & ~gnt_reg) begin
+        rvalid_reg <= 1'b1;
+      end
+      else begin
+        gnt_reg <= 1'b1;
+        rvalid_reg <= 1'b0;
+      end
+  end
+  end //ff
+ 
+  
 
 `ifndef FPGA /************************* ASIC SIM MODEL ****************************/
 

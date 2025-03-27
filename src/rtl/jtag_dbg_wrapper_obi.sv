@@ -35,6 +35,7 @@ module jtag_dbg_wrapper_obi #(
     input  logic                    initiator_err_i,
     input  logic [OBI_DW-1:0]       initiator_rdata_i,
     output logic                    initiator_req_o,
+    output logic                    initiator_reqpar_o,
     output logic [OBI_AW-1:0]       initiator_addr_o,
     output logic                    initiator_we_o,
     output logic [OBI_DW-1:0]       initiator_wdata_o,
@@ -48,7 +49,9 @@ module jtag_dbg_wrapper_obi #(
     input  logic [OBI_DW-1:0]       target_wdata_i,
     input  logic [OBI_ID_WIDTH-1:0] target_aid_i,
     output logic                    target_gnt_o,
+    output logic                    target_gntpar_o,
     output logic                    target_rvalid_o,
+    output logic                    target_rvalidpar_o,
     output logic [OBI_DW-1:0]       target_rdata_o,
     output logic [OBI_ID_WIDTH-1:0] target_rid_o,
     //
@@ -96,6 +99,21 @@ logic                         dmi_req_ready_s;
 logic                         dmi_resp_valid_s;
 logic                         dmi_resp_ready_s;
 
+/************ PARITY SIGNALS ***********/
+
+logic target_gnt_s;
+assign target_gnt_o = target_gnt_s;
+assign target_gntpar_o = ~target_gnt_s;
+
+logic target_rvalid_s;
+assign target_rvalid_o = target_rvalid_s;
+assign target_rvalidpar_o = ~target_rvalid_s;
+
+logic initiator_req_s;
+assign initiator_req_o = initiator_req_s;
+assign initiator_reqpar_o = ~initiator_req_s;
+
+
 /****** COMPONENT + INTERFACE INSTANTIATIONS **********************************/
 
   dmi_jtag #(
@@ -136,26 +154,26 @@ logic                         dmi_resp_ready_s;
     .hartinfo_i           ( DebugHartInfo       ),
     //
     .slave_req_i          ( target_req_i        ),
-    .slave_gnt_o          ( target_gnt_o        ),
+    .slave_gnt_o          ( target_gnt_s        ),
     .slave_we_i           ( target_we_i         ),
     .slave_addr_i         ( target_addr_i       ),
     .slave_be_i           ( target_be_i         ),
     .slave_wdata_i        ( target_wdata_i      ),
     .slave_aid_i          ( target_aid_i        ),
-    .slave_rvalid_o       ( target_rvalid_o     ),
+    .slave_rvalid_o       ( target_rvalid_s     ),
     .slave_rdata_o        ( target_rdata_o      ),
     .slave_rid_o          ( target_rid_o        ),
     //
-    .master_req_o         ( initiator_req_o     ),
+    .master_req_o         ( initiator_req_s     ),
     .master_addr_o        ( initiator_addr_o    ),
     .master_we_o          ( initiator_we_o      ),
     .master_wdata_o       ( initiator_wdata_o   ),
     .master_be_o          ( initiator_be_o      ),
     .master_gnt_i         ( initiator_gnt_i     ),
-    .master_rvalid_i      ( initiator_rvalid_i ),
-    .master_err_i         ( initiator_err_i   ),
+    .master_rvalid_i      ( initiator_rvalid_i  ),
+    .master_err_i         ( initiator_err_i     ),
     .master_other_err_i   ( '0                  ),
-    .master_rdata_i       ( initiator_rdata_i ),
+    .master_rdata_i       ( initiator_rdata_i   ),
     //
     .dmi_rst_ni           ( rstn_i              ),
     .dmi_req_valid_i      ( dmi_req_valid_s     ),
@@ -165,6 +183,7 @@ logic                         dmi_resp_ready_s;
     .dmi_resp_ready_i     ( dmi_resp_ready_s    ),
     .dmi_resp_o           ( dmi_resp_s          )
   );
+
 
   // ibex core reset control with debug module
   assign core_reset = rstn_i & ~(ndmreset_o);
