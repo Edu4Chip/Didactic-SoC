@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 27.03.2025
-// Creation time : 14:28:49
+// Creation time : 14:38:03
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -1055,7 +1055,7 @@ module SysCtrl_SS_0 #(
     assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_reqpar = i_ibex_wrapper_instr_reqpar_o;
     assign i_ibex_wrapper_instr_rvalid_i = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rvalid;
     assign i_ibex_wrapper_irq_fast_i[0] = apb_gpio_interrupt_to_i_ibex_wrapper_irq_fast_i;
-    assign i_ibex_wrapper_irq_fast_i[4:3] = apb_spi_master_events_o_to_i_ibex_wrapper_irq_fast_i;
+    assign i_ibex_wrapper_irq_fast_i[3:2] = apb_spi_master_events_o_to_i_ibex_wrapper_irq_fast_i;
     assign i_ibex_wrapper_irq_fast_i[1] = apb_uart_INT_to_i_ibex_wrapper_irq_fast_i;
     assign i_ibex_wrapper_irq_fast_i[14:8] = i_ibex_wrapper_irq_fast_i_to_irq_upper_tieoff;
     assign i_ibex_wrapper_irq_fast_i[7:4] = i_ibex_wrapper_irq_fast_i_to_sysctrl_irq_i;

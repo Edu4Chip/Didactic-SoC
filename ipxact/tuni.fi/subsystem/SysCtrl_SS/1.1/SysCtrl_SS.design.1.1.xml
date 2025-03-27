@@ -509,8 +509,8 @@
 				<ipxact:internalPortReference componentInstanceRef="i_ibex_wrapper" portRef="irq_fast_i">
 					<ipxact:partSelect>
 						<ipxact:range>
-							<ipxact:left>4</ipxact:left>
-							<ipxact:right>3</ipxact:right>
+							<ipxact:left>3</ipxact:left>
+							<ipxact:right>2</ipxact:right>
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:internalPortReference>
@@ -527,7 +527,14 @@
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:internalPortReference>
-				<ipxact:externalPortReference portRef="sysctrl_irq_i"/>
+				<ipxact:externalPortReference portRef="sysctrl_irq_i">
+					<ipxact:partSelect>
+						<ipxact:range>
+							<ipxact:left>3</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:range>
+					</ipxact:partSelect>
+				</ipxact:externalPortReference>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
 		<ipxact:adHocConnection>
