@@ -38,7 +38,7 @@
 								<ipxact:name>reset</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>reset</ipxact:name>
+								<ipxact:name>reset_n</ipxact:name>
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
@@ -59,7 +59,7 @@
 								<ipxact:name>req</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>req_in</ipxact:name>
+								<ipxact:name>req_i</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
@@ -67,7 +67,7 @@
 								<ipxact:name>addr</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>addr_in</ipxact:name>
+								<ipxact:name>addr_i</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
@@ -75,7 +75,7 @@
 								<ipxact:name>we</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>we_in</ipxact:name>
+								<ipxact:name>we_i</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
@@ -83,7 +83,7 @@
 								<ipxact:name>wdata</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>wdata_in</ipxact:name>
+								<ipxact:name>wdata_i</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
@@ -99,7 +99,7 @@
 								<ipxact:name>rdata</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>rdata_out</ipxact:name>
+								<ipxact:name>rdata_o</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
@@ -107,7 +107,7 @@
 								<ipxact:name>be</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>be_in</ipxact:name>
+								<ipxact:name>be_i</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
@@ -131,7 +131,7 @@
 								<ipxact:name>rready</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>rready</ipxact:name>
+								<ipxact:name>rready_i</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
@@ -140,14 +140,6 @@
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>rvalidpar_o</ipxact:name>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>rreadypar</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>rreadypar</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 					</ipxact:portMaps>
@@ -1196,138 +1188,6 @@
 		</ipxact:instantiations>
 		<ipxact:ports>
 			<ipxact:port>
-				<ipxact:name>req_in</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>we_in</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>addr_in</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2-1</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>be_in</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea/8-1</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>rdata_out</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea-1</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>wdata_in</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea-1</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
 				<ipxact:name>ss_ctrl_icn</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
@@ -1658,23 +1518,6 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>reset</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
 				<ipxact:name>clk</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
@@ -1794,7 +1637,7 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>rready</ipxact:name>
+				<ipxact:name>reset_n</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -1811,7 +1654,109 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>rreadypar</ipxact:name>
+				<ipxact:name>rready_i</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>rdata_o</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>addr_i</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>be_i</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea/8-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>req_i</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>wdata_i</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>we_i</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
@@ -1842,24 +1787,24 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="9" parameterId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b" resolve="user">
+		<ipxact:parameter kactus2:usageCount="15" parameterId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>update/propagate this value to match cell numbers</ipxact:description>
 			<ipxact:value>28</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="9" parameterId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960" resolve="user">
+		<ipxact:parameter kactus2:usageCount="15" parameterId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="9" parameterId="uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2" resolve="user">
+		<ipxact:parameter kactus2:usageCount="14" parameterId="uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2" resolve="user">
 			<ipxact:name>AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="19" parameterId="uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea" resolve="user">
+		<ipxact:parameter kactus2:usageCount="28" parameterId="uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea" resolve="user">
 			<ipxact:name>DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="19" parameterId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79" resolve="user">
+		<ipxact:parameter kactus2:usageCount="37" parameterId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:description>configurable up to 31 bits</ipxact:description>
 			<ipxact:value>31</ipxact:value>

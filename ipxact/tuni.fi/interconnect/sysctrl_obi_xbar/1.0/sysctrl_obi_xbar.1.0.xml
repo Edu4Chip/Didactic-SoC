@@ -3995,7 +3995,7 @@
 			<ipxact:port>
 				<ipxact:name>dm_init_rchk</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
+					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
 							<ipxact:left>uuid_92bc3882_911b_460b_a778_c71689dcc2f3-1</ipxact:left>

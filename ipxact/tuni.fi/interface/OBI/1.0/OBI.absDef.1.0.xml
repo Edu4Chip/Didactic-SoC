@@ -396,6 +396,7 @@
 					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
+				<ipxact:defaultValue>1'b0</ipxact:defaultValue>
 			</ipxact:wire>
 		</ipxact:port>
 		<ipxact:port>

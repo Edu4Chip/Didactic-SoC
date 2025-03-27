@@ -72,7 +72,7 @@ sources:
 
   - target: rtl
     files:
-    - src/reuse/sp_sram.sv
+    - src/rtl/sp_sram.sv
     - src/rtl/io_cell_frame_sysctrl.sv
     - src/tech_generic/io_cell_wrapper.sv
     - src/tech_generic/tech_cg.sv

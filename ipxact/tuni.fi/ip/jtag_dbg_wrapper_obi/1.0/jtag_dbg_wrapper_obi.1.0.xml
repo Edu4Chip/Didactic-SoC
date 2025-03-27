@@ -225,6 +225,14 @@
 								<ipxact:name>initiator_err_i</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>reqpar</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>initiator_reqpar_o</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
@@ -315,6 +323,22 @@
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>target_rid_o</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>rvalidpar</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>target_rvalidpar_o</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gntpar</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>target_gntpar_o</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 					</ipxact:portMaps>
@@ -842,6 +866,57 @@
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>initiator_reqpar_o</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>target_gntpar_o</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>target_rvalidpar_o</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:fileSets>
@@ -855,19 +930,19 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_16cbafe0_5682_4fcd_b153_16c0454ac319" resolve="user">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_16cbafe0_5682_4fcd_b153_16c0454ac319" resolve="user">
 			<ipxact:name>DM_BASE_ADDRESS</ipxact:name>
 			<ipxact:value>'h1000</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_d7bb2734_1d0d_4c03_8fa4_ff989442bbfa" resolve="user">
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_d7bb2734_1d0d_4c03_8fa4_ff989442bbfa" resolve="user">
 			<ipxact:name>DM_ID_VALUE</ipxact:name>
 			<ipxact:value>32'hf007ba11</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="11" parameterId="uuid_7089444c_98e7_467c_a916_ab5b3233b343" resolve="immediate">
+		<ipxact:parameter kactus2:usageCount="17" parameterId="uuid_7089444c_98e7_467c_a916_ab5b3233b343" resolve="immediate">
 			<ipxact:name>OBI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_e64ac235_c37b_4ce6_ab63_f841c932c75a" resolve="immediate">
+		<ipxact:parameter kactus2:usageCount="6" parameterId="uuid_e64ac235_c37b_4ce6_ab63_f841c932c75a" resolve="immediate">
 			<ipxact:name>OBI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
@@ -879,7 +954,7 @@
 			<ipxact:name>DBG_BUS_WIDTH</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_9460868f_24a3_46af_8a47_e5aad00cd116" resolve="immediate">
+		<ipxact:parameter kactus2:usageCount="6" parameterId="uuid_9460868f_24a3_46af_8a47_e5aad00cd116" resolve="immediate">
 			<ipxact:name>OBI_ID_WIDTH</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 26.03.2025
-// Creation time : 14:15:04
+// Creation date : 27.03.2025
+// Creation time : 14:28:49
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -497,8 +497,8 @@ module SysCtrl_SS_0 #(
     wire       apb_uart_SIN;
     wire       apb_uart_SOUT;
     // ctrl_reg_array port wires:
-    wire [31:0] ctrl_reg_array_addr_in;
-    wire [3:0] ctrl_reg_array_be_in;
+    wire [31:0] ctrl_reg_array_addr_i;
+    wire [3:0] ctrl_reg_array_be_i;
     wire [84:0] ctrl_reg_array_cell_cfg;
     wire       ctrl_reg_array_clk;
     wire [4:0] ctrl_reg_array_fetch_en;
@@ -509,16 +509,15 @@ module SysCtrl_SS_0 #(
     wire       ctrl_reg_array_irq_en_2;
     wire       ctrl_reg_array_irq_en_3;
     wire [7:0] ctrl_reg_array_pmod_sel;
-    wire [31:0] ctrl_reg_array_rdata_out;
-    wire       ctrl_reg_array_req_in;
-    wire       ctrl_reg_array_reset;
+    wire [31:0] ctrl_reg_array_rdata_o;
+    wire       ctrl_reg_array_req_i;
     wire       ctrl_reg_array_reset_icn;
+    wire       ctrl_reg_array_reset_n;
     wire       ctrl_reg_array_reset_ss_0;
     wire       ctrl_reg_array_reset_ss_1;
     wire       ctrl_reg_array_reset_ss_2;
     wire       ctrl_reg_array_reset_ss_3;
-    wire       ctrl_reg_array_rready;
-    wire       ctrl_reg_array_rreadypar;
+    wire       ctrl_reg_array_rready_i;
     wire       ctrl_reg_array_rvalid_o;
     wire       ctrl_reg_array_rvalidpar_o;
     wire [7:0] ctrl_reg_array_ss_ctrl_0;
@@ -526,19 +525,22 @@ module SysCtrl_SS_0 #(
     wire [7:0] ctrl_reg_array_ss_ctrl_2;
     wire [7:0] ctrl_reg_array_ss_ctrl_3;
     wire [7:0] ctrl_reg_array_ss_ctrl_icn;
-    wire [31:0] ctrl_reg_array_wdata_in;
-    wire       ctrl_reg_array_we_in;
+    wire [31:0] ctrl_reg_array_wdata_i;
+    wire       ctrl_reg_array_we_i;
     // i_dmem port wires:
     wire [11:0] i_dmem_addr_i;
     wire [3:0] i_dmem_be_i;
     wire       i_dmem_clk_i;
+    wire       i_dmem_gnt_o;
+    wire       i_dmem_gntpar_o;
     wire [31:0] i_dmem_rdata_o;
     wire       i_dmem_req_i;
+    wire       i_dmem_rready_i;
     wire       i_dmem_rst_ni;
-    wire       i_dmem_ruser_o;
+    wire       i_dmem_rvalid_o;
+    wire       i_dmem_rvalidpar_o;
     wire [31:0] i_dmem_wdata_i;
     wire       i_dmem_we_i;
-    wire       i_dmem_wuser_i;
     // i_ibex_wrapper port wires:
     wire       i_ibex_wrapper_clk_i;
     wire [31:0] i_ibex_wrapper_data_addr_o;
@@ -566,13 +568,16 @@ module SysCtrl_SS_0 #(
     wire [11:0] i_imem_addr_i;
     wire [3:0] i_imem_be_i;
     wire       i_imem_clk_i;
+    wire       i_imem_gnt_o;
+    wire       i_imem_gntpar_o;
     wire [31:0] i_imem_rdata_o;
     wire       i_imem_req_i;
+    wire       i_imem_rready_i;
     wire       i_imem_rst_ni;
-    wire       i_imem_ruser_o;
+    wire       i_imem_rvalid_o;
+    wire       i_imem_rvalidpar_o;
     wire [31:0] i_imem_wdata_i;
     wire       i_imem_we_i;
-    wire       i_imem_wuser_i;
     // jtag_dbg_wrapper port wires:
     wire       jtag_dbg_wrapper_clk_i;
     wire       jtag_dbg_wrapper_core_reset;
@@ -583,6 +588,7 @@ module SysCtrl_SS_0 #(
     wire       jtag_dbg_wrapper_initiator_gnt_i;
     wire [31:0] jtag_dbg_wrapper_initiator_rdata_i;
     wire       jtag_dbg_wrapper_initiator_req_o;
+    wire       jtag_dbg_wrapper_initiator_reqpar_o;
     wire       jtag_dbg_wrapper_initiator_rvalid_i;
     wire [31:0] jtag_dbg_wrapper_initiator_wdata_o;
     wire       jtag_dbg_wrapper_initiator_we_o;
@@ -596,10 +602,12 @@ module SysCtrl_SS_0 #(
     wire       jtag_dbg_wrapper_target_aid_i;
     wire [3:0] jtag_dbg_wrapper_target_be_i;
     wire       jtag_dbg_wrapper_target_gnt_o;
+    wire       jtag_dbg_wrapper_target_gntpar_o;
     wire [31:0] jtag_dbg_wrapper_target_rdata_o;
     wire       jtag_dbg_wrapper_target_req_i;
     wire       jtag_dbg_wrapper_target_rid_o;
     wire       jtag_dbg_wrapper_target_rvalid_o;
+    wire       jtag_dbg_wrapper_target_rvalidpar_o;
     wire [31:0] jtag_dbg_wrapper_target_wdata_i;
     wire       jtag_dbg_wrapper_target_we_i;
     // peripherals_obi_to_apb port wires:
@@ -699,6 +707,7 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_data_reqpar;
     wire       sysctrl_obi_xbar_data_rid;
     wire       sysctrl_obi_xbar_data_rready;
+    wire       sysctrl_obi_xbar_data_rreadypar;
     wire       sysctrl_obi_xbar_data_ruser;
     wire       sysctrl_obi_xbar_data_rvalid;
     wire [31:0] sysctrl_obi_xbar_data_wdata;
@@ -718,8 +727,10 @@ module SysCtrl_SS_0 #(
     wire [2:0] sysctrl_obi_xbar_dm_init_prot;
     wire [31:0] sysctrl_obi_xbar_dm_init_rdata;
     wire       sysctrl_obi_xbar_dm_init_req;
+    wire       sysctrl_obi_xbar_dm_init_reqpar;
     wire       sysctrl_obi_xbar_dm_init_rid;
     wire       sysctrl_obi_xbar_dm_init_rready;
+    wire       sysctrl_obi_xbar_dm_init_rreadypar;
     wire       sysctrl_obi_xbar_dm_init_ruser;
     wire       sysctrl_obi_xbar_dm_init_rvalid;
     wire [31:0] sysctrl_obi_xbar_dm_init_wdata;
@@ -734,6 +745,7 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_dm_target_err;
     wire       sysctrl_obi_xbar_dm_target_exokay;
     wire       sysctrl_obi_xbar_dm_target_gnt;
+    wire       sysctrl_obi_xbar_dm_target_gntpar;
     wire [1:0] sysctrl_obi_xbar_dm_target_memtype;
     wire       sysctrl_obi_xbar_dm_target_mid;
     wire [2:0] sysctrl_obi_xbar_dm_target_prot;
@@ -741,8 +753,10 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_dm_target_req;
     wire       sysctrl_obi_xbar_dm_target_rid;
     wire       sysctrl_obi_xbar_dm_target_rready;
+    wire       sysctrl_obi_xbar_dm_target_rreadypar;
     wire       sysctrl_obi_xbar_dm_target_ruser;
     wire       sysctrl_obi_xbar_dm_target_rvalid;
+    wire       sysctrl_obi_xbar_dm_target_rvalidpar;
     wire [31:0] sysctrl_obi_xbar_dm_target_wdata;
     wire       sysctrl_obi_xbar_dm_target_we;
     wire       sysctrl_obi_xbar_dm_target_wuser;
@@ -754,6 +768,8 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_dmem_dbg;
     wire       sysctrl_obi_xbar_dmem_err;
     wire       sysctrl_obi_xbar_dmem_exokay;
+    wire       sysctrl_obi_xbar_dmem_gnt;
+    wire       sysctrl_obi_xbar_dmem_gntpar;
     wire [1:0] sysctrl_obi_xbar_dmem_memtype;
     wire       sysctrl_obi_xbar_dmem_mid;
     wire [2:0] sysctrl_obi_xbar_dmem_prot;
@@ -761,7 +777,10 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_dmem_req;
     wire       sysctrl_obi_xbar_dmem_rid;
     wire       sysctrl_obi_xbar_dmem_rready;
+    wire       sysctrl_obi_xbar_dmem_rreadypar;
     wire       sysctrl_obi_xbar_dmem_ruser;
+    wire       sysctrl_obi_xbar_dmem_rvalid;
+    wire       sysctrl_obi_xbar_dmem_rvalidpar;
     wire [31:0] sysctrl_obi_xbar_dmem_wdata;
     wire       sysctrl_obi_xbar_dmem_we;
     wire       sysctrl_obi_xbar_dmem_wuser;
@@ -773,6 +792,8 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_imem_dbg;
     wire       sysctrl_obi_xbar_imem_err;
     wire       sysctrl_obi_xbar_imem_exokay;
+    wire       sysctrl_obi_xbar_imem_gnt;
+    wire       sysctrl_obi_xbar_imem_gntpar;
     wire [1:0] sysctrl_obi_xbar_imem_memtype;
     wire       sysctrl_obi_xbar_imem_mid;
     wire [2:0] sysctrl_obi_xbar_imem_prot;
@@ -780,7 +801,10 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_imem_req;
     wire       sysctrl_obi_xbar_imem_rid;
     wire       sysctrl_obi_xbar_imem_rready;
+    wire       sysctrl_obi_xbar_imem_rreadypar;
     wire       sysctrl_obi_xbar_imem_ruser;
+    wire       sysctrl_obi_xbar_imem_rvalid;
+    wire       sysctrl_obi_xbar_imem_rvalidpar;
     wire [31:0] sysctrl_obi_xbar_imem_wdata;
     wire       sysctrl_obi_xbar_imem_we;
     wire       sysctrl_obi_xbar_imem_wuser;
@@ -801,6 +825,7 @@ module SysCtrl_SS_0 #(
     wire       sysctrl_obi_xbar_instr_reqpar;
     wire       sysctrl_obi_xbar_instr_rid;
     wire       sysctrl_obi_xbar_instr_rready;
+    wire       sysctrl_obi_xbar_instr_rreadypar;
     wire       sysctrl_obi_xbar_instr_ruser;
     wire       sysctrl_obi_xbar_instr_rvalid;
     wire [31:0] sysctrl_obi_xbar_instr_wdata;
@@ -964,8 +989,8 @@ module SysCtrl_SS_0 #(
     assign apb_uart_SIN = apb_uart_UART_to_UART_uart_rx;
     assign apb_uart_UART_to_UART_uart_tx = apb_uart_SOUT;
     // ctrl_reg_array assignments:
-    assign ctrl_reg_array_addr_in = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_addr;
-    assign ctrl_reg_array_be_in = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_be;
+    assign ctrl_reg_array_addr_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_addr;
+    assign ctrl_reg_array_be_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_be;
     assign ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg = ctrl_reg_array_cell_cfg;
     assign ctrl_reg_array_clk = jtag_dbg_wrapper_Clock_to_Clk_clk;
     assign ctrl_reg_array_fetch_en_to_i_ibex_wrapper_FetchEn_gpo = ctrl_reg_array_fetch_en;
@@ -976,16 +1001,15 @@ module SysCtrl_SS_0 #(
     assign ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en = ctrl_reg_array_irq_en_2;
     assign ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en = ctrl_reg_array_irq_en_3;
     assign ctrl_reg_array_pmod_sel_to_pmod_sel_gpo = ctrl_reg_array_pmod_sel;
-    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rdata = ctrl_reg_array_rdata_out;
-    assign ctrl_reg_array_req_in = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_req;
-    assign ctrl_reg_array_reset = ctrl_reg_array_Reset_to_Reset_reset;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rdata = ctrl_reg_array_rdata_o;
+    assign ctrl_reg_array_req_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_req;
     assign ctrl_reg_array_rst_icn_to_Reset_ICN_reset = ctrl_reg_array_reset_icn;
+    assign ctrl_reg_array_reset_n = ctrl_reg_array_Reset_to_Reset_reset;
     assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[0] = ctrl_reg_array_reset_ss_0;
     assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[1] = ctrl_reg_array_reset_ss_1;
     assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[2] = ctrl_reg_array_reset_ss_2;
     assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[3] = ctrl_reg_array_reset_ss_3;
-    assign ctrl_reg_array_rready = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rready;
-    assign ctrl_reg_array_rreadypar = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rreadypar;
+    assign ctrl_reg_array_rready_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rready;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalid = ctrl_reg_array_rvalid_o;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalidpar = ctrl_reg_array_rvalidpar_o;
     assign ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl = ctrl_reg_array_ss_ctrl_0;
@@ -993,19 +1017,22 @@ module SysCtrl_SS_0 #(
     assign ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl = ctrl_reg_array_ss_ctrl_2;
     assign ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl = ctrl_reg_array_ss_ctrl_3;
     assign ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl = ctrl_reg_array_ss_ctrl_icn;
-    assign ctrl_reg_array_wdata_in = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wdata;
-    assign ctrl_reg_array_we_in = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_we;
+    assign ctrl_reg_array_wdata_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wdata;
+    assign ctrl_reg_array_we_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_we;
     // i_dmem assignments:
     assign i_dmem_addr_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_addr[11:0];
     assign i_dmem_be_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_be;
     assign i_dmem_clk_i = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gnt = i_dmem_gnt_o;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gntpar = i_dmem_gntpar_o;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rdata = i_dmem_rdata_o;
     assign i_dmem_req_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_req;
+    assign i_dmem_rready_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rready;
     assign i_dmem_rst_ni = ctrl_reg_array_Reset_to_Reset_reset;
-    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_ruser = i_dmem_ruser_o;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalid = i_dmem_rvalid_o;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalidpar = i_dmem_rvalidpar_o;
     assign i_dmem_wdata_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_wdata;
     assign i_dmem_we_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_we;
-    assign i_dmem_wuser_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_wuser;
     // i_ibex_wrapper assignments:
     assign i_ibex_wrapper_clk_i = jtag_dbg_wrapper_Clock_to_Clk_clk;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_addr = i_ibex_wrapper_data_addr_o;
@@ -1037,13 +1064,16 @@ module SysCtrl_SS_0 #(
     assign i_imem_addr_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_addr[11:0];
     assign i_imem_be_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_be;
     assign i_imem_clk_i = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gnt = i_imem_gnt_o;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gntpar = i_imem_gntpar_o;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rdata = i_imem_rdata_o;
     assign i_imem_req_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_req;
+    assign i_imem_rready_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rready;
     assign i_imem_rst_ni = ctrl_reg_array_Reset_to_Reset_reset;
-    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_ruser = i_imem_ruser_o;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalid = i_imem_rvalid_o;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalidpar = i_imem_rvalidpar_o;
     assign i_imem_wdata_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_wdata;
     assign i_imem_we_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_we;
-    assign i_imem_wuser_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_wuser;
     // jtag_dbg_wrapper assignments:
     assign jtag_dbg_wrapper_clk_i = jtag_dbg_wrapper_Clock_to_Clk_clk;
     assign jtag_dbg_wrapper_core_reset_to_i_ibex_wrapper_Reset_reset = jtag_dbg_wrapper_core_reset;
@@ -1054,6 +1084,7 @@ module SysCtrl_SS_0 #(
     assign jtag_dbg_wrapper_initiator_gnt_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_gnt;
     assign jtag_dbg_wrapper_initiator_rdata_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rdata;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_req = jtag_dbg_wrapper_initiator_req_o;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_reqpar = jtag_dbg_wrapper_initiator_reqpar_o;
     assign jtag_dbg_wrapper_initiator_rvalid_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rvalid;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_wdata = jtag_dbg_wrapper_initiator_wdata_o;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_we = jtag_dbg_wrapper_initiator_we_o;
@@ -1067,10 +1098,12 @@ module SysCtrl_SS_0 #(
     assign jtag_dbg_wrapper_target_aid_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_aid;
     assign jtag_dbg_wrapper_target_be_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_be;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gnt = jtag_dbg_wrapper_target_gnt_o;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gntpar = jtag_dbg_wrapper_target_gntpar_o;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rdata = jtag_dbg_wrapper_target_rdata_o;
     assign jtag_dbg_wrapper_target_req_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_req;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rid = jtag_dbg_wrapper_target_rid_o;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalid = jtag_dbg_wrapper_target_rvalid_o;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalidpar = jtag_dbg_wrapper_target_rvalidpar_o;
     assign jtag_dbg_wrapper_target_wdata_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_wdata;
     assign jtag_dbg_wrapper_target_we_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_we;
     // peripherals_obi_to_apb assignments:
@@ -1127,7 +1160,6 @@ module SysCtrl_SS_0 #(
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_req = sysctrl_obi_xbar_ctrl_req;
     assign sysctrl_obi_xbar_ctrl_rid = 'h0;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rready = sysctrl_obi_xbar_ctrl_rready;
-    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rreadypar = sysctrl_obi_xbar_ctrl_rreadypar;
     assign sysctrl_obi_xbar_ctrl_rvalid = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalid;
     assign sysctrl_obi_xbar_ctrl_rvalidpar = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalidpar;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wdata = sysctrl_obi_xbar_ctrl_wdata;
@@ -1141,6 +1173,7 @@ module SysCtrl_SS_0 #(
     assign sysctrl_obi_xbar_data_req = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_req;
     assign sysctrl_obi_xbar_data_reqpar = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_reqpar;
     assign sysctrl_obi_xbar_data_rready = 1'b1;
+    assign sysctrl_obi_xbar_data_rreadypar = 1'b0;
     assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rvalid = sysctrl_obi_xbar_data_rvalid;
     assign sysctrl_obi_xbar_data_wdata = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_wdata;
     assign sysctrl_obi_xbar_data_we = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_we;
@@ -1151,7 +1184,9 @@ module SysCtrl_SS_0 #(
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_gnt = sysctrl_obi_xbar_dm_init_gnt;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rdata = sysctrl_obi_xbar_dm_init_rdata;
     assign sysctrl_obi_xbar_dm_init_req = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_req;
+    assign sysctrl_obi_xbar_dm_init_reqpar = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_reqpar;
     assign sysctrl_obi_xbar_dm_init_rready = 1'b1;
+    assign sysctrl_obi_xbar_dm_init_rreadypar = 1'b0;
     assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rvalid = sysctrl_obi_xbar_dm_init_rvalid;
     assign sysctrl_obi_xbar_dm_init_wdata = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_wdata;
     assign sysctrl_obi_xbar_dm_init_we = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_we;
@@ -1160,26 +1195,38 @@ module SysCtrl_SS_0 #(
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_be = sysctrl_obi_xbar_dm_target_be;
     assign sysctrl_obi_xbar_dm_target_err = 1'b0;
     assign sysctrl_obi_xbar_dm_target_gnt = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gnt;
+    assign sysctrl_obi_xbar_dm_target_gntpar = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gntpar;
     assign sysctrl_obi_xbar_dm_target_rdata = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rdata;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_req = sysctrl_obi_xbar_dm_target_req;
     assign sysctrl_obi_xbar_dm_target_rid = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rid;
     assign sysctrl_obi_xbar_dm_target_rvalid = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalid;
+    assign sysctrl_obi_xbar_dm_target_rvalidpar = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalidpar;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_wdata = sysctrl_obi_xbar_dm_target_wdata;
     assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_we = sysctrl_obi_xbar_dm_target_we;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_addr = sysctrl_obi_xbar_dmem_addr;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_be = sysctrl_obi_xbar_dmem_be;
     assign sysctrl_obi_xbar_dmem_err = 1'b0;
+    assign sysctrl_obi_xbar_dmem_gnt = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gnt;
+    assign sysctrl_obi_xbar_dmem_gntpar = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gntpar;
     assign sysctrl_obi_xbar_dmem_rdata = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rdata;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_req = sysctrl_obi_xbar_dmem_req;
     assign sysctrl_obi_xbar_dmem_rid = 'h0;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rready = sysctrl_obi_xbar_dmem_rready;
+    assign sysctrl_obi_xbar_dmem_rvalid = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalid;
+    assign sysctrl_obi_xbar_dmem_rvalidpar = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalidpar;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_wdata = sysctrl_obi_xbar_dmem_wdata;
     assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_we = sysctrl_obi_xbar_dmem_we;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_addr = sysctrl_obi_xbar_imem_addr;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_be = sysctrl_obi_xbar_imem_be;
     assign sysctrl_obi_xbar_imem_err = 1'b0;
+    assign sysctrl_obi_xbar_imem_gnt = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gnt;
+    assign sysctrl_obi_xbar_imem_gntpar = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gntpar;
     assign sysctrl_obi_xbar_imem_rdata = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rdata;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_req = sysctrl_obi_xbar_imem_req;
     assign sysctrl_obi_xbar_imem_rid = 'h0;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rready = sysctrl_obi_xbar_imem_rready;
+    assign sysctrl_obi_xbar_imem_rvalid = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalid;
+    assign sysctrl_obi_xbar_imem_rvalidpar = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalidpar;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_wdata = sysctrl_obi_xbar_imem_wdata;
     assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_we = sysctrl_obi_xbar_imem_we;
     assign sysctrl_obi_xbar_instr_addr = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_addr;
@@ -1191,6 +1238,7 @@ module SysCtrl_SS_0 #(
     assign sysctrl_obi_xbar_instr_req = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_req;
     assign sysctrl_obi_xbar_instr_reqpar = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_reqpar;
     assign sysctrl_obi_xbar_instr_rready = 1'b1;
+    assign sysctrl_obi_xbar_instr_rreadypar = 1'b0;
     assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rvalid = sysctrl_obi_xbar_instr_rvalid;
     assign sysctrl_obi_xbar_instr_wdata = 'h0;
     assign sysctrl_obi_xbar_instr_we = 1'b1;
@@ -1232,7 +1280,7 @@ module SysCtrl_SS_0 #(
     apb_gpio #(
         .APB_ADDR_WIDTH      (12),
         .PAD_NUM             (8),
-        .NBIT_PADCFG         (4))
+        .NBIT_PADCFG         (0))
     apb_gpio(
         // Interface: APB
         .PADDR               (apb_gpio_PADDR),
@@ -1334,7 +1382,7 @@ module SysCtrl_SS_0 #(
         // Interface: Clock
         .clk                 (ctrl_reg_array_clk),
         // Interface: Reset
-        .reset               (ctrl_reg_array_reset),
+        .reset_n             (ctrl_reg_array_reset_n),
         // Interface: fetch_en
         .fetch_en            (ctrl_reg_array_fetch_en),
         // Interface: icn_ss_ctrl
@@ -1342,16 +1390,15 @@ module SysCtrl_SS_0 #(
         // Interface: io_cfg
         .cell_cfg            (ctrl_reg_array_cell_cfg),
         // Interface: obi_target
-        .addr_in             (ctrl_reg_array_addr_in),
-        .be_in               (ctrl_reg_array_be_in),
-        .req_in              (ctrl_reg_array_req_in),
-        .rready              (ctrl_reg_array_rready),
-        .rreadypar           (ctrl_reg_array_rreadypar),
-        .wdata_in            (ctrl_reg_array_wdata_in),
-        .we_in               (ctrl_reg_array_we_in),
+        .addr_i              (ctrl_reg_array_addr_i),
+        .be_i                (ctrl_reg_array_be_i),
+        .req_i               (ctrl_reg_array_req_i),
+        .rready_i            (ctrl_reg_array_rready_i),
+        .wdata_i             (ctrl_reg_array_wdata_i),
+        .we_i                (ctrl_reg_array_we_i),
         .gnt_o               (ctrl_reg_array_gnt_o),
         .gntpar_o            (ctrl_reg_array_gntpar_o),
-        .rdata_out           (ctrl_reg_array_rdata_out),
+        .rdata_o             (ctrl_reg_array_rdata_o),
         .rvalid_o            (ctrl_reg_array_rvalid_o),
         .rvalidpar_o         (ctrl_reg_array_rvalidpar_o),
         // Interface: pmod_sel
@@ -1389,11 +1436,14 @@ module SysCtrl_SS_0 #(
         .addr_i              (i_dmem_addr_i),
         .be_i                (i_dmem_be_i),
         .req_i               (i_dmem_req_i),
+        .rready_i            (i_dmem_rready_i),
         .wdata_i             (i_dmem_wdata_i),
         .we_i                (i_dmem_we_i),
-        .wuser_i             (i_dmem_wuser_i),
+        .gnt_o               (i_dmem_gnt_o),
+        .gntpar_o            (i_dmem_gntpar_o),
         .rdata_o             (i_dmem_rdata_o),
-        .ruser_o             (i_dmem_ruser_o));
+        .rvalid_o            (i_dmem_rvalid_o),
+        .rvalidpar_o         (i_dmem_rvalidpar_o));
 
     // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.1
     ibex_wrapper #(
@@ -1467,11 +1517,14 @@ module SysCtrl_SS_0 #(
         .addr_i              (i_imem_addr_i),
         .be_i                (i_imem_be_i),
         .req_i               (i_imem_req_i),
+        .rready_i            (i_imem_rready_i),
         .wdata_i             (i_imem_wdata_i),
         .we_i                (i_imem_we_i),
-        .wuser_i             (i_imem_wuser_i),
+        .gnt_o               (i_imem_gnt_o),
+        .gntpar_o            (i_imem_gntpar_o),
         .rdata_o             (i_imem_rdata_o),
-        .ruser_o             (i_imem_ruser_o));
+        .rvalid_o            (i_imem_rvalid_o),
+        .rvalidpar_o         (i_imem_rvalidpar_o));
 
     // IP-XACT VLNV: tuni.fi:ip:jtag_dbg_wrapper_obi:1.0
     jtag_dbg_wrapper_obi #(
@@ -1496,6 +1549,7 @@ module SysCtrl_SS_0 #(
         .initiator_addr_o    (jtag_dbg_wrapper_initiator_addr_o),
         .initiator_be_o      (jtag_dbg_wrapper_initiator_be_o),
         .initiator_req_o     (jtag_dbg_wrapper_initiator_req_o),
+        .initiator_reqpar_o  (jtag_dbg_wrapper_initiator_reqpar_o),
         .initiator_wdata_o   (jtag_dbg_wrapper_initiator_wdata_o),
         .initiator_we_o      (jtag_dbg_wrapper_initiator_we_o),
         // Interface: OBI_T
@@ -1506,9 +1560,11 @@ module SysCtrl_SS_0 #(
         .target_wdata_i      (jtag_dbg_wrapper_target_wdata_i),
         .target_we_i         (jtag_dbg_wrapper_target_we_i),
         .target_gnt_o        (jtag_dbg_wrapper_target_gnt_o),
+        .target_gntpar_o     (jtag_dbg_wrapper_target_gntpar_o),
         .target_rdata_o      (jtag_dbg_wrapper_target_rdata_o),
         .target_rid_o        (jtag_dbg_wrapper_target_rid_o),
         .target_rvalid_o     (jtag_dbg_wrapper_target_rvalid_o),
+        .target_rvalidpar_o  (jtag_dbg_wrapper_target_rvalidpar_o),
         // Interface: Reset
         .rstn_i              (jtag_dbg_wrapper_rstn_i),
         // Interface: core_reset
@@ -1607,7 +1663,7 @@ module SysCtrl_SS_0 #(
         .data_req            (sysctrl_obi_xbar_data_req),
         .data_reqpar         (sysctrl_obi_xbar_data_reqpar),
         .data_rready         (sysctrl_obi_xbar_data_rready),
-        .data_rreadypar      (),
+        .data_rreadypar      (sysctrl_obi_xbar_data_rreadypar),
         .data_wdata          (sysctrl_obi_xbar_data_wdata),
         .data_we             (sysctrl_obi_xbar_data_we),
         .data_err            (sysctrl_obi_xbar_data_err),
@@ -1624,7 +1680,7 @@ module SysCtrl_SS_0 #(
         .instr_req           (sysctrl_obi_xbar_instr_req),
         .instr_reqpar        (sysctrl_obi_xbar_instr_reqpar),
         .instr_rready        (sysctrl_obi_xbar_instr_rready),
-        .instr_rreadypar     (),
+        .instr_rreadypar     (sysctrl_obi_xbar_instr_rreadypar),
         .instr_wdata         (sysctrl_obi_xbar_instr_wdata),
         .instr_we            (sysctrl_obi_xbar_instr_we),
         .instr_err           (sysctrl_obi_xbar_instr_err),
@@ -1653,36 +1709,36 @@ module SysCtrl_SS_0 #(
         .ctrl_we             (sysctrl_obi_xbar_ctrl_we),
         // Interface: obi_dmem
         .dmem_err            (sysctrl_obi_xbar_dmem_err),
-        .dmem_gnt            (),
-        .dmem_gntpar         (),
+        .dmem_gnt            (sysctrl_obi_xbar_dmem_gnt),
+        .dmem_gntpar         (sysctrl_obi_xbar_dmem_gntpar),
         .dmem_rdata          (sysctrl_obi_xbar_dmem_rdata),
         .dmem_rid            (sysctrl_obi_xbar_dmem_rid),
-        .dmem_rvalid         (),
-        .dmem_rvalidpar      (),
+        .dmem_rvalid         (sysctrl_obi_xbar_dmem_rvalid),
+        .dmem_rvalidpar      (sysctrl_obi_xbar_dmem_rvalidpar),
         .dmem_addr           (sysctrl_obi_xbar_dmem_addr),
         .dmem_aid            (sysctrl_obi_xbar_dmem_aid),
         .dmem_be             (sysctrl_obi_xbar_dmem_be),
         .dmem_req            (sysctrl_obi_xbar_dmem_req),
         .dmem_reqpar         (),
         .dmem_rready         (sysctrl_obi_xbar_dmem_rready),
-        .dmem_rreadypar      (),
+        .dmem_rreadypar      (sysctrl_obi_xbar_dmem_rreadypar),
         .dmem_wdata          (sysctrl_obi_xbar_dmem_wdata),
         .dmem_we             (sysctrl_obi_xbar_dmem_we),
         // Interface: obi_imem
         .imem_err            (sysctrl_obi_xbar_imem_err),
-        .imem_gnt            (),
-        .imem_gntpar         (),
+        .imem_gnt            (sysctrl_obi_xbar_imem_gnt),
+        .imem_gntpar         (sysctrl_obi_xbar_imem_gntpar),
         .imem_rdata          (sysctrl_obi_xbar_imem_rdata),
         .imem_rid            (sysctrl_obi_xbar_imem_rid),
-        .imem_rvalid         (),
-        .imem_rvalidpar      (),
+        .imem_rvalid         (sysctrl_obi_xbar_imem_rvalid),
+        .imem_rvalidpar      (sysctrl_obi_xbar_imem_rvalidpar),
         .imem_addr           (sysctrl_obi_xbar_imem_addr),
         .imem_aid            (sysctrl_obi_xbar_imem_aid),
         .imem_be             (sysctrl_obi_xbar_imem_be),
         .imem_req            (sysctrl_obi_xbar_imem_req),
         .imem_reqpar         (),
         .imem_rready         (sysctrl_obi_xbar_imem_rready),
-        .imem_rreadypar      (),
+        .imem_rreadypar      (sysctrl_obi_xbar_imem_rreadypar),
         .imem_wdata          (sysctrl_obi_xbar_imem_wdata),
         .imem_we             (sysctrl_obi_xbar_imem_we),
         // Interface: obi_jtag_dm_init
@@ -1690,15 +1746,14 @@ module SysCtrl_SS_0 #(
         .dm_init_aid         (sysctrl_obi_xbar_dm_init_aid),
         .dm_init_be          (sysctrl_obi_xbar_dm_init_be),
         .dm_init_req         (sysctrl_obi_xbar_dm_init_req),
-        .dm_init_reqpar      (),
+        .dm_init_reqpar      (sysctrl_obi_xbar_dm_init_reqpar),
         .dm_init_rready      (sysctrl_obi_xbar_dm_init_rready),
-        .dm_init_rreadypar   (),
+        .dm_init_rreadypar   (sysctrl_obi_xbar_dm_init_rreadypar),
         .dm_init_wdata       (sysctrl_obi_xbar_dm_init_wdata),
         .dm_init_we          (sysctrl_obi_xbar_dm_init_we),
         .dm_init_err         (sysctrl_obi_xbar_dm_init_err),
         .dm_init_gnt         (sysctrl_obi_xbar_dm_init_gnt),
         .dm_init_gntpar      (),
-        .dm_init_rchk        (),
         .dm_init_rdata       (sysctrl_obi_xbar_dm_init_rdata),
         .dm_init_rid         (sysctrl_obi_xbar_dm_init_rid),
         .dm_init_rvalid      (sysctrl_obi_xbar_dm_init_rvalid),
@@ -1706,18 +1761,18 @@ module SysCtrl_SS_0 #(
         // Interface: obi_jtag_dm_target
         .dm_target_err       (sysctrl_obi_xbar_dm_target_err),
         .dm_target_gnt       (sysctrl_obi_xbar_dm_target_gnt),
-        .dm_target_gntpar    (),
+        .dm_target_gntpar    (sysctrl_obi_xbar_dm_target_gntpar),
         .dm_target_rdata     (sysctrl_obi_xbar_dm_target_rdata),
         .dm_target_rid       (sysctrl_obi_xbar_dm_target_rid),
         .dm_target_rvalid    (sysctrl_obi_xbar_dm_target_rvalid),
-        .dm_target_rvalidpar (),
+        .dm_target_rvalidpar (sysctrl_obi_xbar_dm_target_rvalidpar),
         .dm_target_addr      (sysctrl_obi_xbar_dm_target_addr),
         .dm_target_aid       (sysctrl_obi_xbar_dm_target_aid),
         .dm_target_be        (sysctrl_obi_xbar_dm_target_be),
         .dm_target_req       (sysctrl_obi_xbar_dm_target_req),
         .dm_target_reqpar    (),
         .dm_target_rready    (sysctrl_obi_xbar_dm_target_rready),
-        .dm_target_rreadypar (),
+        .dm_target_rreadypar (sysctrl_obi_xbar_dm_target_rreadypar),
         .dm_target_wdata     (sysctrl_obi_xbar_dm_target_wdata),
         .dm_target_we        (sysctrl_obi_xbar_dm_target_we),
         // Interface: obi_peripherals

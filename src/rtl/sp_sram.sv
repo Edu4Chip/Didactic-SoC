@@ -18,11 +18,7 @@ module sp_sram #(
   output logic                         rvalid_o,
   output logic                         rvalidpar_o,
   output logic                         gnt_o,
-  output logic                         gntpar_o,
-
-  // ports for compatability only
-  output logic                         ruser_o,
-  input  logic                         wuser_i
+  output logic                         gntpar_o
 );
   /******** PARITY *****************/
   logic rvalid_reg;

@@ -100,6 +100,7 @@
 			<ipxact:componentRef vendor="tuni.fi" library="pulp.peripheral" name="APB_GPIO" version="1.0">
 				<ipxact:configurableElementValues>
 					<ipxact:configurableElementValue referenceId="uuid_2c1125d3_ffdc_41a9_95df_91732c2fe246">uuid_af1dc1b2_e8c6_4271_bf5e_082c38a450e4</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_c2a3113e_01d5_4bfc_957f_f0be7f1f7f7b">0</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -176,7 +177,15 @@
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
 			<ipxact:instanceName>sysctrl_obi_xbar</ipxact:instanceName>
-			<ipxact:componentRef vendor="tuni.fi" library="interconnect" name="sysctrl_obi_xbar" version="1.0"/>
+			<ipxact:componentRef vendor="tuni.fi" library="interconnect" name="sysctrl_obi_xbar" version="1.0">
+				<ipxact:configurableElementValues>
+					<ipxact:configurableElementValue referenceId="uuid_a2cce975_dcab_44d4_8637_8b18ddff9841">uuid_a47ad7ae_dad0_4b6e_955d_391cabefffb6</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_92bc3882_911b_460b_a778_c71689dcc2f3">uuid_acdc28be_3b07_4729_b71c_d225e56a85fd</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_fcfdade5_1cbe_43c2_be43_3873e3d5c54a">uuid_c08c73b3_fefa_4578_bce1_053d8509d33b</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_6245b5ba_acd1_4023_a651_167aa7a0bb89">uuid_e8a9235f_50e4_40cb_853f_7d9880d87a54</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_19ade9f6_86ea_41c5_af62_00779bf3a675">uuid_9895afc3_9718_40b6_8db4_1571d7218766</ipxact:configurableElementValue>
+				</ipxact:configurableElementValues>
+			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{278f17b3-ef44-46c0-8ef7-60df374dd1de}</kactus2:uuid>
 				<kactus2:position x="920" y="60"/>
@@ -560,23 +569,23 @@
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_c08c73b3_fefa_4578_bce1_053d8509d33b" resolve="user">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_c08c73b3_fefa_4578_bce1_053d8509d33b" resolve="user">
 			<ipxact:name>OBI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_a47ad7ae_dad0_4b6e_955d_391cabefffb6" resolve="user">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_a47ad7ae_dad0_4b6e_955d_391cabefffb6" resolve="user">
 			<ipxact:name>OBI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_9895afc3_9718_40b6_8db4_1571d7218766" resolve="user">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_9895afc3_9718_40b6_8db4_1571d7218766" resolve="user">
 			<ipxact:name>OBI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_acdc28be_3b07_4729_b71c_d225e56a85fd" resolve="user">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_acdc28be_3b07_4729_b71c_d225e56a85fd" resolve="user">
 			<ipxact:name>OBI_CHKW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_e8a9235f_50e4_40cb_853f_7d9880d87a54" resolve="user">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_e8a9235f_50e4_40cb_853f_7d9880d87a54" resolve="user">
 			<ipxact:name>OBI_IDW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
@@ -864,10 +873,10 @@
 				<kactus2:position x="810" y="270"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_ibex_wrapper_irq_fast_i_to_irq_upper_tieoff" kactus2:offPage="false">
-				<kactus2:position x="490" y="710"/>
-				<kactus2:position x="470" y="710"/>
-				<kactus2:position x="470" y="690"/>
 				<kactus2:position x="60" y="690"/>
+				<kactus2:position x="470" y="690"/>
+				<kactus2:position x="470" y="710"/>
+				<kactus2:position x="490" y="710"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>

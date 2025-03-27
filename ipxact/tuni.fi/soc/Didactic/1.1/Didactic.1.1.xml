@@ -670,7 +670,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:15:10 on 26.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:28:52 on 27.03.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>5b7e67b9e5d1718cd0473d8d4e60c8ebc580bcb5</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -678,7 +678,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:15:10 on 26.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:28:52 on 27.03.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>48eb78a2214fc9666f7ad1ba5d16e83b1be2f280</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -686,7 +686,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_1_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:15:10 on 26.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:28:52 on 27.03.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>dddec391f853f8e05b37b5de3c217fc001424d88</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -694,7 +694,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_2_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:15:10 on 26.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:28:52 on 27.03.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>663ecb8eb0028921d25780eb38ebafc0a25c058b</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -702,7 +702,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_3_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:15:10 on 26.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:28:52 on 27.03.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>b4804cc2d4d1d4ce2ca10ded05e60dc9bb2d37b1</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -710,7 +710,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:15:10 on 26.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:28:52 on 27.03.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>d9caf609cfca9384127cfef0a3edb158a3c17ead</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -718,7 +718,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:15:10 on 26.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:28:52 on 27.03.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>f0076be10373ce7463214e02f9890f70ef35335f</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -765,12 +765,6 @@ Spec:
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:author>Matti Käyrä</kactus2:author>
-		<kactus2:version>3,13,0,0</kactus2:version>
-		<kactus2:kts_attributes>
-			<kactus2:kts_productHier>SoC</kactus2:kts_productHier>
-			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
-			<kactus2:kts_firmness>Fixed</kactus2:kts_firmness>
-		</kactus2:kts_attributes>
 		<kactus2:fileDependencies>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
 				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
@@ -1048,5 +1042,11 @@ Spec:
 				<ipxact:description>Submodule instantiation of module AX4LITE_APB_converter_wrapper</ipxact:description>
 			</kactus2:fileDependency>
 		</kactus2:fileDependencies>
+		<kactus2:version>3,13,0,0</kactus2:version>
+		<kactus2:kts_attributes>
+			<kactus2:kts_productHier>SoC</kactus2:kts_productHier>
+			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
+			<kactus2:kts_firmness>Fixed</kactus2:kts_firmness>
+		</kactus2:kts_attributes>
 	</ipxact:vendorExtensions>
 </ipxact:component>

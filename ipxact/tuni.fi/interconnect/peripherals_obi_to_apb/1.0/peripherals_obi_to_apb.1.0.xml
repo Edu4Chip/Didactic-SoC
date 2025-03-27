@@ -1707,7 +1707,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
+							<ipxact:defaultValue>1'b0</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
