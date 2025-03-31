@@ -1,3 +1,768 @@
+module SystemControl(
+  input         clock,
+  input         reset,
+  input         apbPort_psel,
+  input         apbPort_penable,
+  input         apbPort_pwrite,
+  input  [31:0] apbPort_pwdata,
+  output        apbPort_pready,
+  output [31:0] apbPort_prdata,
+  output        ctrlPort_lerosReset,
+  output        ctrlPort_lerosBootFromRam
+);
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
+`endif // RANDOMIZE_REG_INIT
+  reg  lerosResetReg; // @[SystemControl.scala 15:30]
+  reg  lerosBootFromRamReg; // @[SystemControl.scala 16:36]
+  wire [1:0] _apbPort_prdata_T = {lerosBootFromRamReg,lerosResetReg}; // @[Cat.scala 33:92]
+  assign apbPort_pready = apbPort_psel & apbPort_penable; // @[SystemControl.scala 24:21]
+  assign apbPort_prdata = {{30'd0}, _apbPort_prdata_T}; // @[SystemControl.scala 20:18]
+  assign ctrlPort_lerosReset = lerosResetReg; // @[SystemControl.scala 17:23]
+  assign ctrlPort_lerosBootFromRam = lerosBootFromRamReg; // @[SystemControl.scala 18:29]
+  always @(posedge clock) begin
+    if (reset) begin // @[SystemControl.scala 15:30]
+      lerosResetReg <= 1'h0; // @[SystemControl.scala 15:30]
+    end else if (apbPort_psel & apbPort_penable) begin // @[SystemControl.scala 24:41]
+      if (apbPort_pwrite) begin // @[SystemControl.scala 28:26]
+        lerosResetReg <= apbPort_pwdata[0]; // @[SystemControl.scala 29:21]
+      end
+    end
+    if (reset) begin // @[SystemControl.scala 16:36]
+      lerosBootFromRamReg <= 1'h0; // @[SystemControl.scala 16:36]
+    end else if (apbPort_psel & apbPort_penable) begin // @[SystemControl.scala 24:41]
+      if (apbPort_pwrite) begin // @[SystemControl.scala 28:26]
+        lerosBootFromRamReg <= apbPort_pwdata[1]; // @[SystemControl.scala 30:27]
+      end
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  lerosResetReg = _RAND_0[0:0];
+  _RAND_1 = {1{`RANDOM}};
+  lerosBootFromRamReg = _RAND_1[0:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
+module Rx(
+  input        clock,
+  input        reset,
+  input        io_rxd,
+  input        io_channel_ready,
+  output       io_channel_valid,
+  output [7:0] io_channel_bits
+);
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
+  reg [31:0] _RAND_2;
+  reg [31:0] _RAND_3;
+  reg [31:0] _RAND_4;
+  reg [31:0] _RAND_5;
+  reg [31:0] _RAND_6;
+`endif // RANDOMIZE_REG_INIT
+  reg  rxReg_REG; // @[UARTRx.scala 34:30]
+  reg  rxReg; // @[UARTRx.scala 34:22]
+  reg  falling_REG; // @[UARTRx.scala 35:35]
+  wire  falling = ~rxReg & falling_REG; // @[UARTRx.scala 35:24]
+  reg [7:0] shiftReg; // @[UARTRx.scala 37:25]
+  reg [19:0] cntReg; // @[UARTRx.scala 38:23]
+  reg [3:0] bitsReg; // @[UARTRx.scala 39:24]
+  reg  valReg; // @[UARTRx.scala 40:23]
+  wire [19:0] _cntReg_T_1 = cntReg - 20'h1; // @[UARTRx.scala 43:22]
+  wire [7:0] _shiftReg_T_1 = {rxReg,shiftReg[7:1]}; // @[Cat.scala 33:92]
+  wire [3:0] _bitsReg_T_1 = bitsReg - 4'h1; // @[UARTRx.scala 47:24]
+  wire  _GEN_0 = bitsReg == 4'h1 | valReg; // @[UARTRx.scala 49:27 50:14 40:23]
+  assign io_channel_valid = valReg; // @[UARTRx.scala 62:20]
+  assign io_channel_bits = shiftReg; // @[UARTRx.scala 61:19]
+  always @(posedge clock) begin
+    if (reset) begin // @[UARTRx.scala 34:30]
+      rxReg_REG <= 1'h0; // @[UARTRx.scala 34:30]
+    end else begin
+      rxReg_REG <= io_rxd; // @[UARTRx.scala 34:30]
+    end
+    if (reset) begin // @[UARTRx.scala 34:22]
+      rxReg <= 1'h0; // @[UARTRx.scala 34:22]
+    end else begin
+      rxReg <= rxReg_REG; // @[UARTRx.scala 34:22]
+    end
+    falling_REG <= rxReg; // @[UARTRx.scala 35:35]
+    if (reset) begin // @[UARTRx.scala 37:25]
+      shiftReg <= 8'h0; // @[UARTRx.scala 37:25]
+    end else if (!(cntReg != 20'h0)) begin // @[UARTRx.scala 42:24]
+      if (bitsReg != 4'h0) begin // @[UARTRx.scala 44:31]
+        shiftReg <= _shiftReg_T_1; // @[UARTRx.scala 46:14]
+      end
+    end
+    if (reset) begin // @[UARTRx.scala 38:23]
+      cntReg <= 20'h8; // @[UARTRx.scala 38:23]
+    end else if (cntReg != 20'h0) begin // @[UARTRx.scala 42:24]
+      cntReg <= _cntReg_T_1; // @[UARTRx.scala 43:12]
+    end else if (bitsReg != 4'h0) begin // @[UARTRx.scala 44:31]
+      cntReg <= 20'h8; // @[UARTRx.scala 45:12]
+    end else if (falling) begin // @[UARTRx.scala 52:23]
+      cntReg <= 20'hb; // @[UARTRx.scala 53:12]
+    end
+    if (reset) begin // @[UARTRx.scala 39:24]
+      bitsReg <= 4'h0; // @[UARTRx.scala 39:24]
+    end else if (!(cntReg != 20'h0)) begin // @[UARTRx.scala 42:24]
+      if (bitsReg != 4'h0) begin // @[UARTRx.scala 44:31]
+        bitsReg <= _bitsReg_T_1; // @[UARTRx.scala 47:13]
+      end else if (falling) begin // @[UARTRx.scala 52:23]
+        bitsReg <= 4'h8; // @[UARTRx.scala 54:13]
+      end
+    end
+    if (reset) begin // @[UARTRx.scala 40:23]
+      valReg <= 1'h0; // @[UARTRx.scala 40:23]
+    end else if (valReg & io_channel_ready) begin // @[UARTRx.scala 57:36]
+      valReg <= 1'h0; // @[UARTRx.scala 58:12]
+    end else if (!(cntReg != 20'h0)) begin // @[UARTRx.scala 42:24]
+      if (bitsReg != 4'h0) begin // @[UARTRx.scala 44:31]
+        valReg <= _GEN_0;
+      end
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  rxReg_REG = _RAND_0[0:0];
+  _RAND_1 = {1{`RANDOM}};
+  rxReg = _RAND_1[0:0];
+  _RAND_2 = {1{`RANDOM}};
+  falling_REG = _RAND_2[0:0];
+  _RAND_3 = {1{`RANDOM}};
+  shiftReg = _RAND_3[7:0];
+  _RAND_4 = {1{`RANDOM}};
+  cntReg = _RAND_4[19:0];
+  _RAND_5 = {1{`RANDOM}};
+  bitsReg = _RAND_5[3:0];
+  _RAND_6 = {1{`RANDOM}};
+  valReg = _RAND_6[0:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
+module Tx(
+  input        clock,
+  input        reset,
+  output       io_txd,
+  output       io_channel_ready,
+  input        io_channel_valid,
+  input  [7:0] io_channel_bits
+);
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
+  reg [31:0] _RAND_2;
+`endif // RANDOMIZE_REG_INIT
+  reg [10:0] shiftReg; // @[UARTTx.scala 29:25]
+  reg [3:0] cntReg; // @[UARTTx.scala 30:23]
+  reg [3:0] bitsReg; // @[UARTTx.scala 31:24]
+  wire  _io_channel_ready_T = cntReg == 4'h0; // @[UARTTx.scala 33:31]
+  wire [9:0] shift = shiftReg[10:1]; // @[UARTTx.scala 40:28]
+  wire [10:0] _shiftReg_T_1 = {1'h1,shift}; // @[UARTTx.scala 41:23]
+  wire [3:0] _bitsReg_T_1 = bitsReg - 4'h1; // @[UARTTx.scala 42:26]
+  wire [10:0] _shiftReg_T_3 = {2'h3,io_channel_bits,1'h0}; // @[UARTTx.scala 45:49]
+  wire [3:0] _cntReg_T_1 = cntReg - 4'h1; // @[UARTTx.scala 50:22]
+  assign io_txd = shiftReg[0]; // @[UARTTx.scala 34:21]
+  assign io_channel_ready = cntReg == 4'h0 & bitsReg == 4'h0; // @[UARTTx.scala 33:40]
+  always @(posedge clock) begin
+    if (reset) begin // @[UARTTx.scala 29:25]
+      shiftReg <= 11'h7ff; // @[UARTTx.scala 29:25]
+    end else if (_io_channel_ready_T) begin // @[UARTTx.scala 36:24]
+      if (bitsReg != 4'h0) begin // @[UARTTx.scala 38:27]
+        shiftReg <= _shiftReg_T_1; // @[UARTTx.scala 41:16]
+      end else if (io_channel_valid) begin // @[UARTTx.scala 43:34]
+        shiftReg <= _shiftReg_T_3; // @[UARTTx.scala 45:18]
+      end
+    end
+    if (reset) begin // @[UARTTx.scala 30:23]
+      cntReg <= 4'h0; // @[UARTTx.scala 30:23]
+    end else if (_io_channel_ready_T) begin // @[UARTTx.scala 36:24]
+      if (bitsReg != 4'h0) begin // @[UARTTx.scala 38:27]
+        cntReg <= 4'h8; // @[UARTTx.scala 39:14]
+      end else if (io_channel_valid) begin // @[UARTTx.scala 43:34]
+        cntReg <= 4'h8; // @[UARTTx.scala 44:16]
+      end
+    end else begin
+      cntReg <= _cntReg_T_1; // @[UARTTx.scala 50:12]
+    end
+    if (reset) begin // @[UARTTx.scala 31:24]
+      bitsReg <= 4'h0; // @[UARTTx.scala 31:24]
+    end else if (_io_channel_ready_T) begin // @[UARTTx.scala 36:24]
+      if (bitsReg != 4'h0) begin // @[UARTTx.scala 38:27]
+        bitsReg <= _bitsReg_T_1; // @[UARTTx.scala 42:15]
+      end else if (io_channel_valid) begin // @[UARTTx.scala 43:34]
+        bitsReg <= 4'hb; // @[UARTTx.scala 46:17]
+      end
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  shiftReg = _RAND_0[10:0];
+  _RAND_1 = {1{`RANDOM}};
+  cntReg = _RAND_1[3:0];
+  _RAND_2 = {1{`RANDOM}};
+  bitsReg = _RAND_2[3:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
+module PonteEscaper(
+  input        clock,
+  input        reset,
+  output       io_in_ready,
+  input        io_in_valid,
+  input  [7:0] io_in_bits,
+  output       io_valid,
+  output       io_startRead,
+  output       io_startWrite,
+  output [7:0] io_data,
+  input        io_stall
+);
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+`endif // RANDOMIZE_REG_INIT
+  reg  escaped; // @[PonteEscaper.scala 23:24]
+  wire  isEscape = io_in_bits == 8'h5a; // @[PonteEscaper.scala 24:29]
+  wire  _GEN_0 = escaped & io_in_valid ? 1'h0 : escaped; // @[PonteEscaper.scala 28:38 29:13 23:24]
+  wire  _GEN_1 = isEscape & io_in_valid | _GEN_0; // @[PonteEscaper.scala 26:33 27:13]
+  wire [5:0] _io_data_T = escaped ? 6'h20 : 6'h0; // @[PonteEscaper.scala 35:30]
+  wire [7:0] _GEN_2 = {{2'd0}, _io_data_T}; // @[PonteEscaper.scala 35:25]
+  assign io_in_ready = ~io_stall; // @[PonteEscaper.scala 37:18]
+  assign io_valid = isEscape ? 1'h0 : io_in_valid; // @[PonteEscaper.scala 32:18]
+  assign io_startRead = io_in_bits == 8'hab; // @[PonteEscaper.scala 33:30]
+  assign io_startWrite = io_in_bits == 8'haa; // @[PonteEscaper.scala 34:31]
+  assign io_data = io_in_bits ^ _GEN_2; // @[PonteEscaper.scala 35:25]
+  always @(posedge clock) begin
+    escaped <= reset | _GEN_1; // @[PonteEscaper.scala 23:{24,24}]
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  escaped = _RAND_0[0:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
+module PonteDecoder(
+  input         clock,
+  input         reset,
+  output        io_in_ready,
+  input         io_in_valid,
+  input  [7:0]  io_in_bits,
+  input         io_out_ready,
+  output        io_out_valid,
+  output [7:0]  io_out_bits,
+  output [15:0] io_apb_paddr,
+  output        io_apb_psel,
+  output        io_apb_penable,
+  output        io_apb_pwrite,
+  output [31:0] io_apb_pwdata,
+  input         io_apb_pready,
+  input  [31:0] io_apb_prdata
+);
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
+  reg [31:0] _RAND_2;
+  reg [31:0] _RAND_3;
+  reg [31:0] _RAND_4;
+  reg [31:0] _RAND_5;
+`endif // RANDOMIZE_REG_INIT
+  wire  dec_clock; // @[PonteDecoder.scala 28:19]
+  wire  dec_reset; // @[PonteDecoder.scala 28:19]
+  wire  dec_io_in_ready; // @[PonteDecoder.scala 28:19]
+  wire  dec_io_in_valid; // @[PonteDecoder.scala 28:19]
+  wire [7:0] dec_io_in_bits; // @[PonteDecoder.scala 28:19]
+  wire  dec_io_valid; // @[PonteDecoder.scala 28:19]
+  wire  dec_io_startRead; // @[PonteDecoder.scala 28:19]
+  wire  dec_io_startWrite; // @[PonteDecoder.scala 28:19]
+  wire [7:0] dec_io_data; // @[PonteDecoder.scala 28:19]
+  wire  dec_io_stall; // @[PonteDecoder.scala 28:19]
+  reg [2:0] stateReg; // @[PonteDecoder.scala 35:25]
+  reg [1:0] cntReg; // @[PonteDecoder.scala 36:23]
+  reg [15:0] addrReg; // @[PonteDecoder.scala 37:24]
+  reg  isWriteReg; // @[PonteDecoder.scala 38:27]
+  reg [7:0] readLenReg; // @[PonteDecoder.scala 39:27]
+  reg [31:0] dataReg; // @[PonteDecoder.scala 40:24]
+  wire [2:0] _GEN_0 = dec_io_startWrite ? 3'h2 : stateReg; // @[PonteDecoder.scala 62:39 63:20 35:25]
+  wire [2:0] _GEN_1 = dec_io_startRead ? 3'h1 : _GEN_0; // @[PonteDecoder.scala 60:32 61:20]
+  wire [2:0] _GEN_2 = dec_io_valid ? _GEN_1 : stateReg; // @[PonteDecoder.scala 35:25 59:26]
+  wire [2:0] _GEN_3 = dec_io_valid ? 3'h2 : stateReg; // @[PonteDecoder.scala 70:26 71:18 35:25]
+  wire [1:0] _cntReg_T_1 = cntReg - 2'h1; // @[PonteDecoder.scala 76:26]
+  wire [15:0] _addrReg_T_1 = {dec_io_data,addrReg[15:8]}; // @[Cat.scala 33:92]
+  wire  _T_9 = cntReg == 2'h0; // @[PonteDecoder.scala 78:21]
+  wire [2:0] _stateReg_T = isWriteReg ? 3'h3 : 3'h4; // @[PonteDecoder.scala 79:26]
+  wire [2:0] _GEN_4 = cntReg == 2'h0 ? _stateReg_T : stateReg; // @[PonteDecoder.scala 78:30 79:20 35:25]
+  wire [1:0] _GEN_5 = cntReg == 2'h0 ? 2'h3 : _cntReg_T_1; // @[PonteDecoder.scala 76:16 78:30 80:18]
+  wire [1:0] _GEN_6 = dec_io_valid ? _GEN_5 : cntReg; // @[PonteDecoder.scala 36:23 75:26]
+  wire [15:0] _GEN_7 = dec_io_valid ? _addrReg_T_1 : addrReg; // @[PonteDecoder.scala 75:26 77:17 37:24]
+  wire [2:0] _GEN_8 = dec_io_valid ? _GEN_4 : stateReg; // @[PonteDecoder.scala 35:25 75:26]
+  wire [31:0] _dataReg_T_1 = {dec_io_data,dataReg[31:8]}; // @[Cat.scala 33:92]
+  wire [2:0] _GEN_9 = _T_9 ? 3'h4 : stateReg; // @[PonteDecoder.scala 88:30 89:20 35:25]
+  wire [1:0] _GEN_10 = dec_io_valid ? _cntReg_T_1 : cntReg; // @[PonteDecoder.scala 85:26 86:16 36:23]
+  wire [31:0] _GEN_11 = dec_io_valid ? _dataReg_T_1 : dataReg; // @[PonteDecoder.scala 85:26 87:17 40:24]
+  wire [2:0] _GEN_12 = dec_io_valid ? _GEN_9 : stateReg; // @[PonteDecoder.scala 35:25 85:26]
+  wire [15:0] _addrReg_T_3 = addrReg + 16'h4; // @[PonteDecoder.scala 105:28]
+  wire [2:0] _stateReg_T_1 = isWriteReg ? 3'h3 : 3'h6; // @[PonteDecoder.scala 106:24]
+  wire [31:0] _GEN_13 = io_apb_pready ? io_apb_prdata : dataReg; // @[PonteDecoder.scala 103:27 104:17 40:24]
+  wire [15:0] _GEN_14 = io_apb_pready ? _addrReg_T_3 : addrReg; // @[PonteDecoder.scala 103:27 105:17 37:24]
+  wire [2:0] _GEN_15 = io_apb_pready ? _stateReg_T_1 : stateReg; // @[PonteDecoder.scala 103:27 106:18 35:25]
+  wire [2:0] _GEN_16 = _T_9 ? 3'h7 : stateReg; // @[PonteDecoder.scala 115:30 116:20 35:25]
+  wire [31:0] _GEN_17 = io_out_ready ? {{8'd0}, dataReg[31:8]} : dataReg; // @[PonteDecoder.scala 112:26 113:17 40:24]
+  wire [1:0] _GEN_18 = io_out_ready ? _cntReg_T_1 : cntReg; // @[PonteDecoder.scala 112:26 114:16 36:23]
+  wire [2:0] _GEN_19 = io_out_ready ? _GEN_16 : stateReg; // @[PonteDecoder.scala 112:26 35:25]
+  wire [7:0] _readLenReg_T_1 = readLenReg - 8'h1; // @[PonteDecoder.scala 122:32]
+  wire [2:0] _stateReg_T_3 = readLenReg == 8'h0 ? 3'h0 : 3'h4; // @[PonteDecoder.scala 123:22]
+  wire [7:0] _GEN_21 = 3'h7 == stateReg ? _readLenReg_T_1 : readLenReg; // @[PonteDecoder.scala 122:18 54:20 39:27]
+  wire [2:0] _GEN_22 = 3'h7 == stateReg ? _stateReg_T_3 : stateReg; // @[PonteDecoder.scala 123:16 54:20 35:25]
+  wire  _GEN_23 = 3'h6 == stateReg | 3'h7 == stateReg; // @[PonteDecoder.scala 110:20 54:20]
+  wire [31:0] _GEN_25 = 3'h6 == stateReg ? _GEN_17 : dataReg; // @[PonteDecoder.scala 54:20 40:24]
+  wire [1:0] _GEN_26 = 3'h6 == stateReg ? _GEN_18 : cntReg; // @[PonteDecoder.scala 54:20 36:23]
+  wire [2:0] _GEN_27 = 3'h6 == stateReg ? _GEN_19 : _GEN_22; // @[PonteDecoder.scala 54:20]
+  wire [7:0] _GEN_28 = 3'h6 == stateReg ? readLenReg : _GEN_21; // @[PonteDecoder.scala 54:20 39:27]
+  wire  _GEN_29 = 3'h5 == stateReg | _GEN_23; // @[PonteDecoder.scala 54:20 99:20]
+  wire [1:0] _GEN_31 = 3'h5 == stateReg ? 2'h3 : _GEN_26; // @[PonteDecoder.scala 102:14 54:20]
+  wire [31:0] _GEN_32 = 3'h5 == stateReg ? _GEN_13 : _GEN_25; // @[PonteDecoder.scala 54:20]
+  wire [15:0] _GEN_33 = 3'h5 == stateReg ? _GEN_14 : addrReg; // @[PonteDecoder.scala 54:20 37:24]
+  wire [2:0] _GEN_34 = 3'h5 == stateReg ? _GEN_15 : _GEN_27; // @[PonteDecoder.scala 54:20]
+  wire  _GEN_35 = 3'h5 == stateReg ? 1'h0 : 3'h6 == stateReg; // @[PonteDecoder.scala 49:16 54:20]
+  wire [7:0] _GEN_36 = 3'h5 == stateReg ? readLenReg : _GEN_28; // @[PonteDecoder.scala 54:20 39:27]
+  wire  _GEN_37 = 3'h4 == stateReg | _GEN_29; // @[PonteDecoder.scala 54:20 94:20]
+  wire  _GEN_38 = 3'h4 == stateReg | 3'h5 == stateReg; // @[PonteDecoder.scala 54:20 95:19]
+  wire [2:0] _GEN_39 = 3'h4 == stateReg ? 3'h5 : _GEN_34; // @[PonteDecoder.scala 54:20 96:16]
+  wire  _GEN_40 = 3'h4 == stateReg ? 1'h0 : 3'h5 == stateReg; // @[PonteDecoder.scala 43:18 54:20]
+  wire [1:0] _GEN_41 = 3'h4 == stateReg ? cntReg : _GEN_31; // @[PonteDecoder.scala 54:20 36:23]
+  wire [31:0] _GEN_42 = 3'h4 == stateReg ? dataReg : _GEN_32; // @[PonteDecoder.scala 54:20 40:24]
+  wire [15:0] _GEN_43 = 3'h4 == stateReg ? addrReg : _GEN_33; // @[PonteDecoder.scala 54:20 37:24]
+  wire  _GEN_44 = 3'h4 == stateReg ? 1'h0 : _GEN_35; // @[PonteDecoder.scala 49:16 54:20]
+  wire [7:0] _GEN_45 = 3'h4 == stateReg ? readLenReg : _GEN_36; // @[PonteDecoder.scala 54:20 39:27]
+  wire [1:0] _GEN_46 = 3'h3 == stateReg ? _GEN_10 : _GEN_41; // @[PonteDecoder.scala 54:20]
+  wire [31:0] _GEN_47 = 3'h3 == stateReg ? _GEN_11 : _GEN_42; // @[PonteDecoder.scala 54:20]
+  wire [2:0] _GEN_48 = 3'h3 == stateReg ? _GEN_12 : _GEN_39; // @[PonteDecoder.scala 54:20]
+  wire  _GEN_49 = 3'h3 == stateReg ? 1'h0 : _GEN_37; // @[PonteDecoder.scala 52:16 54:20]
+  wire  _GEN_50 = 3'h3 == stateReg ? 1'h0 : _GEN_38; // @[PonteDecoder.scala 42:15 54:20]
+  wire  _GEN_51 = 3'h3 == stateReg ? 1'h0 : _GEN_40; // @[PonteDecoder.scala 43:18 54:20]
+  wire [15:0] _GEN_52 = 3'h3 == stateReg ? addrReg : _GEN_43; // @[PonteDecoder.scala 54:20 37:24]
+  wire  _GEN_53 = 3'h3 == stateReg ? 1'h0 : _GEN_44; // @[PonteDecoder.scala 49:16 54:20]
+  wire [7:0] _GEN_54 = 3'h3 == stateReg ? readLenReg : _GEN_45; // @[PonteDecoder.scala 54:20 39:27]
+  wire [1:0] _GEN_55 = 3'h2 == stateReg ? _GEN_6 : _GEN_46; // @[PonteDecoder.scala 54:20]
+  wire [2:0] _GEN_57 = 3'h2 == stateReg ? _GEN_8 : _GEN_48; // @[PonteDecoder.scala 54:20]
+  wire  _GEN_59 = 3'h2 == stateReg ? 1'h0 : _GEN_49; // @[PonteDecoder.scala 52:16 54:20]
+  wire  _GEN_60 = 3'h2 == stateReg ? 1'h0 : _GEN_50; // @[PonteDecoder.scala 42:15 54:20]
+  wire  _GEN_61 = 3'h2 == stateReg ? 1'h0 : _GEN_51; // @[PonteDecoder.scala 43:18 54:20]
+  wire  _GEN_62 = 3'h2 == stateReg ? 1'h0 : _GEN_53; // @[PonteDecoder.scala 49:16 54:20]
+  wire [1:0] _GEN_64 = 3'h1 == stateReg ? 2'h1 : _GEN_55; // @[PonteDecoder.scala 54:20 68:14]
+  wire [2:0] _GEN_66 = 3'h1 == stateReg ? _GEN_3 : _GEN_57; // @[PonteDecoder.scala 54:20]
+  wire  _GEN_69 = 3'h1 == stateReg ? 1'h0 : _GEN_59; // @[PonteDecoder.scala 52:16 54:20]
+  wire  _GEN_70 = 3'h1 == stateReg ? 1'h0 : _GEN_60; // @[PonteDecoder.scala 42:15 54:20]
+  wire  _GEN_71 = 3'h1 == stateReg ? 1'h0 : _GEN_61; // @[PonteDecoder.scala 43:18 54:20]
+  wire  _GEN_72 = 3'h1 == stateReg ? 1'h0 : _GEN_62; // @[PonteDecoder.scala 49:16 54:20]
+  wire [1:0] _GEN_73 = 3'h0 == stateReg ? 2'h1 : _GEN_64; // @[PonteDecoder.scala 54:20 56:14]
+  wire  _GEN_74 = 3'h0 == stateReg ? dec_io_startWrite : isWriteReg; // @[PonteDecoder.scala 54:20 57:18 38:27]
+  wire [2:0] _GEN_75 = 3'h0 == stateReg ? _GEN_2 : _GEN_66; // @[PonteDecoder.scala 54:20]
+  wire  _GEN_83 = dec_io_startWrite | _GEN_74; // @[PonteDecoder.scala 135:35 136:18]
+  PonteEscaper dec ( // @[PonteDecoder.scala 28:19]
+    .clock(dec_clock),
+    .reset(dec_reset),
+    .io_in_ready(dec_io_in_ready),
+    .io_in_valid(dec_io_in_valid),
+    .io_in_bits(dec_io_in_bits),
+    .io_valid(dec_io_valid),
+    .io_startRead(dec_io_startRead),
+    .io_startWrite(dec_io_startWrite),
+    .io_data(dec_io_data),
+    .io_stall(dec_io_stall)
+  );
+  assign io_in_ready = dec_io_in_ready; // @[PonteDecoder.scala 29:13]
+  assign io_out_valid = 3'h0 == stateReg ? 1'h0 : _GEN_72; // @[PonteDecoder.scala 49:16 54:20]
+  assign io_out_bits = dataReg[7:0]; // @[PonteDecoder.scala 50:25]
+  assign io_apb_paddr = addrReg; // @[PonteDecoder.scala 45:16]
+  assign io_apb_psel = 3'h0 == stateReg ? 1'h0 : _GEN_70; // @[PonteDecoder.scala 42:15 54:20]
+  assign io_apb_penable = 3'h0 == stateReg ? 1'h0 : _GEN_71; // @[PonteDecoder.scala 43:18 54:20]
+  assign io_apb_pwrite = isWriteReg; // @[PonteDecoder.scala 44:17]
+  assign io_apb_pwdata = dataReg; // @[PonteDecoder.scala 46:17]
+  assign dec_clock = clock;
+  assign dec_reset = reset;
+  assign dec_io_in_valid = io_in_valid; // @[PonteDecoder.scala 29:13]
+  assign dec_io_in_bits = io_in_bits; // @[PonteDecoder.scala 29:13]
+  assign dec_io_stall = 3'h0 == stateReg ? 1'h0 : _GEN_69; // @[PonteDecoder.scala 52:16 54:20]
+  always @(posedge clock) begin
+    if (reset) begin // @[PonteDecoder.scala 35:25]
+      stateReg <= 3'h0; // @[PonteDecoder.scala 35:25]
+    end else if (dec_io_valid & ~dec_io_stall) begin // @[PonteDecoder.scala 131:39]
+      if (dec_io_startRead) begin // @[PonteDecoder.scala 132:28]
+        stateReg <= 3'h1; // @[PonteDecoder.scala 134:16]
+      end else if (dec_io_startWrite) begin // @[PonteDecoder.scala 135:35]
+        stateReg <= 3'h2; // @[PonteDecoder.scala 137:16]
+      end else begin
+        stateReg <= _GEN_75;
+      end
+    end else begin
+      stateReg <= _GEN_75;
+    end
+    if (reset) begin // @[PonteDecoder.scala 36:23]
+      cntReg <= 2'h0; // @[PonteDecoder.scala 36:23]
+    end else if (dec_io_valid & ~dec_io_stall) begin // @[PonteDecoder.scala 131:39]
+      if (dec_io_startRead) begin // @[PonteDecoder.scala 132:28]
+        cntReg <= _GEN_73;
+      end else if (dec_io_startWrite) begin // @[PonteDecoder.scala 135:35]
+        cntReg <= 2'h1; // @[PonteDecoder.scala 138:14]
+      end else begin
+        cntReg <= _GEN_73;
+      end
+    end else begin
+      cntReg <= _GEN_73;
+    end
+    if (reset) begin // @[PonteDecoder.scala 37:24]
+      addrReg <= 16'h0; // @[PonteDecoder.scala 37:24]
+    end else if (!(3'h0 == stateReg)) begin // @[PonteDecoder.scala 54:20]
+      if (!(3'h1 == stateReg)) begin // @[PonteDecoder.scala 54:20]
+        if (3'h2 == stateReg) begin // @[PonteDecoder.scala 54:20]
+          addrReg <= _GEN_7;
+        end else begin
+          addrReg <= _GEN_52;
+        end
+      end
+    end
+    if (reset) begin // @[PonteDecoder.scala 38:27]
+      isWriteReg <= 1'h0; // @[PonteDecoder.scala 38:27]
+    end else if (dec_io_valid & ~dec_io_stall) begin // @[PonteDecoder.scala 131:39]
+      if (dec_io_startRead) begin // @[PonteDecoder.scala 132:28]
+        isWriteReg <= 1'h0; // @[PonteDecoder.scala 133:18]
+      end else begin
+        isWriteReg <= _GEN_83;
+      end
+    end else if (3'h0 == stateReg) begin // @[PonteDecoder.scala 54:20]
+      isWriteReg <= dec_io_startWrite; // @[PonteDecoder.scala 57:18]
+    end
+    if (reset) begin // @[PonteDecoder.scala 39:27]
+      readLenReg <= 8'h0; // @[PonteDecoder.scala 39:27]
+    end else if (!(3'h0 == stateReg)) begin // @[PonteDecoder.scala 54:20]
+      if (3'h1 == stateReg) begin // @[PonteDecoder.scala 54:20]
+        readLenReg <= dec_io_data; // @[PonteDecoder.scala 69:18]
+      end else if (!(3'h2 == stateReg)) begin // @[PonteDecoder.scala 54:20]
+        readLenReg <= _GEN_54;
+      end
+    end
+    if (reset) begin // @[PonteDecoder.scala 40:24]
+      dataReg <= 32'h0; // @[PonteDecoder.scala 40:24]
+    end else if (!(3'h0 == stateReg)) begin // @[PonteDecoder.scala 54:20]
+      if (!(3'h1 == stateReg)) begin // @[PonteDecoder.scala 54:20]
+        if (!(3'h2 == stateReg)) begin // @[PonteDecoder.scala 54:20]
+          dataReg <= _GEN_47;
+        end
+      end
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  stateReg = _RAND_0[2:0];
+  _RAND_1 = {1{`RANDOM}};
+  cntReg = _RAND_1[1:0];
+  _RAND_2 = {1{`RANDOM}};
+  addrReg = _RAND_2[15:0];
+  _RAND_3 = {1{`RANDOM}};
+  isWriteReg = _RAND_3[0:0];
+  _RAND_4 = {1{`RANDOM}};
+  readLenReg = _RAND_4[7:0];
+  _RAND_5 = {1{`RANDOM}};
+  dataReg = _RAND_5[31:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
+module Ponte(
+  input         clock,
+  input         reset,
+  output        io_uart_tx,
+  input         io_uart_rx,
+  output [15:0] io_apb_paddr,
+  output        io_apb_psel,
+  output        io_apb_penable,
+  output        io_apb_pwrite,
+  output [31:0] io_apb_pwdata,
+  input         io_apb_pready,
+  input  [31:0] io_apb_prdata
+);
+  wire  uartRx_clock; // @[Ponte.scala 31:22]
+  wire  uartRx_reset; // @[Ponte.scala 31:22]
+  wire  uartRx_io_rxd; // @[Ponte.scala 31:22]
+  wire  uartRx_io_channel_ready; // @[Ponte.scala 31:22]
+  wire  uartRx_io_channel_valid; // @[Ponte.scala 31:22]
+  wire [7:0] uartRx_io_channel_bits; // @[Ponte.scala 31:22]
+  wire  uartTx_clock; // @[Ponte.scala 32:22]
+  wire  uartTx_reset; // @[Ponte.scala 32:22]
+  wire  uartTx_io_txd; // @[Ponte.scala 32:22]
+  wire  uartTx_io_channel_ready; // @[Ponte.scala 32:22]
+  wire  uartTx_io_channel_valid; // @[Ponte.scala 32:22]
+  wire [7:0] uartTx_io_channel_bits; // @[Ponte.scala 32:22]
+  wire  ponteDecoder_clock; // @[Ponte.scala 37:28]
+  wire  ponteDecoder_reset; // @[Ponte.scala 37:28]
+  wire  ponteDecoder_io_in_ready; // @[Ponte.scala 37:28]
+  wire  ponteDecoder_io_in_valid; // @[Ponte.scala 37:28]
+  wire [7:0] ponteDecoder_io_in_bits; // @[Ponte.scala 37:28]
+  wire  ponteDecoder_io_out_ready; // @[Ponte.scala 37:28]
+  wire  ponteDecoder_io_out_valid; // @[Ponte.scala 37:28]
+  wire [7:0] ponteDecoder_io_out_bits; // @[Ponte.scala 37:28]
+  wire [15:0] ponteDecoder_io_apb_paddr; // @[Ponte.scala 37:28]
+  wire  ponteDecoder_io_apb_psel; // @[Ponte.scala 37:28]
+  wire  ponteDecoder_io_apb_penable; // @[Ponte.scala 37:28]
+  wire  ponteDecoder_io_apb_pwrite; // @[Ponte.scala 37:28]
+  wire [31:0] ponteDecoder_io_apb_pwdata; // @[Ponte.scala 37:28]
+  wire  ponteDecoder_io_apb_pready; // @[Ponte.scala 37:28]
+  wire [31:0] ponteDecoder_io_apb_prdata; // @[Ponte.scala 37:28]
+  Rx uartRx ( // @[Ponte.scala 31:22]
+    .clock(uartRx_clock),
+    .reset(uartRx_reset),
+    .io_rxd(uartRx_io_rxd),
+    .io_channel_ready(uartRx_io_channel_ready),
+    .io_channel_valid(uartRx_io_channel_valid),
+    .io_channel_bits(uartRx_io_channel_bits)
+  );
+  Tx uartTx ( // @[Ponte.scala 32:22]
+    .clock(uartTx_clock),
+    .reset(uartTx_reset),
+    .io_txd(uartTx_io_txd),
+    .io_channel_ready(uartTx_io_channel_ready),
+    .io_channel_valid(uartTx_io_channel_valid),
+    .io_channel_bits(uartTx_io_channel_bits)
+  );
+  PonteDecoder ponteDecoder ( // @[Ponte.scala 37:28]
+    .clock(ponteDecoder_clock),
+    .reset(ponteDecoder_reset),
+    .io_in_ready(ponteDecoder_io_in_ready),
+    .io_in_valid(ponteDecoder_io_in_valid),
+    .io_in_bits(ponteDecoder_io_in_bits),
+    .io_out_ready(ponteDecoder_io_out_ready),
+    .io_out_valid(ponteDecoder_io_out_valid),
+    .io_out_bits(ponteDecoder_io_out_bits),
+    .io_apb_paddr(ponteDecoder_io_apb_paddr),
+    .io_apb_psel(ponteDecoder_io_apb_psel),
+    .io_apb_penable(ponteDecoder_io_apb_penable),
+    .io_apb_pwrite(ponteDecoder_io_apb_pwrite),
+    .io_apb_pwdata(ponteDecoder_io_apb_pwdata),
+    .io_apb_pready(ponteDecoder_io_apb_pready),
+    .io_apb_prdata(ponteDecoder_io_apb_prdata)
+  );
+  assign io_uart_tx = uartTx_io_txd; // @[Ponte.scala 34:14]
+  assign io_apb_paddr = ponteDecoder_io_apb_paddr; // @[Ponte.scala 39:23]
+  assign io_apb_psel = ponteDecoder_io_apb_psel; // @[Ponte.scala 39:23]
+  assign io_apb_penable = ponteDecoder_io_apb_penable; // @[Ponte.scala 39:23]
+  assign io_apb_pwrite = ponteDecoder_io_apb_pwrite; // @[Ponte.scala 39:23]
+  assign io_apb_pwdata = ponteDecoder_io_apb_pwdata; // @[Ponte.scala 39:23]
+  assign uartRx_clock = clock;
+  assign uartRx_reset = reset;
+  assign uartRx_io_rxd = io_uart_rx; // @[Ponte.scala 35:17]
+  assign uartRx_io_channel_ready = ponteDecoder_io_in_ready; // @[Ponte.scala 38:22]
+  assign uartTx_clock = clock;
+  assign uartTx_reset = reset;
+  assign uartTx_io_channel_valid = ponteDecoder_io_out_valid; // @[Ponte.scala 40:23]
+  assign uartTx_io_channel_bits = ponteDecoder_io_out_bits; // @[Ponte.scala 40:23]
+  assign ponteDecoder_clock = clock;
+  assign ponteDecoder_reset = reset;
+  assign ponteDecoder_io_in_valid = uartRx_io_channel_valid; // @[Ponte.scala 38:22]
+  assign ponteDecoder_io_in_bits = uartRx_io_channel_bits; // @[Ponte.scala 38:22]
+  assign ponteDecoder_io_out_ready = uartTx_io_channel_ready; // @[Ponte.scala 40:23]
+  assign ponteDecoder_io_apb_pready = io_apb_pready; // @[Ponte.scala 39:23]
+  assign ponteDecoder_io_apb_prdata = io_apb_prdata; // @[Ponte.scala 39:23]
+endmodule
 module AluAccu(
   input         clock,
   input         reset,
@@ -326,7 +1091,7 @@ endmodule
 module Leros(
   input         clock,
   input         reset,
-  output [7:0]  imemIO_addr,
+  output [10:0] imemIO_addr,
   input  [15:0] imemIO_instr,
   output [15:0] dmemIO_rdAddr,
   input  [31:0] dmemIO_rdData,
@@ -371,9 +1136,9 @@ module Leros(
   wire  dec_io_dout_enaHalf; // @[Leros.scala 33:19]
   wire  dec_io_dout_isDataAccess; // @[Leros.scala 33:19]
   wire [3:0] dec_io_dout_brType; // @[Leros.scala 33:19]
-  reg [7:0] pcReg; // @[Leros.scala 23:22]
+  reg [10:0] pcReg; // @[Leros.scala 23:22]
   reg [15:0] addrReg; // @[Leros.scala 24:24]
-  wire [7:0] _pcNext_T_1 = pcReg + 8'h1; // @[Leros.scala 26:34]
+  wire [10:0] _pcNext_T_1 = pcReg + 11'h1; // @[Leros.scala 26:34]
   reg [31:0] decReg_operand; // @[Leros.scala 36:23]
   reg [3:0] decReg_enaMask; // @[Leros.scala 36:23]
   reg [2:0] decReg_op; // @[Leros.scala 36:23]
@@ -395,20 +1160,20 @@ module Leros(
   wire  _GEN_17 = 4'ha == decReg_brType ? alu_io_accu != 32'h0 : _GEN_16; // @[Leros.scala 126:29 129:39]
   wire  _GEN_18 = 4'h9 == decReg_brType ? alu_io_accu == 32'h0 : _GEN_17; // @[Leros.scala 126:29 128:38]
   wire  doBranch = 4'h8 == decReg_brType | _GEN_18; // @[Leros.scala 126:29 127:37]
-  wire [7:0] _pcNext_T_2 = pcReg; // @[Leros.scala 134:26]
-  wire [11:0] _GEN_109 = {{4{_pcNext_T_2[7]}},_pcNext_T_2}; // @[Leros.scala 134:33]
+  wire [10:0] _pcNext_T_2 = pcReg; // @[Leros.scala 134:26]
+  wire [11:0] _GEN_109 = {{1{_pcNext_T_2[10]}},_pcNext_T_2}; // @[Leros.scala 134:33]
   wire [11:0] _pcNext_T_6 = $signed(_GEN_109) + $signed(decReg_brOff); // @[Leros.scala 134:49]
-  wire [11:0] _GEN_20 = doBranch ? _pcNext_T_6 : {{4'd0}, _pcNext_T_1}; // @[Leros.scala 133:23 134:16 26:27]
-  wire [31:0] _GEN_22 = 4'h9 == stateReg ? alu_io_accu : {{24'd0}, _pcNext_T_1}; // @[Leros.scala 139:14 84:20 26:27]
+  wire [11:0] _GEN_20 = doBranch ? _pcNext_T_6 : {{1'd0}, _pcNext_T_1}; // @[Leros.scala 133:23 134:16 26:27]
+  wire [31:0] _GEN_22 = 4'h9 == stateReg ? alu_io_accu : {{21'd0}, _pcNext_T_1}; // @[Leros.scala 139:14 84:20 26:27]
   wire [31:0] _GEN_26 = 4'h8 == stateReg ? {{20'd0}, _GEN_20} : _GEN_22; // @[Leros.scala 84:20]
-  wire [31:0] _GEN_37 = 4'h7 == stateReg ? {{24'd0}, _pcNext_T_1} : _GEN_26; // @[Leros.scala 84:20 26:27]
-  wire [31:0] _GEN_46 = 4'h6 == stateReg ? {{24'd0}, _pcNext_T_1} : _GEN_37; // @[Leros.scala 84:20 26:27]
-  wire [31:0] _GEN_55 = 4'h5 == stateReg ? {{24'd0}, _pcNext_T_1} : _GEN_46; // @[Leros.scala 84:20 26:27]
-  wire [31:0] _GEN_64 = 4'h4 == stateReg ? {{24'd0}, _pcNext_T_1} : _GEN_55; // @[Leros.scala 84:20 26:27]
-  wire [31:0] _GEN_73 = 4'h3 == stateReg ? {{24'd0}, _pcNext_T_1} : _GEN_64; // @[Leros.scala 84:20 26:27]
-  wire [31:0] _GEN_83 = 4'h2 == stateReg ? {{24'd0}, _pcNext_T_1} : _GEN_73; // @[Leros.scala 84:20 26:27]
-  wire [31:0] pcNext = 4'h1 == stateReg ? {{24'd0}, _pcNext_T_1} : _GEN_83; // @[Leros.scala 84:20 26:27]
-  wire [31:0] _GEN_1 = stateReg != 4'h1 ? pcNext : {{24'd0}, pcReg}; // @[Leros.scala 78:29 80:11 23:22]
+  wire [31:0] _GEN_37 = 4'h7 == stateReg ? {{21'd0}, _pcNext_T_1} : _GEN_26; // @[Leros.scala 84:20 26:27]
+  wire [31:0] _GEN_46 = 4'h6 == stateReg ? {{21'd0}, _pcNext_T_1} : _GEN_37; // @[Leros.scala 84:20 26:27]
+  wire [31:0] _GEN_55 = 4'h5 == stateReg ? {{21'd0}, _pcNext_T_1} : _GEN_46; // @[Leros.scala 84:20 26:27]
+  wire [31:0] _GEN_64 = 4'h4 == stateReg ? {{21'd0}, _pcNext_T_1} : _GEN_55; // @[Leros.scala 84:20 26:27]
+  wire [31:0] _GEN_73 = 4'h3 == stateReg ? {{21'd0}, _pcNext_T_1} : _GEN_64; // @[Leros.scala 84:20 26:27]
+  wire [31:0] _GEN_83 = 4'h2 == stateReg ? {{21'd0}, _pcNext_T_1} : _GEN_73; // @[Leros.scala 84:20 26:27]
+  wire [31:0] pcNext = 4'h1 == stateReg ? {{21'd0}, _pcNext_T_1} : _GEN_83; // @[Leros.scala 84:20 26:27]
+  wire [31:0] _GEN_1 = stateReg != 4'h1 ? pcNext : {{21'd0}, pcReg}; // @[Leros.scala 78:29 80:11 23:22]
   wire [3:0] _dmemIO_wrMask_T = 4'h1 << effAddrOffReg; // @[Leros.scala 111:34]
   wire [7:0] _GEN_3 = 2'h0 == effAddrOffReg ? alu_io_accu[7:0] : alu_io_accu[7:0]; // @[Leros.scala 112:{30,30} 46:16]
   wire [7:0] _GEN_4 = 2'h1 == effAddrOffReg ? alu_io_accu[7:0] : alu_io_accu[15:8]; // @[Leros.scala 112:{30,30} 46:16]
@@ -449,7 +1214,7 @@ module Leros(
   wire [7:0] vecAccu_0 = 4'h1 == stateReg ? alu_io_accu[7:0] : _GEN_78; // @[Leros.scala 46:16 84:20]
   wire [31:0] _dmemIO_wrData_T_2 = {vecAccu_3,vecAccu_2,vecAccu_1,vecAccu_0}; // @[Leros.scala 113:63]
   wire [4:0] _dmemIO_wrMask_T_1 = 5'h3 << effAddrOffReg; // @[Leros.scala 118:34]
-  wire [31:0] _GEN_24 = 4'h9 == stateReg ? {{24'd0}, _pcNext_T_1} : alu_io_accu; // @[Leros.scala 84:20 141:21 59:17]
+  wire [31:0] _GEN_24 = 4'h9 == stateReg ? {{21'd0}, _pcNext_T_1} : alu_io_accu; // @[Leros.scala 84:20 141:21 59:17]
   wire  _GEN_27 = 4'h8 == stateReg ? 1'h0 : 4'h9 == stateReg; // @[Leros.scala 60:13 84:20]
   wire [31:0] _GEN_28 = 4'h8 == stateReg ? alu_io_accu : _GEN_24; // @[Leros.scala 59:17 84:20]
   wire  _GEN_30 = 4'h7 == stateReg | _GEN_27; // @[Leros.scala 117:17 84:20]
@@ -500,7 +1265,7 @@ module Leros(
     .io_dout_isDataAccess(dec_io_dout_isDataAccess),
     .io_dout_brType(dec_io_dout_brType)
   );
-  assign imemIO_addr = pcNext[7:0]; // @[Leros.scala 29:15]
+  assign imemIO_addr = pcNext[10:0]; // @[Leros.scala 29:15]
   assign dmemIO_rdAddr = {{2'd0}, memAddr}; // @[Leros.scala 56:17]
   assign dmemIO_wrAddr = {{2'd0}, memAddrReg}; // @[Leros.scala 58:17]
   assign dmemIO_wrData = 4'h1 == stateReg ? alu_io_accu : _GEN_82; // @[Leros.scala 59:17 84:20]
@@ -516,7 +1281,7 @@ module Leros(
   assign alu_io_off = effAddrOffReg; // @[Leros.scala 70:14]
   assign dec_io_din = imemIO_instr; // @[Leros.scala 34:14]
   always @(posedge clock) begin
-    pcReg <= _GEN_110[7:0]; // @[Leros.scala 23:{22,22}]
+    pcReg <= _GEN_110[10:0]; // @[Leros.scala 23:{22,22}]
     addrReg <= _GEN_111[15:0]; // @[Leros.scala 24:{24,24}]
     if (reset) begin // @[Leros.scala 36:23]
       decReg_operand <= 32'h0; // @[Leros.scala 36:23]
@@ -609,7 +1374,7 @@ initial begin
     `endif
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  pcReg = _RAND_0[7:0];
+  pcReg = _RAND_0[10:0];
   _RAND_1 = {1{`RANDOM}};
   addrReg = _RAND_1[15:0];
   _RAND_2 = {1{`RANDOM}};
@@ -644,7 +1409,7 @@ end // initial
 endmodule
 module ChiselSyncMemory(
   input         clock,
-  input  [4:0]  io_wordAddr,
+  input  [8:0]  io_wordAddr,
   input         io_write,
   input  [31:0] io_wrData,
   output [31:0] io_rdData,
@@ -666,46 +1431,46 @@ module ChiselSyncMemory(
   reg [31:0] _RAND_10;
   reg [31:0] _RAND_11;
 `endif // RANDOMIZE_REG_INIT
-  reg [7:0] mem_0 [0:31]; // @[ChiselSyncMemory.scala 30:24]
+  reg [7:0] mem_0 [0:511]; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_0_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  wire [4:0] mem_0_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [8:0] mem_0_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
   wire [7:0] mem_0_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
   wire [7:0] mem_0_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [4:0] mem_0_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [8:0] mem_0_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_0_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_0_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
   reg  mem_0_io_rdData_MPORT_en_pipe_0;
-  reg [4:0] mem_0_io_rdData_MPORT_addr_pipe_0;
-  reg [7:0] mem_1 [0:31]; // @[ChiselSyncMemory.scala 30:24]
+  reg [8:0] mem_0_io_rdData_MPORT_addr_pipe_0;
+  reg [7:0] mem_1 [0:511]; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_1_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  wire [4:0] mem_1_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [8:0] mem_1_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
   wire [7:0] mem_1_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
   wire [7:0] mem_1_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [4:0] mem_1_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [8:0] mem_1_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_1_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_1_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
   reg  mem_1_io_rdData_MPORT_en_pipe_0;
-  reg [4:0] mem_1_io_rdData_MPORT_addr_pipe_0;
-  reg [7:0] mem_2 [0:31]; // @[ChiselSyncMemory.scala 30:24]
+  reg [8:0] mem_1_io_rdData_MPORT_addr_pipe_0;
+  reg [7:0] mem_2 [0:511]; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_2_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  wire [4:0] mem_2_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [8:0] mem_2_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
   wire [7:0] mem_2_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
   wire [7:0] mem_2_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [4:0] mem_2_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [8:0] mem_2_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_2_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_2_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
   reg  mem_2_io_rdData_MPORT_en_pipe_0;
-  reg [4:0] mem_2_io_rdData_MPORT_addr_pipe_0;
-  reg [7:0] mem_3 [0:31]; // @[ChiselSyncMemory.scala 30:24]
+  reg [8:0] mem_2_io_rdData_MPORT_addr_pipe_0;
+  reg [7:0] mem_3 [0:511]; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_3_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  wire [4:0] mem_3_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [8:0] mem_3_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
   wire [7:0] mem_3_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
   wire [7:0] mem_3_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [4:0] mem_3_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [8:0] mem_3_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_3_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
   wire  mem_3_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
   reg  mem_3_io_rdData_MPORT_en_pipe_0;
-  reg [4:0] mem_3_io_rdData_MPORT_addr_pipe_0;
+  reg [8:0] mem_3_io_rdData_MPORT_addr_pipe_0;
   wire [32:0] _io_rdData_T_5 = {1'h0,mem_3_io_rdData_MPORT_data,mem_2_io_rdData_MPORT_data,mem_1_io_rdData_MPORT_data,
     mem_0_io_rdData_MPORT_data}; // @[Helper.scala 25:49]
   assign mem_0_io_rdData_MPORT_en = mem_0_io_rdData_MPORT_en_pipe_0;
@@ -736,34 +1501,50 @@ module ChiselSyncMemory(
   assign mem_3_MPORT_addr = io_wordAddr;
   assign mem_3_MPORT_mask = io_mask[3];
   assign mem_3_MPORT_en = io_write;
-  assign io_rdData = _io_rdData_T_5[31:0]; // @[ChiselSyncMemory.scala 32:13]
+  assign io_rdData = _io_rdData_T_5[31:0];
   always @(posedge clock) begin
     if (mem_0_MPORT_en & mem_0_MPORT_mask) begin
       mem_0[mem_0_MPORT_addr] <= mem_0_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
     end
-    mem_0_io_rdData_MPORT_en_pipe_0 <= 1'h1;
-    if (1'h1) begin
+    if (io_write) begin
+      mem_0_io_rdData_MPORT_en_pipe_0 <= 1'h0;
+    end else begin
+      mem_0_io_rdData_MPORT_en_pipe_0 <= 1'h1;
+    end
+    if (io_write ? 1'h0 : 1'h1) begin
       mem_0_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
     end
     if (mem_1_MPORT_en & mem_1_MPORT_mask) begin
       mem_1[mem_1_MPORT_addr] <= mem_1_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
     end
-    mem_1_io_rdData_MPORT_en_pipe_0 <= 1'h1;
-    if (1'h1) begin
+    if (io_write) begin
+      mem_1_io_rdData_MPORT_en_pipe_0 <= 1'h0;
+    end else begin
+      mem_1_io_rdData_MPORT_en_pipe_0 <= 1'h1;
+    end
+    if (io_write ? 1'h0 : 1'h1) begin
       mem_1_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
     end
     if (mem_2_MPORT_en & mem_2_MPORT_mask) begin
       mem_2[mem_2_MPORT_addr] <= mem_2_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
     end
-    mem_2_io_rdData_MPORT_en_pipe_0 <= 1'h1;
-    if (1'h1) begin
+    if (io_write) begin
+      mem_2_io_rdData_MPORT_en_pipe_0 <= 1'h0;
+    end else begin
+      mem_2_io_rdData_MPORT_en_pipe_0 <= 1'h1;
+    end
+    if (io_write ? 1'h0 : 1'h1) begin
       mem_2_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
     end
     if (mem_3_MPORT_en & mem_3_MPORT_mask) begin
       mem_3[mem_3_MPORT_addr] <= mem_3_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
     end
-    mem_3_io_rdData_MPORT_en_pipe_0 <= 1'h1;
-    if (1'h1) begin
+    if (io_write) begin
+      mem_3_io_rdData_MPORT_en_pipe_0 <= 1'h0;
+    end else begin
+      mem_3_io_rdData_MPORT_en_pipe_0 <= 1'h1;
+    end
+    if (io_write ? 1'h0 : 1'h1) begin
       mem_3_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
     end
   end
@@ -804,35 +1585,35 @@ initial begin
     `endif
 `ifdef RANDOMIZE_MEM_INIT
   _RAND_0 = {1{`RANDOM}};
-  for (initvar = 0; initvar < 32; initvar = initvar+1)
+  for (initvar = 0; initvar < 512; initvar = initvar+1)
     mem_0[initvar] = _RAND_0[7:0];
   _RAND_3 = {1{`RANDOM}};
-  for (initvar = 0; initvar < 32; initvar = initvar+1)
+  for (initvar = 0; initvar < 512; initvar = initvar+1)
     mem_1[initvar] = _RAND_3[7:0];
   _RAND_6 = {1{`RANDOM}};
-  for (initvar = 0; initvar < 32; initvar = initvar+1)
+  for (initvar = 0; initvar < 512; initvar = initvar+1)
     mem_2[initvar] = _RAND_6[7:0];
   _RAND_9 = {1{`RANDOM}};
-  for (initvar = 0; initvar < 32; initvar = initvar+1)
+  for (initvar = 0; initvar < 512; initvar = initvar+1)
     mem_3[initvar] = _RAND_9[7:0];
 `endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
   mem_0_io_rdData_MPORT_en_pipe_0 = _RAND_1[0:0];
   _RAND_2 = {1{`RANDOM}};
-  mem_0_io_rdData_MPORT_addr_pipe_0 = _RAND_2[4:0];
+  mem_0_io_rdData_MPORT_addr_pipe_0 = _RAND_2[8:0];
   _RAND_4 = {1{`RANDOM}};
   mem_1_io_rdData_MPORT_en_pipe_0 = _RAND_4[0:0];
   _RAND_5 = {1{`RANDOM}};
-  mem_1_io_rdData_MPORT_addr_pipe_0 = _RAND_5[4:0];
+  mem_1_io_rdData_MPORT_addr_pipe_0 = _RAND_5[8:0];
   _RAND_7 = {1{`RANDOM}};
   mem_2_io_rdData_MPORT_en_pipe_0 = _RAND_7[0:0];
   _RAND_8 = {1{`RANDOM}};
-  mem_2_io_rdData_MPORT_addr_pipe_0 = _RAND_8[4:0];
+  mem_2_io_rdData_MPORT_addr_pipe_0 = _RAND_8[8:0];
   _RAND_10 = {1{`RANDOM}};
   mem_3_io_rdData_MPORT_en_pipe_0 = _RAND_10[0:0];
   _RAND_11 = {1{`RANDOM}};
-  mem_3_io_rdData_MPORT_addr_pipe_0 = _RAND_11[4:0];
+  mem_3_io_rdData_MPORT_addr_pipe_0 = _RAND_11[8:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -843,32 +1624,32 @@ end // initial
 endmodule
 module InstructionMemory(
   input         clock,
-  input  [6:0]  instrPort_addr,
+  input  [10:0] instrPort_addr,
   output [15:0] instrPort_instr,
-  input  [6:0]  apbPort_paddr,
+  input  [10:0] apbPort_paddr,
   input         apbPort_psel,
   input         apbPort_penable,
   input         apbPort_pwrite,
   input  [3:0]  apbPort_pstrb,
   input  [31:0] apbPort_pwdata,
   output        apbPort_pready,
-  output        apbPort_pslverr
+  output [31:0] apbPort_prdata
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
 `endif // RANDOMIZE_REG_INIT
   wire  mem_clock; // @[ChiselSyncMemory.scala 11:19]
-  wire [4:0] mem_io_wordAddr; // @[ChiselSyncMemory.scala 11:19]
+  wire [8:0] mem_io_wordAddr; // @[ChiselSyncMemory.scala 11:19]
   wire  mem_io_write; // @[ChiselSyncMemory.scala 11:19]
   wire [31:0] mem_io_wrData; // @[ChiselSyncMemory.scala 11:19]
   wire [31:0] mem_io_rdData; // @[ChiselSyncMemory.scala 11:19]
   wire [3:0] mem_io_mask; // @[ChiselSyncMemory.scala 11:19]
-  wire [4:0] localAddr = apbPort_paddr[6:2]; // @[InstructionMemory.scala 35:34]
-  wire  _GEN_4 = apbPort_pwrite ? 1'h0 : 1'h1; // @[InstructionMemory.scala 26:19 37:63 44:23]
-  wire [15:0] upr = mem_io_rdData[31:16]; // @[InstructionMemory.scala 50:19]
-  wire [15:0] lwr = mem_io_rdData[15:0]; // @[InstructionMemory.scala 51:19]
-  reg  instrPort_instr_REG; // @[InstructionMemory.scala 52:35]
-  wire [5:0] _GEN_6 = apbPort_psel & apbPort_penable ? {{1'd0}, localAddr} : instrPort_addr[6:1]; // @[InstructionMemory.scala 31:41 ChiselSyncMemory.scala 41:17]
+  wire  _T_1 = apbPort_penable & apbPort_pwrite; // @[InstructionMemory.scala 56:32]
+  wire [8:0] _GEN_4 = ~apbPort_pwrite ? apbPort_paddr[10:2] : apbPort_paddr[10:2]; // @[ChiselSyncMemory.scala 43:17 InstructionMemory.scala 54:27]
+  wire  _GEN_8 = ~apbPort_pwrite ? 1'h0 : _T_1; // @[ChiselSyncMemory.scala 13:16 InstructionMemory.scala 54:27]
+  wire [15:0] upr = mem_io_rdData[31:16]; // @[InstructionMemory.scala 67:19]
+  wire [15:0] lwr = mem_io_rdData[15:0]; // @[InstructionMemory.scala 68:19]
+  reg  instrPort_instr_REG; // @[InstructionMemory.scala 69:35]
   ChiselSyncMemory mem ( // @[ChiselSyncMemory.scala 11:19]
     .clock(mem_clock),
     .io_wordAddr(mem_io_wordAddr),
@@ -877,16 +1658,16 @@ module InstructionMemory(
     .io_rdData(mem_io_rdData),
     .io_mask(mem_io_mask)
   );
-  assign instrPort_instr = instrPort_instr_REG ? upr : lwr; // @[InstructionMemory.scala 52:27]
-  assign apbPort_pready = apbPort_psel & apbPort_penable; // @[InstructionMemory.scala 31:21]
-  assign apbPort_pslverr = apbPort_psel & apbPort_penable & _GEN_4; // @[InstructionMemory.scala 26:19 31:41]
+  assign instrPort_instr = instrPort_instr_REG ? upr : lwr; // @[InstructionMemory.scala 69:27]
+  assign apbPort_pready = apbPort_psel & apbPort_penable; // @[InstructionMemory.scala 44:18 50:22 52:20]
+  assign apbPort_prdata = mem_io_rdData; // @[InstructionMemory.scala 54:27 55:22]
   assign mem_clock = clock;
-  assign mem_io_wordAddr = _GEN_6[4:0];
-  assign mem_io_write = apbPort_psel & apbPort_penable & apbPort_pwrite; // @[ChiselSyncMemory.scala 13:16 InstructionMemory.scala 31:41]
-  assign mem_io_wrData = apbPort_pwdata; // @[InstructionMemory.scala 37:63 ChiselSyncMemory.scala 47:15]
-  assign mem_io_mask = apbPort_pstrb; // @[InstructionMemory.scala 37:63 ChiselSyncMemory.scala 48:13]
+  assign mem_io_wordAddr = apbPort_psel ? _GEN_4 : instrPort_addr[9:1]; // @[ChiselSyncMemory.scala 43:17 InstructionMemory.scala 50:22]
+  assign mem_io_write = apbPort_psel & _GEN_8; // @[ChiselSyncMemory.scala 13:16 InstructionMemory.scala 50:22]
+  assign mem_io_wrData = apbPort_pwdata; // @[ChiselSyncMemory.scala 49:15 InstructionMemory.scala 56:51]
+  assign mem_io_mask = apbPort_pstrb; // @[ChiselSyncMemory.scala 50:13 InstructionMemory.scala 56:51]
   always @(posedge clock) begin
-    instrPort_instr_REG <= instrPort_addr[0]; // @[InstructionMemory.scala 52:50]
+    instrPort_instr_REG <= instrPort_addr[0]; // @[InstructionMemory.scala 69:50]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -937,37 +1718,32 @@ endmodule
 module InstrMem(
   input         clock,
   input         reset,
-  input  [7:0]  io_addr,
+  input  [10:0] io_addr,
   output [15:0] io_instr
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
 `endif // RANDOMIZE_REG_INIT
-  reg [7:0] memReg; // @[InstrMem.scala 24:23]
+  reg [10:0] memReg; // @[InstrMem.scala 24:23]
   wire [15:0] _GEN_1 = 5'h1 == memReg[4:0] ? 16'h2100 : 16'h0; // @[InstrMem.scala 27:{12,12}]
   wire [15:0] _GEN_2 = 5'h2 == memReg[4:0] ? 16'h2980 : _GEN_1; // @[InstrMem.scala 27:{12,12}]
   wire [15:0] _GEN_3 = 5'h3 == memReg[4:0] ? 16'h2a00 : _GEN_2; // @[InstrMem.scala 27:{12,12}]
   wire [15:0] _GEN_4 = 5'h4 == memReg[4:0] ? 16'h3001 : _GEN_3; // @[InstrMem.scala 27:{12,12}]
   wire [15:0] _GEN_5 = 5'h5 == memReg[4:0] ? 16'h5001 : _GEN_4; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_6 = 5'h6 == memReg[4:0] ? 16'h21af : _GEN_5; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_7 = 5'h7 == memReg[4:0] ? 16'h29ba : _GEN_6; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_8 = 5'h8 == memReg[4:0] ? 16'h2aed : _GEN_7; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_9 = 5'h9 == memReg[4:0] ? 16'h2bda : _GEN_8; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_10 = 5'ha == memReg[4:0] ? 16'h7000 : _GEN_9; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_11 = 5'hb == memReg[4:0] ? 16'h7001 : _GEN_10; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_12 = 5'hc == memReg[4:0] ? 16'h7002 : _GEN_11; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_13 = 5'hd == memReg[4:0] ? 16'h7003 : _GEN_12; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_14 = 5'he == memReg[4:0] ? 16'h2175 : _GEN_13; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_15 = 5'hf == memReg[4:0] ? 16'h7009 : _GEN_14; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_16 = 5'h10 == memReg[4:0] ? 16'h2101 : _GEN_15; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_17 = 5'h11 == memReg[4:0] ? 16'h7005 : _GEN_16; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_18 = 5'h12 == memReg[4:0] ? 16'h6005 : _GEN_17; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_19 = 5'h13 == memReg[4:0] ? 16'h901 : _GEN_18; // @[InstrMem.scala 27:{12,12}]
-  wire [15:0] _GEN_20 = 5'h14 == memReg[4:0] ? 16'h7005 : _GEN_19; // @[InstrMem.scala 27:{12,12}]
-  assign io_instr = 5'h15 == memReg[4:0] ? 16'h8ffd : _GEN_20; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_6 = 5'h6 == memReg[4:0] ? 16'h2100 : _GEN_5; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_7 = 5'h7 == memReg[4:0] ? 16'h3002 : _GEN_6; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_8 = 5'h8 == memReg[4:0] ? 16'h2002 : _GEN_7; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_9 = 5'h9 == memReg[4:0] ? 16'h901 : _GEN_8; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_10 = 5'ha == memReg[4:0] ? 16'h3002 : _GEN_9; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_11 = 5'hb == memReg[4:0] ? 16'h7000 : _GEN_10; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_12 = 5'hc == memReg[4:0] ? 16'h7041 : _GEN_11; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_13 = 5'hd == memReg[4:0] ? 16'h2301 : _GEN_12; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_14 = 5'he == memReg[4:0] ? 16'h930 : _GEN_13; // @[InstrMem.scala 27:{12,12}]
+  wire [15:0] _GEN_15 = 5'hf == memReg[4:0] ? 16'h7045 : _GEN_14; // @[InstrMem.scala 27:{12,12}]
+  assign io_instr = 5'h10 == memReg[4:0] ? 16'h8ff8 : _GEN_15; // @[InstrMem.scala 27:{12,12}]
   always @(posedge clock) begin
     if (reset) begin // @[InstrMem.scala 24:23]
-      memReg <= 8'h0; // @[InstrMem.scala 24:23]
+      memReg <= 11'h0; // @[InstrMem.scala 24:23]
     end else begin
       memReg <= io_addr; // @[InstrMem.scala 25:10]
     end
@@ -1009,7 +1785,7 @@ initial begin
     `endif
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  memReg = _RAND_0[7:0];
+  memReg = _RAND_0[10:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -1021,16 +1797,16 @@ endmodule
 module RegBlock(
   input         clock,
   input         reset,
-  input  [3:0]  apbPort_paddr,
+  input  [4:0]  apbPort_paddr,
   input         apbPort_psel,
   input         apbPort_penable,
   input         apbPort_pwrite,
   input  [31:0] apbPort_pwdata,
   output        apbPort_pready,
   output [31:0] apbPort_prdata,
-  input  [1:0]  dmemPort_rdAddr,
+  input  [2:0]  dmemPort_rdAddr,
   output [31:0] dmemPort_rdData,
-  input  [1:0]  dmemPort_wrAddr,
+  input  [2:0]  dmemPort_wrAddr,
   input  [31:0] dmemPort_wrData,
   input         dmemPort_wr
 );
@@ -1044,90 +1820,181 @@ module RegBlock(
   reg [31:0] _RAND_6;
   reg [31:0] _RAND_7;
   reg [31:0] _RAND_8;
+  reg [31:0] _RAND_9;
+  reg [31:0] _RAND_10;
+  reg [31:0] _RAND_11;
+  reg [31:0] _RAND_12;
+  reg [31:0] _RAND_13;
+  reg [31:0] _RAND_14;
+  reg [31:0] _RAND_15;
+  reg [31:0] _RAND_16;
+  reg [31:0] _RAND_17;
 `endif // RANDOMIZE_REG_INIT
-  reg [31:0] ibexToLerosRegs_0; // @[RegBlock.scala 18:32]
-  reg [31:0] ibexToLerosRegs_1; // @[RegBlock.scala 18:32]
-  reg [31:0] ibexToLerosRegs_2; // @[RegBlock.scala 18:32]
-  reg [31:0] ibexToLerosRegs_3; // @[RegBlock.scala 18:32]
-  reg [31:0] lerosToIbexRegs_0; // @[RegBlock.scala 19:32]
-  reg [31:0] lerosToIbexRegs_1; // @[RegBlock.scala 19:32]
-  reg [31:0] lerosToIbexRegs_2; // @[RegBlock.scala 19:32]
-  reg [31:0] lerosToIbexRegs_3; // @[RegBlock.scala 19:32]
-  wire [1:0] apbIndex = apbPort_paddr[3:2]; // @[RegBlock.scala 21:31]
-  wire [31:0] _GEN_1 = 2'h1 == apbIndex ? lerosToIbexRegs_1 : lerosToIbexRegs_0; // @[RegBlock.scala 25:{18,18}]
-  wire [31:0] _GEN_2 = 2'h2 == apbIndex ? lerosToIbexRegs_2 : _GEN_1; // @[RegBlock.scala 25:{18,18}]
-  reg [1:0] dmemPort_rdData_REG; // @[RegBlock.scala 36:45]
-  wire [31:0] _GEN_18 = 2'h1 == dmemPort_rdData_REG ? ibexToLerosRegs_1 : ibexToLerosRegs_0; // @[RegBlock.scala 36:{19,19}]
-  wire [31:0] _GEN_19 = 2'h2 == dmemPort_rdData_REG ? ibexToLerosRegs_2 : _GEN_18; // @[RegBlock.scala 36:{19,19}]
-  assign apbPort_pready = apbPort_psel & apbPort_penable; // @[RegBlock.scala 27:21]
-  assign apbPort_prdata = 2'h3 == apbIndex ? lerosToIbexRegs_3 : _GEN_2; // @[RegBlock.scala 25:{18,18}]
-  assign dmemPort_rdData = 2'h3 == dmemPort_rdData_REG ? ibexToLerosRegs_3 : _GEN_19; // @[RegBlock.scala 36:{19,19}]
+  reg [31:0] ibexToLerosRegs_0; // @[RegBlock.scala 34:32]
+  reg [31:0] ibexToLerosRegs_1; // @[RegBlock.scala 34:32]
+  reg [31:0] ibexToLerosRegs_2; // @[RegBlock.scala 34:32]
+  reg [31:0] ibexToLerosRegs_3; // @[RegBlock.scala 34:32]
+  reg [31:0] ibexToLerosRegs_4; // @[RegBlock.scala 34:32]
+  reg [31:0] ibexToLerosRegs_5; // @[RegBlock.scala 34:32]
+  reg [31:0] ibexToLerosRegs_6; // @[RegBlock.scala 34:32]
+  reg [31:0] ibexToLerosRegs_7; // @[RegBlock.scala 34:32]
+  reg [31:0] lerosToIbexRegs_0; // @[RegBlock.scala 35:32]
+  reg [31:0] lerosToIbexRegs_1; // @[RegBlock.scala 35:32]
+  reg [31:0] lerosToIbexRegs_2; // @[RegBlock.scala 35:32]
+  reg [31:0] lerosToIbexRegs_3; // @[RegBlock.scala 35:32]
+  reg [31:0] lerosToIbexRegs_4; // @[RegBlock.scala 35:32]
+  reg [31:0] lerosToIbexRegs_5; // @[RegBlock.scala 35:32]
+  reg [31:0] lerosToIbexRegs_6; // @[RegBlock.scala 35:32]
+  reg [31:0] lerosToIbexRegs_7; // @[RegBlock.scala 35:32]
+  wire [2:0] apbIndex = apbPort_paddr[4:2]; // @[RegBlock.scala 40:31]
+  reg [2:0] apbPort_prdata_REG; // @[RegBlock.scala 41:44]
+  wire [31:0] _GEN_1 = 3'h1 == apbPort_prdata_REG ? lerosToIbexRegs_1 : lerosToIbexRegs_0; // @[RegBlock.scala 41:{18,18}]
+  wire [31:0] _GEN_2 = 3'h2 == apbPort_prdata_REG ? lerosToIbexRegs_2 : _GEN_1; // @[RegBlock.scala 41:{18,18}]
+  wire [31:0] _GEN_3 = 3'h3 == apbPort_prdata_REG ? lerosToIbexRegs_3 : _GEN_2; // @[RegBlock.scala 41:{18,18}]
+  wire [31:0] _GEN_4 = 3'h4 == apbPort_prdata_REG ? lerosToIbexRegs_4 : _GEN_3; // @[RegBlock.scala 41:{18,18}]
+  wire [31:0] _GEN_5 = 3'h5 == apbPort_prdata_REG ? lerosToIbexRegs_5 : _GEN_4; // @[RegBlock.scala 41:{18,18}]
+  wire [31:0] _GEN_6 = 3'h6 == apbPort_prdata_REG ? lerosToIbexRegs_6 : _GEN_5; // @[RegBlock.scala 41:{18,18}]
+  reg [2:0] dmemPort_rdData_REG; // @[RegBlock.scala 52:45]
+  wire [31:0] _GEN_34 = 3'h1 == dmemPort_rdData_REG ? ibexToLerosRegs_1 : ibexToLerosRegs_0; // @[RegBlock.scala 52:{19,19}]
+  wire [31:0] _GEN_35 = 3'h2 == dmemPort_rdData_REG ? ibexToLerosRegs_2 : _GEN_34; // @[RegBlock.scala 52:{19,19}]
+  wire [31:0] _GEN_36 = 3'h3 == dmemPort_rdData_REG ? ibexToLerosRegs_3 : _GEN_35; // @[RegBlock.scala 52:{19,19}]
+  wire [31:0] _GEN_37 = 3'h4 == dmemPort_rdData_REG ? ibexToLerosRegs_4 : _GEN_36; // @[RegBlock.scala 52:{19,19}]
+  wire [31:0] _GEN_38 = 3'h5 == dmemPort_rdData_REG ? ibexToLerosRegs_5 : _GEN_37; // @[RegBlock.scala 52:{19,19}]
+  wire [31:0] _GEN_39 = 3'h6 == dmemPort_rdData_REG ? ibexToLerosRegs_6 : _GEN_38; // @[RegBlock.scala 52:{19,19}]
+  assign apbPort_pready = apbPort_psel & apbPort_penable; // @[RegBlock.scala 43:21]
+  assign apbPort_prdata = 3'h7 == apbPort_prdata_REG ? lerosToIbexRegs_7 : _GEN_6; // @[RegBlock.scala 41:{18,18}]
+  assign dmemPort_rdData = 3'h7 == dmemPort_rdData_REG ? ibexToLerosRegs_7 : _GEN_39; // @[RegBlock.scala 52:{19,19}]
   always @(posedge clock) begin
-    if (reset) begin // @[RegBlock.scala 18:32]
-      ibexToLerosRegs_0 <= 32'h0; // @[RegBlock.scala 18:32]
-    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 27:41]
-      if (apbPort_pwrite) begin // @[RegBlock.scala 30:26]
-        if (2'h0 == apbIndex) begin // @[RegBlock.scala 31:33]
-          ibexToLerosRegs_0 <= apbPort_pwdata; // @[RegBlock.scala 31:33]
+    if (reset) begin // @[RegBlock.scala 34:32]
+      ibexToLerosRegs_0 <= 32'h0; // @[RegBlock.scala 34:32]
+    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 43:41]
+      if (apbPort_pwrite) begin // @[RegBlock.scala 46:26]
+        if (3'h0 == apbIndex) begin // @[RegBlock.scala 47:33]
+          ibexToLerosRegs_0 <= apbPort_pwdata; // @[RegBlock.scala 47:33]
         end
       end
     end
-    if (reset) begin // @[RegBlock.scala 18:32]
-      ibexToLerosRegs_1 <= 32'h0; // @[RegBlock.scala 18:32]
-    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 27:41]
-      if (apbPort_pwrite) begin // @[RegBlock.scala 30:26]
-        if (2'h1 == apbIndex) begin // @[RegBlock.scala 31:33]
-          ibexToLerosRegs_1 <= apbPort_pwdata; // @[RegBlock.scala 31:33]
+    if (reset) begin // @[RegBlock.scala 34:32]
+      ibexToLerosRegs_1 <= 32'h0; // @[RegBlock.scala 34:32]
+    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 43:41]
+      if (apbPort_pwrite) begin // @[RegBlock.scala 46:26]
+        if (3'h1 == apbIndex) begin // @[RegBlock.scala 47:33]
+          ibexToLerosRegs_1 <= apbPort_pwdata; // @[RegBlock.scala 47:33]
         end
       end
     end
-    if (reset) begin // @[RegBlock.scala 18:32]
-      ibexToLerosRegs_2 <= 32'h0; // @[RegBlock.scala 18:32]
-    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 27:41]
-      if (apbPort_pwrite) begin // @[RegBlock.scala 30:26]
-        if (2'h2 == apbIndex) begin // @[RegBlock.scala 31:33]
-          ibexToLerosRegs_2 <= apbPort_pwdata; // @[RegBlock.scala 31:33]
+    if (reset) begin // @[RegBlock.scala 34:32]
+      ibexToLerosRegs_2 <= 32'h0; // @[RegBlock.scala 34:32]
+    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 43:41]
+      if (apbPort_pwrite) begin // @[RegBlock.scala 46:26]
+        if (3'h2 == apbIndex) begin // @[RegBlock.scala 47:33]
+          ibexToLerosRegs_2 <= apbPort_pwdata; // @[RegBlock.scala 47:33]
         end
       end
     end
-    if (reset) begin // @[RegBlock.scala 18:32]
-      ibexToLerosRegs_3 <= 32'h0; // @[RegBlock.scala 18:32]
-    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 27:41]
-      if (apbPort_pwrite) begin // @[RegBlock.scala 30:26]
-        if (2'h3 == apbIndex) begin // @[RegBlock.scala 31:33]
-          ibexToLerosRegs_3 <= apbPort_pwdata; // @[RegBlock.scala 31:33]
+    if (reset) begin // @[RegBlock.scala 34:32]
+      ibexToLerosRegs_3 <= 32'h0; // @[RegBlock.scala 34:32]
+    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 43:41]
+      if (apbPort_pwrite) begin // @[RegBlock.scala 46:26]
+        if (3'h3 == apbIndex) begin // @[RegBlock.scala 47:33]
+          ibexToLerosRegs_3 <= apbPort_pwdata; // @[RegBlock.scala 47:33]
         end
       end
     end
-    if (reset) begin // @[RegBlock.scala 19:32]
-      lerosToIbexRegs_0 <= 32'h0; // @[RegBlock.scala 19:32]
-    end else if (dmemPort_wr) begin // @[RegBlock.scala 38:21]
-      if (2'h0 == dmemPort_wrAddr) begin // @[RegBlock.scala 39:38]
-        lerosToIbexRegs_0 <= dmemPort_wrData; // @[RegBlock.scala 39:38]
+    if (reset) begin // @[RegBlock.scala 34:32]
+      ibexToLerosRegs_4 <= 32'h0; // @[RegBlock.scala 34:32]
+    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 43:41]
+      if (apbPort_pwrite) begin // @[RegBlock.scala 46:26]
+        if (3'h4 == apbIndex) begin // @[RegBlock.scala 47:33]
+          ibexToLerosRegs_4 <= apbPort_pwdata; // @[RegBlock.scala 47:33]
+        end
       end
     end
-    if (reset) begin // @[RegBlock.scala 19:32]
-      lerosToIbexRegs_1 <= 32'h0; // @[RegBlock.scala 19:32]
-    end else if (dmemPort_wr) begin // @[RegBlock.scala 38:21]
-      if (2'h1 == dmemPort_wrAddr) begin // @[RegBlock.scala 39:38]
-        lerosToIbexRegs_1 <= dmemPort_wrData; // @[RegBlock.scala 39:38]
+    if (reset) begin // @[RegBlock.scala 34:32]
+      ibexToLerosRegs_5 <= 32'h0; // @[RegBlock.scala 34:32]
+    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 43:41]
+      if (apbPort_pwrite) begin // @[RegBlock.scala 46:26]
+        if (3'h5 == apbIndex) begin // @[RegBlock.scala 47:33]
+          ibexToLerosRegs_5 <= apbPort_pwdata; // @[RegBlock.scala 47:33]
+        end
       end
     end
-    if (reset) begin // @[RegBlock.scala 19:32]
-      lerosToIbexRegs_2 <= 32'h0; // @[RegBlock.scala 19:32]
-    end else if (dmemPort_wr) begin // @[RegBlock.scala 38:21]
-      if (2'h2 == dmemPort_wrAddr) begin // @[RegBlock.scala 39:38]
-        lerosToIbexRegs_2 <= dmemPort_wrData; // @[RegBlock.scala 39:38]
+    if (reset) begin // @[RegBlock.scala 34:32]
+      ibexToLerosRegs_6 <= 32'h0; // @[RegBlock.scala 34:32]
+    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 43:41]
+      if (apbPort_pwrite) begin // @[RegBlock.scala 46:26]
+        if (3'h6 == apbIndex) begin // @[RegBlock.scala 47:33]
+          ibexToLerosRegs_6 <= apbPort_pwdata; // @[RegBlock.scala 47:33]
+        end
       end
     end
-    if (reset) begin // @[RegBlock.scala 19:32]
-      lerosToIbexRegs_3 <= 32'h0; // @[RegBlock.scala 19:32]
-    end else if (dmemPort_wr) begin // @[RegBlock.scala 38:21]
-      if (2'h3 == dmemPort_wrAddr) begin // @[RegBlock.scala 39:38]
-        lerosToIbexRegs_3 <= dmemPort_wrData; // @[RegBlock.scala 39:38]
+    if (reset) begin // @[RegBlock.scala 34:32]
+      ibexToLerosRegs_7 <= 32'h0; // @[RegBlock.scala 34:32]
+    end else if (apbPort_psel & apbPort_penable) begin // @[RegBlock.scala 43:41]
+      if (apbPort_pwrite) begin // @[RegBlock.scala 46:26]
+        if (3'h7 == apbIndex) begin // @[RegBlock.scala 47:33]
+          ibexToLerosRegs_7 <= apbPort_pwdata; // @[RegBlock.scala 47:33]
+        end
       end
     end
-    dmemPort_rdData_REG <= dmemPort_rdAddr; // @[RegBlock.scala 36:45]
+    if (reset) begin // @[RegBlock.scala 35:32]
+      lerosToIbexRegs_0 <= 32'h0; // @[RegBlock.scala 35:32]
+    end else if (dmemPort_wr) begin // @[RegBlock.scala 53:21]
+      if (3'h0 == dmemPort_wrAddr) begin // @[RegBlock.scala 54:38]
+        lerosToIbexRegs_0 <= dmemPort_wrData; // @[RegBlock.scala 54:38]
+      end
+    end
+    if (reset) begin // @[RegBlock.scala 35:32]
+      lerosToIbexRegs_1 <= 32'h0; // @[RegBlock.scala 35:32]
+    end else if (dmemPort_wr) begin // @[RegBlock.scala 53:21]
+      if (3'h1 == dmemPort_wrAddr) begin // @[RegBlock.scala 54:38]
+        lerosToIbexRegs_1 <= dmemPort_wrData; // @[RegBlock.scala 54:38]
+      end
+    end
+    if (reset) begin // @[RegBlock.scala 35:32]
+      lerosToIbexRegs_2 <= 32'h0; // @[RegBlock.scala 35:32]
+    end else if (dmemPort_wr) begin // @[RegBlock.scala 53:21]
+      if (3'h2 == dmemPort_wrAddr) begin // @[RegBlock.scala 54:38]
+        lerosToIbexRegs_2 <= dmemPort_wrData; // @[RegBlock.scala 54:38]
+      end
+    end
+    if (reset) begin // @[RegBlock.scala 35:32]
+      lerosToIbexRegs_3 <= 32'h0; // @[RegBlock.scala 35:32]
+    end else if (dmemPort_wr) begin // @[RegBlock.scala 53:21]
+      if (3'h3 == dmemPort_wrAddr) begin // @[RegBlock.scala 54:38]
+        lerosToIbexRegs_3 <= dmemPort_wrData; // @[RegBlock.scala 54:38]
+      end
+    end
+    if (reset) begin // @[RegBlock.scala 35:32]
+      lerosToIbexRegs_4 <= 32'h0; // @[RegBlock.scala 35:32]
+    end else if (dmemPort_wr) begin // @[RegBlock.scala 53:21]
+      if (3'h4 == dmemPort_wrAddr) begin // @[RegBlock.scala 54:38]
+        lerosToIbexRegs_4 <= dmemPort_wrData; // @[RegBlock.scala 54:38]
+      end
+    end
+    if (reset) begin // @[RegBlock.scala 35:32]
+      lerosToIbexRegs_5 <= 32'h0; // @[RegBlock.scala 35:32]
+    end else if (dmemPort_wr) begin // @[RegBlock.scala 53:21]
+      if (3'h5 == dmemPort_wrAddr) begin // @[RegBlock.scala 54:38]
+        lerosToIbexRegs_5 <= dmemPort_wrData; // @[RegBlock.scala 54:38]
+      end
+    end
+    if (reset) begin // @[RegBlock.scala 35:32]
+      lerosToIbexRegs_6 <= 32'h0; // @[RegBlock.scala 35:32]
+    end else if (dmemPort_wr) begin // @[RegBlock.scala 53:21]
+      if (3'h6 == dmemPort_wrAddr) begin // @[RegBlock.scala 54:38]
+        lerosToIbexRegs_6 <= dmemPort_wrData; // @[RegBlock.scala 54:38]
+      end
+    end
+    if (reset) begin // @[RegBlock.scala 35:32]
+      lerosToIbexRegs_7 <= 32'h0; // @[RegBlock.scala 35:32]
+    end else if (dmemPort_wr) begin // @[RegBlock.scala 53:21]
+      if (3'h7 == dmemPort_wrAddr) begin // @[RegBlock.scala 54:38]
+        lerosToIbexRegs_7 <= dmemPort_wrData; // @[RegBlock.scala 54:38]
+      end
+    end
+    apbPort_prdata_REG <= apbPort_paddr[4:2]; // @[RegBlock.scala 40:31]
+    dmemPort_rdData_REG <= dmemPort_rdAddr; // @[RegBlock.scala 52:45]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -1174,15 +2041,33 @@ initial begin
   _RAND_3 = {1{`RANDOM}};
   ibexToLerosRegs_3 = _RAND_3[31:0];
   _RAND_4 = {1{`RANDOM}};
-  lerosToIbexRegs_0 = _RAND_4[31:0];
+  ibexToLerosRegs_4 = _RAND_4[31:0];
   _RAND_5 = {1{`RANDOM}};
-  lerosToIbexRegs_1 = _RAND_5[31:0];
+  ibexToLerosRegs_5 = _RAND_5[31:0];
   _RAND_6 = {1{`RANDOM}};
-  lerosToIbexRegs_2 = _RAND_6[31:0];
+  ibexToLerosRegs_6 = _RAND_6[31:0];
   _RAND_7 = {1{`RANDOM}};
-  lerosToIbexRegs_3 = _RAND_7[31:0];
+  ibexToLerosRegs_7 = _RAND_7[31:0];
   _RAND_8 = {1{`RANDOM}};
-  dmemPort_rdData_REG = _RAND_8[1:0];
+  lerosToIbexRegs_0 = _RAND_8[31:0];
+  _RAND_9 = {1{`RANDOM}};
+  lerosToIbexRegs_1 = _RAND_9[31:0];
+  _RAND_10 = {1{`RANDOM}};
+  lerosToIbexRegs_2 = _RAND_10[31:0];
+  _RAND_11 = {1{`RANDOM}};
+  lerosToIbexRegs_3 = _RAND_11[31:0];
+  _RAND_12 = {1{`RANDOM}};
+  lerosToIbexRegs_4 = _RAND_12[31:0];
+  _RAND_13 = {1{`RANDOM}};
+  lerosToIbexRegs_5 = _RAND_13[31:0];
+  _RAND_14 = {1{`RANDOM}};
+  lerosToIbexRegs_6 = _RAND_14[31:0];
+  _RAND_15 = {1{`RANDOM}};
+  lerosToIbexRegs_7 = _RAND_15[31:0];
+  _RAND_16 = {1{`RANDOM}};
+  apbPort_prdata_REG = _RAND_16[2:0];
+  _RAND_17 = {1{`RANDOM}};
+  dmemPort_rdData_REG = _RAND_17[2:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -1206,25 +2091,28 @@ module Gpio(
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
   reg [31:0] _RAND_1;
+  reg [31:0] _RAND_2;
 `endif // RANDOMIZE_REG_INIT
-  reg [3:0] oes; // @[Gpio.scala 17:20]
-  reg [3:0] gpos; // @[Gpio.scala 18:21]
-  wire [3:0] _dmemPort_rdData_T_1 = 2'h0 == dmemPort_rdAddr ? oes : 4'h0; // @[Mux.scala 81:58]
-  wire [3:0] _dmemPort_rdData_T_3 = 2'h1 == dmemPort_rdAddr ? gpos : _dmemPort_rdData_T_1; // @[Mux.scala 81:58]
-  wire [3:0] _dmemPort_rdData_T_5 = 2'h2 == dmemPort_rdAddr ? pmodPort_gpi : _dmemPort_rdData_T_3; // @[Mux.scala 81:58]
-  wire [31:0] _GEN_0 = 2'h1 == dmemPort_wrAddr ? dmemPort_wrData : {{28'd0}, gpos}; // @[Gpio.scala 32:29 37:14 18:21]
-  wire [31:0] _GEN_1 = 2'h0 == dmemPort_wrAddr ? dmemPort_wrData : {{28'd0}, oes}; // @[Gpio.scala 32:29 34:13 17:20]
-  wire [31:0] _GEN_2 = 2'h0 == dmemPort_wrAddr ? {{28'd0}, gpos} : _GEN_0; // @[Gpio.scala 18:21 32:29]
-  wire [31:0] _GEN_3 = dmemPort_wr ? _GEN_1 : {{28'd0}, oes}; // @[Gpio.scala 17:20 31:21]
-  wire [31:0] _GEN_4 = dmemPort_wr ? _GEN_2 : {{28'd0}, gpos}; // @[Gpio.scala 18:21 31:21]
-  wire [31:0] _GEN_5 = reset ? 32'h0 : _GEN_3; // @[Gpio.scala 17:{20,20}]
-  wire [31:0] _GEN_6 = reset ? 32'h0 : _GEN_4; // @[Gpio.scala 18:{21,21}]
-  assign dmemPort_rdData = {{28'd0}, _dmemPort_rdData_T_5}; // @[Gpio.scala 21:19]
-  assign pmodPort_gpo = gpos; // @[Gpio.scala 42:16]
-  assign pmodPort_oe = oes; // @[Gpio.scala 43:15]
+  reg [3:0] oes; // @[Gpio.scala 21:20]
+  reg [3:0] gpos; // @[Gpio.scala 22:21]
+  reg [1:0] dmemPort_rdData_REG; // @[Gpio.scala 26:12]
+  wire [3:0] _dmemPort_rdData_T_1 = 2'h0 == dmemPort_rdData_REG ? oes : 4'h0; // @[Mux.scala 81:58]
+  wire [3:0] _dmemPort_rdData_T_3 = 2'h1 == dmemPort_rdData_REG ? gpos : _dmemPort_rdData_T_1; // @[Mux.scala 81:58]
+  wire [3:0] _dmemPort_rdData_T_5 = 2'h2 == dmemPort_rdData_REG ? pmodPort_gpi : _dmemPort_rdData_T_3; // @[Mux.scala 81:58]
+  wire [31:0] _GEN_0 = 2'h1 == dmemPort_wrAddr ? dmemPort_wrData : {{28'd0}, gpos}; // @[Gpio.scala 36:29 41:14 22:21]
+  wire [31:0] _GEN_1 = 2'h0 == dmemPort_wrAddr ? dmemPort_wrData : {{28'd0}, oes}; // @[Gpio.scala 36:29 38:13 21:20]
+  wire [31:0] _GEN_2 = 2'h0 == dmemPort_wrAddr ? {{28'd0}, gpos} : _GEN_0; // @[Gpio.scala 22:21 36:29]
+  wire [31:0] _GEN_3 = dmemPort_wr ? _GEN_1 : {{28'd0}, oes}; // @[Gpio.scala 21:20 35:21]
+  wire [31:0] _GEN_4 = dmemPort_wr ? _GEN_2 : {{28'd0}, gpos}; // @[Gpio.scala 22:21 35:21]
+  wire [31:0] _GEN_5 = reset ? 32'h0 : _GEN_3; // @[Gpio.scala 21:{20,20}]
+  wire [31:0] _GEN_6 = reset ? 32'h0 : _GEN_4; // @[Gpio.scala 22:{21,21}]
+  assign dmemPort_rdData = {{28'd0}, _dmemPort_rdData_T_5}; // @[Gpio.scala 25:19]
+  assign pmodPort_gpo = gpos; // @[Gpio.scala 46:16]
+  assign pmodPort_oe = oes; // @[Gpio.scala 47:15]
   always @(posedge clock) begin
-    oes <= _GEN_5[3:0]; // @[Gpio.scala 17:{20,20}]
-    gpos <= _GEN_6[3:0]; // @[Gpio.scala 18:{21,21}]
+    oes <= _GEN_5[3:0]; // @[Gpio.scala 21:{20,20}]
+    gpos <= _GEN_6[3:0]; // @[Gpio.scala 22:{21,21}]
+    dmemPort_rdData_REG <= dmemPort_rdAddr; // @[Gpio.scala 26:12]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -1266,6 +2154,8 @@ initial begin
   oes = _RAND_0[3:0];
   _RAND_1 = {1{`RANDOM}};
   gpos = _RAND_1[3:0];
+  _RAND_2 = {1{`RANDOM}};
+  dmemPort_rdData_REG = _RAND_2[1:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -1274,7 +2164,252 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module Tx(
+module ChiselSyncMemory_1(
+  input         clock,
+  input  [5:0]  io_wordAddr,
+  input         io_write,
+  input  [31:0] io_wrData,
+  output [31:0] io_rdData,
+  input  [3:0]  io_mask
+);
+`ifdef RANDOMIZE_MEM_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_3;
+  reg [31:0] _RAND_6;
+  reg [31:0] _RAND_9;
+`endif // RANDOMIZE_MEM_INIT
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_1;
+  reg [31:0] _RAND_2;
+  reg [31:0] _RAND_4;
+  reg [31:0] _RAND_5;
+  reg [31:0] _RAND_7;
+  reg [31:0] _RAND_8;
+  reg [31:0] _RAND_10;
+  reg [31:0] _RAND_11;
+`endif // RANDOMIZE_REG_INIT
+  reg [7:0] mem_0 [0:63]; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_0_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
+  wire [5:0] mem_0_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [7:0] mem_0_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+  wire [7:0] mem_0_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+  wire [5:0] mem_0_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_0_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_0_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
+  reg  mem_0_io_rdData_MPORT_en_pipe_0;
+  reg [5:0] mem_0_io_rdData_MPORT_addr_pipe_0;
+  reg [7:0] mem_1 [0:63]; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_1_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
+  wire [5:0] mem_1_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [7:0] mem_1_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+  wire [7:0] mem_1_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+  wire [5:0] mem_1_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_1_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_1_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
+  reg  mem_1_io_rdData_MPORT_en_pipe_0;
+  reg [5:0] mem_1_io_rdData_MPORT_addr_pipe_0;
+  reg [7:0] mem_2 [0:63]; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_2_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
+  wire [5:0] mem_2_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [7:0] mem_2_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+  wire [7:0] mem_2_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+  wire [5:0] mem_2_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_2_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_2_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
+  reg  mem_2_io_rdData_MPORT_en_pipe_0;
+  reg [5:0] mem_2_io_rdData_MPORT_addr_pipe_0;
+  reg [7:0] mem_3 [0:63]; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_3_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
+  wire [5:0] mem_3_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire [7:0] mem_3_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+  wire [7:0] mem_3_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+  wire [5:0] mem_3_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_3_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
+  wire  mem_3_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
+  reg  mem_3_io_rdData_MPORT_en_pipe_0;
+  reg [5:0] mem_3_io_rdData_MPORT_addr_pipe_0;
+  wire [32:0] _io_rdData_T_5 = {1'h0,mem_3_io_rdData_MPORT_data,mem_2_io_rdData_MPORT_data,mem_1_io_rdData_MPORT_data,
+    mem_0_io_rdData_MPORT_data}; // @[Helper.scala 25:49]
+  assign mem_0_io_rdData_MPORT_en = mem_0_io_rdData_MPORT_en_pipe_0;
+  assign mem_0_io_rdData_MPORT_addr = mem_0_io_rdData_MPORT_addr_pipe_0;
+  assign mem_0_io_rdData_MPORT_data = mem_0[mem_0_io_rdData_MPORT_addr]; // @[ChiselSyncMemory.scala 30:24]
+  assign mem_0_MPORT_data = io_wrData[7:0];
+  assign mem_0_MPORT_addr = io_wordAddr;
+  assign mem_0_MPORT_mask = io_mask[0];
+  assign mem_0_MPORT_en = io_write;
+  assign mem_1_io_rdData_MPORT_en = mem_1_io_rdData_MPORT_en_pipe_0;
+  assign mem_1_io_rdData_MPORT_addr = mem_1_io_rdData_MPORT_addr_pipe_0;
+  assign mem_1_io_rdData_MPORT_data = mem_1[mem_1_io_rdData_MPORT_addr]; // @[ChiselSyncMemory.scala 30:24]
+  assign mem_1_MPORT_data = io_wrData[15:8];
+  assign mem_1_MPORT_addr = io_wordAddr;
+  assign mem_1_MPORT_mask = io_mask[1];
+  assign mem_1_MPORT_en = io_write;
+  assign mem_2_io_rdData_MPORT_en = mem_2_io_rdData_MPORT_en_pipe_0;
+  assign mem_2_io_rdData_MPORT_addr = mem_2_io_rdData_MPORT_addr_pipe_0;
+  assign mem_2_io_rdData_MPORT_data = mem_2[mem_2_io_rdData_MPORT_addr]; // @[ChiselSyncMemory.scala 30:24]
+  assign mem_2_MPORT_data = io_wrData[23:16];
+  assign mem_2_MPORT_addr = io_wordAddr;
+  assign mem_2_MPORT_mask = io_mask[2];
+  assign mem_2_MPORT_en = io_write;
+  assign mem_3_io_rdData_MPORT_en = mem_3_io_rdData_MPORT_en_pipe_0;
+  assign mem_3_io_rdData_MPORT_addr = mem_3_io_rdData_MPORT_addr_pipe_0;
+  assign mem_3_io_rdData_MPORT_data = mem_3[mem_3_io_rdData_MPORT_addr]; // @[ChiselSyncMemory.scala 30:24]
+  assign mem_3_MPORT_data = io_wrData[31:24];
+  assign mem_3_MPORT_addr = io_wordAddr;
+  assign mem_3_MPORT_mask = io_mask[3];
+  assign mem_3_MPORT_en = io_write;
+  assign io_rdData = _io_rdData_T_5[31:0];
+  always @(posedge clock) begin
+    if (mem_0_MPORT_en & mem_0_MPORT_mask) begin
+      mem_0[mem_0_MPORT_addr] <= mem_0_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+    end
+    if (io_write) begin
+      mem_0_io_rdData_MPORT_en_pipe_0 <= 1'h0;
+    end else begin
+      mem_0_io_rdData_MPORT_en_pipe_0 <= 1'h1;
+    end
+    if (io_write ? 1'h0 : 1'h1) begin
+      mem_0_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
+    end
+    if (mem_1_MPORT_en & mem_1_MPORT_mask) begin
+      mem_1[mem_1_MPORT_addr] <= mem_1_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+    end
+    if (io_write) begin
+      mem_1_io_rdData_MPORT_en_pipe_0 <= 1'h0;
+    end else begin
+      mem_1_io_rdData_MPORT_en_pipe_0 <= 1'h1;
+    end
+    if (io_write ? 1'h0 : 1'h1) begin
+      mem_1_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
+    end
+    if (mem_2_MPORT_en & mem_2_MPORT_mask) begin
+      mem_2[mem_2_MPORT_addr] <= mem_2_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+    end
+    if (io_write) begin
+      mem_2_io_rdData_MPORT_en_pipe_0 <= 1'h0;
+    end else begin
+      mem_2_io_rdData_MPORT_en_pipe_0 <= 1'h1;
+    end
+    if (io_write ? 1'h0 : 1'h1) begin
+      mem_2_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
+    end
+    if (mem_3_MPORT_en & mem_3_MPORT_mask) begin
+      mem_3[mem_3_MPORT_addr] <= mem_3_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
+    end
+    if (io_write) begin
+      mem_3_io_rdData_MPORT_en_pipe_0 <= 1'h0;
+    end else begin
+      mem_3_io_rdData_MPORT_en_pipe_0 <= 1'h1;
+    end
+    if (io_write ? 1'h0 : 1'h1) begin
+      mem_3_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_MEM_INIT
+  _RAND_0 = {1{`RANDOM}};
+  for (initvar = 0; initvar < 64; initvar = initvar+1)
+    mem_0[initvar] = _RAND_0[7:0];
+  _RAND_3 = {1{`RANDOM}};
+  for (initvar = 0; initvar < 64; initvar = initvar+1)
+    mem_1[initvar] = _RAND_3[7:0];
+  _RAND_6 = {1{`RANDOM}};
+  for (initvar = 0; initvar < 64; initvar = initvar+1)
+    mem_2[initvar] = _RAND_6[7:0];
+  _RAND_9 = {1{`RANDOM}};
+  for (initvar = 0; initvar < 64; initvar = initvar+1)
+    mem_3[initvar] = _RAND_9[7:0];
+`endif // RANDOMIZE_MEM_INIT
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_1 = {1{`RANDOM}};
+  mem_0_io_rdData_MPORT_en_pipe_0 = _RAND_1[0:0];
+  _RAND_2 = {1{`RANDOM}};
+  mem_0_io_rdData_MPORT_addr_pipe_0 = _RAND_2[5:0];
+  _RAND_4 = {1{`RANDOM}};
+  mem_1_io_rdData_MPORT_en_pipe_0 = _RAND_4[0:0];
+  _RAND_5 = {1{`RANDOM}};
+  mem_1_io_rdData_MPORT_addr_pipe_0 = _RAND_5[5:0];
+  _RAND_7 = {1{`RANDOM}};
+  mem_2_io_rdData_MPORT_en_pipe_0 = _RAND_7[0:0];
+  _RAND_8 = {1{`RANDOM}};
+  mem_2_io_rdData_MPORT_addr_pipe_0 = _RAND_8[5:0];
+  _RAND_10 = {1{`RANDOM}};
+  mem_3_io_rdData_MPORT_en_pipe_0 = _RAND_10[0:0];
+  _RAND_11 = {1{`RANDOM}};
+  mem_3_io_rdData_MPORT_addr_pipe_0 = _RAND_11[5:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
+module DataMemory(
+  input         clock,
+  input  [5:0]  dmemPort_rdAddr,
+  output [31:0] dmemPort_rdData,
+  input  [5:0]  dmemPort_wrAddr,
+  input  [31:0] dmemPort_wrData,
+  input         dmemPort_wr,
+  input  [3:0]  dmemPort_wrMask
+);
+  wire  mem_clock; // @[ChiselSyncMemory.scala 11:19]
+  wire [5:0] mem_io_wordAddr; // @[ChiselSyncMemory.scala 11:19]
+  wire  mem_io_write; // @[ChiselSyncMemory.scala 11:19]
+  wire [31:0] mem_io_wrData; // @[ChiselSyncMemory.scala 11:19]
+  wire [31:0] mem_io_rdData; // @[ChiselSyncMemory.scala 11:19]
+  wire [3:0] mem_io_mask; // @[ChiselSyncMemory.scala 11:19]
+  ChiselSyncMemory_1 mem ( // @[ChiselSyncMemory.scala 11:19]
+    .clock(mem_clock),
+    .io_wordAddr(mem_io_wordAddr),
+    .io_write(mem_io_write),
+    .io_wrData(mem_io_wrData),
+    .io_rdData(mem_io_rdData),
+    .io_mask(mem_io_mask)
+  );
+  assign dmemPort_rdData = mem_io_rdData; // @[DataMemory.scala 17:19]
+  assign mem_clock = clock;
+  assign mem_io_wordAddr = dmemPort_wr ? dmemPort_wrAddr : dmemPort_rdAddr; // @[DataMemory.scala 19:21 ChiselSyncMemory.scala 43:17 48:17]
+  assign mem_io_write = dmemPort_wr; // @[DataMemory.scala 19:21 ChiselSyncMemory.scala 51:14 13:16]
+  assign mem_io_wrData = dmemPort_wrData; // @[DataMemory.scala 19:21 ChiselSyncMemory.scala 49:15]
+  assign mem_io_mask = dmemPort_wrMask; // @[DataMemory.scala 19:21 ChiselSyncMemory.scala 50:13]
+endmodule
+module Tx_1(
   input        clock,
   input        reset,
   output       io_txd,
@@ -1288,16 +2423,17 @@ module Tx(
   reg [31:0] _RAND_2;
 `endif // RANDOMIZE_REG_INIT
   reg [10:0] shiftReg; // @[UARTTx.scala 29:25]
-  reg [1:0] cntReg; // @[UARTTx.scala 30:23]
+  reg  cntReg; // @[UARTTx.scala 30:23]
   reg [3:0] bitsReg; // @[UARTTx.scala 31:24]
-  wire  _io_channel_ready_T = cntReg == 2'h0; // @[UARTTx.scala 33:31]
+  wire  _io_channel_ready_T = ~cntReg; // @[UARTTx.scala 33:31]
   wire [9:0] shift = shiftReg[10:1]; // @[UARTTx.scala 40:28]
   wire [10:0] _shiftReg_T_1 = {1'h1,shift}; // @[UARTTx.scala 41:23]
   wire [3:0] _bitsReg_T_1 = bitsReg - 4'h1; // @[UARTTx.scala 42:26]
   wire [10:0] _shiftReg_T_3 = {2'h3,io_channel_bits,1'h0}; // @[UARTTx.scala 45:49]
-  wire [1:0] _cntReg_T_1 = cntReg - 2'h1; // @[UARTTx.scala 50:22]
+  wire  _GEN_0 = io_channel_valid | cntReg; // @[UARTTx.scala 43:34 44:16 30:23]
+  wire  _GEN_3 = bitsReg != 4'h0 | _GEN_0; // @[UARTTx.scala 38:27 39:14]
   assign io_txd = shiftReg[0]; // @[UARTTx.scala 34:21]
-  assign io_channel_ready = cntReg == 2'h0 & bitsReg == 4'h0; // @[UARTTx.scala 33:40]
+  assign io_channel_ready = ~cntReg & bitsReg == 4'h0; // @[UARTTx.scala 33:40]
   always @(posedge clock) begin
     if (reset) begin // @[UARTTx.scala 29:25]
       shiftReg <= 11'h7ff; // @[UARTTx.scala 29:25]
@@ -1309,15 +2445,11 @@ module Tx(
       end
     end
     if (reset) begin // @[UARTTx.scala 30:23]
-      cntReg <= 2'h0; // @[UARTTx.scala 30:23]
+      cntReg <= 1'h0; // @[UARTTx.scala 30:23]
     end else if (_io_channel_ready_T) begin // @[UARTTx.scala 36:24]
-      if (bitsReg != 4'h0) begin // @[UARTTx.scala 38:27]
-        cntReg <= 2'h3; // @[UARTTx.scala 39:14]
-      end else if (io_channel_valid) begin // @[UARTTx.scala 43:34]
-        cntReg <= 2'h3; // @[UARTTx.scala 44:16]
-      end
+      cntReg <= _GEN_3;
     end else begin
-      cntReg <= _cntReg_T_1; // @[UARTTx.scala 50:12]
+      cntReg <= cntReg - 1'h1; // @[UARTTx.scala 50:12]
     end
     if (reset) begin // @[UARTTx.scala 31:24]
       bitsReg <= 4'h0; // @[UARTTx.scala 31:24]
@@ -1368,7 +2500,7 @@ initial begin
   _RAND_0 = {1{`RANDOM}};
   shiftReg = _RAND_0[10:0];
   _RAND_1 = {1{`RANDOM}};
-  cntReg = _RAND_1[1:0];
+  cntReg = _RAND_1[0:0];
   _RAND_2 = {1{`RANDOM}};
   bitsReg = _RAND_2[3:0];
 `endif // RANDOMIZE_REG_INIT
@@ -1486,7 +2618,7 @@ module BufferedTx(
   wire  buf__io_out_ready; // @[UARTTx.scala 64:19]
   wire  buf__io_out_valid; // @[UARTTx.scala 64:19]
   wire [7:0] buf__io_out_bits; // @[UARTTx.scala 64:19]
-  Tx tx ( // @[UARTTx.scala 63:18]
+  Tx_1 tx ( // @[UARTTx.scala 63:18]
     .clock(tx_clock),
     .reset(tx_reset),
     .io_txd(tx_io_txd),
@@ -1516,7 +2648,7 @@ module BufferedTx(
   assign buf__io_in_bits = io_channel_bits; // @[UARTTx.scala 66:13]
   assign buf__io_out_ready = tx_io_channel_ready; // @[UARTTx.scala 67:17]
 endmodule
-module Rx(
+module Rx_1(
   input        clock,
   input        reset,
   input        io_rxd,
@@ -1567,13 +2699,13 @@ module Rx(
       end
     end
     if (reset) begin // @[UARTRx.scala 38:23]
-      cntReg <= 20'h3; // @[UARTRx.scala 38:23]
+      cntReg <= 20'h1; // @[UARTRx.scala 38:23]
     end else if (cntReg != 20'h0) begin // @[UARTRx.scala 42:24]
       cntReg <= _cntReg_T_1; // @[UARTRx.scala 43:12]
     end else if (bitsReg != 4'h0) begin // @[UARTRx.scala 44:31]
-      cntReg <= 20'h3; // @[UARTRx.scala 45:12]
+      cntReg <= 20'h1; // @[UARTRx.scala 45:12]
     end else if (falling) begin // @[UARTRx.scala 52:23]
-      cntReg <= 20'h4; // @[UARTRx.scala 53:12]
+      cntReg <= 20'h1; // @[UARTRx.scala 53:12]
     end
     if (reset) begin // @[UARTRx.scala 39:24]
       bitsReg <= 4'h0; // @[UARTRx.scala 39:24]
@@ -1673,7 +2805,7 @@ module UARTRx(
   wire  buf__io_out_ready; // @[UARTRx.scala 108:19]
   wire  buf__io_out_valid; // @[UARTRx.scala 108:19]
   wire [7:0] buf__io_out_bits; // @[UARTRx.scala 108:19]
-  Rx rx ( // @[UARTRx.scala 107:18]
+  Rx_1 rx ( // @[UARTRx.scala 107:18]
     .clock(rx_clock),
     .reset(rx_reset),
     .io_rxd(rx_io_rxd),
@@ -1714,21 +2846,25 @@ module Uart(
   input  [31:0] dmemPort_wrData,
   input         dmemPort_wr
 );
-  wire  tx_clock; // @[Uart.scala 21:18]
-  wire  tx_reset; // @[Uart.scala 21:18]
-  wire  tx_io_txd; // @[Uart.scala 21:18]
-  wire  tx_io_channel_ready; // @[Uart.scala 21:18]
-  wire  tx_io_channel_valid; // @[Uart.scala 21:18]
-  wire [7:0] tx_io_channel_bits; // @[Uart.scala 21:18]
-  wire  rx_clock; // @[Uart.scala 22:18]
-  wire  rx_reset; // @[Uart.scala 22:18]
-  wire  rx_io_rxd; // @[Uart.scala 22:18]
-  wire  rx_io_out_valid; // @[Uart.scala 22:18]
-  wire [7:0] rx_io_out_bits; // @[Uart.scala 22:18]
-  wire [1:0] _dmemPort_rdData_T = {tx_io_channel_ready,rx_io_out_valid}; // @[Uart.scala 32:44]
-  wire [7:0] _GEN_0 = ~dmemPort_rdAddr ? {{6'd0}, _dmemPort_rdData_T} : rx_io_out_bits; // @[Uart.scala 31:33 32:21 34:21]
-  wire  _GEN_2 = ~dmemPort_wrAddr ? 1'h0 : dmemPort_wrAddr; // @[Uart.scala 24:23 38:29]
-  BufferedTx tx ( // @[Uart.scala 21:18]
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+`endif // RANDOMIZE_REG_INIT
+  wire  tx_clock; // @[Uart.scala 29:18]
+  wire  tx_reset; // @[Uart.scala 29:18]
+  wire  tx_io_txd; // @[Uart.scala 29:18]
+  wire  tx_io_channel_ready; // @[Uart.scala 29:18]
+  wire  tx_io_channel_valid; // @[Uart.scala 29:18]
+  wire [7:0] tx_io_channel_bits; // @[Uart.scala 29:18]
+  wire  rx_clock; // @[Uart.scala 30:18]
+  wire  rx_reset; // @[Uart.scala 30:18]
+  wire  rx_io_rxd; // @[Uart.scala 30:18]
+  wire  rx_io_out_valid; // @[Uart.scala 30:18]
+  wire [7:0] rx_io_out_bits; // @[Uart.scala 30:18]
+  reg  REG; // @[Uart.scala 39:15]
+  wire [1:0] _dmemPort_rdData_T = {tx_io_channel_ready,rx_io_out_valid}; // @[Uart.scala 40:44]
+  wire [7:0] _GEN_0 = REG ? {{6'd0}, _dmemPort_rdData_T} : rx_io_out_bits; // @[Uart.scala 39:42 40:21 42:21]
+  wire  _GEN_2 = ~dmemPort_wrAddr ? 1'h0 : dmemPort_wrAddr; // @[Uart.scala 32:23 46:29]
+  BufferedTx tx ( // @[Uart.scala 29:18]
     .clock(tx_clock),
     .reset(tx_reset),
     .io_txd(tx_io_txd),
@@ -1736,146 +2872,152 @@ module Uart(
     .io_channel_valid(tx_io_channel_valid),
     .io_channel_bits(tx_io_channel_bits)
   );
-  UARTRx rx ( // @[Uart.scala 22:18]
+  UARTRx rx ( // @[Uart.scala 30:18]
     .clock(rx_clock),
     .reset(rx_reset),
     .io_rxd(rx_io_rxd),
     .io_out_valid(rx_io_out_valid),
     .io_out_bits(rx_io_out_bits)
   );
-  assign uartPins_tx = tx_io_txd; // @[Uart.scala 26:15]
+  assign uartPins_tx = tx_io_txd; // @[Uart.scala 34:15]
   assign dmemPort_rdData = {{24'd0}, _GEN_0};
   assign tx_clock = clock;
   assign tx_reset = reset;
-  assign tx_io_channel_valid = dmemPort_wr & _GEN_2; // @[Uart.scala 37:21 24:23]
-  assign tx_io_channel_bits = dmemPort_wrData[7:0]; // @[Uart.scala 25:22]
+  assign tx_io_channel_valid = dmemPort_wr & _GEN_2; // @[Uart.scala 45:21 32:23]
+  assign tx_io_channel_bits = dmemPort_wrData[7:0]; // @[Uart.scala 33:22]
   assign rx_clock = clock;
   assign rx_reset = reset;
-  assign rx_io_rxd = uartPins_rx; // @[Uart.scala 29:13]
-endmodule
-module ChiselSyncMemory_1(
-  input         clock,
-  input  [5:0]  io_wordAddr,
-  input         io_write,
-  input  [31:0] io_wrData,
-  output [31:0] io_rdData,
-  input  [3:0]  io_mask
-);
-`ifdef RANDOMIZE_MEM_INIT
-  reg [31:0] _RAND_0;
-  reg [31:0] _RAND_3;
-  reg [31:0] _RAND_6;
-  reg [31:0] _RAND_9;
-`endif // RANDOMIZE_MEM_INIT
-`ifdef RANDOMIZE_REG_INIT
-  reg [31:0] _RAND_1;
-  reg [31:0] _RAND_2;
-  reg [31:0] _RAND_4;
-  reg [31:0] _RAND_5;
-  reg [31:0] _RAND_7;
-  reg [31:0] _RAND_8;
-  reg [31:0] _RAND_10;
-  reg [31:0] _RAND_11;
-`endif // RANDOMIZE_REG_INIT
-  reg [7:0] mem_0 [0:63]; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_0_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  wire [5:0] mem_0_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
-  wire [7:0] mem_0_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [7:0] mem_0_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [5:0] mem_0_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_0_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_0_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  reg  mem_0_io_rdData_MPORT_en_pipe_0;
-  reg [5:0] mem_0_io_rdData_MPORT_addr_pipe_0;
-  reg [7:0] mem_1 [0:63]; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_1_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  wire [5:0] mem_1_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
-  wire [7:0] mem_1_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [7:0] mem_1_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [5:0] mem_1_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_1_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_1_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  reg  mem_1_io_rdData_MPORT_en_pipe_0;
-  reg [5:0] mem_1_io_rdData_MPORT_addr_pipe_0;
-  reg [7:0] mem_2 [0:63]; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_2_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  wire [5:0] mem_2_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
-  wire [7:0] mem_2_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [7:0] mem_2_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [5:0] mem_2_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_2_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_2_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  reg  mem_2_io_rdData_MPORT_en_pipe_0;
-  reg [5:0] mem_2_io_rdData_MPORT_addr_pipe_0;
-  reg [7:0] mem_3 [0:63]; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_3_io_rdData_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  wire [5:0] mem_3_io_rdData_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
-  wire [7:0] mem_3_io_rdData_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [7:0] mem_3_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-  wire [5:0] mem_3_MPORT_addr; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_3_MPORT_mask; // @[ChiselSyncMemory.scala 30:24]
-  wire  mem_3_MPORT_en; // @[ChiselSyncMemory.scala 30:24]
-  reg  mem_3_io_rdData_MPORT_en_pipe_0;
-  reg [5:0] mem_3_io_rdData_MPORT_addr_pipe_0;
-  wire [32:0] _io_rdData_T_5 = {1'h0,mem_3_io_rdData_MPORT_data,mem_2_io_rdData_MPORT_data,mem_1_io_rdData_MPORT_data,
-    mem_0_io_rdData_MPORT_data}; // @[Helper.scala 25:49]
-  assign mem_0_io_rdData_MPORT_en = mem_0_io_rdData_MPORT_en_pipe_0;
-  assign mem_0_io_rdData_MPORT_addr = mem_0_io_rdData_MPORT_addr_pipe_0;
-  assign mem_0_io_rdData_MPORT_data = mem_0[mem_0_io_rdData_MPORT_addr]; // @[ChiselSyncMemory.scala 30:24]
-  assign mem_0_MPORT_data = io_wrData[7:0];
-  assign mem_0_MPORT_addr = io_wordAddr;
-  assign mem_0_MPORT_mask = io_mask[0];
-  assign mem_0_MPORT_en = io_write;
-  assign mem_1_io_rdData_MPORT_en = mem_1_io_rdData_MPORT_en_pipe_0;
-  assign mem_1_io_rdData_MPORT_addr = mem_1_io_rdData_MPORT_addr_pipe_0;
-  assign mem_1_io_rdData_MPORT_data = mem_1[mem_1_io_rdData_MPORT_addr]; // @[ChiselSyncMemory.scala 30:24]
-  assign mem_1_MPORT_data = io_wrData[15:8];
-  assign mem_1_MPORT_addr = io_wordAddr;
-  assign mem_1_MPORT_mask = io_mask[1];
-  assign mem_1_MPORT_en = io_write;
-  assign mem_2_io_rdData_MPORT_en = mem_2_io_rdData_MPORT_en_pipe_0;
-  assign mem_2_io_rdData_MPORT_addr = mem_2_io_rdData_MPORT_addr_pipe_0;
-  assign mem_2_io_rdData_MPORT_data = mem_2[mem_2_io_rdData_MPORT_addr]; // @[ChiselSyncMemory.scala 30:24]
-  assign mem_2_MPORT_data = io_wrData[23:16];
-  assign mem_2_MPORT_addr = io_wordAddr;
-  assign mem_2_MPORT_mask = io_mask[2];
-  assign mem_2_MPORT_en = io_write;
-  assign mem_3_io_rdData_MPORT_en = mem_3_io_rdData_MPORT_en_pipe_0;
-  assign mem_3_io_rdData_MPORT_addr = mem_3_io_rdData_MPORT_addr_pipe_0;
-  assign mem_3_io_rdData_MPORT_data = mem_3[mem_3_io_rdData_MPORT_addr]; // @[ChiselSyncMemory.scala 30:24]
-  assign mem_3_MPORT_data = io_wrData[31:24];
-  assign mem_3_MPORT_addr = io_wordAddr;
-  assign mem_3_MPORT_mask = io_mask[3];
-  assign mem_3_MPORT_en = io_write;
-  assign io_rdData = _io_rdData_T_5[31:0]; // @[ChiselSyncMemory.scala 32:13]
+  assign rx_io_rxd = uartPins_rx; // @[Uart.scala 37:13]
   always @(posedge clock) begin
-    if (mem_0_MPORT_en & mem_0_MPORT_mask) begin
-      mem_0[mem_0_MPORT_addr] <= mem_0_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-    end
-    mem_0_io_rdData_MPORT_en_pipe_0 <= 1'h1;
-    if (1'h1) begin
-      mem_0_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
-    end
-    if (mem_1_MPORT_en & mem_1_MPORT_mask) begin
-      mem_1[mem_1_MPORT_addr] <= mem_1_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-    end
-    mem_1_io_rdData_MPORT_en_pipe_0 <= 1'h1;
-    if (1'h1) begin
-      mem_1_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
-    end
-    if (mem_2_MPORT_en & mem_2_MPORT_mask) begin
-      mem_2[mem_2_MPORT_addr] <= mem_2_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-    end
-    mem_2_io_rdData_MPORT_en_pipe_0 <= 1'h1;
-    if (1'h1) begin
-      mem_2_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
-    end
-    if (mem_3_MPORT_en & mem_3_MPORT_mask) begin
-      mem_3[mem_3_MPORT_addr] <= mem_3_MPORT_data; // @[ChiselSyncMemory.scala 30:24]
-    end
-    mem_3_io_rdData_MPORT_en_pipe_0 <= 1'h1;
-    if (1'h1) begin
-      mem_3_io_rdData_MPORT_addr_pipe_0 <= io_wordAddr;
+    REG <= ~dmemPort_rdAddr; // @[Uart.scala 39:32]
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  REG = _RAND_0[0:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
+module ApbArbiter(
+  input         clock,
+  input         reset,
+  input  [15:0] io_masters_0_paddr,
+  input         io_masters_0_psel,
+  input         io_masters_0_penable,
+  input         io_masters_0_pwrite,
+  input  [31:0] io_masters_0_pwdata,
+  output        io_masters_0_pready,
+  output [31:0] io_masters_0_prdata,
+  input  [15:0] io_masters_1_paddr,
+  input         io_masters_1_psel,
+  input         io_masters_1_penable,
+  input         io_masters_1_pwrite,
+  input  [3:0]  io_masters_1_pstrb,
+  input  [31:0] io_masters_1_pwdata,
+  output        io_masters_1_pready,
+  output [31:0] io_masters_1_prdata,
+  output [15:0] io_merged_paddr,
+  output        io_merged_psel,
+  output        io_merged_penable,
+  output        io_merged_pwrite,
+  output [3:0]  io_merged_pstrb,
+  output [31:0] io_merged_pwdata,
+  input         io_merged_pready,
+  input  [31:0] io_merged_prdata
+);
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+`endif // RANDOMIZE_REG_INIT
+  reg [2:0] stateReg; // @[ApbArbiter.scala 36:25]
+  wire [2:0] _GEN_2 = io_merged_pready ? 3'h0 : stateReg; // @[ApbArbiter.scala 60:30 61:18 36:25]
+  wire  _GEN_4 = 3'h4 == stateReg & io_masters_1_psel; // @[ApbArbiter.scala 45:20 70:17 41:18]
+  wire  _GEN_5 = 3'h4 == stateReg & io_masters_1_penable; // @[ApbArbiter.scala 45:20 70:17 42:21]
+  wire  _GEN_9 = 3'h4 == stateReg & io_merged_pready; // @[ApbArbiter.scala 45:20 70:17 39:31]
+  wire [2:0] _GEN_12 = 3'h4 == stateReg ? _GEN_2 : stateReg; // @[ApbArbiter.scala 45:20 36:25]
+  wire  _GEN_14 = 3'h3 == stateReg ? io_masters_1_psel : _GEN_4; // @[ApbArbiter.scala 45:20 65:17]
+  wire  _GEN_15 = 3'h3 == stateReg ? 1'h0 : _GEN_5; // @[ApbArbiter.scala 45:20 66:25]
+  wire  _GEN_19 = 3'h3 == stateReg ? io_merged_pready : _GEN_9; // @[ApbArbiter.scala 45:20 65:17]
+  wire [2:0] _GEN_22 = 3'h3 == stateReg ? 3'h4 : _GEN_12; // @[ApbArbiter.scala 45:20 67:16]
+  wire [15:0] _GEN_23 = 3'h2 == stateReg ? io_masters_0_paddr : io_masters_1_paddr; // @[ApbArbiter.scala 45:20 59:17]
+  wire  _GEN_24 = 3'h2 == stateReg ? io_masters_0_psel : _GEN_14; // @[ApbArbiter.scala 45:20 59:17]
+  wire  _GEN_25 = 3'h2 == stateReg ? io_masters_0_penable : _GEN_15; // @[ApbArbiter.scala 45:20 59:17]
+  wire  _GEN_26 = 3'h2 == stateReg ? io_masters_0_pwrite : io_masters_1_pwrite; // @[ApbArbiter.scala 45:20 59:17]
+  wire [3:0] _GEN_27 = 3'h2 == stateReg ? 4'hf : io_masters_1_pstrb; // @[ApbArbiter.scala 45:20 59:17]
+  wire [31:0] _GEN_28 = 3'h2 == stateReg ? io_masters_0_pwdata : io_masters_1_pwdata; // @[ApbArbiter.scala 45:20 59:17]
+  wire  _GEN_29 = 3'h2 == stateReg & io_merged_pready; // @[ApbArbiter.scala 45:20 59:17 39:31]
+  wire  _GEN_33 = 3'h2 == stateReg ? 1'h0 : _GEN_19; // @[ApbArbiter.scala 45:20 39:31]
+  wire [15:0] _GEN_36 = 3'h1 == stateReg ? io_masters_0_paddr : _GEN_23; // @[ApbArbiter.scala 45:20 54:17]
+  wire  _GEN_37 = 3'h1 == stateReg ? io_masters_0_psel : _GEN_24; // @[ApbArbiter.scala 45:20 54:17]
+  wire  _GEN_38 = 3'h1 == stateReg ? 1'h0 : _GEN_25; // @[ApbArbiter.scala 45:20 55:25]
+  wire  _GEN_39 = 3'h1 == stateReg ? io_masters_0_pwrite : _GEN_26; // @[ApbArbiter.scala 45:20 54:17]
+  wire [3:0] _GEN_40 = 3'h1 == stateReg ? 4'hf : _GEN_27; // @[ApbArbiter.scala 45:20 54:17]
+  wire [31:0] _GEN_41 = 3'h1 == stateReg ? io_masters_0_pwdata : _GEN_28; // @[ApbArbiter.scala 45:20 54:17]
+  wire  _GEN_42 = 3'h1 == stateReg ? io_merged_pready : _GEN_29; // @[ApbArbiter.scala 45:20 54:17]
+  wire  _GEN_46 = 3'h1 == stateReg ? 1'h0 : _GEN_33; // @[ApbArbiter.scala 45:20 39:31]
+  assign io_masters_0_pready = 3'h0 == stateReg ? 1'h0 : _GEN_42; // @[ApbArbiter.scala 45:20 39:31]
+  assign io_masters_0_prdata = io_merged_prdata; // @[ApbArbiter.scala 45:20 38:24]
+  assign io_masters_1_pready = 3'h0 == stateReg ? 1'h0 : _GEN_46; // @[ApbArbiter.scala 45:20 39:31]
+  assign io_masters_1_prdata = io_merged_prdata; // @[ApbArbiter.scala 45:20 38:24]
+  assign io_merged_paddr = 3'h0 == stateReg ? io_masters_1_paddr : _GEN_36; // @[ApbArbiter.scala 45:20 38:24]
+  assign io_merged_psel = 3'h0 == stateReg ? 1'h0 : _GEN_37; // @[ApbArbiter.scala 41:18 45:20]
+  assign io_merged_penable = 3'h0 == stateReg ? 1'h0 : _GEN_38; // @[ApbArbiter.scala 45:20 42:21]
+  assign io_merged_pwrite = 3'h0 == stateReg ? io_masters_1_pwrite : _GEN_39; // @[ApbArbiter.scala 45:20 38:24]
+  assign io_merged_pstrb = 3'h0 == stateReg ? io_masters_1_pstrb : _GEN_40; // @[ApbArbiter.scala 45:20 38:24]
+  assign io_merged_pwdata = 3'h0 == stateReg ? io_masters_1_pwdata : _GEN_41; // @[ApbArbiter.scala 45:20 38:24]
+  always @(posedge clock) begin
+    if (reset) begin // @[ApbArbiter.scala 36:25]
+      stateReg <= 3'h0; // @[ApbArbiter.scala 36:25]
+    end else if (3'h0 == stateReg) begin // @[ApbArbiter.scala 45:20]
+      if (io_masters_0_psel) begin // @[ApbArbiter.scala 47:32]
+        stateReg <= 3'h1; // @[ApbArbiter.scala 48:18]
+      end else if (io_masters_1_psel) begin // @[ApbArbiter.scala 49:38]
+        stateReg <= 3'h3; // @[ApbArbiter.scala 50:18]
+      end
+    end else if (3'h1 == stateReg) begin // @[ApbArbiter.scala 45:20]
+      stateReg <= 3'h2; // @[ApbArbiter.scala 56:16]
+    end else if (3'h2 == stateReg) begin // @[ApbArbiter.scala 45:20]
+      stateReg <= _GEN_2;
+    end else begin
+      stateReg <= _GEN_22;
     end
   end
 // Register and memory initialization
@@ -1913,37 +3055,9 @@ initial begin
         #0.002 begin end
       `endif
     `endif
-`ifdef RANDOMIZE_MEM_INIT
-  _RAND_0 = {1{`RANDOM}};
-  for (initvar = 0; initvar < 64; initvar = initvar+1)
-    mem_0[initvar] = _RAND_0[7:0];
-  _RAND_3 = {1{`RANDOM}};
-  for (initvar = 0; initvar < 64; initvar = initvar+1)
-    mem_1[initvar] = _RAND_3[7:0];
-  _RAND_6 = {1{`RANDOM}};
-  for (initvar = 0; initvar < 64; initvar = initvar+1)
-    mem_2[initvar] = _RAND_6[7:0];
-  _RAND_9 = {1{`RANDOM}};
-  for (initvar = 0; initvar < 64; initvar = initvar+1)
-    mem_3[initvar] = _RAND_9[7:0];
-`endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
-  _RAND_1 = {1{`RANDOM}};
-  mem_0_io_rdData_MPORT_en_pipe_0 = _RAND_1[0:0];
-  _RAND_2 = {1{`RANDOM}};
-  mem_0_io_rdData_MPORT_addr_pipe_0 = _RAND_2[5:0];
-  _RAND_4 = {1{`RANDOM}};
-  mem_1_io_rdData_MPORT_en_pipe_0 = _RAND_4[0:0];
-  _RAND_5 = {1{`RANDOM}};
-  mem_1_io_rdData_MPORT_addr_pipe_0 = _RAND_5[5:0];
-  _RAND_7 = {1{`RANDOM}};
-  mem_2_io_rdData_MPORT_en_pipe_0 = _RAND_7[0:0];
-  _RAND_8 = {1{`RANDOM}};
-  mem_2_io_rdData_MPORT_addr_pipe_0 = _RAND_8[5:0];
-  _RAND_10 = {1{`RANDOM}};
-  mem_3_io_rdData_MPORT_en_pipe_0 = _RAND_10[0:0];
-  _RAND_11 = {1{`RANDOM}};
-  mem_3_io_rdData_MPORT_addr_pipe_0 = _RAND_11[5:0];
+  _RAND_0 = {1{`RANDOM}};
+  stateReg = _RAND_0[2:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -1952,38 +3066,8 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module DataMemory(
-  input         clock,
-  input  [5:0]  dmemPort_rdAddr,
-  output [31:0] dmemPort_rdData,
-  input  [5:0]  dmemPort_wrAddr,
-  input  [31:0] dmemPort_wrData,
-  input         dmemPort_wr,
-  input  [3:0]  dmemPort_wrMask
-);
-  wire  mem_clock; // @[ChiselSyncMemory.scala 11:19]
-  wire [5:0] mem_io_wordAddr; // @[ChiselSyncMemory.scala 11:19]
-  wire  mem_io_write; // @[ChiselSyncMemory.scala 11:19]
-  wire [31:0] mem_io_wrData; // @[ChiselSyncMemory.scala 11:19]
-  wire [31:0] mem_io_rdData; // @[ChiselSyncMemory.scala 11:19]
-  wire [3:0] mem_io_mask; // @[ChiselSyncMemory.scala 11:19]
-  ChiselSyncMemory_1 mem ( // @[ChiselSyncMemory.scala 11:19]
-    .clock(mem_clock),
-    .io_wordAddr(mem_io_wordAddr),
-    .io_write(mem_io_write),
-    .io_wrData(mem_io_wrData),
-    .io_rdData(mem_io_rdData),
-    .io_mask(mem_io_mask)
-  );
-  assign dmemPort_rdData = mem_io_rdData; // @[DataMemory.scala 17:19]
-  assign mem_clock = clock;
-  assign mem_io_wordAddr = dmemPort_wr ? dmemPort_wrAddr : dmemPort_rdAddr; // @[DataMemory.scala 19:21 ChiselSyncMemory.scala 41:17 46:17]
-  assign mem_io_write = dmemPort_wr; // @[DataMemory.scala 19:21 ChiselSyncMemory.scala 49:14 13:16]
-  assign mem_io_wrData = dmemPort_wrData; // @[DataMemory.scala 19:21 ChiselSyncMemory.scala 47:15]
-  assign mem_io_mask = dmemPort_wrMask; // @[DataMemory.scala 19:21 ChiselSyncMemory.scala 48:13]
-endmodule
 module ApbMux(
-  input  [11:0] io_master_paddr,
+  input  [15:0] io_master_paddr,
   input         io_master_psel,
   input         io_master_penable,
   input         io_master_pwrite,
@@ -1991,44 +3075,52 @@ module ApbMux(
   input  [31:0] io_master_pwdata,
   output        io_master_pready,
   output [31:0] io_master_prdata,
-  output        io_master_pslverr,
-  output [11:0] io_targets_0_paddr,
+  output [15:0] io_targets_0_paddr,
   output        io_targets_0_psel,
   output        io_targets_0_penable,
   output        io_targets_0_pwrite,
   output [3:0]  io_targets_0_pstrb,
   output [31:0] io_targets_0_pwdata,
   input         io_targets_0_pready,
-  input         io_targets_0_pslverr,
-  output [11:0] io_targets_1_paddr,
+  input  [31:0] io_targets_0_prdata,
+  output [15:0] io_targets_1_paddr,
   output        io_targets_1_psel,
   output        io_targets_1_penable,
   output        io_targets_1_pwrite,
   output [31:0] io_targets_1_pwdata,
   input         io_targets_1_pready,
-  input  [31:0] io_targets_1_prdata
+  input  [31:0] io_targets_1_prdata,
+  output        io_targets_2_psel,
+  output        io_targets_2_penable,
+  output        io_targets_2_pwrite,
+  output [31:0] io_targets_2_pwdata,
+  input         io_targets_2_pready,
+  input  [31:0] io_targets_2_prdata
 );
-  wire [11:0] _selected_T = io_master_paddr & 12'hf80; // @[ApbMux.scala 30:56]
-  wire  selected = io_master_psel & 12'h0 == _selected_T; // @[ApbMux.scala 30:37]
-  wire  _GEN_1 = selected ? io_targets_0_pready : io_targets_1_pready; // @[ApbMux.scala 32:22 34:26 24:7]
-  wire [31:0] _GEN_2 = selected ? 32'h0 : io_targets_1_prdata; // @[ApbMux.scala 32:22 35:26 24:7]
-  wire  _GEN_3 = selected & io_targets_0_pslverr; // @[ApbMux.scala 32:22 36:27 24:7]
-  wire [11:0] _selected_T_2 = io_master_paddr & 12'hff0; // @[ApbMux.scala 30:56]
-  wire  selected_1 = io_master_psel & 12'hff0 == _selected_T_2; // @[ApbMux.scala 30:37]
-  assign io_master_pready = selected_1 ? io_targets_1_pready : _GEN_1; // @[ApbMux.scala 32:22 34:26]
-  assign io_master_prdata = selected_1 ? io_targets_1_prdata : _GEN_2; // @[ApbMux.scala 32:22 35:26]
-  assign io_master_pslverr = selected_1 ? 1'h0 : _GEN_3; // @[ApbMux.scala 32:22 36:27]
-  assign io_targets_0_paddr = io_master_paddr; // @[ApbMux.scala 24:7]
-  assign io_targets_0_psel = io_master_psel & 12'h0 == _selected_T; // @[ApbMux.scala 30:37]
-  assign io_targets_0_penable = io_master_penable; // @[ApbMux.scala 24:7]
-  assign io_targets_0_pwrite = io_master_pwrite; // @[ApbMux.scala 24:7]
-  assign io_targets_0_pstrb = io_master_pstrb; // @[ApbMux.scala 24:7]
-  assign io_targets_0_pwdata = io_master_pwdata; // @[ApbMux.scala 24:7]
-  assign io_targets_1_paddr = io_master_paddr; // @[ApbMux.scala 24:7]
-  assign io_targets_1_psel = io_master_psel & 12'hff0 == _selected_T_2; // @[ApbMux.scala 30:37]
-  assign io_targets_1_penable = io_master_penable; // @[ApbMux.scala 24:7]
-  assign io_targets_1_pwrite = io_master_pwrite; // @[ApbMux.scala 24:7]
-  assign io_targets_1_pwdata = io_master_pwdata; // @[ApbMux.scala 24:7]
+  wire  selected = io_master_psel & io_master_paddr[15:11] == 5'h0; // @[ApbMux.scala 51:37]
+  wire  _GEN_1 = selected ? io_targets_0_pready : io_targets_2_pready; // @[ApbMux.scala 53:22 55:26 28:7]
+  wire [31:0] _GEN_2 = selected ? io_targets_0_prdata : io_targets_2_prdata; // @[ApbMux.scala 53:22 56:26 28:7]
+  wire  selected_1 = io_master_psel & io_master_paddr[15:5] == 11'h40; // @[ApbMux.scala 51:37]
+  wire  _GEN_5 = selected_1 ? io_targets_1_pready : _GEN_1; // @[ApbMux.scala 53:22 55:26]
+  wire [31:0] _GEN_6 = selected_1 ? io_targets_1_prdata : _GEN_2; // @[ApbMux.scala 53:22 56:26]
+  wire  selected_2 = io_master_psel & io_master_paddr[15:2] == 14'h300; // @[ApbMux.scala 51:37]
+  assign io_master_pready = selected_2 ? io_targets_2_pready : _GEN_5; // @[ApbMux.scala 53:22 55:26]
+  assign io_master_prdata = selected_2 ? io_targets_2_prdata : _GEN_6; // @[ApbMux.scala 53:22 56:26]
+  assign io_targets_0_paddr = io_master_paddr; // @[ApbMux.scala 28:7]
+  assign io_targets_0_psel = io_master_psel & io_master_paddr[15:11] == 5'h0; // @[ApbMux.scala 51:37]
+  assign io_targets_0_penable = io_master_penable; // @[ApbMux.scala 28:7]
+  assign io_targets_0_pwrite = io_master_pwrite; // @[ApbMux.scala 28:7]
+  assign io_targets_0_pstrb = io_master_pstrb; // @[ApbMux.scala 28:7]
+  assign io_targets_0_pwdata = io_master_pwdata; // @[ApbMux.scala 28:7]
+  assign io_targets_1_paddr = io_master_paddr; // @[ApbMux.scala 28:7]
+  assign io_targets_1_psel = io_master_psel & io_master_paddr[15:5] == 11'h40; // @[ApbMux.scala 51:37]
+  assign io_targets_1_penable = io_master_penable; // @[ApbMux.scala 28:7]
+  assign io_targets_1_pwrite = io_master_pwrite; // @[ApbMux.scala 28:7]
+  assign io_targets_1_pwdata = io_master_pwdata; // @[ApbMux.scala 28:7]
+  assign io_targets_2_psel = io_master_psel & io_master_paddr[15:2] == 14'h300; // @[ApbMux.scala 51:37]
+  assign io_targets_2_penable = io_master_penable; // @[ApbMux.scala 28:7]
+  assign io_targets_2_pwrite = io_master_pwrite; // @[ApbMux.scala 28:7]
+  assign io_targets_2_pwdata = io_master_pwdata; // @[ApbMux.scala 28:7]
 endmodule
 module DataMemMux(
   input         clock,
@@ -2067,61 +3159,59 @@ module DataMemMux(
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
 `endif // RANDOMIZE_REG_INIT
-  wire [15:0] _rdSelected_T = io_master_rdAddr & 16'hffc0; // @[DataMemMux.scala 29:41]
-  wire  rdSelected = 16'h0 == _rdSelected_T; // @[DataMemMux.scala 29:41]
-  reg  REG; // @[DataMemMux.scala 31:19]
-  wire [31:0] _GEN_0 = REG ? io_targets_0_rdData : io_targets_3_rdData; // @[DataMemMux.scala 31:38 32:26 23:7]
-  wire [15:0] _wrSelected_T = io_master_wrAddr & 16'hffc0; // @[DataMemMux.scala 35:57]
-  wire [15:0] _rdSelected_T_1 = io_master_rdAddr & 16'hfffc; // @[DataMemMux.scala 29:41]
-  wire  rdSelected_1 = 16'h2000 == _rdSelected_T_1; // @[DataMemMux.scala 29:41]
-  reg  REG_1; // @[DataMemMux.scala 31:19]
-  wire [31:0] _GEN_1 = REG_1 ? io_targets_1_rdData : _GEN_0; // @[DataMemMux.scala 31:38 32:26]
-  wire [15:0] _wrSelected_T_2 = io_master_wrAddr & 16'hfffc; // @[DataMemMux.scala 35:57]
-  wire  rdSelected_2 = 16'h2004 == _rdSelected_T_1; // @[DataMemMux.scala 29:41]
-  reg  REG_2; // @[DataMemMux.scala 31:19]
-  wire [31:0] _GEN_2 = REG_2 ? io_targets_2_rdData : _GEN_1; // @[DataMemMux.scala 31:38 32:26]
-  wire [15:0] _rdSelected_T_3 = io_master_rdAddr & 16'hfffe; // @[DataMemMux.scala 29:41]
-  wire  rdSelected_3 = 16'h2008 == _rdSelected_T_3; // @[DataMemMux.scala 29:41]
-  reg  REG_3; // @[DataMemMux.scala 31:19]
-  wire [15:0] _wrSelected_T_6 = io_master_wrAddr & 16'hfffe; // @[DataMemMux.scala 35:57]
-  assign io_master_rdData = REG_3 ? io_targets_3_rdData : _GEN_2; // @[DataMemMux.scala 31:38 32:26]
-  assign io_targets_0_rdAddr = io_master_rdAddr; // @[DataMemMux.scala 23:7]
-  assign io_targets_0_wrAddr = io_master_wrAddr; // @[DataMemMux.scala 23:7]
-  assign io_targets_0_wrData = io_master_wrData; // @[DataMemMux.scala 23:7]
-  assign io_targets_0_wr = io_master_wr & 16'h0 == _wrSelected_T; // @[DataMemMux.scala 35:37]
-  assign io_targets_0_wrMask = io_master_wrMask; // @[DataMemMux.scala 23:7]
-  assign io_targets_1_rdAddr = io_master_rdAddr; // @[DataMemMux.scala 23:7]
-  assign io_targets_1_wrAddr = io_master_wrAddr; // @[DataMemMux.scala 23:7]
-  assign io_targets_1_wrData = io_master_wrData; // @[DataMemMux.scala 23:7]
-  assign io_targets_1_wr = io_master_wr & 16'h2000 == _wrSelected_T_2; // @[DataMemMux.scala 35:37]
-  assign io_targets_2_rdAddr = io_master_rdAddr; // @[DataMemMux.scala 23:7]
-  assign io_targets_2_wrAddr = io_master_wrAddr; // @[DataMemMux.scala 23:7]
-  assign io_targets_2_wrData = io_master_wrData; // @[DataMemMux.scala 23:7]
-  assign io_targets_2_wr = io_master_wr & 16'h2004 == _wrSelected_T_2; // @[DataMemMux.scala 35:37]
-  assign io_targets_3_rdAddr = io_master_rdAddr; // @[DataMemMux.scala 23:7]
-  assign io_targets_3_wrAddr = io_master_wrAddr; // @[DataMemMux.scala 23:7]
-  assign io_targets_3_wrData = io_master_wrData; // @[DataMemMux.scala 23:7]
-  assign io_targets_3_wr = io_master_wr & 16'h2008 == _wrSelected_T_6; // @[DataMemMux.scala 35:37]
+  wire  rdSelected = io_master_rdAddr[15:6] == 10'h0; // @[DataMemMux.scala 55:80]
+  reg  REG; // @[DataMemMux.scala 57:17]
+  wire [31:0] _GEN_0 = REG ? io_targets_0_rdData : io_targets_3_rdData; // @[DataMemMux.scala 57:36 58:24 50:7]
+  wire  wrSelected = io_master_wrAddr[15:6] == 10'h0; // @[DataMemMux.scala 61:80]
+  wire  rdSelected_1 = io_master_rdAddr[15:3] == 13'h400; // @[DataMemMux.scala 55:80]
+  reg  REG_1; // @[DataMemMux.scala 57:17]
+  wire [31:0] _GEN_1 = REG_1 ? io_targets_1_rdData : _GEN_0; // @[DataMemMux.scala 57:36 58:24]
+  wire  wrSelected_1 = io_master_wrAddr[15:3] == 13'h400; // @[DataMemMux.scala 61:80]
+  wire  rdSelected_2 = io_master_rdAddr[15:2] == 14'h810; // @[DataMemMux.scala 55:80]
+  reg  REG_2; // @[DataMemMux.scala 57:17]
+  wire [31:0] _GEN_2 = REG_2 ? io_targets_2_rdData : _GEN_1; // @[DataMemMux.scala 57:36 58:24]
+  wire  wrSelected_2 = io_master_wrAddr[15:2] == 14'h810; // @[DataMemMux.scala 61:80]
+  wire  rdSelected_3 = io_master_rdAddr[15:1] == 15'h1022; // @[DataMemMux.scala 55:80]
+  reg  REG_3; // @[DataMemMux.scala 57:17]
+  wire  wrSelected_3 = io_master_wrAddr[15:1] == 15'h1022; // @[DataMemMux.scala 61:80]
+  assign io_master_rdData = REG_3 ? io_targets_3_rdData : _GEN_2; // @[DataMemMux.scala 57:36 58:24]
+  assign io_targets_0_rdAddr = io_master_rdAddr; // @[DataMemMux.scala 50:7]
+  assign io_targets_0_wrAddr = io_master_wrAddr; // @[DataMemMux.scala 50:7]
+  assign io_targets_0_wrData = io_master_wrData; // @[DataMemMux.scala 50:7]
+  assign io_targets_0_wr = io_master_wr & wrSelected; // @[DataMemMux.scala 62:29]
+  assign io_targets_0_wrMask = io_master_wrMask; // @[DataMemMux.scala 50:7]
+  assign io_targets_1_rdAddr = io_master_rdAddr; // @[DataMemMux.scala 50:7]
+  assign io_targets_1_wrAddr = io_master_wrAddr; // @[DataMemMux.scala 50:7]
+  assign io_targets_1_wrData = io_master_wrData; // @[DataMemMux.scala 50:7]
+  assign io_targets_1_wr = io_master_wr & wrSelected_1; // @[DataMemMux.scala 62:29]
+  assign io_targets_2_rdAddr = io_master_rdAddr; // @[DataMemMux.scala 50:7]
+  assign io_targets_2_wrAddr = io_master_wrAddr; // @[DataMemMux.scala 50:7]
+  assign io_targets_2_wrData = io_master_wrData; // @[DataMemMux.scala 50:7]
+  assign io_targets_2_wr = io_master_wr & wrSelected_2; // @[DataMemMux.scala 62:29]
+  assign io_targets_3_rdAddr = io_master_rdAddr; // @[DataMemMux.scala 50:7]
+  assign io_targets_3_wrAddr = io_master_wrAddr; // @[DataMemMux.scala 50:7]
+  assign io_targets_3_wrData = io_master_wrData; // @[DataMemMux.scala 50:7]
+  assign io_targets_3_wr = io_master_wr & wrSelected_3; // @[DataMemMux.scala 62:29]
   always @(posedge clock) begin
-    if (reset) begin // @[DataMemMux.scala 31:19]
-      REG <= 1'h0; // @[DataMemMux.scala 31:19]
+    if (reset) begin // @[DataMemMux.scala 57:17]
+      REG <= 1'h0; // @[DataMemMux.scala 57:17]
     end else begin
-      REG <= rdSelected; // @[DataMemMux.scala 31:19]
+      REG <= rdSelected; // @[DataMemMux.scala 57:17]
     end
-    if (reset) begin // @[DataMemMux.scala 31:19]
-      REG_1 <= 1'h0; // @[DataMemMux.scala 31:19]
+    if (reset) begin // @[DataMemMux.scala 57:17]
+      REG_1 <= 1'h0; // @[DataMemMux.scala 57:17]
     end else begin
-      REG_1 <= rdSelected_1; // @[DataMemMux.scala 31:19]
+      REG_1 <= rdSelected_1; // @[DataMemMux.scala 57:17]
     end
-    if (reset) begin // @[DataMemMux.scala 31:19]
-      REG_2 <= 1'h0; // @[DataMemMux.scala 31:19]
+    if (reset) begin // @[DataMemMux.scala 57:17]
+      REG_2 <= 1'h0; // @[DataMemMux.scala 57:17]
     end else begin
-      REG_2 <= rdSelected_2; // @[DataMemMux.scala 31:19]
+      REG_2 <= rdSelected_2; // @[DataMemMux.scala 57:17]
     end
-    if (reset) begin // @[DataMemMux.scala 31:19]
-      REG_3 <= 1'h0; // @[DataMemMux.scala 31:19]
+    if (reset) begin // @[DataMemMux.scala 57:17]
+      REG_3 <= 1'h0; // @[DataMemMux.scala 57:17]
     end else begin
-      REG_3 <= rdSelected_3; // @[DataMemMux.scala 31:19]
+      REG_3 <= rdSelected_3; // @[DataMemMux.scala 57:17]
     end
   end
 // Register and memory initialization
@@ -2198,127 +3288,203 @@ module DtuSubsystem(
   output [3:0]  io_pmod_1_gpo,
   output [3:0]  io_pmod_1_oe
 );
-  wire  leros_clock; // @[DtuSubsystem.scala 31:21]
-  wire  leros_reset; // @[DtuSubsystem.scala 31:21]
-  wire [7:0] leros_imemIO_addr; // @[DtuSubsystem.scala 31:21]
-  wire [15:0] leros_imemIO_instr; // @[DtuSubsystem.scala 31:21]
-  wire [15:0] leros_dmemIO_rdAddr; // @[DtuSubsystem.scala 31:21]
-  wire [31:0] leros_dmemIO_rdData; // @[DtuSubsystem.scala 31:21]
-  wire [15:0] leros_dmemIO_wrAddr; // @[DtuSubsystem.scala 31:21]
-  wire [31:0] leros_dmemIO_wrData; // @[DtuSubsystem.scala 31:21]
-  wire  leros_dmemIO_wr; // @[DtuSubsystem.scala 31:21]
-  wire [3:0] leros_dmemIO_wrMask; // @[DtuSubsystem.scala 31:21]
-  wire  instrMem_clock; // @[DtuSubsystem.scala 34:24]
-  wire [6:0] instrMem_instrPort_addr; // @[DtuSubsystem.scala 34:24]
-  wire [15:0] instrMem_instrPort_instr; // @[DtuSubsystem.scala 34:24]
-  wire [6:0] instrMem_apbPort_paddr; // @[DtuSubsystem.scala 34:24]
-  wire  instrMem_apbPort_psel; // @[DtuSubsystem.scala 34:24]
-  wire  instrMem_apbPort_penable; // @[DtuSubsystem.scala 34:24]
-  wire  instrMem_apbPort_pwrite; // @[DtuSubsystem.scala 34:24]
-  wire [3:0] instrMem_apbPort_pstrb; // @[DtuSubsystem.scala 34:24]
-  wire [31:0] instrMem_apbPort_pwdata; // @[DtuSubsystem.scala 34:24]
-  wire  instrMem_apbPort_pready; // @[DtuSubsystem.scala 34:24]
-  wire  instrMem_apbPort_pslverr; // @[DtuSubsystem.scala 34:24]
-  wire  rom_clock; // @[DtuSubsystem.scala 35:19]
-  wire  rom_reset; // @[DtuSubsystem.scala 35:19]
-  wire [7:0] rom_io_addr; // @[DtuSubsystem.scala 35:19]
-  wire [15:0] rom_io_instr; // @[DtuSubsystem.scala 35:19]
-  wire  regBlock_clock; // @[DtuSubsystem.scala 36:24]
-  wire  regBlock_reset; // @[DtuSubsystem.scala 36:24]
-  wire [3:0] regBlock_apbPort_paddr; // @[DtuSubsystem.scala 36:24]
-  wire  regBlock_apbPort_psel; // @[DtuSubsystem.scala 36:24]
-  wire  regBlock_apbPort_penable; // @[DtuSubsystem.scala 36:24]
-  wire  regBlock_apbPort_pwrite; // @[DtuSubsystem.scala 36:24]
-  wire [31:0] regBlock_apbPort_pwdata; // @[DtuSubsystem.scala 36:24]
-  wire  regBlock_apbPort_pready; // @[DtuSubsystem.scala 36:24]
-  wire [31:0] regBlock_apbPort_prdata; // @[DtuSubsystem.scala 36:24]
-  wire [1:0] regBlock_dmemPort_rdAddr; // @[DtuSubsystem.scala 36:24]
-  wire [31:0] regBlock_dmemPort_rdData; // @[DtuSubsystem.scala 36:24]
-  wire [1:0] regBlock_dmemPort_wrAddr; // @[DtuSubsystem.scala 36:24]
-  wire [31:0] regBlock_dmemPort_wrData; // @[DtuSubsystem.scala 36:24]
-  wire  regBlock_dmemPort_wr; // @[DtuSubsystem.scala 36:24]
-  wire  gpio_clock; // @[DtuSubsystem.scala 37:20]
-  wire  gpio_reset; // @[DtuSubsystem.scala 37:20]
-  wire [1:0] gpio_dmemPort_rdAddr; // @[DtuSubsystem.scala 37:20]
-  wire [31:0] gpio_dmemPort_rdData; // @[DtuSubsystem.scala 37:20]
-  wire [1:0] gpio_dmemPort_wrAddr; // @[DtuSubsystem.scala 37:20]
-  wire [31:0] gpio_dmemPort_wrData; // @[DtuSubsystem.scala 37:20]
-  wire  gpio_dmemPort_wr; // @[DtuSubsystem.scala 37:20]
-  wire [3:0] gpio_pmodPort_gpi; // @[DtuSubsystem.scala 37:20]
-  wire [3:0] gpio_pmodPort_gpo; // @[DtuSubsystem.scala 37:20]
-  wire [3:0] gpio_pmodPort_oe; // @[DtuSubsystem.scala 37:20]
-  wire  uart_clock; // @[DtuSubsystem.scala 38:20]
-  wire  uart_reset; // @[DtuSubsystem.scala 38:20]
-  wire  uart_uartPins_tx; // @[DtuSubsystem.scala 38:20]
-  wire  uart_uartPins_rx; // @[DtuSubsystem.scala 38:20]
-  wire  uart_dmemPort_rdAddr; // @[DtuSubsystem.scala 38:20]
-  wire [31:0] uart_dmemPort_rdData; // @[DtuSubsystem.scala 38:20]
-  wire  uart_dmemPort_wrAddr; // @[DtuSubsystem.scala 38:20]
-  wire [31:0] uart_dmemPort_wrData; // @[DtuSubsystem.scala 38:20]
-  wire  uart_dmemPort_wr; // @[DtuSubsystem.scala 38:20]
-  wire  dmem_clock; // @[DtuSubsystem.scala 39:20]
-  wire [5:0] dmem_dmemPort_rdAddr; // @[DtuSubsystem.scala 39:20]
-  wire [31:0] dmem_dmemPort_rdData; // @[DtuSubsystem.scala 39:20]
-  wire [5:0] dmem_dmemPort_wrAddr; // @[DtuSubsystem.scala 39:20]
-  wire [31:0] dmem_dmemPort_wrData; // @[DtuSubsystem.scala 39:20]
-  wire  dmem_dmemPort_wr; // @[DtuSubsystem.scala 39:20]
-  wire [3:0] dmem_dmemPort_wrMask; // @[DtuSubsystem.scala 39:20]
-  wire [11:0] apbMux_io_master_paddr; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_master_psel; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_master_penable; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_master_pwrite; // @[ApbMux.scala 95:24]
-  wire [3:0] apbMux_io_master_pstrb; // @[ApbMux.scala 95:24]
-  wire [31:0] apbMux_io_master_pwdata; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_master_pready; // @[ApbMux.scala 95:24]
-  wire [31:0] apbMux_io_master_prdata; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_master_pslverr; // @[ApbMux.scala 95:24]
-  wire [11:0] apbMux_io_targets_0_paddr; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_targets_0_psel; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_targets_0_penable; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_targets_0_pwrite; // @[ApbMux.scala 95:24]
-  wire [3:0] apbMux_io_targets_0_pstrb; // @[ApbMux.scala 95:24]
-  wire [31:0] apbMux_io_targets_0_pwdata; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_targets_0_pready; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_targets_0_pslverr; // @[ApbMux.scala 95:24]
-  wire [11:0] apbMux_io_targets_1_paddr; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_targets_1_psel; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_targets_1_penable; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_targets_1_pwrite; // @[ApbMux.scala 95:24]
-  wire [31:0] apbMux_io_targets_1_pwdata; // @[ApbMux.scala 95:24]
-  wire  apbMux_io_targets_1_pready; // @[ApbMux.scala 95:24]
-  wire [31:0] apbMux_io_targets_1_prdata; // @[ApbMux.scala 95:24]
-  wire  dmemMux_clock; // @[DataMemMux.scala 97:25]
-  wire  dmemMux_reset; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_master_rdAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_master_rdData; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_master_wrAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_master_wrData; // @[DataMemMux.scala 97:25]
-  wire  dmemMux_io_master_wr; // @[DataMemMux.scala 97:25]
-  wire [3:0] dmemMux_io_master_wrMask; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_targets_0_rdAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_targets_0_rdData; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_targets_0_wrAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_targets_0_wrData; // @[DataMemMux.scala 97:25]
-  wire  dmemMux_io_targets_0_wr; // @[DataMemMux.scala 97:25]
-  wire [3:0] dmemMux_io_targets_0_wrMask; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_targets_1_rdAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_targets_1_rdData; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_targets_1_wrAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_targets_1_wrData; // @[DataMemMux.scala 97:25]
-  wire  dmemMux_io_targets_1_wr; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_targets_2_rdAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_targets_2_rdData; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_targets_2_wrAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_targets_2_wrData; // @[DataMemMux.scala 97:25]
-  wire  dmemMux_io_targets_2_wr; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_targets_3_rdAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_targets_3_rdData; // @[DataMemMux.scala 97:25]
-  wire [15:0] dmemMux_io_targets_3_wrAddr; // @[DataMemMux.scala 97:25]
-  wire [31:0] dmemMux_io_targets_3_wrData; // @[DataMemMux.scala 97:25]
-  wire  dmemMux_io_targets_3_wr; // @[DataMemMux.scala 97:25]
-  wire  bootSelect = io_pmod_0_gpi[0] | io_ssCtrl[3]; // @[DtuSubsystem.scala 29:38]
+  wire  sysCtrl_clock; // @[DtuSubsystem.scala 57:24]
+  wire  sysCtrl_reset; // @[DtuSubsystem.scala 57:24]
+  wire  sysCtrl_apbPort_psel; // @[DtuSubsystem.scala 57:24]
+  wire  sysCtrl_apbPort_penable; // @[DtuSubsystem.scala 57:24]
+  wire  sysCtrl_apbPort_pwrite; // @[DtuSubsystem.scala 57:24]
+  wire [31:0] sysCtrl_apbPort_pwdata; // @[DtuSubsystem.scala 57:24]
+  wire  sysCtrl_apbPort_pready; // @[DtuSubsystem.scala 57:24]
+  wire [31:0] sysCtrl_apbPort_prdata; // @[DtuSubsystem.scala 57:24]
+  wire  sysCtrl_ctrlPort_lerosReset; // @[DtuSubsystem.scala 57:24]
+  wire  sysCtrl_ctrlPort_lerosBootFromRam; // @[DtuSubsystem.scala 57:24]
+  wire  ponte_clock; // @[DtuSubsystem.scala 58:21]
+  wire  ponte_reset; // @[DtuSubsystem.scala 58:21]
+  wire  ponte_io_uart_tx; // @[DtuSubsystem.scala 58:21]
+  wire  ponte_io_uart_rx; // @[DtuSubsystem.scala 58:21]
+  wire [15:0] ponte_io_apb_paddr; // @[DtuSubsystem.scala 58:21]
+  wire  ponte_io_apb_psel; // @[DtuSubsystem.scala 58:21]
+  wire  ponte_io_apb_penable; // @[DtuSubsystem.scala 58:21]
+  wire  ponte_io_apb_pwrite; // @[DtuSubsystem.scala 58:21]
+  wire [31:0] ponte_io_apb_pwdata; // @[DtuSubsystem.scala 58:21]
+  wire  ponte_io_apb_pready; // @[DtuSubsystem.scala 58:21]
+  wire [31:0] ponte_io_apb_prdata; // @[DtuSubsystem.scala 58:21]
+  wire  leros_clock; // @[DtuSubsystem.scala 61:21]
+  wire  leros_reset; // @[DtuSubsystem.scala 61:21]
+  wire [10:0] leros_imemIO_addr; // @[DtuSubsystem.scala 61:21]
+  wire [15:0] leros_imemIO_instr; // @[DtuSubsystem.scala 61:21]
+  wire [15:0] leros_dmemIO_rdAddr; // @[DtuSubsystem.scala 61:21]
+  wire [31:0] leros_dmemIO_rdData; // @[DtuSubsystem.scala 61:21]
+  wire [15:0] leros_dmemIO_wrAddr; // @[DtuSubsystem.scala 61:21]
+  wire [31:0] leros_dmemIO_wrData; // @[DtuSubsystem.scala 61:21]
+  wire  leros_dmemIO_wr; // @[DtuSubsystem.scala 61:21]
+  wire [3:0] leros_dmemIO_wrMask; // @[DtuSubsystem.scala 61:21]
+  wire  instrMem_clock; // @[DtuSubsystem.scala 64:24]
+  wire [10:0] instrMem_instrPort_addr; // @[DtuSubsystem.scala 64:24]
+  wire [15:0] instrMem_instrPort_instr; // @[DtuSubsystem.scala 64:24]
+  wire [10:0] instrMem_apbPort_paddr; // @[DtuSubsystem.scala 64:24]
+  wire  instrMem_apbPort_psel; // @[DtuSubsystem.scala 64:24]
+  wire  instrMem_apbPort_penable; // @[DtuSubsystem.scala 64:24]
+  wire  instrMem_apbPort_pwrite; // @[DtuSubsystem.scala 64:24]
+  wire [3:0] instrMem_apbPort_pstrb; // @[DtuSubsystem.scala 64:24]
+  wire [31:0] instrMem_apbPort_pwdata; // @[DtuSubsystem.scala 64:24]
+  wire  instrMem_apbPort_pready; // @[DtuSubsystem.scala 64:24]
+  wire [31:0] instrMem_apbPort_prdata; // @[DtuSubsystem.scala 64:24]
+  wire  rom_clock; // @[DtuSubsystem.scala 65:24]
+  wire  rom_reset; // @[DtuSubsystem.scala 65:24]
+  wire [10:0] rom_io_addr; // @[DtuSubsystem.scala 65:24]
+  wire [15:0] rom_io_instr; // @[DtuSubsystem.scala 65:24]
+  wire  regBlock_clock; // @[DtuSubsystem.scala 66:24]
+  wire  regBlock_reset; // @[DtuSubsystem.scala 66:24]
+  wire [4:0] regBlock_apbPort_paddr; // @[DtuSubsystem.scala 66:24]
+  wire  regBlock_apbPort_psel; // @[DtuSubsystem.scala 66:24]
+  wire  regBlock_apbPort_penable; // @[DtuSubsystem.scala 66:24]
+  wire  regBlock_apbPort_pwrite; // @[DtuSubsystem.scala 66:24]
+  wire [31:0] regBlock_apbPort_pwdata; // @[DtuSubsystem.scala 66:24]
+  wire  regBlock_apbPort_pready; // @[DtuSubsystem.scala 66:24]
+  wire [31:0] regBlock_apbPort_prdata; // @[DtuSubsystem.scala 66:24]
+  wire [2:0] regBlock_dmemPort_rdAddr; // @[DtuSubsystem.scala 66:24]
+  wire [31:0] regBlock_dmemPort_rdData; // @[DtuSubsystem.scala 66:24]
+  wire [2:0] regBlock_dmemPort_wrAddr; // @[DtuSubsystem.scala 66:24]
+  wire [31:0] regBlock_dmemPort_wrData; // @[DtuSubsystem.scala 66:24]
+  wire  regBlock_dmemPort_wr; // @[DtuSubsystem.scala 66:24]
+  wire  gpio_clock; // @[DtuSubsystem.scala 67:24]
+  wire  gpio_reset; // @[DtuSubsystem.scala 67:24]
+  wire [1:0] gpio_dmemPort_rdAddr; // @[DtuSubsystem.scala 67:24]
+  wire [31:0] gpio_dmemPort_rdData; // @[DtuSubsystem.scala 67:24]
+  wire [1:0] gpio_dmemPort_wrAddr; // @[DtuSubsystem.scala 67:24]
+  wire [31:0] gpio_dmemPort_wrData; // @[DtuSubsystem.scala 67:24]
+  wire  gpio_dmemPort_wr; // @[DtuSubsystem.scala 67:24]
+  wire [3:0] gpio_pmodPort_gpi; // @[DtuSubsystem.scala 67:24]
+  wire [3:0] gpio_pmodPort_gpo; // @[DtuSubsystem.scala 67:24]
+  wire [3:0] gpio_pmodPort_oe; // @[DtuSubsystem.scala 67:24]
+  wire  dmem_clock; // @[DtuSubsystem.scala 68:24]
+  wire [5:0] dmem_dmemPort_rdAddr; // @[DtuSubsystem.scala 68:24]
+  wire [31:0] dmem_dmemPort_rdData; // @[DtuSubsystem.scala 68:24]
+  wire [5:0] dmem_dmemPort_wrAddr; // @[DtuSubsystem.scala 68:24]
+  wire [31:0] dmem_dmemPort_wrData; // @[DtuSubsystem.scala 68:24]
+  wire  dmem_dmemPort_wr; // @[DtuSubsystem.scala 68:24]
+  wire [3:0] dmem_dmemPort_wrMask; // @[DtuSubsystem.scala 68:24]
+  wire  uart_clock; // @[DtuSubsystem.scala 69:24]
+  wire  uart_reset; // @[DtuSubsystem.scala 69:24]
+  wire  uart_uartPins_tx; // @[DtuSubsystem.scala 69:24]
+  wire  uart_uartPins_rx; // @[DtuSubsystem.scala 69:24]
+  wire  uart_dmemPort_rdAddr; // @[DtuSubsystem.scala 69:24]
+  wire [31:0] uart_dmemPort_rdData; // @[DtuSubsystem.scala 69:24]
+  wire  uart_dmemPort_wrAddr; // @[DtuSubsystem.scala 69:24]
+  wire [31:0] uart_dmemPort_wrData; // @[DtuSubsystem.scala 69:24]
+  wire  uart_dmemPort_wr; // @[DtuSubsystem.scala 69:24]
+  wire  arb_clock; // @[ApbArbiter.scala 11:21]
+  wire  arb_reset; // @[ApbArbiter.scala 11:21]
+  wire [15:0] arb_io_masters_0_paddr; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_masters_0_psel; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_masters_0_penable; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_masters_0_pwrite; // @[ApbArbiter.scala 11:21]
+  wire [31:0] arb_io_masters_0_pwdata; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_masters_0_pready; // @[ApbArbiter.scala 11:21]
+  wire [31:0] arb_io_masters_0_prdata; // @[ApbArbiter.scala 11:21]
+  wire [15:0] arb_io_masters_1_paddr; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_masters_1_psel; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_masters_1_penable; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_masters_1_pwrite; // @[ApbArbiter.scala 11:21]
+  wire [3:0] arb_io_masters_1_pstrb; // @[ApbArbiter.scala 11:21]
+  wire [31:0] arb_io_masters_1_pwdata; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_masters_1_pready; // @[ApbArbiter.scala 11:21]
+  wire [31:0] arb_io_masters_1_prdata; // @[ApbArbiter.scala 11:21]
+  wire [15:0] arb_io_merged_paddr; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_merged_psel; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_merged_penable; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_merged_pwrite; // @[ApbArbiter.scala 11:21]
+  wire [3:0] arb_io_merged_pstrb; // @[ApbArbiter.scala 11:21]
+  wire [31:0] arb_io_merged_pwdata; // @[ApbArbiter.scala 11:21]
+  wire  arb_io_merged_pready; // @[ApbArbiter.scala 11:21]
+  wire [31:0] arb_io_merged_prdata; // @[ApbArbiter.scala 11:21]
+  wire [15:0] apbMux_io_master_paddr; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_master_psel; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_master_penable; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_master_pwrite; // @[ApbMux.scala 96:24]
+  wire [3:0] apbMux_io_master_pstrb; // @[ApbMux.scala 96:24]
+  wire [31:0] apbMux_io_master_pwdata; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_master_pready; // @[ApbMux.scala 96:24]
+  wire [31:0] apbMux_io_master_prdata; // @[ApbMux.scala 96:24]
+  wire [15:0] apbMux_io_targets_0_paddr; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_0_psel; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_0_penable; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_0_pwrite; // @[ApbMux.scala 96:24]
+  wire [3:0] apbMux_io_targets_0_pstrb; // @[ApbMux.scala 96:24]
+  wire [31:0] apbMux_io_targets_0_pwdata; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_0_pready; // @[ApbMux.scala 96:24]
+  wire [31:0] apbMux_io_targets_0_prdata; // @[ApbMux.scala 96:24]
+  wire [15:0] apbMux_io_targets_1_paddr; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_1_psel; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_1_penable; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_1_pwrite; // @[ApbMux.scala 96:24]
+  wire [31:0] apbMux_io_targets_1_pwdata; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_1_pready; // @[ApbMux.scala 96:24]
+  wire [31:0] apbMux_io_targets_1_prdata; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_2_psel; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_2_penable; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_2_pwrite; // @[ApbMux.scala 96:24]
+  wire [31:0] apbMux_io_targets_2_pwdata; // @[ApbMux.scala 96:24]
+  wire  apbMux_io_targets_2_pready; // @[ApbMux.scala 96:24]
+  wire [31:0] apbMux_io_targets_2_prdata; // @[ApbMux.scala 96:24]
+  wire  dmemMux_clock; // @[DataMemMux.scala 94:25]
+  wire  dmemMux_reset; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_master_rdAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_master_rdData; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_master_wrAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_master_wrData; // @[DataMemMux.scala 94:25]
+  wire  dmemMux_io_master_wr; // @[DataMemMux.scala 94:25]
+  wire [3:0] dmemMux_io_master_wrMask; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_targets_0_rdAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_targets_0_rdData; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_targets_0_wrAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_targets_0_wrData; // @[DataMemMux.scala 94:25]
+  wire  dmemMux_io_targets_0_wr; // @[DataMemMux.scala 94:25]
+  wire [3:0] dmemMux_io_targets_0_wrMask; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_targets_1_rdAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_targets_1_rdData; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_targets_1_wrAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_targets_1_wrData; // @[DataMemMux.scala 94:25]
+  wire  dmemMux_io_targets_1_wr; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_targets_2_rdAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_targets_2_rdData; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_targets_2_wrAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_targets_2_wrData; // @[DataMemMux.scala 94:25]
+  wire  dmemMux_io_targets_2_wr; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_targets_3_rdAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_targets_3_rdData; // @[DataMemMux.scala 94:25]
+  wire [15:0] dmemMux_io_targets_3_wrAddr; // @[DataMemMux.scala 94:25]
+  wire [31:0] dmemMux_io_targets_3_wrData; // @[DataMemMux.scala 94:25]
+  wire  dmemMux_io_targets_3_wr; // @[DataMemMux.scala 94:25]
+  wire [1:0] io_pmod_0_gpo_lo = {1'h0,ponte_io_uart_tx}; // @[Cat.scala 33:92]
   wire [1:0] io_pmod_0_gpo_hi = {1'h0,uart_uartPins_tx}; // @[Cat.scala 33:92]
-  Leros leros ( // @[DtuSubsystem.scala 31:21]
+  SystemControl sysCtrl ( // @[DtuSubsystem.scala 57:24]
+    .clock(sysCtrl_clock),
+    .reset(sysCtrl_reset),
+    .apbPort_psel(sysCtrl_apbPort_psel),
+    .apbPort_penable(sysCtrl_apbPort_penable),
+    .apbPort_pwrite(sysCtrl_apbPort_pwrite),
+    .apbPort_pwdata(sysCtrl_apbPort_pwdata),
+    .apbPort_pready(sysCtrl_apbPort_pready),
+    .apbPort_prdata(sysCtrl_apbPort_prdata),
+    .ctrlPort_lerosReset(sysCtrl_ctrlPort_lerosReset),
+    .ctrlPort_lerosBootFromRam(sysCtrl_ctrlPort_lerosBootFromRam)
+  );
+  Ponte ponte ( // @[DtuSubsystem.scala 58:21]
+    .clock(ponte_clock),
+    .reset(ponte_reset),
+    .io_uart_tx(ponte_io_uart_tx),
+    .io_uart_rx(ponte_io_uart_rx),
+    .io_apb_paddr(ponte_io_apb_paddr),
+    .io_apb_psel(ponte_io_apb_psel),
+    .io_apb_penable(ponte_io_apb_penable),
+    .io_apb_pwrite(ponte_io_apb_pwrite),
+    .io_apb_pwdata(ponte_io_apb_pwdata),
+    .io_apb_pready(ponte_io_apb_pready),
+    .io_apb_prdata(ponte_io_apb_prdata)
+  );
+  Leros leros ( // @[DtuSubsystem.scala 61:21]
     .clock(leros_clock),
     .reset(leros_reset),
     .imemIO_addr(leros_imemIO_addr),
@@ -2330,7 +3496,7 @@ module DtuSubsystem(
     .dmemIO_wr(leros_dmemIO_wr),
     .dmemIO_wrMask(leros_dmemIO_wrMask)
   );
-  InstructionMemory instrMem ( // @[DtuSubsystem.scala 34:24]
+  InstructionMemory instrMem ( // @[DtuSubsystem.scala 64:24]
     .clock(instrMem_clock),
     .instrPort_addr(instrMem_instrPort_addr),
     .instrPort_instr(instrMem_instrPort_instr),
@@ -2341,15 +3507,15 @@ module DtuSubsystem(
     .apbPort_pstrb(instrMem_apbPort_pstrb),
     .apbPort_pwdata(instrMem_apbPort_pwdata),
     .apbPort_pready(instrMem_apbPort_pready),
-    .apbPort_pslverr(instrMem_apbPort_pslverr)
+    .apbPort_prdata(instrMem_apbPort_prdata)
   );
-  InstrMem rom ( // @[DtuSubsystem.scala 35:19]
+  InstrMem rom ( // @[DtuSubsystem.scala 65:24]
     .clock(rom_clock),
     .reset(rom_reset),
     .io_addr(rom_io_addr),
     .io_instr(rom_io_instr)
   );
-  RegBlock regBlock ( // @[DtuSubsystem.scala 36:24]
+  RegBlock regBlock ( // @[DtuSubsystem.scala 66:24]
     .clock(regBlock_clock),
     .reset(regBlock_reset),
     .apbPort_paddr(regBlock_apbPort_paddr),
@@ -2365,7 +3531,7 @@ module DtuSubsystem(
     .dmemPort_wrData(regBlock_dmemPort_wrData),
     .dmemPort_wr(regBlock_dmemPort_wr)
   );
-  Gpio gpio ( // @[DtuSubsystem.scala 37:20]
+  Gpio gpio ( // @[DtuSubsystem.scala 67:24]
     .clock(gpio_clock),
     .reset(gpio_reset),
     .dmemPort_rdAddr(gpio_dmemPort_rdAddr),
@@ -2377,7 +3543,16 @@ module DtuSubsystem(
     .pmodPort_gpo(gpio_pmodPort_gpo),
     .pmodPort_oe(gpio_pmodPort_oe)
   );
-  Uart uart ( // @[DtuSubsystem.scala 38:20]
+  DataMemory dmem ( // @[DtuSubsystem.scala 68:24]
+    .clock(dmem_clock),
+    .dmemPort_rdAddr(dmem_dmemPort_rdAddr),
+    .dmemPort_rdData(dmem_dmemPort_rdData),
+    .dmemPort_wrAddr(dmem_dmemPort_wrAddr),
+    .dmemPort_wrData(dmem_dmemPort_wrData),
+    .dmemPort_wr(dmem_dmemPort_wr),
+    .dmemPort_wrMask(dmem_dmemPort_wrMask)
+  );
+  Uart uart ( // @[DtuSubsystem.scala 69:24]
     .clock(uart_clock),
     .reset(uart_reset),
     .uartPins_tx(uart_uartPins_tx),
@@ -2388,16 +3563,34 @@ module DtuSubsystem(
     .dmemPort_wrData(uart_dmemPort_wrData),
     .dmemPort_wr(uart_dmemPort_wr)
   );
-  DataMemory dmem ( // @[DtuSubsystem.scala 39:20]
-    .clock(dmem_clock),
-    .dmemPort_rdAddr(dmem_dmemPort_rdAddr),
-    .dmemPort_rdData(dmem_dmemPort_rdData),
-    .dmemPort_wrAddr(dmem_dmemPort_wrAddr),
-    .dmemPort_wrData(dmem_dmemPort_wrData),
-    .dmemPort_wr(dmem_dmemPort_wr),
-    .dmemPort_wrMask(dmem_dmemPort_wrMask)
+  ApbArbiter arb ( // @[ApbArbiter.scala 11:21]
+    .clock(arb_clock),
+    .reset(arb_reset),
+    .io_masters_0_paddr(arb_io_masters_0_paddr),
+    .io_masters_0_psel(arb_io_masters_0_psel),
+    .io_masters_0_penable(arb_io_masters_0_penable),
+    .io_masters_0_pwrite(arb_io_masters_0_pwrite),
+    .io_masters_0_pwdata(arb_io_masters_0_pwdata),
+    .io_masters_0_pready(arb_io_masters_0_pready),
+    .io_masters_0_prdata(arb_io_masters_0_prdata),
+    .io_masters_1_paddr(arb_io_masters_1_paddr),
+    .io_masters_1_psel(arb_io_masters_1_psel),
+    .io_masters_1_penable(arb_io_masters_1_penable),
+    .io_masters_1_pwrite(arb_io_masters_1_pwrite),
+    .io_masters_1_pstrb(arb_io_masters_1_pstrb),
+    .io_masters_1_pwdata(arb_io_masters_1_pwdata),
+    .io_masters_1_pready(arb_io_masters_1_pready),
+    .io_masters_1_prdata(arb_io_masters_1_prdata),
+    .io_merged_paddr(arb_io_merged_paddr),
+    .io_merged_psel(arb_io_merged_psel),
+    .io_merged_penable(arb_io_merged_penable),
+    .io_merged_pwrite(arb_io_merged_pwrite),
+    .io_merged_pstrb(arb_io_merged_pstrb),
+    .io_merged_pwdata(arb_io_merged_pwdata),
+    .io_merged_pready(arb_io_merged_pready),
+    .io_merged_prdata(arb_io_merged_prdata)
   );
-  ApbMux apbMux ( // @[ApbMux.scala 95:24]
+  ApbMux apbMux ( // @[ApbMux.scala 96:24]
     .io_master_paddr(apbMux_io_master_paddr),
     .io_master_psel(apbMux_io_master_psel),
     .io_master_penable(apbMux_io_master_penable),
@@ -2406,7 +3599,6 @@ module DtuSubsystem(
     .io_master_pwdata(apbMux_io_master_pwdata),
     .io_master_pready(apbMux_io_master_pready),
     .io_master_prdata(apbMux_io_master_prdata),
-    .io_master_pslverr(apbMux_io_master_pslverr),
     .io_targets_0_paddr(apbMux_io_targets_0_paddr),
     .io_targets_0_psel(apbMux_io_targets_0_psel),
     .io_targets_0_penable(apbMux_io_targets_0_penable),
@@ -2414,16 +3606,22 @@ module DtuSubsystem(
     .io_targets_0_pstrb(apbMux_io_targets_0_pstrb),
     .io_targets_0_pwdata(apbMux_io_targets_0_pwdata),
     .io_targets_0_pready(apbMux_io_targets_0_pready),
-    .io_targets_0_pslverr(apbMux_io_targets_0_pslverr),
+    .io_targets_0_prdata(apbMux_io_targets_0_prdata),
     .io_targets_1_paddr(apbMux_io_targets_1_paddr),
     .io_targets_1_psel(apbMux_io_targets_1_psel),
     .io_targets_1_penable(apbMux_io_targets_1_penable),
     .io_targets_1_pwrite(apbMux_io_targets_1_pwrite),
     .io_targets_1_pwdata(apbMux_io_targets_1_pwdata),
     .io_targets_1_pready(apbMux_io_targets_1_pready),
-    .io_targets_1_prdata(apbMux_io_targets_1_prdata)
+    .io_targets_1_prdata(apbMux_io_targets_1_prdata),
+    .io_targets_2_psel(apbMux_io_targets_2_psel),
+    .io_targets_2_penable(apbMux_io_targets_2_penable),
+    .io_targets_2_pwrite(apbMux_io_targets_2_pwrite),
+    .io_targets_2_pwdata(apbMux_io_targets_2_pwdata),
+    .io_targets_2_pready(apbMux_io_targets_2_pready),
+    .io_targets_2_prdata(apbMux_io_targets_2_prdata)
   );
-  DataMemMux dmemMux ( // @[DataMemMux.scala 97:25]
+  DataMemMux dmemMux ( // @[DataMemMux.scala 94:25]
     .clock(dmemMux_clock),
     .reset(dmemMux_reset),
     .io_master_rdAddr(dmemMux_io_master_rdAddr),
@@ -2454,79 +3652,107 @@ module DtuSubsystem(
     .io_targets_3_wrData(dmemMux_io_targets_3_wrData),
     .io_targets_3_wr(dmemMux_io_targets_3_wr)
   );
-  assign io_apb_pready = apbMux_io_master_pready; // @[ApbMux.scala 98:22]
-  assign io_apb_prdata = apbMux_io_master_prdata; // @[ApbMux.scala 98:22]
-  assign io_apb_pslverr = apbMux_io_master_pslverr; // @[ApbMux.scala 98:22]
-  assign io_irq = 1'h0; // @[DtuSubsystem.scala 27:10]
-  assign io_pmod_0_gpo = {io_pmod_0_gpo_hi,2'h0}; // @[Cat.scala 33:92]
-  assign io_pmod_0_oe = 4'h3; // @[Cat.scala 33:92]
-  assign io_pmod_1_gpo = gpio_pmodPort_gpo; // @[DtuSubsystem.scala 57:14]
-  assign io_pmod_1_oe = gpio_pmodPort_oe; // @[DtuSubsystem.scala 57:14]
+  assign io_apb_pready = arb_io_masters_1_pready; // @[ApbArbiter.scala 13:23]
+  assign io_apb_prdata = arb_io_masters_1_prdata; // @[ApbArbiter.scala 13:23]
+  assign io_apb_pslverr = 1'h0; // @[ApbArbiter.scala 13:23]
+  assign io_irq = 1'h0; // @[DtuSubsystem.scala 52:10]
+  assign io_pmod_0_gpo = {io_pmod_0_gpo_hi,io_pmod_0_gpo_lo}; // @[Cat.scala 33:92]
+  assign io_pmod_0_oe = 4'ha; // @[Cat.scala 33:92]
+  assign io_pmod_1_gpo = gpio_pmodPort_gpo; // @[DtuSubsystem.scala 89:14]
+  assign io_pmod_1_oe = gpio_pmodPort_oe; // @[DtuSubsystem.scala 89:14]
+  assign sysCtrl_clock = clock;
+  assign sysCtrl_reset = reset;
+  assign sysCtrl_apbPort_psel = apbMux_io_targets_2_psel; // @[ApbMux.scala 101:14]
+  assign sysCtrl_apbPort_penable = apbMux_io_targets_2_penable; // @[ApbMux.scala 101:14]
+  assign sysCtrl_apbPort_pwrite = apbMux_io_targets_2_pwrite; // @[ApbMux.scala 101:14]
+  assign sysCtrl_apbPort_pwdata = apbMux_io_targets_2_pwdata; // @[ApbMux.scala 101:14]
+  assign ponte_clock = clock;
+  assign ponte_reset = reset;
+  assign ponte_io_uart_rx = io_pmod_0_gpi[1]; // @[DtuSubsystem.scala 55:31]
+  assign ponte_io_apb_pready = arb_io_masters_0_pready; // @[ApbArbiter.scala 12:23]
+  assign ponte_io_apb_prdata = arb_io_masters_0_prdata; // @[ApbArbiter.scala 12:23]
   assign leros_clock = clock;
-  assign leros_reset = reset | io_ssCtrl[2]; // @[DtuSubsystem.scala 32:31]
-  assign leros_imemIO_instr = bootSelect ? instrMem_instrPort_instr : rom_io_instr; // @[DtuSubsystem.scala 43:28]
-  assign leros_dmemIO_rdData = dmemMux_io_master_rdData; // @[DataMemMux.scala 100:23]
+  assign leros_reset = reset | sysCtrl_ctrlPort_lerosReset; // @[DtuSubsystem.scala 62:31]
+  assign leros_imemIO_instr = sysCtrl_ctrlPort_lerosBootFromRam ? instrMem_instrPort_instr : rom_io_instr; // @[DtuSubsystem.scala 74:28]
+  assign leros_dmemIO_rdData = dmemMux_io_master_rdData; // @[DataMemMux.scala 97:23]
   assign instrMem_clock = clock;
-  assign instrMem_instrPort_addr = leros_imemIO_addr[6:0]; // @[DtuSubsystem.scala 41:16]
-  assign instrMem_apbPort_paddr = apbMux_io_targets_0_paddr[6:0]; // @[ApbMux.scala 100:14]
-  assign instrMem_apbPort_psel = apbMux_io_targets_0_psel; // @[ApbMux.scala 100:14]
-  assign instrMem_apbPort_penable = apbMux_io_targets_0_penable; // @[ApbMux.scala 100:14]
-  assign instrMem_apbPort_pwrite = apbMux_io_targets_0_pwrite; // @[ApbMux.scala 100:14]
-  assign instrMem_apbPort_pstrb = apbMux_io_targets_0_pstrb; // @[ApbMux.scala 100:14]
-  assign instrMem_apbPort_pwdata = apbMux_io_targets_0_pwdata; // @[ApbMux.scala 100:14]
+  assign instrMem_instrPort_addr = leros_imemIO_addr; // @[DtuSubsystem.scala 72:16]
+  assign instrMem_apbPort_paddr = apbMux_io_targets_0_paddr[10:0]; // @[ApbMux.scala 101:14]
+  assign instrMem_apbPort_psel = apbMux_io_targets_0_psel; // @[ApbMux.scala 101:14]
+  assign instrMem_apbPort_penable = apbMux_io_targets_0_penable; // @[ApbMux.scala 101:14]
+  assign instrMem_apbPort_pwrite = apbMux_io_targets_0_pwrite; // @[ApbMux.scala 101:14]
+  assign instrMem_apbPort_pstrb = apbMux_io_targets_0_pstrb; // @[ApbMux.scala 101:14]
+  assign instrMem_apbPort_pwdata = apbMux_io_targets_0_pwdata; // @[ApbMux.scala 101:14]
   assign rom_clock = clock;
   assign rom_reset = reset;
-  assign rom_io_addr = leros_imemIO_addr; // @[DtuSubsystem.scala 42:16]
+  assign rom_io_addr = leros_imemIO_addr; // @[DtuSubsystem.scala 73:16]
   assign regBlock_clock = clock;
   assign regBlock_reset = reset;
-  assign regBlock_apbPort_paddr = apbMux_io_targets_1_paddr[3:0]; // @[ApbMux.scala 100:14]
-  assign regBlock_apbPort_psel = apbMux_io_targets_1_psel; // @[ApbMux.scala 100:14]
-  assign regBlock_apbPort_penable = apbMux_io_targets_1_penable; // @[ApbMux.scala 100:14]
-  assign regBlock_apbPort_pwrite = apbMux_io_targets_1_pwrite; // @[ApbMux.scala 100:14]
-  assign regBlock_apbPort_pwdata = apbMux_io_targets_1_pwdata; // @[ApbMux.scala 100:14]
-  assign regBlock_dmemPort_rdAddr = dmemMux_io_targets_1_rdAddr[1:0]; // @[DataMemMux.scala 104:16]
-  assign regBlock_dmemPort_wrAddr = dmemMux_io_targets_1_wrAddr[1:0]; // @[DataMemMux.scala 104:16]
-  assign regBlock_dmemPort_wrData = dmemMux_io_targets_1_wrData; // @[DataMemMux.scala 104:16]
-  assign regBlock_dmemPort_wr = dmemMux_io_targets_1_wr; // @[DataMemMux.scala 104:16]
+  assign regBlock_apbPort_paddr = apbMux_io_targets_1_paddr[4:0]; // @[ApbMux.scala 101:14]
+  assign regBlock_apbPort_psel = apbMux_io_targets_1_psel; // @[ApbMux.scala 101:14]
+  assign regBlock_apbPort_penable = apbMux_io_targets_1_penable; // @[ApbMux.scala 101:14]
+  assign regBlock_apbPort_pwrite = apbMux_io_targets_1_pwrite; // @[ApbMux.scala 101:14]
+  assign regBlock_apbPort_pwdata = apbMux_io_targets_1_pwdata; // @[ApbMux.scala 101:14]
+  assign regBlock_dmemPort_rdAddr = dmemMux_io_targets_1_rdAddr[2:0]; // @[DataMemMux.scala 101:16]
+  assign regBlock_dmemPort_wrAddr = dmemMux_io_targets_1_wrAddr[2:0]; // @[DataMemMux.scala 101:16]
+  assign regBlock_dmemPort_wrData = dmemMux_io_targets_1_wrData; // @[DataMemMux.scala 101:16]
+  assign regBlock_dmemPort_wr = dmemMux_io_targets_1_wr; // @[DataMemMux.scala 101:16]
   assign gpio_clock = clock;
   assign gpio_reset = reset;
-  assign gpio_dmemPort_rdAddr = dmemMux_io_targets_2_rdAddr[1:0]; // @[DataMemMux.scala 104:16]
-  assign gpio_dmemPort_wrAddr = dmemMux_io_targets_2_wrAddr[1:0]; // @[DataMemMux.scala 104:16]
-  assign gpio_dmemPort_wrData = dmemMux_io_targets_2_wrData; // @[DataMemMux.scala 104:16]
-  assign gpio_dmemPort_wr = dmemMux_io_targets_2_wr; // @[DataMemMux.scala 104:16]
-  assign gpio_pmodPort_gpi = io_pmod_1_gpi; // @[DtuSubsystem.scala 57:14]
+  assign gpio_dmemPort_rdAddr = dmemMux_io_targets_2_rdAddr[1:0]; // @[DataMemMux.scala 101:16]
+  assign gpio_dmemPort_wrAddr = dmemMux_io_targets_2_wrAddr[1:0]; // @[DataMemMux.scala 101:16]
+  assign gpio_dmemPort_wrData = dmemMux_io_targets_2_wrData; // @[DataMemMux.scala 101:16]
+  assign gpio_dmemPort_wr = dmemMux_io_targets_2_wr; // @[DataMemMux.scala 101:16]
+  assign gpio_pmodPort_gpi = io_pmod_1_gpi; // @[DtuSubsystem.scala 89:14]
+  assign dmem_clock = clock;
+  assign dmem_dmemPort_rdAddr = dmemMux_io_targets_0_rdAddr[5:0]; // @[DataMemMux.scala 101:16]
+  assign dmem_dmemPort_wrAddr = dmemMux_io_targets_0_wrAddr[5:0]; // @[DataMemMux.scala 101:16]
+  assign dmem_dmemPort_wrData = dmemMux_io_targets_0_wrData; // @[DataMemMux.scala 101:16]
+  assign dmem_dmemPort_wr = dmemMux_io_targets_0_wr; // @[DataMemMux.scala 101:16]
+  assign dmem_dmemPort_wrMask = dmemMux_io_targets_0_wrMask; // @[DataMemMux.scala 101:16]
   assign uart_clock = clock;
   assign uart_reset = reset;
-  assign uart_uartPins_rx = io_pmod_1_gpi[1]; // @[DtuSubsystem.scala 60:37]
-  assign uart_dmemPort_rdAddr = dmemMux_io_targets_3_rdAddr[0]; // @[DataMemMux.scala 104:16]
-  assign uart_dmemPort_wrAddr = dmemMux_io_targets_3_wrAddr[0]; // @[DataMemMux.scala 104:16]
-  assign uart_dmemPort_wrData = dmemMux_io_targets_3_wrData; // @[DataMemMux.scala 104:16]
-  assign uart_dmemPort_wr = dmemMux_io_targets_3_wr; // @[DataMemMux.scala 104:16]
-  assign dmem_clock = clock;
-  assign dmem_dmemPort_rdAddr = dmemMux_io_targets_0_rdAddr[5:0]; // @[DataMemMux.scala 104:16]
-  assign dmem_dmemPort_wrAddr = dmemMux_io_targets_0_wrAddr[5:0]; // @[DataMemMux.scala 104:16]
-  assign dmem_dmemPort_wrData = dmemMux_io_targets_0_wrData; // @[DataMemMux.scala 104:16]
-  assign dmem_dmemPort_wr = dmemMux_io_targets_0_wr; // @[DataMemMux.scala 104:16]
-  assign dmem_dmemPort_wrMask = dmemMux_io_targets_0_wrMask; // @[DataMemMux.scala 104:16]
-  assign apbMux_io_master_paddr = io_apb_paddr; // @[ApbMux.scala 98:22]
-  assign apbMux_io_master_psel = io_apb_psel; // @[ApbMux.scala 98:22]
-  assign apbMux_io_master_penable = io_apb_penable; // @[ApbMux.scala 98:22]
-  assign apbMux_io_master_pwrite = io_apb_pwrite; // @[ApbMux.scala 98:22]
-  assign apbMux_io_master_pstrb = io_apb_pstrb; // @[ApbMux.scala 98:22]
-  assign apbMux_io_master_pwdata = io_apb_pwdata; // @[ApbMux.scala 98:22]
-  assign apbMux_io_targets_0_pready = instrMem_apbPort_pready; // @[ApbMux.scala 100:14]
-  assign apbMux_io_targets_0_pslverr = instrMem_apbPort_pslverr; // @[ApbMux.scala 100:14]
-  assign apbMux_io_targets_1_pready = regBlock_apbPort_pready; // @[ApbMux.scala 100:14]
-  assign apbMux_io_targets_1_prdata = regBlock_apbPort_prdata; // @[ApbMux.scala 100:14]
+  assign uart_uartPins_rx = io_pmod_0_gpi[3]; // @[DtuSubsystem.scala 54:31]
+  assign uart_dmemPort_rdAddr = dmemMux_io_targets_3_rdAddr[0]; // @[DataMemMux.scala 101:16]
+  assign uart_dmemPort_wrAddr = dmemMux_io_targets_3_wrAddr[0]; // @[DataMemMux.scala 101:16]
+  assign uart_dmemPort_wrData = dmemMux_io_targets_3_wrData; // @[DataMemMux.scala 101:16]
+  assign uart_dmemPort_wr = dmemMux_io_targets_3_wr; // @[DataMemMux.scala 101:16]
+  assign arb_clock = clock;
+  assign arb_reset = reset;
+  assign arb_io_masters_0_paddr = ponte_io_apb_paddr; // @[ApbArbiter.scala 12:23]
+  assign arb_io_masters_0_psel = ponte_io_apb_psel; // @[ApbArbiter.scala 12:23]
+  assign arb_io_masters_0_penable = ponte_io_apb_penable; // @[ApbArbiter.scala 12:23]
+  assign arb_io_masters_0_pwrite = ponte_io_apb_pwrite; // @[ApbArbiter.scala 12:23]
+  assign arb_io_masters_0_pwdata = ponte_io_apb_pwdata; // @[ApbArbiter.scala 12:23]
+  assign arb_io_masters_1_paddr = {{4'd0}, io_apb_paddr}; // @[ApbArbiter.scala 13:23]
+  assign arb_io_masters_1_psel = io_apb_psel; // @[ApbArbiter.scala 13:23]
+  assign arb_io_masters_1_penable = io_apb_penable; // @[ApbArbiter.scala 13:23]
+  assign arb_io_masters_1_pwrite = io_apb_pwrite; // @[ApbArbiter.scala 13:23]
+  assign arb_io_masters_1_pstrb = io_apb_pstrb; // @[ApbArbiter.scala 13:23]
+  assign arb_io_masters_1_pwdata = io_apb_pwdata; // @[ApbArbiter.scala 13:23]
+  assign arb_io_merged_pready = apbMux_io_master_pready; // @[ApbMux.scala 99:22]
+  assign arb_io_merged_prdata = apbMux_io_master_prdata; // @[ApbMux.scala 99:22]
+  assign apbMux_io_master_paddr = arb_io_merged_paddr; // @[ApbMux.scala 99:22]
+  assign apbMux_io_master_psel = arb_io_merged_psel; // @[ApbMux.scala 99:22]
+  assign apbMux_io_master_penable = arb_io_merged_penable; // @[ApbMux.scala 99:22]
+  assign apbMux_io_master_pwrite = arb_io_merged_pwrite; // @[ApbMux.scala 99:22]
+  assign apbMux_io_master_pstrb = arb_io_merged_pstrb; // @[ApbMux.scala 99:22]
+  assign apbMux_io_master_pwdata = arb_io_merged_pwdata; // @[ApbMux.scala 99:22]
+  assign apbMux_io_targets_0_pready = instrMem_apbPort_pready; // @[ApbMux.scala 101:14]
+  assign apbMux_io_targets_0_prdata = instrMem_apbPort_prdata; // @[ApbMux.scala 101:14]
+  assign apbMux_io_targets_1_pready = regBlock_apbPort_pready; // @[ApbMux.scala 101:14]
+  assign apbMux_io_targets_1_prdata = regBlock_apbPort_prdata; // @[ApbMux.scala 101:14]
+  assign apbMux_io_targets_2_pready = sysCtrl_apbPort_pready; // @[ApbMux.scala 101:14]
+  assign apbMux_io_targets_2_prdata = sysCtrl_apbPort_prdata; // @[ApbMux.scala 101:14]
   assign dmemMux_clock = clock;
   assign dmemMux_reset = reset;
-  assign dmemMux_io_master_rdAddr = leros_dmemIO_rdAddr; // @[DataMemMux.scala 100:23]
-  assign dmemMux_io_master_wrAddr = leros_dmemIO_wrAddr; // @[DataMemMux.scala 100:23]
-  assign dmemMux_io_master_wrData = leros_dmemIO_wrData; // @[DataMemMux.scala 100:23]
-  assign dmemMux_io_master_wr = leros_dmemIO_wr; // @[DataMemMux.scala 100:23]
-  assign dmemMux_io_master_wrMask = leros_dmemIO_wrMask; // @[DataMemMux.scala 100:23]
-  assign dmemMux_io_targets_0_rdData = dmem_dmemPort_rdData; // @[DataMemMux.scala 104:16]
-  assign dmemMux_io_targets_1_rdData = regBlock_dmemPort_rdData; // @[DataMemMux.scala 104:16]
-  assign dmemMux_io_targets_2_rdData = gpio_dmemPort_rdData; // @[DataMemMux.scala 104:16]
-  assign dmemMux_io_targets_3_rdData = uart_dmemPort_rdData; // @[DataMemMux.scala 104:16]
+  assign dmemMux_io_master_rdAddr = leros_dmemIO_rdAddr; // @[DataMemMux.scala 97:23]
+  assign dmemMux_io_master_wrAddr = leros_dmemIO_wrAddr; // @[DataMemMux.scala 97:23]
+  assign dmemMux_io_master_wrData = leros_dmemIO_wrData; // @[DataMemMux.scala 97:23]
+  assign dmemMux_io_master_wr = leros_dmemIO_wr; // @[DataMemMux.scala 97:23]
+  assign dmemMux_io_master_wrMask = leros_dmemIO_wrMask; // @[DataMemMux.scala 97:23]
+  assign dmemMux_io_targets_0_rdData = dmem_dmemPort_rdData; // @[DataMemMux.scala 101:16]
+  assign dmemMux_io_targets_1_rdData = regBlock_dmemPort_rdData; // @[DataMemMux.scala 101:16]
+  assign dmemMux_io_targets_2_rdData = gpio_dmemPort_rdData; // @[DataMemMux.scala 101:16]
+  assign dmemMux_io_targets_3_rdData = uart_dmemPort_rdData; // @[DataMemMux.scala 101:16]
 endmodule

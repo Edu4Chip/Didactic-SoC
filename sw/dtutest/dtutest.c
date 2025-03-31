@@ -32,23 +32,27 @@ void dtu_clock_disable() {
 }
 
 void leros_reset_enable() {
-  volatile uint32_t mask = SS2_CTRL;
-  SS2_CTRL = (mask | 0x4u);
+  volatile int * sysCtrl = (int *) (0x01052C00);
+  volatile uint32_t mask = *sysCtrl;
+  *sysCtrl = (mask | 0x1u);
 }
 
 void leros_reset_disable() {
-  volatile uint32_t mask = SS2_CTRL;
-  SS2_CTRL = (mask & (~0x4u));
+  volatile int * sysCtrl = (int *) (0x01052C00);
+  volatile uint32_t mask = *sysCtrl;
+   *sysCtrl = (mask & (~0x1u));
 }
 
 void leros_boot_from_rom() {
-  volatile uint32_t mask = SS2_CTRL;
-  SS2_CTRL = (mask & (~0x8u));
+  volatile int * sysCtrl = (int *) (0x01052C00);
+  volatile uint32_t mask = *sysCtrl;
+   *sysCtrl = (mask & (~0x2u));
 }
 
 void leros_boot_from_ram() {
-  volatile uint32_t mask = SS2_CTRL;
-  SS2_CTRL = (mask | 0x8u);
+  volatile int * sysCtrl = (int *) (0x01052C00);
+  volatile uint32_t mask = *sysCtrl;
+  *sysCtrl = (mask | 0x2u);
 }
 
 void dtu_init() {
@@ -66,7 +70,7 @@ int main() {
 
   volatile int * leros_imem = (int *) (0x01052000);
 
-  volatile int * leros_regs = (int *) (0x01052FF0);
+  volatile int * leros_regs = (int *) (0x01052800);
 
   volatile uint32_t mask;
 
@@ -75,14 +79,12 @@ int main() {
   *(volatile unsigned int*)(0x01052000) = 0x21000000;
   *(volatile unsigned int*)(0x01052004) = 0x2a002980;
   *(volatile unsigned int*)(0x01052008) = 0x50013001;
-  *(volatile unsigned int*)(0x0105200c) = 0x29be21ef;
-  *(volatile unsigned int*)(0x01052010) = 0x2bde2aad;
-  *(volatile unsigned int*)(0x01052014) = 0x70017000;
-  *(volatile unsigned int*)(0x01052018) = 0x70037002;
-  *(volatile unsigned int*)(0x0105201c) = 0x70092175;
-  *(volatile unsigned int*)(0x01052020) = 0x70052101;
-  *(volatile unsigned int*)(0x01052024) = 0x09016005;
-  *(volatile unsigned int*)(0x01052028) = 0x8ffd7005;
+  *(volatile unsigned int*)(0x0105200c) = 0x30022100;
+  *(volatile unsigned int*)(0x01052010) = 0x09012002;
+  *(volatile unsigned int*)(0x01052014) = 0x70003002;
+  *(volatile unsigned int*)(0x01052018) = 0x23017041;
+  *(volatile unsigned int*)(0x0105201c) = 0x70450930;
+  *(volatile unsigned int*)(0x01052020) = 0x8ff8;
 
   for (int i = 0; i < 4; i++) {
     leros_regs[i] = i;
@@ -92,7 +94,7 @@ int main() {
     leros_regs[i] = leros_regs[i];
   }
 
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 20; i++) {
     mask = SS2_CTRL;
   }
 
