@@ -62,6 +62,7 @@ verilator \
     --top-module Didactic \
     --no-timing \
     --trace \
+    --DRVFI \
     $DEFINES \
     $WARN_SUPPRESS \
     $INCLUDES \

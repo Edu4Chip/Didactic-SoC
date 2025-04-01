@@ -30,3 +30,25 @@
 1. Execute SW testbench with tracing `make verilator-run-traced`.
     - `make verilator-run-traced` should automatically execute `make verilator-build`.
 2. Inspect trace with GTKWave `gtkwave logs/vlt_dump.vcd`.
+
+### Troubleshooting
+
+#### Missing clock signal
+If you see an error like this:
+```python
+/src/generated/SomeSubsystem.sv
+Traceback (most recent call last):
+File "./verification/verilator/scripts/generate_bindings.py", line 74, in <module>
+clock_signal_name = clock_signal_names[path.name]
+~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+KeyError: 'SomeSubsystem.sv'
+make: *** [Makefile:86: verilator-generate-bindings] Error 1
+```
+
+This means that the clock signal name is not defined in `verification/verilator/scripts/clock_signal_names.py`. You can add the clock signal name to the dictionary in `verification/verilator/scripts/clock_signal_names.py` and re-run the command.
+```python
+clock_signal_names = {
+    'SomeSubsystem.sv': 'clk',
+    'SomeOtherSubsystem.sv': 'clk',
+}
+```
