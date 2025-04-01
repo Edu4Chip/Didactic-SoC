@@ -142,7 +142,9 @@ module SysCtrl_SS_wrapper_0 #(
     // Interface: ss_3_pmod_gpio_1
     input  logic         [3:0]          ss_3_pmod_1_gpio_oe,
     input  logic         [3:0]          ss_3_pmod_1_gpo,
-    output logic         [3:0]          ss_3_pmod_1_gpi
+    output logic         [3:0]          ss_3_pmod_1_gpi,
+
+    output reset_direct
 );
 
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:

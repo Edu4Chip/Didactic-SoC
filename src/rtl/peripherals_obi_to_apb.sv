@@ -27,7 +27,7 @@ module peripherals_obi_to_apb #(
     input  logic         [31:0]         APB_GPIO_PRDATA,
     input  logic                        APB_GPIO_PREADY,
     input  logic                        APB_GPIO_PSLVERR,
-    output logic         [2:0]          APB_GPIO_PADDR,
+    output logic         [11:0]          APB_GPIO_PADDR,
     output logic                        APB_GPIO_PENABLE,
     output logic                        APB_GPIO_PSEL,
     output logic         [31:0]         APB_GPIO_PWDATA,
@@ -89,7 +89,7 @@ module peripherals_obi_to_apb #(
     input  logic                        reset_n
 );
   localparam TARGETS = 3;
-  localparam INITIATORS = 1;
+  localparam INITIATORS = 1+1;// connection + tieoff initiator
 
 
   typedef struct packed {
@@ -105,15 +105,34 @@ module peripherals_obi_to_apb #(
 
   assign peripheral_addr_map =
     '{
-      '{idx: 32'd2, start_addr: ADDR_BASE+APB_SIZE*2, end_addr: ADDR_BASE+APB_SIZE*3-1},//spi
-      '{idx: 32'd1, start_addr: ADDR_BASE+APB_SIZE*1, end_addr: ADDR_BASE+APB_SIZE*2-1},//uart
-      '{idx: 32'd0, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1-1} //gpio
+      '{idx: 32'd0, start_addr: ADDR_BASE+APB_SIZE*2, end_addr: ADDR_BASE+APB_SIZE*3},//spi
+      '{idx: 32'd1, start_addr: ADDR_BASE+APB_SIZE*1, end_addr: ADDR_BASE+APB_SIZE*2},//uart
+      '{idx: 32'd2, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1} //gpio
      };
 
   // bus defaults 32 
   OBI_BUS #() target_bus [TARGETS-1:0]();
-  OBI_BUS #() initiator_bus [INITIATORS-1:0] ();
+  OBI_BUS #() target_bus_cut [TARGETS-1:0]();
+  OBI_BUS #() initiator_bus [INITIATORS-1-1:0] ();//no tieoff
+  OBI_BUS #() initiator_bus_cut [INITIATORS-1:0] ();
   APB #() peripheral_bus [TARGETS-1:0] ();
+
+
+  obi_cut_intf #() i_initiator_cut(
+      .clk_i(clk),
+      .rst_ni(reset_n),
+      .obi_s(initiator_bus[0]),
+      .obi_m(initiator_bus_cut[0])
+    );
+
+  for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
+    obi_cut_intf #() i_target_cut(
+        .clk_i(clk),
+        .rst_ni(reset_n),
+        .obi_s(target_bus[i]),
+        .obi_m(target_bus_cut[i])
+      );
+  end
 
   obi_xbar_intf #(
     .NumSbrPorts       (INITIATORS),
@@ -126,7 +145,7 @@ module peripherals_obi_to_apb #(
     .clk_i            (clk),
     .rst_ni           (reset_n),
     .testmode_i       (1'b0),
-    .sbr_ports        (initiator_bus),
+    .sbr_ports        (initiator_bus_cut),
     .mgr_ports        (target_bus),
     .addr_map_i       (peripheral_addr_map),
     .en_default_idx_i ('0),
@@ -136,43 +155,54 @@ module peripherals_obi_to_apb #(
   obi_to_apb_intf #() i_obi_to_apb_gpio (
     .clk_i (clk),
     .rst_ni(reset_n),
-    .obi_i (target_bus[0]),
+    .obi_i (target_bus_cut[0]),
     .apb_o (peripheral_bus[0])
   );
 
   obi_to_apb_intf #() i_obi_to_apb_uart (
     .clk_i (clk),
     .rst_ni(reset_n),
-    .obi_i (target_bus[1]),
+    .obi_i (target_bus_cut[1]),
     .apb_o (peripheral_bus[1])
   );
 
   obi_to_apb_intf #() i_obi_to_apb_spi (
     .clk_i (clk),
     .rst_ni(reset_n),
-    .obi_i (target_bus[2]),
+    .obi_i (target_bus_cut[2]),
     .apb_o (peripheral_bus[2])
   );
 
-   // Interface: apb_gpio
-   assign peripheral_bus[0].prdata = APB_GPIO_PRDATA;
-   assign peripheral_bus[0].pready = APB_GPIO_PREADY;
-   assign peripheral_bus[0].pslverr = APB_GPIO_PSLVERR;
-   assign APB_GPIO_PADDR = peripheral_bus[0].paddr;
-   assign APB_GPIO_PENABLE = peripheral_bus[0].penable;
-   assign APB_GPIO_PSEL = peripheral_bus[0].psel;
-   assign APB_GPIO_PWDATA = peripheral_bus[0].pwdata;
-   assign APB_GPIO_PWRITE = peripheral_bus[0].pwrite;
+  // tieoff master connection for utilizing xbar as splitter
+  assign initiator_bus_cut[1].addr = 'h0;
+  assign initiator_bus_cut[1].aid = 'h0;
+  assign initiator_bus_cut[1].be = 4'b1111;
+  assign initiator_bus_cut[1].req = 1'b0;
+  assign initiator_bus_cut[1].reqpar = 1'b1;
+  assign initiator_bus_cut[1].rready = 1'b0;
+  assign initiator_bus_cut[1].rreadypar = 1'b1;
+  assign initiator_bus_cut[1].wdata = 'h0;
+  assign initiator_bus_cut[1].we = 1'b0;
+
+  // Interface: apb_gpio
+  assign peripheral_bus[0].prdata = APB_GPIO_PRDATA;
+  assign peripheral_bus[0].pready = APB_GPIO_PREADY;
+  assign peripheral_bus[0].pslverr = APB_GPIO_PSLVERR;
+  assign APB_GPIO_PADDR = peripheral_bus[0].paddr;
+  assign APB_GPIO_PENABLE = peripheral_bus[0].penable;
+  assign APB_GPIO_PSEL = peripheral_bus[0].psel;
+  assign APB_GPIO_PWDATA = peripheral_bus[0].pwdata;
+  assign APB_GPIO_PWRITE = peripheral_bus[0].pwrite;
 
   // Interface: apb_uart
-   assign peripheral_bus[1].prdata =  APB_UART_PRDATA;
-   assign peripheral_bus[1].pready =  APB_UART_PREADY;
-   assign peripheral_bus[1].pslverr = APB_UART_PSLVERR;
-   assign APB_UART_PADDR = peripheral_bus[1].paddr;
-   assign APB_UART_PENABLE = peripheral_bus[1].penable;
-   assign APB_UART_PSEL = peripheral_bus[1].psel;
-   assign APB_UART_PWDATA = peripheral_bus[1].pwdata;
-   assign APB_UART_PWRITE = peripheral_bus[1].pwrite;
+  assign peripheral_bus[1].prdata =  APB_UART_PRDATA;
+  assign peripheral_bus[1].pready =  APB_UART_PREADY;
+  assign peripheral_bus[1].pslverr = APB_UART_PSLVERR;
+  assign APB_UART_PADDR = peripheral_bus[1].paddr;
+  assign APB_UART_PENABLE = peripheral_bus[1].penable;
+  assign APB_UART_PSEL = peripheral_bus[1].psel;
+  assign APB_UART_PWDATA = peripheral_bus[1].pwdata;
+  assign APB_UART_PWRITE = peripheral_bus[1].pwrite;
  
   // Interface: apb_spi
   assign peripheral_bus[2].prdata = APB_SPI_PRDATA;

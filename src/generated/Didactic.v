@@ -769,6 +769,8 @@ module Didactic #(
         .pmod_1_gpio_oe      (Student_SS_3_pmod_1_gpio_oe),
         .pmod_1_gpo          (Student_SS_3_pmod_1_gpo));
 
+
+    logic reset_direct;
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.1
     SysCtrl_SS_wrapper_0 #(
         .AXI4LITE_AW         (32),
@@ -778,6 +780,7 @@ module Didactic #(
         .IOCELL_COUNT        (17),
         .IOCELL_CFGW         (5))
     SystemControl_SS(
+        .reset_direct(),
         // Interface: Clock
         .clock               (clk_in),
         // Interface: Clock_int

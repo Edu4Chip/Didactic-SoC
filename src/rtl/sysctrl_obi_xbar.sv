@@ -295,7 +295,28 @@ module sysctrl_obi_xbar #(
   
   
   OBI_BUS #() target_bus [TARGETS-1:0]();
-  OBI_BUS #() initiator_bus [INITIATORS-1:0]();
+  OBI_BUS #() target_bus_cut [TARGETS-1:0]();
+  OBI_BUS #() initiator_bus [INITIATORS-1:0] ();
+  OBI_BUS #() initiator_bus_cut [INITIATORS-1:0] ();
+
+  for (genvar i = 0; i < INITIATORS; i++) begin : initiator_cuts
+    obi_cut_intf #() i_initiator_cut(
+        .clk_i(clk),
+        .rst_ni(reset_n),
+        .obi_s(initiator_bus[i]),
+        .obi_m(initiator_bus_cut[i])
+      );
+  end  
+  for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
+    obi_cut_intf #() i_target_cut(
+        .clk_i(clk),
+        .rst_ni(reset_n),
+        .obi_s(target_bus[i]),
+        .obi_m(target_bus_cut[i])
+      );
+  end
+
+
 
   localparam ADDR_BASE   = 32'h0100_0000;
   localparam TARGET_SIZE = 'h1_0000;
@@ -310,12 +331,12 @@ module sysctrl_obi_xbar #(
 
   assign AddrMapXBAR = 
     '{
-      '{idx: 32'd5, start_addr: ADDR_BASE+TARGET_SIZE*5, end_addr: ADDR_BASE+TARGET_SIZE*6},//icn. 
-      '{idx: 32'd4, start_addr: ADDR_BASE+TARGET_SIZE*4, end_addr: ADDR_BASE+TARGET_SIZE*5},//ctrl
-      '{idx: 32'd3, start_addr: ADDR_BASE+TARGET_SIZE*3, end_addr: ADDR_BASE+TARGET_SIZE*4},//periph
-      '{idx: 32'd2, start_addr: ADDR_BASE+TARGET_SIZE*2, end_addr: ADDR_BASE+TARGET_SIZE*3},//dbg
-      '{idx: 32'd1, start_addr: ADDR_BASE+TARGET_SIZE*1, end_addr: ADDR_BASE+TARGET_SIZE*2},//dmem
-      '{idx: 32'd0, start_addr: ADDR_BASE+TARGET_SIZE*0, end_addr: ADDR_BASE+TARGET_SIZE*1} //imem
+      '{idx: 32'd0, start_addr: ADDR_BASE+TARGET_SIZE*5, end_addr: ADDR_BASE+TARGET_SIZE*6},//icn. 
+      '{idx: 32'd1, start_addr: ADDR_BASE+TARGET_SIZE*4, end_addr: ADDR_BASE+TARGET_SIZE*5},//ctrl
+      '{idx: 32'd2, start_addr: ADDR_BASE+TARGET_SIZE*3, end_addr: ADDR_BASE+TARGET_SIZE*4},//periph
+      '{idx: 32'd3, start_addr: ADDR_BASE+TARGET_SIZE*2, end_addr: ADDR_BASE+TARGET_SIZE*3},//dbg
+      '{idx: 32'd4, start_addr: ADDR_BASE+TARGET_SIZE*1, end_addr: ADDR_BASE+TARGET_SIZE*2},//dmem
+      '{idx: 32'd5, start_addr: ADDR_BASE+TARGET_SIZE*0, end_addr: ADDR_BASE+TARGET_SIZE*1} //imem
     };
 
   obi_xbar_intf #(
@@ -329,7 +350,7 @@ module sysctrl_obi_xbar #(
       .clk_i            (clk),
       .rst_ni           (reset_n),
       .testmode_i       (1'b0),
-      .sbr_ports        (initiator_bus),
+      .sbr_ports        (initiator_bus_cut),
       .mgr_ports        (target_bus),
       .addr_map_i       (AddrMapXBAR),
       .en_default_idx_i ('0),
@@ -337,178 +358,178 @@ module sysctrl_obi_xbar #(
   );
 
   // Interface: obi_imem
-  assign target_bus[0].err = imem_err;
-//  assign target_bus[0].exokay = imem_exokay;
-  assign target_bus[0].gnt = imem_gnt;
-  assign target_bus[0].gntpar = imem_gntpar;
-//  assign target_bus[0].rchk = imem_rchk;
-  assign target_bus[0].rdata = imem_rdata;
-  assign target_bus[0].rid = imem_rid;
-//  assign target_bus[0].ruser = imem_ruser;
-  assign target_bus[0].rvalid = imem_rvalid;
-  assign target_bus[0].rvalidpar = imem_rvalidpar;
-//  assign imem_achk = target_bus[0].achk;
-  assign imem_addr = target_bus[0].addr;
-  assign imem_aid = target_bus[0].aid;
-//  assign imem_atop = target_bus[0].atop;
-//  assign imem_auser = target_bus[0].auser;
-  assign imem_be = target_bus[0].be;
-//  assign imem_dbg = target_bus[0].dbg;
-//  assign imem_memtype = target_bus[0].memtype;
-//  assign imem_mid = target_bus[0].mid;
-//  assign imem_prot = target_bus[0].prot;
-  assign imem_req = target_bus[0].req;
-  assign imem_reqpar = target_bus[0].reqpar;
-  assign imem_rready = target_bus[0].rready;
-  assign imem_rreadypar = target_bus[0].rreadypar;
-  assign imem_wdata = target_bus[0].wdata;
-  assign imem_we = target_bus[0].we;
-//  assign imem_wuser = target_bus[0].wuser;
+  assign target_bus_cut[0].err = imem_err;
+//  assign target_bus_cut[0].exokay = imem_exokay;
+  assign target_bus_cut[0].gnt = imem_gnt;
+  assign target_bus_cut[0].gntpar = imem_gntpar;
+//  assign target_bus_cut[0].rchk = imem_rchk;
+  assign target_bus_cut[0].rdata = imem_rdata;
+  assign target_bus_cut[0].rid = imem_rid;
+//  assign target_bus_cut[0].ruser = imem_ruser;
+  assign target_bus_cut[0].rvalid = imem_rvalid;
+  assign target_bus_cut[0].rvalidpar = imem_rvalidpar;
+//  assign imem_achk = target_bus_cut[0].achk;
+  assign imem_addr = target_bus_cut[0].addr;
+  assign imem_aid = target_bus_cut[0].aid;
+//  assign imem_atop = target_bus_cut[0].atop;
+//  assign imem_auser = target_bus_cut[0].auser;
+  assign imem_be = target_bus_cut[0].be;
+//  assign imem_dbg = target_bus_cut[0].dbg;
+//  assign imem_memtype = target_bus_cut[0].memtype;
+//  assign imem_mid = target_bus_cut[0].mid;
+//  assign imem_prot = target_bus_cut[0].prot;
+  assign imem_req = target_bus_cut[0].req;
+  assign imem_reqpar = target_bus_cut[0].reqpar;
+  assign imem_rready = target_bus_cut[0].rready;
+  assign imem_rreadypar = target_bus_cut[0].rreadypar;
+  assign imem_wdata = target_bus_cut[0].wdata;
+  assign imem_we = target_bus_cut[0].we;
+//  assign imem_wuser = target_bus_cut[0].wuser;
 
     // Interface: obi_dmem
-  assign target_bus[1].err = dmem_err;
-//  assign target_bus[1].exokay = dmem_exokay;
-  assign target_bus[1].gnt = dmem_gnt;
-  assign target_bus[1].gntpar = dmem_gntpar;
-//  assign target_bus[1].rchk = dmem_rchk;
-  assign target_bus[1].rdata = dmem_rdata;
-  assign target_bus[1].rid = dmem_rid;
-//  assign target_bus[1].ruser = dmem_ruser;
-  assign target_bus[1].rvalid = dmem_rvalid;
-  assign target_bus[1].rvalidpar = dmem_rvalidpar;
-//  assign dmem_achk = target_bus[1].achk;
-  assign dmem_addr = target_bus[1].addr;
-  assign dmem_aid = target_bus[1].aid;
-//  assign dmem_atop = target_bus[1].atop;
-//  assign dmem_auser = target_bus[1].auser;
-  assign dmem_be = target_bus[1].be;
-//  assign dmem_dbg = target_bus[1].dbg;
-//  assign dmem_memtype = target_bus[1].memtype;
-//  assign dmem_mid = target_bus[1].mid;
- // assign dmem_prot = target_bus[1].prot;
-  assign dmem_req = target_bus[1].req;
-  assign dmem_reqpar = target_bus[1].reqpar;
-  assign dmem_rready = target_bus[1].rready;
-  assign dmem_rreadypar = target_bus[1].rreadypar;
-  assign dmem_wdata = target_bus[1].wdata;
-  assign dmem_we = target_bus[1].we;
-//  assign dmem_wuser = target_bus[1].wuser;
+  assign target_bus_cut[1].err = dmem_err;
+//  assign target_bus_cut[1].exokay = dmem_exokay;
+  assign target_bus_cut[1].gnt = dmem_gnt;
+  assign target_bus_cut[1].gntpar = dmem_gntpar;
+//  assign target_bus_cut[1].rchk = dmem_rchk;
+  assign target_bus_cut[1].rdata = dmem_rdata;
+  assign target_bus_cut[1].rid = dmem_rid;
+//  assign target_bus_cut[1].ruser = dmem_ruser;
+  assign target_bus_cut[1].rvalid = dmem_rvalid;
+  assign target_bus_cut[1].rvalidpar = dmem_rvalidpar;
+//  assign dmem_achk = target_bus_cut[1].achk;
+  assign dmem_addr = target_bus_cut[1].addr;
+  assign dmem_aid = target_bus_cut[1].aid;
+//  assign dmem_atop = target_bus_cut[1].atop;
+//  assign dmem_auser = target_bus_cut[1].auser;
+  assign dmem_be = target_bus_cut[1].be;
+//  assign dmem_dbg = target_bus_cut[1].dbg;
+//  assign dmem_memtype = target_bus_cut[1].memtype;
+//  assign dmem_mid = target_bus_cut[1].mid;
+ // assign dmem_prot = target_bus_cut[1].prot;
+  assign dmem_req = target_bus_cut[1].req;
+  assign dmem_reqpar = target_bus_cut[1].reqpar;
+  assign dmem_rready = target_bus_cut[1].rready;
+  assign dmem_rreadypar = target_bus_cut[1].rreadypar;
+  assign dmem_wdata = target_bus_cut[1].wdata;
+  assign dmem_we = target_bus_cut[1].we;
+//  assign dmem_wuser = target_bus_cut[1].wuser;
 
   // Interface: obi_jtag_dm_target
-  assign target_bus[2].err = dm_target_err;
-//  assign target_bus[2].exokay = dm_target_exokay;
-  assign target_bus[2].gnt = dm_target_gnt;
-  assign target_bus[2].gntpar = dm_target_gntpar;
-//  assign target_bus[2].rchk = dm_target_rchk;
-  assign target_bus[2].rdata = dm_target_rdata;
-  assign target_bus[2].rid = dm_target_rid;
-//  assign target_bus[2].ruser = dm_target_ruser;
-  assign target_bus[2].rvalid = dm_target_rvalid;
-  assign target_bus[2].rvalidpar = dm_target_rvalidpar;
-//  assign dm_target_achk = target_bus[2].achk;
-  assign dm_target_addr = target_bus[2].addr;
-  assign dm_target_aid = target_bus[2].aid;
-//  assign dm_target_atop = target_bus[2].atop;
- // assign dm_target_auser = target_bus[2].auser;
-  assign dm_target_be = target_bus[2].be;
- // assign dm_target_dbg = target_bus[2].dbg;
- // assign dm_target_memtype = target_bus[2].memtype;
- // assign dm_target_mid = target_bus[2].mid;
- // assign dm_target_prot = target_bus[2].prot;
-  assign dm_target_req = target_bus[2].req;
-  assign dm_target_reqpar = target_bus[2].reqpar;
-  assign dm_target_rready = target_bus[2].rready;
-  assign dm_target_rreadypar = target_bus[2].rreadypar;
-  assign dm_target_wdata = target_bus[2].wdata;
-  assign dm_target_we = target_bus[2].we;
- // assign dm_target_wuser = target_bus[2].wuser;
+  assign target_bus_cut[2].err = dm_target_err;
+//  assign target_bus_cut[2].exokay = dm_target_exokay;
+  assign target_bus_cut[2].gnt = dm_target_gnt;
+  assign target_bus_cut[2].gntpar = dm_target_gntpar;
+//  assign target_bus_cut[2].rchk = dm_target_rchk;
+  assign target_bus_cut[2].rdata = dm_target_rdata;
+  assign target_bus_cut[2].rid = dm_target_rid;
+//  assign target_bus_cut[2].ruser = dm_target_ruser;
+  assign target_bus_cut[2].rvalid = dm_target_rvalid;
+  assign target_bus_cut[2].rvalidpar = dm_target_rvalidpar;
+//  assign dm_target_achk = target_bus_cut[2].achk;
+  assign dm_target_addr = target_bus_cut[2].addr;
+  assign dm_target_aid = target_bus_cut[2].aid;
+//  assign dm_target_atop = target_bus_cut[2].atop;
+ // assign dm_target_auser = target_bus_cut[2].auser;
+  assign dm_target_be = target_bus_cut[2].be;
+ // assign dm_target_dbg = target_bus_cut[2].dbg;
+ // assign dm_target_memtype = target_bus_cut[2].memtype;
+ // assign dm_target_mid = target_bus_cut[2].mid;
+ // assign dm_target_prot = target_bus_cut[2].prot;
+  assign dm_target_req = target_bus_cut[2].req;
+  assign dm_target_reqpar = target_bus_cut[2].reqpar;
+  assign dm_target_rready = target_bus_cut[2].rready;
+  assign dm_target_rreadypar = target_bus_cut[2].rreadypar;
+  assign dm_target_wdata = target_bus_cut[2].wdata;
+  assign dm_target_we = target_bus_cut[2].we;
+ // assign dm_target_wuser = target_bus_cut[2].wuser;
 
   // Interface: obi_peripherals
-  assign target_bus[3].err = periph_err;
-//  assign target_bus[3].exokay = periph_exokay;
-  assign target_bus[3].gnt = periph_gnt;
-  assign target_bus[3].gntpar = periph_gntpar;
-//  assign target_bus[3].rchk = periph_rchk;
-  assign target_bus[3].rdata = periph_rdata;
-  assign target_bus[3].rid = periph_rid;
-//  assign target_bus[3].ruser = periph_ruser;
-  assign target_bus[3].rvalid = periph_rvalid;
-  assign target_bus[3].rvalidpar = periph_rvalidpar;
- // assign periph_achk = target_bus[3].achk;
-  assign periph_addr = target_bus[3].addr;
-  assign periph_aid = target_bus[3].aid;
-//  assign periph_atop = target_bus[3].atop;
- // assign periph_auser = target_bus[3].auser;
-  assign periph_be = target_bus[3].be;
-//  assign periph_dbg = target_bus[3].dbg;
- // assign periph_memtype = target_bus[3].memtype;
-//  assign periph_mid = target_bus[3].mid;
-//  assign periph_prot = target_bus[3].prot;
-  assign periph_req = target_bus[3].req;
-  assign periph_reqpar = target_bus[3].reqpar;
-  assign periph_rready = target_bus[3].rready;
-  assign periph_rreadypar = target_bus[3].rreadypar;
-  assign periph_wdata = target_bus[3].wdata;
-  assign periph_we = target_bus[3].we;
-//  assign periph_wuser = target_bus[3].wuser;
+  assign target_bus_cut[3].err = periph_err;
+//  assign target_bus_cut[3].exokay = periph_exokay;
+  assign target_bus_cut[3].gnt = periph_gnt;
+  assign target_bus_cut[3].gntpar = periph_gntpar;
+//  assign target_bus_cut[3].rchk = periph_rchk;
+  assign target_bus_cut[3].rdata = periph_rdata;
+  assign target_bus_cut[3].rid = periph_rid;
+//  assign target_bus_cut[3].ruser = periph_ruser;
+  assign target_bus_cut[3].rvalid = periph_rvalid;
+  assign target_bus_cut[3].rvalidpar = periph_rvalidpar;
+ // assign periph_achk = target_bus_cut[3].achk;
+  assign periph_addr = target_bus_cut[3].addr;
+  assign periph_aid = target_bus_cut[3].aid;
+//  assign periph_atop = target_bus_cut[3].atop;
+ // assign periph_auser = target_bus_cut[3].auser;
+  assign periph_be = target_bus_cut[3].be;
+//  assign periph_dbg = target_bus_cut[3].dbg;
+ // assign periph_memtype = target_bus_cut[3].memtype;
+//  assign periph_mid = target_bus_cut[3].mid;
+//  assign periph_prot = target_bus_cut[3].prot;
+  assign periph_req = target_bus_cut[3].req;
+  assign periph_reqpar = target_bus_cut[3].reqpar;
+  assign periph_rready = target_bus_cut[3].rready;
+  assign periph_rreadypar = target_bus_cut[3].rreadypar;
+  assign periph_wdata = target_bus_cut[3].wdata;
+  assign periph_we = target_bus_cut[3].we;
+//  assign periph_wuser = target_bus_cut[3].wuser;
 
   // Interface: obi_ctrl
-  assign target_bus[4].err = ctrl_err;
- // assign target_bus[4].exokay = ctrl_exokay;
-  assign target_bus[4].gnt = ctrl_gnt;
-  assign target_bus[4].gntpar = ctrl_gntpar;
-//  assign target_bus[4].rchk = ctrl_rchk;
-  assign target_bus[4].rdata = ctrl_rdata;
-  assign target_bus[4].rid = ctrl_rid;
-//  assign target_bus[4].ruser = ctrl_ruser;
-  assign target_bus[4].rvalid = ctrl_rvalid;
-  assign target_bus[4].rvalidpar = ctrl_rvalidpar;
-//  assign ctrl_achk = target_bus[4].achk;
-  assign ctrl_addr = target_bus[4].addr;
-  assign ctrl_aid = target_bus[4].aid;
-//  assign ctrl_atop = target_bus[4].atop;
-//  assign ctrl_auser = target_bus[4].auser;
-  assign ctrl_be = target_bus[4].be;
-//  assign ctrl_dbg = target_bus[4].dbg;
-//  assign ctrl_memtype = target_bus[4].memtype;
-//  assign ctrl_mid = target_bus[4].mid;
-//  assign ctrl_prot = target_bus[4].prot;
-  assign ctrl_req = target_bus[4].req;
-  assign ctrl_reqpar = target_bus[4].reqpar;
-  assign ctrl_rready = target_bus[4].rready;
-  assign ctrl_rreadypar = target_bus[4].rreadypar;
-  assign ctrl_wdata = target_bus[4].wdata;
-  assign ctrl_we = target_bus[4].we;
-//  assign ctrl_wuser = target_bus[4].wuser;
+  assign target_bus_cut[4].err = ctrl_err;
+ // assign target_bus_cut[4].exokay = ctrl_exokay;
+  assign target_bus_cut[4].gnt = ctrl_gnt;
+  assign target_bus_cut[4].gntpar = ctrl_gntpar;
+//  assign target_bus_cut[4].rchk = ctrl_rchk;
+  assign target_bus_cut[4].rdata = ctrl_rdata;
+  assign target_bus_cut[4].rid = ctrl_rid;
+//  assign target_bus_cut[4].ruser = ctrl_ruser;
+  assign target_bus_cut[4].rvalid = ctrl_rvalid;
+  assign target_bus_cut[4].rvalidpar = ctrl_rvalidpar;
+//  assign ctrl_achk = target_bus_cut[4].achk;
+  assign ctrl_addr = target_bus_cut[4].addr;
+  assign ctrl_aid = target_bus_cut[4].aid;
+//  assign ctrl_atop = target_bus_cut[4].atop;
+//  assign ctrl_auser = target_bus_cut[4].auser;
+  assign ctrl_be = target_bus_cut[4].be;
+//  assign ctrl_dbg = target_bus_cut[4].dbg;
+//  assign ctrl_memtype = target_bus_cut[4].memtype;
+//  assign ctrl_mid = target_bus_cut[4].mid;
+//  assign ctrl_prot = target_bus_cut[4].prot;
+  assign ctrl_req = target_bus_cut[4].req;
+  assign ctrl_reqpar = target_bus_cut[4].reqpar;
+  assign ctrl_rready = target_bus_cut[4].rready;
+  assign ctrl_rreadypar = target_bus_cut[4].rreadypar;
+  assign ctrl_wdata = target_bus_cut[4].wdata;
+  assign ctrl_we = target_bus_cut[4].we;
+//  assign ctrl_wuser = target_bus_cut[4].wuser;
 
   // Interface: obi_chip_top
-  assign target_bus[5].err = top_err;
-//  assign target_bus[5].exokay = top_exokay;
-  assign target_bus[5].gnt = top_gnt;
-  assign target_bus[5].gntpar = top_gntpar;
-//  assign target_bus[5].rchk = top_rchk;
-  assign target_bus[5].rdata = top_rdata;
-  assign target_bus[5].rid = top_rid;
-//  assign target_bus[5].ruser = top_ruser;
-  assign target_bus[5].rvalid = top_rvalid;
-  assign target_bus[5].rvalidpar = top_rvalidpar;
-//  assign top_achk = target_bus[5].achk;
-  assign top_addr = target_bus[5].addr;
-  assign top_aid = target_bus[5].aid;
-//  assign top_atop = target_bus[5].atop;
- // assign top_auser = target_bus[5].auser;
-  assign top_be = target_bus[5].be;
-//  assign top_dbg = target_bus[5].dbg;
-//  assign top_memtype = target_bus[5].memtype;
-//  assign top_mid = target_bus[5].mid;
-//  assign top_prot = target_bus[5].prot;
-  assign top_req = target_bus[5].req;
-  assign top_reqpar = target_bus[5].reqpar;
-  assign top_rready = target_bus[5].rready;
-  assign top_rreadypar = target_bus[5].rreadypar;
-  assign top_wdata = target_bus[5].wdata;
-  assign top_we = target_bus[5].we;
-//  assign top_wuser = target_bus[5].wuser;
+  assign target_bus_cut[5].err = top_err;
+//  assign target_bus_cut[5].exokay = top_exokay;
+  assign target_bus_cut[5].gnt = top_gnt;
+  assign target_bus_cut[5].gntpar = top_gntpar;
+//  assign target_bus_cut[5].rchk = top_rchk;
+  assign target_bus_cut[5].rdata = top_rdata;
+  assign target_bus_cut[5].rid = top_rid;
+//  assign target_bus_cut[5].ruser = top_ruser;
+  assign target_bus_cut[5].rvalid = top_rvalid;
+  assign target_bus_cut[5].rvalidpar = top_rvalidpar;
+//  assign top_achk = target_bus_cut[5].achk;
+  assign top_addr = target_bus_cut[5].addr;
+  assign top_aid = target_bus_cut[5].aid;
+//  assign top_atop = target_bus_cut[5].atop;
+ // assign top_auser = target_bus_cut[5].auser;
+  assign top_be = target_bus_cut[5].be;
+//  assign top_dbg = target_bus_cut[5].dbg;
+//  assign top_memtype = target_bus_cut[5].memtype;
+//  assign top_mid = target_bus_cut[5].mid;
+//  assign top_prot = target_bus_cut[5].prot;
+  assign top_req = target_bus_cut[5].req;
+  assign top_reqpar = target_bus_cut[5].reqpar;
+  assign top_rready = target_bus_cut[5].rready;
+  assign top_rreadypar = target_bus_cut[5].rreadypar;
+  assign top_wdata = target_bus_cut[5].wdata;
+  assign top_we = target_bus_cut[5].we;
+//  assign top_wuser = target_bus_cut[5].wuser;
 
   // Interface: obi_core_imem
 //  assign initiator_bus[0].achk = instr_achk;

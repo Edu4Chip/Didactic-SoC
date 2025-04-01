@@ -102,12 +102,7 @@ module obi_icn_ss #(
   );
 
   localparam TARGETS = 4;
-  localparam INITIATORS = 1;
-
-  // bus defaults 32 
-  OBI_BUS #() target_bus [TARGETS-1:0]();
-  OBI_BUS #() initiator_bus [INITIATORS-1:0] ();
-  APB #() icn_bus [TARGETS-1:0] ();
+  localparam INITIATORS = 1+1;//actual + tieoff
 
   typedef struct packed {
     int unsigned idx;
@@ -115,31 +110,55 @@ module obi_icn_ss #(
     int unsigned end_addr;
   } addr_rule_t;
 
-  localparam ADDR_BASE   = 32'h0103_0000;
-  localparam SS_SIZE    = 'h100;
+  localparam ADDR_BASE   = 32'h0105_0000;
+  localparam SS_SIZE    = 'h1000;
 
   addr_rule_t [TARGETS-1:0] icn_addr_map;
 
   assign icn_addr_map =
     '{
-      '{idx: 32'd3, start_addr: ADDR_BASE+SS_SIZE*3, end_addr: ADDR_BASE+SS_SIZE*4-1},//
-      '{idx: 32'd2, start_addr: ADDR_BASE+SS_SIZE*2, end_addr: ADDR_BASE+SS_SIZE*3-1},//
-      '{idx: 32'd1, start_addr: ADDR_BASE+SS_SIZE*1, end_addr: ADDR_BASE+SS_SIZE*2-1},//
-      '{idx: 32'd0, start_addr: ADDR_BASE+SS_SIZE*0, end_addr: ADDR_BASE+SS_SIZE*1-1} //
+      '{idx: 32'd0, start_addr: ADDR_BASE+SS_SIZE*3, end_addr: ADDR_BASE+SS_SIZE*4},//
+      '{idx: 32'd1, start_addr: ADDR_BASE+SS_SIZE*2, end_addr: ADDR_BASE+SS_SIZE*3},//
+      '{idx: 32'd2, start_addr: ADDR_BASE+SS_SIZE*1, end_addr: ADDR_BASE+SS_SIZE*2},//
+      '{idx: 32'd3, start_addr: ADDR_BASE+SS_SIZE*0, end_addr: ADDR_BASE+SS_SIZE*1} //
      };
+
+  // bus defaults 32 
+  OBI_BUS #() target_bus [TARGETS-1:0]();
+  OBI_BUS #() target_bus_cut [TARGETS-1:0]();
+  OBI_BUS #() initiator_bus [INITIATORS-1-1:0] ();//no tieoff
+  OBI_BUS #() initiator_bus_cut [INITIATORS-1:0] ();
+  APB #() icn_bus [TARGETS-1:0] ();
+
+  obi_cut_intf #() i_initiator_cut(
+      .clk_i(clk),
+      .rst_ni(reset_n),
+      .obi_s(initiator_bus[0]),
+      .obi_m(initiator_bus_cut[0])
+    );
+
+  for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
+    obi_cut_intf #() i_target_cut(
+        .clk_i(clk),
+        .rst_ni(reset_n),
+        .obi_s(target_bus[i]),
+        .obi_m(target_bus_cut[i])
+      );
+  end
+
 
   obi_xbar_intf #(
     .NumSbrPorts       (INITIATORS),
     .NumMgrPorts       (TARGETS),
     .NumMaxTrans       (1),
-    .NumAddrRules      (INITIATORS),
+    .NumAddrRules      (TARGETS),
     .addr_map_rule_t   (addr_rule_t),
     .UseIdForRouting   (0)
-  ) i_peripheral_obi_xbar (
+  ) i_icn_obi_xbar (
     .clk_i            (clk),
     .rst_ni           (reset_n),
     .testmode_i       (1'b0),
-    .sbr_ports        (initiator_bus),
+    .sbr_ports        (initiator_bus_cut),
     .mgr_ports        (target_bus),
     .addr_map_i       (icn_addr_map),
     .en_default_idx_i ('0),
@@ -149,30 +168,41 @@ module obi_icn_ss #(
   obi_to_apb_intf #() i_obi_to_apb_0 (
     .clk_i (clk),
     .rst_ni(reset_n),
-    .obi_i (target_bus[0]),
+    .obi_i (target_bus_cut[0]),
     .apb_o (icn_bus[0])
   );
 
   obi_to_apb_intf #() i_obi_to_apb_1 (
     .clk_i (clk),
     .rst_ni(reset_n),
-    .obi_i (target_bus[1]),
+    .obi_i (target_bus_cut[1]),
     .apb_o (icn_bus[1])
   );
 
   obi_to_apb_intf #() i_obi_to_apb_2 (
     .clk_i (clk),
     .rst_ni(reset_n),
-    .obi_i (target_bus[2]),
+    .obi_i (target_bus_cut[2]),
     .apb_o (icn_bus[2])
   );
 
   obi_to_apb_intf #() i_obi_to_apb_3 (
     .clk_i (clk),
     .rst_ni(reset_n),
-    .obi_i (target_bus[3]),
+    .obi_i (target_bus_cut[3]),
     .apb_o (icn_bus[3])
   );
+
+  // tieoff master connection for utilizing xbar as splitter
+  assign initiator_bus_cut[1].addr = 'h0;
+  assign initiator_bus_cut[1].aid = 'h0;
+  assign initiator_bus_cut[1].be = 4'b1111;
+  assign initiator_bus_cut[1].req = 1'b0;
+  assign initiator_bus_cut[1].reqpar = 1'b1;
+  assign initiator_bus_cut[1].rready = 1'b0;
+  assign initiator_bus_cut[1].rreadypar = 1'b1;
+  assign initiator_bus_cut[1].wdata = 'h0;
+  assign initiator_bus_cut[1].we = 1'b0;
 
    // Interface: apb_gpio
    assign icn_bus[0].prdata = APB_0_PRDATA;

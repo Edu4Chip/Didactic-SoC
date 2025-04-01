@@ -611,7 +611,7 @@ module SysCtrl_SS_0 #(
     wire [31:0] jtag_dbg_wrapper_target_wdata_i;
     wire       jtag_dbg_wrapper_target_we_i;
     // peripherals_obi_to_apb port wires:
-    wire [2:0] peripherals_obi_to_apb_APB_GPIO_PADDR;
+    wire [11:0] peripherals_obi_to_apb_APB_GPIO_PADDR;
     wire       peripherals_obi_to_apb_APB_GPIO_PENABLE;
     wire [31:0] peripherals_obi_to_apb_APB_GPIO_PRDATA;
     wire       peripherals_obi_to_apb_APB_GPIO_PREADY;
@@ -1107,7 +1107,7 @@ module SysCtrl_SS_0 #(
     assign jtag_dbg_wrapper_target_wdata_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_wdata;
     assign jtag_dbg_wrapper_target_we_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_we;
     // peripherals_obi_to_apb assignments:
-    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PADDR[2:0] = peripherals_obi_to_apb_APB_GPIO_PADDR;
+    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PADDR[11:0] = peripherals_obi_to_apb_APB_GPIO_PADDR;
     assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PENABLE = peripherals_obi_to_apb_APB_GPIO_PENABLE;
     assign peripherals_obi_to_apb_APB_GPIO_PRDATA = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PRDATA;
     assign peripherals_obi_to_apb_APB_GPIO_PREADY = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PREADY;
@@ -1241,7 +1241,7 @@ module SysCtrl_SS_0 #(
     assign sysctrl_obi_xbar_instr_rreadypar = 1'b0;
     assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rvalid = sysctrl_obi_xbar_instr_rvalid;
     assign sysctrl_obi_xbar_instr_wdata = 'h0;
-    assign sysctrl_obi_xbar_instr_we = 1'b1;
+    assign sysctrl_obi_xbar_instr_we = 1'b0;
     assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_addr = sysctrl_obi_xbar_periph_addr;
     assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_aid = sysctrl_obi_xbar_periph_aid;
     assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_be = sysctrl_obi_xbar_periph_be;

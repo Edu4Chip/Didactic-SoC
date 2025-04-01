@@ -103,6 +103,7 @@ sources:
     - src/reuse/obi_to_apb_intf.sv
     - src/rtl/sysctrl_obi_xbar.sv
     - src/rtl/ibex_wrapper.sv
+    - src/reuse/obi_cut_intf.sv
     - src/generated/Didactic.v
 
   - target: not(synthesis)
