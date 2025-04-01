@@ -29,6 +29,7 @@ clock_signal_names = {
     "AX4LITE_APB_converter_wrapper.sv": "clk",
     "Student_SS_2.sv": "clk_in",
     "ICN_SS.sv": "clk",
+    "DtuSubsystem.sv": "clock",
     # Does not have clock signal...
     "pmod_mux.sv": None,
     "Student_area_0.sv": "clk_in",
