@@ -15,7 +15,7 @@ clock_signal_names = {
     "SysCtrl_peripherals_0.v": "clk",
     "Student_SS_2_0.v": "clk",
     "SysCtrl_SS_wrapper_0.v": "clk",
-    "Student_SS_1_0.v": "clk",
+    "Student_SS_1_0.v": "clk_in",
     "SysCtrl_SS_0.v": "clk_internal",
     "Student_SS_3_0.v": "clk_in",
     "jtag_dbg_wrapper.sv": "clk_i",
