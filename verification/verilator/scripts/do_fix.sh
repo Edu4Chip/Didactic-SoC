@@ -1,14 +1,25 @@
 #!/bin/bash
 
-# Path to the file with issues
-# Todo: This is horrible - it should be flexible enough to work with any version of the AXI, but then again, this is a temporary fix until either AXI is fixed in the main repo (unlikely) or have some poor individual or collective maintain the issues here.
-# I could restore the old AXI_PATH="$(bender path axi)" instead, but again, it could cause the issue like last time where AXI package was updated and the old "fix" broke it even further.
-AXI_FILE=".bender/git/checkouts/axi-aae2d6c181d6f97b/src/axi_lite_mux.sv"
+# Determine the path to the AXI directory
+AXI_PATH=$(bender path axi)
+AXI_FILE="${AXI_PATH}/src/axi_lite_mux.sv"
 
-# Throw an error if the file doesn't exist and tell the user to go double check if anything has not been massively over hauled in the ".bender/git/checkouts/axi-[sha256]]/src/axi_lite_mux.sv" file
+# Check if the AXI file exists
 if [ ! -f "${AXI_FILE}" ]; then
     echo -e "\033[31mError: ${AXI_FILE} does not exist. Please check the path and try again.\033[0m"
-    echo -e "\033[35mNote: Please make sure that the AXI package is not massively overhauled, as this script is designed to work with a specific version of the AXI with hash aae2d6c181d6f97b - if it is the same rename the verification/verilator/scripts/do_fix.sh and undo_fix.sh.\033[0m"
+    exit 1
+fi
+
+# Check if the file has changed by comparing MD5 checksums - this is way to check if the fix is compatible with the current version
+KNOWN_CHECKSUM="d97f7e8c938da8ce7477e36d0cae0e60"  # Replace with the actual checksum of the known compatible version
+CURRENT_CHECKSUM=$(md5sum "${AXI_FILE}" | awk '{ print $1 }')
+
+# To future maintainers: please update the KNOWN_CHECKSUM variable with the checksum of the original file by running:
+# md5sum .bender/git/checkouts/axi-[SHA256]/src/axi_lite_mux.sv;
+
+if [ "${CURRENT_CHECKSUM}" != "${KNOWN_CHECKSUM}" ]; then
+    echo -e "\033[31mError: ${AXI_FILE} has changed. The fix may not be compatible with this version.\033[0m"
+    echo -e "\033[31mPlease ensure the fix is still compatible and if so update the KNOWN_CHECKSUM variable in the script.\033[0m"
     exit 1
 fi
 
