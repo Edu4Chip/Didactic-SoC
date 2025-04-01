@@ -31,6 +31,7 @@ create_project didactic-z1 ../build/fpga/$PROJECT -force -part $XILINX_PART
 set COMMON_CELLS_DIR [exec bender path common_cells]
 set AXI_DIR          [exec bender path axi]
 set APB_DIR          [exec bender path apb]
+set OBI_DIR          [exec bender path obi]
 set REGIF_DIR        [exec bender path register_interface]
 set IBEX_PATH        vendor_ips/ibex
 
@@ -39,6 +40,7 @@ set INCLUDE_DIRS [list  \
                    $AXI_DIR/include \
                    $APB_DIR/include \
                    $REGIF_DIR/include \
+                   $OBI_DIR/include \
 	                 $DIR/../$IBEX_PATH/vendor/lowrisc_ip/dv/sv/dv_utils \
 	                 $DIR/../$IBEX_PATH/vendor/lowrisc_ip/ip/prim/rtl \
 	                 $DIR/../$IBEX_PATH/rtl \

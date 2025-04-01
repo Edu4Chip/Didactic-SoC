@@ -48,7 +48,7 @@ module sp_sram #(
         gnt_reg <= 1'b1;
         rvalid_reg <= 1'b0;
       end
-  end
+    end
   end //ff
  
   
@@ -139,7 +139,7 @@ module sp_sram #(
    //       1     |  "18Kb"   |    16384    |   14-bit   |    1-bit   //
    /////////////////////////////////////////////////////////////////////
 
-   logic [DATA_WIDTH/8:0] we_internal;
+   logic [DATA_WIDTH/8-1:0] we_internal;
 
    for(genvar i = 0; i < DATA_WIDTH/8; i++) begin
     assign we_internal[i] = we_i & be_i[i];

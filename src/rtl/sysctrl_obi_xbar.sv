@@ -192,7 +192,7 @@ module sysctrl_obi_xbar #(
 //    output logic                         dm_init_exokay,
     output logic                         dm_init_gnt,
     output logic                         dm_init_gntpar,
-    output logic         [OBI_CHKW-1:0]  dm_init_rchk,
+//    output logic         [OBI_CHKW-1:0]  dm_init_rchk,
     output logic         [OBI_DW-1:0]    dm_init_rdata,
     output logic         [OBI_IDW-1:0]   dm_init_rid,
 //    output logic         [OBI_USERW-1:0] dm_init_ruser,
