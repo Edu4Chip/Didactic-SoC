@@ -50,11 +50,11 @@ sbr_port_obi_rsp_t sbr_ports_rsp;
 mgr_port_obi_req_t mgr_ports_req;
 mgr_port_obi_rsp_t mgr_ports_rsp;
 
-`OBI_ASSIGN_TO_REQ(sbr_ports_req, obi_s, ObiCfg)
-`OBI_ASSIGN_FROM_RSP(obi_s, sbr_ports_rsp, ObiCfg)
+`OBI_ASSIGN_TO_REQ(sbr_ports_req, obi_s, SbrPortObiCfg)
+`OBI_ASSIGN_FROM_RSP(obi_s, sbr_ports_rsp, SbrPortObiCfg)
 
-`OBI_ASSIGN_FROM_REQ(obi_m, mgr_ports_req, ObiCfg)
-`OBI_ASSIGN_TO_RSP(mgr_ports_rsp, obi_m, ObiCfg)
+`OBI_ASSIGN_FROM_REQ(obi_m, mgr_ports_req, MgrPortObiCfg)
+`OBI_ASSIGN_TO_RSP(mgr_ports_rsp, obi_m, MgrPortObiCfg)
 
 obi_cut #(
   .ObiCfg      (ObiCfg),
@@ -73,5 +73,7 @@ obi_cut #(
   .mgr_port_req_o(mgr_ports_req),
   .mgr_port_rsp_i(mgr_ports_rsp)
 );
+
+
 
 endmodule

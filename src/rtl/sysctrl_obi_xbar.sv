@@ -295,10 +295,10 @@ module sysctrl_obi_xbar #(
   localparam XBAR_INITIATOR_CUTS =0;
   localparam XBAR_TARGET_CUTS =0;
   
-  OBI_BUS #() target_bus [TARGETS-1:0]();
-  OBI_BUS #() target_bus_cut [TARGETS-1:0]();
-  OBI_BUS #() initiator_bus [INITIATORS-1:0] ();
-  OBI_BUS #() initiator_bus_cut [INITIATORS-1:0] ();
+  OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) target_bus [TARGETS-1:0]();
+  OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) target_bus_cut [TARGETS-1:0]();
+  OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) initiator_bus [INITIATORS-1:0] ();
+  OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) initiator_bus_cut [INITIATORS-1:0] ();
 
   if(XBAR_INITIATOR_CUTS) begin
     for (genvar i = 0; i < INITIATORS; i++) begin : initiator_cuts

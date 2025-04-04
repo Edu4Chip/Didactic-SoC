@@ -79,6 +79,7 @@ sources:
     - src/reuse/ibex_axi_bridge.sv
     - src/rtl/ICN_SS.sv
     - src/rtl/SysCtrl_xbar.sv
+    - src/reuse/sp_sram.sv
 
   - target: didactic_obi
     files:
@@ -87,7 +88,7 @@ sources:
     - src/rtl/sysctrl_obi_xbar.sv
     - src/rtl/jtag_dbg_wrapper_obi.sv
     - src/rtl/ibex_wrapper.sv
-    - src/reuse/obi_cut_intf.sv
+    - src/rtl/obi_cut_intf.sv
     - src/rtl/obi_icn_ss.sv
     - src/rtl/peripherals_obi_to_apb.sv
     
