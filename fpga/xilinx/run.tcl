@@ -49,7 +49,7 @@ set INCLUDE_DIRS [list  \
 set_property include_dirs $INCLUDE_DIRS [current_fileset]
 
 # File read
-add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis]
+add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi]
 
 set_property file_type SystemVerilog [get_files *.v]
 

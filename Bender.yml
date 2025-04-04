@@ -70,24 +70,37 @@ sources:
       - vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_clock_gating.sv
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_xilinx/rtl/prim_xilinx_clock_gating.sv
 
-  - target: rtl
+  - target: didactic_axi
+    files:
+    - src/generated/SysCtrl_peripherals_0.v
+    - src/rtl/AX4LITE_APB_converter_wrapper.sv
+    - src/reuse/jtag_dbg_wrapper.sv
+    - src/reuse/mem_axi_bridge.sv
+    - src/reuse/ibex_axi_bridge.sv
+    - src/rtl/ICN_SS.sv
+    - src/rtl/SysCtrl_xbar.sv
+
+  - target: didactic_obi
     files:
     - src/rtl/sp_sram.sv
+    - src/reuse/obi_to_apb_intf.sv
+    - src/rtl/sysctrl_obi_xbar.sv
+    - src/rtl/jtag_dbg_wrapper_obi.sv
+    - src/rtl/ibex_wrapper.sv
+    - src/reuse/obi_cut_intf.sv
+    - src/rtl/obi_icn_ss.sv
+    - src/rtl/peripherals_obi_to_apb.sv
+    
+  - target: rtl
+    files:
     - src/rtl/io_cell_frame_sysctrl.sv
     - src/tech_generic/io_cell_wrapper.sv
     - src/tech_generic/tech_cg.sv
     - src/tech_generic/io_cell.sv
-    - src/reuse/jtag_dbg_wrapper.sv
-    - src/reuse/mem_axi_bridge.sv
-    - src/reuse/ibex_axi_bridge.sv
     - src/generated/Student_SS_0_0.v
     - src/generated/Student_SS_1_0.v
     - src/generated/Student_SS_2_0.v
     - src/generated/Student_SS_3_0.v
-    - src/generated/SysCtrl_peripherals_0.v
-    - src/rtl/AX4LITE_APB_converter_wrapper.sv
-    - src/rtl/ICN_SS.sv
-    - src/rtl/SysCtrl_xbar.sv
     - src/rtl/SS_Ctrl_reg_array.sv
     - src/rtl/pmod_mux.sv
     - src/rtl/Student_area_0.sv
@@ -96,14 +109,7 @@ sources:
     - src/rtl/Student_SS_3.sv
     - src/generated/SysCtrl_SS_0.v
     - src/generated/SysCtrl_SS_wrapper_0.v
-    - src/rtl/jtag_dbg_wrapper_obi.sv
-    - src/rtl/obi_icn_ss.sv
-    - src/rtl/peripherals_obi_to_apb.sv
     - src/rtl/student_ss_analog.sv
-    - src/reuse/obi_to_apb_intf.sv
-    - src/rtl/sysctrl_obi_xbar.sv
-    - src/rtl/ibex_wrapper.sv
-    - src/reuse/obi_cut_intf.sv
     - src/generated/Didactic.v
 
   - target: not(synthesis)
