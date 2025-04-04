@@ -103,6 +103,8 @@ module obi_icn_ss #(
 
   localparam TARGETS = 4;
   localparam INITIATORS = 1+1;//actual + tieoff
+  localparam ICN_INITIATOR_CUTS =0;
+  localparam ICN_TARGET_CUTS =0;
 
   typedef struct packed {
     int unsigned idx;
@@ -129,21 +131,51 @@ module obi_icn_ss #(
   OBI_BUS #() initiator_bus [INITIATORS-1-1:0] ();//no tieoff
   OBI_BUS #() initiator_bus_cut [INITIATORS-1:0] ();
   APB #() icn_bus [TARGETS-1:0] ();
-
-  obi_cut_intf #() i_initiator_cut(
+ 
+  if(ICN_INITIATOR_CUTS) begin
+    obi_cut_intf #(
+      .Bypass(1'b0)
+    ) i_initiator_cut(
       .clk_i(clk),
       .rst_ni(reset_n),
       .obi_s(initiator_bus[0]),
       .obi_m(initiator_bus_cut[0])
     );
+  end
+  else begin
+    obi_cut_intf #(
+      .Bypass(1'b1)
+    ) i_initiator_bypass_cut(
+      .clk_i(clk),
+      .rst_ni(reset_n),
+      .obi_s(initiator_bus[0]),
+      .obi_m(initiator_bus_cut[0])
+    );
+  end
 
-  for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
-    obi_cut_intf #() i_target_cut(
+  if(ICN_TARGET_CUTS) begin
+    for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
+      obi_cut_intf #(
+        .Bypass(1'b0)
+      ) i_target_cut(
         .clk_i(clk),
         .rst_ni(reset_n),
         .obi_s(target_bus[i]),
         .obi_m(target_bus_cut[i])
       );
+    end
+  end
+  else begin
+    for (genvar i = 0; i < TARGETS; i++) begin : target_no_cuts
+      obi_cut_intf #(
+        .Bypass(1'b1)
+      ) i_target_cut(
+        .clk_i(clk),
+        .rst_ni(reset_n),
+        .obi_s(target_bus[i]),
+        .obi_m(target_bus_cut[i])
+      );
+    end
   end
 
 

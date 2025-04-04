@@ -33,8 +33,8 @@ module sp_sram #(
   always_ff @( posedge clk_i or negedge rst_ni )
   begin : control_register_ff
     if (~rst_ni) begin
-      gnt_reg = 1'b1;
-      rvalid_reg = 1'b0;
+      gnt_reg <= 1'b1;
+      rvalid_reg <= 1'b0;
     end
     else begin
       if(req_i & gnt_reg) begin

@@ -90,6 +90,8 @@ module peripherals_obi_to_apb #(
 );
   localparam TARGETS = 3;
   localparam INITIATORS = 1+1;// connection + tieoff initiator
+  localparam PERIPH_INITIATOR_CUTS =0;
+  localparam PERIPH_TARGET_CUTS =0;
 
 
   typedef struct packed {
@@ -117,21 +119,50 @@ module peripherals_obi_to_apb #(
   OBI_BUS #() initiator_bus_cut [INITIATORS-1:0] ();
   APB #() peripheral_bus [TARGETS-1:0] ();
 
-
-  obi_cut_intf #() i_initiator_cut(
+  if(PERIPH_INITIATOR_CUTS) begin
+    obi_cut_intf #(
+      .Bypass(1'b0)
+    ) i_initiator_cut(
       .clk_i(clk),
       .rst_ni(reset_n),
       .obi_s(initiator_bus[0]),
       .obi_m(initiator_bus_cut[0])
     );
+  end
+  else begin
+    obi_cut_intf #(
+      .Bypass(1'b1)
+    ) i_initiator_bypass_cut(
+      .clk_i(clk),
+      .rst_ni(reset_n),
+      .obi_s(initiator_bus[0]),
+      .obi_m(initiator_bus_cut[0])
+    );
+  end
 
-  for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
-    obi_cut_intf #() i_target_cut(
+  if(PERIPH_TARGET_CUTS) begin
+    for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
+      obi_cut_intf #(
+        .Bypass(1'b0)
+      ) i_target_cut(
         .clk_i(clk),
         .rst_ni(reset_n),
         .obi_s(target_bus[i]),
         .obi_m(target_bus_cut[i])
       );
+    end
+  end
+  else begin
+    for (genvar i = 0; i < TARGETS; i++) begin : target_no_cuts
+      obi_cut_intf #(
+        .Bypass(1'b1)
+      ) i_target_cut(
+        .clk_i(clk),
+        .rst_ni(reset_n),
+        .obi_s(target_bus[i]),
+        .obi_m(target_bus_cut[i])
+      );
+    end
   end
 
   obi_xbar_intf #(

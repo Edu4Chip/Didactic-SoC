@@ -292,31 +292,63 @@ module sysctrl_obi_xbar #(
 
   localparam TARGETS = 6;
   localparam INITIATORS = 3;
-  
+  localparam XBAR_INITIATOR_CUTS =0;
+  localparam XBAR_TARGET_CUTS =0;
   
   OBI_BUS #() target_bus [TARGETS-1:0]();
   OBI_BUS #() target_bus_cut [TARGETS-1:0]();
   OBI_BUS #() initiator_bus [INITIATORS-1:0] ();
   OBI_BUS #() initiator_bus_cut [INITIATORS-1:0] ();
 
-  for (genvar i = 0; i < INITIATORS; i++) begin : initiator_cuts
-    obi_cut_intf #() i_initiator_cut(
+  if(XBAR_INITIATOR_CUTS) begin
+    for (genvar i = 0; i < INITIATORS; i++) begin : initiator_cuts
+      obi_cut_intf #(
+        .Bypass(1'b0)
+      ) i_initiator_cut(
         .clk_i(clk),
         .rst_ni(reset_n),
         .obi_s(initiator_bus[i]),
         .obi_m(initiator_bus_cut[i])
       );
-  end  
-  for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
-    obi_cut_intf #() i_target_cut(
+    end
+  end
+  else begin
+    for (genvar i = 0; i < INITIATORS; i++) begin : initiator_no_cut
+      obi_cut_intf #(
+        .Bypass(1'b1)
+      ) i_initiator_bypass_cut(
+        .clk_i(clk),
+        .rst_ni(reset_n),
+        .obi_s(initiator_bus[i]),
+        .obi_m(initiator_bus_cut[i])
+      );
+
+    end
+  end
+  if(XBAR_TARGET_CUTS) begin
+    for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
+      obi_cut_intf #(
+        .Bypass(1'b0)
+      ) i_target_cut(
         .clk_i(clk),
         .rst_ni(reset_n),
         .obi_s(target_bus[i]),
         .obi_m(target_bus_cut[i])
       );
+    end
   end
-
-
+  else begin
+    for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
+      obi_cut_intf #(
+        .Bypass(1'b1)
+      ) i_target_bypass_cut(
+        .clk_i(clk),
+        .rst_ni(reset_n),
+        .obi_s(target_bus[i]),
+        .obi_m(target_bus_cut[i])
+      );
+    end
+  end
 
   localparam ADDR_BASE   = 32'h0100_0000;
   localparam TARGET_SIZE = 'h1_0000;
