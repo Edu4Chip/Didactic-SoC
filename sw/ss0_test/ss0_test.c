@@ -23,8 +23,9 @@ int main(){
     errors++;
   }
   temp_0 = 0x0;
+
   // this is basic write operation
-  *( volatile uint32_t* ) 0x010500000 = 0xFF;
+  *( volatile uint32_t* ) 0x01050000 = 0xFF;
 
   temp_0 = *( volatile uint32_t* ) 0x01050000;
   // recheck that value updated to register
