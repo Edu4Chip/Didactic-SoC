@@ -1,45 +1,27 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 07.04.2025
-// Creation time : 14:31:30
+// Creation time : 15:38:46
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
 // Plugin : Verilog generator 2.4
-// This file was generated based on IP-XACT component tuni.fi:subsystem:SysCtrl_SS:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem/SysCtrl_SS/1.0/SysCtrl_SS.1.0.xml
+// This file was generated based on IP-XACT component tuni.fi:subsystem:SysCtrl_SS:1.1
+// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem/SysCtrl_SS/1.1/SysCtrl_SS.1.1.xml
 //-----------------------------------------------------------------------------
 
 module SysCtrl_SS_0 #(
-    parameter                              AXI4LITE_AW      = 32,
-    parameter                              AXI4LITE_DW      = 32,
     parameter                              IOCELL_CFG_W     = 5,
     parameter                              IOCELL_COUNT     = 17,    // update this value manually to match cell numbers
     parameter                              NUM_GPIO         = 8,
     parameter                              SS_CTRL_W        = 8,
+    parameter                              OBI_IDW          = 1,
+    parameter                              OBI_CHKW         = 1,
+    parameter                              OBI_USERW        = 1,
+    parameter                              OBI_AW           = 32,
+    parameter                              OBI_DW           = 32,
     parameter                              IO_CFG_W         = 5
 ) (
-    // Interface: AXI4LITE_icn
-    input  logic                        icn_ar_ready_in,
-    input  logic                        icn_aw_ready_in,
-    input  logic         [1:0]          icn_b_resp_in,
-    input  logic                        icn_b_valid_in,
-    input  logic         [31:0]         icn_r_data_in,
-    input  logic         [1:0]          icn_r_resp_in,
-    input  logic                        icn_r_valid_in,
-    input  logic                        icn_w_ready_in,
-    output logic         [31:0]         icn_ar_addr_out,
-    output logic         [3:0]          icn_ar_prot_out,
-    output logic                        icn_ar_valid_out,
-    output logic         [31:0]         icn_aw_addr_out,
-    output logic         [3:0]          icn_aw_prot_out,
-    output logic                        icn_aw_valid_out,
-    output logic                        icn_b_ready_out,
-    output logic                        icn_r_ready_out,
-    output logic         [31:0]         icn_w_data_out,
-    output logic         [3:0]          icn_w_strb_out,
-    output logic                        icn_w_valid_out,
-
     // Interface: Clk
     input  logic                        clk_internal,
 
@@ -59,6 +41,24 @@ module SysCtrl_SS_0 #(
     input  logic                        jtag_tms_internal,
     input  logic                        jtag_trst_internal,
     output logic                        jtag_tdo_internal,
+
+    // Interface: OBI
+    input  logic                        obi_err,
+    input  logic                        obi_gnt,
+    input  logic                        obi_gntpar,
+    input  logic         [31:0]         obi_rdata,
+    input  logic         [1:0]          obi_rid,
+    input  logic                        obi_rvalid,
+    input  logic                        obi_rvalidpar,
+    output logic         [31:0]         obi_addr,
+    output logic                        obi_aid,
+    output logic         [3:0]          obi_be,
+    output logic                        obi_req,
+    output logic                        obi_reqpar,
+    output logic                        obi_rready,
+    output logic                        obi_rreadypar,
+    output logic         [31:0]         obi_wdata,
+    output logic                        obi_we,
 
     // Interface: Reset
     input  logic                        reset_internal,
@@ -105,1466 +105,1386 @@ module SysCtrl_SS_0 #(
     input  logic         [14:0]         irq_upper_tieoff
 );
 
-    // i_SysCtrl_peripherals_GPIO_to_GPIO wires:
-    wire [7:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpi;
-    wire [7:0] i_SysCtrl_peripherals_GPIO_to_GPIO_gpo;
-    // i_SysCtrl_peripherals_SPI_to_SPI wires:
-    wire [1:0] i_SysCtrl_peripherals_SPI_to_SPI_csn;
-    wire [3:0] i_SysCtrl_peripherals_SPI_to_SPI_miso;
-    wire [3:0] i_SysCtrl_peripherals_SPI_to_SPI_mosi;
-    wire       i_SysCtrl_peripherals_SPI_to_SPI_sck;
-    // i_SysCtrl_peripherals_UART_to_UART wires:
-    wire       i_SysCtrl_peripherals_UART_to_UART_uart_rx;
-    wire       i_SysCtrl_peripherals_UART_to_UART_uart_tx;
-    // i_SysCtrl_peripherals_Clock_to_Clk wires:
-    wire       i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    // i_SysCtrl_peripherals_Reset_to_Reset wires:
-    wire       i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    // i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph wires:
-    wire [31:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_ADDR;
-    wire [3:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_PROT;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_READY;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_VALID;
-    wire [31:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_ADDR;
-    wire [3:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_PROT;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_READY;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_VALID;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_READY;
-    wire [1:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_RESP;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_VALID;
-    wire [31:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_DATA;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_READY;
-    wire [1:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_RESP;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_VALID;
-    wire [31:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_DATA;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_READY;
-    wire [3:0] i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB;
-    wire       i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID;
-    // SS_Ctrl_reg_array_rst_icn_to_Reset_ICN wires:
-    wire       SS_Ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
-    // SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl wires:
-    wire [7:0] SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
-    // SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0 wires:
-    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl;
-    wire       SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en;
-    // SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1 wires:
-    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl;
-    wire       SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
-    // SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2 wires:
-    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
-    wire       SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
-    // SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3 wires:
-    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
-    wire       SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
-    // SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg wires:
-    wire [84:0] SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
+    // ctrl_reg_array_rst_icn_to_Reset_ICN wires:
+    wire       ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
+    // ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl wires:
+    wire [7:0] ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
+    // ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0 wires:
+    wire [7:0] ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl;
+    wire       ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en;
+    // ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1 wires:
+    wire [7:0] ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl;
+    wire       ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
+    // ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2 wires:
+    wire [7:0] ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
+    wire       ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
+    // ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3 wires:
+    wire [7:0] ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
+    wire       ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
+    // ctrl_reg_array_io_cfg_to_io_cell_cfg wires:
+    wire [84:0] ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
     // jtag_dbg_wrapper_JTAG_to_JTAG wires:
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tck;
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tdi;
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tdo;
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tms;
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_trst;
-    // Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL wires:
-    wire [31:0] Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_ADDR;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_READY;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_VALID;
-    wire [31:0] Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_ADDR;
-    wire [2:0] Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_PROT;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_READY;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_VALID;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_B_READY;
-    wire [1:0] Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_B_RESP;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_B_VALID;
-    wire [31:0] Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_DATA;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_READY;
-    wire [1:0] Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_RESP;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_VALID;
-    wire [31:0] Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_DATA;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_READY;
-    wire [3:0] Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_STRB;
-    wire       Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_VALID;
-    // core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM wires:
-    wire [31:0] core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_ADDR;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_READY;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_VALID;
-    wire [31:0] core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_ADDR;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_READY;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_VALID;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_READY;
-    wire [1:0] core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_RESP;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_VALID;
-    wire [31:0] core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_DATA;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_READY;
-    wire [1:0] core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_RESP;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_VALID;
-    wire [31:0] core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_DATA;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_READY;
-    wire [3:0] core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_STRB;
-    wire       core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_VALID;
-    // Ibex_Core_imem_to_core_imem_bridge_mem wires:
-    wire [31:0] Ibex_Core_imem_to_core_imem_bridge_mem_ADDR;
-    wire [3:0] Ibex_Core_imem_to_core_imem_bridge_mem_BE;
-    wire       Ibex_Core_imem_to_core_imem_bridge_mem_ERR;
-    wire       Ibex_Core_imem_to_core_imem_bridge_mem_GNT;
-    wire [31:0] Ibex_Core_imem_to_core_imem_bridge_mem_RDATA;
-    wire [6:0] Ibex_Core_imem_to_core_imem_bridge_mem_RDATA_INTG;
-    wire       Ibex_Core_imem_to_core_imem_bridge_mem_REQ;
-    wire       Ibex_Core_imem_to_core_imem_bridge_mem_RVALID;
-    wire [31:0] Ibex_Core_imem_to_core_imem_bridge_mem_WDATA;
-    wire       Ibex_Core_imem_to_core_imem_bridge_mem_WE;
-    // Ibex_Core_dmem_to_core_dmem_bridge_mem wires:
-    wire [31:0] Ibex_Core_dmem_to_core_dmem_bridge_mem_ADDR;
-    wire [3:0] Ibex_Core_dmem_to_core_dmem_bridge_mem_BE;
-    wire       Ibex_Core_dmem_to_core_dmem_bridge_mem_ERR;
-    wire       Ibex_Core_dmem_to_core_dmem_bridge_mem_GNT;
-    wire [31:0] Ibex_Core_dmem_to_core_dmem_bridge_mem_RDATA;
-    wire [6:0] Ibex_Core_dmem_to_core_dmem_bridge_mem_RDATA_INTG;
-    wire       Ibex_Core_dmem_to_core_dmem_bridge_mem_REQ;
-    wire       Ibex_Core_dmem_to_core_dmem_bridge_mem_RVALID;
-    wire [31:0] Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA;
-    wire [6:0] Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA_INTG;
-    wire       Ibex_Core_dmem_to_core_dmem_bridge_mem_WE;
-    // i_dmem_mem_to_axi_dmem_bridge_Mem wires:
-    wire [31:0] i_dmem_mem_to_axi_dmem_bridge_Mem_ADDR;
-    wire [3:0] i_dmem_mem_to_axi_dmem_bridge_Mem_BE;
-    wire [31:0] i_dmem_mem_to_axi_dmem_bridge_Mem_RDATA;
-    wire       i_dmem_mem_to_axi_dmem_bridge_Mem_REQ;
-    wire [31:0] i_dmem_mem_to_axi_dmem_bridge_Mem_WDATA;
-    wire       i_dmem_mem_to_axi_dmem_bridge_Mem_WE;
-    // axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM wires:
-    wire [31:0] axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AR_ADDR;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AR_READY;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AR_VALID;
-    wire [31:0] axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AW_ADDR;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AW_READY;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AW_VALID;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_B_READY;
-    wire [1:0] axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_B_RESP;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_B_VALID;
-    wire [31:0] axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_DATA;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_READY;
-    wire [1:0] axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_RESP;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_VALID;
-    wire [31:0] axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_DATA;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_READY;
-    wire [3:0] axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_STRB;
-    wire       axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_VALID;
-    // axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM wires:
-    wire [31:0] axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_ADDR;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_READY;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_VALID;
-    wire [31:0] axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AW_ADDR;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AW_READY;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AW_VALID;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_B_READY;
-    wire [1:0] axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_B_RESP;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_B_VALID;
-    wire [31:0] axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_DATA;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_READY;
-    wire [1:0] axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_RESP;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_VALID;
-    wire [31:0] axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_DATA;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_READY;
-    wire [3:0] axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_STRB;
-    wire       axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_VALID;
-    // axi_imem_bridge_Mem_to_i_imem_mem wires:
-    wire [31:0] axi_imem_bridge_Mem_to_i_imem_mem_ADDR;
-    wire [3:0] axi_imem_bridge_Mem_to_i_imem_mem_BE;
-    wire [31:0] axi_imem_bridge_Mem_to_i_imem_mem_RDATA;
-    wire       axi_imem_bridge_Mem_to_i_imem_mem_REQ;
-    wire [31:0] axi_imem_bridge_Mem_to_i_imem_mem_WDATA;
-    wire       axi_imem_bridge_Mem_to_i_imem_mem_WE;
-    // core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM wires:
-    wire [31:0] core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_READY;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_VALID;
-    wire [31:0] core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_ADDR;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_READY;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_VALID;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_READY;
-    wire [1:0] core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_RESP;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_VALID;
-    wire [31:0] core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_DATA;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_READY;
-    wire [1:0] core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_RESP;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_VALID;
-    wire [31:0] core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_DATA;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_READY;
-    wire [3:0] core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_STRB;
-    wire       core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_VALID;
-    // jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T wires:
-    wire [31:0] jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_ADDR;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_READY;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_VALID;
-    wire [31:0] jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_ADDR;
-    wire [2:0] jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_PROT;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_READY;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_VALID;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_READY;
-    wire [1:0] jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_RESP;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_VALID;
-    wire [31:0] jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_DATA;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_READY;
-    wire [1:0] jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_RESP;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_VALID;
-    wire [31:0] jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_DATA;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_READY;
-    wire [3:0] jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_STRB;
-    wire       jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_VALID;
-    // jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I wires:
-    wire [31:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_ADDR;
-    wire [3:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_READY;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_VALID;
-    wire [31:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_ADDR;
-    wire [3:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_PROT;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_READY;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_VALID;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_READY;
-    wire [1:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_RESP;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_VALID;
-    wire [31:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_DATA;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_READY;
-    wire [1:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_RESP;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_VALID;
-    wire [31:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_DATA;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_READY;
-    wire [3:0] jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_STRB;
-    wire       jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_VALID;
-    // jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset wires:
-    wire       jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset_reset;
-    // jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug wires:
-    wire       jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req;
-    // Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if wires:
-    wire [31:0] Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_ADDR;
-    wire [3:0] Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_BE;
-    wire [31:0] Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_RDATA;
-    wire       Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_REQ;
-    wire [31:0] Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WDATA;
-    wire       Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WE;
-    // SS_Ctrl_reg_array_pmod_sel_to_bus wires:
-    wire [7:0] SS_Ctrl_reg_array_pmod_sel_to_bus_gpo;
-    // Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn wires:
-    wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
-    wire [3:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
-    wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
-    wire [3:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
-    wire [1:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID;
-    wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_READY;
-    wire [1:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID;
-    wire [31:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
-    wire [3:0] Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
-    wire       Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
-    // SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn wires:
-    wire [4:0] SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo;
-    // SS_Ctrl_reg_array_rst_ss_to_Reset_SS wires:
-    wire [3:0] SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset;
+    // jtag_dbg_wrapper_Clock_to_Clk wires:
+    wire       jtag_dbg_wrapper_Clock_to_Clk_clk;
+    // ctrl_reg_array_Reset_to_Reset wires:
+    wire       ctrl_reg_array_Reset_to_Reset_reset;
+    // jtag_dbg_wrapper_core_reset_to_i_ibex_wrapper_Reset wires:
+    wire       jtag_dbg_wrapper_core_reset_to_i_ibex_wrapper_Reset_reset;
+    // jtag_dbg_wrapper_Debug_to_i_ibex_wrapper_Debug wires:
+    wire       jtag_dbg_wrapper_Debug_to_i_ibex_wrapper_Debug_debug_req;
+    // ctrl_reg_array_pmod_sel_to_pmod_sel wires:
+    wire [7:0] ctrl_reg_array_pmod_sel_to_pmod_sel_gpo;
+    // ctrl_reg_array_fetch_en_to_i_ibex_wrapper_FetchEn wires:
+    wire [4:0] ctrl_reg_array_fetch_en_to_i_ibex_wrapper_FetchEn_gpo;
+    // ctrl_reg_array_rst_ss_to_Reset_SS wires:
+    wire [3:0] ctrl_reg_array_rst_ss_to_Reset_SS_reset;
+    // apb_gpio_GPIO_to_GPIO wires:
+    wire [7:0] apb_gpio_GPIO_to_GPIO_gpi;
+    wire [7:0] apb_gpio_GPIO_to_GPIO_gpio_oe;
+    wire [7:0] apb_gpio_GPIO_to_GPIO_gpo;
+    // apb_spi_master_SPI_to_SPI wires:
+    wire [3:0] apb_spi_master_SPI_to_SPI_csn;
+    wire [1:0] apb_spi_master_SPI_to_SPI_data_oe;
+    wire [3:0] apb_spi_master_SPI_to_SPI_miso;
+    wire [3:0] apb_spi_master_SPI_to_SPI_mosi;
+    wire       apb_spi_master_SPI_to_SPI_sck;
+    // apb_uart_UART_to_UART wires:
+    wire       apb_uart_UART_to_UART_uart_rx;
+    wire       apb_uart_UART_to_UART_uart_tx;
+    // sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi wires:
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_achk;
+    wire [31:0] sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_addr;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_aid;
+    wire [5:0] sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_atop;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_auser;
+    wire [3:0] sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_be;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_dbg;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_err;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_exokay;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_gnt;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_gntpar;
+    wire [1:0] sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_memtype;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_mid;
+    wire [2:0] sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_prot;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rchk;
+    wire [31:0] sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rdata;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_req;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_reqpar;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rid;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rready;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rreadypar;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_ruser;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rvalid;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rvalidpar;
+    wire [31:0] sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_wdata;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_we;
+    wire       sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_wuser;
+    // peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB wires:
+    wire [11:0] peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PADDR;
+    wire       peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PENABLE;
+    wire [31:0] peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PRDATA;
+    wire       peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PREADY;
+    wire       peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PSEL;
+    wire       peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PSLVERR;
+    wire [31:0] peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PWDATA;
+    wire       peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PWRITE;
+    // peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB wires:
+    wire [11:0] peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PADDR;
+    wire       peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PENABLE;
+    wire [31:0] peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PRDATA;
+    wire       peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PREADY;
+    wire       peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PSEL;
+    wire       peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PSLVERR;
+    wire [31:0] peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PWDATA;
+    wire       peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PWRITE;
+    // peripherals_obi_to_apb_apb_uart_to_apb_uart_APB wires:
+    wire [11:0] peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PADDR;
+    wire       peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PENABLE;
+    wire [31:0] peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PRDATA;
+    wire       peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PREADY;
+    wire       peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PSEL;
+    wire       peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PSLVERR;
+    wire [31:0] peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PWDATA;
+    wire       peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PWRITE;
+    // jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target wires:
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_achk;
+    wire [31:0] jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_addr;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_aid;
+    wire [5:0] jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_atop;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_auser;
+    wire [3:0] jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_be;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_dbg;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_err;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_exokay;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gnt;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gntpar;
+    wire [1:0] jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_memtype;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_mid;
+    wire [2:0] jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_prot;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rchk;
+    wire [31:0] jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rdata;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_req;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_reqpar;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rid;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rready;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rreadypar;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_ruser;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalid;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalidpar;
+    wire [31:0] jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_wdata;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_we;
+    wire       jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_wuser;
+    // jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init wires:
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_achk;
+    wire [31:0] jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_addr;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_aid;
+    wire [5:0] jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_atop;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_auser;
+    wire [3:0] jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_be;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_dbg;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_err;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_exokay;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_gnt;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_gntpar;
+    wire [1:0] jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_memtype;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_mid;
+    wire [2:0] jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_prot;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rchk;
+    wire [31:0] jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rdata;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_req;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_reqpar;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rid;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rready;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rreadypar;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_ruser;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rvalid;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rvalidpar;
+    wire [31:0] jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_wdata;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_we;
+    wire       jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_wuser;
+    // i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem wires:
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_achk;
+    wire [31:0] i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_addr;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_aid;
+    wire [5:0] i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_atop;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_auser;
+    wire [3:0] i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_be;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_dbg;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_err;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_exokay;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_gnt;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_gntpar;
+    wire [1:0] i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_memtype;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_mid;
+    wire [2:0] i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_prot;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rchk;
+    wire [31:0] i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rdata;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_req;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_reqpar;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rid;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rready;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rreadypar;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_ruser;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rvalid;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rvalidpar;
+    wire [31:0] i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_wdata;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_we;
+    wire       i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_wuser;
+    // i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem wires:
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_achk;
+    wire [31:0] i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_addr;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_aid;
+    wire [5:0] i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_atop;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_auser;
+    wire [3:0] i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_be;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_dbg;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_err;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_exokay;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_gnt;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_gntpar;
+    wire [1:0] i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_memtype;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_mid;
+    wire [2:0] i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_prot;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rchk;
+    wire [31:0] i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rdata;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_req;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_reqpar;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rid;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rready;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rreadypar;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_ruser;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rvalid;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rvalidpar;
+    wire [31:0] i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_wdata;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_we;
+    wire       i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_wuser;
+    // i_imem_mem_to_sysctrl_obi_xbar_obi_imem wires:
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_achk;
+    wire [31:0] i_imem_mem_to_sysctrl_obi_xbar_obi_imem_addr;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_aid;
+    wire [5:0] i_imem_mem_to_sysctrl_obi_xbar_obi_imem_atop;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_auser;
+    wire [3:0] i_imem_mem_to_sysctrl_obi_xbar_obi_imem_be;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_dbg;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_err;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_exokay;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gnt;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gntpar;
+    wire [1:0] i_imem_mem_to_sysctrl_obi_xbar_obi_imem_memtype;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_mid;
+    wire [2:0] i_imem_mem_to_sysctrl_obi_xbar_obi_imem_prot;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rchk;
+    wire [31:0] i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rdata;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_req;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_reqpar;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rid;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rready;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rreadypar;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_ruser;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalid;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalidpar;
+    wire [31:0] i_imem_mem_to_sysctrl_obi_xbar_obi_imem_wdata;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_we;
+    wire       i_imem_mem_to_sysctrl_obi_xbar_obi_imem_wuser;
+    // i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem wires:
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_achk;
+    wire [31:0] i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_addr;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_aid;
+    wire [5:0] i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_atop;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_auser;
+    wire [3:0] i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_be;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_dbg;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_err;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_exokay;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gnt;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gntpar;
+    wire [1:0] i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_memtype;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_mid;
+    wire [2:0] i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_prot;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rchk;
+    wire [31:0] i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rdata;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_req;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_reqpar;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rid;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rready;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rreadypar;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_ruser;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalid;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalidpar;
+    wire [31:0] i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_wdata;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_we;
+    wire       i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_wuser;
+    // sysctrl_obi_xbar_obi_chip_top_to_OBI wires:
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_achk;
+    wire [31:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_addr;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_aid;
+    wire [5:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_atop;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_auser;
+    wire [3:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_be;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_dbg;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_err;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_exokay;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_gnt;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_gntpar;
+    wire [1:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_memtype;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_mid;
+    wire [2:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_prot;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_rchk;
+    wire [31:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_rdata;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_req;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_reqpar;
+    wire [1:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_rid;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_rready;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_rreadypar;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_ruser;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalid;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalidpar;
+    wire [31:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_wdata;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_we;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_wuser;
+    // ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl wires:
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_achk;
+    wire [31:0] ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_addr;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_aid;
+    wire [5:0] ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_atop;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_auser;
+    wire [3:0] ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_be;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_dbg;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_err;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_exokay;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gnt;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gntpar;
+    wire [1:0] ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_memtype;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_mid;
+    wire [2:0] ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_prot;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rchk;
+    wire [31:0] ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rdata;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_req;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_reqpar;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rid;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rready;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rreadypar;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_ruser;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalid;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalidpar;
+    wire [31:0] ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wdata;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_we;
+    wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wuser;
 
     // Ad-hoc wires:
-    wire       i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i;
-    wire       i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
-    wire [1:0] i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
-    wire [6:0] Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
-    wire [3:0] Ibex_Core_irq_fast_i_to_sysctrl_irq_i;
+    wire       apb_gpio_interrupt_to_i_ibex_wrapper_irq_fast_i;
+    wire       apb_uart_INT_to_i_ibex_wrapper_irq_fast_i;
+    wire [1:0] apb_spi_master_events_o_to_i_ibex_wrapper_irq_fast_i;
+    wire [3:0] i_ibex_wrapper_irq_fast_i_to_sysctrl_irq_i;
+    wire [6:0] i_ibex_wrapper_irq_fast_i_to_irq_upper_tieoff;
 
-    // Ctrl_reg_bridge port wires:
-    wire [31:0] Ctrl_reg_bridge_addr_o;
-    wire [31:0] Ctrl_reg_bridge_ar_addr_i;
-    wire       Ctrl_reg_bridge_ar_ready_o;
-    wire       Ctrl_reg_bridge_ar_valid_i;
-    wire [31:0] Ctrl_reg_bridge_aw_addr_i;
-    wire       Ctrl_reg_bridge_aw_ready_o;
-    wire       Ctrl_reg_bridge_aw_valid_i;
-    wire       Ctrl_reg_bridge_b_ready_i;
-    wire [1:0] Ctrl_reg_bridge_b_resp_o;
-    wire       Ctrl_reg_bridge_b_valid_o;
-    wire [3:0] Ctrl_reg_bridge_be_o;
-    wire       Ctrl_reg_bridge_clk_i;
-    wire [31:0] Ctrl_reg_bridge_r_data_o;
-    wire       Ctrl_reg_bridge_r_ready_i;
-    wire [1:0] Ctrl_reg_bridge_r_resp_o;
-    wire       Ctrl_reg_bridge_r_valid_o;
-    wire [31:0] Ctrl_reg_bridge_rdata_i;
-    wire       Ctrl_reg_bridge_req_o;
-    wire       Ctrl_reg_bridge_rst_ni;
-    wire [31:0] Ctrl_reg_bridge_w_data_i;
-    wire       Ctrl_reg_bridge_w_ready_o;
-    wire [3:0] Ctrl_reg_bridge_w_strb_i;
-    wire       Ctrl_reg_bridge_w_valid_i;
-    wire [31:0] Ctrl_reg_bridge_wdata_o;
-    wire       Ctrl_reg_bridge_we_o;
-    // Ctrl_xbar port wires:
-    wire [31:0] Ctrl_xbar_CoreDMEM_ar_addr_in;
-    wire       Ctrl_xbar_CoreDMEM_ar_ready_out;
-    wire       Ctrl_xbar_CoreDMEM_ar_valid_in;
-    wire [31:0] Ctrl_xbar_CoreDMEM_aw_addr_in;
-    wire       Ctrl_xbar_CoreDMEM_aw_ready_out;
-    wire       Ctrl_xbar_CoreDMEM_aw_valid_in;
-    wire       Ctrl_xbar_CoreDMEM_b_ready_in;
-    wire [1:0] Ctrl_xbar_CoreDMEM_b_resp_out;
-    wire       Ctrl_xbar_CoreDMEM_b_valid_out;
-    wire [31:0] Ctrl_xbar_CoreDMEM_r_data_out;
-    wire       Ctrl_xbar_CoreDMEM_r_ready_in;
-    wire [1:0] Ctrl_xbar_CoreDMEM_r_resp_out;
-    wire       Ctrl_xbar_CoreDMEM_r_valid_out;
-    wire [31:0] Ctrl_xbar_CoreDMEM_w_data_in;
-    wire       Ctrl_xbar_CoreDMEM_w_ready_out;
-    wire [3:0] Ctrl_xbar_CoreDMEM_w_strb_in;
-    wire       Ctrl_xbar_CoreDMEM_w_valid_in;
-    wire [31:0] Ctrl_xbar_CoreIMEM_ar_addr_in;
-    wire       Ctrl_xbar_CoreIMEM_ar_ready_out;
-    wire       Ctrl_xbar_CoreIMEM_ar_valid_in;
-    wire [31:0] Ctrl_xbar_CoreIMEM_aw_addr_in;
-    wire       Ctrl_xbar_CoreIMEM_aw_ready_out;
-    wire       Ctrl_xbar_CoreIMEM_aw_valid_in;
-    wire       Ctrl_xbar_CoreIMEM_b_ready_in;
-    wire [1:0] Ctrl_xbar_CoreIMEM_b_resp_out;
-    wire       Ctrl_xbar_CoreIMEM_b_valid_out;
-    wire [31:0] Ctrl_xbar_CoreIMEM_r_data_out;
-    wire       Ctrl_xbar_CoreIMEM_r_ready_in;
-    wire [1:0] Ctrl_xbar_CoreIMEM_r_resp_out;
-    wire       Ctrl_xbar_CoreIMEM_r_valid_out;
-    wire [31:0] Ctrl_xbar_CoreIMEM_w_data_in;
-    wire       Ctrl_xbar_CoreIMEM_w_ready_out;
-    wire [3:0] Ctrl_xbar_CoreIMEM_w_strb_in;
-    wire       Ctrl_xbar_CoreIMEM_w_valid_in;
-    wire [31:0] Ctrl_xbar_CtrlReg_ar_addr_out;
-    wire       Ctrl_xbar_CtrlReg_ar_ready_in;
-    wire       Ctrl_xbar_CtrlReg_ar_valid_out;
-    wire [31:0] Ctrl_xbar_CtrlReg_aw_addr_out;
-    wire       Ctrl_xbar_CtrlReg_aw_ready_in;
-    wire       Ctrl_xbar_CtrlReg_aw_valid_out;
-    wire       Ctrl_xbar_CtrlReg_b_ready_out;
-    wire [1:0] Ctrl_xbar_CtrlReg_b_resp_in;
-    wire       Ctrl_xbar_CtrlReg_b_valid_in;
-    wire [31:0] Ctrl_xbar_CtrlReg_r_data_in;
-    wire       Ctrl_xbar_CtrlReg_r_ready_out;
-    wire [1:0] Ctrl_xbar_CtrlReg_r_resp_in;
-    wire       Ctrl_xbar_CtrlReg_r_valid_in;
-    wire [31:0] Ctrl_xbar_CtrlReg_w_data_out;
-    wire       Ctrl_xbar_CtrlReg_w_ready_in;
-    wire [3:0] Ctrl_xbar_CtrlReg_w_strb_out;
-    wire       Ctrl_xbar_CtrlReg_w_valid_out;
-    wire [31:0] Ctrl_xbar_DMEM_ar_addr_out;
-    wire       Ctrl_xbar_DMEM_ar_ready_in;
-    wire       Ctrl_xbar_DMEM_ar_valid_out;
-    wire [31:0] Ctrl_xbar_DMEM_aw_addr_out;
-    wire       Ctrl_xbar_DMEM_aw_ready_in;
-    wire       Ctrl_xbar_DMEM_aw_valid_out;
-    wire       Ctrl_xbar_DMEM_b_ready_out;
-    wire [1:0] Ctrl_xbar_DMEM_b_resp_in;
-    wire       Ctrl_xbar_DMEM_b_valid_in;
-    wire [31:0] Ctrl_xbar_DMEM_r_data_in;
-    wire       Ctrl_xbar_DMEM_r_ready_out;
-    wire [1:0] Ctrl_xbar_DMEM_r_resp_in;
-    wire       Ctrl_xbar_DMEM_r_valid_in;
-    wire [31:0] Ctrl_xbar_DMEM_w_data_out;
-    wire       Ctrl_xbar_DMEM_w_ready_in;
-    wire [3:0] Ctrl_xbar_DMEM_w_strb_out;
-    wire       Ctrl_xbar_DMEM_w_valid_out;
-    wire [31:0] Ctrl_xbar_DbgI_ar_addr;
-    wire [3:0] Ctrl_xbar_DbgI_ar_prot;
-    wire       Ctrl_xbar_DbgI_ar_ready;
-    wire       Ctrl_xbar_DbgI_ar_valid;
-    wire [31:0] Ctrl_xbar_DbgI_aw_addr;
-    wire [3:0] Ctrl_xbar_DbgI_aw_prot;
-    wire       Ctrl_xbar_DbgI_aw_ready;
-    wire       Ctrl_xbar_DbgI_aw_valid;
-    wire       Ctrl_xbar_DbgI_b_ready;
-    wire [1:0] Ctrl_xbar_DbgI_b_resp;
-    wire       Ctrl_xbar_DbgI_b_valid;
-    wire [31:0] Ctrl_xbar_DbgI_r_data;
-    wire       Ctrl_xbar_DbgI_r_ready;
-    wire [1:0] Ctrl_xbar_DbgI_r_resp;
-    wire       Ctrl_xbar_DbgI_r_valid;
-    wire [31:0] Ctrl_xbar_DbgI_w_data;
-    wire       Ctrl_xbar_DbgI_w_ready;
-    wire [3:0] Ctrl_xbar_DbgI_w_strb;
-    wire       Ctrl_xbar_DbgI_w_valid;
-    wire [31:0] Ctrl_xbar_DbgT_ar_addr_out;
-    wire       Ctrl_xbar_DbgT_ar_ready_in;
-    wire       Ctrl_xbar_DbgT_ar_valid_out;
-    wire [31:0] Ctrl_xbar_DbgT_aw_addr_out;
-    wire       Ctrl_xbar_DbgT_aw_ready_in;
-    wire       Ctrl_xbar_DbgT_aw_valid_out;
-    wire       Ctrl_xbar_DbgT_b_ready_out;
-    wire [1:0] Ctrl_xbar_DbgT_b_resp_in;
-    wire       Ctrl_xbar_DbgT_b_valid_in;
-    wire [31:0] Ctrl_xbar_DbgT_r_data_in;
-    wire       Ctrl_xbar_DbgT_r_ready_out;
-    wire [1:0] Ctrl_xbar_DbgT_r_resp_in;
-    wire       Ctrl_xbar_DbgT_r_valid_in;
-    wire [31:0] Ctrl_xbar_DbgT_w_data_out;
-    wire       Ctrl_xbar_DbgT_w_ready_in;
-    wire [3:0] Ctrl_xbar_DbgT_w_strb_out;
-    wire       Ctrl_xbar_DbgT_w_valid_out;
-    wire [31:0] Ctrl_xbar_IMEM_ar_addr_out;
-    wire       Ctrl_xbar_IMEM_ar_ready_in;
-    wire       Ctrl_xbar_IMEM_ar_valid_out;
-    wire [31:0] Ctrl_xbar_IMEM_aw_addr_out;
-    wire       Ctrl_xbar_IMEM_aw_ready_in;
-    wire       Ctrl_xbar_IMEM_aw_valid_out;
-    wire       Ctrl_xbar_IMEM_b_ready_out;
-    wire [1:0] Ctrl_xbar_IMEM_b_resp_in;
-    wire       Ctrl_xbar_IMEM_b_valid_in;
-    wire [31:0] Ctrl_xbar_IMEM_r_data_in;
-    wire       Ctrl_xbar_IMEM_r_ready_out;
-    wire [1:0] Ctrl_xbar_IMEM_r_resp_in;
-    wire       Ctrl_xbar_IMEM_r_valid_in;
-    wire [31:0] Ctrl_xbar_IMEM_w_data_out;
-    wire       Ctrl_xbar_IMEM_w_ready_in;
-    wire [3:0] Ctrl_xbar_IMEM_w_strb_out;
-    wire       Ctrl_xbar_IMEM_w_valid_out;
-    wire       Ctrl_xbar_clk_i;
-    wire [31:0] Ctrl_xbar_icn_ar_addr_out;
-    wire [3:0] Ctrl_xbar_icn_ar_prot_out;
-    wire       Ctrl_xbar_icn_ar_ready_in;
-    wire       Ctrl_xbar_icn_ar_valid_out;
-    wire [31:0] Ctrl_xbar_icn_aw_addr_out;
-    wire [3:0] Ctrl_xbar_icn_aw_prot_out;
-    wire       Ctrl_xbar_icn_aw_ready_in;
-    wire       Ctrl_xbar_icn_aw_valid_out;
-    wire       Ctrl_xbar_icn_b_ready_out;
-    wire [1:0] Ctrl_xbar_icn_b_resp_in;
-    wire       Ctrl_xbar_icn_b_valid_in;
-    wire [31:0] Ctrl_xbar_icn_r_data_in;
-    wire       Ctrl_xbar_icn_r_ready_out;
-    wire [1:0] Ctrl_xbar_icn_r_resp_in;
-    wire       Ctrl_xbar_icn_r_valid_in;
-    wire [31:0] Ctrl_xbar_icn_w_data_out;
-    wire       Ctrl_xbar_icn_w_ready_in;
-    wire [3:0] Ctrl_xbar_icn_w_strb_out;
-    wire       Ctrl_xbar_icn_w_valid_out;
-    wire [31:0] Ctrl_xbar_periph_ar_addr_out;
-    wire [3:0] Ctrl_xbar_periph_ar_prot_out;
-    wire       Ctrl_xbar_periph_ar_ready_in;
-    wire       Ctrl_xbar_periph_ar_valid_out;
-    wire [31:0] Ctrl_xbar_periph_aw_addr_out;
-    wire [3:0] Ctrl_xbar_periph_aw_prot_out;
-    wire       Ctrl_xbar_periph_aw_ready_in;
-    wire       Ctrl_xbar_periph_aw_valid_out;
-    wire       Ctrl_xbar_periph_b_ready_out;
-    wire [1:0] Ctrl_xbar_periph_b_resp_in;
-    wire       Ctrl_xbar_periph_b_valid_in;
-    wire [31:0] Ctrl_xbar_periph_r_data_in;
-    wire       Ctrl_xbar_periph_r_ready_out;
-    wire [1:0] Ctrl_xbar_periph_r_resp_in;
-    wire       Ctrl_xbar_periph_r_valid_in;
-    wire [31:0] Ctrl_xbar_periph_w_data_out;
-    wire       Ctrl_xbar_periph_w_ready_in;
-    wire [3:0] Ctrl_xbar_periph_w_strb_out;
-    wire       Ctrl_xbar_periph_w_valid_out;
-    wire       Ctrl_xbar_reset_ni;
-    // Ibex_Core port wires:
-    wire       Ibex_Core_clk_i;
-    wire [31:0] Ibex_Core_data_addr_o;
-    wire [3:0] Ibex_Core_data_be_o;
-    wire       Ibex_Core_data_err_i;
-    wire       Ibex_Core_data_gnt_i;
-    wire [31:0] Ibex_Core_data_rdata_i;
-    wire       Ibex_Core_data_req_o;
-    wire       Ibex_Core_data_rvalid_i;
-    wire [31:0] Ibex_Core_data_wdata_o;
-    wire       Ibex_Core_data_we_o;
-    wire       Ibex_Core_debug_req_i;
-    wire [3:0] Ibex_Core_fetch_enable_i;
-    wire [31:0] Ibex_Core_instr_addr_o;
-    wire       Ibex_Core_instr_err_i;
-    wire       Ibex_Core_instr_gnt_i;
-    wire [31:0] Ibex_Core_instr_rdata_i;
-    wire       Ibex_Core_instr_req_o;
-    wire       Ibex_Core_instr_rvalid_i;
-    wire [14:0] Ibex_Core_irq_fast_i;
-    wire       Ibex_Core_rst_ni;
-    // SS_Ctrl_reg_array port wires:
-    wire [31:0] SS_Ctrl_reg_array_addr_i;
-    wire [3:0] SS_Ctrl_reg_array_be_i;
-    wire [84:0] SS_Ctrl_reg_array_cell_cfg;
-    wire       SS_Ctrl_reg_array_clk;
-    wire [4:0] SS_Ctrl_reg_array_fetch_en;
-    wire       SS_Ctrl_reg_array_irq_en_0;
-    wire       SS_Ctrl_reg_array_irq_en_1;
-    wire       SS_Ctrl_reg_array_irq_en_2;
-    wire       SS_Ctrl_reg_array_irq_en_3;
-    wire [7:0] SS_Ctrl_reg_array_pmod_sel;
-    wire [31:0] SS_Ctrl_reg_array_rdata_o;
-    wire       SS_Ctrl_reg_array_req_i;
-    wire       SS_Ctrl_reg_array_reset_icn;
-    wire       SS_Ctrl_reg_array_reset_n;
-    wire       SS_Ctrl_reg_array_reset_ss_0;
-    wire       SS_Ctrl_reg_array_reset_ss_1;
-    wire       SS_Ctrl_reg_array_reset_ss_2;
-    wire       SS_Ctrl_reg_array_reset_ss_3;
-    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_0;
-    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_1;
-    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_2;
-    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_3;
-    wire [7:0] SS_Ctrl_reg_array_ss_ctrl_icn;
-    wire [31:0] SS_Ctrl_reg_array_wdata_i;
-    wire       SS_Ctrl_reg_array_we_i;
-    // axi_dmem_bridge port wires:
-    wire [31:0] axi_dmem_bridge_addr_o;
-    wire [31:0] axi_dmem_bridge_ar_addr_i;
-    wire       axi_dmem_bridge_ar_ready_o;
-    wire       axi_dmem_bridge_ar_valid_i;
-    wire [31:0] axi_dmem_bridge_aw_addr_i;
-    wire       axi_dmem_bridge_aw_ready_o;
-    wire       axi_dmem_bridge_aw_valid_i;
-    wire       axi_dmem_bridge_b_ready_i;
-    wire [1:0] axi_dmem_bridge_b_resp_o;
-    wire       axi_dmem_bridge_b_valid_o;
-    wire [3:0] axi_dmem_bridge_be_o;
-    wire       axi_dmem_bridge_clk_i;
-    wire [31:0] axi_dmem_bridge_r_data_o;
-    wire       axi_dmem_bridge_r_ready_i;
-    wire [1:0] axi_dmem_bridge_r_resp_o;
-    wire       axi_dmem_bridge_r_valid_o;
-    wire [31:0] axi_dmem_bridge_rdata_i;
-    wire       axi_dmem_bridge_req_o;
-    wire       axi_dmem_bridge_rst_ni;
-    wire [31:0] axi_dmem_bridge_w_data_i;
-    wire       axi_dmem_bridge_w_ready_o;
-    wire [3:0] axi_dmem_bridge_w_strb_i;
-    wire       axi_dmem_bridge_w_valid_i;
-    wire [31:0] axi_dmem_bridge_wdata_o;
-    wire       axi_dmem_bridge_we_o;
-    // axi_imem_bridge port wires:
-    wire [31:0] axi_imem_bridge_addr_o;
-    wire [31:0] axi_imem_bridge_ar_addr_i;
-    wire       axi_imem_bridge_ar_ready_o;
-    wire       axi_imem_bridge_ar_valid_i;
-    wire [31:0] axi_imem_bridge_aw_addr_i;
-    wire       axi_imem_bridge_aw_ready_o;
-    wire       axi_imem_bridge_aw_valid_i;
-    wire       axi_imem_bridge_b_ready_i;
-    wire [1:0] axi_imem_bridge_b_resp_o;
-    wire       axi_imem_bridge_b_valid_o;
-    wire [3:0] axi_imem_bridge_be_o;
-    wire       axi_imem_bridge_clk_i;
-    wire [31:0] axi_imem_bridge_r_data_o;
-    wire       axi_imem_bridge_r_ready_i;
-    wire [1:0] axi_imem_bridge_r_resp_o;
-    wire       axi_imem_bridge_r_valid_o;
-    wire [31:0] axi_imem_bridge_rdata_i;
-    wire       axi_imem_bridge_req_o;
-    wire       axi_imem_bridge_rst_ni;
-    wire [31:0] axi_imem_bridge_w_data_i;
-    wire       axi_imem_bridge_w_ready_o;
-    wire [3:0] axi_imem_bridge_w_strb_i;
-    wire       axi_imem_bridge_w_valid_i;
-    wire [31:0] axi_imem_bridge_wdata_o;
-    wire       axi_imem_bridge_we_o;
-    // core_dmem_bridge port wires:
-    wire [31:0] core_dmem_bridge_addr_i;
-    wire [31:0] core_dmem_bridge_ar_addr_o;
-    wire       core_dmem_bridge_ar_ready_i;
-    wire       core_dmem_bridge_ar_valid_o;
-    wire [31:0] core_dmem_bridge_aw_addr_o;
-    wire       core_dmem_bridge_aw_ready_i;
-    wire       core_dmem_bridge_aw_valid_o;
-    wire       core_dmem_bridge_b_ready_o;
-    wire [1:0] core_dmem_bridge_b_resp_i;
-    wire       core_dmem_bridge_b_valid_i;
-    wire [3:0] core_dmem_bridge_be_i;
-    wire       core_dmem_bridge_clk_i;
-    wire       core_dmem_bridge_err_o;
-    wire       core_dmem_bridge_gnt_o;
-    wire [31:0] core_dmem_bridge_r_data_i;
-    wire       core_dmem_bridge_r_ready_o;
-    wire [1:0] core_dmem_bridge_r_resp_i;
-    wire       core_dmem_bridge_r_valid_i;
-    wire [31:0] core_dmem_bridge_rdata_o;
-    wire       core_dmem_bridge_req_i;
-    wire       core_dmem_bridge_rst_ni;
-    wire       core_dmem_bridge_rvalid_o;
-    wire [31:0] core_dmem_bridge_w_data_o;
-    wire       core_dmem_bridge_w_ready_i;
-    wire [3:0] core_dmem_bridge_w_strb_o;
-    wire       core_dmem_bridge_w_valid_o;
-    wire [31:0] core_dmem_bridge_wdata_i;
-    wire       core_dmem_bridge_we_i;
-    // core_imem_bridge port wires:
-    wire [31:0] core_imem_bridge_addr_i;
-    wire [31:0] core_imem_bridge_ar_addr_o;
-    wire       core_imem_bridge_ar_ready_i;
-    wire       core_imem_bridge_ar_valid_o;
-    wire [31:0] core_imem_bridge_aw_addr_o;
-    wire       core_imem_bridge_aw_ready_i;
-    wire       core_imem_bridge_aw_valid_o;
-    wire       core_imem_bridge_b_ready_o;
-    wire [1:0] core_imem_bridge_b_resp_i;
-    wire       core_imem_bridge_b_valid_i;
-    wire       core_imem_bridge_clk_i;
-    wire       core_imem_bridge_err_o;
-    wire       core_imem_bridge_gnt_o;
-    wire [31:0] core_imem_bridge_r_data_i;
-    wire       core_imem_bridge_r_ready_o;
-    wire [1:0] core_imem_bridge_r_resp_i;
-    wire       core_imem_bridge_r_valid_i;
-    wire [31:0] core_imem_bridge_rdata_o;
-    wire       core_imem_bridge_req_i;
-    wire       core_imem_bridge_rst_ni;
-    wire       core_imem_bridge_rvalid_o;
-    wire [31:0] core_imem_bridge_w_data_o;
-    wire       core_imem_bridge_w_ready_i;
-    wire [3:0] core_imem_bridge_w_strb_o;
-    wire       core_imem_bridge_w_valid_o;
-    // i_SysCtrl_peripherals port wires:
-    wire [31:0] i_SysCtrl_peripherals_ar_addr;
-    wire [3:0] i_SysCtrl_peripherals_ar_prot;
-    wire       i_SysCtrl_peripherals_ar_ready;
-    wire       i_SysCtrl_peripherals_ar_valid;
-    wire [31:0] i_SysCtrl_peripherals_aw_addr;
-    wire [3:0] i_SysCtrl_peripherals_aw_prot;
-    wire       i_SysCtrl_peripherals_aw_ready;
-    wire       i_SysCtrl_peripherals_aw_valid;
-    wire       i_SysCtrl_peripherals_b_ready;
-    wire [1:0] i_SysCtrl_peripherals_b_resp;
-    wire       i_SysCtrl_peripherals_b_valid;
-    wire       i_SysCtrl_peripherals_clk;
-    wire [7:0] i_SysCtrl_peripherals_gpio_from_core;
-    wire [7:0] i_SysCtrl_peripherals_gpio_to_core;
-    wire       i_SysCtrl_peripherals_irq_gpio;
-    wire [1:0] i_SysCtrl_peripherals_irq_spi;
-    wire       i_SysCtrl_peripherals_irq_uart;
-    wire [31:0] i_SysCtrl_peripherals_r_data;
-    wire       i_SysCtrl_peripherals_r_ready;
-    wire [1:0] i_SysCtrl_peripherals_r_resp;
-    wire       i_SysCtrl_peripherals_r_valid;
-    wire       i_SysCtrl_peripherals_rst_n;
-    wire [1:0] i_SysCtrl_peripherals_spim_csn_internal;
-    wire [3:0] i_SysCtrl_peripherals_spim_miso_internal;
-    wire [3:0] i_SysCtrl_peripherals_spim_mosi_internal;
-    wire       i_SysCtrl_peripherals_spim_sck_internal;
-    wire       i_SysCtrl_peripherals_uart_rx_internal;
-    wire       i_SysCtrl_peripherals_uart_tx_internal;
-    wire [31:0] i_SysCtrl_peripherals_w_data;
-    wire       i_SysCtrl_peripherals_w_ready;
-    wire [3:0] i_SysCtrl_peripherals_w_strb;
-    wire       i_SysCtrl_peripherals_w_valid;
+    // apb_gpio port wires:
+    wire       apb_gpio_HCLK;
+    wire       apb_gpio_HRESETn;
+    wire [11:0] apb_gpio_PADDR;
+    wire       apb_gpio_PENABLE;
+    wire [31:0] apb_gpio_PRDATA;
+    wire       apb_gpio_PREADY;
+    wire       apb_gpio_PSEL;
+    wire       apb_gpio_PSLVERR;
+    wire [31:0] apb_gpio_PWDATA;
+    wire       apb_gpio_PWRITE;
+    wire [7:0] apb_gpio_gpio_in;
+    wire [7:0] apb_gpio_gpio_out;
+    wire       apb_gpio_interrupt;
+    // apb_spi_master port wires:
+    wire       apb_spi_master_HCLK;
+    wire       apb_spi_master_HRESETn;
+    wire [11:0] apb_spi_master_PADDR;
+    wire       apb_spi_master_PENABLE;
+    wire [31:0] apb_spi_master_PRDATA;
+    wire       apb_spi_master_PREADY;
+    wire       apb_spi_master_PSEL;
+    wire       apb_spi_master_PSLVERR;
+    wire [31:0] apb_spi_master_PWDATA;
+    wire       apb_spi_master_PWRITE;
+    wire [1:0] apb_spi_master_events_o;
+    wire       apb_spi_master_spi_clk;
+    wire       apb_spi_master_spi_csn0;
+    wire       apb_spi_master_spi_csn1;
+    wire       apb_spi_master_spi_csn2;
+    wire       apb_spi_master_spi_csn3;
+    wire       apb_spi_master_spi_sdi0;
+    wire       apb_spi_master_spi_sdi1;
+    wire       apb_spi_master_spi_sdi2;
+    wire       apb_spi_master_spi_sdi3;
+    wire       apb_spi_master_spi_sdo0;
+    wire       apb_spi_master_spi_sdo1;
+    wire       apb_spi_master_spi_sdo2;
+    wire       apb_spi_master_spi_sdo3;
+    // apb_uart port wires:
+    wire       apb_uart_CLK;
+    wire       apb_uart_INT;
+    wire [2:0] apb_uart_PADDR;
+    wire       apb_uart_PENABLE;
+    wire [31:0] apb_uart_PRDATA;
+    wire       apb_uart_PREADY;
+    wire       apb_uart_PSEL;
+    wire       apb_uart_PSLVERR;
+    wire [31:0] apb_uart_PWDATA;
+    wire       apb_uart_PWRITE;
+    wire       apb_uart_RSTN;
+    wire       apb_uart_SIN;
+    wire       apb_uart_SOUT;
+    // ctrl_reg_array port wires:
+    wire [31:0] ctrl_reg_array_addr_i;
+    wire [3:0] ctrl_reg_array_be_i;
+    wire [84:0] ctrl_reg_array_cell_cfg;
+    wire       ctrl_reg_array_clk;
+    wire [4:0] ctrl_reg_array_fetch_en;
+    wire       ctrl_reg_array_gnt_o;
+    wire       ctrl_reg_array_gntpar_o;
+    wire       ctrl_reg_array_irq_en_0;
+    wire       ctrl_reg_array_irq_en_1;
+    wire       ctrl_reg_array_irq_en_2;
+    wire       ctrl_reg_array_irq_en_3;
+    wire [7:0] ctrl_reg_array_pmod_sel;
+    wire [31:0] ctrl_reg_array_rdata_o;
+    wire       ctrl_reg_array_req_i;
+    wire       ctrl_reg_array_reset_icn;
+    wire       ctrl_reg_array_reset_n;
+    wire       ctrl_reg_array_reset_ss_0;
+    wire       ctrl_reg_array_reset_ss_1;
+    wire       ctrl_reg_array_reset_ss_2;
+    wire       ctrl_reg_array_reset_ss_3;
+    wire       ctrl_reg_array_rready_i;
+    wire       ctrl_reg_array_rvalid_o;
+    wire       ctrl_reg_array_rvalidpar_o;
+    wire [7:0] ctrl_reg_array_ss_ctrl_0;
+    wire [7:0] ctrl_reg_array_ss_ctrl_1;
+    wire [7:0] ctrl_reg_array_ss_ctrl_2;
+    wire [7:0] ctrl_reg_array_ss_ctrl_3;
+    wire [7:0] ctrl_reg_array_ss_ctrl_icn;
+    wire [31:0] ctrl_reg_array_wdata_i;
+    wire       ctrl_reg_array_we_i;
     // i_dmem port wires:
-    wire [9:0] i_dmem_addr_i;
+    wire [11:0] i_dmem_addr_i;
     wire [3:0] i_dmem_be_i;
     wire       i_dmem_clk_i;
+    wire       i_dmem_gnt_o;
+    wire       i_dmem_gntpar_o;
     wire [31:0] i_dmem_rdata_o;
     wire       i_dmem_req_i;
+    wire       i_dmem_rready_i;
     wire       i_dmem_rst_ni;
+    wire       i_dmem_rvalid_o;
+    wire       i_dmem_rvalidpar_o;
     wire [31:0] i_dmem_wdata_i;
     wire       i_dmem_we_i;
+    // i_ibex_wrapper port wires:
+    wire       i_ibex_wrapper_clk_i;
+    wire [31:0] i_ibex_wrapper_data_addr_o;
+    wire [3:0] i_ibex_wrapper_data_be_o;
+    wire       i_ibex_wrapper_data_err_i;
+    wire       i_ibex_wrapper_data_gnt_i;
+    wire [31:0] i_ibex_wrapper_data_rdata_i;
+    wire       i_ibex_wrapper_data_req_o;
+    wire       i_ibex_wrapper_data_reqpar_o;
+    wire       i_ibex_wrapper_data_rvalid_i;
+    wire [31:0] i_ibex_wrapper_data_wdata_o;
+    wire       i_ibex_wrapper_data_we_o;
+    wire       i_ibex_wrapper_debug_req_i;
+    wire [3:0] i_ibex_wrapper_fetch_enable_i;
+    wire [31:0] i_ibex_wrapper_instr_addr_o;
+    wire       i_ibex_wrapper_instr_err_i;
+    wire       i_ibex_wrapper_instr_gnt_i;
+    wire [31:0] i_ibex_wrapper_instr_rdata_i;
+    wire       i_ibex_wrapper_instr_req_o;
+    wire       i_ibex_wrapper_instr_reqpar_o;
+    wire       i_ibex_wrapper_instr_rvalid_i;
+    wire [14:0] i_ibex_wrapper_irq_fast_i;
+    wire       i_ibex_wrapper_rst_ni;
     // i_imem port wires:
-    wire [9:0] i_imem_addr_i;
+    wire [11:0] i_imem_addr_i;
     wire [3:0] i_imem_be_i;
     wire       i_imem_clk_i;
+    wire       i_imem_gnt_o;
+    wire       i_imem_gntpar_o;
     wire [31:0] i_imem_rdata_o;
     wire       i_imem_req_i;
+    wire       i_imem_rready_i;
     wire       i_imem_rst_ni;
+    wire       i_imem_rvalid_o;
+    wire       i_imem_rvalidpar_o;
     wire [31:0] i_imem_wdata_i;
     wire       i_imem_we_i;
     // jtag_dbg_wrapper port wires:
     wire       jtag_dbg_wrapper_clk_i;
     wire       jtag_dbg_wrapper_core_reset;
     wire       jtag_dbg_wrapper_debug_req_irq_o;
-    wire [31:0] jtag_dbg_wrapper_init_ar_addr;
-    wire [3:0] jtag_dbg_wrapper_init_ar_prot;
-    wire       jtag_dbg_wrapper_init_ar_ready;
-    wire       jtag_dbg_wrapper_init_ar_valid;
-    wire [31:0] jtag_dbg_wrapper_init_aw_addr;
-    wire [3:0] jtag_dbg_wrapper_init_aw_prot;
-    wire       jtag_dbg_wrapper_init_aw_ready;
-    wire       jtag_dbg_wrapper_init_aw_valid;
-    wire       jtag_dbg_wrapper_init_b_ready;
-    wire [1:0] jtag_dbg_wrapper_init_b_resp;
-    wire       jtag_dbg_wrapper_init_b_valid;
-    wire [31:0] jtag_dbg_wrapper_init_r_data;
-    wire       jtag_dbg_wrapper_init_r_ready;
-    wire [1:0] jtag_dbg_wrapper_init_r_resp;
-    wire       jtag_dbg_wrapper_init_r_valid;
-    wire [31:0] jtag_dbg_wrapper_init_w_data;
-    wire       jtag_dbg_wrapper_init_w_ready;
-    wire [3:0] jtag_dbg_wrapper_init_w_strb;
-    wire       jtag_dbg_wrapper_init_w_valid;
+    wire [31:0] jtag_dbg_wrapper_initiator_addr_o;
+    wire [3:0] jtag_dbg_wrapper_initiator_be_o;
+    wire       jtag_dbg_wrapper_initiator_err_i;
+    wire       jtag_dbg_wrapper_initiator_gnt_i;
+    wire [31:0] jtag_dbg_wrapper_initiator_rdata_i;
+    wire       jtag_dbg_wrapper_initiator_req_o;
+    wire       jtag_dbg_wrapper_initiator_reqpar_o;
+    wire       jtag_dbg_wrapper_initiator_rvalid_i;
+    wire [31:0] jtag_dbg_wrapper_initiator_wdata_o;
+    wire       jtag_dbg_wrapper_initiator_we_o;
     wire       jtag_dbg_wrapper_jtag_tck_i;
     wire       jtag_dbg_wrapper_jtag_td_i;
     wire       jtag_dbg_wrapper_jtag_td_o;
     wire       jtag_dbg_wrapper_jtag_tms_i;
     wire       jtag_dbg_wrapper_jtag_trst_ni;
     wire       jtag_dbg_wrapper_rstn_i;
-    wire [31:0] jtag_dbg_wrapper_target_ar_addr;
-    wire       jtag_dbg_wrapper_target_ar_ready;
-    wire       jtag_dbg_wrapper_target_ar_valid;
-    wire [31:0] jtag_dbg_wrapper_target_aw_addr;
-    wire       jtag_dbg_wrapper_target_aw_ready;
-    wire       jtag_dbg_wrapper_target_aw_valid;
-    wire       jtag_dbg_wrapper_target_b_ready;
-    wire [1:0] jtag_dbg_wrapper_target_b_resp;
-    wire       jtag_dbg_wrapper_target_b_valid;
-    wire [31:0] jtag_dbg_wrapper_target_r_data;
-    wire       jtag_dbg_wrapper_target_r_ready;
-    wire [1:0] jtag_dbg_wrapper_target_r_resp;
-    wire       jtag_dbg_wrapper_target_r_valid;
-    wire [31:0] jtag_dbg_wrapper_target_w_data;
-    wire       jtag_dbg_wrapper_target_w_ready;
-    wire [3:0] jtag_dbg_wrapper_target_w_strb;
-    wire       jtag_dbg_wrapper_target_w_valid;
+    wire [31:0] jtag_dbg_wrapper_target_addr_i;
+    wire       jtag_dbg_wrapper_target_aid_i;
+    wire [3:0] jtag_dbg_wrapper_target_be_i;
+    wire       jtag_dbg_wrapper_target_gnt_o;
+    wire       jtag_dbg_wrapper_target_gntpar_o;
+    wire [31:0] jtag_dbg_wrapper_target_rdata_o;
+    wire       jtag_dbg_wrapper_target_req_i;
+    wire       jtag_dbg_wrapper_target_rid_o;
+    wire       jtag_dbg_wrapper_target_rvalid_o;
+    wire       jtag_dbg_wrapper_target_rvalidpar_o;
+    wire [31:0] jtag_dbg_wrapper_target_wdata_i;
+    wire       jtag_dbg_wrapper_target_we_i;
+    // peripherals_obi_to_apb port wires:
+    wire [11:0] peripherals_obi_to_apb_APB_GPIO_PADDR;
+    wire       peripherals_obi_to_apb_APB_GPIO_PENABLE;
+    wire [31:0] peripherals_obi_to_apb_APB_GPIO_PRDATA;
+    wire       peripherals_obi_to_apb_APB_GPIO_PREADY;
+    wire       peripherals_obi_to_apb_APB_GPIO_PSEL;
+    wire       peripherals_obi_to_apb_APB_GPIO_PSLVERR;
+    wire [31:0] peripherals_obi_to_apb_APB_GPIO_PWDATA;
+    wire       peripherals_obi_to_apb_APB_GPIO_PWRITE;
+    wire [11:0] peripherals_obi_to_apb_APB_SPI_PADDR;
+    wire       peripherals_obi_to_apb_APB_SPI_PENABLE;
+    wire [31:0] peripherals_obi_to_apb_APB_SPI_PRDATA;
+    wire       peripherals_obi_to_apb_APB_SPI_PREADY;
+    wire       peripherals_obi_to_apb_APB_SPI_PSEL;
+    wire       peripherals_obi_to_apb_APB_SPI_PSLVERR;
+    wire [31:0] peripherals_obi_to_apb_APB_SPI_PWDATA;
+    wire       peripherals_obi_to_apb_APB_SPI_PWRITE;
+    wire [11:0] peripherals_obi_to_apb_APB_UART_PADDR;
+    wire       peripherals_obi_to_apb_APB_UART_PENABLE;
+    wire [31:0] peripherals_obi_to_apb_APB_UART_PRDATA;
+    wire       peripherals_obi_to_apb_APB_UART_PREADY;
+    wire       peripherals_obi_to_apb_APB_UART_PSEL;
+    wire       peripherals_obi_to_apb_APB_UART_PSLVERR;
+    wire [31:0] peripherals_obi_to_apb_APB_UART_PWDATA;
+    wire       peripherals_obi_to_apb_APB_UART_PWRITE;
+    wire       peripherals_obi_to_apb_achk;
+    wire [31:0] peripherals_obi_to_apb_addr;
+    wire       peripherals_obi_to_apb_aid;
+    wire [5:0] peripherals_obi_to_apb_atop;
+    wire       peripherals_obi_to_apb_auser;
+    wire [3:0] peripherals_obi_to_apb_be;
+    wire       peripherals_obi_to_apb_clk;
+    wire       peripherals_obi_to_apb_dbg;
+    wire       peripherals_obi_to_apb_err;
+    wire       peripherals_obi_to_apb_exokay;
+    wire       peripherals_obi_to_apb_gnt;
+    wire       peripherals_obi_to_apb_gntpar;
+    wire [1:0] peripherals_obi_to_apb_memtype;
+    wire       peripherals_obi_to_apb_mid;
+    wire [2:0] peripherals_obi_to_apb_prot;
+    wire       peripherals_obi_to_apb_rchk;
+    wire [31:0] peripherals_obi_to_apb_rdata;
+    wire       peripherals_obi_to_apb_req;
+    wire       peripherals_obi_to_apb_reqpar;
+    wire       peripherals_obi_to_apb_reset_n;
+    wire       peripherals_obi_to_apb_rid;
+    wire       peripherals_obi_to_apb_rready;
+    wire       peripherals_obi_to_apb_rreadypar;
+    wire       peripherals_obi_to_apb_ruser;
+    wire       peripherals_obi_to_apb_rvalid;
+    wire       peripherals_obi_to_apb_rvalidpar;
+    wire [31:0] peripherals_obi_to_apb_wdata;
+    wire       peripherals_obi_to_apb_we;
+    wire       peripherals_obi_to_apb_wuser;
+    // sysctrl_obi_xbar port wires:
+    wire       sysctrl_obi_xbar_clk;
+    wire [31:0] sysctrl_obi_xbar_ctrl_addr;
+    wire       sysctrl_obi_xbar_ctrl_aid;
+    wire [5:0] sysctrl_obi_xbar_ctrl_atop;
+    wire       sysctrl_obi_xbar_ctrl_auser;
+    wire [3:0] sysctrl_obi_xbar_ctrl_be;
+    wire       sysctrl_obi_xbar_ctrl_dbg;
+    wire       sysctrl_obi_xbar_ctrl_err;
+    wire       sysctrl_obi_xbar_ctrl_exokay;
+    wire       sysctrl_obi_xbar_ctrl_gnt;
+    wire       sysctrl_obi_xbar_ctrl_gntpar;
+    wire [1:0] sysctrl_obi_xbar_ctrl_memtype;
+    wire       sysctrl_obi_xbar_ctrl_mid;
+    wire [2:0] sysctrl_obi_xbar_ctrl_prot;
+    wire [31:0] sysctrl_obi_xbar_ctrl_rdata;
+    wire       sysctrl_obi_xbar_ctrl_req;
+    wire       sysctrl_obi_xbar_ctrl_rid;
+    wire       sysctrl_obi_xbar_ctrl_rready;
+    wire       sysctrl_obi_xbar_ctrl_rreadypar;
+    wire       sysctrl_obi_xbar_ctrl_ruser;
+    wire       sysctrl_obi_xbar_ctrl_rvalid;
+    wire       sysctrl_obi_xbar_ctrl_rvalidpar;
+    wire [31:0] sysctrl_obi_xbar_ctrl_wdata;
+    wire       sysctrl_obi_xbar_ctrl_we;
+    wire       sysctrl_obi_xbar_ctrl_wuser;
+    wire [31:0] sysctrl_obi_xbar_data_addr;
+    wire       sysctrl_obi_xbar_data_aid;
+    wire [5:0] sysctrl_obi_xbar_data_atop;
+    wire       sysctrl_obi_xbar_data_auser;
+    wire [3:0] sysctrl_obi_xbar_data_be;
+    wire       sysctrl_obi_xbar_data_dbg;
+    wire       sysctrl_obi_xbar_data_err;
+    wire       sysctrl_obi_xbar_data_exokay;
+    wire       sysctrl_obi_xbar_data_gnt;
+    wire [1:0] sysctrl_obi_xbar_data_memtype;
+    wire       sysctrl_obi_xbar_data_mid;
+    wire [2:0] sysctrl_obi_xbar_data_prot;
+    wire [31:0] sysctrl_obi_xbar_data_rdata;
+    wire       sysctrl_obi_xbar_data_req;
+    wire       sysctrl_obi_xbar_data_reqpar;
+    wire       sysctrl_obi_xbar_data_rid;
+    wire       sysctrl_obi_xbar_data_rready;
+    wire       sysctrl_obi_xbar_data_rreadypar;
+    wire       sysctrl_obi_xbar_data_ruser;
+    wire       sysctrl_obi_xbar_data_rvalid;
+    wire [31:0] sysctrl_obi_xbar_data_wdata;
+    wire       sysctrl_obi_xbar_data_we;
+    wire       sysctrl_obi_xbar_data_wuser;
+    wire [31:0] sysctrl_obi_xbar_dm_init_addr;
+    wire       sysctrl_obi_xbar_dm_init_aid;
+    wire [5:0] sysctrl_obi_xbar_dm_init_atop;
+    wire       sysctrl_obi_xbar_dm_init_auser;
+    wire [3:0] sysctrl_obi_xbar_dm_init_be;
+    wire       sysctrl_obi_xbar_dm_init_dbg;
+    wire       sysctrl_obi_xbar_dm_init_err;
+    wire       sysctrl_obi_xbar_dm_init_exokay;
+    wire       sysctrl_obi_xbar_dm_init_gnt;
+    wire [1:0] sysctrl_obi_xbar_dm_init_memtype;
+    wire       sysctrl_obi_xbar_dm_init_mid;
+    wire [2:0] sysctrl_obi_xbar_dm_init_prot;
+    wire [31:0] sysctrl_obi_xbar_dm_init_rdata;
+    wire       sysctrl_obi_xbar_dm_init_req;
+    wire       sysctrl_obi_xbar_dm_init_reqpar;
+    wire       sysctrl_obi_xbar_dm_init_rid;
+    wire       sysctrl_obi_xbar_dm_init_rready;
+    wire       sysctrl_obi_xbar_dm_init_rreadypar;
+    wire       sysctrl_obi_xbar_dm_init_ruser;
+    wire       sysctrl_obi_xbar_dm_init_rvalid;
+    wire [31:0] sysctrl_obi_xbar_dm_init_wdata;
+    wire       sysctrl_obi_xbar_dm_init_we;
+    wire       sysctrl_obi_xbar_dm_init_wuser;
+    wire [31:0] sysctrl_obi_xbar_dm_target_addr;
+    wire       sysctrl_obi_xbar_dm_target_aid;
+    wire [5:0] sysctrl_obi_xbar_dm_target_atop;
+    wire       sysctrl_obi_xbar_dm_target_auser;
+    wire [3:0] sysctrl_obi_xbar_dm_target_be;
+    wire       sysctrl_obi_xbar_dm_target_dbg;
+    wire       sysctrl_obi_xbar_dm_target_err;
+    wire       sysctrl_obi_xbar_dm_target_exokay;
+    wire       sysctrl_obi_xbar_dm_target_gnt;
+    wire       sysctrl_obi_xbar_dm_target_gntpar;
+    wire [1:0] sysctrl_obi_xbar_dm_target_memtype;
+    wire       sysctrl_obi_xbar_dm_target_mid;
+    wire [2:0] sysctrl_obi_xbar_dm_target_prot;
+    wire [31:0] sysctrl_obi_xbar_dm_target_rdata;
+    wire       sysctrl_obi_xbar_dm_target_req;
+    wire       sysctrl_obi_xbar_dm_target_rid;
+    wire       sysctrl_obi_xbar_dm_target_rready;
+    wire       sysctrl_obi_xbar_dm_target_rreadypar;
+    wire       sysctrl_obi_xbar_dm_target_ruser;
+    wire       sysctrl_obi_xbar_dm_target_rvalid;
+    wire       sysctrl_obi_xbar_dm_target_rvalidpar;
+    wire [31:0] sysctrl_obi_xbar_dm_target_wdata;
+    wire       sysctrl_obi_xbar_dm_target_we;
+    wire       sysctrl_obi_xbar_dm_target_wuser;
+    wire [31:0] sysctrl_obi_xbar_dmem_addr;
+    wire       sysctrl_obi_xbar_dmem_aid;
+    wire [5:0] sysctrl_obi_xbar_dmem_atop;
+    wire       sysctrl_obi_xbar_dmem_auser;
+    wire [3:0] sysctrl_obi_xbar_dmem_be;
+    wire       sysctrl_obi_xbar_dmem_dbg;
+    wire       sysctrl_obi_xbar_dmem_err;
+    wire       sysctrl_obi_xbar_dmem_exokay;
+    wire       sysctrl_obi_xbar_dmem_gnt;
+    wire       sysctrl_obi_xbar_dmem_gntpar;
+    wire [1:0] sysctrl_obi_xbar_dmem_memtype;
+    wire       sysctrl_obi_xbar_dmem_mid;
+    wire [2:0] sysctrl_obi_xbar_dmem_prot;
+    wire [31:0] sysctrl_obi_xbar_dmem_rdata;
+    wire       sysctrl_obi_xbar_dmem_req;
+    wire       sysctrl_obi_xbar_dmem_rid;
+    wire       sysctrl_obi_xbar_dmem_rready;
+    wire       sysctrl_obi_xbar_dmem_rreadypar;
+    wire       sysctrl_obi_xbar_dmem_ruser;
+    wire       sysctrl_obi_xbar_dmem_rvalid;
+    wire       sysctrl_obi_xbar_dmem_rvalidpar;
+    wire [31:0] sysctrl_obi_xbar_dmem_wdata;
+    wire       sysctrl_obi_xbar_dmem_we;
+    wire       sysctrl_obi_xbar_dmem_wuser;
+    wire [31:0] sysctrl_obi_xbar_imem_addr;
+    wire       sysctrl_obi_xbar_imem_aid;
+    wire [5:0] sysctrl_obi_xbar_imem_atop;
+    wire       sysctrl_obi_xbar_imem_auser;
+    wire [3:0] sysctrl_obi_xbar_imem_be;
+    wire       sysctrl_obi_xbar_imem_dbg;
+    wire       sysctrl_obi_xbar_imem_err;
+    wire       sysctrl_obi_xbar_imem_exokay;
+    wire       sysctrl_obi_xbar_imem_gnt;
+    wire       sysctrl_obi_xbar_imem_gntpar;
+    wire [1:0] sysctrl_obi_xbar_imem_memtype;
+    wire       sysctrl_obi_xbar_imem_mid;
+    wire [2:0] sysctrl_obi_xbar_imem_prot;
+    wire [31:0] sysctrl_obi_xbar_imem_rdata;
+    wire       sysctrl_obi_xbar_imem_req;
+    wire       sysctrl_obi_xbar_imem_rid;
+    wire       sysctrl_obi_xbar_imem_rready;
+    wire       sysctrl_obi_xbar_imem_rreadypar;
+    wire       sysctrl_obi_xbar_imem_ruser;
+    wire       sysctrl_obi_xbar_imem_rvalid;
+    wire       sysctrl_obi_xbar_imem_rvalidpar;
+    wire [31:0] sysctrl_obi_xbar_imem_wdata;
+    wire       sysctrl_obi_xbar_imem_we;
+    wire       sysctrl_obi_xbar_imem_wuser;
+    wire [31:0] sysctrl_obi_xbar_instr_addr;
+    wire       sysctrl_obi_xbar_instr_aid;
+    wire [5:0] sysctrl_obi_xbar_instr_atop;
+    wire       sysctrl_obi_xbar_instr_auser;
+    wire [3:0] sysctrl_obi_xbar_instr_be;
+    wire       sysctrl_obi_xbar_instr_dbg;
+    wire       sysctrl_obi_xbar_instr_err;
+    wire       sysctrl_obi_xbar_instr_exokay;
+    wire       sysctrl_obi_xbar_instr_gnt;
+    wire [1:0] sysctrl_obi_xbar_instr_memtype;
+    wire       sysctrl_obi_xbar_instr_mid;
+    wire [2:0] sysctrl_obi_xbar_instr_prot;
+    wire [31:0] sysctrl_obi_xbar_instr_rdata;
+    wire       sysctrl_obi_xbar_instr_req;
+    wire       sysctrl_obi_xbar_instr_reqpar;
+    wire       sysctrl_obi_xbar_instr_rid;
+    wire       sysctrl_obi_xbar_instr_rready;
+    wire       sysctrl_obi_xbar_instr_rreadypar;
+    wire       sysctrl_obi_xbar_instr_ruser;
+    wire       sysctrl_obi_xbar_instr_rvalid;
+    wire [31:0] sysctrl_obi_xbar_instr_wdata;
+    wire       sysctrl_obi_xbar_instr_we;
+    wire       sysctrl_obi_xbar_instr_wuser;
+    wire       sysctrl_obi_xbar_periph_achk;
+    wire [31:0] sysctrl_obi_xbar_periph_addr;
+    wire       sysctrl_obi_xbar_periph_aid;
+    wire [5:0] sysctrl_obi_xbar_periph_atop;
+    wire       sysctrl_obi_xbar_periph_auser;
+    wire [3:0] sysctrl_obi_xbar_periph_be;
+    wire       sysctrl_obi_xbar_periph_dbg;
+    wire       sysctrl_obi_xbar_periph_err;
+    wire       sysctrl_obi_xbar_periph_exokay;
+    wire       sysctrl_obi_xbar_periph_gnt;
+    wire       sysctrl_obi_xbar_periph_gntpar;
+    wire [1:0] sysctrl_obi_xbar_periph_memtype;
+    wire       sysctrl_obi_xbar_periph_mid;
+    wire [2:0] sysctrl_obi_xbar_periph_prot;
+    wire       sysctrl_obi_xbar_periph_rchk;
+    wire [31:0] sysctrl_obi_xbar_periph_rdata;
+    wire       sysctrl_obi_xbar_periph_req;
+    wire       sysctrl_obi_xbar_periph_reqpar;
+    wire       sysctrl_obi_xbar_periph_rid;
+    wire       sysctrl_obi_xbar_periph_rready;
+    wire       sysctrl_obi_xbar_periph_rreadypar;
+    wire       sysctrl_obi_xbar_periph_ruser;
+    wire       sysctrl_obi_xbar_periph_rvalid;
+    wire       sysctrl_obi_xbar_periph_rvalidpar;
+    wire [31:0] sysctrl_obi_xbar_periph_wdata;
+    wire       sysctrl_obi_xbar_periph_we;
+    wire       sysctrl_obi_xbar_periph_wuser;
+    wire       sysctrl_obi_xbar_reset_n;
+    wire       sysctrl_obi_xbar_top_achk;
+    wire [31:0] sysctrl_obi_xbar_top_addr;
+    wire       sysctrl_obi_xbar_top_aid;
+    wire [5:0] sysctrl_obi_xbar_top_atop;
+    wire       sysctrl_obi_xbar_top_auser;
+    wire [3:0] sysctrl_obi_xbar_top_be;
+    wire       sysctrl_obi_xbar_top_dbg;
+    wire       sysctrl_obi_xbar_top_err;
+    wire       sysctrl_obi_xbar_top_exokay;
+    wire       sysctrl_obi_xbar_top_gnt;
+    wire       sysctrl_obi_xbar_top_gntpar;
+    wire [1:0] sysctrl_obi_xbar_top_memtype;
+    wire       sysctrl_obi_xbar_top_mid;
+    wire [2:0] sysctrl_obi_xbar_top_prot;
+    wire       sysctrl_obi_xbar_top_rchk;
+    wire [31:0] sysctrl_obi_xbar_top_rdata;
+    wire       sysctrl_obi_xbar_top_req;
+    wire       sysctrl_obi_xbar_top_reqpar;
+    wire       sysctrl_obi_xbar_top_rid;
+    wire       sysctrl_obi_xbar_top_rready;
+    wire       sysctrl_obi_xbar_top_rreadypar;
+    wire       sysctrl_obi_xbar_top_ruser;
+    wire       sysctrl_obi_xbar_top_rvalid;
+    wire       sysctrl_obi_xbar_top_rvalidpar;
+    wire [31:0] sysctrl_obi_xbar_top_wdata;
+    wire       sysctrl_obi_xbar_top_we;
+    wire       sysctrl_obi_xbar_top_wuser;
 
     // Assignments for the ports of the encompassing component:
-    assign cell_cfg = SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
-    assign i_SysCtrl_peripherals_Clock_to_Clk_clk = clk_internal;
-    assign gpio_from_core = i_SysCtrl_peripherals_GPIO_to_GPIO_gpo;
-    assign i_SysCtrl_peripherals_GPIO_to_GPIO_gpi = gpio_to_core;
-    assign icn_ar_addr_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR;
-    assign icn_ar_prot_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY = icn_ar_ready_in;
-    assign icn_ar_valid_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID;
-    assign icn_aw_addr_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR;
-    assign icn_aw_prot_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY = icn_aw_ready_in;
-    assign icn_aw_valid_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID;
-    assign icn_b_ready_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_READY;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP = icn_b_resp_in;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID = icn_b_valid_in;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA = icn_r_data_in;
-    assign icn_r_ready_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_READY;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP = icn_r_resp_in;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID = icn_r_valid_in;
-    assign icn_w_data_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_READY = icn_w_ready_in;
-    assign icn_w_strb_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB;
-    assign icn_w_valid_out = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID;
-    assign irq_en_0 = SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en;
-    assign irq_en_1 = SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
-    assign irq_en_2 = SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
-    assign irq_en_3 = SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
-    assign Ibex_Core_irq_fast_i_to_irq_upper_tieoff = irq_upper_tieoff[14:8];
+    assign cell_cfg = ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
+    assign jtag_dbg_wrapper_Clock_to_Clk_clk = clk_internal;
+    assign gpio_from_core = apb_gpio_GPIO_to_GPIO_gpo;
+    assign apb_gpio_GPIO_to_GPIO_gpi = gpio_to_core;
+    assign irq_en_0 = ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en;
+    assign irq_en_1 = ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
+    assign irq_en_2 = ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
+    assign irq_en_3 = ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
+    assign i_ibex_wrapper_irq_fast_i_to_irq_upper_tieoff = irq_upper_tieoff[14:8];
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tck = jtag_tck_internal;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tdi = jtag_tdi_internal;
     assign jtag_tdo_internal = jtag_dbg_wrapper_JTAG_to_JTAG_tdo;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tms = jtag_tms_internal;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_trst = jtag_trst_internal;
-    assign pmod_sel = SS_Ctrl_reg_array_pmod_sel_to_bus_gpo;
-    assign reset_icn = SS_Ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
-    assign i_SysCtrl_peripherals_Reset_to_Reset_reset = reset_internal;
-    assign reset_ss = SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset;
-    assign spim_csn_internal = i_SysCtrl_peripherals_SPI_to_SPI_csn;
-    assign i_SysCtrl_peripherals_SPI_to_SPI_miso = spim_miso_internal;
-    assign spim_mosi_internal = i_SysCtrl_peripherals_SPI_to_SPI_mosi;
-    assign spim_sck_internal = i_SysCtrl_peripherals_SPI_to_SPI_sck;
-    assign ss_ctrl_0 = SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl;
-    assign ss_ctrl_1 = SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl;
-    assign ss_ctrl_2 = SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
-    assign ss_ctrl_3 = SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
-    assign ss_ctrl_icn = SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
-    assign Ibex_Core_irq_fast_i_to_sysctrl_irq_i = sysctrl_irq_i;
-    assign i_SysCtrl_peripherals_UART_to_UART_uart_rx = uart_rx_internal;
-    assign uart_tx_internal = i_SysCtrl_peripherals_UART_to_UART_uart_tx;
+    assign obi_addr = sysctrl_obi_xbar_obi_chip_top_to_OBI_addr;
+    assign obi_aid = sysctrl_obi_xbar_obi_chip_top_to_OBI_aid;
+    assign obi_be = sysctrl_obi_xbar_obi_chip_top_to_OBI_be;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_err = obi_err;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_gnt = obi_gnt;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_gntpar = obi_gntpar;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rdata = obi_rdata;
+    assign obi_req = sysctrl_obi_xbar_obi_chip_top_to_OBI_req;
+    assign obi_reqpar = sysctrl_obi_xbar_obi_chip_top_to_OBI_reqpar;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rid = obi_rid;
+    assign obi_rready = sysctrl_obi_xbar_obi_chip_top_to_OBI_rready;
+    assign obi_rreadypar = sysctrl_obi_xbar_obi_chip_top_to_OBI_rreadypar;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalid = obi_rvalid;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalidpar = obi_rvalidpar;
+    assign obi_wdata = sysctrl_obi_xbar_obi_chip_top_to_OBI_wdata;
+    assign obi_we = sysctrl_obi_xbar_obi_chip_top_to_OBI_we;
+    assign pmod_sel = ctrl_reg_array_pmod_sel_to_pmod_sel_gpo;
+    assign reset_icn = ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
+    assign ctrl_reg_array_Reset_to_Reset_reset = reset_internal;
+    assign reset_ss = ctrl_reg_array_rst_ss_to_Reset_SS_reset;
+    assign spim_csn_internal = apb_spi_master_SPI_to_SPI_csn[1:0];
+    assign apb_spi_master_SPI_to_SPI_miso = spim_miso_internal;
+    assign spim_mosi_internal = apb_spi_master_SPI_to_SPI_mosi;
+    assign spim_sck_internal = apb_spi_master_SPI_to_SPI_sck;
+    assign ss_ctrl_0 = ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl;
+    assign ss_ctrl_1 = ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl;
+    assign ss_ctrl_2 = ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
+    assign ss_ctrl_3 = ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
+    assign ss_ctrl_icn = ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
+    assign i_ibex_wrapper_irq_fast_i_to_sysctrl_irq_i = sysctrl_irq_i;
+    assign apb_uart_UART_to_UART_uart_rx = uart_rx_internal;
+    assign uart_tx_internal = apb_uart_UART_to_UART_uart_tx;
 
-    // Ctrl_reg_bridge assignments:
-    assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_ADDR = Ctrl_reg_bridge_addr_o;
-    assign Ctrl_reg_bridge_ar_addr_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_ADDR;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_READY = Ctrl_reg_bridge_ar_ready_o;
-    assign Ctrl_reg_bridge_ar_valid_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_VALID;
-    assign Ctrl_reg_bridge_aw_addr_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_ADDR;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_READY = Ctrl_reg_bridge_aw_ready_o;
-    assign Ctrl_reg_bridge_aw_valid_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_VALID;
-    assign Ctrl_reg_bridge_b_ready_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_B_READY;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_B_RESP = Ctrl_reg_bridge_b_resp_o;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_B_VALID = Ctrl_reg_bridge_b_valid_o;
-    assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_BE = Ctrl_reg_bridge_be_o;
-    assign Ctrl_reg_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_DATA = Ctrl_reg_bridge_r_data_o;
-    assign Ctrl_reg_bridge_r_ready_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_READY;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_RESP = Ctrl_reg_bridge_r_resp_o;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_VALID = Ctrl_reg_bridge_r_valid_o;
-    assign Ctrl_reg_bridge_rdata_i = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_RDATA;
-    assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_REQ = Ctrl_reg_bridge_req_o;
-    assign Ctrl_reg_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign Ctrl_reg_bridge_w_data_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_DATA;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_READY = Ctrl_reg_bridge_w_ready_o;
-    assign Ctrl_reg_bridge_w_strb_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_STRB;
-    assign Ctrl_reg_bridge_w_valid_i = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_VALID;
-    assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WDATA = Ctrl_reg_bridge_wdata_o;
-    assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WE = Ctrl_reg_bridge_we_o;
-    // Ctrl_xbar assignments:
-    assign Ctrl_xbar_CoreDMEM_ar_addr_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_ADDR;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_READY = Ctrl_xbar_CoreDMEM_ar_ready_out;
-    assign Ctrl_xbar_CoreDMEM_ar_valid_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_VALID;
-    assign Ctrl_xbar_CoreDMEM_aw_addr_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_ADDR;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_READY = Ctrl_xbar_CoreDMEM_aw_ready_out;
-    assign Ctrl_xbar_CoreDMEM_aw_valid_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_VALID;
-    assign Ctrl_xbar_CoreDMEM_b_ready_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_RESP = Ctrl_xbar_CoreDMEM_b_resp_out;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_VALID = Ctrl_xbar_CoreDMEM_b_valid_out;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_DATA = Ctrl_xbar_CoreDMEM_r_data_out;
-    assign Ctrl_xbar_CoreDMEM_r_ready_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_RESP = Ctrl_xbar_CoreDMEM_r_resp_out;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_VALID = Ctrl_xbar_CoreDMEM_r_valid_out;
-    assign Ctrl_xbar_CoreDMEM_w_data_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_DATA;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_READY = Ctrl_xbar_CoreDMEM_w_ready_out;
-    assign Ctrl_xbar_CoreDMEM_w_strb_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_STRB;
-    assign Ctrl_xbar_CoreDMEM_w_valid_in = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_VALID;
-    assign Ctrl_xbar_CoreIMEM_ar_addr_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_READY = Ctrl_xbar_CoreIMEM_ar_ready_out;
-    assign Ctrl_xbar_CoreIMEM_ar_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_VALID;
-    assign Ctrl_xbar_CoreIMEM_aw_addr_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_ADDR;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_READY = Ctrl_xbar_CoreIMEM_aw_ready_out;
-    assign Ctrl_xbar_CoreIMEM_aw_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_VALID;
-    assign Ctrl_xbar_CoreIMEM_b_ready_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_RESP = Ctrl_xbar_CoreIMEM_b_resp_out;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_VALID = Ctrl_xbar_CoreIMEM_b_valid_out;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_DATA = Ctrl_xbar_CoreIMEM_r_data_out;
-    assign Ctrl_xbar_CoreIMEM_r_ready_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_RESP = Ctrl_xbar_CoreIMEM_r_resp_out;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_VALID = Ctrl_xbar_CoreIMEM_r_valid_out;
-    assign Ctrl_xbar_CoreIMEM_w_data_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_DATA;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_READY = Ctrl_xbar_CoreIMEM_w_ready_out;
-    assign Ctrl_xbar_CoreIMEM_w_strb_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_STRB;
-    assign Ctrl_xbar_CoreIMEM_w_valid_in = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_VALID;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_ADDR = Ctrl_xbar_CtrlReg_ar_addr_out;
-    assign Ctrl_xbar_CtrlReg_ar_ready_in = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_READY;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AR_VALID = Ctrl_xbar_CtrlReg_ar_valid_out;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_ADDR = Ctrl_xbar_CtrlReg_aw_addr_out;
-    assign Ctrl_xbar_CtrlReg_aw_ready_in = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_READY;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_AW_VALID = Ctrl_xbar_CtrlReg_aw_valid_out;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_B_READY = Ctrl_xbar_CtrlReg_b_ready_out;
-    assign Ctrl_xbar_CtrlReg_b_resp_in = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_B_RESP;
-    assign Ctrl_xbar_CtrlReg_b_valid_in = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_B_VALID;
-    assign Ctrl_xbar_CtrlReg_r_data_in = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_DATA;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_READY = Ctrl_xbar_CtrlReg_r_ready_out;
-    assign Ctrl_xbar_CtrlReg_r_resp_in = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_RESP;
-    assign Ctrl_xbar_CtrlReg_r_valid_in = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_R_VALID;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_DATA = Ctrl_xbar_CtrlReg_w_data_out;
-    assign Ctrl_xbar_CtrlReg_w_ready_in = Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_READY;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_STRB = Ctrl_xbar_CtrlReg_w_strb_out;
-    assign Ctrl_reg_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_CTRL_W_VALID = Ctrl_xbar_CtrlReg_w_valid_out;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AR_ADDR = Ctrl_xbar_DMEM_ar_addr_out;
-    assign Ctrl_xbar_DMEM_ar_ready_in = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AR_READY;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AR_VALID = Ctrl_xbar_DMEM_ar_valid_out;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AW_ADDR = Ctrl_xbar_DMEM_aw_addr_out;
-    assign Ctrl_xbar_DMEM_aw_ready_in = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AW_READY;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AW_VALID = Ctrl_xbar_DMEM_aw_valid_out;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_B_READY = Ctrl_xbar_DMEM_b_ready_out;
-    assign Ctrl_xbar_DMEM_b_resp_in = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_B_RESP;
-    assign Ctrl_xbar_DMEM_b_valid_in = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_B_VALID;
-    assign Ctrl_xbar_DMEM_r_data_in = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_DATA;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_READY = Ctrl_xbar_DMEM_r_ready_out;
-    assign Ctrl_xbar_DMEM_r_resp_in = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_RESP;
-    assign Ctrl_xbar_DMEM_r_valid_in = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_VALID;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_DATA = Ctrl_xbar_DMEM_w_data_out;
-    assign Ctrl_xbar_DMEM_w_ready_in = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_READY;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_STRB = Ctrl_xbar_DMEM_w_strb_out;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_VALID = Ctrl_xbar_DMEM_w_valid_out;
-    assign Ctrl_xbar_DbgI_ar_addr = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_ADDR;
-    assign Ctrl_xbar_DbgI_ar_prot[2:0] = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT[2:0];
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_READY = Ctrl_xbar_DbgI_ar_ready;
-    assign Ctrl_xbar_DbgI_ar_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_VALID;
-    assign Ctrl_xbar_DbgI_aw_addr = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_ADDR;
-    assign Ctrl_xbar_DbgI_aw_prot[2:0] = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_PROT[2:0];
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_READY = Ctrl_xbar_DbgI_aw_ready;
-    assign Ctrl_xbar_DbgI_aw_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_VALID;
-    assign Ctrl_xbar_DbgI_b_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_RESP = Ctrl_xbar_DbgI_b_resp;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_VALID = Ctrl_xbar_DbgI_b_valid;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_DATA = Ctrl_xbar_DbgI_r_data;
-    assign Ctrl_xbar_DbgI_r_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_RESP = Ctrl_xbar_DbgI_r_resp;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_VALID = Ctrl_xbar_DbgI_r_valid;
-    assign Ctrl_xbar_DbgI_w_data = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_DATA;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_READY = Ctrl_xbar_DbgI_w_ready;
-    assign Ctrl_xbar_DbgI_w_strb = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_STRB;
-    assign Ctrl_xbar_DbgI_w_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_VALID;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_ADDR = Ctrl_xbar_DbgT_ar_addr_out;
-    assign Ctrl_xbar_DbgT_ar_ready_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_VALID = Ctrl_xbar_DbgT_ar_valid_out;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_ADDR = Ctrl_xbar_DbgT_aw_addr_out;
-    assign Ctrl_xbar_DbgT_aw_ready_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_VALID = Ctrl_xbar_DbgT_aw_valid_out;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_READY = Ctrl_xbar_DbgT_b_ready_out;
-    assign Ctrl_xbar_DbgT_b_resp_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_RESP;
-    assign Ctrl_xbar_DbgT_b_valid_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_VALID;
-    assign Ctrl_xbar_DbgT_r_data_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_DATA;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_READY = Ctrl_xbar_DbgT_r_ready_out;
-    assign Ctrl_xbar_DbgT_r_resp_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_RESP;
-    assign Ctrl_xbar_DbgT_r_valid_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_VALID;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_DATA = Ctrl_xbar_DbgT_w_data_out;
-    assign Ctrl_xbar_DbgT_w_ready_in = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_STRB = Ctrl_xbar_DbgT_w_strb_out;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_VALID = Ctrl_xbar_DbgT_w_valid_out;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_ADDR = Ctrl_xbar_IMEM_ar_addr_out;
-    assign Ctrl_xbar_IMEM_ar_ready_in = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_READY;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_VALID = Ctrl_xbar_IMEM_ar_valid_out;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AW_ADDR = Ctrl_xbar_IMEM_aw_addr_out;
-    assign Ctrl_xbar_IMEM_aw_ready_in = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AW_READY;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AW_VALID = Ctrl_xbar_IMEM_aw_valid_out;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_B_READY = Ctrl_xbar_IMEM_b_ready_out;
-    assign Ctrl_xbar_IMEM_b_resp_in = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_B_RESP;
-    assign Ctrl_xbar_IMEM_b_valid_in = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_B_VALID;
-    assign Ctrl_xbar_IMEM_r_data_in = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_DATA;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_READY = Ctrl_xbar_IMEM_r_ready_out;
-    assign Ctrl_xbar_IMEM_r_resp_in = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_RESP;
-    assign Ctrl_xbar_IMEM_r_valid_in = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_VALID;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_DATA = Ctrl_xbar_IMEM_w_data_out;
-    assign Ctrl_xbar_IMEM_w_ready_in = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_READY;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_STRB = Ctrl_xbar_IMEM_w_strb_out;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_VALID = Ctrl_xbar_IMEM_w_valid_out;
-    assign Ctrl_xbar_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_ADDR = Ctrl_xbar_icn_ar_addr_out;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_PROT = Ctrl_xbar_icn_ar_prot_out;
-    assign Ctrl_xbar_icn_ar_ready_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_READY;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AR_VALID = Ctrl_xbar_icn_ar_valid_out;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_ADDR = Ctrl_xbar_icn_aw_addr_out;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_PROT = Ctrl_xbar_icn_aw_prot_out;
-    assign Ctrl_xbar_icn_aw_ready_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_READY;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_AW_VALID = Ctrl_xbar_icn_aw_valid_out;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_READY = Ctrl_xbar_icn_b_ready_out;
-    assign Ctrl_xbar_icn_b_resp_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_RESP;
-    assign Ctrl_xbar_icn_b_valid_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_B_VALID;
-    assign Ctrl_xbar_icn_r_data_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_DATA;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_READY = Ctrl_xbar_icn_r_ready_out;
-    assign Ctrl_xbar_icn_r_resp_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_RESP;
-    assign Ctrl_xbar_icn_r_valid_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_R_VALID;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_DATA = Ctrl_xbar_icn_w_data_out;
-    assign Ctrl_xbar_icn_w_ready_in = Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_READY;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_STRB = Ctrl_xbar_icn_w_strb_out;
-    assign Ctrl_xbar_AXI4LITE_icn_to_AXI4LITE_icn_W_VALID = Ctrl_xbar_icn_w_valid_out;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_ADDR = Ctrl_xbar_periph_ar_addr_out;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_PROT = Ctrl_xbar_periph_ar_prot_out;
-    assign Ctrl_xbar_periph_ar_ready_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_READY;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_VALID = Ctrl_xbar_periph_ar_valid_out;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_ADDR = Ctrl_xbar_periph_aw_addr_out;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_PROT = Ctrl_xbar_periph_aw_prot_out;
-    assign Ctrl_xbar_periph_aw_ready_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_READY;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_VALID = Ctrl_xbar_periph_aw_valid_out;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_READY = Ctrl_xbar_periph_b_ready_out;
-    assign Ctrl_xbar_periph_b_resp_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_RESP;
-    assign Ctrl_xbar_periph_b_valid_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_VALID;
-    assign Ctrl_xbar_periph_r_data_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_DATA;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_READY = Ctrl_xbar_periph_r_ready_out;
-    assign Ctrl_xbar_periph_r_resp_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_RESP;
-    assign Ctrl_xbar_periph_r_valid_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_VALID;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_DATA = Ctrl_xbar_periph_w_data_out;
-    assign Ctrl_xbar_periph_w_ready_in = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_READY;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB = Ctrl_xbar_periph_w_strb_out;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID = Ctrl_xbar_periph_w_valid_out;
-    assign Ctrl_xbar_reset_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    // Ibex_Core assignments:
-    assign Ibex_Core_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_ADDR = Ibex_Core_data_addr_o;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_BE = Ibex_Core_data_be_o;
-    assign Ibex_Core_data_err_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_ERR;
-    assign Ibex_Core_data_gnt_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_GNT;
-    assign Ibex_Core_data_rdata_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_RDATA;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_REQ = Ibex_Core_data_req_o;
-    assign Ibex_Core_data_rvalid_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_RVALID;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA = Ibex_Core_data_wdata_o;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_WE = Ibex_Core_data_we_o;
-    assign Ibex_Core_debug_req_i = jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req;
-    assign Ibex_Core_fetch_enable_i = SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo[3:0];
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_ADDR = Ibex_Core_instr_addr_o;
-    assign Ibex_Core_instr_err_i = Ibex_Core_imem_to_core_imem_bridge_mem_ERR;
-    assign Ibex_Core_instr_gnt_i = Ibex_Core_imem_to_core_imem_bridge_mem_GNT;
-    assign Ibex_Core_instr_rdata_i = Ibex_Core_imem_to_core_imem_bridge_mem_RDATA;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_REQ = Ibex_Core_instr_req_o;
-    assign Ibex_Core_instr_rvalid_i = Ibex_Core_imem_to_core_imem_bridge_mem_RVALID;
-    assign Ibex_Core_irq_fast_i[14:8] = Ibex_Core_irq_fast_i_to_irq_upper_tieoff;
-    assign Ibex_Core_irq_fast_i[7:4] = Ibex_Core_irq_fast_i_to_sysctrl_irq_i;
-    assign Ibex_Core_irq_fast_i[1] = i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i;
-    assign Ibex_Core_irq_fast_i[3:2] = i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i;
-    assign Ibex_Core_irq_fast_i[0] = i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i;
-    assign Ibex_Core_rst_ni = jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset_reset;
-    // SS_Ctrl_reg_array assignments:
-    assign SS_Ctrl_reg_array_addr_i = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_ADDR;
-    assign SS_Ctrl_reg_array_be_i = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_BE;
-    assign SS_Ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg = SS_Ctrl_reg_array_cell_cfg;
-    assign SS_Ctrl_reg_array_clk = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign SS_Ctrl_reg_array_fetch_en_to_Ibex_Core_FetchEn_gpo = SS_Ctrl_reg_array_fetch_en;
-    assign SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en = SS_Ctrl_reg_array_irq_en_0;
-    assign SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en = SS_Ctrl_reg_array_irq_en_1;
-    assign SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en = SS_Ctrl_reg_array_irq_en_2;
-    assign SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en = SS_Ctrl_reg_array_irq_en_3;
-    assign SS_Ctrl_reg_array_pmod_sel_to_bus_gpo = SS_Ctrl_reg_array_pmod_sel;
-    assign Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_RDATA = SS_Ctrl_reg_array_rdata_o;
-    assign SS_Ctrl_reg_array_req_i = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_REQ;
-    assign SS_Ctrl_reg_array_rst_icn_to_Reset_ICN_reset = SS_Ctrl_reg_array_reset_icn;
-    assign SS_Ctrl_reg_array_reset_n = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset[0] = SS_Ctrl_reg_array_reset_ss_0;
-    assign SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset[1] = SS_Ctrl_reg_array_reset_ss_1;
-    assign SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset[2] = SS_Ctrl_reg_array_reset_ss_2;
-    assign SS_Ctrl_reg_array_rst_ss_to_Reset_SS_reset[3] = SS_Ctrl_reg_array_reset_ss_3;
-    assign SS_Ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl = SS_Ctrl_reg_array_ss_ctrl_0;
-    assign SS_Ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl = SS_Ctrl_reg_array_ss_ctrl_1;
-    assign SS_Ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl = SS_Ctrl_reg_array_ss_ctrl_2;
-    assign SS_Ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl = SS_Ctrl_reg_array_ss_ctrl_3;
-    assign SS_Ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl = SS_Ctrl_reg_array_ss_ctrl_icn;
-    assign SS_Ctrl_reg_array_wdata_i = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WDATA;
-    assign SS_Ctrl_reg_array_we_i = Ctrl_reg_bridge_Mem_to_SS_Ctrl_reg_array_mem_reg_if_WE;
-    // axi_dmem_bridge assignments:
-    assign i_dmem_mem_to_axi_dmem_bridge_Mem_ADDR = axi_dmem_bridge_addr_o;
-    assign axi_dmem_bridge_ar_addr_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AR_ADDR;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AR_READY = axi_dmem_bridge_ar_ready_o;
-    assign axi_dmem_bridge_ar_valid_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AR_VALID;
-    assign axi_dmem_bridge_aw_addr_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AW_ADDR;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AW_READY = axi_dmem_bridge_aw_ready_o;
-    assign axi_dmem_bridge_aw_valid_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_AW_VALID;
-    assign axi_dmem_bridge_b_ready_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_B_READY;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_B_RESP = axi_dmem_bridge_b_resp_o;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_B_VALID = axi_dmem_bridge_b_valid_o;
-    assign i_dmem_mem_to_axi_dmem_bridge_Mem_BE = axi_dmem_bridge_be_o;
-    assign axi_dmem_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_DATA = axi_dmem_bridge_r_data_o;
-    assign axi_dmem_bridge_r_ready_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_READY;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_RESP = axi_dmem_bridge_r_resp_o;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_R_VALID = axi_dmem_bridge_r_valid_o;
-    assign axi_dmem_bridge_rdata_i = i_dmem_mem_to_axi_dmem_bridge_Mem_RDATA;
-    assign i_dmem_mem_to_axi_dmem_bridge_Mem_REQ = axi_dmem_bridge_req_o;
-    assign axi_dmem_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign axi_dmem_bridge_w_data_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_DATA;
-    assign axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_READY = axi_dmem_bridge_w_ready_o;
-    assign axi_dmem_bridge_w_strb_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_STRB;
-    assign axi_dmem_bridge_w_valid_i = axi_dmem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_DMEM_W_VALID;
-    assign i_dmem_mem_to_axi_dmem_bridge_Mem_WDATA = axi_dmem_bridge_wdata_o;
-    assign i_dmem_mem_to_axi_dmem_bridge_Mem_WE = axi_dmem_bridge_we_o;
-    // axi_imem_bridge assignments:
-    assign axi_imem_bridge_Mem_to_i_imem_mem_ADDR = axi_imem_bridge_addr_o;
-    assign axi_imem_bridge_ar_addr_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_ADDR;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_READY = axi_imem_bridge_ar_ready_o;
-    assign axi_imem_bridge_ar_valid_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AR_VALID;
-    assign axi_imem_bridge_aw_addr_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AW_ADDR;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AW_READY = axi_imem_bridge_aw_ready_o;
-    assign axi_imem_bridge_aw_valid_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_AW_VALID;
-    assign axi_imem_bridge_b_ready_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_B_READY;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_B_RESP = axi_imem_bridge_b_resp_o;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_B_VALID = axi_imem_bridge_b_valid_o;
-    assign axi_imem_bridge_Mem_to_i_imem_mem_BE = axi_imem_bridge_be_o;
-    assign axi_imem_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_DATA = axi_imem_bridge_r_data_o;
-    assign axi_imem_bridge_r_ready_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_READY;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_RESP = axi_imem_bridge_r_resp_o;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_R_VALID = axi_imem_bridge_r_valid_o;
-    assign axi_imem_bridge_rdata_i = axi_imem_bridge_Mem_to_i_imem_mem_RDATA;
-    assign axi_imem_bridge_Mem_to_i_imem_mem_REQ = axi_imem_bridge_req_o;
-    assign axi_imem_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign axi_imem_bridge_w_data_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_DATA;
-    assign axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_READY = axi_imem_bridge_w_ready_o;
-    assign axi_imem_bridge_w_strb_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_STRB;
-    assign axi_imem_bridge_w_valid_i = axi_imem_bridge_AXI4LITE_to_Ctrl_xbar_AXI4LITE_IMEM_W_VALID;
-    assign axi_imem_bridge_Mem_to_i_imem_mem_WDATA = axi_imem_bridge_wdata_o;
-    assign axi_imem_bridge_Mem_to_i_imem_mem_WE = axi_imem_bridge_we_o;
-    // core_dmem_bridge assignments:
-    assign core_dmem_bridge_addr_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_ADDR;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_ADDR = core_dmem_bridge_ar_addr_o;
-    assign core_dmem_bridge_ar_ready_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AR_VALID = core_dmem_bridge_ar_valid_o;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_ADDR = core_dmem_bridge_aw_addr_o;
-    assign core_dmem_bridge_aw_ready_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_AW_VALID = core_dmem_bridge_aw_valid_o;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_READY = core_dmem_bridge_b_ready_o;
-    assign core_dmem_bridge_b_resp_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_RESP;
-    assign core_dmem_bridge_b_valid_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_B_VALID;
-    assign core_dmem_bridge_be_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_BE;
-    assign core_dmem_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_ERR = core_dmem_bridge_err_o;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_GNT = core_dmem_bridge_gnt_o;
-    assign core_dmem_bridge_r_data_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_DATA;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_READY = core_dmem_bridge_r_ready_o;
-    assign core_dmem_bridge_r_resp_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_RESP;
-    assign core_dmem_bridge_r_valid_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_R_VALID;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_RDATA = core_dmem_bridge_rdata_o;
-    assign core_dmem_bridge_req_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_REQ;
-    assign core_dmem_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign Ibex_Core_dmem_to_core_dmem_bridge_mem_RVALID = core_dmem_bridge_rvalid_o;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_DATA = core_dmem_bridge_w_data_o;
-    assign core_dmem_bridge_w_ready_i = core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_READY;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_STRB = core_dmem_bridge_w_strb_o;
-    assign core_dmem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_DMEM_W_VALID = core_dmem_bridge_w_valid_o;
-    assign core_dmem_bridge_wdata_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_WDATA;
-    assign core_dmem_bridge_we_i = Ibex_Core_dmem_to_core_dmem_bridge_mem_WE;
-    // core_imem_bridge assignments:
-    assign core_imem_bridge_addr_i = Ibex_Core_imem_to_core_imem_bridge_mem_ADDR;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_ADDR = core_imem_bridge_ar_addr_o;
-    assign core_imem_bridge_ar_ready_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AR_VALID = core_imem_bridge_ar_valid_o;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_ADDR = core_imem_bridge_aw_addr_o;
-    assign core_imem_bridge_aw_ready_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_AW_VALID = core_imem_bridge_aw_valid_o;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_READY = core_imem_bridge_b_ready_o;
-    assign core_imem_bridge_b_resp_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_RESP;
-    assign core_imem_bridge_b_valid_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_B_VALID;
-    assign core_imem_bridge_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_ERR = core_imem_bridge_err_o;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_GNT = core_imem_bridge_gnt_o;
-    assign core_imem_bridge_r_data_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_DATA;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_READY = core_imem_bridge_r_ready_o;
-    assign core_imem_bridge_r_resp_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_RESP;
-    assign core_imem_bridge_r_valid_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_R_VALID;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_RDATA = core_imem_bridge_rdata_o;
-    assign core_imem_bridge_req_i = Ibex_Core_imem_to_core_imem_bridge_mem_REQ;
-    assign core_imem_bridge_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign Ibex_Core_imem_to_core_imem_bridge_mem_RVALID = core_imem_bridge_rvalid_o;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_DATA = core_imem_bridge_w_data_o;
-    assign core_imem_bridge_w_ready_i = core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_READY;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_STRB = core_imem_bridge_w_strb_o;
-    assign core_imem_bridge_axi4lite_to_Ctrl_xbar_AXI4LITE_CORE_IMEM_W_VALID = core_imem_bridge_w_valid_o;
-    // i_SysCtrl_peripherals assignments:
-    assign i_SysCtrl_peripherals_ar_addr = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_ADDR;
-    assign i_SysCtrl_peripherals_ar_prot = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_PROT;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_READY = i_SysCtrl_peripherals_ar_ready;
-    assign i_SysCtrl_peripherals_ar_valid = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AR_VALID;
-    assign i_SysCtrl_peripherals_aw_addr = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_ADDR;
-    assign i_SysCtrl_peripherals_aw_prot = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_PROT;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_READY = i_SysCtrl_peripherals_aw_ready;
-    assign i_SysCtrl_peripherals_aw_valid = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_AW_VALID;
-    assign i_SysCtrl_peripherals_b_ready = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_READY;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_RESP = i_SysCtrl_peripherals_b_resp;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_B_VALID = i_SysCtrl_peripherals_b_valid;
-    assign i_SysCtrl_peripherals_clk = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign i_SysCtrl_peripherals_GPIO_to_GPIO_gpo = i_SysCtrl_peripherals_gpio_from_core;
-    assign i_SysCtrl_peripherals_gpio_to_core = i_SysCtrl_peripherals_GPIO_to_GPIO_gpi;
-    assign i_SysCtrl_peripherals_irq_gpio_to_Ibex_Core_irq_fast_i = i_SysCtrl_peripherals_irq_gpio;
-    assign i_SysCtrl_peripherals_irq_spi_to_Ibex_Core_irq_fast_i = i_SysCtrl_peripherals_irq_spi;
-    assign i_SysCtrl_peripherals_irq_uart_to_Ibex_Core_irq_fast_i = i_SysCtrl_peripherals_irq_uart;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_DATA = i_SysCtrl_peripherals_r_data;
-    assign i_SysCtrl_peripherals_r_ready = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_READY;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_RESP = i_SysCtrl_peripherals_r_resp;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_R_VALID = i_SysCtrl_peripherals_r_valid;
-    assign i_SysCtrl_peripherals_rst_n = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign i_SysCtrl_peripherals_SPI_to_SPI_csn = i_SysCtrl_peripherals_spim_csn_internal;
-    assign i_SysCtrl_peripherals_spim_miso_internal = i_SysCtrl_peripherals_SPI_to_SPI_miso;
-    assign i_SysCtrl_peripherals_SPI_to_SPI_mosi = i_SysCtrl_peripherals_spim_mosi_internal;
-    assign i_SysCtrl_peripherals_SPI_to_SPI_sck = i_SysCtrl_peripherals_spim_sck_internal;
-    assign i_SysCtrl_peripherals_uart_rx_internal = i_SysCtrl_peripherals_UART_to_UART_uart_rx;
-    assign i_SysCtrl_peripherals_UART_to_UART_uart_tx = i_SysCtrl_peripherals_uart_tx_internal;
-    assign i_SysCtrl_peripherals_w_data = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_DATA;
-    assign i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_READY = i_SysCtrl_peripherals_w_ready;
-    assign i_SysCtrl_peripherals_w_strb = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_STRB;
-    assign i_SysCtrl_peripherals_w_valid = i_SysCtrl_peripherals_AXI4LITE_to_Ctrl_xbar_AXI4LITE_periph_W_VALID;
+    // apb_gpio assignments:
+    assign apb_gpio_HCLK = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign apb_gpio_HRESETn = ctrl_reg_array_Reset_to_Reset_reset;
+    assign apb_gpio_PADDR = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PADDR;
+    assign apb_gpio_PENABLE = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PENABLE;
+    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PRDATA = apb_gpio_PRDATA;
+    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PREADY = apb_gpio_PREADY;
+    assign apb_gpio_PSEL = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PSEL;
+    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PSLVERR = apb_gpio_PSLVERR;
+    assign apb_gpio_PWDATA = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PWDATA;
+    assign apb_gpio_PWRITE = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PWRITE;
+    assign apb_gpio_gpio_in = apb_gpio_GPIO_to_GPIO_gpi;
+    assign apb_gpio_GPIO_to_GPIO_gpo = apb_gpio_gpio_out;
+    assign apb_gpio_interrupt_to_i_ibex_wrapper_irq_fast_i = apb_gpio_interrupt;
+    // apb_spi_master assignments:
+    assign apb_spi_master_HCLK = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign apb_spi_master_HRESETn = ctrl_reg_array_Reset_to_Reset_reset;
+    assign apb_spi_master_PADDR = peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PADDR;
+    assign apb_spi_master_PENABLE = peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PENABLE;
+    assign peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PRDATA = apb_spi_master_PRDATA;
+    assign peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PREADY = apb_spi_master_PREADY;
+    assign apb_spi_master_PSEL = peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PSEL;
+    assign peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PSLVERR = apb_spi_master_PSLVERR;
+    assign apb_spi_master_PWDATA = peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PWDATA;
+    assign apb_spi_master_PWRITE = peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PWRITE;
+    assign apb_spi_master_events_o_to_i_ibex_wrapper_irq_fast_i = apb_spi_master_events_o;
+    assign apb_spi_master_SPI_to_SPI_sck = apb_spi_master_spi_clk;
+    assign apb_spi_master_SPI_to_SPI_csn[0] = apb_spi_master_spi_csn0;
+    assign apb_spi_master_SPI_to_SPI_csn[1] = apb_spi_master_spi_csn1;
+    assign apb_spi_master_SPI_to_SPI_csn[2] = apb_spi_master_spi_csn2;
+    assign apb_spi_master_SPI_to_SPI_csn[3] = apb_spi_master_spi_csn3;
+    assign apb_spi_master_spi_sdi0 = apb_spi_master_SPI_to_SPI_miso[0];
+    assign apb_spi_master_spi_sdi1 = apb_spi_master_SPI_to_SPI_miso[1];
+    assign apb_spi_master_spi_sdi2 = apb_spi_master_SPI_to_SPI_miso[2];
+    assign apb_spi_master_spi_sdi3 = apb_spi_master_SPI_to_SPI_miso[3];
+    assign apb_spi_master_SPI_to_SPI_mosi[0] = apb_spi_master_spi_sdo0;
+    assign apb_spi_master_SPI_to_SPI_mosi[1] = apb_spi_master_spi_sdo1;
+    assign apb_spi_master_SPI_to_SPI_mosi[2] = apb_spi_master_spi_sdo2;
+    assign apb_spi_master_SPI_to_SPI_mosi[3] = apb_spi_master_spi_sdo3;
+    // apb_uart assignments:
+    assign apb_uart_CLK = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign apb_uart_INT_to_i_ibex_wrapper_irq_fast_i = apb_uart_INT;
+    assign apb_uart_PADDR[2:0] = peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PADDR[4:2];
+    assign apb_uart_PENABLE = peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PENABLE;
+    assign peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PRDATA = apb_uart_PRDATA;
+    assign peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PREADY = apb_uart_PREADY;
+    assign apb_uart_PSEL = peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PSEL;
+    assign peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PSLVERR = apb_uart_PSLVERR;
+    assign apb_uart_PWDATA = peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PWDATA;
+    assign apb_uart_PWRITE = peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PWRITE;
+    assign apb_uart_RSTN = ctrl_reg_array_Reset_to_Reset_reset;
+    assign apb_uart_SIN = apb_uart_UART_to_UART_uart_rx;
+    assign apb_uart_UART_to_UART_uart_tx = apb_uart_SOUT;
+    // ctrl_reg_array assignments:
+    assign ctrl_reg_array_addr_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_addr;
+    assign ctrl_reg_array_be_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_be;
+    assign ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg = ctrl_reg_array_cell_cfg;
+    assign ctrl_reg_array_clk = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign ctrl_reg_array_fetch_en_to_i_ibex_wrapper_FetchEn_gpo = ctrl_reg_array_fetch_en;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gnt = ctrl_reg_array_gnt_o;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gntpar = ctrl_reg_array_gntpar_o;
+    assign ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en = ctrl_reg_array_irq_en_0;
+    assign ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en = ctrl_reg_array_irq_en_1;
+    assign ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en = ctrl_reg_array_irq_en_2;
+    assign ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en = ctrl_reg_array_irq_en_3;
+    assign ctrl_reg_array_pmod_sel_to_pmod_sel_gpo = ctrl_reg_array_pmod_sel;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rdata = ctrl_reg_array_rdata_o;
+    assign ctrl_reg_array_req_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_req;
+    assign ctrl_reg_array_rst_icn_to_Reset_ICN_reset = ctrl_reg_array_reset_icn;
+    assign ctrl_reg_array_reset_n = ctrl_reg_array_Reset_to_Reset_reset;
+    assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[0] = ctrl_reg_array_reset_ss_0;
+    assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[1] = ctrl_reg_array_reset_ss_1;
+    assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[2] = ctrl_reg_array_reset_ss_2;
+    assign ctrl_reg_array_rst_ss_to_Reset_SS_reset[3] = ctrl_reg_array_reset_ss_3;
+    assign ctrl_reg_array_rready_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rready;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalid = ctrl_reg_array_rvalid_o;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalidpar = ctrl_reg_array_rvalidpar_o;
+    assign ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl = ctrl_reg_array_ss_ctrl_0;
+    assign ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl = ctrl_reg_array_ss_ctrl_1;
+    assign ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl = ctrl_reg_array_ss_ctrl_2;
+    assign ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl = ctrl_reg_array_ss_ctrl_3;
+    assign ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl = ctrl_reg_array_ss_ctrl_icn;
+    assign ctrl_reg_array_wdata_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wdata;
+    assign ctrl_reg_array_we_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_we;
     // i_dmem assignments:
-    assign i_dmem_addr_i[9:0] = i_dmem_mem_to_axi_dmem_bridge_Mem_ADDR[11:2];
-    assign i_dmem_be_i = i_dmem_mem_to_axi_dmem_bridge_Mem_BE;
-    assign i_dmem_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign i_dmem_mem_to_axi_dmem_bridge_Mem_RDATA = i_dmem_rdata_o;
-    assign i_dmem_req_i = i_dmem_mem_to_axi_dmem_bridge_Mem_REQ;
-    assign i_dmem_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign i_dmem_wdata_i = i_dmem_mem_to_axi_dmem_bridge_Mem_WDATA;
-    assign i_dmem_we_i = i_dmem_mem_to_axi_dmem_bridge_Mem_WE;
+    assign i_dmem_addr_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_addr[11:0];
+    assign i_dmem_be_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_be;
+    assign i_dmem_clk_i = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gnt = i_dmem_gnt_o;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gntpar = i_dmem_gntpar_o;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rdata = i_dmem_rdata_o;
+    assign i_dmem_req_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_req;
+    assign i_dmem_rready_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rready;
+    assign i_dmem_rst_ni = ctrl_reg_array_Reset_to_Reset_reset;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalid = i_dmem_rvalid_o;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalidpar = i_dmem_rvalidpar_o;
+    assign i_dmem_wdata_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_wdata;
+    assign i_dmem_we_i = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_we;
+    // i_ibex_wrapper assignments:
+    assign i_ibex_wrapper_clk_i = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_addr = i_ibex_wrapper_data_addr_o;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_be = i_ibex_wrapper_data_be_o;
+    assign i_ibex_wrapper_data_err_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_err;
+    assign i_ibex_wrapper_data_gnt_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_gnt;
+    assign i_ibex_wrapper_data_rdata_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rdata;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_req = i_ibex_wrapper_data_req_o;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_reqpar = i_ibex_wrapper_data_reqpar_o;
+    assign i_ibex_wrapper_data_rvalid_i = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rvalid;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_wdata = i_ibex_wrapper_data_wdata_o;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_we = i_ibex_wrapper_data_we_o;
+    assign i_ibex_wrapper_debug_req_i = jtag_dbg_wrapper_Debug_to_i_ibex_wrapper_Debug_debug_req;
+    assign i_ibex_wrapper_fetch_enable_i = ctrl_reg_array_fetch_en_to_i_ibex_wrapper_FetchEn_gpo[3:0];
+    assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_addr = i_ibex_wrapper_instr_addr_o;
+    assign i_ibex_wrapper_instr_err_i = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_err;
+    assign i_ibex_wrapper_instr_gnt_i = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_gnt;
+    assign i_ibex_wrapper_instr_rdata_i = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rdata;
+    assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_req = i_ibex_wrapper_instr_req_o;
+    assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_reqpar = i_ibex_wrapper_instr_reqpar_o;
+    assign i_ibex_wrapper_instr_rvalid_i = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rvalid;
+    assign i_ibex_wrapper_irq_fast_i[0] = apb_gpio_interrupt_to_i_ibex_wrapper_irq_fast_i;
+    assign i_ibex_wrapper_irq_fast_i[3:2] = apb_spi_master_events_o_to_i_ibex_wrapper_irq_fast_i;
+    assign i_ibex_wrapper_irq_fast_i[1] = apb_uart_INT_to_i_ibex_wrapper_irq_fast_i;
+    assign i_ibex_wrapper_irq_fast_i[14:8] = i_ibex_wrapper_irq_fast_i_to_irq_upper_tieoff;
+    assign i_ibex_wrapper_irq_fast_i[7:4] = i_ibex_wrapper_irq_fast_i_to_sysctrl_irq_i;
+    assign i_ibex_wrapper_rst_ni = jtag_dbg_wrapper_core_reset_to_i_ibex_wrapper_Reset_reset;
     // i_imem assignments:
-    assign i_imem_addr_i[9:0] = axi_imem_bridge_Mem_to_i_imem_mem_ADDR[11:2];
-    assign i_imem_be_i = axi_imem_bridge_Mem_to_i_imem_mem_BE;
-    assign i_imem_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign axi_imem_bridge_Mem_to_i_imem_mem_RDATA = i_imem_rdata_o;
-    assign i_imem_req_i = axi_imem_bridge_Mem_to_i_imem_mem_REQ;
-    assign i_imem_rst_ni = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign i_imem_wdata_i = axi_imem_bridge_Mem_to_i_imem_mem_WDATA;
-    assign i_imem_we_i = axi_imem_bridge_Mem_to_i_imem_mem_WE;
+    assign i_imem_addr_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_addr[11:0];
+    assign i_imem_be_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_be;
+    assign i_imem_clk_i = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gnt = i_imem_gnt_o;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gntpar = i_imem_gntpar_o;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rdata = i_imem_rdata_o;
+    assign i_imem_req_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_req;
+    assign i_imem_rready_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rready;
+    assign i_imem_rst_ni = ctrl_reg_array_Reset_to_Reset_reset;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalid = i_imem_rvalid_o;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalidpar = i_imem_rvalidpar_o;
+    assign i_imem_wdata_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_wdata;
+    assign i_imem_we_i = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_we;
     // jtag_dbg_wrapper assignments:
-    assign jtag_dbg_wrapper_clk_i = i_SysCtrl_peripherals_Clock_to_Clk_clk;
-    assign jtag_dbg_wrapper_core_reset_to_Ibex_Core_Reset_reset = jtag_dbg_wrapper_core_reset;
-    assign jtag_dbg_wrapper_Debug_to_Ibex_Core_Debug_debug_req = jtag_dbg_wrapper_debug_req_irq_o;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_ADDR = jtag_dbg_wrapper_init_ar_addr;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_PROT = jtag_dbg_wrapper_init_ar_prot;
-    assign jtag_dbg_wrapper_init_ar_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AR_VALID = jtag_dbg_wrapper_init_ar_valid;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_ADDR = jtag_dbg_wrapper_init_aw_addr;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_PROT = jtag_dbg_wrapper_init_aw_prot;
-    assign jtag_dbg_wrapper_init_aw_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_AW_VALID = jtag_dbg_wrapper_init_aw_valid;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_READY = jtag_dbg_wrapper_init_b_ready;
-    assign jtag_dbg_wrapper_init_b_resp = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_RESP;
-    assign jtag_dbg_wrapper_init_b_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_B_VALID;
-    assign jtag_dbg_wrapper_init_r_data = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_DATA;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_READY = jtag_dbg_wrapper_init_r_ready;
-    assign jtag_dbg_wrapper_init_r_resp = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_RESP;
-    assign jtag_dbg_wrapper_init_r_valid = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_R_VALID;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_DATA = jtag_dbg_wrapper_init_w_data;
-    assign jtag_dbg_wrapper_init_w_ready = jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_STRB = jtag_dbg_wrapper_init_w_strb;
-    assign jtag_dbg_wrapper_AXI4LITE_I_to_Ctrl_xbar_AXI4LITE_DBG_I_W_VALID = jtag_dbg_wrapper_init_w_valid;
+    assign jtag_dbg_wrapper_clk_i = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign jtag_dbg_wrapper_core_reset_to_i_ibex_wrapper_Reset_reset = jtag_dbg_wrapper_core_reset;
+    assign jtag_dbg_wrapper_Debug_to_i_ibex_wrapper_Debug_debug_req = jtag_dbg_wrapper_debug_req_irq_o;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_addr = jtag_dbg_wrapper_initiator_addr_o;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_be = jtag_dbg_wrapper_initiator_be_o;
+    assign jtag_dbg_wrapper_initiator_err_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_err;
+    assign jtag_dbg_wrapper_initiator_gnt_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_gnt;
+    assign jtag_dbg_wrapper_initiator_rdata_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rdata;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_req = jtag_dbg_wrapper_initiator_req_o;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_reqpar = jtag_dbg_wrapper_initiator_reqpar_o;
+    assign jtag_dbg_wrapper_initiator_rvalid_i = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rvalid;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_wdata = jtag_dbg_wrapper_initiator_wdata_o;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_we = jtag_dbg_wrapper_initiator_we_o;
     assign jtag_dbg_wrapper_jtag_tck_i = jtag_dbg_wrapper_JTAG_to_JTAG_tck;
     assign jtag_dbg_wrapper_jtag_td_i = jtag_dbg_wrapper_JTAG_to_JTAG_tdi;
     assign jtag_dbg_wrapper_JTAG_to_JTAG_tdo = jtag_dbg_wrapper_jtag_td_o;
     assign jtag_dbg_wrapper_jtag_tms_i = jtag_dbg_wrapper_JTAG_to_JTAG_tms;
     assign jtag_dbg_wrapper_jtag_trst_ni = jtag_dbg_wrapper_JTAG_to_JTAG_trst;
-    assign jtag_dbg_wrapper_rstn_i = i_SysCtrl_peripherals_Reset_to_Reset_reset;
-    assign jtag_dbg_wrapper_target_ar_addr = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_ADDR;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_READY = jtag_dbg_wrapper_target_ar_ready;
-    assign jtag_dbg_wrapper_target_ar_valid = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AR_VALID;
-    assign jtag_dbg_wrapper_target_aw_addr = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_ADDR;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_READY = jtag_dbg_wrapper_target_aw_ready;
-    assign jtag_dbg_wrapper_target_aw_valid = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_AW_VALID;
-    assign jtag_dbg_wrapper_target_b_ready = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_RESP = jtag_dbg_wrapper_target_b_resp;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_B_VALID = jtag_dbg_wrapper_target_b_valid;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_DATA = jtag_dbg_wrapper_target_r_data;
-    assign jtag_dbg_wrapper_target_r_ready = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_READY;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_RESP = jtag_dbg_wrapper_target_r_resp;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_R_VALID = jtag_dbg_wrapper_target_r_valid;
-    assign jtag_dbg_wrapper_target_w_data = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_DATA;
-    assign jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_READY = jtag_dbg_wrapper_target_w_ready;
-    assign jtag_dbg_wrapper_target_w_strb = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_STRB;
-    assign jtag_dbg_wrapper_target_w_valid = jtag_dbg_wrapper_AXI4LITE_T_to_Ctrl_xbar_AXI4LITE_DBG_T_W_VALID;
+    assign jtag_dbg_wrapper_rstn_i = ctrl_reg_array_Reset_to_Reset_reset;
+    assign jtag_dbg_wrapper_target_addr_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_addr;
+    assign jtag_dbg_wrapper_target_aid_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_aid;
+    assign jtag_dbg_wrapper_target_be_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_be;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gnt = jtag_dbg_wrapper_target_gnt_o;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gntpar = jtag_dbg_wrapper_target_gntpar_o;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rdata = jtag_dbg_wrapper_target_rdata_o;
+    assign jtag_dbg_wrapper_target_req_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_req;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rid = jtag_dbg_wrapper_target_rid_o;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalid = jtag_dbg_wrapper_target_rvalid_o;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalidpar = jtag_dbg_wrapper_target_rvalidpar_o;
+    assign jtag_dbg_wrapper_target_wdata_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_wdata;
+    assign jtag_dbg_wrapper_target_we_i = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_we;
+    // peripherals_obi_to_apb assignments:
+    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PADDR = peripherals_obi_to_apb_APB_GPIO_PADDR;
+    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PENABLE = peripherals_obi_to_apb_APB_GPIO_PENABLE;
+    assign peripherals_obi_to_apb_APB_GPIO_PRDATA = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PRDATA;
+    assign peripherals_obi_to_apb_APB_GPIO_PREADY = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PREADY;
+    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PSEL = peripherals_obi_to_apb_APB_GPIO_PSEL;
+    assign peripherals_obi_to_apb_APB_GPIO_PSLVERR = peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PSLVERR;
+    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PWDATA = peripherals_obi_to_apb_APB_GPIO_PWDATA;
+    assign peripherals_obi_to_apb_apb_gpio_to_apb_gpio_APB_PWRITE = peripherals_obi_to_apb_APB_GPIO_PWRITE;
+    assign peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PADDR = peripherals_obi_to_apb_APB_SPI_PADDR;
+    assign peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PENABLE = peripherals_obi_to_apb_APB_SPI_PENABLE;
+    assign peripherals_obi_to_apb_APB_SPI_PRDATA = peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PRDATA;
+    assign peripherals_obi_to_apb_APB_SPI_PREADY = peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PREADY;
+    assign peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PSEL = peripherals_obi_to_apb_APB_SPI_PSEL;
+    assign peripherals_obi_to_apb_APB_SPI_PSLVERR = peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PSLVERR;
+    assign peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PWDATA = peripherals_obi_to_apb_APB_SPI_PWDATA;
+    assign peripherals_obi_to_apb_apb_spi_to_apb_spi_master_APB_PWRITE = peripherals_obi_to_apb_APB_SPI_PWRITE;
+    assign peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PADDR = peripherals_obi_to_apb_APB_UART_PADDR;
+    assign peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PENABLE = peripherals_obi_to_apb_APB_UART_PENABLE;
+    assign peripherals_obi_to_apb_APB_UART_PRDATA = peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PRDATA;
+    assign peripherals_obi_to_apb_APB_UART_PREADY = peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PREADY;
+    assign peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PSEL = peripherals_obi_to_apb_APB_UART_PSEL;
+    assign peripherals_obi_to_apb_APB_UART_PSLVERR = peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PSLVERR;
+    assign peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PWDATA = peripherals_obi_to_apb_APB_UART_PWDATA;
+    assign peripherals_obi_to_apb_apb_uart_to_apb_uart_APB_PWRITE = peripherals_obi_to_apb_APB_UART_PWRITE;
+    assign peripherals_obi_to_apb_addr = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_addr;
+    assign peripherals_obi_to_apb_aid = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_aid;
+    assign peripherals_obi_to_apb_be = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_be;
+    assign peripherals_obi_to_apb_clk = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_err = peripherals_obi_to_apb_err;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_gnt = peripherals_obi_to_apb_gnt;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_gntpar = peripherals_obi_to_apb_gntpar;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rdata = peripherals_obi_to_apb_rdata;
+    assign peripherals_obi_to_apb_req = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_req;
+    assign peripherals_obi_to_apb_reqpar = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_reqpar;
+    assign peripherals_obi_to_apb_reset_n = ctrl_reg_array_Reset_to_Reset_reset;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rid = peripherals_obi_to_apb_rid;
+    assign peripherals_obi_to_apb_rready = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rready;
+    assign peripherals_obi_to_apb_rreadypar = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rreadypar;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rvalid = peripherals_obi_to_apb_rvalid;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rvalidpar = peripherals_obi_to_apb_rvalidpar;
+    assign peripherals_obi_to_apb_wdata = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_wdata;
+    assign peripherals_obi_to_apb_we = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_we;
+    // sysctrl_obi_xbar assignments:
+    assign sysctrl_obi_xbar_clk = jtag_dbg_wrapper_Clock_to_Clk_clk;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_addr = sysctrl_obi_xbar_ctrl_addr;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_be = sysctrl_obi_xbar_ctrl_be;
+    assign sysctrl_obi_xbar_ctrl_err = 1'b0;
+    assign sysctrl_obi_xbar_ctrl_gnt = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gnt;
+    assign sysctrl_obi_xbar_ctrl_gntpar = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_gntpar;
+    assign sysctrl_obi_xbar_ctrl_rdata = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rdata;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_req = sysctrl_obi_xbar_ctrl_req;
+    assign sysctrl_obi_xbar_ctrl_rid = 'h0;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rready = sysctrl_obi_xbar_ctrl_rready;
+    assign sysctrl_obi_xbar_ctrl_rvalid = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalid;
+    assign sysctrl_obi_xbar_ctrl_rvalidpar = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rvalidpar;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wdata = sysctrl_obi_xbar_ctrl_wdata;
+    assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_we = sysctrl_obi_xbar_ctrl_we;
+    assign sysctrl_obi_xbar_data_addr = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_addr;
+    assign sysctrl_obi_xbar_data_aid = 'h0;
+    assign sysctrl_obi_xbar_data_be = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_be;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_err = sysctrl_obi_xbar_data_err;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_gnt = sysctrl_obi_xbar_data_gnt;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rdata = sysctrl_obi_xbar_data_rdata;
+    assign sysctrl_obi_xbar_data_req = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_req;
+    assign sysctrl_obi_xbar_data_reqpar = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_reqpar;
+    assign sysctrl_obi_xbar_data_rready = 1'b1;
+    assign sysctrl_obi_xbar_data_rreadypar = 1'b0;
+    assign i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_rvalid = sysctrl_obi_xbar_data_rvalid;
+    assign sysctrl_obi_xbar_data_wdata = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_wdata;
+    assign sysctrl_obi_xbar_data_we = i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem_we;
+    assign sysctrl_obi_xbar_dm_init_addr = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_addr;
+    assign sysctrl_obi_xbar_dm_init_aid = 'h0;
+    assign sysctrl_obi_xbar_dm_init_be = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_be;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_err = sysctrl_obi_xbar_dm_init_err;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_gnt = sysctrl_obi_xbar_dm_init_gnt;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rdata = sysctrl_obi_xbar_dm_init_rdata;
+    assign sysctrl_obi_xbar_dm_init_req = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_req;
+    assign sysctrl_obi_xbar_dm_init_reqpar = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_reqpar;
+    assign sysctrl_obi_xbar_dm_init_rready = 1'b1;
+    assign sysctrl_obi_xbar_dm_init_rreadypar = 1'b0;
+    assign jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_rvalid = sysctrl_obi_xbar_dm_init_rvalid;
+    assign sysctrl_obi_xbar_dm_init_wdata = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_wdata;
+    assign sysctrl_obi_xbar_dm_init_we = jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init_we;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_addr = sysctrl_obi_xbar_dm_target_addr;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_aid = sysctrl_obi_xbar_dm_target_aid;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_be = sysctrl_obi_xbar_dm_target_be;
+    assign sysctrl_obi_xbar_dm_target_err = 1'b0;
+    assign sysctrl_obi_xbar_dm_target_gnt = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gnt;
+    assign sysctrl_obi_xbar_dm_target_gntpar = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_gntpar;
+    assign sysctrl_obi_xbar_dm_target_rdata = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rdata;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_req = sysctrl_obi_xbar_dm_target_req;
+    assign sysctrl_obi_xbar_dm_target_rid = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rid;
+    assign sysctrl_obi_xbar_dm_target_rvalid = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalid;
+    assign sysctrl_obi_xbar_dm_target_rvalidpar = jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_rvalidpar;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_wdata = sysctrl_obi_xbar_dm_target_wdata;
+    assign jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target_we = sysctrl_obi_xbar_dm_target_we;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_addr = sysctrl_obi_xbar_dmem_addr;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_be = sysctrl_obi_xbar_dmem_be;
+    assign sysctrl_obi_xbar_dmem_err = 1'b0;
+    assign sysctrl_obi_xbar_dmem_gnt = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gnt;
+    assign sysctrl_obi_xbar_dmem_gntpar = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_gntpar;
+    assign sysctrl_obi_xbar_dmem_rdata = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rdata;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_req = sysctrl_obi_xbar_dmem_req;
+    assign sysctrl_obi_xbar_dmem_rid = 'h0;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rready = sysctrl_obi_xbar_dmem_rready;
+    assign sysctrl_obi_xbar_dmem_rvalid = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalid;
+    assign sysctrl_obi_xbar_dmem_rvalidpar = i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_rvalidpar;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_wdata = sysctrl_obi_xbar_dmem_wdata;
+    assign i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem_we = sysctrl_obi_xbar_dmem_we;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_addr = sysctrl_obi_xbar_imem_addr;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_be = sysctrl_obi_xbar_imem_be;
+    assign sysctrl_obi_xbar_imem_err = 1'b0;
+    assign sysctrl_obi_xbar_imem_gnt = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gnt;
+    assign sysctrl_obi_xbar_imem_gntpar = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_gntpar;
+    assign sysctrl_obi_xbar_imem_rdata = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rdata;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_req = sysctrl_obi_xbar_imem_req;
+    assign sysctrl_obi_xbar_imem_rid = 'h0;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rready = sysctrl_obi_xbar_imem_rready;
+    assign sysctrl_obi_xbar_imem_rvalid = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalid;
+    assign sysctrl_obi_xbar_imem_rvalidpar = i_imem_mem_to_sysctrl_obi_xbar_obi_imem_rvalidpar;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_wdata = sysctrl_obi_xbar_imem_wdata;
+    assign i_imem_mem_to_sysctrl_obi_xbar_obi_imem_we = sysctrl_obi_xbar_imem_we;
+    assign sysctrl_obi_xbar_instr_addr = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_addr;
+    assign sysctrl_obi_xbar_instr_aid = 'h0;
+    assign sysctrl_obi_xbar_instr_be = ~0;
+    assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_err = sysctrl_obi_xbar_instr_err;
+    assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_gnt = sysctrl_obi_xbar_instr_gnt;
+    assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rdata = sysctrl_obi_xbar_instr_rdata;
+    assign sysctrl_obi_xbar_instr_req = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_req;
+    assign sysctrl_obi_xbar_instr_reqpar = i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_reqpar;
+    assign sysctrl_obi_xbar_instr_rready = 1'b1;
+    assign sysctrl_obi_xbar_instr_rreadypar = 1'b0;
+    assign i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem_rvalid = sysctrl_obi_xbar_instr_rvalid;
+    assign sysctrl_obi_xbar_instr_wdata = 'h0;
+    assign sysctrl_obi_xbar_instr_we = 1'b0;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_addr = sysctrl_obi_xbar_periph_addr;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_aid = sysctrl_obi_xbar_periph_aid;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_be = sysctrl_obi_xbar_periph_be;
+    assign sysctrl_obi_xbar_periph_err = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_err;
+    assign sysctrl_obi_xbar_periph_gnt = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_gnt;
+    assign sysctrl_obi_xbar_periph_gntpar = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_gntpar;
+    assign sysctrl_obi_xbar_periph_rdata = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rdata;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_req = sysctrl_obi_xbar_periph_req;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_reqpar = sysctrl_obi_xbar_periph_reqpar;
+    assign sysctrl_obi_xbar_periph_rid = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rid;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rready = sysctrl_obi_xbar_periph_rready;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rreadypar = sysctrl_obi_xbar_periph_rreadypar;
+    assign sysctrl_obi_xbar_periph_rvalid = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rvalid;
+    assign sysctrl_obi_xbar_periph_rvalidpar = sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_rvalidpar;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_wdata = sysctrl_obi_xbar_periph_wdata;
+    assign sysctrl_obi_xbar_obi_peripherals_to_peripherals_obi_to_apb_obi_we = sysctrl_obi_xbar_periph_we;
+    assign sysctrl_obi_xbar_reset_n = ctrl_reg_array_Reset_to_Reset_reset;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_addr = sysctrl_obi_xbar_top_addr;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_aid = sysctrl_obi_xbar_top_aid;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_be = sysctrl_obi_xbar_top_be;
+    assign sysctrl_obi_xbar_top_err = sysctrl_obi_xbar_obi_chip_top_to_OBI_err;
+    assign sysctrl_obi_xbar_top_gnt = sysctrl_obi_xbar_obi_chip_top_to_OBI_gnt;
+    assign sysctrl_obi_xbar_top_gntpar = sysctrl_obi_xbar_obi_chip_top_to_OBI_gntpar;
+    assign sysctrl_obi_xbar_top_rdata = sysctrl_obi_xbar_obi_chip_top_to_OBI_rdata;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_req = sysctrl_obi_xbar_top_req;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_reqpar = sysctrl_obi_xbar_top_reqpar;
+    assign sysctrl_obi_xbar_top_rid = sysctrl_obi_xbar_obi_chip_top_to_OBI_rid[0];
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rready = sysctrl_obi_xbar_top_rready;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rreadypar = sysctrl_obi_xbar_top_rreadypar;
+    assign sysctrl_obi_xbar_top_rvalid = sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalid;
+    assign sysctrl_obi_xbar_top_rvalidpar = sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalidpar;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_wdata = sysctrl_obi_xbar_top_wdata;
+    assign sysctrl_obi_xbar_obi_chip_top_to_OBI_we = sysctrl_obi_xbar_top_we;
 
-    // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
-    mem_axi_bridge #(
-        .MEM_AW              (32),
-        .MEM_DW              (32),
-        .AXI_AW              (32),
-        .AXI_DW              (32))
-    Ctrl_reg_bridge(
-        // Interface: AXI4LITE
-        .ar_addr_i           (Ctrl_reg_bridge_ar_addr_i),
-        .ar_valid_i          (Ctrl_reg_bridge_ar_valid_i),
-        .aw_addr_i           (Ctrl_reg_bridge_aw_addr_i),
-        .aw_valid_i          (Ctrl_reg_bridge_aw_valid_i),
-        .b_ready_i           (Ctrl_reg_bridge_b_ready_i),
-        .r_ready_i           (Ctrl_reg_bridge_r_ready_i),
-        .w_data_i            (Ctrl_reg_bridge_w_data_i),
-        .w_strb_i            (Ctrl_reg_bridge_w_strb_i),
-        .w_valid_i           (Ctrl_reg_bridge_w_valid_i),
-        .ar_ready_o          (Ctrl_reg_bridge_ar_ready_o),
-        .aw_ready_o          (Ctrl_reg_bridge_aw_ready_o),
-        .b_resp_o            (Ctrl_reg_bridge_b_resp_o),
-        .b_valid_o           (Ctrl_reg_bridge_b_valid_o),
-        .r_data_o            (Ctrl_reg_bridge_r_data_o),
-        .r_resp_o            (Ctrl_reg_bridge_r_resp_o),
-        .r_valid_o           (Ctrl_reg_bridge_r_valid_o),
-        .w_ready_o           (Ctrl_reg_bridge_w_ready_o),
+    // IP-XACT VLNV: tuni.fi:pulp.peripheral:APB_GPIO:1.0
+    apb_gpio #(
+        .APB_ADDR_WIDTH      (12),
+        .PAD_NUM             (8),
+        .NBIT_PADCFG         (0))
+    apb_gpio(
+        // Interface: APB
+        .PADDR               (apb_gpio_PADDR),
+        .PENABLE             (apb_gpio_PENABLE),
+        .PSEL                (apb_gpio_PSEL),
+        .PWDATA              (apb_gpio_PWDATA),
+        .PWRITE              (apb_gpio_PWRITE),
+        .PRDATA              (apb_gpio_PRDATA),
+        .PREADY              (apb_gpio_PREADY),
+        .PSLVERR             (apb_gpio_PSLVERR),
         // Interface: Clock
-        .clk_i               (Ctrl_reg_bridge_clk_i),
-        // Interface: Mem
-        .rdata_i             (Ctrl_reg_bridge_rdata_i),
-        .addr_o              (Ctrl_reg_bridge_addr_o),
-        .be_o                (Ctrl_reg_bridge_be_o),
-        .req_o               (Ctrl_reg_bridge_req_o),
-        .wdata_o             (Ctrl_reg_bridge_wdata_o),
-        .we_o                (Ctrl_reg_bridge_we_o),
-        // Interface: Reset
-        .rst_ni              (Ctrl_reg_bridge_rst_ni));
+        .HCLK                (apb_gpio_HCLK),
+        // Interface: GPIO
+        .gpio_in             (apb_gpio_gpio_in),
+        .gpio_dir            (),
+        .gpio_out            (apb_gpio_gpio_out),
+        // Interface: IRQ
+        .interrupt           (apb_gpio_interrupt),
+        // Interface: Reset_n
+        .HRESETn             (apb_gpio_HRESETn),
+        // These ports are not in any interface
+        .dft_cg_enable_i     (1'b0),
+        .gpio_in_sync        (),
+        .gpio_padcfg         ());
 
-    // IP-XACT VLNV: tuni.fi:ip:SysCtrl_xbar:1.0
-    SysCtrl_xbar #(
-        .AXI4LITE_DW         (32),
-        .AXI4LITE_AW         (32))
-    Ctrl_xbar(
-        // Interface: AXI4LITE_CORE_DMEM
-        .CoreDMEM_ar_addr_in (Ctrl_xbar_CoreDMEM_ar_addr_in),
-        .CoreDMEM_ar_valid_in(Ctrl_xbar_CoreDMEM_ar_valid_in),
-        .CoreDMEM_aw_addr_in (Ctrl_xbar_CoreDMEM_aw_addr_in),
-        .CoreDMEM_aw_valid_in(Ctrl_xbar_CoreDMEM_aw_valid_in),
-        .CoreDMEM_b_ready_in (Ctrl_xbar_CoreDMEM_b_ready_in),
-        .CoreDMEM_r_ready_in (Ctrl_xbar_CoreDMEM_r_ready_in),
-        .CoreDMEM_w_data_in  (Ctrl_xbar_CoreDMEM_w_data_in),
-        .CoreDMEM_w_strb_in  (Ctrl_xbar_CoreDMEM_w_strb_in),
-        .CoreDMEM_w_valid_in (Ctrl_xbar_CoreDMEM_w_valid_in),
-        .CoreDMEM_ar_ready_out(Ctrl_xbar_CoreDMEM_ar_ready_out),
-        .CoreDMEM_aw_ready_out(Ctrl_xbar_CoreDMEM_aw_ready_out),
-        .CoreDMEM_b_resp_out (Ctrl_xbar_CoreDMEM_b_resp_out),
-        .CoreDMEM_b_valid_out(Ctrl_xbar_CoreDMEM_b_valid_out),
-        .CoreDMEM_r_data_out (Ctrl_xbar_CoreDMEM_r_data_out),
-        .CoreDMEM_r_resp_out (Ctrl_xbar_CoreDMEM_r_resp_out),
-        .CoreDMEM_r_valid_out(Ctrl_xbar_CoreDMEM_r_valid_out),
-        .CoreDMEM_w_ready_out(Ctrl_xbar_CoreDMEM_w_ready_out),
-        // Interface: AXI4LITE_CORE_IMEM
-        .CoreIMEM_ar_addr_in (Ctrl_xbar_CoreIMEM_ar_addr_in),
-        .CoreIMEM_ar_valid_in(Ctrl_xbar_CoreIMEM_ar_valid_in),
-        .CoreIMEM_aw_addr_in (Ctrl_xbar_CoreIMEM_aw_addr_in),
-        .CoreIMEM_aw_valid_in(Ctrl_xbar_CoreIMEM_aw_valid_in),
-        .CoreIMEM_b_ready_in (Ctrl_xbar_CoreIMEM_b_ready_in),
-        .CoreIMEM_r_ready_in (Ctrl_xbar_CoreIMEM_r_ready_in),
-        .CoreIMEM_w_data_in  (Ctrl_xbar_CoreIMEM_w_data_in),
-        .CoreIMEM_w_strb_in  (Ctrl_xbar_CoreIMEM_w_strb_in),
-        .CoreIMEM_w_valid_in (Ctrl_xbar_CoreIMEM_w_valid_in),
-        .CoreIMEM_ar_ready_out(Ctrl_xbar_CoreIMEM_ar_ready_out),
-        .CoreIMEM_aw_ready_out(Ctrl_xbar_CoreIMEM_aw_ready_out),
-        .CoreIMEM_b_resp_out (Ctrl_xbar_CoreIMEM_b_resp_out),
-        .CoreIMEM_b_valid_out(Ctrl_xbar_CoreIMEM_b_valid_out),
-        .CoreIMEM_r_data_out (Ctrl_xbar_CoreIMEM_r_data_out),
-        .CoreIMEM_r_resp_out (Ctrl_xbar_CoreIMEM_r_resp_out),
-        .CoreIMEM_r_valid_out(Ctrl_xbar_CoreIMEM_r_valid_out),
-        .CoreIMEM_w_ready_out(Ctrl_xbar_CoreIMEM_w_ready_out),
-        // Interface: AXI4LITE_CTRL
-        .CtrlReg_ar_ready_in (Ctrl_xbar_CtrlReg_ar_ready_in),
-        .CtrlReg_aw_ready_in (Ctrl_xbar_CtrlReg_aw_ready_in),
-        .CtrlReg_b_resp_in   (Ctrl_xbar_CtrlReg_b_resp_in),
-        .CtrlReg_b_valid_in  (Ctrl_xbar_CtrlReg_b_valid_in),
-        .CtrlReg_r_data_in   (Ctrl_xbar_CtrlReg_r_data_in),
-        .CtrlReg_r_resp_in   (Ctrl_xbar_CtrlReg_r_resp_in),
-        .CtrlReg_r_valid_in  (Ctrl_xbar_CtrlReg_r_valid_in),
-        .CtrlReg_w_ready_in  (Ctrl_xbar_CtrlReg_w_ready_in),
-        .CtrlReg_ar_addr_out (Ctrl_xbar_CtrlReg_ar_addr_out),
-        .CtrlReg_ar_valid_out(Ctrl_xbar_CtrlReg_ar_valid_out),
-        .CtrlReg_aw_addr_out (Ctrl_xbar_CtrlReg_aw_addr_out),
-        .CtrlReg_aw_valid_out(Ctrl_xbar_CtrlReg_aw_valid_out),
-        .CtrlReg_b_ready_out (Ctrl_xbar_CtrlReg_b_ready_out),
-        .CtrlReg_r_ready_out (Ctrl_xbar_CtrlReg_r_ready_out),
-        .CtrlReg_w_data_out  (Ctrl_xbar_CtrlReg_w_data_out),
-        .CtrlReg_w_strb_out  (Ctrl_xbar_CtrlReg_w_strb_out),
-        .CtrlReg_w_valid_out (Ctrl_xbar_CtrlReg_w_valid_out),
-        // Interface: AXI4LITE_DBG_I
-        .DbgI_ar_addr        (Ctrl_xbar_DbgI_ar_addr),
-        .DbgI_ar_prot        (Ctrl_xbar_DbgI_ar_prot),
-        .DbgI_ar_valid       (Ctrl_xbar_DbgI_ar_valid),
-        .DbgI_aw_addr        (Ctrl_xbar_DbgI_aw_addr),
-        .DbgI_aw_prot        (Ctrl_xbar_DbgI_aw_prot),
-        .DbgI_aw_valid       (Ctrl_xbar_DbgI_aw_valid),
-        .DbgI_b_ready        (Ctrl_xbar_DbgI_b_ready),
-        .DbgI_r_ready        (Ctrl_xbar_DbgI_r_ready),
-        .DbgI_w_data         (Ctrl_xbar_DbgI_w_data),
-        .DbgI_w_strb         (Ctrl_xbar_DbgI_w_strb),
-        .DbgI_w_valid        (Ctrl_xbar_DbgI_w_valid),
-        .DbgI_ar_ready       (Ctrl_xbar_DbgI_ar_ready),
-        .DbgI_aw_ready       (Ctrl_xbar_DbgI_aw_ready),
-        .DbgI_b_resp         (Ctrl_xbar_DbgI_b_resp),
-        .DbgI_b_valid        (Ctrl_xbar_DbgI_b_valid),
-        .DbgI_r_data         (Ctrl_xbar_DbgI_r_data),
-        .DbgI_r_resp         (Ctrl_xbar_DbgI_r_resp),
-        .DbgI_r_valid        (Ctrl_xbar_DbgI_r_valid),
-        .DbgI_w_ready        (Ctrl_xbar_DbgI_w_ready),
-        // Interface: AXI4LITE_DBG_T
-        .DbgT_ar_ready_in    (Ctrl_xbar_DbgT_ar_ready_in),
-        .DbgT_aw_ready_in    (Ctrl_xbar_DbgT_aw_ready_in),
-        .DbgT_b_resp_in      (Ctrl_xbar_DbgT_b_resp_in),
-        .DbgT_b_valid_in     (Ctrl_xbar_DbgT_b_valid_in),
-        .DbgT_r_data_in      (Ctrl_xbar_DbgT_r_data_in),
-        .DbgT_r_resp_in      (Ctrl_xbar_DbgT_r_resp_in),
-        .DbgT_r_valid_in     (Ctrl_xbar_DbgT_r_valid_in),
-        .DbgT_w_ready_in     (Ctrl_xbar_DbgT_w_ready_in),
-        .DbgT_ar_addr_out    (Ctrl_xbar_DbgT_ar_addr_out),
-        .DbgT_ar_valid_out   (Ctrl_xbar_DbgT_ar_valid_out),
-        .DbgT_aw_addr_out    (Ctrl_xbar_DbgT_aw_addr_out),
-        .DbgT_aw_valid_out   (Ctrl_xbar_DbgT_aw_valid_out),
-        .DbgT_b_ready_out    (Ctrl_xbar_DbgT_b_ready_out),
-        .DbgT_r_ready_out    (Ctrl_xbar_DbgT_r_ready_out),
-        .DbgT_w_data_out     (Ctrl_xbar_DbgT_w_data_out),
-        .DbgT_w_strb_out     (Ctrl_xbar_DbgT_w_strb_out),
-        .DbgT_w_valid_out    (Ctrl_xbar_DbgT_w_valid_out),
-        // Interface: AXI4LITE_DMEM
-        .DMEM_ar_ready_in    (Ctrl_xbar_DMEM_ar_ready_in),
-        .DMEM_aw_ready_in    (Ctrl_xbar_DMEM_aw_ready_in),
-        .DMEM_b_resp_in      (Ctrl_xbar_DMEM_b_resp_in),
-        .DMEM_b_valid_in     (Ctrl_xbar_DMEM_b_valid_in),
-        .DMEM_r_data_in      (Ctrl_xbar_DMEM_r_data_in),
-        .DMEM_r_resp_in      (Ctrl_xbar_DMEM_r_resp_in),
-        .DMEM_r_valid_in     (Ctrl_xbar_DMEM_r_valid_in),
-        .DMEM_w_ready_in     (Ctrl_xbar_DMEM_w_ready_in),
-        .DMEM_ar_addr_out    (Ctrl_xbar_DMEM_ar_addr_out),
-        .DMEM_ar_valid_out   (Ctrl_xbar_DMEM_ar_valid_out),
-        .DMEM_aw_addr_out    (Ctrl_xbar_DMEM_aw_addr_out),
-        .DMEM_aw_valid_out   (Ctrl_xbar_DMEM_aw_valid_out),
-        .DMEM_b_ready_out    (Ctrl_xbar_DMEM_b_ready_out),
-        .DMEM_r_ready_out    (Ctrl_xbar_DMEM_r_ready_out),
-        .DMEM_w_data_out     (Ctrl_xbar_DMEM_w_data_out),
-        .DMEM_w_strb_out     (Ctrl_xbar_DMEM_w_strb_out),
-        .DMEM_w_valid_out    (Ctrl_xbar_DMEM_w_valid_out),
-        // Interface: AXI4LITE_IMEM
-        .IMEM_ar_ready_in    (Ctrl_xbar_IMEM_ar_ready_in),
-        .IMEM_aw_ready_in    (Ctrl_xbar_IMEM_aw_ready_in),
-        .IMEM_b_resp_in      (Ctrl_xbar_IMEM_b_resp_in),
-        .IMEM_b_valid_in     (Ctrl_xbar_IMEM_b_valid_in),
-        .IMEM_r_data_in      (Ctrl_xbar_IMEM_r_data_in),
-        .IMEM_r_resp_in      (Ctrl_xbar_IMEM_r_resp_in),
-        .IMEM_r_valid_in     (Ctrl_xbar_IMEM_r_valid_in),
-        .IMEM_w_ready_in     (Ctrl_xbar_IMEM_w_ready_in),
-        .IMEM_ar_addr_out    (Ctrl_xbar_IMEM_ar_addr_out),
-        .IMEM_ar_valid_out   (Ctrl_xbar_IMEM_ar_valid_out),
-        .IMEM_aw_addr_out    (Ctrl_xbar_IMEM_aw_addr_out),
-        .IMEM_aw_valid_out   (Ctrl_xbar_IMEM_aw_valid_out),
-        .IMEM_b_ready_out    (Ctrl_xbar_IMEM_b_ready_out),
-        .IMEM_r_ready_out    (Ctrl_xbar_IMEM_r_ready_out),
-        .IMEM_w_data_out     (Ctrl_xbar_IMEM_w_data_out),
-        .IMEM_w_strb_out     (Ctrl_xbar_IMEM_w_strb_out),
-        .IMEM_w_valid_out    (Ctrl_xbar_IMEM_w_valid_out),
-        // Interface: AXI4LITE_icn
-        .icn_ar_ready_in     (Ctrl_xbar_icn_ar_ready_in),
-        .icn_aw_ready_in     (Ctrl_xbar_icn_aw_ready_in),
-        .icn_b_resp_in       (Ctrl_xbar_icn_b_resp_in),
-        .icn_b_valid_in      (Ctrl_xbar_icn_b_valid_in),
-        .icn_r_data_in       (Ctrl_xbar_icn_r_data_in),
-        .icn_r_resp_in       (Ctrl_xbar_icn_r_resp_in),
-        .icn_r_valid_in      (Ctrl_xbar_icn_r_valid_in),
-        .icn_w_ready_in      (Ctrl_xbar_icn_w_ready_in),
-        .icn_ar_addr_out     (Ctrl_xbar_icn_ar_addr_out),
-        .icn_ar_prot_out     (Ctrl_xbar_icn_ar_prot_out),
-        .icn_ar_valid_out    (Ctrl_xbar_icn_ar_valid_out),
-        .icn_aw_addr_out     (Ctrl_xbar_icn_aw_addr_out),
-        .icn_aw_prot_out     (Ctrl_xbar_icn_aw_prot_out),
-        .icn_aw_valid_out    (Ctrl_xbar_icn_aw_valid_out),
-        .icn_b_ready_out     (Ctrl_xbar_icn_b_ready_out),
-        .icn_r_ready_out     (Ctrl_xbar_icn_r_ready_out),
-        .icn_w_data_out      (Ctrl_xbar_icn_w_data_out),
-        .icn_w_strb_out      (Ctrl_xbar_icn_w_strb_out),
-        .icn_w_valid_out     (Ctrl_xbar_icn_w_valid_out),
-        // Interface: AXI4LITE_periph
-        .periph_ar_ready_in  (Ctrl_xbar_periph_ar_ready_in),
-        .periph_aw_ready_in  (Ctrl_xbar_periph_aw_ready_in),
-        .periph_b_resp_in    (Ctrl_xbar_periph_b_resp_in),
-        .periph_b_valid_in   (Ctrl_xbar_periph_b_valid_in),
-        .periph_r_data_in    (Ctrl_xbar_periph_r_data_in),
-        .periph_r_resp_in    (Ctrl_xbar_periph_r_resp_in),
-        .periph_r_valid_in   (Ctrl_xbar_periph_r_valid_in),
-        .periph_w_ready_in   (Ctrl_xbar_periph_w_ready_in),
-        .periph_ar_addr_out  (Ctrl_xbar_periph_ar_addr_out),
-        .periph_ar_prot_out  (Ctrl_xbar_periph_ar_prot_out),
-        .periph_ar_valid_out (Ctrl_xbar_periph_ar_valid_out),
-        .periph_aw_addr_out  (Ctrl_xbar_periph_aw_addr_out),
-        .periph_aw_prot_out  (Ctrl_xbar_periph_aw_prot_out),
-        .periph_aw_valid_out (Ctrl_xbar_periph_aw_valid_out),
-        .periph_b_ready_out  (Ctrl_xbar_periph_b_ready_out),
-        .periph_r_ready_out  (Ctrl_xbar_periph_r_ready_out),
-        .periph_w_data_out   (Ctrl_xbar_periph_w_data_out),
-        .periph_w_strb_out   (Ctrl_xbar_periph_w_strb_out),
-        .periph_w_valid_out  (Ctrl_xbar_periph_w_valid_out),
+    // IP-XACT VLNV: tuni.fi:pulp.peripheral:apb_spi_master:1.0
+    apb_spi_master #(
+        .APB_ADDR_WIDTH      (12))
+    apb_spi_master(
+        // Interface: APB
+        .PADDR               (apb_spi_master_PADDR),
+        .PENABLE             (apb_spi_master_PENABLE),
+        .PSEL                (apb_spi_master_PSEL),
+        .PWDATA              (apb_spi_master_PWDATA),
+        .PWRITE              (apb_spi_master_PWRITE),
+        .PRDATA              (apb_spi_master_PRDATA),
+        .PREADY              (apb_spi_master_PREADY),
+        .PSLVERR             (apb_spi_master_PSLVERR),
         // Interface: Clock
-        .clk_i               (Ctrl_xbar_clk_i),
-        // Interface: Reset
-        .reset_ni            (Ctrl_xbar_reset_ni));
+        .HCLK                (apb_spi_master_HCLK),
+        // Interface: IRQ
+        .events_o            (apb_spi_master_events_o),
+        // Interface: Reset_n
+        .HRESETn             (apb_spi_master_HRESETn),
+        // Interface: SPI
+        .spi_sdi0            (apb_spi_master_spi_sdi0),
+        .spi_sdi1            (apb_spi_master_spi_sdi1),
+        .spi_sdi2            (apb_spi_master_spi_sdi2),
+        .spi_sdi3            (apb_spi_master_spi_sdi3),
+        .spi_clk             (apb_spi_master_spi_clk),
+        .spi_csn0            (apb_spi_master_spi_csn0),
+        .spi_csn1            (apb_spi_master_spi_csn1),
+        .spi_csn2            (apb_spi_master_spi_csn2),
+        .spi_csn3            (apb_spi_master_spi_csn3),
+        .spi_mode            (),
+        .spi_sdo0            (apb_spi_master_spi_sdo0),
+        .spi_sdo1            (apb_spi_master_spi_sdo1),
+        .spi_sdo2            (apb_spi_master_spi_sdo2),
+        .spi_sdo3            (apb_spi_master_spi_sdo3));
 
-    // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.0
-    ibex_top #(
+    // IP-XACT VLNV: tuni.fi:pulp.peripheral:apb_uart:1.0
+    apb_uart apb_uart(
+        // Interface: APB
+        .PADDR               (apb_uart_PADDR),
+        .PENABLE             (apb_uart_PENABLE),
+        .PSEL                (apb_uart_PSEL),
+        .PWDATA              (apb_uart_PWDATA),
+        .PWRITE              (apb_uart_PWRITE),
+        .PRDATA              (apb_uart_PRDATA),
+        .PREADY              (apb_uart_PREADY),
+        .PSLVERR             (apb_uart_PSLVERR),
+        // Interface: Clock
+        .CLK                 (apb_uart_CLK),
+        // Interface: IRQ
+        .INT                 (apb_uart_INT),
+        // Interface: Reset
+        .RSTN                (apb_uart_RSTN),
+        // Interface: UART
+        .SIN                 (apb_uart_SIN),
+        .SOUT                (apb_uart_SOUT),
+        // These ports are not in any interface
+        .CTSN                (1'b0),
+        .DCDN                (1'b0),
+        .DSRN                (1'b0),
+        .RIN                 (1'b0),
+        .DTRN                (),
+        .OUT1N               (),
+        .OUT2N               (),
+        .RTSN                ());
+
+    // IP-XACT VLNV: tuni.fi:ip:SS_Ctrl_reg_array:1.1
+    SS_Ctrl_reg_array #(
+        .IOCELL_COUNT        (17),
+        .IOCELL_CFG_W        (5),
+        .AW                  (32),
+        .DW                  (32),
+        .SS_CTRL_W           (8))
+    ctrl_reg_array(
+        // Interface: Clock
+        .clk                 (ctrl_reg_array_clk),
+        // Interface: Reset
+        .reset_n             (ctrl_reg_array_reset_n),
+        // Interface: fetch_en
+        .fetch_en            (ctrl_reg_array_fetch_en),
+        // Interface: icn_ss_ctrl
+        .ss_ctrl_icn         (ctrl_reg_array_ss_ctrl_icn),
+        // Interface: io_cfg
+        .cell_cfg            (ctrl_reg_array_cell_cfg),
+        // Interface: obi_target
+        .addr_i              (ctrl_reg_array_addr_i),
+        .be_i                (ctrl_reg_array_be_i),
+        .req_i               (ctrl_reg_array_req_i),
+        .rready_i            (ctrl_reg_array_rready_i),
+        .wdata_i             (ctrl_reg_array_wdata_i),
+        .we_i                (ctrl_reg_array_we_i),
+        .gnt_o               (ctrl_reg_array_gnt_o),
+        .gntpar_o            (ctrl_reg_array_gntpar_o),
+        .rdata_o             (ctrl_reg_array_rdata_o),
+        .rvalid_o            (ctrl_reg_array_rvalid_o),
+        .rvalidpar_o         (ctrl_reg_array_rvalidpar_o),
+        // Interface: pmod_sel
+        .pmod_sel            (ctrl_reg_array_pmod_sel),
+        // Interface: rst_icn
+        .reset_icn           (ctrl_reg_array_reset_icn),
+        // Interface: rst_ss
+        .reset_ss_0          (ctrl_reg_array_reset_ss_0),
+        .reset_ss_1          (ctrl_reg_array_reset_ss_1),
+        .reset_ss_2          (ctrl_reg_array_reset_ss_2),
+        .reset_ss_3          (ctrl_reg_array_reset_ss_3),
+        // Interface: ss_ctrl_0
+        .irq_en_0            (ctrl_reg_array_irq_en_0),
+        .ss_ctrl_0           (ctrl_reg_array_ss_ctrl_0),
+        // Interface: ss_ctrl_1
+        .irq_en_1            (ctrl_reg_array_irq_en_1),
+        .ss_ctrl_1           (ctrl_reg_array_ss_ctrl_1),
+        // Interface: ss_ctrl_2
+        .irq_en_2            (ctrl_reg_array_irq_en_2),
+        .ss_ctrl_2           (ctrl_reg_array_ss_ctrl_2),
+        // Interface: ss_ctrl_3
+        .irq_en_3            (ctrl_reg_array_irq_en_3),
+        .ss_ctrl_3           (ctrl_reg_array_ss_ctrl_3));
+
+    // IP-XACT VLNV: tuni.fi:memory.simulation:sp_sram:1.1
+    sp_sram #(
+        .DATA_WIDTH          (32),
+        .NUM_WORDS           (4096))
+    i_dmem(
+        // Interface: Clock
+        .clk_i               (i_dmem_clk_i),
+        // Interface: Reset
+        .rst_ni              (i_dmem_rst_ni),
+        // Interface: mem
+        .addr_i              (i_dmem_addr_i),
+        .be_i                (i_dmem_be_i),
+        .req_i               (i_dmem_req_i),
+        .rready_i            (i_dmem_rready_i),
+        .wdata_i             (i_dmem_wdata_i),
+        .we_i                (i_dmem_we_i),
+        .gnt_o               (i_dmem_gnt_o),
+        .gntpar_o            (i_dmem_gntpar_o),
+        .rdata_o             (i_dmem_rdata_o),
+        .rvalid_o            (i_dmem_rvalid_o),
+        .rvalidpar_o         (i_dmem_rvalidpar_o));
+
+    // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.1
+    ibex_wrapper #(
         .DmHaltAddr          (16910336),
         .DmExceptionAddr     (16910358),
         .DmBaseAddr          (16908288))
-    Ibex_Core(
+    i_ibex_wrapper(
         // Interface: Clock
-        .clk_i               (Ibex_Core_clk_i),
+        .clk_i               (i_ibex_wrapper_clk_i),
         // Interface: Debug
-        .debug_req_i         (Ibex_Core_debug_req_i),
+        .debug_req_i         (i_ibex_wrapper_debug_req_i),
         // Interface: FetchEn
-        .fetch_enable_i      (Ibex_Core_fetch_enable_i),
+        .fetch_enable_i      (i_ibex_wrapper_fetch_enable_i),
         // Interface: IRQ_fast
-        .irq_fast_i          (Ibex_Core_irq_fast_i),
+        .irq_fast_i          (i_ibex_wrapper_irq_fast_i),
         // Interface: Reset
-        .rst_ni              (Ibex_Core_rst_ni),
+        .rst_ni              (i_ibex_wrapper_rst_ni),
         // Interface: dmem
-        .data_err_i          (Ibex_Core_data_err_i),
-        .data_gnt_i          (Ibex_Core_data_gnt_i),
-        .data_rdata_i        (Ibex_Core_data_rdata_i),
-        .data_rdata_intg_i   (7'h0),
-        .data_rvalid_i       (Ibex_Core_data_rvalid_i),
-        .data_addr_o         (Ibex_Core_data_addr_o),
-        .data_be_o           (Ibex_Core_data_be_o),
-        .data_req_o          (Ibex_Core_data_req_o),
-        .data_wdata_intg_o   (),
-        .data_wdata_o        (Ibex_Core_data_wdata_o),
-        .data_we_o           (Ibex_Core_data_we_o),
+        .data_err_i          (i_ibex_wrapper_data_err_i),
+        .data_gnt_i          (i_ibex_wrapper_data_gnt_i),
+        .data_rdata_i        (i_ibex_wrapper_data_rdata_i),
+        .data_rvalid_i       (i_ibex_wrapper_data_rvalid_i),
+        .data_addr_o         (i_ibex_wrapper_data_addr_o),
+        .data_be_o           (i_ibex_wrapper_data_be_o),
+        .data_req_o          (i_ibex_wrapper_data_req_o),
+        .data_reqpar_o       (i_ibex_wrapper_data_reqpar_o),
+        .data_wdata_o        (i_ibex_wrapper_data_wdata_o),
+        .data_we_o           (i_ibex_wrapper_data_we_o),
         // Interface: imem
-        .instr_err_i         (Ibex_Core_instr_err_i),
-        .instr_gnt_i         (Ibex_Core_instr_gnt_i),
-        .instr_rdata_i       (Ibex_Core_instr_rdata_i),
-        .instr_rdata_intg_i  (7'h0),
-        .instr_rvalid_i      (Ibex_Core_instr_rvalid_i),
-        .instr_addr_o        (Ibex_Core_instr_addr_o),
-        .instr_req_o         (Ibex_Core_instr_req_o),
+        .instr_err_i         (i_ibex_wrapper_instr_err_i),
+        .instr_gnt_i         (i_ibex_wrapper_instr_gnt_i),
+        .instr_rdata_i       (i_ibex_wrapper_instr_rdata_i),
+        .instr_rvalid_i      (i_ibex_wrapper_instr_rvalid_i),
+        .instr_addr_o        (i_ibex_wrapper_instr_addr_o),
+        .instr_req_o         (i_ibex_wrapper_instr_req_o),
+        .instr_reqpar_o      (i_ibex_wrapper_instr_reqpar_o),
         // These ports are not in any interface
         .boot_addr_i         (32'h1040100),
+        .data_rdata_intg_i   (7'h0),
         .hart_id_i           (32'h0),
+        .instr_rdata_intg_i  (7'h0),
         .irq_external_i      (1'b0),
         .irq_nm_i            (1'b0),
         .irq_software_i      (1'b0),
@@ -1580,288 +1500,14 @@ module SysCtrl_SS_0 #(
         .alert_minor_o       (),
         .core_sleep_o        (),
         .crash_dump_o        (),
+        .data_wdata_intg_o   (),
         .double_fault_seen_o (),
         .scramble_req_o      ());
 
-    // IP-XACT VLNV: tuni.fi:ip:SS_Ctrl_reg_array:1.0
-    SS_Ctrl_reg_array #(
-        .IOCELL_COUNT        (17),
-        .IOCELL_CFG_W        (5),
-        .AW                  (32),
-        .DW                  (32),
-        .SS_CTRL_W           (8))
-    SS_Ctrl_reg_array(
-        // Interface: Clock
-        .clk                 (SS_Ctrl_reg_array_clk),
-        // Interface: Reset
-        .reset_n             (SS_Ctrl_reg_array_reset_n),
-        // Interface: fetch_en
-        .fetch_en            (SS_Ctrl_reg_array_fetch_en),
-        // Interface: icn_ss_ctrl
-        .ss_ctrl_icn         (SS_Ctrl_reg_array_ss_ctrl_icn),
-        // Interface: io_cfg
-        .cell_cfg            (SS_Ctrl_reg_array_cell_cfg),
-        // Interface: mem_reg_if
-        .addr_i              (SS_Ctrl_reg_array_addr_i),
-        .be_i                (SS_Ctrl_reg_array_be_i),
-        .req_i               (SS_Ctrl_reg_array_req_i),
-        .wdata_i             (SS_Ctrl_reg_array_wdata_i),
-        .we_i                (SS_Ctrl_reg_array_we_i),
-        .rdata_o             (SS_Ctrl_reg_array_rdata_o),
-        // Interface: pmod_sel
-        .pmod_sel            (SS_Ctrl_reg_array_pmod_sel),
-        // Interface: rst_icn
-        .reset_icn           (SS_Ctrl_reg_array_reset_icn),
-        // Interface: rst_ss
-        .reset_ss_0          (SS_Ctrl_reg_array_reset_ss_0),
-        .reset_ss_1          (SS_Ctrl_reg_array_reset_ss_1),
-        .reset_ss_2          (SS_Ctrl_reg_array_reset_ss_2),
-        .reset_ss_3          (SS_Ctrl_reg_array_reset_ss_3),
-        // Interface: ss_ctrl_0
-        .irq_en_0            (SS_Ctrl_reg_array_irq_en_0),
-        .ss_ctrl_0           (SS_Ctrl_reg_array_ss_ctrl_0),
-        // Interface: ss_ctrl_1
-        .irq_en_1            (SS_Ctrl_reg_array_irq_en_1),
-        .ss_ctrl_1           (SS_Ctrl_reg_array_ss_ctrl_1),
-        // Interface: ss_ctrl_2
-        .irq_en_2            (SS_Ctrl_reg_array_irq_en_2),
-        .ss_ctrl_2           (SS_Ctrl_reg_array_ss_ctrl_2),
-        // Interface: ss_ctrl_3
-        .irq_en_3            (SS_Ctrl_reg_array_irq_en_3),
-        .ss_ctrl_3           (SS_Ctrl_reg_array_ss_ctrl_3),
-        // These ports are not in any interface
-        .rready_i            (1'b1),
-        .gnt_o               (),
-        .gntpar_o            (),
-        .rvalid_o            (),
-        .rvalidpar_o         ());
-
-    // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
-    mem_axi_bridge #(
-        .MEM_AW              (32),
-        .MEM_DW              (32),
-        .AXI_AW              (32),
-        .AXI_DW              (32))
-    axi_dmem_bridge(
-        // Interface: AXI4LITE
-        .ar_addr_i           (axi_dmem_bridge_ar_addr_i),
-        .ar_valid_i          (axi_dmem_bridge_ar_valid_i),
-        .aw_addr_i           (axi_dmem_bridge_aw_addr_i),
-        .aw_valid_i          (axi_dmem_bridge_aw_valid_i),
-        .b_ready_i           (axi_dmem_bridge_b_ready_i),
-        .r_ready_i           (axi_dmem_bridge_r_ready_i),
-        .w_data_i            (axi_dmem_bridge_w_data_i),
-        .w_strb_i            (axi_dmem_bridge_w_strb_i),
-        .w_valid_i           (axi_dmem_bridge_w_valid_i),
-        .ar_ready_o          (axi_dmem_bridge_ar_ready_o),
-        .aw_ready_o          (axi_dmem_bridge_aw_ready_o),
-        .b_resp_o            (axi_dmem_bridge_b_resp_o),
-        .b_valid_o           (axi_dmem_bridge_b_valid_o),
-        .r_data_o            (axi_dmem_bridge_r_data_o),
-        .r_resp_o            (axi_dmem_bridge_r_resp_o),
-        .r_valid_o           (axi_dmem_bridge_r_valid_o),
-        .w_ready_o           (axi_dmem_bridge_w_ready_o),
-        // Interface: Clock
-        .clk_i               (axi_dmem_bridge_clk_i),
-        // Interface: Mem
-        .rdata_i             (axi_dmem_bridge_rdata_i),
-        .addr_o              (axi_dmem_bridge_addr_o),
-        .be_o                (axi_dmem_bridge_be_o),
-        .req_o               (axi_dmem_bridge_req_o),
-        .wdata_o             (axi_dmem_bridge_wdata_o),
-        .we_o                (axi_dmem_bridge_we_o),
-        // Interface: Reset
-        .rst_ni              (axi_dmem_bridge_rst_ni));
-
-    // IP-XACT VLNV: tuni.fi:ip:mem_axi_bridge:1.0
-    mem_axi_bridge #(
-        .MEM_AW              (32),
-        .MEM_DW              (32),
-        .AXI_AW              (32),
-        .AXI_DW              (32))
-    axi_imem_bridge(
-        // Interface: AXI4LITE
-        .ar_addr_i           (axi_imem_bridge_ar_addr_i),
-        .ar_valid_i          (axi_imem_bridge_ar_valid_i),
-        .aw_addr_i           (axi_imem_bridge_aw_addr_i),
-        .aw_valid_i          (axi_imem_bridge_aw_valid_i),
-        .b_ready_i           (axi_imem_bridge_b_ready_i),
-        .r_ready_i           (axi_imem_bridge_r_ready_i),
-        .w_data_i            (axi_imem_bridge_w_data_i),
-        .w_strb_i            (axi_imem_bridge_w_strb_i),
-        .w_valid_i           (axi_imem_bridge_w_valid_i),
-        .ar_ready_o          (axi_imem_bridge_ar_ready_o),
-        .aw_ready_o          (axi_imem_bridge_aw_ready_o),
-        .b_resp_o            (axi_imem_bridge_b_resp_o),
-        .b_valid_o           (axi_imem_bridge_b_valid_o),
-        .r_data_o            (axi_imem_bridge_r_data_o),
-        .r_resp_o            (axi_imem_bridge_r_resp_o),
-        .r_valid_o           (axi_imem_bridge_r_valid_o),
-        .w_ready_o           (axi_imem_bridge_w_ready_o),
-        // Interface: Clock
-        .clk_i               (axi_imem_bridge_clk_i),
-        // Interface: Mem
-        .rdata_i             (axi_imem_bridge_rdata_i),
-        .addr_o              (axi_imem_bridge_addr_o),
-        .be_o                (axi_imem_bridge_be_o),
-        .req_o               (axi_imem_bridge_req_o),
-        .wdata_o             (axi_imem_bridge_wdata_o),
-        .we_o                (axi_imem_bridge_we_o),
-        // Interface: Reset
-        .rst_ni              (axi_imem_bridge_rst_ni));
-
-    // IP-XACT VLNV: tuni.fi:lowRISC:ibex_axi_bridge:1.0
-    ibex_axi_bridge #(
-        .AXI_DW              (32),
-        .AXI_AW              (32),
-        .IBEX_AW             (32),
-        .IBEX_DW             (32))
-    core_dmem_bridge(
-        // Interface: Clock
-        .clk_i               (core_dmem_bridge_clk_i),
-        // Interface: Reset
-        .rst_ni              (core_dmem_bridge_rst_ni),
-        // Interface: axi4lite
-        .ar_ready_i          (core_dmem_bridge_ar_ready_i),
-        .aw_ready_i          (core_dmem_bridge_aw_ready_i),
-        .b_resp_i            (core_dmem_bridge_b_resp_i),
-        .b_valid_i           (core_dmem_bridge_b_valid_i),
-        .r_data_i            (core_dmem_bridge_r_data_i),
-        .r_resp_i            (core_dmem_bridge_r_resp_i),
-        .r_valid_i           (core_dmem_bridge_r_valid_i),
-        .w_ready_i           (core_dmem_bridge_w_ready_i),
-        .ar_addr_o           (core_dmem_bridge_ar_addr_o),
-        .ar_valid_o          (core_dmem_bridge_ar_valid_o),
-        .aw_addr_o           (core_dmem_bridge_aw_addr_o),
-        .aw_valid_o          (core_dmem_bridge_aw_valid_o),
-        .b_ready_o           (core_dmem_bridge_b_ready_o),
-        .r_ready_o           (core_dmem_bridge_r_ready_o),
-        .w_data_o            (core_dmem_bridge_w_data_o),
-        .w_strb_o            (core_dmem_bridge_w_strb_o),
-        .w_valid_o           (core_dmem_bridge_w_valid_o),
-        // Interface: mem
-        .addr_i              (core_dmem_bridge_addr_i),
-        .be_i                (core_dmem_bridge_be_i),
-        .req_i               (core_dmem_bridge_req_i),
-        .wdata_i             (core_dmem_bridge_wdata_i),
-        .we_i                (core_dmem_bridge_we_i),
-        .err_o               (core_dmem_bridge_err_o),
-        .gnt_o               (core_dmem_bridge_gnt_o),
-        .rdata_o             (core_dmem_bridge_rdata_o),
-        .rvalid_o            (core_dmem_bridge_rvalid_o));
-
-    // IP-XACT VLNV: tuni.fi:lowRISC:ibex_axi_bridge:1.0
-    ibex_axi_bridge #(
-        .AXI_DW              (32),
-        .AXI_AW              (32),
-        .IBEX_AW             (32),
-        .IBEX_DW             (32))
-    core_imem_bridge(
-        // Interface: Clock
-        .clk_i               (core_imem_bridge_clk_i),
-        // Interface: Reset
-        .rst_ni              (core_imem_bridge_rst_ni),
-        // Interface: axi4lite
-        .ar_ready_i          (core_imem_bridge_ar_ready_i),
-        .aw_ready_i          (core_imem_bridge_aw_ready_i),
-        .b_resp_i            (core_imem_bridge_b_resp_i),
-        .b_valid_i           (core_imem_bridge_b_valid_i),
-        .r_data_i            (core_imem_bridge_r_data_i),
-        .r_resp_i            (core_imem_bridge_r_resp_i),
-        .r_valid_i           (core_imem_bridge_r_valid_i),
-        .w_ready_i           (core_imem_bridge_w_ready_i),
-        .ar_addr_o           (core_imem_bridge_ar_addr_o),
-        .ar_valid_o          (core_imem_bridge_ar_valid_o),
-        .aw_addr_o           (core_imem_bridge_aw_addr_o),
-        .aw_valid_o          (core_imem_bridge_aw_valid_o),
-        .b_ready_o           (core_imem_bridge_b_ready_o),
-        .r_ready_o           (core_imem_bridge_r_ready_o),
-        .w_data_o            (core_imem_bridge_w_data_o),
-        .w_strb_o            (core_imem_bridge_w_strb_o),
-        .w_valid_o           (core_imem_bridge_w_valid_o),
-        // Interface: mem
-        .addr_i              (core_imem_bridge_addr_i),
-        .be_i                (4'd0),
-        .req_i               (core_imem_bridge_req_i),
-        .wdata_i             (32'd0),
-        .we_i                (1'd0),
-        .err_o               (core_imem_bridge_err_o),
-        .gnt_o               (core_imem_bridge_gnt_o),
-        .rdata_o             (core_imem_bridge_rdata_o),
-        .rvalid_o            (core_imem_bridge_rvalid_o));
-
-    // IP-XACT VLNV: tuni.fi:ip:SysCtrl_peripherals:1.0
-    SysCtrl_peripherals_0 #(
-        .AXI4LITE_DW         (32),
-        .AXI4LITE_AW         (32),
-        .NUM_GPIO            (8))
-    i_SysCtrl_peripherals(
-        // Interface: AXI4LITE
-        .ar_addr             (i_SysCtrl_peripherals_ar_addr),
-        .ar_prot             (i_SysCtrl_peripherals_ar_prot),
-        .ar_valid            (i_SysCtrl_peripherals_ar_valid),
-        .aw_addr             (i_SysCtrl_peripherals_aw_addr),
-        .aw_prot             (i_SysCtrl_peripherals_aw_prot),
-        .aw_valid            (i_SysCtrl_peripherals_aw_valid),
-        .b_ready             (i_SysCtrl_peripherals_b_ready),
-        .r_ready             (i_SysCtrl_peripherals_r_ready),
-        .w_data              (i_SysCtrl_peripherals_w_data),
-        .w_strb              (i_SysCtrl_peripherals_w_strb),
-        .w_valid             (i_SysCtrl_peripherals_w_valid),
-        .ar_ready            (i_SysCtrl_peripherals_ar_ready),
-        .aw_ready            (i_SysCtrl_peripherals_aw_ready),
-        .b_resp              (i_SysCtrl_peripherals_b_resp),
-        .b_valid             (i_SysCtrl_peripherals_b_valid),
-        .r_data              (i_SysCtrl_peripherals_r_data),
-        .r_resp              (i_SysCtrl_peripherals_r_resp),
-        .r_valid             (i_SysCtrl_peripherals_r_valid),
-        .w_ready             (i_SysCtrl_peripherals_w_ready),
-        // Interface: Clock
-        .clk                 (i_SysCtrl_peripherals_clk),
-        // Interface: GPIO
-        .gpio_to_core        (i_SysCtrl_peripherals_gpio_to_core),
-        .gpio_from_core      (i_SysCtrl_peripherals_gpio_from_core),
-        // Interface: IRQ_GPIO
-        .irq_gpio            (i_SysCtrl_peripherals_irq_gpio),
-        // Interface: IRQ_SPI
-        .irq_spi             (i_SysCtrl_peripherals_irq_spi),
-        // Interface: IRQ_UART
-        .irq_uart            (i_SysCtrl_peripherals_irq_uart),
-        // Interface: Reset
-        .rst_n               (i_SysCtrl_peripherals_rst_n),
-        // Interface: SPI
-        .spim_miso_internal  (i_SysCtrl_peripherals_spim_miso_internal),
-        .spim_csn_internal   (i_SysCtrl_peripherals_spim_csn_internal),
-        .spim_mosi_internal  (i_SysCtrl_peripherals_spim_mosi_internal),
-        .spim_sck_internal   (i_SysCtrl_peripherals_spim_sck_internal),
-        // Interface: UART
-        .uart_rx_internal    (i_SysCtrl_peripherals_uart_rx_internal),
-        .uart_tx_internal    (i_SysCtrl_peripherals_uart_tx_internal));
-
-    // IP-XACT VLNV: tuni.fi:memory.simulation:sp_sram:1.0
+    // IP-XACT VLNV: tuni.fi:memory.simulation:sp_sram:1.1
     sp_sram #(
         .DATA_WIDTH          (32),
-        .NUM_WORDS           (1024))
-    i_dmem(
-        // Interface: Clock
-        .clk_i               (i_dmem_clk_i),
-        // Interface: Reset
-        .rst_ni              (i_dmem_rst_ni),
-        // Interface: mem
-        .addr_i              (i_dmem_addr_i),
-        .be_i                (i_dmem_be_i),
-        .req_i               (i_dmem_req_i),
-        .wdata_i             (i_dmem_wdata_i),
-        .we_i                (i_dmem_we_i),
-        .rdata_o             (i_dmem_rdata_o),
-        // These ports are not in any interface
-        .wuser_i             (1'b0),
-        .ruser_o             ());
-
-    // IP-XACT VLNV: tuni.fi:memory.simulation:sp_sram:1.0
-    sp_sram #(
-        .DATA_WIDTH          (32),
-        .NUM_WORDS           (1024))
+        .NUM_WORDS           (4096))
     i_imem(
         // Interface: Clock
         .clk_i               (i_imem_clk_i),
@@ -1871,58 +1517,20 @@ module SysCtrl_SS_0 #(
         .addr_i              (i_imem_addr_i),
         .be_i                (i_imem_be_i),
         .req_i               (i_imem_req_i),
+        .rready_i            (i_imem_rready_i),
         .wdata_i             (i_imem_wdata_i),
         .we_i                (i_imem_we_i),
+        .gnt_o               (i_imem_gnt_o),
+        .gntpar_o            (i_imem_gntpar_o),
         .rdata_o             (i_imem_rdata_o),
-        // These ports are not in any interface
-        .wuser_i             (1'b0),
-        .ruser_o             ());
+        .rvalid_o            (i_imem_rvalid_o),
+        .rvalidpar_o         (i_imem_rvalidpar_o));
 
-    // IP-XACT VLNV: tuni.fi:ip:jtag_dbg_wrapper:1.0
-    jtag_dbg_wrapper #(
-        .AXI_AW              (32),
-        .DM_BASE_ADDRESS     (4096),
-        .AXI_DW              (32),
+    // IP-XACT VLNV: tuni.fi:ip:jtag_dbg_wrapper_obi:1.0
+    jtag_dbg_wrapper_obi #(
+        .DM_BASE_ADDRESS     (16908288),
         .DM_ID_VALUE         (470810337))
     jtag_dbg_wrapper(
-        // Interface: AXI4LITE_I
-        .init_ar_ready       (jtag_dbg_wrapper_init_ar_ready),
-        .init_aw_ready       (jtag_dbg_wrapper_init_aw_ready),
-        .init_b_resp         (jtag_dbg_wrapper_init_b_resp),
-        .init_b_valid        (jtag_dbg_wrapper_init_b_valid),
-        .init_r_data         (jtag_dbg_wrapper_init_r_data),
-        .init_r_resp         (jtag_dbg_wrapper_init_r_resp),
-        .init_r_valid        (jtag_dbg_wrapper_init_r_valid),
-        .init_w_ready        (jtag_dbg_wrapper_init_w_ready),
-        .init_ar_addr        (jtag_dbg_wrapper_init_ar_addr),
-        .init_ar_prot        (jtag_dbg_wrapper_init_ar_prot),
-        .init_ar_valid       (jtag_dbg_wrapper_init_ar_valid),
-        .init_aw_addr        (jtag_dbg_wrapper_init_aw_addr),
-        .init_aw_prot        (jtag_dbg_wrapper_init_aw_prot),
-        .init_aw_valid       (jtag_dbg_wrapper_init_aw_valid),
-        .init_b_ready        (jtag_dbg_wrapper_init_b_ready),
-        .init_r_ready        (jtag_dbg_wrapper_init_r_ready),
-        .init_w_data         (jtag_dbg_wrapper_init_w_data),
-        .init_w_strb         (jtag_dbg_wrapper_init_w_strb),
-        .init_w_valid        (jtag_dbg_wrapper_init_w_valid),
-        // Interface: AXI4LITE_T
-        .target_ar_addr      (jtag_dbg_wrapper_target_ar_addr),
-        .target_ar_valid     (jtag_dbg_wrapper_target_ar_valid),
-        .target_aw_addr      (jtag_dbg_wrapper_target_aw_addr),
-        .target_aw_valid     (jtag_dbg_wrapper_target_aw_valid),
-        .target_b_ready      (jtag_dbg_wrapper_target_b_ready),
-        .target_r_ready      (jtag_dbg_wrapper_target_r_ready),
-        .target_w_data       (jtag_dbg_wrapper_target_w_data),
-        .target_w_strb       (jtag_dbg_wrapper_target_w_strb),
-        .target_w_valid      (jtag_dbg_wrapper_target_w_valid),
-        .target_ar_ready     (jtag_dbg_wrapper_target_ar_ready),
-        .target_aw_ready     (jtag_dbg_wrapper_target_aw_ready),
-        .target_b_resp       (jtag_dbg_wrapper_target_b_resp),
-        .target_b_valid      (jtag_dbg_wrapper_target_b_valid),
-        .target_r_data       (jtag_dbg_wrapper_target_r_data),
-        .target_r_resp       (jtag_dbg_wrapper_target_r_resp),
-        .target_r_valid      (jtag_dbg_wrapper_target_r_valid),
-        .target_w_ready      (jtag_dbg_wrapper_target_w_ready),
         // Interface: Clock
         .clk_i               (jtag_dbg_wrapper_clk_i),
         // Interface: Debug
@@ -1933,12 +1541,259 @@ module SysCtrl_SS_0 #(
         .jtag_tms_i          (jtag_dbg_wrapper_jtag_tms_i),
         .jtag_trst_ni        (jtag_dbg_wrapper_jtag_trst_ni),
         .jtag_td_o           (jtag_dbg_wrapper_jtag_td_o),
+        // Interface: OBI_I
+        .initiator_err_i     (jtag_dbg_wrapper_initiator_err_i),
+        .initiator_gnt_i     (jtag_dbg_wrapper_initiator_gnt_i),
+        .initiator_rdata_i   (jtag_dbg_wrapper_initiator_rdata_i),
+        .initiator_rvalid_i  (jtag_dbg_wrapper_initiator_rvalid_i),
+        .initiator_addr_o    (jtag_dbg_wrapper_initiator_addr_o),
+        .initiator_be_o      (jtag_dbg_wrapper_initiator_be_o),
+        .initiator_req_o     (jtag_dbg_wrapper_initiator_req_o),
+        .initiator_reqpar_o  (jtag_dbg_wrapper_initiator_reqpar_o),
+        .initiator_wdata_o   (jtag_dbg_wrapper_initiator_wdata_o),
+        .initiator_we_o      (jtag_dbg_wrapper_initiator_we_o),
+        // Interface: OBI_T
+        .target_addr_i       (jtag_dbg_wrapper_target_addr_i),
+        .target_aid_i        (jtag_dbg_wrapper_target_aid_i),
+        .target_be_i         (jtag_dbg_wrapper_target_be_i),
+        .target_req_i        (jtag_dbg_wrapper_target_req_i),
+        .target_wdata_i      (jtag_dbg_wrapper_target_wdata_i),
+        .target_we_i         (jtag_dbg_wrapper_target_we_i),
+        .target_gnt_o        (jtag_dbg_wrapper_target_gnt_o),
+        .target_gntpar_o     (jtag_dbg_wrapper_target_gntpar_o),
+        .target_rdata_o      (jtag_dbg_wrapper_target_rdata_o),
+        .target_rid_o        (jtag_dbg_wrapper_target_rid_o),
+        .target_rvalid_o     (jtag_dbg_wrapper_target_rvalid_o),
+        .target_rvalidpar_o  (jtag_dbg_wrapper_target_rvalidpar_o),
         // Interface: Reset
         .rstn_i              (jtag_dbg_wrapper_rstn_i),
         // Interface: core_reset
         .core_reset          (jtag_dbg_wrapper_core_reset),
         // These ports are not in any interface
         .ndmreset_o          ());
+
+    // IP-XACT VLNV: tuni.fi:interconnect:peripherals_obi_to_apb:1.0
+    peripherals_obi_to_apb #(
+        .OBI_DW              (32),
+        .OBI_AW              (32),
+        .OBI_CHKW            (1),
+        .OBI_USERW           (1),
+        .OBI_IDW             (1))
+    peripherals_obi_to_apb(
+        // Interface: apb_gpio
+        .APB_GPIO_PRDATA     (peripherals_obi_to_apb_APB_GPIO_PRDATA),
+        .APB_GPIO_PREADY     (peripherals_obi_to_apb_APB_GPIO_PREADY),
+        .APB_GPIO_PSLVERR    (peripherals_obi_to_apb_APB_GPIO_PSLVERR),
+        .APB_GPIO_PADDR      (peripherals_obi_to_apb_APB_GPIO_PADDR),
+        .APB_GPIO_PENABLE    (peripherals_obi_to_apb_APB_GPIO_PENABLE),
+        .APB_GPIO_PSEL       (peripherals_obi_to_apb_APB_GPIO_PSEL),
+        .APB_GPIO_PWDATA     (peripherals_obi_to_apb_APB_GPIO_PWDATA),
+        .APB_GPIO_PWRITE     (peripherals_obi_to_apb_APB_GPIO_PWRITE),
+        // Interface: apb_spi
+        .APB_SPI_PRDATA      (peripherals_obi_to_apb_APB_SPI_PRDATA),
+        .APB_SPI_PREADY      (peripherals_obi_to_apb_APB_SPI_PREADY),
+        .APB_SPI_PSLVERR     (peripherals_obi_to_apb_APB_SPI_PSLVERR),
+        .APB_SPI_PADDR       (peripherals_obi_to_apb_APB_SPI_PADDR),
+        .APB_SPI_PENABLE     (peripherals_obi_to_apb_APB_SPI_PENABLE),
+        .APB_SPI_PSEL        (peripherals_obi_to_apb_APB_SPI_PSEL),
+        .APB_SPI_PWDATA      (peripherals_obi_to_apb_APB_SPI_PWDATA),
+        .APB_SPI_PWRITE      (peripherals_obi_to_apb_APB_SPI_PWRITE),
+        // Interface: apb_uart
+        .APB_UART_PRDATA     (peripherals_obi_to_apb_APB_UART_PRDATA),
+        .APB_UART_PREADY     (peripherals_obi_to_apb_APB_UART_PREADY),
+        .APB_UART_PSLVERR    (peripherals_obi_to_apb_APB_UART_PSLVERR),
+        .APB_UART_PADDR      (peripherals_obi_to_apb_APB_UART_PADDR),
+        .APB_UART_PENABLE    (peripherals_obi_to_apb_APB_UART_PENABLE),
+        .APB_UART_PSEL       (peripherals_obi_to_apb_APB_UART_PSEL),
+        .APB_UART_PWDATA     (peripherals_obi_to_apb_APB_UART_PWDATA),
+        .APB_UART_PWRITE     (peripherals_obi_to_apb_APB_UART_PWRITE),
+        // Interface: clock
+        .clk                 (peripherals_obi_to_apb_clk),
+        // Interface: obi
+        .addr                (peripherals_obi_to_apb_addr),
+        .aid                 (peripherals_obi_to_apb_aid),
+        .be                  (peripherals_obi_to_apb_be),
+        .req                 (peripherals_obi_to_apb_req),
+        .reqpar              (peripherals_obi_to_apb_reqpar),
+        .rready              (peripherals_obi_to_apb_rready),
+        .rreadypar           (peripherals_obi_to_apb_rreadypar),
+        .wdata               (peripherals_obi_to_apb_wdata),
+        .we                  (peripherals_obi_to_apb_we),
+        .err                 (peripherals_obi_to_apb_err),
+        .gnt                 (peripherals_obi_to_apb_gnt),
+        .gntpar              (peripherals_obi_to_apb_gntpar),
+        .rdata               (peripherals_obi_to_apb_rdata),
+        .rid                 (peripherals_obi_to_apb_rid),
+        .rvalid              (peripherals_obi_to_apb_rvalid),
+        .rvalidpar           (peripherals_obi_to_apb_rvalidpar),
+        // Interface: reset
+        .reset_n             (peripherals_obi_to_apb_reset_n));
+
+    // IP-XACT VLNV: tuni.fi:interconnect:sysctrl_obi_xbar:1.0
+    sysctrl_obi_xbar #(
+        .OBI_AW              (32),
+        .OBI_CHKW            (1),
+        .OBI_DW              (32),
+        .OBI_IDW             (1),
+        .OBI_USERW           (1))
+    sysctrl_obi_xbar(
+        // Interface: clock
+        .clk                 (sysctrl_obi_xbar_clk),
+        // Interface: obi_chip_top
+        .top_err             (sysctrl_obi_xbar_top_err),
+        .top_gnt             (sysctrl_obi_xbar_top_gnt),
+        .top_gntpar          (sysctrl_obi_xbar_top_gntpar),
+        .top_rdata           (sysctrl_obi_xbar_top_rdata),
+        .top_rid             (sysctrl_obi_xbar_top_rid),
+        .top_rvalid          (sysctrl_obi_xbar_top_rvalid),
+        .top_rvalidpar       (sysctrl_obi_xbar_top_rvalidpar),
+        .top_addr            (sysctrl_obi_xbar_top_addr),
+        .top_aid             (sysctrl_obi_xbar_top_aid),
+        .top_be              (sysctrl_obi_xbar_top_be),
+        .top_req             (sysctrl_obi_xbar_top_req),
+        .top_reqpar          (sysctrl_obi_xbar_top_reqpar),
+        .top_rready          (sysctrl_obi_xbar_top_rready),
+        .top_rreadypar       (sysctrl_obi_xbar_top_rreadypar),
+        .top_wdata           (sysctrl_obi_xbar_top_wdata),
+        .top_we              (sysctrl_obi_xbar_top_we),
+        // Interface: obi_core_dmem
+        .data_addr           (sysctrl_obi_xbar_data_addr),
+        .data_aid            (sysctrl_obi_xbar_data_aid),
+        .data_be             (sysctrl_obi_xbar_data_be),
+        .data_req            (sysctrl_obi_xbar_data_req),
+        .data_reqpar         (sysctrl_obi_xbar_data_reqpar),
+        .data_rready         (sysctrl_obi_xbar_data_rready),
+        .data_rreadypar      (sysctrl_obi_xbar_data_rreadypar),
+        .data_wdata          (sysctrl_obi_xbar_data_wdata),
+        .data_we             (sysctrl_obi_xbar_data_we),
+        .data_err            (sysctrl_obi_xbar_data_err),
+        .data_gnt            (sysctrl_obi_xbar_data_gnt),
+        .data_gntpar         (),
+        .data_rdata          (sysctrl_obi_xbar_data_rdata),
+        .data_rid            (sysctrl_obi_xbar_data_rid),
+        .data_rvalid         (sysctrl_obi_xbar_data_rvalid),
+        .data_rvalidpar      (),
+        // Interface: obi_core_imem
+        .instr_addr          (sysctrl_obi_xbar_instr_addr),
+        .instr_aid           (sysctrl_obi_xbar_instr_aid),
+        .instr_be            (sysctrl_obi_xbar_instr_be),
+        .instr_req           (sysctrl_obi_xbar_instr_req),
+        .instr_reqpar        (sysctrl_obi_xbar_instr_reqpar),
+        .instr_rready        (sysctrl_obi_xbar_instr_rready),
+        .instr_rreadypar     (sysctrl_obi_xbar_instr_rreadypar),
+        .instr_wdata         (sysctrl_obi_xbar_instr_wdata),
+        .instr_we            (sysctrl_obi_xbar_instr_we),
+        .instr_err           (sysctrl_obi_xbar_instr_err),
+        .instr_gnt           (sysctrl_obi_xbar_instr_gnt),
+        .instr_gntpar        (),
+        .instr_rdata         (sysctrl_obi_xbar_instr_rdata),
+        .instr_rid           (sysctrl_obi_xbar_instr_rid),
+        .instr_rvalid        (sysctrl_obi_xbar_instr_rvalid),
+        .instr_rvalidpar     (),
+        // Interface: obi_ctrl
+        .ctrl_err            (sysctrl_obi_xbar_ctrl_err),
+        .ctrl_gnt            (sysctrl_obi_xbar_ctrl_gnt),
+        .ctrl_gntpar         (sysctrl_obi_xbar_ctrl_gntpar),
+        .ctrl_rdata          (sysctrl_obi_xbar_ctrl_rdata),
+        .ctrl_rid            (sysctrl_obi_xbar_ctrl_rid),
+        .ctrl_rvalid         (sysctrl_obi_xbar_ctrl_rvalid),
+        .ctrl_rvalidpar      (sysctrl_obi_xbar_ctrl_rvalidpar),
+        .ctrl_addr           (sysctrl_obi_xbar_ctrl_addr),
+        .ctrl_aid            (sysctrl_obi_xbar_ctrl_aid),
+        .ctrl_be             (sysctrl_obi_xbar_ctrl_be),
+        .ctrl_req            (sysctrl_obi_xbar_ctrl_req),
+        .ctrl_reqpar         (),
+        .ctrl_rready         (sysctrl_obi_xbar_ctrl_rready),
+        .ctrl_rreadypar      (sysctrl_obi_xbar_ctrl_rreadypar),
+        .ctrl_wdata          (sysctrl_obi_xbar_ctrl_wdata),
+        .ctrl_we             (sysctrl_obi_xbar_ctrl_we),
+        // Interface: obi_dmem
+        .dmem_err            (sysctrl_obi_xbar_dmem_err),
+        .dmem_gnt            (sysctrl_obi_xbar_dmem_gnt),
+        .dmem_gntpar         (sysctrl_obi_xbar_dmem_gntpar),
+        .dmem_rdata          (sysctrl_obi_xbar_dmem_rdata),
+        .dmem_rid            (sysctrl_obi_xbar_dmem_rid),
+        .dmem_rvalid         (sysctrl_obi_xbar_dmem_rvalid),
+        .dmem_rvalidpar      (sysctrl_obi_xbar_dmem_rvalidpar),
+        .dmem_addr           (sysctrl_obi_xbar_dmem_addr),
+        .dmem_aid            (sysctrl_obi_xbar_dmem_aid),
+        .dmem_be             (sysctrl_obi_xbar_dmem_be),
+        .dmem_req            (sysctrl_obi_xbar_dmem_req),
+        .dmem_reqpar         (),
+        .dmem_rready         (sysctrl_obi_xbar_dmem_rready),
+        .dmem_rreadypar      (sysctrl_obi_xbar_dmem_rreadypar),
+        .dmem_wdata          (sysctrl_obi_xbar_dmem_wdata),
+        .dmem_we             (sysctrl_obi_xbar_dmem_we),
+        // Interface: obi_imem
+        .imem_err            (sysctrl_obi_xbar_imem_err),
+        .imem_gnt            (sysctrl_obi_xbar_imem_gnt),
+        .imem_gntpar         (sysctrl_obi_xbar_imem_gntpar),
+        .imem_rdata          (sysctrl_obi_xbar_imem_rdata),
+        .imem_rid            (sysctrl_obi_xbar_imem_rid),
+        .imem_rvalid         (sysctrl_obi_xbar_imem_rvalid),
+        .imem_rvalidpar      (sysctrl_obi_xbar_imem_rvalidpar),
+        .imem_addr           (sysctrl_obi_xbar_imem_addr),
+        .imem_aid            (sysctrl_obi_xbar_imem_aid),
+        .imem_be             (sysctrl_obi_xbar_imem_be),
+        .imem_req            (sysctrl_obi_xbar_imem_req),
+        .imem_reqpar         (),
+        .imem_rready         (sysctrl_obi_xbar_imem_rready),
+        .imem_rreadypar      (sysctrl_obi_xbar_imem_rreadypar),
+        .imem_wdata          (sysctrl_obi_xbar_imem_wdata),
+        .imem_we             (sysctrl_obi_xbar_imem_we),
+        // Interface: obi_jtag_dm_init
+        .dm_init_addr        (sysctrl_obi_xbar_dm_init_addr),
+        .dm_init_aid         (sysctrl_obi_xbar_dm_init_aid),
+        .dm_init_be          (sysctrl_obi_xbar_dm_init_be),
+        .dm_init_req         (sysctrl_obi_xbar_dm_init_req),
+        .dm_init_reqpar      (sysctrl_obi_xbar_dm_init_reqpar),
+        .dm_init_rready      (sysctrl_obi_xbar_dm_init_rready),
+        .dm_init_rreadypar   (sysctrl_obi_xbar_dm_init_rreadypar),
+        .dm_init_wdata       (sysctrl_obi_xbar_dm_init_wdata),
+        .dm_init_we          (sysctrl_obi_xbar_dm_init_we),
+        .dm_init_err         (sysctrl_obi_xbar_dm_init_err),
+        .dm_init_gnt         (sysctrl_obi_xbar_dm_init_gnt),
+        .dm_init_gntpar      (),
+        .dm_init_rdata       (sysctrl_obi_xbar_dm_init_rdata),
+        .dm_init_rid         (sysctrl_obi_xbar_dm_init_rid),
+        .dm_init_rvalid      (sysctrl_obi_xbar_dm_init_rvalid),
+        .dm_init_rvalidpar   (),
+        // Interface: obi_jtag_dm_target
+        .dm_target_err       (sysctrl_obi_xbar_dm_target_err),
+        .dm_target_gnt       (sysctrl_obi_xbar_dm_target_gnt),
+        .dm_target_gntpar    (sysctrl_obi_xbar_dm_target_gntpar),
+        .dm_target_rdata     (sysctrl_obi_xbar_dm_target_rdata),
+        .dm_target_rid       (sysctrl_obi_xbar_dm_target_rid),
+        .dm_target_rvalid    (sysctrl_obi_xbar_dm_target_rvalid),
+        .dm_target_rvalidpar (sysctrl_obi_xbar_dm_target_rvalidpar),
+        .dm_target_addr      (sysctrl_obi_xbar_dm_target_addr),
+        .dm_target_aid       (sysctrl_obi_xbar_dm_target_aid),
+        .dm_target_be        (sysctrl_obi_xbar_dm_target_be),
+        .dm_target_req       (sysctrl_obi_xbar_dm_target_req),
+        .dm_target_reqpar    (),
+        .dm_target_rready    (sysctrl_obi_xbar_dm_target_rready),
+        .dm_target_rreadypar (sysctrl_obi_xbar_dm_target_rreadypar),
+        .dm_target_wdata     (sysctrl_obi_xbar_dm_target_wdata),
+        .dm_target_we        (sysctrl_obi_xbar_dm_target_we),
+        // Interface: obi_peripherals
+        .periph_err          (sysctrl_obi_xbar_periph_err),
+        .periph_gnt          (sysctrl_obi_xbar_periph_gnt),
+        .periph_gntpar       (sysctrl_obi_xbar_periph_gntpar),
+        .periph_rdata        (sysctrl_obi_xbar_periph_rdata),
+        .periph_rid          (sysctrl_obi_xbar_periph_rid),
+        .periph_rvalid       (sysctrl_obi_xbar_periph_rvalid),
+        .periph_rvalidpar    (sysctrl_obi_xbar_periph_rvalidpar),
+        .periph_addr         (sysctrl_obi_xbar_periph_addr),
+        .periph_aid          (sysctrl_obi_xbar_periph_aid),
+        .periph_be           (sysctrl_obi_xbar_periph_be),
+        .periph_req          (sysctrl_obi_xbar_periph_req),
+        .periph_reqpar       (sysctrl_obi_xbar_periph_reqpar),
+        .periph_rready       (sysctrl_obi_xbar_periph_rready),
+        .periph_rreadypar    (sysctrl_obi_xbar_periph_rreadypar),
+        .periph_wdata        (sysctrl_obi_xbar_periph_wdata),
+        .periph_we           (sysctrl_obi_xbar_periph_we),
+        // Interface: reset
+        .reset_n             (sysctrl_obi_xbar_reset_n));
 
 
 endmodule
