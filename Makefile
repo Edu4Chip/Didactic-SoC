@@ -60,8 +60,8 @@ elaborate: check-env
 	$(MAKE) -C sim elaborate BUILD_DIR=$(BUILD_DIR) TESTCASE=$(TEST)
 
 # Potentionally split this to multiple subtasks
-syn: check-env
-	$(MAKE) -C syn synthesize BUILD_DIR=$(BUILD_DIR)
+synthesis: 
+	$(MAKE) -C syn synthesis BUILD_DIR=$(BUILD_DIR)
 
 ######################################################################
 # sim targets
