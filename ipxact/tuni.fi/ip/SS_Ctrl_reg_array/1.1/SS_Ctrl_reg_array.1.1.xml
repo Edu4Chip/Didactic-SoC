@@ -1781,7 +1781,7 @@
 				<ipxact:name>../../../../../src/rtl/SS_Ctrl_reg_array.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
-					<kactus2:hash>343964d24d3a6344aba122b2be4e2d94d9e1fae5</kactus2:hash>
+					<kactus2:hash>00916236c4e4a4ecaefec0f2cdbca74674ccbca8</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
@@ -1811,18 +1811,6 @@
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:fileDependencies>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/SS_Ctrl_reg_array.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/nms/SS_Ctrl_reg_array.sv</kactus2:fileRef2>
-				<ipxact:description>Include reference to verification/verilator/src/hdl/nms/SS_Ctrl_reg_array.sv</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/SS_Ctrl_reg_array.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/ms/SS_Ctrl_reg_array.sv</kactus2:fileRef2>
-				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/SS_Ctrl_reg_array.sv</ipxact:description>
-			</kactus2:fileDependency>
-		</kactus2:fileDependencies>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>

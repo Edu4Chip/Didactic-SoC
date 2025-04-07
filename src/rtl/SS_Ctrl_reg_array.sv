@@ -239,7 +239,7 @@ module SS_Ctrl_reg_array #(
           'h180: rdata_out_reg <= return_reg_0;
           'h184: rdata_out_reg <= return_reg_1;
           
-          default: rdata_out_reg <= 'h0; 
+          default: rdata_out_reg <= 'hBADACCE5; 
         endcase
         rvalid_reg <= 1'b1;
       end

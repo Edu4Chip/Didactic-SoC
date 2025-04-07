@@ -294,13 +294,13 @@
 	<ipxact:addressSpaces>
 		<ipxact:addressSpace>
 			<ipxact:name>ibex_dmem</ipxact:name>
-			<ipxact:range>20480</ipxact:range>
+			<ipxact:range>'h5_0000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:addressSpace>
 		<ipxact:addressSpace>
 			<ipxact:name>ibex_imem</ipxact:name>
-			<ipxact:range>4096</ipxact:range>
+			<ipxact:range>'h4000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:addressSpace>
@@ -1398,7 +1398,7 @@
 				<ipxact:name>../../../../../src/rtl/ibex_wrapper.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:vendorExtensions>
-					<kactus2:hash>1dda5e7a386b2734016c00ca5a000a899d83970f</kactus2:hash>
+					<kactus2:hash>c7f25eb8b2dc7f0f5129a2d7b188117a14b3862c</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
