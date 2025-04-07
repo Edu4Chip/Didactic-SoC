@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_peripherals_0.v
-// Creation date : 07.03.2025
-// Creation time : 09:00:36
+// Creation date : 07.04.2025
+// Creation time : 14:31:30
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -9,10 +9,6 @@
 // This file was generated based on IP-XACT component tuni.fi:ip:SysCtrl_peripherals:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/ip/SysCtrl_peripherals/1.0/SysCtrl_peripherals.1.0.xml
 //-----------------------------------------------------------------------------
-
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/SysCtrl_peripherals_0.sv"
-`endif
 
 module SysCtrl_peripherals_0 #(
     parameter                              AXI4LITE_DW      = 32,
@@ -71,9 +67,6 @@ module SysCtrl_peripherals_0 #(
     input  logic                        uart_rx_internal,
     output logic                        uart_tx_internal
 );
-    `ifdef VERILATOR
-        `include "verification/verilator/src/hdl/ms/SysCtrl_peripherals_0.sv"
-    `endif
 
     // APB_SPI_SPI_to_SPI wires:
     wire [3:0] APB_SPI_SPI_to_SPI_csn;
