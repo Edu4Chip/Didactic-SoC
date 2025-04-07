@@ -248,7 +248,6 @@ module SS_Ctrl_reg_array #(
       end
       else begin
         gnt_reg <= 1'b1;
-        rdata_out_reg <= 'h0;
         rvalid_reg <= 1'b0;
       end
     end

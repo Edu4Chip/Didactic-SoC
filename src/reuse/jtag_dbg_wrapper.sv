@@ -237,6 +237,7 @@ logic [DBG_BUS_WIDTH-1:0]     dbg_m_rdata_s;
     .rst_ni               ( rstn_i              ),
     .testmode_i           ( '0                  ),
     .ndmreset_o           ( ndmreset_o          ),
+    .ndmreset_ack_i       ( '0                  ),//new feature of dm_top
     .dmactive_o           ( /*nc*/              ),
     .debug_req_o          ( debug_req_irq_o     ),
     .unavailable_i        ( '0                  ),
