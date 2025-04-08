@@ -1,7 +1,5 @@
 //-----------------------------------------------------------------------------
-// File          : student_ss_2.v
-// Creation date : 22.04.2024
-// Creation time : 14:06:50
+// File          : dtu_ss
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
@@ -13,10 +11,10 @@
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
   Description:
-    * example student area tieoff code
+    * 
 */
 
-module student_ss_2(
+module dtu_ss(
     // Interface: APB
     input  logic [31:0] PADDR,
     input  logic        PENABLE,
@@ -56,45 +54,44 @@ module student_ss_2(
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
 
-// this file contains minimal functionality to avoid breaking anything in other ends of the chip.
+  reg [3:0] strb;
 
-//  reg [3:0] strb;
-//
-//  reg [1:0] reset_sync;
-//  always_ff @(posedge clk_in) reset_sync <= {reset_sync[0], reset_int};
-//
-//  assign strb = 4'b1111;
-//
-//  DtuSubsystem dtu(
-//    .clock(clk_in),
-//    .reset(reset_sync[1]),
-//    .io_apb_psel(PSEL),
-//    .io_apb_paddr(PADDR),
-//    .io_apb_penable(PENABLE),
-//    .io_apb_pwdata(PWDATA),
-//    .io_apb_pwrite(PWRITE),
-//    .io_apb_prdata(PRDATA),
-//    .io_apb_pready(PREADY),
-//    .io_apb_pslverr(PSLVERR),
-//    .io_apb_pstrb(strb),
-//    .io_irq(irq_2),
-//    .io_irqEn(irq_en_2),
-//    .io_ssCtrl(ss_ctrl_2),
-//    .io_pmod_0_gpi(pmod_0_gpi),
-//    .io_pmod_0_gpo(pmod_0_gpo),
-//    .io_pmod_0_oe(pmod_0_gpio_oe),
-//    .io_pmod_1_gpi(pmod_1_gpi),
-//    .io_pmod_1_gpo(pmod_1_gpo),
-//    .io_pmod_1_oe(pmod_1_gpio_oe)
-//  );
-  assign PSLVERR = 'd0;
-  assign PREADY  = 'd0;
-  assign PRDATA  = 'd0;
-  assign irq_2   = 'd0;
+  reg [1:0] reset_sync;
+  always_ff @(posedge clk_in) reset_sync <= {reset_sync[0], reset_int};
 
-  assign pmod_1_gpo     = 3'h0;
-  assign pmod_1_gpio_oe = 3'h0;
-  assign pmod_0_gpo     = 3'h0;
-  assign pmod_0_gpio_oe = 3'h0;
+  assign strb = 4'b1111;
+
+  DtuSubsystem dtu(
+    .clock(clk_in),
+    .reset(reset_sync[1]),
+    .io_apb_psel(PSEL),
+    .io_apb_paddr(PADDR),
+    .io_apb_penable(PENABLE),
+    .io_apb_pwdata(PWDATA),
+    .io_apb_pwrite(PWRITE),
+    .io_apb_prdata(PRDATA),
+    .io_apb_pready(PREADY),
+    .io_apb_pslverr(PSLVERR),
+    .io_apb_pstrb(strb),
+    .io_irq(irq_2),
+    .io_irqEn(irq_en_2),
+    .io_ssCtrl(ss_ctrl_2),
+    .io_pmod_0_gpi(pmod_0_gpi),
+    .io_pmod_0_gpo(pmod_0_gpo),
+    .io_pmod_0_oe(pmod_0_gpio_oe),
+    .io_pmod_1_gpi(pmod_1_gpi),
+    .io_pmod_1_gpo(pmod_1_gpo),
+    .io_pmod_1_oe(pmod_1_gpio_oe)
+  );
+
+//  assign PSLVERR = 'd0;
+//  assign PREADY  = 'd0;
+//  assign PRDATA  = 'd0;
+//  assign irq_2   = 'd0;
+//
+//  assign pmod_1_gpo     = 3'h0;
+//  assign pmod_1_gpio_oe = 3'h0;
+//  assign pmod_0_gpo     = 3'h0;
+//  assign pmod_0_gpio_oe = 3'h0;
 
 endmodule
