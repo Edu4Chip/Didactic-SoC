@@ -25,9 +25,11 @@
 					<kactus2:portPosition busRef="Clk" x="-110" y="510"/>
 					<kactus2:portPosition busRef="GPIO" x="-110" y="390"/>
 					<kactus2:portPosition busRef="ICN_SS_Ctrl" x="110" y="50"/>
+					<kactus2:portPosition busRef="IRQ" x="110" y="440"/>
 					<kactus2:portPosition busRef="JTAG" x="-110" y="610"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="490"/>
 					<kactus2:portPosition busRef="Reset_ICN" x="110" y="250"/>
+					<kactus2:portPosition busRef="Reset_SS" x="110" y="290"/>
 					<kactus2:portPosition busRef="SPI" x="-110" y="650"/>
 					<kactus2:portPosition busRef="SS_Ctrl_0" x="110" y="90"/>
 					<kactus2:portPosition busRef="SS_Ctrl_1" x="110" y="130"/>
@@ -36,8 +38,6 @@
 					<kactus2:portPosition busRef="UART" x="-110" y="720"/>
 					<kactus2:portPosition busRef="io_cell_cfg" x="-110" y="350"/>
 					<kactus2:portPosition busRef="pmod_sel" x="-110" y="430"/>
-					<kactus2:portPosition busRef="Reset_SS" x="110" y="290"/>
-					<kactus2:portPosition busRef="IRQ" x="110" y="440"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_upper_tieoff" x="110" y="770"/>
@@ -334,8 +334,8 @@
 		</kactus2:columnLayout>
 		<kactus2:routes>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl" kactus2:offPage="false">
-				<kactus2:position x="1150" y="180"/>
-				<kactus2:position x="1240" y="180"/>
+				<kactus2:position x="1150" y="110"/>
+				<kactus2:position x="1240" y="110"/>
 				<kactus2:position x="1240" y="110"/>
 				<kactus2:position x="1260" y="110"/>
 			</kactus2:route>
@@ -344,8 +344,8 @@
 				<kactus2:position x="1260" y="270"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl" kactus2:offPage="false">
-				<kactus2:position x="1150" y="220"/>
-				<kactus2:position x="1240" y="220"/>
+				<kactus2:position x="1150" y="190"/>
+				<kactus2:position x="1240" y="190"/>
 				<kactus2:position x="1240" y="190"/>
 				<kactus2:position x="1260" y="190"/>
 			</kactus2:route>
@@ -394,14 +394,14 @@
 				<kactus2:position x="930" y="550"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl" kactus2:offPage="false">
-				<kactus2:position x="1150" y="240"/>
-				<kactus2:position x="1240" y="240"/>
+				<kactus2:position x="1150" y="230"/>
+				<kactus2:position x="1240" y="230"/>
 				<kactus2:position x="1240" y="230"/>
 				<kactus2:position x="1260" y="230"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl" kactus2:offPage="false">
-				<kactus2:position x="1150" y="200"/>
-				<kactus2:position x="1230" y="200"/>
+				<kactus2:position x="1150" y="150"/>
+				<kactus2:position x="1230" y="150"/>
 				<kactus2:position x="1230" y="150"/>
 				<kactus2:position x="1260" y="150"/>
 			</kactus2:route>
@@ -639,15 +639,6 @@
 			<kactus2:position x="1260" y="860"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
-		<kactus2:note>
-			<kactus2:position x="220" y="180"/>
-			<kactus2:content>This module contains tech IO cells. Insert ifdef clauses to RTL file to get platform specific cells inserted.
-
-For ASIC, replace with tech files.</kactus2:content>
-			<kactus2:associations/>
-			<kactus2:timestamp>05.07.2024 11:51</kactus2:timestamp>
-		</kactus2:note>
-		<kactus2:adHocVisibilities/>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>Reset_SS</kactus2:name>
 			<kactus2:position x="1260" y="350"/>
@@ -658,5 +649,14 @@ For ASIC, replace with tech files.</kactus2:content>
 			<kactus2:position x="1260" y="500"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
+		<kactus2:note>
+			<kactus2:position x="220" y="180"/>
+			<kactus2:content>This module contains tech IO cells. Insert ifdef clauses to RTL file to get platform specific cells inserted.
+
+For ASIC, replace with tech files.</kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>05.07.2024 11:51</kactus2:timestamp>
+		</kactus2:note>
+		<kactus2:adHocVisibilities/>
 	</ipxact:vendorExtensions>
 </ipxact:design>

@@ -17,10 +17,6 @@
     * Contains SoC IO cells
 */
 
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/nms/io_cell_frame_sysctrl.sv"
-`endif
-
 module io_cell_frame_sysctrl #(
     parameter IOCELL_CFG_W = 5,
     // count and modify according to cells
@@ -90,16 +86,18 @@ module io_cell_frame_sysctrl #(
     input  logic       uart_tx_internal,
     output logic       uart_rx_internal
   );
-  `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/io_cell_frame_sysctrl.sv"
-  `endif
 
   // jtag, reset and clk not configurable to avoid locking SoC
 
   // reset
   io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_rst(.FROM_CORE(1'b0), .TO_CORE(reset_internal), .PAD(reset), .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
   // clk
+`ifndef FPGA
   io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_clk(.FROM_CORE(1'b0), .TO_CORE(clk_internal), .PAD(clk_in), .io_cell_cfg({IOCELL_CFG_W{1'b1}}));
+`else
+  assign clk_internal = clk_in;
+`endif
+
   // high-speed clk
   clk_cell i_clk_cell(.CLK_P_PAD(high_speed_clk_p_i), .CLK_N_PAD(high_speed_clk_n_i), .CLK_TO_CORE(high_speed_clk_internal));
 

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_2_0.v
-// Creation date : 07.03.2025
-// Creation time : 09:00:35
+// Creation date : 07.04.2025
+// Creation time : 15:38:46
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -9,10 +9,6 @@
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:Student_SS_2:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_2/1.0/Student_SS_2.1.0.xml
 //-----------------------------------------------------------------------------
-
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/Student_SS_2_0.sv"
-`endif
 
 module Student_SS_2_0 #(
     parameter                              APB_AW           = 32,
@@ -42,10 +38,6 @@ module Student_SS_2_0 #(
     input  logic                        irq_en_2,
     input  logic         [7:0]          ss_ctrl_2,
 
-    // Interface: analog_if
-    inout  wire          [1:0]          ana_core_in,
-    inout  wire          [1:0]          ana_core_out,
-
     // Interface: high_speed_clk
     input  logic                        high_speed_clk,
 
@@ -59,9 +51,6 @@ module Student_SS_2_0 #(
     output logic         [3:0]          pmod_1_gpio_oe,
     output logic         [3:0]          pmod_1_gpo
 );
-    `ifdef VERILATOR
-        `include "verification/verilator/src/hdl/ms/Student_SS_2_0.sv"
-    `endif
 
     // ss_cg_clk_in_to_Clock wires:
     wire       ss_cg_clk_in_to_Clock_clk;
@@ -92,7 +81,6 @@ module Student_SS_2_0 #(
     wire [3:0] student_ss_2_pmod_gpio_1_to_bus_1_gpi;
     wire [3:0] student_ss_2_pmod_gpio_1_to_bus_1_gpio_oe;
     wire [3:0] student_ss_2_pmod_gpio_1_to_bus_1_gpo;
-    // student_ss_2_analog_if_to_bus_2 wires:
     // student_ss_2_high_speed_clock_to_ss_high_speed_cg_clk_out wires:
     wire       student_ss_2_high_speed_clock_to_ss_high_speed_cg_clk_out_clk;
     // ss_high_speed_cg_clk_in_to_high_speed_clk wires:
@@ -225,9 +213,6 @@ module Student_SS_2_0 #(
         // Interface: SS_Ctrl
         .irq_en_2            (student_ss_2_irq_en_2),
         .ss_ctrl_2           (student_ss_2_ss_ctrl_2),
-        // Interface: analog_if
-        .ana_core_in         (ana_core_in[1:0]),
-        .ana_core_out        (ana_core_out[1:0]),
         // Interface: high_speed_clock
         .high_speed_clk      (student_ss_2_high_speed_clk),
         // Interface: pmod_gpio_0

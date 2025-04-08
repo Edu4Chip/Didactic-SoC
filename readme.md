@@ -12,6 +12,12 @@ Didactic aims to have simple SoC architecture while being easily extendable for 
 
 In addition to these requirements, system needs to be reliable and have enough peripherals to operate as controller to manage various student subsystems.
 
+### Interconnect type
+
+SoC architecture is interconnect bus-type agnostic. Currently, we support axi4lite and obi bus. These are 1.0 and 1.1 SoC builds. OBI is more area and performance optimized due to not requiring converters while axi4lite build has better confidence in correctness.
+
+To use different types, regenerate rtl code from Kactus2 Didactic top level and replace filelist command argument <code>didactic_obi</code> or <code>didactic_axi</code>
+
 ## Get started
 
 This repository uses Bender, install instructions [here](https://github.com/pulp-platform/bender).
@@ -71,3 +77,4 @@ Verification: Contains experimental verilator setup and verification PyUVM platf
 ## What is excluded from repository
 
 * tool outputs: tools should create build folder for their output. None of this folder content should be part of the git repository. IF need be, provide documentation how to run tools to get the same output.
+

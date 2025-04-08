@@ -21,10 +21,6 @@
     * tweaks for importing to kactus2 by MK
 */
 
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/nms/jtag_dbg_wrapper.sv"
-`endif
-
 module jtag_dbg_wrapper #(
     parameter                              AXI_AW           = 32,
     parameter                              AXI_DW           = 32,
@@ -93,10 +89,6 @@ module jtag_dbg_wrapper #(
     // These ports are not in any interface
     output logic                  ndmreset_o
   );
-
-`ifdef VERILATOR
-  `include "verification/verilator/src/hdl/ms/jtag_dbg_wrapper.sv"
-`endif
 
 /****** LOCAL VARIABLES AND CONSTANTS *****************************************/
 
@@ -241,37 +233,38 @@ logic [DBG_BUS_WIDTH-1:0]     dbg_m_rdata_s;
     .SelectableHarts ( {NrHarts{1'b1}} ),          
     .ReadByteEnable  ( 1               ) // toggle new behavior to drive master_be_o during a read    
   ) i_dm_top (
-    .clk_i                ( clk_i               ),  
-    .rst_ni               ( rstn_i              ),   
-    .testmode_i           ( '0                  ),       
-    .ndmreset_o           ( ndmreset_o          ),       
-    .dmactive_o           ( /*nc*/              ),       
-    .debug_req_o          ( debug_req_irq_o     ),        
-    .unavailable_i        ( '0                  ),          
-    .hartinfo_i           ( DebugHartInfo       ),       
-    .slave_req_i          ( dbg_s_req_s         ),        
-    .slave_we_i           ( dbg_s_we_s          ),       
-    .slave_addr_i         ( dbg_s_addr_s        ),         
-    .slave_be_i           ( dbg_s_be_s          ),       
-    .slave_wdata_i        ( dbg_s_wdata_s       ),          
-    .slave_rdata_o        ( dbg_s_rdata_s       ),          
-    .master_req_o         ( dbg_m_req_s         ),         
-    .master_add_o         ( dbg_m_add_s         ),         
-    .master_we_o          ( dbg_m_we_s          ),        
-    .master_wdata_o       ( dbg_m_wdata_s       ),           
-    .master_be_o          ( dbg_m_be_s          ),        
-    .master_gnt_i         ( dbg_m_gnt_s         ),         
-    .master_r_valid_i     ( dbg_m_valid_s       ),             
+    .clk_i                ( clk_i               ),
+    .rst_ni               ( rstn_i              ),
+    .testmode_i           ( '0                  ),
+    .ndmreset_o           ( ndmreset_o          ),
+    .ndmreset_ack_i       ( '0                  ),//new feature of dm_top
+    .dmactive_o           ( /*nc*/              ),
+    .debug_req_o          ( debug_req_irq_o     ),
+    .unavailable_i        ( '0                  ),
+    .hartinfo_i           ( DebugHartInfo       ),
+    .slave_req_i          ( dbg_s_req_s         ),
+    .slave_we_i           ( dbg_s_we_s          ),
+    .slave_addr_i         ( dbg_s_addr_s        ),
+    .slave_be_i           ( dbg_s_be_s          ),
+    .slave_wdata_i        ( dbg_s_wdata_s       ),
+    .slave_rdata_o        ( dbg_s_rdata_s       ),
+    .master_req_o         ( dbg_m_req_s         ),
+    .master_add_o         ( dbg_m_add_s         ),
+    .master_we_o          ( dbg_m_we_s          ),
+    .master_wdata_o       ( dbg_m_wdata_s       ),
+    .master_be_o          ( dbg_m_be_s          ),
+    .master_gnt_i         ( dbg_m_gnt_s         ),
+    .master_r_valid_i     ( dbg_m_valid_s       ),
     .master_r_rdata_i     ( dbg_m_rdata_s       ),
-    .master_r_other_err_i('0),
-    .master_r_err_i('0),            
-    .dmi_rst_ni           ( rstn_i              ),       
-    .dmi_req_valid_i      ( dmi_req_valid_s     ),            
-    .dmi_req_ready_o      ( dmi_req_ready_s     ),            
-    .dmi_req_i            ( dmi_req_s           ),      
-    .dmi_resp_valid_o     ( dmi_resp_valid_s    ),             
-    .dmi_resp_ready_i     ( dmi_resp_ready_s    ),             
-    .dmi_resp_o           ( dmi_resp_s          )      
+    .master_r_other_err_i ( '0                  ),
+    .master_r_err_i       ( '0                  ),
+    .dmi_rst_ni           ( rstn_i              ),
+    .dmi_req_valid_i      ( dmi_req_valid_s     ),
+    .dmi_req_ready_o      ( dmi_req_ready_s     ),
+    .dmi_req_i            ( dmi_req_s           ),
+    .dmi_resp_valid_o     ( dmi_resp_valid_s    ),
+    .dmi_resp_ready_i     ( dmi_resp_ready_s    ),
+    .dmi_resp_o           ( dmi_resp_s          )
   );
 
   // ibex core reset control with debug module

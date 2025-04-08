@@ -23,12 +23,15 @@ TEST ?= blink
 repository_init:
 	bender update
 	bender vendor init
-	git submodule update --init --recursive
+#	git submodule update --init --recursive
 
 check-env:
 	mkdir -p $(BUILD_DIR)/logs/compile
 	mkdir -p $(BUILD_DIR)/logs/opt
 	mkdir -p $(BUILD_DIR)/logs/sim
+
+clean:
+	rm -rf $(BUILD_DIR)
 
 ######################################################################
 #
@@ -73,6 +76,13 @@ build_test: check-env
 ######################################################################
 
 test_all: check-env compile elaborate build_test run_sim
+
+######################################################################
+# fpga targets
+######################################################################
+
+fpga: check-env
+	$(MAKE) -C fpga all_xilinx BUILD_DIR=$(BUILD_DIR)
 
 ######################################################################
 # verilator targets

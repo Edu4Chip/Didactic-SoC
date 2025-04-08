@@ -171,11 +171,11 @@
 					<kactus2:portPosition busRef="mem_reg_if" x="110" y="360"/>
 					<kactus2:portPosition busRef="pmod_sel" x="-110" y="360"/>
 					<kactus2:portPosition busRef="rst_icn" x="-110" y="40"/>
+					<kactus2:portPosition busRef="rst_ss" x="-110" y="80"/>
 					<kactus2:portPosition busRef="ss_ctrl_0" x="-110" y="160"/>
 					<kactus2:portPosition busRef="ss_ctrl_1" x="-110" y="200"/>
 					<kactus2:portPosition busRef="ss_ctrl_2" x="-110" y="240"/>
 					<kactus2:portPosition busRef="ss_ctrl_3" x="-110" y="280"/>
-					<kactus2:portPosition busRef="rst_ss" x="-110" y="80"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -962,10 +962,10 @@
 				<kactus2:position x="60" y="140"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Ibex_Core_irq_fast_i_to_sysctrl_irq_i" kactus2:offPage="false">
-				<kactus2:position x="490" y="760"/>
-				<kactus2:position x="470" y="760"/>
-				<kactus2:position x="470" y="800"/>
 				<kactus2:position x="60" y="800"/>
+				<kactus2:position x="470" y="800"/>
+				<kactus2:position x="470" y="760"/>
+				<kactus2:position x="490" y="760"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>
@@ -1072,6 +1072,16 @@
 			<kactus2:position x="1780" y="470"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>Reset_SS</kactus2:name>
+			<kactus2:position x="60" y="140"/>
+			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>IRQ</kactus2:name>
+			<kactus2:position x="60" y="840"/>
+			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
 		<kactus2:note>
 			<kactus2:position x="1150" y="270"/>
 			<kactus2:content>This ICN xbar remaps addresses to CPU.</kactus2:content>
@@ -1100,15 +1110,5 @@ Reduces area if taken to use.</kactus2:content>
 			<kactus2:associations/>
 			<kactus2:timestamp>23.04.2024 09:49</kactus2:timestamp>
 		</kactus2:note>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>Reset_SS</kactus2:name>
-			<kactus2:position x="60" y="140"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>IRQ</kactus2:name>
-			<kactus2:position x="60" y="840"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>

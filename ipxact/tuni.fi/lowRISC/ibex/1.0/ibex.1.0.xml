@@ -200,7 +200,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="full">
-					<ipxact:baseAddress>'h01010000</ipxact:baseAddress>
+					<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -279,7 +279,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="full">
-					<ipxact:baseAddress>'h01000000</ipxact:baseAddress>
+					<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -308,19 +308,19 @@
 	<ipxact:addressSpaces>
 		<ipxact:addressSpace>
 			<ipxact:name>ibex_dmem</ipxact:name>
-			<ipxact:range>20480</ipxact:range>
+			<ipxact:range>'h5_0000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:addressSpace>
 		<ipxact:addressSpace>
 			<ipxact:name>ibex_imem</ipxact:name>
-			<ipxact:range>4096</ipxact:range>
+			<ipxact:range>'h4000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:addressSpace>
 		<ipxact:addressSpace>
 			<ipxact:name>full</ipxact:name>
-			<ipxact:range>'hFFFFFFFF</ipxact:range>
+			<ipxact:range>'h1_0000_0000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:addressSpace>
@@ -660,7 +660,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>32'h0100_0000</ipxact:defaultValue>
+							<ipxact:defaultValue>32'h01040100</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -1506,7 +1506,7 @@
 	</ipxact:cpus>
 	<ipxact:description>IBEX cpu top ipxact interface model. Core by lowRISC. IPXACT by TUNI.
 
-ibex commit sha: 1774cbbbe334dff1e762c8308c911a33b3bda515</ipxact:description>
+ibex commit sha: &lt;changing while in development&gt;</ipxact:description>
 	<ipxact:parameters>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_bf30a1b4_4ca6_472c_86b3_a6e1ccafc62a" type="bit">
 			<ipxact:name>PMPEnable</ipxact:name>
@@ -1611,6 +1611,10 @@ ibex commit sha: 1774cbbbe334dff1e762c8308c911a33b3bda515</ipxact:description>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_15cf66ba_0edf_49ba_8f21_111407bd6b8f" type="int">
 			<ipxact:name>SCRAMBLE_NONCE_W</ipxact:name>
 			<ipxact:value>64</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_02ef85ba_ca9f_4004_b08f_80a424b5f6e1" resolve="user">
+			<ipxact:name>DmBaseAddr</ipxact:name>
+			<ipxact:value>32'h01020000</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

@@ -15,9 +15,6 @@
   Description:
     *
 */
-`ifdef VERILATOR
-   `include "verification/verilator/src/hdl/nms/pmod_mux.sv"
-`endif
 
 module pmod_mux #(
     parameter IOCELL_CFG_W     = 5,    // control bus width for each individual IO cell
@@ -81,10 +78,6 @@ module pmod_mux #(
     input  logic [3:0]          ss_3_pmod_1_gpo,
     output logic [3:0]          ss_3_pmod_1_gpi
 );
-
-  `ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/pmod_mux.sv"
-  `endif
 
   // always direct gpi to controller core
   // disable inputs from subsystems not in use.

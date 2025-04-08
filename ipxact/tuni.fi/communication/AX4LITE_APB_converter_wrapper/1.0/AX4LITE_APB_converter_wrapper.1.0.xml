@@ -643,12 +643,12 @@
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>SPI</ipxact:name>
-					<ipxact:addressOffset>'h100</ipxact:addressOffset>
+					<ipxact:addressOffset>'h200</ipxact:addressOffset>
 					<ipxact:range>'h100</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>UART</ipxact:name>
-					<ipxact:addressOffset>'h200</ipxact:addressOffset>
+					<ipxact:addressOffset>'h100</ipxact:addressOffset>
 					<ipxact:range>'h100</ipxact:range>
 				</ipxact:segment>
 			</ipxact:segments>
@@ -1333,11 +1333,6 @@
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:kts_attributes>
-			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
-			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
-			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
-		</kactus2:kts_attributes>
 		<kactus2:fileDependencies>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
 				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
@@ -1355,5 +1350,10 @@
 				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/AX4LITE_APB_converter_wrapper.sv</ipxact:description>
 			</kactus2:fileDependency>
 		</kactus2:fileDependencies>
+		<kactus2:kts_attributes>
+			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
+			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
+			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
+		</kactus2:kts_attributes>
 	</ipxact:vendorExtensions>
 </ipxact:component>

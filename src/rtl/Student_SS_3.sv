@@ -16,10 +16,6 @@
     * example student area tieoff code
 */
 
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/Student_SS_3.sv"
-`endif
-
 module Student_SS_3(
     // Interface: APB
     input  logic [31:0] PADDR,
@@ -59,9 +55,6 @@ module Student_SS_3(
 );
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/ms/Student_SS_3.sv"
-`endif
 
 // TODO: Replace this with your module implementation
   assign PSLVERR = 'd0;

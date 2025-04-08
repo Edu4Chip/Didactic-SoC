@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_3_0.v
-// Creation date : 07.03.2025
-// Creation time : 09:00:35
+// Creation date : 07.04.2025
+// Creation time : 15:38:46
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -9,10 +9,6 @@
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:Student_SS_3:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_3/1.0/Student_SS_3.1.0.xml
 //-----------------------------------------------------------------------------
-
-`ifdef VERILATOR
-    `include "verification/verilator/src/hdl/nms/Student_SS_3_0.sv"
-`endif
 
 module Student_SS_3_0 #(
     parameter                              APB_DW           = 32,
@@ -55,9 +51,6 @@ module Student_SS_3_0 #(
     output logic         [3:0]          pmod_1_gpio_oe,
     output logic         [3:0]          pmod_1_gpo
 );
-    `ifdef VERILATOR
-        `include "verification/verilator/src/hdl/ms/Student_SS_3_0.sv"
-    `endif
 
     // ss_cg_clk_in_to_Clock wires:
     wire       ss_cg_clk_in_to_Clock_clk;

@@ -32,9 +32,9 @@
 					<kactus2:portPosition busRef="IRQ" x="110" y="320"/>
 					<kactus2:portPosition busRef="Reset" x="110" y="160"/>
 					<kactus2:portPosition busRef="SS_CTRL" x="-110" y="320"/>
+					<kactus2:portPosition busRef="high_speed_clk" x="-110" y="190"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="80"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="120"/>
-					<kactus2:portPosition busRef="high_speed_clk" x="-110" y="190"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -45,8 +45,8 @@
 				<kactus2:uuid>{064c0c36-cf42-4002-ba6b-02743537c84a}</kactus2:uuid>
 				<kactus2:position x="280" y="190"/>
 				<kactus2:portPositions>
-					<kactus2:portPosition busRef="clk_out" x="110" y="60"/>
 					<kactus2:portPosition busRef="clk_in" x="-110" y="60"/>
+					<kactus2:portPosition busRef="clk_out" x="110" y="60"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="en" x="-110" y="90"/>
@@ -186,10 +186,10 @@
 				<kactus2:position x="820" y="180"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ss_high_speed_cg_en_to_ss_ctrl_3" kactus2:offPage="false">
-				<kactus2:position x="170" y="280"/>
-				<kactus2:position x="150" y="280"/>
-				<kactus2:position x="150" y="140"/>
 				<kactus2:position x="60" y="140"/>
+				<kactus2:position x="150" y="140"/>
+				<kactus2:position x="150" y="280"/>
+				<kactus2:position x="170" y="280"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ss_high_speed_cg_clk_out_to_Student_SS_3_high_speed_clk" kactus2:offPage="false">
 				<kactus2:position x="390" y="250"/>

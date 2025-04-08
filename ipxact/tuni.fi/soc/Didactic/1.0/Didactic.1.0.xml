@@ -672,7 +672,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:00:38 on 07.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:31:34 on 07.04.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>2ab96a628f339484f2f4955e1e8bca5c0f185980</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -680,12 +680,12 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:00:38 on 07.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:31:34 on 07.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:00:38 on 07.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:31:34 on 07.04.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>4339ef5aee13113af65a6bb5618128a9539e5b3b</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -693,7 +693,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_1_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:00:38 on 07.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:31:34 on 07.04.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>3a0ffccd1bbe1f79def702c4fe4d1cc592041d9f</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -701,7 +701,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_2_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:00:38 on 07.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:31:34 on 07.04.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>6a4c8fba69600a7c985c252d544da53eb3417104</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -709,7 +709,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Student_SS_3_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:00:38 on 07.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:31:34 on 07.04.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>a46852108b67a744518074a5f657d04577b357aa</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -717,7 +717,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:00:38 on 07.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:31:34 on 07.04.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
 					<kactus2:hash>6113cbe95d072114b07bfaca6d28b68b17c342be</kactus2:hash>
 				</ipxact:vendorExtensions>
@@ -725,7 +725,7 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_peripherals_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 09:00:38 on 07.03.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:31:34 on 07.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
