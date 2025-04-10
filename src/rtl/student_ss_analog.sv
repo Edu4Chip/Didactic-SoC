@@ -28,6 +28,7 @@ module student_ss_analog #(
   // minimal analog integration model
   assign ana_core_in  = 'd0;
   assign ana_core_out = 'd0;
+  assign ana_core_io  = 'd0;
 
   assign status_0 = 'h0;
   assign status_1 = 'h0;

@@ -109,6 +109,8 @@ sources:
     - src/rtl/student_ss_1.sv
     - src/rtl/Student_SS_2.sv
     - src/rtl/Student_SS_3.sv
+    - src/rtl/analog_status_array.sv
+    - src/generated/analog_wrapper_0.v
     - src/generated/SysCtrl_SS_0.v
     - src/generated/SysCtrl_SS_wrapper_0.v
     - src/rtl/student_ss_analog.sv

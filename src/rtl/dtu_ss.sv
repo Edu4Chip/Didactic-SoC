@@ -21,6 +21,7 @@ module dtu_ss(
     input  logic        PSEL,
     input  logic [31:0] PWDATA,
     input  logic        PWRITE,
+    input  logic  [3:0] PSTRB,
     output logic [31:0] PRDATA,
     output logic        PREADY,
     output logic        PSLVERR,
@@ -42,24 +43,16 @@ module dtu_ss(
     input  logic [7:0]  ss_ctrl_2,
 
     //Interface: GPIO pmod 0
-    input  logic [3:0]  pmod_0_gpi,
-    output logic [3:0]  pmod_0_gpo,
-    output logic [3:0]  pmod_0_gpio_oe,
+    input  logic [15:0]  pmod_gpi,
+    output logic [15:0]  pmod_gpo,
+    output logic [15:0]  pmod_gpio_oe,
 
-    //Interface: GPIO pmod 1
-    input  logic [3:0]  pmod_1_gpi,
-    output logic [3:0]  pmod_1_gpo,
-    output logic [3:0]  pmod_1_gpio_oe
 );
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
 
-  reg [3:0] strb;
-
   reg [1:0] reset_sync;
   always_ff @(posedge clk_in) reset_sync <= {reset_sync[0], reset_int};
-
-  assign strb = 4'b1111;
 
   DtuSubsystem dtu(
     .clock(clk_in),
@@ -72,26 +65,18 @@ module dtu_ss(
     .io_apb_prdata(PRDATA),
     .io_apb_pready(PREADY),
     .io_apb_pslverr(PSLVERR),
-    .io_apb_pstrb(strb),
+    .io_apb_pstrb(PSTRB),
     .io_irq(irq_2),
     .io_irqEn(irq_en_2),
     .io_ssCtrl(ss_ctrl_2),
-    .io_pmod_0_gpi(pmod_0_gpi),
-    .io_pmod_0_gpo(pmod_0_gpo),
-    .io_pmod_0_oe(pmod_0_gpio_oe),
-    .io_pmod_1_gpi(pmod_1_gpi),
-    .io_pmod_1_gpo(pmod_1_gpo),
-    .io_pmod_1_oe(pmod_1_gpio_oe)
+    .io_pmod_0_gpi(pmod_gpi[3:0]),
+    .io_pmod_0_gpo(pmod_gpo[3:0]),
+    .io_pmod_0_oe(pmod_gpio_oe[3:0]),
+    .io_pmod_1_gpi(pmod_gpi[7:4]),
+    .io_pmod_1_gpo(pmod_gpo[7:4]),
+    .io_pmod_1_oe(pmod_gpio_oe[7:4])
   );
 
-//  assign PSLVERR = 'd0;
-//  assign PREADY  = 'd0;
-//  assign PRDATA  = 'd0;
-//  assign irq_2   = 'd0;
-//
-//  assign pmod_1_gpo     = 3'h0;
-//  assign pmod_1_gpio_oe = 3'h0;
-//  assign pmod_0_gpo     = 3'h0;
-//  assign pmod_0_gpio_oe = 3'h0;
+  assign pmod_gpo[15:8] = 'h0;
 
 endmodule

@@ -92,6 +92,14 @@ module tb_didactic();
   tri1 dut_gpio_5;
   tri0 dut_gpio_6;
   tri1 dut_gpio_7;
+  tri0 dut_gpio_8;
+  tri1 dut_gpio_9;
+  tri0 dut_gpio_10;
+  tri1 dut_gpio_11;
+  tri0 dut_gpio_12;
+  tri1 dut_gpio_13;
+  tri0 dut_gpio_14;
+  tri1 dut_gpio_15;
 
   tri1 dut_jtag_trstn;
   tri1 dut_jtag_tck;
@@ -115,6 +123,9 @@ module tb_didactic();
   tri1 dut_ana_in_1;
   tri1 dut_ana_out_0;
   tri1 dut_ana_out_1;
+  tri1 dut_ana_out_2;
+  tri1 dut_ana_io_0;
+  tri1 dut_ana_io_1;
 
 ////////////////////////////////
 // PKG init
@@ -262,7 +273,10 @@ module tb_didactic();
     // Interface: Clock
     .clk_in(dut_clk),
     // Interface: GPIO
-    .gpio({dut_gpio_7,dut_gpio_6,dut_gpio_5,dut_gpio_4,dut_gpio_3,dut_gpio_2,dut_gpio_1,dut_gpio_0}),
+    .gpio({dut_gpio_15,dut_gpio_14,dut_gpio_13,dut_gpio_12,
+           dut_gpio_11,dut_gpio_10,dut_gpio_9,dut_gpio_8,
+           dut_gpio_7,dut_gpio_6,dut_gpio_5,dut_gpio_4,
+           dut_gpio_3,dut_gpio_2,dut_gpio_1,dut_gpio_0}),
     // Interface: JTAG
     .jtag_tck(dut_jtag_tck),
     .jtag_tdi(dut_jtag_tdi),
@@ -280,7 +294,8 @@ module tb_didactic();
     .uart_tx(dut_uart_tx),
     // Interface: analog_if
     .ana_core_in({dut_ana_in_1, dut_ana_in_0}),
-    .ana_core_out({dut_ana_out_1, dut_ana_out_0}),
+    .ana_core_out({dut_ana_out_2, dut_ana_out_1, dut_ana_out_0}),
+    .ana_core_io({dut_ana_io_1, dut_ana_io_0}),
     .high_speed_clk_n_in(dut_fast_clk_neg),
     .high_speed_clk_p_in(dut_fast_clk)
   );
