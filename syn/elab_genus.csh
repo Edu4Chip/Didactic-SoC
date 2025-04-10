@@ -1,5 +1,7 @@
 #!/bin/csh
-source /opt/soc/eda/cadence/cadence_init_21.csh
+
+# TC217 ASIC-VM specific path
+source /opt/soc/cadence/cadence_init.csh
 
 cd ../build/
 
