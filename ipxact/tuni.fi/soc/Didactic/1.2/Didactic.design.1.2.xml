@@ -15,6 +15,7 @@
 					<ipxact:configurableElementValue referenceId="uuid_e877495e_c373_40c5_9c66_d03d3f4b487f">uuid_e2640b90_fd6f_4b0d_a0b4_736fee3e610f</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_136ff131_13a4_491c_a0e6_3fad3ff99ce1">uuid_3fbc41f1_c878_4735_940d_e0c7c710f527</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_02304346_a1fd_47d5_adf9_0706c470214b">uuid_c96e8eae_f602_4c8f_a24f_c7a724743024</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_a512a41d_9afb_4165_9556_4f5b6b9d5b8a">uuid_d632a849_ea1e_4525_b266_7a01bce8f372</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -39,11 +40,11 @@
 					<kactus2:portPosition busRef="UART" x="-110" y="80"/>
 					<kactus2:portPosition busRef="high_speed_clock" x="-110" y="320"/>
 					<kactus2:portPosition busRef="high_speed_clock_internal" x="110" y="80"/>
-					<kactus2:portPosition busRef="ss_4_ctrl" x="110" y="370"/>
-					<kactus2:portPosition busRef="ss_3_pmod_gpio" x="110" y="560"/>
-					<kactus2:portPosition busRef="ss_1_pmod_gpio" x="110" y="520"/>
 					<kactus2:portPosition busRef="ss_0_pmod_gpio" x="110" y="500"/>
+					<kactus2:portPosition busRef="ss_1_pmod_gpio" x="110" y="520"/>
 					<kactus2:portPosition busRef="ss_2_pmod_gpio" x="110" y="540"/>
+					<kactus2:portPosition busRef="ss_3_pmod_gpio" x="110" y="560"/>
+					<kactus2:portPosition busRef="ss_4_ctrl" x="110" y="370"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_i" x="-110" y="500"/>
@@ -59,6 +60,7 @@
 					<ipxact:configurableElementValue referenceId="uuid_1123372e_5d0f_472f_b17c_d014c0831d59">uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_8f59f262_5b92_4dce_b6af_d1967466ee87">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_71c55a39_04af_4617_8415_5e8349e63b78">uuid_c42c7a6d_6145_4f8f_8868_4d08baaccfc3</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_095ce5ec_10f8_4cb0_8c1d_410642c65617">uuid_af160ab0_303b_4739_92cf_faf7577ad88d</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -90,9 +92,9 @@
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
 					<kactus2:portPosition busRef="high_speed_clk" x="-110" y="160"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="70"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="40"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="60"/>
-					<kactus2:portPosition busRef="pmod_gpio" x="110" y="70"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq" x="110" y="150"/>
@@ -113,9 +115,9 @@
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
 					<kactus2:portPosition busRef="high_speed_clk" x="-110" y="160"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="80"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="50"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="70"/>
-					<kactus2:portPosition busRef="pmod_gpio" x="110" y="80"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq" x="110" y="160"/>
@@ -136,9 +138,9 @@
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
 					<kactus2:portPosition busRef="high_speed_clk" x="-110" y="160"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="90"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="40"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="60"/>
-					<kactus2:portPosition busRef="pmod_gpio" x="110" y="90"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq" x="110" y="180"/>
@@ -159,9 +161,9 @@
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
 					<kactus2:portPosition busRef="high_speed_clk" x="-110" y="160"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="60"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="40"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="60"/>
-					<kactus2:portPosition busRef="pmod_gpio" x="110" y="60"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq" x="110" y="140"/>
@@ -181,9 +183,9 @@
 					<kactus2:portPosition busRef="IRQ" x="110" y="50"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="150"/>
+					<kactus2:portPosition busRef="analog_io" x="110" y="150"/>
 					<kactus2:portPosition busRef="high_speed_clk" x="-110" y="170"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="160"/>
-					<kactus2:portPosition busRef="analog_io" x="110" y="150"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq" x="110" y="70"/>
@@ -517,7 +519,7 @@
 		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="8" parameterId="uuid_af160ab0_303b_4739_92cf_faf7577ad88d" resolve="user">
+		<ipxact:parameter kactus2:usageCount="9" parameterId="uuid_af160ab0_303b_4739_92cf_faf7577ad88d" resolve="user">
 			<ipxact:name>AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
@@ -528,6 +530,10 @@
 		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_e2640b90_fd6f_4b0d_a0b4_736fee3e610f" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:value>4</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d632a849_ea1e_4525_b266_7a01bce8f372" resolve="user">
+			<ipxact:name>NUM_SS</ipxact:name>
+			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_c42c7a6d_6145_4f8f_8868_4d08baaccfc3" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>

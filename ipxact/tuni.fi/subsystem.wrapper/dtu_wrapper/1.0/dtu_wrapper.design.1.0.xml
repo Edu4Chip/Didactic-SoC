@@ -156,9 +156,7 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_dtu_ss_Reset_to_Reset" kactus2:offPage="false">
 				<kactus2:position x="710" y="230"/>
-				<kactus2:position x="800" y="230"/>
-				<kactus2:position x="800" y="200"/>
-				<kactus2:position x="820" y="200"/>
+				<kactus2:position x="820" y="230"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_dtu_ss_SS_Ctrl_to_SS_Ctrl" kactus2:offPage="false">
 				<kactus2:position x="490" y="340"/>
@@ -166,15 +164,11 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_dtu_ss_APB_to_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="270"/>
-				<kactus2:position x="800" y="270"/>
-				<kactus2:position x="800" y="240"/>
-				<kactus2:position x="820" y="240"/>
+				<kactus2:position x="820" y="270"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_dtu_ss_IRQ_to_IRQ" kactus2:offPage="false">
 				<kactus2:position x="710" y="310"/>
-				<kactus2:position x="800" y="310"/>
-				<kactus2:position x="800" y="280"/>
-				<kactus2:position x="820" y="280"/>
+				<kactus2:position x="820" y="310"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="student_ss_2_analog_if_to_analog_if" kactus2:offPage="false">
 				<kactus2:position x="710" y="260"/>
@@ -218,7 +212,7 @@
 		</kactus2:adHocVisibilities>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>APB</kactus2:name>
-			<kactus2:position x="820" y="240"/>
+			<kactus2:position x="820" y="270"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -228,12 +222,12 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>IRQ</kactus2:name>
-			<kactus2:position x="820" y="280"/>
+			<kactus2:position x="820" y="310"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>Reset</kactus2:name>
-			<kactus2:position x="820" y="200"/>
+			<kactus2:position x="820" y="230"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 10.04.2025
-// Creation time : 14:25:42
+// Creation time : 15:22:09
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -11,27 +11,27 @@
 //-----------------------------------------------------------------------------
 
 module SysCtrl_SS_0 #(
-    parameter                              IOCELL_CFG_W     = 4,
-    parameter                              IOCELL_COUNT     = 15,    // update this value manually to match cell numbers
-    parameter                              NUM_GPIO         = 4,
-    parameter                              SS_CTRL_W        = 5,
+    parameter                              IOCELL_CFG_W     = 5,
+    parameter                              IOCELL_COUNT     = 25,    // update this value manually to match cell numbers
+    parameter                              NUM_GPIO         = 16,
+    parameter                              SS_CTRL_W        = 8,
     parameter                              OBI_IDW          = 1,
     parameter                              OBI_CHKW         = 1,
     parameter                              OBI_USERW        = 1,
     parameter                              OBI_AW           = 32,
     parameter                              OBI_DW           = 32,
     parameter                              NUM_SS           = 4,
-    parameter                              IO_CFG_W         = 4
+    parameter                              IO_CFG_W         = 5
 ) (
     // Interface: Clk
     input  logic                        clk_internal,
 
     // Interface: GPIO
-    input  logic         [3:0]          gpio_to_core,
-    output logic         [3:0]          gpio_from_core,
+    input  logic         [15:0]         gpio_to_core,
+    output logic         [15:0]         gpio_from_core,
 
     // Interface: ICN_SS_Ctrl
-    output logic         [4:0]          ss_ctrl_icn,
+    output logic         [7:0]          ss_ctrl_icn,
 
     // Interface: IRQ
     input  logic         [3:0]          sysctrl_irq_i,
@@ -78,33 +78,33 @@ module SysCtrl_SS_0 #(
 
     // Interface: SS_Ctrl_0
     output logic                        irq_en_0,
-    output logic         [4:0]          ss_ctrl_0,
+    output logic         [7:0]          ss_ctrl_0,
 
     // Interface: SS_Ctrl_1
     output logic                        irq_en_1,
-    output logic         [4:0]          ss_ctrl_1,
+    output logic         [7:0]          ss_ctrl_1,
 
     // Interface: SS_Ctrl_2
     output logic                        irq_en_2,
-    output logic         [4:0]          ss_ctrl_2,
+    output logic         [7:0]          ss_ctrl_2,
 
     // Interface: SS_Ctrl_3
     output logic                        irq_en_3,
-    output logic         [4:0]          ss_ctrl_3,
+    output logic         [7:0]          ss_ctrl_3,
 
     // Interface: UART
     input  logic                        uart_rx_internal,
     output logic                        uart_tx_internal,
 
     // Interface: io_cell_cfg
-    output logic         [59:0]         cell_cfg,
+    output logic         [124:0]        cell_cfg,
 
     // Interface: pmod_sel
-    output logic         [3:0]          pmod_sel,
+    output logic         [15:0]         pmod_sel,
 
     // Interface: ss_ctrl_4
     output logic                        irq_en_4,
-    output logic         [4:0]          ss_ctrl_4,
+    output logic         [7:0]          ss_ctrl_4,
 
     // These ports are not in any interface
     input  logic         [14:0]         irq_upper_tieoff
@@ -113,21 +113,21 @@ module SysCtrl_SS_0 #(
     // ctrl_reg_array_rst_icn_to_Reset_ICN wires:
     wire       ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
     // ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl wires:
-    wire [4:0] ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
+    wire [7:0] ctrl_reg_array_icn_ss_ctrl_to_ICN_SS_Ctrl_clk_ctrl;
     // ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0 wires:
-    wire [4:0] ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl;
+    wire [7:0] ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_clk_ctrl;
     wire       ctrl_reg_array_ss_ctrl_0_to_SS_Ctrl_0_irq_en;
     // ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1 wires:
-    wire [4:0] ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl;
+    wire [7:0] ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_clk_ctrl;
     wire       ctrl_reg_array_ss_ctrl_1_to_SS_Ctrl_1_irq_en;
     // ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2 wires:
-    wire [4:0] ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
+    wire [7:0] ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_clk_ctrl;
     wire       ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en;
     // ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3 wires:
-    wire [4:0] ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
+    wire [7:0] ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
     wire       ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
     // ctrl_reg_array_io_cfg_to_io_cell_cfg wires:
-    wire [59:0] ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
+    wire [124:0] ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
     // jtag_dbg_wrapper_JTAG_to_JTAG wires:
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tck;
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tdi;
@@ -143,15 +143,15 @@ module SysCtrl_SS_0 #(
     // jtag_dbg_wrapper_Debug_to_i_ibex_wrapper_Debug wires:
     wire       jtag_dbg_wrapper_Debug_to_i_ibex_wrapper_Debug_debug_req;
     // ctrl_reg_array_pmod_sel_to_pmod_sel wires:
-    wire [7:0] ctrl_reg_array_pmod_sel_to_pmod_sel_gpo;
+    wire [15:0] ctrl_reg_array_pmod_sel_to_pmod_sel_gpo;
     // ctrl_reg_array_fetch_en_to_i_ibex_wrapper_FetchEn wires:
     wire [3:0] ctrl_reg_array_fetch_en_to_i_ibex_wrapper_FetchEn_gpo;
     // ctrl_reg_array_rst_ss_to_Reset_SS wires:
     wire [3:0] ctrl_reg_array_rst_ss_to_Reset_SS_reset;
     // apb_gpio_GPIO_to_GPIO wires:
-    wire [3:0] apb_gpio_GPIO_to_GPIO_gpi;
-    wire [3:0] apb_gpio_GPIO_to_GPIO_gpio_oe;
-    wire [3:0] apb_gpio_GPIO_to_GPIO_gpo;
+    wire [15:0] apb_gpio_GPIO_to_GPIO_gpi;
+    wire [15:0] apb_gpio_GPIO_to_GPIO_gpio_oe;
+    wire [15:0] apb_gpio_GPIO_to_GPIO_gpo;
     // apb_spi_master_SPI_to_SPI wires:
     wire [3:0] apb_spi_master_SPI_to_SPI_csn;
     wire [1:0] apb_spi_master_SPI_to_SPI_data_oe;
@@ -441,7 +441,7 @@ module SysCtrl_SS_0 #(
     wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_we;
     wire       ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_wuser;
     // ctrl_reg_array_ss_ctrl_4_to_ss_ctrl_4 wires:
-    wire [4:0] ctrl_reg_array_ss_ctrl_4_to_ss_ctrl_4_clk_ctrl;
+    wire [7:0] ctrl_reg_array_ss_ctrl_4_to_ss_ctrl_4_clk_ctrl;
     wire       ctrl_reg_array_ss_ctrl_4_to_ss_ctrl_4_irq_en;
 
     // Ad-hoc wires:
@@ -462,8 +462,8 @@ module SysCtrl_SS_0 #(
     wire       apb_gpio_PSLVERR;
     wire [31:0] apb_gpio_PWDATA;
     wire       apb_gpio_PWRITE;
-    wire [3:0] apb_gpio_gpio_in;
-    wire [3:0] apb_gpio_gpio_out;
+    wire [15:0] apb_gpio_gpio_in;
+    wire [15:0] apb_gpio_gpio_out;
     wire       apb_gpio_interrupt;
     // apb_spi_master port wires:
     wire       apb_spi_master_HCLK;
@@ -507,7 +507,7 @@ module SysCtrl_SS_0 #(
     // ctrl_reg_array port wires:
     wire [31:0] ctrl_reg_array_addr_i;
     wire [3:0] ctrl_reg_array_be_i;
-    wire [59:0] ctrl_reg_array_cell_cfg;
+    wire [124:0] ctrl_reg_array_cell_cfg;
     wire       ctrl_reg_array_clk;
     wire [3:0] ctrl_reg_array_fetch_en;
     wire       ctrl_reg_array_gnt_o;
@@ -526,12 +526,12 @@ module SysCtrl_SS_0 #(
     wire       ctrl_reg_array_rready_i;
     wire       ctrl_reg_array_rvalid_o;
     wire       ctrl_reg_array_rvalidpar_o;
-    wire [4:0] ctrl_reg_array_ss_ctrl_0;
-    wire [4:0] ctrl_reg_array_ss_ctrl_1;
-    wire [4:0] ctrl_reg_array_ss_ctrl_2;
-    wire [4:0] ctrl_reg_array_ss_ctrl_3;
-    wire [4:0] ctrl_reg_array_ss_ctrl_4;
-    wire [4:0] ctrl_reg_array_ss_ctrl_icn;
+    wire [7:0] ctrl_reg_array_ss_ctrl_0;
+    wire [7:0] ctrl_reg_array_ss_ctrl_1;
+    wire [7:0] ctrl_reg_array_ss_ctrl_2;
+    wire [7:0] ctrl_reg_array_ss_ctrl_3;
+    wire [7:0] ctrl_reg_array_ss_ctrl_4;
+    wire [7:0] ctrl_reg_array_ss_ctrl_icn;
     wire [31:0] ctrl_reg_array_wdata_i;
     wire       ctrl_reg_array_we_i;
     // i_dmem port wires:
@@ -926,7 +926,7 @@ module SysCtrl_SS_0 #(
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalidpar = obi_rvalidpar;
     assign obi_wdata = sysctrl_obi_xbar_obi_chip_top_to_OBI_wdata;
     assign obi_we = sysctrl_obi_xbar_obi_chip_top_to_OBI_we;
-    assign pmod_sel = ctrl_reg_array_pmod_sel_to_pmod_sel_gpo[3:0];
+    assign pmod_sel = ctrl_reg_array_pmod_sel_to_pmod_sel_gpo;
     assign reset_icn = ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
     assign ctrl_reg_array_Reset_to_Reset_reset = reset_internal;
     assign reset_ss = ctrl_reg_array_rst_ss_to_Reset_SS_reset;
@@ -1010,7 +1010,7 @@ module SysCtrl_SS_0 #(
     assign ctrl_reg_array_ss_ctrl_2_to_SS_Ctrl_2_irq_en = ctrl_reg_array_irq_en_2;
     assign ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en = ctrl_reg_array_irq_en_3;
     assign ctrl_reg_array_ss_ctrl_4_to_ss_ctrl_4_irq_en = ctrl_reg_array_irq_en_4;
-    assign ctrl_reg_array_pmod_sel_to_pmod_sel_gpo = ctrl_reg_array_pmod_sel;
+    assign ctrl_reg_array_pmod_sel_to_pmod_sel_gpo[7:0] = ctrl_reg_array_pmod_sel;
     assign ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_rdata = ctrl_reg_array_rdata_o;
     assign ctrl_reg_array_req_i = ctrl_reg_array_obi_target_to_sysctrl_obi_xbar_obi_ctrl_req;
     assign ctrl_reg_array_rst_icn_to_Reset_ICN_reset = ctrl_reg_array_reset_icn;
@@ -1287,7 +1287,7 @@ module SysCtrl_SS_0 #(
     // IP-XACT VLNV: tuni.fi:pulp.peripheral:APB_GPIO:1.0
     apb_gpio #(
         .APB_ADDR_WIDTH      (12),
-        .PAD_NUM             (4),
+        .PAD_NUM             (16),
         .NBIT_PADCFG         (0))
     apb_gpio(
         // Interface: APB
@@ -1381,11 +1381,11 @@ module SysCtrl_SS_0 #(
 
     // IP-XACT VLNV: tuni.fi:ip:SS_Ctrl_reg_array:1.1
     SS_Ctrl_reg_array #(
-        .IOCELL_COUNT        (15),
-        .IOCELL_CFG_W        (4),
+        .IOCELL_COUNT        (25),
+        .IOCELL_CFG_W        (5),
         .AW                  (32),
         .DW                  (32),
-        .SS_CTRL_W           (5),
+        .SS_CTRL_W           (8),
         .NUM_SS              (4))
     ctrl_reg_array(
         // Interface: Clock

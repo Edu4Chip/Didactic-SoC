@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : dtu_wrapper_0.v
 // Creation date : 10.04.2025
-// Creation time : 14:25:42
+// Creation time : 15:22:09
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -158,7 +158,7 @@ module dtu_wrapper_0 #(
     assign ss_high_speed_cg_en = ss_high_speed_cg_en_to_ss_ctrl_2;
 
     // IP-XACT VLNV: tuni.fi:subsystem:dtu_ss:1.0
-    dtus_ss i_dtu_ss(
+    dtu_ss i_dtu_ss(
         // Interface: APB
         .PADDR               (i_dtu_ss_PADDR),
         .PENABLE             (i_dtu_ss_PENABLE),

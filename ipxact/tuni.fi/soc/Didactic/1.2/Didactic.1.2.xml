@@ -286,7 +286,7 @@
 		<ipxact:instantiations>
 			<ipxact:designInstantiation>
 				<ipxact:name>design</ipxact:name>
-				<ipxact:designRef vendor="tuni.fi" library="soc" name="Didactic.design" version="1.1">
+				<ipxact:designRef vendor="tuni.fi" library="soc" name="Didactic.design" version="1.2">
 					<ipxact:configurableElementValues>
 						<ipxact:configurableElementValue referenceId="uuid_af160ab0_303b_4739_92cf_faf7577ad88d">uuid_c4cec312_f229_44eb_8372_8f6373078891</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_8f6d1bc3_fa60_4e13_9d6e_89c5f05d53cc">uuid_69987c4d_cb9f_4633_a85c_1cbe5c7ff83b</ipxact:configurableElementValue>
@@ -294,6 +294,7 @@
 						<ipxact:configurableElementValue referenceId="uuid_c42c7a6d_6145_4f8f_8868_4d08baaccfc3">uuid_40121f95_5130_4dce_8b53_074bc2163a43</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_c96e8eae_f602_4c8f_a24f_c7a724743024">uuid_ede66365_60a5_4c40_9bff_4d53c0d80d9d</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_3fbc41f1_c878_4735_940d_e0c7c710f527">uuid_ce70a978_217c_441b_9025_bd4c11dd5cf9</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_d632a849_ea1e_4525_b266_7a01bce8f372">uuid_b413a7a5_7bf1_4056_9ced_a806211a1107</ipxact:configurableElementValue>
 					</ipxact:configurableElementValues>
 				</ipxact:designRef>
 			</ipxact:designInstantiation>
@@ -749,42 +750,42 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:25:57 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:25:57 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/dtu_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:25:57 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/kth_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:25:57 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/tum_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:25:57 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/imt_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:25:57 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/analog_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:25:57 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 14:25:57 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -802,7 +803,7 @@ Spec:
 			<ipxact:description>Global SoC address width</ipxact:description>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_69987c4d_cb9f_4633_a85c_1cbe5c7ff83b" resolve="user">
+		<ipxact:parameter parameterId="uuid_69987c4d_cb9f_4633_a85c_1cbe5c7ff83b" resolve="user">
 			<ipxact:name>DW</ipxact:name>
 			<ipxact:description>Global SoC data width</ipxact:description>
 			<ipxact:value>32</ipxact:value>
@@ -814,18 +815,23 @@ Spec:
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_8d66272e_a32c_446f_ae40_3cac7d95d06e" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
-			<ipxact:description>SoC GPIO Cell count. Default 2x pmod = 8.</ipxact:description>
+			<ipxact:description>SoC GPIO Cell count. Default 16.</ipxact:description>
 			<ipxact:value>16</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_ede66365_60a5_4c40_9bff_4d53c0d80d9d" resolve="user">
+		<ipxact:parameter parameterId="uuid_ede66365_60a5_4c40_9bff_4d53c0d80d9d" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:description>Tech cell control width.</ipxact:description>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_ce70a978_217c_441b_9025_bd4c11dd5cf9" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
-			<ipxact:description>number of configurable io cells in design. Total 24? + analog + power.</ipxact:description>
+			<ipxact:description>number of configurable io cells in design</ipxact:description>
 			<ipxact:value>25</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_b413a7a5_7bf1_4056_9ced_a806211a1107" resolve="user">
+			<ipxact:name>NUM_SS</ipxact:name>
+			<ipxact:description>number of student systems present in top level.</ipxact:description>
+			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

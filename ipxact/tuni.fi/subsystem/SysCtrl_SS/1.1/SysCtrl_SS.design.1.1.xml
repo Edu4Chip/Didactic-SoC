@@ -1008,6 +1008,11 @@
 			<kactus2:position x="1460" y="260"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>ss_ctrl_4</kactus2:name>
+			<kactus2:position x="60" y="380"/>
+			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
 		<kactus2:note>
 			<kactus2:position x="530" y="560"/>
 			<kactus2:content>Initial core choice is IBEX RV core</kactus2:content>
@@ -1020,10 +1025,5 @@
 			<kactus2:associations/>
 			<kactus2:timestamp>10.04.2025 10:20</kactus2:timestamp>
 		</kactus2:note>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>ss_ctrl_4</kactus2:name>
-			<kactus2:position x="60" y="380"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>
