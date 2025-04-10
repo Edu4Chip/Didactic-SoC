@@ -686,6 +686,34 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator/>
 		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>ss_ctrl_4</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="SS_Ctrl" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="SS_Ctrl.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>clk_ctrl</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ss_ctrl_4</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>irq_en</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>irq_en_4</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:initiator/>
+		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
 		<ipxact:views>
@@ -709,6 +737,7 @@
 						<ipxact:configurableElementValue referenceId="uuid_9895afc3_9718_40b6_8db4_1571d7218766">uuid_74250635_6f20_42ae_b29c_d3bbe19d7114</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_acdc28be_3b07_4729_b71c_d225e56a85fd">uuid_6473268d_bf0d_4d7f_92ff_ead4827d69b1</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_e8a9235f_50e4_40cb_853f_7d9880d87a54">uuid_e75e8f45_e47f_4724_8fdb_0aa15b6ab0d4</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_d27d07c6_0466_4ff7_8ad4_be74f3b07e63">uuid_9557b435_599a_4205_81c4_d12742a74876</ipxact:configurableElementValue>
 					</ipxact:configurableElementValues>
 				</ipxact:designRef>
 			</ipxact:designInstantiation>
@@ -1252,7 +1281,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
+							<ipxact:left>uuid_9557b435_599a_4205_81c4_d12742a74876-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1970,19 +1999,63 @@
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>ss_ctrl_4</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_acf5c976_d744_4d71_b8fe_289308668ff7-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>irq_en_4</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_72c6e7c1_9fda_400e_ae82_b5a26eb1a676" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_72c6e7c1_9fda_400e_ae82_b5a26eb1a676" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c" resolve="user">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>update this value manually to match cell numbers</ipxact:description>
 			<ipxact:value>28</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4" resolve="user">
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:value>6</ipxact:value>
 		</ipxact:parameter>
@@ -1990,25 +2063,29 @@
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:value>8</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="6" parameterId="uuid_e75e8f45_e47f_4724_8fdb_0aa15b6ab0d4" resolve="user">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_e75e8f45_e47f_4724_8fdb_0aa15b6ab0d4" resolve="user">
 			<ipxact:name>OBI_IDW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_6473268d_bf0d_4d7f_92ff_ead4827d69b1" resolve="user">
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_6473268d_bf0d_4d7f_92ff_ead4827d69b1" resolve="user">
 			<ipxact:name>OBI_CHKW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="6" parameterId="uuid_74250635_6f20_42ae_b29c_d3bbe19d7114" resolve="user">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_74250635_6f20_42ae_b29c_d3bbe19d7114" resolve="user">
 			<ipxact:name>OBI_USERW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_a5f1be76_7fb0_43d3_b59b_d40d0d97ebd9" resolve="user">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_a5f1be76_7fb0_43d3_b59b_d40d0d97ebd9" resolve="user">
 			<ipxact:name>OBI_AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="7" parameterId="uuid_01b77cba_f320_4a01_938e_6a4a424d4030" resolve="user">
+		<ipxact:parameter kactus2:usageCount="6" parameterId="uuid_01b77cba_f320_4a01_938e_6a4a424d4030" resolve="user">
 			<ipxact:name>OBI_DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_9557b435_599a_4205_81c4_d12742a74876" resolve="user">
+			<ipxact:name>NUM_SS</ipxact:name>
+			<ipxact:value>4</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

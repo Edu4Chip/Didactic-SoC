@@ -207,38 +207,6 @@
 			</ipxact:system>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
-			<ipxact:name>analog_if</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="analog_interface" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="analog_interface.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>analog_io_o</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>ana_core_out</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>analog_io_i</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>ana_core_in</ipxact:name>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
 			<ipxact:name>high_speed_clock</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="clock" version="1.0"/>
 			<ipxact:abstractionTypes>
@@ -259,6 +227,44 @@
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>high_speed_clk_n_in</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:system>
+				<ipxact:group>external_io</ipxact:group>
+			</ipxact:system>
+		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>analog_io</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="analog_interface" version="1.1"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="analog_interface.absDef" version="1.1"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>ana_core_in</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ana_core_in</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>ana_core_out</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ana_core_out</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>ana_core_io</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ana_core_io</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 					</ipxact:portMaps>
@@ -303,8 +309,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -325,8 +331,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -452,8 +458,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -474,8 +480,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -496,8 +502,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -518,8 +524,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -540,8 +546,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -562,8 +568,8 @@
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
-							<ipxact:right>0</ipxact:right>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
@@ -571,50 +577,6 @@
 							<ipxact:typeName>wire</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>ana_core_in</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>1</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>ana_core_out</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>1</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -661,6 +623,67 @@
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>ana_core_out</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>2</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>ana_core_io</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue></ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>ana_core_in</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:fileSets>
@@ -672,7 +695,7 @@
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
-					<kactus2:hash>5b7e67b9e5d1718cd0473d8d4e60c8ebc580bcb5</kactus2:hash>
+					<kactus2:hash>3cc4cb8be80b312c7622d02aa1b11f609a12e5ea</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
@@ -712,7 +735,7 @@
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
-					<kactus2:hash>d9caf609cfca9384127cfef0a3edb158a3c17ead</kactus2:hash>
+					<kactus2:hash>68405840e757964a667f48f73c45f3f0d1169191</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
@@ -720,7 +743,7 @@
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
 				<ipxact:vendorExtensions>
-					<kactus2:hash>f0076be10373ce7463214e02f9890f70ef35335f</kactus2:hash>
+					<kactus2:hash>4656dea919109b3652a99e29616a1bff4c9fce8d</kactus2:hash>
 				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
@@ -729,7 +752,9 @@
 
 Spec: 
 * RiscV core
-* 28 signal IO
+* Extendable
+* UART/SPI/GPIO peripherals
+* programmable via JTAG
 </ipxact:description>
 	<ipxact:parameters>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_c4cec312_f229_44eb_8372_8f6373078891" resolve="user">
@@ -750,7 +775,7 @@ Spec:
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_8d66272e_a32c_446f_ae40_3cac7d95d06e" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:description>SoC GPIO Cell count. Default 2x pmod = 8.</ipxact:description>
-			<ipxact:value>8</ipxact:value>
+			<ipxact:value>16</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_ede66365_60a5_4c40_9bff_4d53c0d80d9d" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
@@ -760,286 +785,106 @@ Spec:
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_ce70a978_217c_441b_9025_bd4c11dd5cf9" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>number of configurable io cells in design. Total 24? + analog + power.</ipxact:description>
-			<ipxact:value>17</ipxact:value>
+			<ipxact:value>25</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:author>Matti Käyrä</kactus2:author>
 		<kactus2:fileDependencies>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/Student_area_0.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module Student_area_0</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Student_SS_1_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/student_ss_1.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module student_ss_1</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Student_SS_1_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Student_SS_2_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Student_SS_2_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/student_ss_2.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module student_ss_2</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Student_SS_3_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Student_SS_3_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/Student_SS_3.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module Student_SS_3</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/SS_Ctrl_reg_array.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module SS_Ctrl_reg_array</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/sp_sram.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module sp_sram</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/obi_icn_ss.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module obi_icn_ss</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/student_ss_analog.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module student_ss_analog</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/apb_gpio.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module apb_gpio</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/apb_spi_master.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module apb_spi_master</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/apb_uart.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module apb_uart</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/ibex_wrapper.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module ibex_wrapper</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/jtag_dbg_wrapper_obi.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module jtag_dbg_wrapper_obi</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/peripherals_obi_to_apb.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module peripherals_obi_to_apb</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/sysctrl_obi_xbar.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module sysctrl_obi_xbar</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module SysCtrl_SS_0</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/io_cell_frame_sysctrl.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module io_cell_frame_sysctrl</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/pmod_mux.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module pmod_mux</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef2>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/Student_SS_0_0.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module Student_SS_0_0</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../src/generated/Student_SS_1_0.v</kactus2:fileRef2>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/Student_SS_1_0.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module Student_SS_1_0</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../src/generated/Student_SS_2_0.v</kactus2:fileRef2>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/Student_SS_2_0.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module Student_SS_2_0</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../src/generated/Student_SS_3_0.v</kactus2:fileRef2>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/Student_SS_3_0.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module Student_SS_3_0</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef2>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/SysCtrl_SS_wrapper_0.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module SysCtrl_SS_wrapper_0</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/obi_icn_ss.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module obi_icn_ss</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/student_ss_analog.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module student_ss_analog</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/Student_area_0.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module Student_area_0</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Student_SS_0_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Student_SS_1_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Student_SS_1_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/student_ss_1.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module student_ss_1</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Student_SS_2_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Student_SS_2_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/student_ss_2.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module student_ss_2</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Student_SS_3_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/Student_SS_3.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module Student_SS_3</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/Student_SS_3_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/tech_cg.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module tech_cg</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/apb_gpio.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module apb_gpio</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/apb_spi_master.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module apb_spi_master</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/apb_uart.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module apb_uart</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/SS_Ctrl_reg_array.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module SS_Ctrl_reg_array</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/sp_sram.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module sp_sram</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/ibex_wrapper.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module ibex_wrapper</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/jtag_dbg_wrapper_obi.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module jtag_dbg_wrapper_obi</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/peripherals_obi_to_apb.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module peripherals_obi_to_apb</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/sysctrl_obi_xbar.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module sysctrl_obi_xbar</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef2>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/SysCtrl_SS_0.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module SysCtrl_SS_0</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/io_cell_frame_sysctrl.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module io_cell_frame_sysctrl</ipxact:description>
 			</kactus2:fileDependency>
 			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
+				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
 				<kactus2:fileRef2>$External$/pmod_mux.v</kactus2:fileRef2>
 				<ipxact:description>Submodule instantiation of module pmod_mux</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_peripherals_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/nms/SysCtrl_peripherals_0.sv</kactus2:fileRef2>
-				<ipxact:description>Include reference to verification/verilator/src/hdl/nms/SysCtrl_peripherals_0.sv</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_peripherals_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/ms/SysCtrl_peripherals_0.sv</kactus2:fileRef2>
-				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/SysCtrl_peripherals_0.sv</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_peripherals_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/apb_gpio.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module apb_gpio</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_peripherals_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/apb_spi_master.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module apb_spi_master</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_peripherals_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/apb_uart.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module apb_uart</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.0/../../../../../src/generated/SysCtrl_peripherals_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/AX4LITE_APB_converter_wrapper.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module AX4LITE_APB_converter_wrapper</ipxact:description>
 			</kactus2:fileDependency>
 		</kactus2:fileDependencies>
 		<kactus2:version>3,13,0,0</kactus2:version>

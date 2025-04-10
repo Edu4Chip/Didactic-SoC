@@ -222,74 +222,9 @@
 						<ipxact:portMap>
 							<ipxact:logicalPort>
 								<ipxact:name>reset</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>0</ipxact:left>
-									<ipxact:right>0</ipxact:right>
-								</ipxact:range>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>reset_ss_0</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>0</ipxact:left>
-										<ipxact:right>0</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
-							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>reset</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>3</ipxact:left>
-									<ipxact:right>3</ipxact:right>
-								</ipxact:range>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>reset_ss_3</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>0</ipxact:left>
-										<ipxact:right>0</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>reset</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>2</ipxact:left>
-									<ipxact:right>2</ipxact:right>
-								</ipxact:range>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>reset_ss_2</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>0</ipxact:left>
-										<ipxact:right>0</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>reset</ipxact:name>
-								<ipxact:range>
-									<ipxact:left>1</ipxact:left>
-									<ipxact:right>1</ipxact:right>
-								</ipxact:range>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>reset_ss_1</ipxact:name>
-								<ipxact:partSelect>
-									<ipxact:range>
-										<ipxact:left>0</ipxact:left>
-										<ipxact:right>0</ipxact:right>
-									</ipxact:range>
-								</ipxact:partSelect>
+								<ipxact:name>reset_ss</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 					</ipxact:portMaps>
@@ -458,6 +393,34 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator/>
 		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>ss_ctrl_4</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="SS_Ctrl" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="SS_Ctrl.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>clk_ctrl</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ss_ctrl_4</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>irq_en</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>irq_en_4</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:initiator/>
+		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:memoryMaps>
 		<ipxact:memoryMap>
@@ -465,10 +428,10 @@
 			<ipxact:addressBlock misalignmentAllowed="true">
 				<ipxact:name>registerBlock</ipxact:name>
 				<ipxact:description>* IO cells cfg registers are 32 bits but only connected for IOCELL_CFG_W number of bits. Rest are reserved for updates.
-* SS control registers are 32 bits but only connected for SS_CTRL_W number of bits. 31th bit is IRQ en. 0th bit is global clock control. 1st bit is Rest are reserverd
+* SS control registers are 32 bits but only connected for SS_CTRL_W number of bits. 31th bit is IRQ en. 0th bit is global clock control. 1st bit is high speed clock control. Rest are reserverd.
 </ipxact:description>
 				<ipxact:baseAddress>'h0</ipxact:baseAddress>
-				<ipxact:range>'h188</ipxact:range>
+				<ipxact:range>'h200</ipxact:range>
 				<ipxact:width>32</ipxact:width>
 				<ipxact:register>
 					<ipxact:name>fetch_en</ipxact:name>
@@ -750,12 +713,12 @@
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
-					<ipxact:name>ss_ctrl_reserved_0</ipxact:name>
-					<ipxact:description>reserved addr for additional ss</ipxact:description>
+					<ipxact:name>ss_4_ctrl</ipxact:name>
+					<ipxact:description>SS 4 control</ipxact:description>
 					<ipxact:addressOffset>'h1C</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>reserved_ctrl_0</ipxact:name>
+						<ipxact:name>ss_4_ctrl</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -804,7 +767,7 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_0</ipxact:name>
-					<ipxact:description>pmod 0, gpio 0 io cell cfg</ipxact:description>
+					<ipxact:description>uart io cell cfg</ipxact:description>
 					<ipxact:addressOffset>'h28</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
@@ -820,11 +783,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_1</ipxact:name>
-					<ipxact:description>pmod 0, gpio 1 io cell cfg</ipxact:description>
+					<ipxact:description>uart io cell cfg</ipxact:description>
 					<ipxact:addressOffset>'h2C</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>gpio0_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -919,12 +882,100 @@
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
+					<ipxact:name>io_cell_cfg_24</ipxact:name>
+					<ipxact:description>gpio cfg</ipxact:description>
+					<ipxact:addressOffset>'h88</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>gpio_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_23</ipxact:name>
+					<ipxact:description>gpio cfg</ipxact:description>
+					<ipxact:addressOffset>'h84</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>gpio_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_22</ipxact:name>
+					<ipxact:description>gpio cfg</ipxact:description>
+					<ipxact:addressOffset>'h80</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>gpio_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_21</ipxact:name>
+					<ipxact:description>gpio cfg</ipxact:description>
+					<ipxact:addressOffset>'h7C</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>gpio_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_20</ipxact:name>
+					<ipxact:description>gpio cfg</ipxact:description>
+					<ipxact:addressOffset>'h78</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>gpio_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_19</ipxact:name>
+					<ipxact:description>gpio cfg</ipxact:description>
+					<ipxact:addressOffset>'h74</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>gpio_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_18</ipxact:name>
+					<ipxact:description>gpio cfg</ipxact:description>
+					<ipxact:addressOffset>'h70</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>gpio_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
+					<ipxact:name>io_cell_cfg_17</ipxact:name>
+					<ipxact:description>gpio cfg</ipxact:description>
+					<ipxact:addressOffset>'h6C</ipxact:addressOffset>
+					<ipxact:size>32</ipxact:size>
+					<ipxact:field>
+						<ipxact:name>gpio_cfg</ipxact:name>
+						<ipxact:bitOffset>0</ipxact:bitOffset>
+						<ipxact:bitWidth>32</ipxact:bitWidth>
+					</ipxact:field>
+				</ipxact:register>
+				<ipxact:register>
 					<ipxact:name>io_cell_cfg_16</ipxact:name>
-					<ipxact:description>uart io cell cfg</ipxact:description>
+					<ipxact:description>gpio cfg</ipxact:description>
 					<ipxact:addressOffset>'h68</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>uart_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -936,11 +987,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_15</ipxact:name>
-					<ipxact:description>uart io cell cfg</ipxact:description>
+					<ipxact:description>gpio cfg</ipxact:description>
 					<ipxact:addressOffset>'h64</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>uart_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -952,11 +1003,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_14</ipxact:name>
-					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:description>gpio cfg</ipxact:description>
 					<ipxact:addressOffset>'h60</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -968,22 +1019,22 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_13</ipxact:name>
-					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:description>gpio cfg</ipxact:description>
 					<ipxact:addressOffset>'h5c</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_12</ipxact:name>
-					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:description>gpio cfg</ipxact:description>
 					<ipxact:addressOffset>'h58</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -995,11 +1046,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_11</ipxact:name>
-					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:description>gpio cfg</ipxact:description>
 					<ipxact:addressOffset>'h54</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -1011,22 +1062,22 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_10</ipxact:name>
-					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:description>gpio cfg</ipxact:description>
 					<ipxact:addressOffset>'h50</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 					</ipxact:field>
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_9</ipxact:name>
-					<ipxact:description>spi io cell cfg</ipxact:description>
+					<ipxact:description>gpio cfg</ipxact:description>
 					<ipxact:addressOffset>'h4C</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>spi_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 					</ipxact:field>
@@ -1037,7 +1088,7 @@
 					<ipxact:addressOffset>'h48</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>gpio8_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -1049,11 +1100,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_7</ipxact:name>
-					<ipxact:description>pmod 1, gpio 3 io cell cfg</ipxact:description>
+					<ipxact:description>spi io cell cfg</ipxact:description>
 					<ipxact:addressOffset>'h44</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>gpio7_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -1065,11 +1116,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_6</ipxact:name>
-					<ipxact:description>pmod 1, gpio 2 io cell cfg</ipxact:description>
+					<ipxact:description>spi io cell cfg</ipxact:description>
 					<ipxact:addressOffset>'h40</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>gpio6_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -1081,11 +1132,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_5</ipxact:name>
-					<ipxact:description>pmod 1, gpio 1 io cell cfg</ipxact:description>
+					<ipxact:description>spi io cell cfg</ipxact:description>
 					<ipxact:addressOffset>'h3C</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>gpio5_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -1097,11 +1148,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_4</ipxact:name>
-					<ipxact:description>pmod 1, gpio 0 io cell cfg</ipxact:description>
+					<ipxact:description>spi io cell cfg</ipxact:description>
 					<ipxact:addressOffset>'h38</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>gpio4_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -1113,11 +1164,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_3</ipxact:name>
-					<ipxact:description>pmod 0, gpio 3 io cell cfg</ipxact:description>
+					<ipxact:description>spi io cell cfg</ipxact:description>
 					<ipxact:addressOffset>'h34</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>gpio3_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -1129,11 +1180,11 @@
 				</ipxact:register>
 				<ipxact:register>
 					<ipxact:name>io_cell_cfg_2</ipxact:name>
-					<ipxact:description>pmod 0, gpio 2 io cell cfg</ipxact:description>
+					<ipxact:description>spi io cell cfg</ipxact:description>
 					<ipxact:addressOffset>'h30</ipxact:addressOffset>
 					<ipxact:size>32</ipxact:size>
 					<ipxact:field>
-						<ipxact:name>gpio1_cell_cfg</ipxact:name>
+						<ipxact:name>cell_cfg</ipxact:name>
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:bitWidth>32</ipxact:bitWidth>
 						<ipxact:resets>
@@ -1163,25 +1214,29 @@
 				<ipxact:moduleParameters>
 					<ipxact:moduleParameter parameterId="uuid_5e7b3ac1_ef7b_45b5_9a82_2b8f0da75f11" usageType="nontyped">
 						<ipxact:name>IOCELL_CFG_W</ipxact:name>
-						<ipxact:value>uuid_2c7a1578_ec8a_449c_86c2_570c690a2960</ipxact:value>
+						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_2c7a1578_ec8a_449c_86c2_570c690a2960uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter parameterId="uuid_6f25151f_4ea9_4710_9779_3c26f1ee9ebf" usageType="nontyped">
 						<ipxact:name>IOCELL_COUNT</ipxact:name>
 						<ipxact:description>update/propagate this value to match cell numbers</ipxact:description>
-						<ipxact:value>uuid_0a0d304a_6f1b_439d_accf_677be230b07b</ipxact:value>
+						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_0a0d304a_6f1b_439d_accf_677be230b07buuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter parameterId="uuid_3a2f8661_ccea_46fb_94fb_444d3b76588b" usageType="nontyped">
 						<ipxact:name>AW</ipxact:name>
-						<ipxact:value>uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2</ipxact:value>
+						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_19e1335c_c372_4cb0_8dd1_e691d99210a2uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter parameterId="uuid_b7298cc7_74eb_491d_b66f_2db5c0fd9c9d" usageType="nontyped">
 						<ipxact:name>DW</ipxact:name>
-						<ipxact:value>uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea</ipxact:value>
+						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_315fc4be_48e9_4a09_bebd_291d9dba9feauuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter parameterId="uuid_95962932_5e1d_490e_a892_5e78b0bcf829" usageType="nontyped">
 						<ipxact:name>SS_CTRL_W</ipxact:name>
 						<ipxact:description>configurable up to 31 bits</ipxact:description>
-						<ipxact:value>uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79</ipxact:value>
+						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
+					</ipxact:moduleParameter>
+					<ipxact:moduleParameter parameterId="uuid_b15d2201_e456_4b94_a030_21f266887af9" usageType="nontyped">
+						<ipxact:name>NUM_SS</ipxact:name>
+						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_821beacc_94a8_4945_a136_d7d715007099uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
 					</ipxact:moduleParameter>
 				</ipxact:moduleParameters>
 			</ipxact:componentInstantiation>
@@ -1215,7 +1270,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>(uuid_2c7a1578_ec8a_449c_86c2_570c690a2960*uuid_0a0d304a_6f1b_439d_accf_677be230b07b)-1</ipxact:left>
+							<ipxact:left>uuid_2c7a1578_ec8a_449c_86c2_570c690a2960*uuid_0a0d304a_6f1b_439d_accf_677be230b07b-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1233,94 +1288,6 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>reset_icn</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>reset_ss_0</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>reset_ss_1</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>reset_ss_2</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left></ipxact:left>
-							<ipxact:right></ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-					<ipxact:drivers>
-						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
-						</ipxact:driver>
-					</ipxact:drivers>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>reset_ss_3</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
@@ -1557,7 +1524,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>4</ipxact:left>
+							<ipxact:left>3</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1772,6 +1739,57 @@
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>irq_en_4</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left></ipxact:left>
+							<ipxact:right></ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>ss_ctrl_4</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>reset_ss</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_821beacc_94a8_4945_a136_d7d715007099-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:fileSets>
@@ -1787,27 +1805,31 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="15" parameterId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b" resolve="user">
+		<ipxact:parameter kactus2:usageCount="26" parameterId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>update/propagate this value to match cell numbers</ipxact:description>
 			<ipxact:value>28</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="15" parameterId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960" resolve="user">
+		<ipxact:parameter kactus2:usageCount="27" parameterId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="14" parameterId="uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2" resolve="user">
+		<ipxact:parameter kactus2:usageCount="25" parameterId="uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2" resolve="user">
 			<ipxact:name>AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="28" parameterId="uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea" resolve="user">
+		<ipxact:parameter kactus2:usageCount="49" parameterId="uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea" resolve="user">
 			<ipxact:name>DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="37" parameterId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79" resolve="user">
+		<ipxact:parameter kactus2:usageCount="64" parameterId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:description>configurable up to 31 bits</ipxact:description>
 			<ipxact:value>31</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_821beacc_94a8_4945_a136_d7d715007099" resolve="user">
+			<ipxact:name>NUM_SS</ipxact:name>
+			<ipxact:value>4</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
