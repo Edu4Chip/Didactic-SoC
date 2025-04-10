@@ -24,17 +24,22 @@ module analog_status_array(
     input  logic                        reset_n,
 
     // Interface: status_0
-    input                [31:0]         status_0,
+    input logic [31:0]         status_0,
 
     // Interface: status_1
-    input                [31:0]         status_1,
+    input logic [31:0]         status_1,
 
     // Interface: status_2
-    input                [31:0]         status_2,
+    input logic [31:0]         status_2,
 
     // Interface: status_3
-    input                [31:0]         status_3
+    input logic [31:0]         status_3,
+
+    //ad-hoc:
+    output logic irq_tieoff
 );
+  // workaround for missing kactus2 feature
+  assign irq_tieoff <= 1'b0;
 
   // APB out regs
   logic PSLVERR_reg;

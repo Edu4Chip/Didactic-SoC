@@ -541,6 +541,20 @@
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>irq_tieoff</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+				<ipxact:vendorExtensions>
+					<kactus2:adHocVisible/>
+				</ipxact:vendorExtensions>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:fileSets>
