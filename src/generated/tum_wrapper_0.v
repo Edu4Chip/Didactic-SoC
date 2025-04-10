@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : tum_wrapper_0.v
 // Creation date : 10.04.2025
-// Creation time : 15:22:09
+// Creation time : 15:45:02
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -78,7 +78,7 @@ module tum_wrapper_0 #(
     wire [15:0] Student_SS_3_pmod_gpio_to_pmod_gpio_gpo;
 
     // Ad-hoc wires:
-    wire [7:0] ss_cg_en_to_ss_ctrl_3;
+    wire       ss_cg_en_to_ss_ctrl_3;
     wire       ss_high_speed_cg_en_to_ss_ctrl_3;
 
     // Student_SS_3 port wires:
@@ -126,7 +126,7 @@ module tum_wrapper_0 #(
     assign pmod_gpo = Student_SS_3_pmod_gpio_to_pmod_gpio_gpo;
     assign Student_SS_3_Reset_to_Reset_reset = reset_int;
     assign Student_SS_3_SS_CTRL_to_SS_Ctrl_clk_ctrl = ss_ctrl_3;
-    assign ss_cg_en_to_ss_ctrl_3 = ss_ctrl_3;
+    assign ss_cg_en_to_ss_ctrl_3 = ss_ctrl_3[0];
     assign ss_high_speed_cg_en_to_ss_ctrl_3 = ss_ctrl_3[1];
 
 
@@ -151,7 +151,7 @@ module tum_wrapper_0 #(
     // ss_cg assignments:
     assign ss_cg_clk = ss_cg_clk_in_to_Clock_clk;
     assign ss_cg_clk_out_to_Student_SS_3_Clock_clk = ss_cg_clk_out;
-    assign ss_cg_en = ss_cg_en_to_ss_ctrl_3[0];
+    assign ss_cg_en = ss_cg_en_to_ss_ctrl_3;
     // ss_high_speed_cg assignments:
     assign ss_high_speed_cg_clk = ss_high_speed_cg_clk_in_to_high_speed_clk_clk;
     assign ss_high_speed_cg_clk_out_to_Student_SS_3_high_speed_clk_clk = ss_high_speed_cg_clk_out;

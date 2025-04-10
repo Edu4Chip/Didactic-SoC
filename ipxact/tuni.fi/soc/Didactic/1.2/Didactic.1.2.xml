@@ -750,42 +750,42 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:45:04 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:45:04 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/dtu_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:45:04 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/kth_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:45:04 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/tum_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:45:04 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/imt_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:45:04 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/analog_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:45:04 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 15:22:14 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:45:04 on 10.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -826,7 +826,7 @@ Spec:
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_ce70a978_217c_441b_9025_bd4c11dd5cf9" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>number of configurable io cells in design</ipxact:description>
-			<ipxact:value>25</ipxact:value>
+			<ipxact:value>24</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_b413a7a5_7bf1_4056_9ced_a806211a1107" resolve="user">
 			<ipxact:name>NUM_SS</ipxact:name>

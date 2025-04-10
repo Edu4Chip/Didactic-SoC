@@ -533,7 +533,7 @@
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d632a849_ea1e_4525_b266_7a01bce8f372" resolve="user">
 			<ipxact:name>NUM_SS</ipxact:name>
-			<ipxact:value>5</ipxact:value>
+			<ipxact:value>7</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_c42c7a6d_6145_4f8f_8868_4d08baaccfc3" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 10.04.2025
-// Creation time : 15:22:09
+// Creation time : 15:45:02
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -11,18 +11,16 @@
 //-----------------------------------------------------------------------------
 
 module SysCtrl_SS_wrapper_0 #(
-    parameter                              AXI4LITE_AW      = 32,
-    parameter                              AXI4LITE_DW      = 32,
+    parameter                              OBI_AW           = 32,
+    parameter                              OBI_DW           = 32,
     parameter                              SS_CTRL_W        = 8,
     parameter                              NUM_GPIO         = 16,
-    parameter                              IOCELL_COUNT     = 25,
+    parameter                              IOCELL_COUNT     = 24,
     parameter                              IOCELL_CFGW      = 5,
-    parameter                              NUM_SS           = 4,
-    parameter                              OBI_DW           = 32,
+    parameter                              NUM_SS           = 5,
     parameter                              OBI_CHKW         = 1,
     parameter                              OBI_USERW        = 1,
-    parameter                              OBI_IDW          = 1,
-    parameter                              OBI_AW           = 32
+    parameter                              OBI_IDW          = 1
 ) (
     // Interface: Clock
     inout  logic                        clock,
@@ -171,14 +169,14 @@ module SysCtrl_SS_wrapper_0 #(
     // SysCtrl_SS_Reset_ICN_to_Reset_icn wires:
     wire       SysCtrl_SS_Reset_ICN_to_Reset_icn_reset;
     // i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg wires:
-    wire [124:0] i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
+    wire [119:0] i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
     // i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel wires:
     wire [15:0] i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo;
     // i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO wires:
     wire [15:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
     wire [15:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo;
     // SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core wires:
-    wire [124:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
+    wire [119:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
     // i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal wires:
     wire [15:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
     wire [15:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
@@ -238,7 +236,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [15:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpo;
 
     // SysCtrl_SS port wires:
-    wire [124:0] SysCtrl_SS_cell_cfg;
+    wire [119:0] SysCtrl_SS_cell_cfg;
     wire       SysCtrl_SS_clk_internal;
     wire [15:0] SysCtrl_SS_gpio_from_core;
     wire [15:0] SysCtrl_SS_gpio_to_core;
@@ -293,11 +291,11 @@ module SysCtrl_SS_wrapper_0 #(
     wire [7:0] SysCtrl_SS_ss_ctrl_3;
     wire [7:0] SysCtrl_SS_ss_ctrl_4;
     wire [7:0] SysCtrl_SS_ss_ctrl_icn;
-    wire [3:0] SysCtrl_SS_sysctrl_irq_i;
+    wire [4:0] SysCtrl_SS_sysctrl_irq_i;
     wire       SysCtrl_SS_uart_rx_internal;
     wire       SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame port wires:
-    wire [124:0] i_io_cell_frame_cell_cfg;
+    wire [119:0] i_io_cell_frame_cell_cfg;
     wire       i_io_cell_frame_clk_internal;
     wire [15:0] i_io_cell_frame_gpio_from_core;
     wire [15:0] i_io_cell_frame_gpio_to_core;
@@ -315,8 +313,8 @@ module SysCtrl_SS_wrapper_0 #(
     wire       i_io_cell_frame_uart_rx_internal;
     wire       i_io_cell_frame_uart_tx_internal;
     // i_pmod_mux port wires:
-    wire [124:0] i_pmod_mux_cell_cfg_from_core;
-    wire [124:0] i_pmod_mux_cell_cfg_to_io;
+    wire [119:0] i_pmod_mux_cell_cfg_from_core;
+    wire [119:0] i_pmod_mux_cell_cfg_to_io;
     wire [15:0] i_pmod_mux_gpio_from_core;
     wire [15:0] i_pmod_mux_gpio_from_io;
     wire [15:0] i_pmod_mux_gpio_to_core;
@@ -426,7 +424,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_3;
     assign SysCtrl_SS_ss_ctrl_4_to_ss_4_ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_4;
     assign SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_icn;
-    assign SysCtrl_SS_sysctrl_irq_i = SysCtrl_SS_IRQ_to_IRQ_irq[3:0];
+    assign SysCtrl_SS_sysctrl_irq_i = SysCtrl_SS_IRQ_to_IRQ_irq;
     assign SysCtrl_SS_uart_rx_internal = i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_rx;
     assign i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_tx = SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame assignments:
@@ -471,7 +469,7 @@ module SysCtrl_SS_wrapper_0 #(
     // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.1
     SysCtrl_SS_0 #(
         .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (25),
+        .IOCELL_COUNT        (24),
         .NUM_GPIO            (16),
         .SS_CTRL_W           (8),
         .OBI_IDW             (1),
@@ -479,7 +477,7 @@ module SysCtrl_SS_wrapper_0 #(
         .OBI_USERW           (1),
         .OBI_AW              (32),
         .OBI_DW              (32),
-        .NUM_SS              (4))
+        .NUM_SS              (5))
     SysCtrl_SS(
         // Interface: Clk
         .clk_internal        (SysCtrl_SS_clk_internal),
@@ -552,7 +550,7 @@ module SysCtrl_SS_wrapper_0 #(
     // IP-XACT VLNV: tuni.fi:subsystem.io:io_cell_frame_sysctrl:1.0
     io_cell_frame_sysctrl #(
         .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (25),
+        .IOCELL_COUNT        (24),
         .NUM_GPIO            (16))
     i_io_cell_frame(
         // Interface: Cfg
@@ -606,7 +604,7 @@ module SysCtrl_SS_wrapper_0 #(
     // IP-XACT VLNV: tuni.fi:ip:pmod_mux:1.0
     pmod_mux #(
         .IOCELL_CFG_W        (5),
-        .IOCELL_COUNT        (25),
+        .IOCELL_COUNT        (24),
         .NUM_GPIO            (16))
     i_pmod_mux(
         // Interface: cell_cfg_from_core
