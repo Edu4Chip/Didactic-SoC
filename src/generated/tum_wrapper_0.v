@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : tum_wrapper_0.v
 // Creation date : 10.04.2025
-// Creation time : 15:45:02
+// Creation time : 15:51:40
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -94,9 +94,9 @@ module tum_wrapper_0 #(
     wire       Student_SS_3_high_speed_clk;
     wire       Student_SS_3_irq_3;
     wire       Student_SS_3_irq_en_3;
-    wire [15:0] Student_SS_3_pmod_0_gpi;
-    wire [15:0] Student_SS_3_pmod_0_gpio_oe;
-    wire [15:0] Student_SS_3_pmod_0_gpo;
+    wire [15:0] Student_SS_3_pmod_gpi;
+    wire [15:0] Student_SS_3_pmod_gpio_oe;
+    wire [15:0] Student_SS_3_pmod_gpo;
     wire       Student_SS_3_reset_int;
     wire [7:0] Student_SS_3_ss_ctrl_3;
     // ss_cg port wires:
@@ -143,9 +143,9 @@ module tum_wrapper_0 #(
     assign Student_SS_3_high_speed_clk = ss_high_speed_cg_clk_out_to_Student_SS_3_high_speed_clk_clk;
     assign Student_SS_3_IRQ_to_IRQ_irq = Student_SS_3_irq_3;
     assign Student_SS_3_irq_en_3 = Student_SS_3_SS_CTRL_to_SS_Ctrl_irq_en;
-    assign Student_SS_3_pmod_0_gpi = Student_SS_3_pmod_gpio_to_pmod_gpio_gpi;
-    assign Student_SS_3_pmod_gpio_to_pmod_gpio_gpio_oe = Student_SS_3_pmod_0_gpio_oe;
-    assign Student_SS_3_pmod_gpio_to_pmod_gpio_gpo = Student_SS_3_pmod_0_gpo;
+    assign Student_SS_3_pmod_gpi = Student_SS_3_pmod_gpio_to_pmod_gpio_gpi;
+    assign Student_SS_3_pmod_gpio_to_pmod_gpio_gpio_oe = Student_SS_3_pmod_gpio_oe;
+    assign Student_SS_3_pmod_gpio_to_pmod_gpio_gpo = Student_SS_3_pmod_gpo;
     assign Student_SS_3_reset_int = Student_SS_3_Reset_to_Reset_reset;
     assign Student_SS_3_ss_ctrl_3 = Student_SS_3_SS_CTRL_to_SS_Ctrl_clk_ctrl;
     // ss_cg assignments:
@@ -180,9 +180,9 @@ module tum_wrapper_0 #(
         // Interface: high_speed_clk
         .high_speed_clk      (Student_SS_3_high_speed_clk),
         // Interface: pmod_gpio
-        .pmod_0_gpi          (Student_SS_3_pmod_0_gpi),
-        .pmod_0_gpio_oe      (Student_SS_3_pmod_0_gpio_oe),
-        .pmod_0_gpo          (Student_SS_3_pmod_0_gpo));
+        .pmod_gpi            (Student_SS_3_pmod_gpi),
+        .pmod_gpio_oe        (Student_SS_3_pmod_gpio_oe),
+        .pmod_gpo            (Student_SS_3_pmod_gpo));
 
     // IP-XACT VLNV: tuni.fi:tech:tech_cg:1.0
     tech_cg ss_cg(
