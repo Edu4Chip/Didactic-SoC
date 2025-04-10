@@ -7,7 +7,7 @@
     * simulation model for inverter
 */
 
-module tech_mux (
+module tech_not (
     input  logic a,
     output logic z
   );

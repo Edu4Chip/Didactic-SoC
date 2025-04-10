@@ -213,8 +213,8 @@ module obi_icn_ss #(
     obi_to_apb_intf #() i_obi_to_apb (
       .clk_i (clk),
       .rst_ni(reset_n),
-      .obi_i (target_bus_cut[0]),
-      .apb_o (icn_bus[0])
+      .obi_i (target_bus_cut[i]),
+      .apb_o (icn_bus[i])
     );
   end
 
