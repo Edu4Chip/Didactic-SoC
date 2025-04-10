@@ -51,8 +51,13 @@ module dtu_ss(
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
 
+  tech_not i_tech_not (.a(reset_int),
+                       .z(reset_pos));
+
   reg [1:0] reset_sync;
-  always_ff @(posedge clk_in) reset_sync <= {reset_sync[0], reset_int};
+  always_ff @(posedge clk_in) reset_sync <= {reset_sync[0], reset_pos};
+
+
 
   DtuSubsystem dtu(
     .clock(clk_in),

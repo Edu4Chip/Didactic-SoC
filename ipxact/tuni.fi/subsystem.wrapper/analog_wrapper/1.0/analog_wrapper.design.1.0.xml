@@ -122,27 +122,6 @@
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
 		<ipxact:adHocConnection>
-			<ipxact:name>ss_cg_en_to_ss_ctrl_3</ipxact:name>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="ss_cg" portRef="en"/>
-				<ipxact:externalPortReference portRef="ss_ctrl_3"/>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
-		<ipxact:adHocConnection>
-			<ipxact:name>ss_high_speed_cg_en_to_ss_ctrl_3</ipxact:name>
-			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="ss_high_speed_cg" portRef="en"/>
-				<ipxact:externalPortReference portRef="ss_ctrl_3">
-					<ipxact:partSelect>
-						<ipxact:range>
-							<ipxact:left>1</ipxact:left>
-							<ipxact:right>1</ipxact:right>
-						</ipxact:range>
-					</ipxact:partSelect>
-				</ipxact:externalPortReference>
-			</ipxact:portReferences>
-		</ipxact:adHocConnection>
-		<ipxact:adHocConnection>
 			<ipxact:name>ss_cg_en_to_ss_ctrl</ipxact:name>
 			<ipxact:portReferences>
 				<ipxact:internalPortReference componentInstanceRef="ss_cg" portRef="en"/>
@@ -194,24 +173,6 @@
 			<kactus2:route kactus2:connRef="ss_cg_clk_in_to_Clock" kactus2:offPage="false">
 				<kactus2:position x="170" y="100"/>
 				<kactus2:position x="60" y="100"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="ss_cg_en_to_ss_ctrl_3" kactus2:offPage="false">
-				<kactus2:position x="60" y="140"/>
-				<kactus2:position x="170" y="140"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_3_pmod_gpio_0_to_pmod_gpio_0" kactus2:offPage="false">
-				<kactus2:position x="710" y="140"/>
-				<kactus2:position x="820" y="140"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_3_pmod_gpio_1_to_pmod_gpio_1" kactus2:offPage="false">
-				<kactus2:position x="710" y="240"/>
-				<kactus2:position x="820" y="240"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="ss_high_speed_cg_en_to_ss_ctrl_3" kactus2:offPage="false">
-				<kactus2:position x="60" y="140"/>
-				<kactus2:position x="150" y="140"/>
-				<kactus2:position x="150" y="280"/>
-				<kactus2:position x="170" y="280"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ss_cg_en_to_ss_ctrl" kactus2:offPage="false">
 				<kactus2:position x="60" y="180"/>
