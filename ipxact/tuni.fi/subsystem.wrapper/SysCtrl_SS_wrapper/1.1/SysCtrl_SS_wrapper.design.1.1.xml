@@ -60,9 +60,9 @@
 					<kactus2:portPosition busRef="gpio_core" x="110" y="390"/>
 					<kactus2:portPosition busRef="gpio_io" x="-110" y="40"/>
 					<kactus2:portPosition busRef="pmod_sel" x="110" y="430"/>
-					<kactus2:portPosition busRef="ss_2_pmod_gpio" x="110" y="150"/>
 					<kactus2:portPosition busRef="ss_0_pmod_gpio" x="110" y="70"/>
 					<kactus2:portPosition busRef="ss_1_pmod_gpio" x="110" y="110"/>
+					<kactus2:portPosition busRef="ss_2_pmod_gpio" x="110" y="150"/>
 					<kactus2:portPosition busRef="ss_3_pmod_gpio" x="110" y="190"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
@@ -594,15 +594,6 @@
 			<kactus2:position x="1260" y="310"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
-		<kactus2:note>
-			<kactus2:position x="220" y="180"/>
-			<kactus2:content>This module contains tech IO cells. Insert ifdef clauses to RTL file to get platform specific cells inserted.
-
-For ASIC, replace with tech files.</kactus2:content>
-			<kactus2:associations/>
-			<kactus2:timestamp>05.07.2024 11:51</kactus2:timestamp>
-		</kactus2:note>
-		<kactus2:adHocVisibilities/>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>ss_0_pmod_gpio</kactus2:name>
 			<kactus2:position x="820" y="130"/>
@@ -623,5 +614,14 @@ For ASIC, replace with tech files.</kactus2:content>
 			<kactus2:position x="820" y="250"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
+		<kactus2:note>
+			<kactus2:position x="220" y="180"/>
+			<kactus2:content>This module contains tech IO cells. Insert ifdef clauses to RTL file to get platform specific cells inserted.
+
+For ASIC, replace with tech files.</kactus2:content>
+			<kactus2:associations/>
+			<kactus2:timestamp>05.07.2024 11:51</kactus2:timestamp>
+		</kactus2:note>
+		<kactus2:adHocVisibilities/>
 	</ipxact:vendorExtensions>
 </ipxact:design>

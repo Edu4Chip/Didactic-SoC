@@ -261,7 +261,7 @@
 			<ipxact:componentInstantiation>
 				<ipxact:name>verilog_implementation</ipxact:name>
 				<ipxact:language>Verilog</ipxact:language>
-				<ipxact:moduleName>dtus_ss</ipxact:moduleName>
+				<ipxact:moduleName>dtu_ss</ipxact:moduleName>
 			</ipxact:componentInstantiation>
 		</ipxact:instantiations>
 		<ipxact:ports>

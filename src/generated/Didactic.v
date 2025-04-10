@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
 // Creation date : 10.04.2025
-// Creation time : 14:25:42
+// Creation time : 15:45:02
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -20,10 +20,11 @@
 module Didactic #(
     parameter                              AW               = 32,    // Global SoC address width
     parameter                              DW               = 32,    // Global SoC data width
-    parameter                              SS_CTRL_W        = 5,    // SoC SS control width
-    parameter                              NUM_GPIO         = 4,    // SoC GPIO Cell count. Default 2x pmod = 8.
-    parameter                              IOCELL_CFG_W     = 4,    // Tech cell control width.
-    parameter                              IOCELL_COUNT     = 15    // number of configurable io cells in design. Total 24? + analog + power.
+    parameter                              SS_CTRL_W        = 8,    // SoC SS control width
+    parameter                              NUM_GPIO         = 16,    // SoC GPIO Cell count. Default 16.
+    parameter                              IOCELL_CFG_W     = 5,    // Tech cell control width.
+    parameter                              IOCELL_COUNT     = 24,    // number of configurable io cells in design
+    parameter                              NUM_SS           = 5    // number of student systems present in top level.
 ) (
     // Interface: Clock
     inout  wire                         clk_in,
@@ -155,7 +156,7 @@ module Didactic #(
     // i_obi_icn_ss_reset_to_SystemControl_SS_Reset_icn wires:
     wire       i_obi_icn_ss_reset_to_SystemControl_SS_Reset_icn_reset;
     // SystemControl_SS_ICN_SS_Ctrl_to_i_obi_icn_ss_icn_ss_ctrl wires:
-    wire [4:0] SystemControl_SS_ICN_SS_Ctrl_to_i_obi_icn_ss_icn_ss_ctrl_clk_ctrl;
+    wire [7:0] SystemControl_SS_ICN_SS_Ctrl_to_i_obi_icn_ss_icn_ss_ctrl_clk_ctrl;
     // analog_wrapper_0_analog_io_to_analog_io wires:
     // analog_wrapper_0_APB_to_i_obi_icn_ss_apb_4 wires:
     wire [31:0] analog_wrapper_0_APB_to_i_obi_icn_ss_apb_4_PADDR;
@@ -237,24 +238,24 @@ module Didactic #(
     wire       SystemControl_SS_obi_wuser;
     wire       SystemControl_SS_reset_int;
     wire [4:0] SystemControl_SS_reset_ss;
-    wire [3:0] SystemControl_SS_ss_0_pmod_gpi;
-    wire [3:0] SystemControl_SS_ss_0_pmod_gpio_oe;
-    wire [3:0] SystemControl_SS_ss_0_pmod_gpo;
-    wire [3:0] SystemControl_SS_ss_1_pmod_gpi;
-    wire [3:0] SystemControl_SS_ss_1_pmod_gpio_oe;
-    wire [3:0] SystemControl_SS_ss_1_pmod_gpo;
-    wire [3:0] SystemControl_SS_ss_2_pmod_gpi;
-    wire [3:0] SystemControl_SS_ss_2_pmod_gpio_oe;
-    wire [3:0] SystemControl_SS_ss_2_pmod_gpo;
-    wire [3:0] SystemControl_SS_ss_3_pmod_gpi;
-    wire [3:0] SystemControl_SS_ss_3_pmod_gpio_oe;
-    wire [3:0] SystemControl_SS_ss_3_pmod_gpo;
-    wire [4:0] SystemControl_SS_ss_ctrl_0;
-    wire [4:0] SystemControl_SS_ss_ctrl_1;
-    wire [4:0] SystemControl_SS_ss_ctrl_2;
-    wire [4:0] SystemControl_SS_ss_ctrl_3;
+    wire [15:0] SystemControl_SS_ss_0_pmod_gpi;
+    wire [15:0] SystemControl_SS_ss_0_pmod_gpio_oe;
+    wire [15:0] SystemControl_SS_ss_0_pmod_gpo;
+    wire [15:0] SystemControl_SS_ss_1_pmod_gpi;
+    wire [15:0] SystemControl_SS_ss_1_pmod_gpio_oe;
+    wire [15:0] SystemControl_SS_ss_1_pmod_gpo;
+    wire [15:0] SystemControl_SS_ss_2_pmod_gpi;
+    wire [15:0] SystemControl_SS_ss_2_pmod_gpio_oe;
+    wire [15:0] SystemControl_SS_ss_2_pmod_gpo;
+    wire [15:0] SystemControl_SS_ss_3_pmod_gpi;
+    wire [15:0] SystemControl_SS_ss_3_pmod_gpio_oe;
+    wire [15:0] SystemControl_SS_ss_3_pmod_gpo;
+    wire [7:0] SystemControl_SS_ss_ctrl_0;
+    wire [7:0] SystemControl_SS_ss_ctrl_1;
+    wire [7:0] SystemControl_SS_ss_ctrl_2;
+    wire [7:0] SystemControl_SS_ss_ctrl_3;
     wire [7:0] SystemControl_SS_ss_ctrl_4;
-    wire [4:0] SystemControl_SS_ss_ctrl_icn;
+    wire [7:0] SystemControl_SS_ss_ctrl_icn;
     // analog_wrapper_0 port wires:
     wire [31:0] analog_wrapper_0_PADDR;
     wire       analog_wrapper_0_PENABLE;
@@ -403,7 +404,7 @@ module Didactic #(
     wire       i_obi_icn_ss_obi_we;
     wire       i_obi_icn_ss_obi_wuser;
     wire       i_obi_icn_ss_reset_n;
-    wire [4:0] i_obi_icn_ss_ss_ctrl_icn;
+    wire [7:0] i_obi_icn_ss_ss_ctrl_icn;
     // i_tum_ss_warpper port wires:
     wire [31:0] i_tum_ss_warpper_PADDR;
     wire       i_tum_ss_warpper_PENABLE;
@@ -461,22 +462,22 @@ module Didactic #(
     assign i_imt_ss_wrapper_reset_int_to_SystemControl_SS_reset_ss = SystemControl_SS_reset_ss[0];
     assign i_kth_ss_wrapper_reset_int_to_SystemControl_SS_reset_ss = SystemControl_SS_reset_ss[3];
     assign i_tum_ss_warpper_reset_int_to_SystemControl_SS_reset_ss = SystemControl_SS_reset_ss[1];
-    assign SystemControl_SS_ss_0_pmod_gpio_to_i_imt_ss_wrapper_pmod_gpio_gpi[3:0] = SystemControl_SS_ss_0_pmod_gpi;
-    assign SystemControl_SS_ss_0_pmod_gpio_oe = SystemControl_SS_ss_0_pmod_gpio_to_i_imt_ss_wrapper_pmod_gpio_gpio_oe[3:0];
-    assign SystemControl_SS_ss_0_pmod_gpo = SystemControl_SS_ss_0_pmod_gpio_to_i_imt_ss_wrapper_pmod_gpio_gpo[3:0];
-    assign i_tum_ss_warpper_pmod_gpio_to_SystemControl_SS_ss_1_pmod_gpio_gpi[3:0] = SystemControl_SS_ss_1_pmod_gpi;
-    assign SystemControl_SS_ss_1_pmod_gpio_oe = i_tum_ss_warpper_pmod_gpio_to_SystemControl_SS_ss_1_pmod_gpio_gpio_oe[3:0];
-    assign SystemControl_SS_ss_1_pmod_gpo = i_tum_ss_warpper_pmod_gpio_to_SystemControl_SS_ss_1_pmod_gpio_gpo[3:0];
-    assign i_dtu_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_2_pmod_gpio_gpi[3:0] = SystemControl_SS_ss_2_pmod_gpi;
-    assign SystemControl_SS_ss_2_pmod_gpio_oe = i_dtu_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_2_pmod_gpio_gpio_oe[3:0];
-    assign SystemControl_SS_ss_2_pmod_gpo = i_dtu_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_2_pmod_gpio_gpo[3:0];
-    assign i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpi[3:0] = SystemControl_SS_ss_3_pmod_gpi;
-    assign SystemControl_SS_ss_3_pmod_gpio_oe = i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpio_oe[3:0];
-    assign SystemControl_SS_ss_3_pmod_gpo = i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpo[3:0];
-    assign SystemControl_SS_SS_0_Ctrl_to_i_imt_ss_wrapper_SS_Ctrl_clk_ctrl[4:0] = SystemControl_SS_ss_ctrl_0;
-    assign SystemControl_SS_SS_1_Ctrl_to_i_tum_ss_warpper_SS_Ctrl_clk_ctrl[4:0] = SystemControl_SS_ss_ctrl_1;
-    assign SystemControl_SS_SS_2_Ctrl_to_i_dtu_ss_wrapper_SS_Ctrl_clk_ctrl[4:0] = SystemControl_SS_ss_ctrl_2;
-    assign SystemControl_SS_SS_3_Ctrl_to_i_kth_ss_wrapper_SS_Ctrl_clk_ctrl[4:0] = SystemControl_SS_ss_ctrl_3;
+    assign SystemControl_SS_ss_0_pmod_gpio_to_i_imt_ss_wrapper_pmod_gpio_gpi = SystemControl_SS_ss_0_pmod_gpi;
+    assign SystemControl_SS_ss_0_pmod_gpio_oe = SystemControl_SS_ss_0_pmod_gpio_to_i_imt_ss_wrapper_pmod_gpio_gpio_oe;
+    assign SystemControl_SS_ss_0_pmod_gpo = SystemControl_SS_ss_0_pmod_gpio_to_i_imt_ss_wrapper_pmod_gpio_gpo;
+    assign i_tum_ss_warpper_pmod_gpio_to_SystemControl_SS_ss_1_pmod_gpio_gpi = SystemControl_SS_ss_1_pmod_gpi;
+    assign SystemControl_SS_ss_1_pmod_gpio_oe = i_tum_ss_warpper_pmod_gpio_to_SystemControl_SS_ss_1_pmod_gpio_gpio_oe;
+    assign SystemControl_SS_ss_1_pmod_gpo = i_tum_ss_warpper_pmod_gpio_to_SystemControl_SS_ss_1_pmod_gpio_gpo;
+    assign i_dtu_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_2_pmod_gpio_gpi = SystemControl_SS_ss_2_pmod_gpi;
+    assign SystemControl_SS_ss_2_pmod_gpio_oe = i_dtu_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_2_pmod_gpio_gpio_oe;
+    assign SystemControl_SS_ss_2_pmod_gpo = i_dtu_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_2_pmod_gpio_gpo;
+    assign i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpi = SystemControl_SS_ss_3_pmod_gpi;
+    assign SystemControl_SS_ss_3_pmod_gpio_oe = i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpio_oe;
+    assign SystemControl_SS_ss_3_pmod_gpo = i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpo;
+    assign SystemControl_SS_SS_0_Ctrl_to_i_imt_ss_wrapper_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_0;
+    assign SystemControl_SS_SS_1_Ctrl_to_i_tum_ss_warpper_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_1;
+    assign SystemControl_SS_SS_2_Ctrl_to_i_dtu_ss_wrapper_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_2;
+    assign SystemControl_SS_SS_3_Ctrl_to_i_kth_ss_wrapper_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_3;
     assign analog_wrapper_0_SS_Ctrl_to_SystemControl_SS_ss_4_ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_4;
     assign SystemControl_SS_ICN_SS_Ctrl_to_i_obi_icn_ss_icn_ss_ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_icn;
     // analog_wrapper_0 assignments:
@@ -639,13 +640,13 @@ module Didactic #(
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.1
     SysCtrl_SS_wrapper_0 #(
-        .AXI4LITE_AW         (32),
-        .AXI4LITE_DW         (32),
-        .SS_CTRL_W           (5),
-        .NUM_GPIO            (4),
-        .IOCELL_COUNT        (15),
-        .IOCELL_CFGW         (4),
-        .NUM_SS              (4))
+        .OBI_AW              (32),
+        .OBI_DW              (32),
+        .SS_CTRL_W           (8),
+        .NUM_GPIO            (16),
+        .IOCELL_COUNT        (24),
+        .IOCELL_CFGW         (5),
+        .NUM_SS              (5))
     SystemControl_SS(
         // Interface: Clock
         .clock               (clk_in),
@@ -865,7 +866,7 @@ module Didactic #(
         .OBI_USERW           (1),
         .APB_DW              (32),
         .APB_AW              (32),
-        .SS_CTRL_W           (5))
+        .SS_CTRL_W           (8))
     i_obi_icn_ss(
         // Interface: OBI
         .obi_addr            (i_obi_icn_ss_obi_addr),

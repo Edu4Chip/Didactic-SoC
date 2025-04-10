@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 10.04.2025
-// Creation time : 14:25:42
+// Creation time : 15:45:02
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -11,18 +11,16 @@
 //-----------------------------------------------------------------------------
 
 module SysCtrl_SS_wrapper_0 #(
-    parameter                              AXI4LITE_AW      = 32,
-    parameter                              AXI4LITE_DW      = 32,
-    parameter                              SS_CTRL_W        = 5,
-    parameter                              NUM_GPIO         = 4,
-    parameter                              IOCELL_COUNT     = 15,
-    parameter                              IOCELL_CFGW      = 4,
-    parameter                              NUM_SS           = 4,
+    parameter                              OBI_AW           = 32,
     parameter                              OBI_DW           = 32,
+    parameter                              SS_CTRL_W        = 8,
+    parameter                              NUM_GPIO         = 16,
+    parameter                              IOCELL_COUNT     = 24,
+    parameter                              IOCELL_CFGW      = 5,
+    parameter                              NUM_SS           = 5,
     parameter                              OBI_CHKW         = 1,
     parameter                              OBI_USERW        = 1,
-    parameter                              OBI_IDW          = 1,
-    parameter                              OBI_AW           = 32
+    parameter                              OBI_IDW          = 1
 ) (
     // Interface: Clock
     inout  logic                        clock,
@@ -31,10 +29,10 @@ module SysCtrl_SS_wrapper_0 #(
     output logic                        clk,
 
     // Interface: GPIO
-    inout  wire          [3:0]          gpio,
+    inout  wire          [15:0]         gpio,
 
     // Interface: ICN_SS_Ctrl
-    output logic         [4:0]          ss_ctrl_icn,
+    output logic         [7:0]          ss_ctrl_icn,
 
     // Interface: IRQ
     input  logic         [4:0]          irq_i,
@@ -80,19 +78,19 @@ module SysCtrl_SS_wrapper_0 #(
 
     // Interface: SS_0_Ctrl
     output logic                        irq_en_0,
-    output logic         [4:0]          ss_ctrl_0,
+    output logic         [7:0]          ss_ctrl_0,
 
     // Interface: SS_1_Ctrl
     output logic                        irq_en_1,
-    output logic         [4:0]          ss_ctrl_1,
+    output logic         [7:0]          ss_ctrl_1,
 
     // Interface: SS_2_Ctrl
     output logic                        irq_en_2,
-    output logic         [4:0]          ss_ctrl_2,
+    output logic         [7:0]          ss_ctrl_2,
 
     // Interface: SS_3_Ctrl
     output logic                        irq_en_3,
-    output logic         [4:0]          ss_ctrl_3,
+    output logic         [7:0]          ss_ctrl_3,
 
     // Interface: UART
     inout  wire                         uart_rx,
@@ -106,24 +104,24 @@ module SysCtrl_SS_wrapper_0 #(
     output logic                        high_speed_clk_internal,
 
     // Interface: ss_0_pmod_gpio
-    input  logic         [3:0]          ss_0_pmod_gpio_oe,
-    input  logic         [3:0]          ss_0_pmod_gpo,
-    output logic         [3:0]          ss_0_pmod_gpi,
+    input  logic         [15:0]         ss_0_pmod_gpio_oe,
+    input  logic         [15:0]         ss_0_pmod_gpo,
+    output logic         [15:0]         ss_0_pmod_gpi,
 
     // Interface: ss_1_pmod_gpio
-    input  logic         [3:0]          ss_1_pmod_gpio_oe,
-    input  logic         [3:0]          ss_1_pmod_gpo,
-    output logic         [3:0]          ss_1_pmod_gpi,
+    input  logic         [15:0]         ss_1_pmod_gpio_oe,
+    input  logic         [15:0]         ss_1_pmod_gpo,
+    output logic         [15:0]         ss_1_pmod_gpi,
 
     // Interface: ss_2_pmod_gpio
-    input  logic         [3:0]          ss_2_pmod_gpio_oe,
-    input  logic         [3:0]          ss_2_pmod_gpo,
-    output logic         [3:0]          ss_2_pmod_gpi,
+    input  logic         [15:0]         ss_2_pmod_gpio_oe,
+    input  logic         [15:0]         ss_2_pmod_gpo,
+    output logic         [15:0]         ss_2_pmod_gpi,
 
     // Interface: ss_3_pmod_gpio
-    input  logic         [3:0]          ss_3_pmod_gpio_oe,
-    input  logic         [3:0]          ss_3_pmod_gpo,
-    output logic         [3:0]          ss_3_pmod_gpi,
+    input  logic         [15:0]         ss_3_pmod_gpio_oe,
+    input  logic         [15:0]         ss_3_pmod_gpo,
+    output logic         [15:0]         ss_3_pmod_gpi,
 
     // Interface: ss_4_ctrl
     output logic                        irq_en_4,
@@ -131,12 +129,12 @@ module SysCtrl_SS_wrapper_0 #(
 );
 
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:
-    wire [4:0] SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl_clk_ctrl;
+    wire [7:0] SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl_clk_ctrl;
     // SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl wires:
-    wire [4:0] SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_clk_ctrl;
+    wire [7:0] SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_irq_en;
     // SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl wires:
-    wire [4:0] SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_clk_ctrl;
+    wire [7:0] SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_irq_en;
     // i_io_cell_frame_JTAG_to_JTAG wires:
     // i_io_cell_frame_UART_to_UART wires:
@@ -163,25 +161,25 @@ module SysCtrl_SS_wrapper_0 #(
     // i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset wires:
     wire       i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
     // SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl wires:
-    wire [4:0] SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_clk_ctrl;
+    wire [7:0] SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_irq_en;
     // SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl wires:
-    wire [4:0] SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_clk_ctrl;
+    wire [7:0] SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_clk_ctrl;
     wire       SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_irq_en;
     // SysCtrl_SS_Reset_ICN_to_Reset_icn wires:
     wire       SysCtrl_SS_Reset_ICN_to_Reset_icn_reset;
     // i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg wires:
-    wire [59:0] i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
+    wire [119:0] i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
     // i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel wires:
-    wire [7:0] i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo;
+    wire [15:0] i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo;
     // i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO wires:
-    wire [3:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
-    wire [3:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo;
+    wire [15:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
+    wire [15:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo;
     // SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core wires:
-    wire [59:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
+    wire [119:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
     // i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal wires:
-    wire [3:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
-    wire [3:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
+    wire [15:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
+    wire [15:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
     // i_io_cell_frame_high_speed_clock_to_high_speed_clock wires:
     // i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal wires:
     wire       i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal_clk;
@@ -221,27 +219,27 @@ module SysCtrl_SS_wrapper_0 #(
     wire [7:0] SysCtrl_SS_ss_ctrl_4_to_ss_4_ctrl_clk_ctrl;
     wire       SysCtrl_SS_ss_ctrl_4_to_ss_4_ctrl_irq_en;
     // i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio wires:
-    wire [3:0] i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio_gpi;
-    wire [3:0] i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio_gpio_oe;
-    wire [3:0] i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio_gpo;
+    wire [15:0] i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio_gpi;
+    wire [15:0] i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio_gpo;
     // i_pmod_mux_ss_1_pmod_gpio_to_ss_1_pmod_gpio wires:
-    wire [3:0] i_pmod_mux_ss_1_pmod_gpio_to_ss_1_pmod_gpio_gpi;
-    wire [3:0] i_pmod_mux_ss_1_pmod_gpio_to_ss_1_pmod_gpio_gpio_oe;
-    wire [3:0] i_pmod_mux_ss_1_pmod_gpio_to_ss_1_pmod_gpio_gpo;
+    wire [15:0] i_pmod_mux_ss_1_pmod_gpio_to_ss_1_pmod_gpio_gpi;
+    wire [15:0] i_pmod_mux_ss_1_pmod_gpio_to_ss_1_pmod_gpio_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_1_pmod_gpio_to_ss_1_pmod_gpio_gpo;
     // i_pmod_mux_ss_2_pmod_gpio_to_ss_2_pmod_gpio wires:
-    wire [3:0] i_pmod_mux_ss_2_pmod_gpio_to_ss_2_pmod_gpio_gpi;
-    wire [3:0] i_pmod_mux_ss_2_pmod_gpio_to_ss_2_pmod_gpio_gpio_oe;
-    wire [3:0] i_pmod_mux_ss_2_pmod_gpio_to_ss_2_pmod_gpio_gpo;
+    wire [15:0] i_pmod_mux_ss_2_pmod_gpio_to_ss_2_pmod_gpio_gpi;
+    wire [15:0] i_pmod_mux_ss_2_pmod_gpio_to_ss_2_pmod_gpio_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_2_pmod_gpio_to_ss_2_pmod_gpio_gpo;
     // i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio wires:
-    wire [3:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpi;
-    wire [3:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpio_oe;
-    wire [3:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpo;
+    wire [15:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpi;
+    wire [15:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpo;
 
     // SysCtrl_SS port wires:
-    wire [59:0] SysCtrl_SS_cell_cfg;
+    wire [119:0] SysCtrl_SS_cell_cfg;
     wire       SysCtrl_SS_clk_internal;
-    wire [3:0] SysCtrl_SS_gpio_from_core;
-    wire [3:0] SysCtrl_SS_gpio_to_core;
+    wire [15:0] SysCtrl_SS_gpio_from_core;
+    wire [15:0] SysCtrl_SS_gpio_to_core;
     wire       SysCtrl_SS_irq_en_0;
     wire       SysCtrl_SS_irq_en_1;
     wire       SysCtrl_SS_irq_en_2;
@@ -279,7 +277,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [31:0] SysCtrl_SS_obi_wdata;
     wire       SysCtrl_SS_obi_we;
     wire       SysCtrl_SS_obi_wuser;
-    wire [3:0] SysCtrl_SS_pmod_sel;
+    wire [15:0] SysCtrl_SS_pmod_sel;
     wire       SysCtrl_SS_reset_icn;
     wire       SysCtrl_SS_reset_internal;
     wire [3:0] SysCtrl_SS_reset_ss;
@@ -287,20 +285,20 @@ module SysCtrl_SS_wrapper_0 #(
     wire [3:0] SysCtrl_SS_spim_miso_internal;
     wire [3:0] SysCtrl_SS_spim_mosi_internal;
     wire       SysCtrl_SS_spim_sck_internal;
-    wire [4:0] SysCtrl_SS_ss_ctrl_0;
-    wire [4:0] SysCtrl_SS_ss_ctrl_1;
-    wire [4:0] SysCtrl_SS_ss_ctrl_2;
-    wire [4:0] SysCtrl_SS_ss_ctrl_3;
-    wire [4:0] SysCtrl_SS_ss_ctrl_4;
-    wire [4:0] SysCtrl_SS_ss_ctrl_icn;
-    wire [3:0] SysCtrl_SS_sysctrl_irq_i;
+    wire [7:0] SysCtrl_SS_ss_ctrl_0;
+    wire [7:0] SysCtrl_SS_ss_ctrl_1;
+    wire [7:0] SysCtrl_SS_ss_ctrl_2;
+    wire [7:0] SysCtrl_SS_ss_ctrl_3;
+    wire [7:0] SysCtrl_SS_ss_ctrl_4;
+    wire [7:0] SysCtrl_SS_ss_ctrl_icn;
+    wire [4:0] SysCtrl_SS_sysctrl_irq_i;
     wire       SysCtrl_SS_uart_rx_internal;
     wire       SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame port wires:
-    wire [59:0] i_io_cell_frame_cell_cfg;
+    wire [119:0] i_io_cell_frame_cell_cfg;
     wire       i_io_cell_frame_clk_internal;
-    wire [3:0] i_io_cell_frame_gpio_from_core;
-    wire [3:0] i_io_cell_frame_gpio_to_core;
+    wire [15:0] i_io_cell_frame_gpio_from_core;
+    wire [15:0] i_io_cell_frame_gpio_to_core;
     wire       i_io_cell_frame_high_speed_clk_internal;
     wire       i_io_cell_frame_jtag_tck_internal;
     wire       i_io_cell_frame_jtag_tdi_internal;
@@ -315,25 +313,25 @@ module SysCtrl_SS_wrapper_0 #(
     wire       i_io_cell_frame_uart_rx_internal;
     wire       i_io_cell_frame_uart_tx_internal;
     // i_pmod_mux port wires:
-    wire [59:0] i_pmod_mux_cell_cfg_from_core;
-    wire [59:0] i_pmod_mux_cell_cfg_to_io;
-    wire [3:0] i_pmod_mux_gpio_from_core;
-    wire [3:0] i_pmod_mux_gpio_from_io;
-    wire [3:0] i_pmod_mux_gpio_to_core;
-    wire [3:0] i_pmod_mux_gpio_to_io;
+    wire [119:0] i_pmod_mux_cell_cfg_from_core;
+    wire [119:0] i_pmod_mux_cell_cfg_to_io;
+    wire [15:0] i_pmod_mux_gpio_from_core;
+    wire [15:0] i_pmod_mux_gpio_from_io;
+    wire [15:0] i_pmod_mux_gpio_to_core;
+    wire [15:0] i_pmod_mux_gpio_to_io;
     wire [7:0] i_pmod_mux_pmod_sel;
-    wire [3:0] i_pmod_mux_ss_0_pmod_gpi;
-    wire [3:0] i_pmod_mux_ss_0_pmod_gpio_oe;
-    wire [3:0] i_pmod_mux_ss_0_pmod_gpo;
-    wire [3:0] i_pmod_mux_ss_1_pmod_gpi;
-    wire [3:0] i_pmod_mux_ss_1_pmod_gpio_oe;
-    wire [3:0] i_pmod_mux_ss_1_pmod_gpo;
-    wire [3:0] i_pmod_mux_ss_2_pmod_gpi;
-    wire [3:0] i_pmod_mux_ss_2_pmod_gpio_oe;
-    wire [3:0] i_pmod_mux_ss_2_pmod_gpo;
-    wire [3:0] i_pmod_mux_ss_3_pmod_gpi;
-    wire [3:0] i_pmod_mux_ss_3_pmod_gpio_oe;
-    wire [3:0] i_pmod_mux_ss_3_pmod_gpo;
+    wire [15:0] i_pmod_mux_ss_0_pmod_gpi;
+    wire [15:0] i_pmod_mux_ss_0_pmod_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_0_pmod_gpo;
+    wire [15:0] i_pmod_mux_ss_1_pmod_gpi;
+    wire [15:0] i_pmod_mux_ss_1_pmod_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_1_pmod_gpo;
+    wire [15:0] i_pmod_mux_ss_2_pmod_gpi;
+    wire [15:0] i_pmod_mux_ss_2_pmod_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_2_pmod_gpo;
+    wire [15:0] i_pmod_mux_ss_3_pmod_gpi;
+    wire [15:0] i_pmod_mux_ss_3_pmod_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_3_pmod_gpo;
 
     // Assignments for the ports of the encompassing component:
     assign clk = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
@@ -412,7 +410,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_obi_rvalidpar = SysCtrl_SS_OBI_to_OBI_rvalidpar;
     assign SysCtrl_SS_OBI_to_OBI_wdata = SysCtrl_SS_obi_wdata;
     assign SysCtrl_SS_OBI_to_OBI_we = SysCtrl_SS_obi_we;
-    assign i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo[3:0] = SysCtrl_SS_pmod_sel;
+    assign i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo = SysCtrl_SS_pmod_sel;
     assign SysCtrl_SS_Reset_ICN_to_Reset_icn_reset = SysCtrl_SS_reset_icn;
     assign SysCtrl_SS_reset_internal = i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
     assign SysCtrl_SS_Reset_SS_to_Reset_SS_reset[3:0] = SysCtrl_SS_reset_ss;
@@ -424,9 +422,9 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_1;
     assign SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_2;
     assign SysCtrl_SS_SS_Ctrl_3_to_SS_3_Ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_3;
-    assign SysCtrl_SS_ss_ctrl_4_to_ss_4_ctrl_clk_ctrl[4:0] = SysCtrl_SS_ss_ctrl_4;
+    assign SysCtrl_SS_ss_ctrl_4_to_ss_4_ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_4;
     assign SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl_clk_ctrl = SysCtrl_SS_ss_ctrl_icn;
-    assign SysCtrl_SS_sysctrl_irq_i = SysCtrl_SS_IRQ_to_IRQ_irq[3:0];
+    assign SysCtrl_SS_sysctrl_irq_i = SysCtrl_SS_IRQ_to_IRQ_irq;
     assign SysCtrl_SS_uart_rx_internal = i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_rx;
     assign i_io_cell_frame_UART_internal_to_SysCtrl_SS_UART_uart_tx = SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame assignments:
@@ -454,7 +452,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_pmod_mux_gpio_from_io = i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
     assign i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi = i_pmod_mux_gpio_to_core;
     assign i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo = i_pmod_mux_gpio_to_io;
-    assign i_pmod_mux_pmod_sel = i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo;
+    assign i_pmod_mux_pmod_sel = i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo[7:0];
     assign i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio_gpi = i_pmod_mux_ss_0_pmod_gpi;
     assign i_pmod_mux_ss_0_pmod_gpio_oe = i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio_gpio_oe;
     assign i_pmod_mux_ss_0_pmod_gpo = i_pmod_mux_ss_0_pmod_gpio_to_ss_0_pmod_gpio_gpo;
@@ -470,16 +468,16 @@ module SysCtrl_SS_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.1
     SysCtrl_SS_0 #(
-        .IOCELL_CFG_W        (4),
-        .IOCELL_COUNT        (15),
-        .NUM_GPIO            (4),
-        .SS_CTRL_W           (5),
+        .IOCELL_CFG_W        (5),
+        .IOCELL_COUNT        (24),
+        .NUM_GPIO            (16),
+        .SS_CTRL_W           (8),
         .OBI_IDW             (1),
         .OBI_CHKW            (1),
         .OBI_USERW           (1),
         .OBI_AW              (32),
         .OBI_DW              (32),
-        .NUM_SS              (4))
+        .NUM_SS              (5))
     SysCtrl_SS(
         // Interface: Clk
         .clk_internal        (SysCtrl_SS_clk_internal),
@@ -551,9 +549,9 @@ module SysCtrl_SS_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:subsystem.io:io_cell_frame_sysctrl:1.0
     io_cell_frame_sysctrl #(
-        .IOCELL_CFG_W        (4),
-        .IOCELL_COUNT        (15),
-        .NUM_GPIO            (4))
+        .IOCELL_CFG_W        (5),
+        .IOCELL_COUNT        (24),
+        .NUM_GPIO            (16))
     i_io_cell_frame(
         // Interface: Cfg
         .cell_cfg            (i_io_cell_frame_cell_cfg),
@@ -562,7 +560,7 @@ module SysCtrl_SS_wrapper_0 #(
         // Interface: Clock_internal
         .clk_internal        (i_io_cell_frame_clk_internal),
         // Interface: GPIO
-        .gpio                (gpio[3:0]),
+        .gpio                (gpio[15:0]),
         // Interface: GPIO_internal
         .gpio_from_core      (i_io_cell_frame_gpio_from_core),
         .gpio_to_core        (i_io_cell_frame_gpio_to_core),
@@ -605,9 +603,9 @@ module SysCtrl_SS_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:ip:pmod_mux:1.0
     pmod_mux #(
-        .IOCELL_CFG_W        (4),
-        .IOCELL_COUNT        (15),
-        .NUM_GPIO            (4))
+        .IOCELL_CFG_W        (5),
+        .IOCELL_COUNT        (24),
+        .NUM_GPIO            (16))
     i_pmod_mux(
         // Interface: cell_cfg_from_core
         .cell_cfg_from_core  (i_pmod_mux_cell_cfg_from_core),

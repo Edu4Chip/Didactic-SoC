@@ -105,7 +105,14 @@
 			<ipxact:name>ss_cg_en_to_ss_ctrl_3</ipxact:name>
 			<ipxact:portReferences>
 				<ipxact:internalPortReference componentInstanceRef="ss_cg" portRef="en"/>
-				<ipxact:externalPortReference portRef="ss_ctrl_3"/>
+				<ipxact:externalPortReference portRef="ss_ctrl_3">
+					<ipxact:partSelect>
+						<ipxact:range>
+							<ipxact:left>0</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:range>
+					</ipxact:partSelect>
+				</ipxact:externalPortReference>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
 		<ipxact:adHocConnection>
