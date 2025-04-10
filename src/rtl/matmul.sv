@@ -28,7 +28,7 @@ generate
     localparam int unsigned IdxB = get_b_idx(mult);
     multiplier #(
       .OperandWidth (8),
-      .OutputReg    (0)
+      .OutputReg    (OutputReg)
     ) i_mult (
       .clk_i,
       .rst_ni,
