@@ -96,7 +96,7 @@ module pmod_mux #(
       2: begin
         gpio_to_io = ss_2_pmod_gpo;
         for(int i = NUM_GPIO; i > 0; i--) begin
-          cell_cfg_to_io[9*IOCELL_CFG_W+i*IOCELL_CFG_W] = ss_2_pmod_0_gpio_oe[i];
+          cell_cfg_to_io[9*IOCELL_CFG_W+i*IOCELL_CFG_W] = ss_2_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = 'h0;
@@ -107,7 +107,7 @@ module pmod_mux #(
       3: begin
         gpio_to_io = ss_3_pmod_gpo;
         for(int i = NUM_GPIO; i > 0; i--) begin
-          cell_cfg_to_io[9*IOCELL_CFG_W+i*IOCELL_CFG_W] = ss_3_pmod_0_gpio_oe[i];
+          cell_cfg_to_io[9*IOCELL_CFG_W+i*IOCELL_CFG_W] = ss_3_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = 'h0;

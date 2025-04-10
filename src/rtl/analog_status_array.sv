@@ -43,10 +43,12 @@ module analog_status_array(
 
   logic [31:0 ]status_0_reg;
   logic [31:0] status_1_reg;
+  logic [31:0] status_2_reg;
+  logic [31:0] status_3_reg;
 
   always_ff @(posedge clk_in or negedge reset_n)
   apb_proc: begin
-    if (~rst_n) begin
+    if (~reset_n) begin
       status_0_reg = 'h0;
       status_1_reg = 'h0;
     end
@@ -95,7 +97,7 @@ module analog_status_array(
           PREADY_reg  <= 1'b0;
         end
     end
-
+  end
   assign PSLVERR = PSLVERR_reg;
   assign PRDATA  = PRDATA_reg;
   assign PREADY  = PREADY_reg;

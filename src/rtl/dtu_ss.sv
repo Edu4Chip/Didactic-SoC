@@ -45,7 +45,7 @@ module dtu_ss(
     //Interface: GPIO pmod 0
     input  logic [15:0]  pmod_gpi,
     output logic [15:0]  pmod_gpo,
-    output logic [15:0]  pmod_gpio_oe,
+    output logic [15:0]  pmod_gpio_oe
 
 );
 

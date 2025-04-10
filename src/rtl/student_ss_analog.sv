@@ -16,10 +16,10 @@ module student_ss_analog #(
     output wire [31:0] status_0,
 
     // interface: status_1
-    output wire [31:0] status_1
+    output wire [31:0] status_1,
 
     // interface: status_2
-    output wire [31:0] status_2
+    output wire [31:0] status_2,
 
     // interface: status_3
     output wire [31:0] status_3

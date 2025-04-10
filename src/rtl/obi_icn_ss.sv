@@ -274,15 +274,15 @@ module obi_icn_ss #(
   assign APB_3_PSTRB = icn_bus[3].pstrb;
 
   // Interface: apb_4
-  assign icn_bus[4].prdata = APB_3_PRDATA;
-  assign icn_bus[4].pready = APB_3_PREADY;
-  assign icn_bus[4].pslverr = APB_3_PSLVERR;
-  assign APB_3_PADDR = icn_bus[4].paddr;
-  assign APB_3_PENABLE = icn_bus[4].penable;
-  assign APB_3_PSEL = icn_bus[4].psel;
-  assign APB_3_PWDATA = icn_bus[4].pwdata;
-  assign APB_3_PWRITE = icn_bus[4].pwrite;
-  assign APB_3_PSTRB = icn_bus[4].pstrb;
+  assign icn_bus[4].prdata = APB_4_PRDATA;
+  assign icn_bus[4].pready = APB_4_PREADY;
+  assign icn_bus[4].pslverr = APB_4_PSLVERR;
+  assign APB_4_PADDR = icn_bus[4].paddr;
+  assign APB_4_PENABLE = icn_bus[4].penable;
+  assign APB_4_PSEL = icn_bus[4].psel;
+  assign APB_4_PWDATA = icn_bus[4].pwdata;
+  assign APB_4_PWRITE = icn_bus[4].pwrite;
+  assign APB_4_PSTRB = icn_bus[4].pstrb;
 
   // Interface: obi
 //  assign initiator_bus[0].achk = obi_achk;

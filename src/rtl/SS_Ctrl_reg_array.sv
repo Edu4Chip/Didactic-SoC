@@ -144,6 +144,14 @@ module SS_Ctrl_reg_array #(
       end
 
       if (we_i & req_i & ~rvalid_reg) begin
+
+        // io cell cfg
+        for(int i=0; i < IOCELL_COUNT; i++) begin
+          if ( addr_i == 'h28+i*4) begin // check 28 - 88
+            io_cell_cfg_reg[i] <= wdata_i;
+          end
+        end
+
         case (addr_i[16:0])
           'h0:  fetch_en_reg <= wdata_i;
           'h4:  ss_rst_reg   <= wdata_i;
@@ -159,18 +167,25 @@ module SS_Ctrl_reg_array #(
 
           'h24: pmod_sel_reg <= wdata_i;
 
-          for(int i=0; i < IOCELL_COUNT; i++) begin
-            ('h28+i*4): io_cell_cfg_reg[i] <= wdata_i;
-          end
+          //unrolled io cells conf would be here
 
           'h100: boot_reg_0   <= wdata_i;
           'h104: boot_reg_1   <= wdata_i;
           'h180: return_reg_0 <= wdata_i;
           'h184: return_reg_1 <= wdata_i;
         endcase
+
         rvalid_reg <= 1'b1;
       end
       else if(~we_i & req_i & ~rvalid_reg) begin 
+
+        for(int i=0; i < IOCELL_COUNT; i++) begin
+          if ( addr_i == 'h28+i*4) begin // check 28 - 88
+              rdata_out_reg <= io_cell_cfg_reg[i];
+          end
+        end
+
+        // io cell cfg
         case(addr_i[16:0])
 
           'h0:  rdata_out_reg <= fetch_en_reg;
@@ -187,16 +202,13 @@ module SS_Ctrl_reg_array #(
 
           'h24: rdata_out_reg <= pmod_sel_reg;
 
-          for(int i=0; i < IOCELL_COUNT; i++) begin
-            ('h28+i*4): rdata_out_reg <= io_cell_cfg_reg[i];
-          end
+          //unrolled io cells conf would be here
 
           'h100: rdata_out_reg <= boot_reg_0;
           'h104: rdata_out_reg <= boot_reg_1;
           'h180: rdata_out_reg <= return_reg_0;
           'h184: rdata_out_reg <= return_reg_1;
-          
-          default: rdata_out_reg <= 'hBADACCE5; 
+ 
         endcase
         rvalid_reg <= 1'b1;
       end
@@ -230,7 +242,7 @@ end // comb_logic
 // assign outs
 
 assign reset_icn  = ss_rst_reg[0];
-assign reset_ss = ss_rst_reg[NUM_SS:1]
+assign reset_ss = ss_rst_reg[NUM_SS:1];
 
 assign irq_en_0    = ss_0_ctrl_reg[31];
 assign ss_ctrl_0   = ss_0_ctrl_reg[SS_CTRL_W-1:0];
