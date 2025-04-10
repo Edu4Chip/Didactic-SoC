@@ -39,7 +39,7 @@ module analog_status_array(
     output logic irq_tieoff
 );
   // workaround for missing kactus2 feature
-  assign irq_tieoff <= 1'b0;
+  assign irq_tieoff = 1'b0;
 
   // APB out regs
   logic PSLVERR_reg;
