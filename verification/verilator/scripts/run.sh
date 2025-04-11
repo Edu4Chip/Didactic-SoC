@@ -56,6 +56,8 @@ WARN_SUPPRESS="\
     -Wno-TIMESCALEMOD \
     -Wno-REDEFMACRO"
 
+# Preprocessor RVFI required by the tracer, hence "-D[RVFI]", like mentioned in the sim/Makefile line 24 -
+# otherwise Verilator will not find the pins in the ibex's tracer top module
 verilator \
     --cc \
     --exe \
