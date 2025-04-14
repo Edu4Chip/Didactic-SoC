@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 14.04.2025
-// Creation time : 12:03:46
+// Creation time : 15:32:52
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -280,7 +280,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [15:0] SysCtrl_SS_pmod_sel;
     wire       SysCtrl_SS_reset_icn;
     wire       SysCtrl_SS_reset_internal;
-    wire [3:0] SysCtrl_SS_reset_ss;
+    wire [4:0] SysCtrl_SS_reset_ss;
     wire [1:0] SysCtrl_SS_spim_csn_internal;
     wire [3:0] SysCtrl_SS_spim_miso_internal;
     wire [3:0] SysCtrl_SS_spim_mosi_internal;
@@ -413,7 +413,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo = SysCtrl_SS_pmod_sel;
     assign SysCtrl_SS_Reset_ICN_to_Reset_icn_reset = SysCtrl_SS_reset_icn;
     assign SysCtrl_SS_reset_internal = i_io_cell_frame_Reset_internal_to_SysCtrl_SS_Reset_reset;
-    assign SysCtrl_SS_Reset_SS_to_Reset_SS_reset[3:0] = SysCtrl_SS_reset_ss;
+    assign SysCtrl_SS_Reset_SS_to_Reset_SS_reset = SysCtrl_SS_reset_ss;
     assign i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_csn = SysCtrl_SS_spim_csn_internal;
     assign SysCtrl_SS_spim_miso_internal = i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_miso;
     assign i_io_cell_frame_SPI_internal_to_SysCtrl_SS_SPI_mosi = SysCtrl_SS_spim_mosi_internal;
