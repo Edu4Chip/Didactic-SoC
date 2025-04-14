@@ -122,7 +122,7 @@ module io_cell_frame_sysctrl #(
   io_cell_wrapper#(.CELL_TYPE(0), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_spim_data3(.FROM_CORE(spim_mosi_internal[3]), .TO_CORE(spim_miso_internal[3]), .PAD(spi_data[3]), .io_cell_cfg(cell_cfg[9*IOCELL_CFG_W-1:8*IOCELL_CFG_W]));
 
   // gpio
-  for(genvar i=0; i<NUM_GPIO; i++) begin : gen_gpio
+  for(genvar i = 0; i < NUM_GPIO; i++) begin : gen_gpio
     io_cell_wrapper#(
       .CELL_TYPE(0), 
       .IOCELL_CFG_W(IOCELL_CFG_W)
@@ -131,7 +131,7 @@ module io_cell_frame_sysctrl #(
         .FROM_CORE  (gpio_from_core[i]), 
         .TO_CORE    (gpio_to_core[i]), 
         .PAD        (gpio[i]), 
-        .io_cell_cfg(cell_cfg[(10+i)*IOCELL_CFG_W-1:(9+i)*IOCELL_CFG_W])
+        .io_cell_cfg(cell_cfg[((9+i)*IOCELL_CFG_W)+:IOCELL_CFG_W])
       );
   end
 

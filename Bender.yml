@@ -96,6 +96,7 @@ sources:
     files:
     - src/rtl/io_cell_frame_sysctrl.sv
     - src/tech_generic/io_cell_wrapper.sv
+    - src/tech_generic/tech_sync.sv
     - src/tech_generic/tech_cg.sv
     - src/tech_generic/tech_not.sv
     - src/tech_generic/io_cell.sv

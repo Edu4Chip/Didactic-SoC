@@ -14,7 +14,7 @@ module pmod_mux #(
     parameter IOCELL_CFG_W = 5,  // control bus width for each individual IO cell
     parameter IOCELL_COUNT = 26, // number of controllable cells
     parameter NUM_GPIO     = 8,  // number of dedicated gpio cells
-    parameter NUM_SS       = 4   // number of subsystems on top level. TODO: combine ss vectors and make this even more generic
+    localparam NUM_SS      = 4   // number of subsystems that can control gpio on top level.
     )(
     // Interface: cell_cfg_from_core
     input  logic [IOCELL_COUNT*IOCELL_CFG_W-1:0] cell_cfg_from_core,
@@ -34,24 +34,24 @@ module pmod_mux #(
     input  logic [7:0]          pmod_sel,
 
     // Interface: ss_0_pmod_0
-    input  logic [NUM_GPIO-1:0]          ss_0_pmod_gpio_oe,
-    input  logic [NUM_GPIO-1:0]          ss_0_pmod_gpo,
-    output logic [NUM_GPIO-1:0]          ss_0_pmod_gpi,
+    input  logic [NUM_GPIO-1:0] ss_0_pmod_gpio_oe,
+    input  logic [NUM_GPIO-1:0] ss_0_pmod_gpo,
+    output logic [NUM_GPIO-1:0] ss_0_pmod_gpi,
 
     // Interface: ss_1_pmod_0
-    input  logic [NUM_GPIO-1:0]          ss_1_pmod_gpio_oe,
-    input  logic [NUM_GPIO-1:0]          ss_1_pmod_gpo,
-    output logic [NUM_GPIO-1:0]          ss_1_pmod_gpi,
+    input  logic [NUM_GPIO-1:0] ss_1_pmod_gpio_oe,
+    input  logic [NUM_GPIO-1:0] ss_1_pmod_gpo,
+    output logic [NUM_GPIO-1:0] ss_1_pmod_gpi,
 
     // Interface: ss_2_pmod_0
-    input  logic [NUM_GPIO-1:0]          ss_2_pmod_gpio_oe,
-    input  logic [NUM_GPIO-1:0]          ss_2_pmod_gpo,
-    output logic [NUM_GPIO-1:0]          ss_2_pmod_gpi,
+    input  logic [NUM_GPIO-1:0] ss_2_pmod_gpio_oe,
+    input  logic [NUM_GPIO-1:0] ss_2_pmod_gpo,
+    output logic [NUM_GPIO-1:0] ss_2_pmod_gpi,
 
     // Interface: ss_3_pmod_0
-    input  logic [NUM_GPIO-1:0]          ss_3_pmod_gpio_oe,
-    input  logic [NUM_GPIO-1:0]          ss_3_pmod_gpo,
-    output logic [NUM_GPIO-1:0]          ss_3_pmod_gpi
+    input  logic [NUM_GPIO-1:0] ss_3_pmod_gpio_oe,
+    input  logic [NUM_GPIO-1:0] ss_3_pmod_gpo,
+    output logic [NUM_GPIO-1:0] ss_3_pmod_gpi
 
 );
 
@@ -65,16 +65,17 @@ module pmod_mux #(
     for(int i = 0; i < IOCELL_COUNT; i++) begin
       cell_cfg_to_io[(IOCELL_CFG_W*i+1)+:(IOCELL_CFG_W-1)] = cell_cfg_from_core[(IOCELL_CFG_W*i+1)+:(IOCELL_CFG_W-1)];
     end
-//    for(int i = NUM_GPIO; i < IOCELL_COUNT; i++) begin
-//      cell_cfg_to_io[IOCELL_CFG_W*i] = cell_cfg_from_core[IOCELL_CFG_W*i];
-//    end
+    // connect uart (0-1) and spi (2-8) direction
+    for(int i = 0; i < IOCELL_COUNT-NUM_GPIO; i++) begin
+      cell_cfg_to_io[IOCELL_CFG_W*i] = cell_cfg_from_core[IOCELL_CFG_W*i];
+    end
 
     unique case(pmod_sel)
 
       0: begin
         gpio_to_io = ss_0_pmod_gpo;
-        for(int i = NUM_GPIO; i > 0; i--) begin
-          cell_cfg_to_io[9*IOCELL_CFG_W+i*IOCELL_CFG_W] = ss_0_pmod_gpio_oe[i];
+        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
+          cell_cfg_to_io[i*IOCELL_CFG_W] = ss_0_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = gpio_from_io;
         ss_1_pmod_gpi = 'h0;
@@ -84,8 +85,8 @@ module pmod_mux #(
 
       1: begin
         gpio_to_io = ss_1_pmod_gpo;
-        for(int i = NUM_GPIO; i > 0; i--) begin
-          cell_cfg_to_io[9*IOCELL_CFG_W+i*IOCELL_CFG_W] = ss_1_pmod_gpio_oe[i];
+        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
+          cell_cfg_to_io[i*IOCELL_CFG_W] = ss_1_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = gpio_from_io;
@@ -95,8 +96,8 @@ module pmod_mux #(
 
       2: begin
         gpio_to_io = ss_2_pmod_gpo;
-        for(int i = NUM_GPIO; i > 0; i--) begin
-          cell_cfg_to_io[9*IOCELL_CFG_W+i*IOCELL_CFG_W] = ss_2_pmod_gpio_oe[i];
+        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
+          cell_cfg_to_io[i*IOCELL_CFG_W] = ss_2_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = 'h0;
@@ -106,8 +107,8 @@ module pmod_mux #(
 
       3: begin
         gpio_to_io = ss_3_pmod_gpo;
-        for(int i = NUM_GPIO; i > 0; i--) begin
-          cell_cfg_to_io[9*IOCELL_CFG_W+i*IOCELL_CFG_W] = ss_3_pmod_gpio_oe[i];
+        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
+          cell_cfg_to_io[i*IOCELL_CFG_W] = ss_3_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = 'h0;
@@ -117,8 +118,8 @@ module pmod_mux #(
 
       default: begin
         gpio_to_io = gpio_from_core;
-        for(int i = NUM_GPIO; i > 0; i--) begin
-          cell_cfg_to_io[9*IOCELL_CFG_W+i*IOCELL_CFG_W] = cell_cfg_from_core[9*IOCELL_CFG_W+i*IOCELL_CFG_W];
+        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
+          cell_cfg_to_io[i*IOCELL_CFG_W] = cell_cfg_from_core[i*IOCELL_CFG_W];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = 'h0;

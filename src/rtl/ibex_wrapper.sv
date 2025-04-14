@@ -102,7 +102,7 @@ module ibex_wrapper #(
     output logic                         double_fault_seen_o,
     output logic                         scramble_req_o
 );
-
+  // OBI parity signals
   logic data_req_s;
   logic instr_req_s;
 
@@ -110,6 +110,20 @@ module ibex_wrapper #(
   assign data_reqpar_o = ~data_req_s;
   assign instr_req_o = instr_req_s;
   assign instr_reqpar_o = ~instr_req_s;
+  
+  // IRQ in synchronization
+  logic [14:0] irq_fast_synced;
+
+  for (genvar i = 0; i<15; i++) begin
+    tech_sync #(
+      .SYNC_DEPTH(2)
+    ) i_tech_sync_irq (
+      .clk(clk_i),
+      .rst_n(rst_ni),
+      .signal_i(irq_fast_i[i]),
+      .signal_sync_o(irq_fast_synced[i])
+    );
+  end
 
 
   // If desirable, one can use:
@@ -152,7 +166,7 @@ module ibex_wrapper #(
       // Interface: FetchEn
       .fetch_enable_i      (fetch_enable_i),
       // Interface: IRQ_fast
-      .irq_fast_i          (irq_fast_i),
+      .irq_fast_i          (irq_fast_synced),
       // Interface: Reset
       .rst_ni              (rst_ni),
       // Interface: dmem

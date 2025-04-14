@@ -50,18 +50,27 @@ module dtu_ss(
 );
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
+  logic reset_n_synced;
+  logic reset_pos;
 
-  tech_not i_tech_not (.a(reset_int),
+  // example of reset synch to new domain. This case
+  // we are syncing to same clk.
+  tech_sync #(
+    .SYNC_DEPTH(2)
+  ) i_tech_sync(
+      .clk(clk_in),
+      .rst_n(reset_int),
+      .signal_i(reset_int),
+      .signal_sync_o(reset_n_synced)
+    );
+
+  tech_not i_tech_not (.a(reset_n_synced),
                        .z(reset_pos));
-
-  reg [1:0] reset_sync;
-  always_ff @(posedge clk_in) reset_sync <= {reset_sync[0], reset_pos};
-
 
 
   DtuSubsystem dtu(
     .clock(clk_in),
-    .reset(reset_sync[1]),
+    .reset(reset_pos),
     .io_apb_psel(PSEL),
     .io_apb_paddr(PADDR),
     .io_apb_penable(PENABLE),
@@ -83,5 +92,6 @@ module dtu_ss(
   );
 
   assign pmod_gpo[15:8] = 'h0;
+  assign pmod_gpio_oe[15:8] = 'h0;
 
 endmodule
