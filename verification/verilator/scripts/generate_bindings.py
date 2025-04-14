@@ -35,6 +35,16 @@ clock_signal_names = {
     "Student_area_0.sv": "clk_in",
     "SysCtrl_xbar.sv": "clk_i",
     "io_cell_frame_sysctrl.sv": "clk_in",
+    "obi_to_apb_intf.sv": "clk_i",
+    "peripherals_obi_to_apb.sv": "clk",
+    "ibex_wrapper.sv": "clk_i",
+    "obi_cut_intf.sv": "clk_i",
+    "obi_icn_ss.sv": "clk",
+    "sysctrl_obi_xbar.sv": "clk",
+    "dtu_ss.sv": "clk_in",
+    # Does not have clock signal...
+    "student_ss_analog.sv": None,
+    "jtag_dbg_wrapper_obi.sv": "clk_i",
 }
 
 if __name__ == "__main__":
