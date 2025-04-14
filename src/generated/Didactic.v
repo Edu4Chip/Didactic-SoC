@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 10.04.2025
-// Creation time : 16:15:07
+// Creation date : 14.04.2025
+// Creation time : 12:03:46
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -23,7 +23,7 @@ module Didactic #(
     parameter                              SS_CTRL_W        = 8,    // SoC SS control width
     parameter                              NUM_GPIO         = 16,    // SoC GPIO Cell count. Default 16.
     parameter                              IOCELL_CFG_W     = 5,    // Tech cell control width.
-    parameter                              IOCELL_COUNT     = 24,    // number of configurable io cells in design
+    parameter                              IOCELL_COUNT     = 25,    // number of configurable io cells in design
     parameter                              NUM_SS           = 5    // number of student systems present in top level.
 ) (
     // Interface: Clock
@@ -644,7 +644,7 @@ module Didactic #(
         .OBI_DW              (32),
         .SS_CTRL_W           (8),
         .NUM_GPIO            (16),
-        .IOCELL_COUNT        (24),
+        .IOCELL_COUNT        (25),
         .IOCELL_CFGW         (5),
         .NUM_SS              (5))
     SystemControl_SS(

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
-// Creation date : 10.04.2025
-// Creation time : 16:15:07
+// Creation date : 14.04.2025
+// Creation time : 12:03:46
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -12,7 +12,7 @@
 
 module SysCtrl_SS_0 #(
     parameter                              IOCELL_CFG_W     = 5,
-    parameter                              IOCELL_COUNT     = 24,    // update this value manually to match cell numbers
+    parameter                              IOCELL_COUNT     = 25,    // update this value manually to match cell numbers
     parameter                              NUM_GPIO         = 16,
     parameter                              SS_CTRL_W        = 8,
     parameter                              OBI_IDW          = 1,
@@ -97,7 +97,7 @@ module SysCtrl_SS_0 #(
     output logic                        uart_tx_internal,
 
     // Interface: io_cell_cfg
-    output logic         [119:0]        cell_cfg,
+    output logic         [124:0]        cell_cfg,
 
     // Interface: pmod_sel
     output logic         [15:0]         pmod_sel,
@@ -127,7 +127,7 @@ module SysCtrl_SS_0 #(
     wire [7:0] ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_clk_ctrl;
     wire       ctrl_reg_array_ss_ctrl_3_to_SS_Ctrl_3_irq_en;
     // ctrl_reg_array_io_cfg_to_io_cell_cfg wires:
-    wire [119:0] ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
+    wire [124:0] ctrl_reg_array_io_cfg_to_io_cell_cfg_cfg;
     // jtag_dbg_wrapper_JTAG_to_JTAG wires:
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tck;
     wire       jtag_dbg_wrapper_JTAG_to_JTAG_tdi;
@@ -507,7 +507,7 @@ module SysCtrl_SS_0 #(
     // ctrl_reg_array port wires:
     wire [31:0] ctrl_reg_array_addr_i;
     wire [3:0] ctrl_reg_array_be_i;
-    wire [119:0] ctrl_reg_array_cell_cfg;
+    wire [124:0] ctrl_reg_array_cell_cfg;
     wire       ctrl_reg_array_clk;
     wire [3:0] ctrl_reg_array_fetch_en;
     wire       ctrl_reg_array_gnt_o;
@@ -1381,7 +1381,7 @@ module SysCtrl_SS_0 #(
 
     // IP-XACT VLNV: tuni.fi:ip:SS_Ctrl_reg_array:1.1
     SS_Ctrl_reg_array #(
-        .IOCELL_COUNT        (24),
+        .IOCELL_COUNT        (25),
         .IOCELL_CFG_W        (5),
         .AW                  (32),
         .DW                  (32),
