@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 14.04.2025
-// Creation time : 12:03:46
+// Creation time : 15:32:52
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -68,7 +68,7 @@ module SysCtrl_SS_0 #(
     output logic                        reset_icn,
 
     // Interface: Reset_SS
-    output logic         [3:0]          reset_ss,
+    output logic         [4:0]          reset_ss,
 
     // Interface: SPI
     input  logic         [3:0]          spim_miso_internal,
@@ -929,7 +929,7 @@ module SysCtrl_SS_0 #(
     assign pmod_sel = ctrl_reg_array_pmod_sel_to_pmod_sel_gpo;
     assign reset_icn = ctrl_reg_array_rst_icn_to_Reset_ICN_reset;
     assign ctrl_reg_array_Reset_to_Reset_reset = reset_internal;
-    assign reset_ss = ctrl_reg_array_rst_ss_to_Reset_SS_reset[3:0];
+    assign reset_ss = ctrl_reg_array_rst_ss_to_Reset_SS_reset;
     assign spim_csn_internal = apb_spi_master_SPI_to_SPI_csn[1:0];
     assign apb_spi_master_SPI_to_SPI_miso = spim_miso_internal;
     assign spim_mosi_internal = apb_spi_master_SPI_to_SPI_mosi;
