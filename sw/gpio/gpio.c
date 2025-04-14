@@ -14,14 +14,14 @@
 int main(){
   const uint32_t all_1 = 0xFFFFFFFF;
   const uint32_t all_0 = 0x0;
-  volatile uint32_t read_val = 0xFFFF;
+  volatile uint32_t read_val = 0xFFFFFFFF;
   volatile uint32_t errors = 0;
 
   //uart_init();
 
   // Test too many gpios to check that init
   // function does not break
-  for(volatile uint32_t i=0; i < 9; i++){
+  for(volatile uint32_t i=0; i < 18; i++){
     gpio_init_in(i);
   }
   
@@ -36,7 +36,7 @@ int main(){
   }
 
   // Again, check that init function can handle overflow
-  for(uint32_t i=0; i < 9; i++){
+  for(uint32_t i=0; i < 18; i++){
     gpio_init_out(i);
   }
 
