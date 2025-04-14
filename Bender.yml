@@ -130,12 +130,19 @@ vendor_package:
   - name: pulp
     target_dir: vendor_ips/pulp
     upstream: { git: "https://github.com/pulp-platform/pulp.git", rev: "b6ae54700b76395b049742ebfc52c5aaf6e148a5" }
-
+    exclude_from_upstream:
+      - "rtl/tb/dpi_models"
+      - "rtl/tb/tb_driver"
 
   - name: apb_spi_master
     target_dir: vendor_ips/apb_spi_master
     upstream: { git: "https://github.com/pulp-platform/apb_spi_master.git", rev: "3fce81084b15870f4bd9da7806cf950774f9672e" }
-
+    exclude_from_upstream:
+      - "spi_master_clkgen.sv"
+      - "spi_master_controller.sv"
+      - "spi_master_fifo.sv"
+      - "spi_master_rx.sv"
+      - "spi_master_tx.sv"
 
   - name: axi_spi_master
     target_dir: vendor_ips/axi_spi_master
