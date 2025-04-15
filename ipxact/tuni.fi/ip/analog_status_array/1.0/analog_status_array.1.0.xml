@@ -293,7 +293,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>15</ipxact:left>
+							<ipxact:left>11</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -565,6 +565,9 @@
 				<ipxact:name>../../../../../src/rtl/analog_status_array.sv</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 10:54:02 on 10.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:vendorExtensions>
+					<kactus2:hash>a021e92fd705229b693e29f3fcdb78f32df9e83f</kactus2:hash>
+				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -574,5 +577,12 @@
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
 			<kactus2:kts_firmness>Mutable</kactus2:kts_firmness>
 		</kactus2:kts_attributes>
+		<kactus2:fileDependencies>
+			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
+				<kactus2:fileRef1>../../../../../src/rtl/analog_status_array.sv</kactus2:fileRef1>
+				<kactus2:fileRef2>$External$/tech_sync.sv</kactus2:fileRef2>
+				<ipxact:description>Submodule instantiation of module tech_sync</ipxact:description>
+			</kactus2:fileDependency>
+		</kactus2:fileDependencies>
 	</ipxact:vendorExtensions>
 </ipxact:component>

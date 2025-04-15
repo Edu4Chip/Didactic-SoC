@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : analog_wrapper_0.v
-// Creation date : 14.04.2025
-// Creation time : 15:32:52
+// Creation date : 15.04.2025
+// Creation time : 11:24:38
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
@@ -86,7 +86,7 @@ module analog_wrapper_0 #(
     wire [31:0] analog_ss_status_2;
     wire [31:0] analog_ss_status_3;
     // analog_status_array port wires:
-    wire [15:0] analog_status_array_PADDR;
+    wire [11:0] analog_status_array_PADDR;
     wire       analog_status_array_PENABLE;
     wire [31:0] analog_status_array_PRDATA;
     wire       analog_status_array_PREADY;
@@ -134,7 +134,7 @@ module analog_wrapper_0 #(
     assign analog_ss_status_2_to_analog_status_array_status_2_gpo = analog_ss_status_2;
     assign analog_ss_status_3_to_analog_status_array_status_3_gpo = analog_ss_status_3;
     // analog_status_array assignments:
-    assign analog_status_array_PADDR = analog_status_array_APB_to_APB_PADDR[15:0];
+    assign analog_status_array_PADDR = analog_status_array_APB_to_APB_PADDR[11:0];
     assign analog_status_array_PENABLE = analog_status_array_APB_to_APB_PENABLE;
     assign analog_status_array_APB_to_APB_PRDATA = analog_status_array_PRDATA;
     assign analog_status_array_APB_to_APB_PREADY = analog_status_array_PREADY;
