@@ -147,7 +147,7 @@ module SS_Ctrl_reg_array #(
 
         // io cell cfg
         for(int i=0; i < IOCELL_COUNT; i++) begin
-          if ( addr_i == 'h28+i*4) begin // check 28 - 88
+          if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
             io_cell_cfg_reg[i] <= wdata_i;
           end
         end
@@ -180,7 +180,7 @@ module SS_Ctrl_reg_array #(
       else if(~we_i & req_i & ~rvalid_reg) begin 
 
         for(int i=0; i < IOCELL_COUNT; i++) begin
-          if ( addr_i == 'h28+i*4) begin // check 28 - 88
+          if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
               rdata_out_reg <= io_cell_cfg_reg[i];
           end
         end

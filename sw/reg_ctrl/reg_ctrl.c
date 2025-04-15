@@ -46,6 +46,7 @@ int main(){
 
   for(uint32_t i=0; i < 35; i++ ){
     *(volatile uint32_t*)(CTRL_BASE+i*4)=ones;
+    read_val = 0;
     read_val=*(volatile uint32_t*)(CTRL_BASE+i*4);
     if (read_val!=ones){
       errors++;
