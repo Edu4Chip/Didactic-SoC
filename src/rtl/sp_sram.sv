@@ -1,5 +1,9 @@
 // Description: SRAM Behavioral Model / Xilinx FPGA memory
 
+`ifdef VERILATOR
+  `include "verification/verilator/src/hdl/nms/sp_sram.sv"
+`endif
+
 module sp_sram #(
   parameter              INIT_FILE  = "",
   parameter int unsigned DATA_WIDTH = 64,
@@ -20,6 +24,10 @@ module sp_sram #(
   output logic                         gnt_o,
   output logic                         gntpar_o
 );
+`ifdef VERILATOR
+  `include "verification/verilator/src/hdl/ms/sp_sram.sv"
+`endif
+
   /******** PARITY *****************/
   logic rvalid_reg;
   logic gnt_reg;
