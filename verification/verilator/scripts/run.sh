@@ -32,6 +32,10 @@ IBEX_DIR=$BUILD_DIR/../vendor_ips/ibex
 
 SIM_FLIST=$(bender script flist -t didactic_top -t vendor -t tech_cells_generic_exclude_deprecated)
 
+# Verilator does not find these files for some reason
+SIM_FLIST+=" src/generated/Didactic.v"
+SIM_FLIST+=" src/tech_generic/io_cell.sv"
+
 DEFINES="\
 	+define+SYNTHESIS \
 	"
@@ -43,7 +47,14 @@ INCLUDES="\
 	-I$REGIF_DIR/include/ \
 	-I$IBEX_DIR/vendor/lowrisc_ip/dv/sv/dv_utils/ \
 	-I$IBEX_DIR/vendor/lowrisc_ip/ip/prim/rtl/ \
-	-I$IBEX_DIR/rtl/"
+	-I$IBEX_DIR/rtl/ \
+    -I.bender/git/checkouts/obi-cbdec09f22f66762/include/ \
+    -Ivendor_ips/ibex/syn/rtl/ \
+    -Ivendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/ \
+    -Ivendor_ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/ \
+    -Isrc/generated/ \
+    -Isrc/rtl/ \
+    -Isrc/tech_generic/"
 
 WARN_SUPPRESS="\
     -Wno-context \
@@ -55,6 +66,9 @@ WARN_SUPPRESS="\
     -Wno-STMTDLY \
     -Wno-TIMESCALEMOD \
     -Wno-REDEFMACRO"
+
+# Exclude src/reuse/sp_sram.sv from the file list
+SRC_REUSE_SV="src/reuse/ibex_axi_bridge.sv src/reuse/jtag_dbg_wrapper.sv src/reuse/mem_axi_bridge.sv src/reuse/obi_to_apb_intf.sv"
 
 # Preprocessor RVFI required by the tracer, hence "-D[RVFI]", like mentioned in the sim/Makefile line 24 -
 # otherwise Verilator will not find the pins in the ibex's tracer top module
@@ -69,6 +83,7 @@ verilator \
     $WARN_SUPPRESS \
     $INCLUDES \
     $SIM_FLIST \
+    ${SRC_REUSE_SV} \
     -DFIX_SIGNAL_PROPAGATION \
     verification/verilator/src/sw/${EXECUTABLE}.cpp
 verilator_exit_code=$?
