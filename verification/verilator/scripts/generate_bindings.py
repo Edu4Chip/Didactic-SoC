@@ -45,6 +45,12 @@ clock_signal_names = {
     # Does not have clock signal...
     "student_ss_analog.sv": None,
     "jtag_dbg_wrapper_obi.sv": "clk_i",
+    "tum_wrapper_0.v": "clk_in",
+    "dtu_wrapper_0.v": "clk",
+    "analog_wrapper_0.v": "clk_in",
+    "kth_wrapper_0.v": "clk_in",
+    "imt_wrapper_0.v": "clk_in",
+    "analog_status_array.sv": "clk_in",
 }
 
 if __name__ == "__main__":
