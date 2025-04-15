@@ -7,7 +7,7 @@
 
 module analog_status_array(
     // Interface: APB
-    input  logic         [15:0]         PADDR,
+    input  logic         [11:0]         PADDR,
     input  logic                        PENABLE,
     input  logic                        PSEL,
     input  logic         [3:0]          PSTRB,
@@ -64,6 +64,9 @@ module analog_status_array(
       status_1_reg = 'h0;
       status_2_reg = 'h0;
       status_3_reg = 'h0;
+      PSLVERR_reg = 1'b0;
+      PRDATA_reg  = 'h0;
+      PREADY_reg  = 1'b0;
     end
     else begin
 
@@ -136,7 +139,7 @@ module analog_status_array(
       .SYNC_DEPTH(2)
     ) i_tech_sync_1 (
         .clk(clk_in),
-        .rst_n(reset_int),
+        .rst_n(reset_n),
         .signal_i(status_1[i]),
         .signal_sync_o(status_1_synced[i])
       );
@@ -144,7 +147,7 @@ module analog_status_array(
       .SYNC_DEPTH(2)
     ) i_tech_sync_2 (
         .clk(clk_in),
-        .rst_n(reset_int),
+        .rst_n(reset_n),
         .signal_i(status_2[i]),
         .signal_sync_o(status_2_synced[i])
       );
@@ -152,7 +155,7 @@ module analog_status_array(
       .SYNC_DEPTH(2)
     ) i_tech_sync_3(
         .clk(clk_in),
-        .rst_n(reset_int),
+        .rst_n(reset_n),
         .signal_i(status_3[i]),
         .signal_sync_o(status_3_synced[i])
       );

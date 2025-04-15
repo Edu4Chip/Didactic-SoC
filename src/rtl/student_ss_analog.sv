@@ -31,8 +31,8 @@ module student_ss_analog #(
   assign ana_core_io  = 'd0;
 
   assign status_0 = 'h0;
-  assign status_1 = 'h0;
-  assign status_2 = 'h0;
-  assign status_3 = 'h0;
+  assign status_1 = 'h1;
+  assign status_2 = 'h2;
+  assign status_3 = 'h3;
 
 endmodule
