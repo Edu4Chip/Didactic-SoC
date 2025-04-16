@@ -1,3 +1,16 @@
+"""Inject HDL bindings into HDL files
+
+# How to use?
+
+## Inject bindings
+
+`python3 inject_bindings.py do`
+
+## Remove injected bindings
+
+`python3 inject_bindings.py undo`
+"""
+
 import os
 import re
 import shutil
