@@ -87,7 +87,9 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target/>
+			<ipxact:target>
+				<ipxact:memoryMapRef memoryMapRef="apb_spi_master"/>
+			</ipxact:target>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>Clock</ipxact:name>

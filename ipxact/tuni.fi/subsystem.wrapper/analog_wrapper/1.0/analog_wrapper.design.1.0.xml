@@ -153,9 +153,9 @@
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
 		<ipxact:adHocConnection>
-			<ipxact:name>analog_status_array_irq_tieoff_to_irq</ipxact:name>
+			<ipxact:name>irq_to_tiedValue</ipxact:name>
+			<ipxact:tiedValue>0</ipxact:tiedValue>
 			<ipxact:portReferences>
-				<ipxact:internalPortReference componentInstanceRef="analog_status_array" portRef="irq_tieoff"/>
 				<ipxact:externalPortReference portRef="irq"/>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
@@ -226,10 +226,6 @@
 			<kactus2:route kactus2:connRef="analog_ss_analog_bus_to_analog_io" kactus2:offPage="false">
 				<kactus2:position x="1030" y="120"/>
 				<kactus2:position x="1140" y="120"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="analog_status_array_irq_tieoff_to_irq" kactus2:offPage="false">
-				<kactus2:position x="710" y="280"/>
-				<kactus2:position x="1140" y="280"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>

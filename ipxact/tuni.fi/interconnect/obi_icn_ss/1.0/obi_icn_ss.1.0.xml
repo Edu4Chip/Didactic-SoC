@@ -276,6 +276,7 @@
 				<ipxact:transparentBridge initiatorRef="apb_1"/>
 				<ipxact:transparentBridge initiatorRef="apb_2"/>
 				<ipxact:transparentBridge initiatorRef="apb_3"/>
+				<ipxact:transparentBridge initiatorRef="apb_4"/>
 			</ipxact:target>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
@@ -362,7 +363,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="icn_map">
-					<ipxact:baseAddress>'h0105_0000</ipxact:baseAddress>
+					<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -450,7 +451,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="icn_map">
-					<ipxact:baseAddress>'h0105_1000</ipxact:baseAddress>
+					<ipxact:baseAddress>'h1000</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -538,7 +539,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="icn_map">
-					<ipxact:baseAddress>'h0105_2000</ipxact:baseAddress>
+					<ipxact:baseAddress>'h2000</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -646,7 +647,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="icn_map">
-					<ipxact:baseAddress>'h0105_3000</ipxact:baseAddress>
+					<ipxact:baseAddress>'h3000</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -734,7 +735,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="icn_map">
-					<ipxact:baseAddress>'h0105_4000</ipxact:baseAddress>
+					<ipxact:baseAddress>'h4000</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -742,27 +743,32 @@
 	<ipxact:addressSpaces>
 		<ipxact:addressSpace>
 			<ipxact:name>icn_map</ipxact:name>
-			<ipxact:range>'h1_0000_0000</ipxact:range>
+			<ipxact:range>'h1_0000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:segments>
 				<ipxact:segment>
 					<ipxact:name>0</ipxact:name>
-					<ipxact:addressOffset>'h0105_0000</ipxact:addressOffset>
+					<ipxact:addressOffset>'h0</ipxact:addressOffset>
 					<ipxact:range>'h1000</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>1</ipxact:name>
-					<ipxact:addressOffset>'h0105_1000</ipxact:addressOffset>
+					<ipxact:addressOffset>'h1000</ipxact:addressOffset>
 					<ipxact:range>'h1000</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>2</ipxact:name>
-					<ipxact:addressOffset>'h0105_3000</ipxact:addressOffset>
+					<ipxact:addressOffset>'h3000</ipxact:addressOffset>
 					<ipxact:range>'h1000</ipxact:range>
 				</ipxact:segment>
 				<ipxact:segment>
 					<ipxact:name>3</ipxact:name>
-					<ipxact:addressOffset>'h0105_2000</ipxact:addressOffset>
+					<ipxact:addressOffset>'h2000</ipxact:addressOffset>
+					<ipxact:range>'h1000</ipxact:range>
+				</ipxact:segment>
+				<ipxact:segment>
+					<ipxact:name>4</ipxact:name>
+					<ipxact:addressOffset>'h4000</ipxact:addressOffset>
 					<ipxact:range>'h1000</ipxact:range>
 				</ipxact:segment>
 			</ipxact:segments>
