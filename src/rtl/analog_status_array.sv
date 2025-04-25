@@ -33,13 +33,8 @@ module analog_status_array(
     input logic [31:0]         status_2,
 
     // Interface: status_3
-    input logic [31:0]         status_3,
-
-    //ad-hoc:
-    output logic irq_tieoff
+    input logic [31:0]         status_3
 );
-  // workaround for missing kactus2 feature
-  assign irq_tieoff = 1'b0;
 
   // APB out regs
   logic PSLVERR_reg;

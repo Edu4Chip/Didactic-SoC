@@ -50,9 +50,6 @@
 					<kactus2:portPosition busRef="status_2" x="110" y="100"/>
 					<kactus2:portPosition busRef="status_3" x="110" y="130"/>
 				</kactus2:portPositions>
-				<kactus2:adHocVisibilities>
-					<kactus2:adHocVisible portName="irq_tieoff" x="110" y="220"/>
-				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
@@ -185,9 +182,7 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="analog_status_array_APB_to_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="440"/>
-				<kactus2:position x="1120" y="440"/>
-				<kactus2:position x="1120" y="410"/>
-				<kactus2:position x="1140" y="410"/>
+				<kactus2:position x="1140" y="440"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="analog_status_array_clk_to_ss_cg_clk_out" kactus2:offPage="false">
 				<kactus2:position x="490" y="100"/>
@@ -234,7 +229,7 @@
 		</kactus2:adHocVisibilities>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>APB</kactus2:name>
-			<kactus2:position x="1140" y="410"/>
+			<kactus2:position x="1140" y="440"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>

@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 // File          : analog_wrapper_0.v
-// Creation date : 15.04.2025
-// Creation time : 11:24:38
+// Creation date : 25.04.2025
+// Creation time : 15:04:33
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.3 64-bit
+// Tool : Kactus2 3.13.4 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:analog_wrapper:1.0
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/analog_wrapper/1.0/analog_wrapper.1.0.xml
@@ -78,7 +78,6 @@ module analog_wrapper_0 #(
     // Ad-hoc wires:
     wire       ss_cg_en_to_ss_ctrl;
     wire       ss_high_speed_cg_en_to_ss_ctrl;
-    wire       analog_status_array_irq_tieoff_to_irq;
 
     // analog_ss port wires:
     wire [31:0] analog_ss_status_0;
@@ -96,7 +95,6 @@ module analog_wrapper_0 #(
     wire [31:0] analog_status_array_PWDATA;
     wire       analog_status_array_PWRITE;
     wire       analog_status_array_clk_in;
-    wire       analog_status_array_irq_tieoff;
     wire       analog_status_array_reset_n;
     wire [31:0] analog_status_array_status_0;
     wire [31:0] analog_status_array_status_1;
@@ -122,7 +120,7 @@ module analog_wrapper_0 #(
     assign analog_status_array_APB_to_APB_PWRITE = PWRITE;
     assign ss_cg_clk_in_to_Clock_clk = clk_in;
     assign ss_high_speed_cg_clk_in_to_high_speed_clk_clk = high_speed_clk;
-    assign irq = analog_status_array_irq_tieoff_to_irq;
+    assign irq = 0;
     assign analog_status_array_reset_to_Reset_reset = reset_int;
     assign ss_cg_en_to_ss_ctrl = ss_ctrl[0];
     assign ss_high_speed_cg_en_to_ss_ctrl = ss_ctrl[1];
@@ -144,7 +142,6 @@ module analog_wrapper_0 #(
     assign analog_status_array_PWDATA = analog_status_array_APB_to_APB_PWDATA;
     assign analog_status_array_PWRITE = analog_status_array_APB_to_APB_PWRITE;
     assign analog_status_array_clk_in = analog_status_array_clk_to_ss_cg_clk_out_clk;
-    assign analog_status_array_irq_tieoff_to_irq = analog_status_array_irq_tieoff;
     assign analog_status_array_reset_n = analog_status_array_reset_to_Reset_reset;
     assign analog_status_array_status_0 = analog_status_array_status_0_to_analog_ss_status_0_gpo;
     assign analog_status_array_status_1 = analog_ss_status_1_to_analog_status_array_status_1_gpo;
@@ -196,9 +193,7 @@ module analog_wrapper_0 #(
         // Interface: status_2
         .status_2            (analog_status_array_status_2),
         // Interface: status_3
-        .status_3            (analog_status_array_status_3),
-        // These ports are not in any interface
-        .irq_tieoff          (analog_status_array_irq_tieoff));
+        .status_3            (analog_status_array_status_3));
 
     // IP-XACT VLNV: tuni.fi:tech:tech_cg:1.0
     tech_cg ss_cg(
