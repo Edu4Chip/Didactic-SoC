@@ -7,21 +7,21 @@
 
 module analog_status_array(
     // Interface: APB
-    input  logic         [11:0]         PADDR,
-    input  logic                        PENABLE,
-    input  logic                        PSEL,
-    input  logic         [3:0]          PSTRB,
-    input  logic         [31:0]         PWDATA,
-    input  logic                        PWRITE,
-    output logic         [31:0]         PRDATA,
-    output logic                        PREADY,
-    output logic                        PSLVERR,
+    input  logic [11:0]        PADDR,
+    input  logic               PENABLE,
+    input  logic               PSEL,
+    input  logic [3:0]         PSTRB,
+    input  logic [31:0]        PWDATA,
+    input  logic               PWRITE,
+    output logic [31:0]        PRDATA,
+    output logic               PREADY,
+    output logic               PSLVERR,
 
     // Interface: clk
-    input  logic                        clk_in,
+    input  logic               clk_in,
 
     // Interface: reset
-    input  logic                        reset_n,
+    input  logic               reset_n,
 
     // Interface: status_0
     input logic [31:0]         status_0,
@@ -55,20 +55,20 @@ module analog_status_array(
   always_ff @(posedge clk_in or negedge reset_n)
   apb_proc: begin
     if (~reset_n) begin
-      status_0_reg = 'h0;
-      status_1_reg = 'h0;
-      status_2_reg = 'h0;
-      status_3_reg = 'h0;
-      PSLVERR_reg = 1'b0;
-      PRDATA_reg  = 'h0;
-      PREADY_reg  = 1'b0;
+      status_0_reg <=  'h0;
+      status_1_reg <=  'h0;
+      status_2_reg <=  'h0;
+      status_3_reg <=  'h0;
+      PSLVERR_reg  <= 1'b0;
+      PRDATA_reg   <=  'h0;
+      PREADY_reg   <= 1'b0;
     end
     else begin
 
-      status_0_reg = status_0_synced;
-      status_1_reg = status_1_synced;
-      status_2_reg = status_2_synced;
-      status_3_reg = status_3_synced;
+      status_0_reg <= status_0_synced;
+      status_1_reg <= status_1_synced;
+      status_2_reg <= status_2_synced;
+      status_3_reg <= status_3_synced;
 
       if(PSEL) begin
           if (PREADY_reg == 1 && PSLVERR_reg == 1 ) begin
