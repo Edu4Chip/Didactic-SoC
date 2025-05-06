@@ -74,8 +74,8 @@ module pmod_mux #(
 
       0: begin
         gpio_to_io = ss_0_pmod_gpo;
-        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
-          cell_cfg_to_io[i*IOCELL_CFG_W] = ss_0_pmod_gpio_oe[i];
+        for(int i = 0; i < NUM_GPIO; i++) begin
+          cell_cfg_to_io[(i+IOCELL_COUNT-NUM_GPIO)*IOCELL_CFG_W] = ss_0_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = gpio_from_io;
         ss_1_pmod_gpi = 'h0;
@@ -85,8 +85,8 @@ module pmod_mux #(
 
       1: begin
         gpio_to_io = ss_1_pmod_gpo;
-        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
-          cell_cfg_to_io[i*IOCELL_CFG_W] = ss_1_pmod_gpio_oe[i];
+        for(int i = 0; i < NUM_GPIO; i++) begin
+          cell_cfg_to_io[(i+IOCELL_COUNT-NUM_GPIO)*IOCELL_CFG_W] = ss_1_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = gpio_from_io;
@@ -96,8 +96,8 @@ module pmod_mux #(
 
       2: begin
         gpio_to_io = ss_2_pmod_gpo;
-        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
-          cell_cfg_to_io[i*IOCELL_CFG_W] = ss_2_pmod_gpio_oe[i];
+        for(int i = 0; i < NUM_GPIO; i++) begin
+          cell_cfg_to_io[(i+IOCELL_COUNT-NUM_GPIO)*IOCELL_CFG_W] = ss_2_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = 'h0;
@@ -107,8 +107,8 @@ module pmod_mux #(
 
       3: begin
         gpio_to_io = ss_3_pmod_gpo;
-        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
-          cell_cfg_to_io[i*IOCELL_CFG_W] = ss_3_pmod_gpio_oe[i];
+        for(int i = 0; i < NUM_GPIO; i++) begin
+          cell_cfg_to_io[(i+IOCELL_COUNT-NUM_GPIO)*IOCELL_CFG_W] = ss_3_pmod_gpio_oe[i];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = 'h0;
@@ -118,8 +118,8 @@ module pmod_mux #(
 
       default: begin
         gpio_to_io = gpio_from_core;
-        for(int i = IOCELL_COUNT-NUM_GPIO; i < IOCELL_COUNT; i++) begin
-          cell_cfg_to_io[i*IOCELL_CFG_W] = cell_cfg_from_core[i*IOCELL_CFG_W];
+        for(int i = 0; i < NUM_GPIO; i++) begin
+          cell_cfg_to_io[(i+IOCELL_COUNT-NUM_GPIO)*IOCELL_CFG_W] = cell_cfg_from_core[(i+IOCELL_COUNT-NUM_GPIO)*IOCELL_CFG_W];
         end
         ss_0_pmod_gpi = 'h0;
         ss_1_pmod_gpi = 'h0;
