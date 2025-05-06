@@ -355,7 +355,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
-					<ipxact:baseAddress>'h200</ipxact:baseAddress>
+					<ipxact:baseAddress>'h100</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -523,7 +523,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
-					<ipxact:baseAddress>'h100</ipxact:baseAddress>
+					<ipxact:baseAddress>'h200</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -1766,9 +1766,6 @@
 				<ipxact:name>../../../../../src/rtl/peripherals_obi_to_apb.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:10:15 on 21.03.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>ad1320eb10d034da03c2671bbe5b664fc448a6d8</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>

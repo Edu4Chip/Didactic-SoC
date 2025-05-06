@@ -695,97 +695,76 @@
 				<ipxact:name>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>3cc4cb8be80b312c7622d02aa1b11f609a12e5ea</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Student_SS_0_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>48eb78a2214fc9666f7ad1ba5d16e83b1be2f280</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Student_SS_1_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>dddec391f853f8e05b37b5de3c217fc001424d88</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Student_SS_2_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>663ecb8eb0028921d25780eb38ebafc0a25c058b</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Student_SS_3_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>b4804cc2d4d1d4ce2ca10ded05e60dc9bb2d37b1</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>68405840e757964a667f48f73c45f3f0d1169191</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 15:38:54 on 07.04.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>4656dea919109b3652a99e29616a1bff4c9fce8d</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 11:24:39 on 15.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:04:35 on 25.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 11:24:39 on 15.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:04:35 on 25.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/dtu_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 11:24:39 on 15.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:04:35 on 25.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/kth_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 11:24:39 on 15.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:04:35 on 25.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/tum_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 11:24:39 on 15.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:04:35 on 25.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/imt_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 11:24:39 on 15.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:04:35 on 25.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/analog_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 11:24:39 on 15.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:04:35 on 25.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 11:24:39 on 15.04.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 15:04:35 on 25.04.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -836,103 +815,6 @@ Spec:
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:author>Matti Käyrä</kactus2:author>
-		<kactus2:fileDependencies>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/Student_SS_0_0.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module Student_SS_0_0</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/Student_SS_1_0.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module Student_SS_1_0</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/Student_SS_2_0.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module Student_SS_2_0</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/Student_SS_3_0.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module Student_SS_3_0</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/SysCtrl_SS_wrapper_0.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module SysCtrl_SS_wrapper_0</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/obi_icn_ss.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module obi_icn_ss</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/Didactic.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/student_ss_analog.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module student_ss_analog</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/apb_gpio.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module apb_gpio</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/apb_spi_master.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module apb_spi_master</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/apb_uart.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module apb_uart</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/SS_Ctrl_reg_array.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module SS_Ctrl_reg_array</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/sp_sram.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module sp_sram</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/ibex_wrapper.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module ibex_wrapper</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/jtag_dbg_wrapper_obi.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module jtag_dbg_wrapper_obi</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/peripherals_obi_to_apb.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module peripherals_obi_to_apb</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/sysctrl_obi_xbar.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module sysctrl_obi_xbar</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/SysCtrl_SS_0.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module SysCtrl_SS_0</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/io_cell_frame_sysctrl.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module io_cell_frame_sysctrl</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.1/../../../../../src/generated/SysCtrl_SS_wrapper_0.v</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/pmod_mux.v</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module pmod_mux</ipxact:description>
-			</kactus2:fileDependency>
-		</kactus2:fileDependencies>
 		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>SoC</kactus2:kts_productHier>
