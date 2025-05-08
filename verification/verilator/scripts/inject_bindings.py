@@ -16,33 +16,61 @@
 """
 
 import os
+import pickle
 import shutil
 import argparse
-from typing import Dict, List, Optional
+from string import Template
+from typing import Dict, List, Optional, Any
 from pathlib import Path
 
 import pyparsing as pp
-from colorama import Fore, Style
+from colorama import Fore
 
-from parser import parse_file
+from print import print
+from parser import parse_file, print_modules
+from bindings import PATH_HDL_BINDINGS, ProjectLvlBindings
 
-INDENT = "  "
+TEMPLATE_MS = Template("""\
+// injected by ${path_script}
+`ifdef VERILATOR
+  ${content}
+`endif
+""")
 
-original_print = print
+TEMPLATE_NMS = Template("""\
+// injected by ${path_script}
+`ifdef VERILATOR
+  ${content}
+`endif
+""")
 
-def print(*args, **kwargs):
-    color = kwargs.pop("color", None)
-    indent = INDENT * kwargs.pop("indent", 0)
-    if color is None:
-        original_print(indent + " ".join(map(str, args)), **kwargs)
-    else:
-        original_print(color + indent + " ".join(map(str, args)) + Style.RESET_ALL, **kwargs)
+TEMPLATE_MODULE = Template("""\
+${nms_content}
+module ${module_name} ${module_parameter_list} ${module_port_list};
+${ms_content}
+${module_body}
+endmodule
+""")
+
+PATH_SCRIPT = f"{__file__}"
 
 def get_original_paths(directory: Path) -> List[Path]:
     return list(filter(lambda p: p.suffix != ".bak", directory.iterdir()))
 
 def get_backup_paths(directory: Path) -> List[Path]:
     return list(filter(lambda p: p.suffix == ".bak", directory.iterdir()))
+
+def flatten_nested_list(raw_list: List[List[Any] | str]) -> List[str]:
+    new_list = list()
+    for item in raw_list:
+        if isinstance(item, str):
+            new_list.append(item)
+        elif isinstance(item, list):
+            joined = flatten_nested_list(item)
+            new_list.extend(joined)
+        else:
+            raise Exception(f"unsupported item type: {item}")
+    return new_list
 
 def solve_backup_mapping(directory: Path) -> Dict[Path, Optional[Path]]:
     result: Dict[Path, Optional[Path]] = dict()
@@ -126,115 +154,141 @@ def try_replace_original_with_backup(original: Path, backup: Optional[Path], lev
         replace_original_with_backup(original, backup)
         return True
 
-def inject(path: Path, level=0):
+def inject(path: Path, plb: ProjectLvlBindings, level=0):
     print(f"injecting {path}", indent=level)
-    
-    # Can we find injection material for given path?
-    original_relative = path.relative_to(Path.cwd())
-    root_ms = Path.cwd() / Path("verification/verilator/src/hdl/ms")
-    root_nms = Path.cwd() / Path("verification/verilator/src/hdl/nms")
-    material_ms = root_ms / original_relative
-    material_nms = root_nms / original_relative
-    
-    ms_exists = material_ms.exists()
-    if not ms_exists:
-        print(f"module specific injection material not found", indent=level+1, color=Fore.YELLOW)
-        # Create missing path
-        material_ms.parent.mkdir(parents=True, exist_ok=True)
-        material_ms.touch(exist_ok=False)
-        print(f"created new path to module specific injection material:", indent=level+1, color=Fore.RED)
-        print(f" - {material_ms}", indent=level+1, color=Fore.RED)
-        print(f"rerun this script", indent=level+1, color=Fore.RED)
-    nms_exists = material_nms.exists()
-    if not nms_exists:
-        print(f"non-module specific injection material not found", indent=level+1, color=Fore.YELLOW)
-        # Create missing path
-        material_nms.parent.mkdir(parents=True, exist_ok=True)
-        material_nms.touch(exist_ok=False)
-        print(f"created new path to non-module specific injection material:", indent=level+1, color=Fore.RED)
-        print(f" - {material_nms}", indent=level+1, color=Fore.RED)
-        print(f"rerun this script", indent=level+1, color=Fore.RED)
-    
+    if path not in plb.keys():
+        print(f"path not found in project-level bindings", indent=level+1, color=Fore.RED)
+        return
+
     # Execute injection
-    maybe_scans = parse_file(path)
-    if maybe_scans is None:
-        print(f"failed to inject", indent=level+1, color=Fore.RED)
-    else:
-        # Get file-level matches
-        scans = list(maybe_scans)
-        if len(scans) == 0:
-            print(f"found 0 scans", indent=level+1, color=Fore.RED)
-        else:
-            if len(scans) == 1:
-                print(f"found 1 scan:", indent=level+1, color=Fore.GREEN)
-                results, _, _ = scans[0]
+    file_level_result_generator = parse_file(path)
+    if file_level_result_generator is None:
+        print(f"failed to parse file, injection failed", indent=level+1, color=Fore.RED)
+        return
+
+    file_level_result = list(file_level_result_generator)
+
+    # One file must contain only 1 file-level match
+    match len(file_level_result):
+        case 1:
+            # Success
+            file_level_match, _, _ = file_level_result[0]
+        case other:
+            print(f"found {other} file-level matches, injection failed", indent=level+1, color=Fore.RED)
+            return
+
+    # Print which modules were detected
+    print_modules(file_level_match, level=level+1)
+
+    # Execute actual injection
+    print(f"executing injection", indent=level+1)
+    modified_elements = list()
+    for element in file_level_match:
+        assert isinstance(element, pp.ParseResults)
+        element_type = element.get_name()
+        if element_type is None:
+            continue
+        match element_type:
+            case "module":
+                element_dict = element.as_dict()
+                element_list = element.as_list()
+
+                module_name = element_dict["module_name"]
                 
-                # Print which modules were detected
-                modules = list()
-                for element in results:
-                    assert isinstance(element, pp.ParseResults)
-                    element_type = element.get_name()
-                    if element_type is None:
-                        print(f"found element without name", indent=level+2, color=Fore.RED)
-                    else:
-                        if element_type == "module":
-                            #element.pprint()
-                            module_name = element[1]
-                            modules.append(module_name)
-                        else:
-                            pass
-                if len(modules) == 0:
-                    print(f"found 0 modules", indent=level+2, color=Fore.RED)
+                module_parameter_list = element_dict.get("module_parameter_list", "")
+                
+                # Can not use dict because all except one port are removed
+                #module_port_list = element_dict.get("module_port_list", "")
+                module_port_list = ""
+                for sub_element in element:
+                    if isinstance(sub_element, pp.ParseResults) and sub_element.get_name() == "module_port_list":
+                        module_port_list_list = sub_element
+                        # Remove surrounding braces
+                        _ = module_port_list_list.pop(0)
+                        _ = module_port_list_list.pop(-1)
+                        # Join separate port definitions
+                        new_module_port_list = list()
+                        for port in module_port_list_list:
+                            new_port = " ".join(port)
+                            new_module_port_list.append(new_port)
+                        # Combine port definitions into a port list
+                        module_port_list = ",\n".join(new_module_port_list)
+                        module_port_list = "(" + module_port_list + ")"
+
+                module_body = element_dict["module_body"][0]
+
+                if isinstance(module_parameter_list, list):
+                    module_parameter_list = " ".join(module_parameter_list)
+                if isinstance(module_port_list, list):
+                    # Remove surrounding braces
+                    _ = module_port_list.pop(0)
+                    _ = module_port_list.pop(-1)
+                    # Join separate port definitions
+                    new_module_port_list = list()
+                    for port in module_port_list:
+                        new_port = " ".join(port)
+                        new_module_port_list.append(new_port)
+                    # Combine port definitions into a port list
+                    module_port_list = ",\n".join(new_module_port_list)
+                    module_port_list = "(" + module_port_list + ")"
+
+                ms_content = None
+                nms_content = None
+                if module_name in plb[path].keys():
+                    ms_content = plb[path][module_name]["ms"]
+                    ms_content = TEMPLATE_MS.substitute(
+                        path_script = PATH_SCRIPT,
+                        content = ms_content
+                    )
+                    nms_content = plb[path][module_name]["nms"]
+                    nms_content = TEMPLATE_NMS.substitute(
+                        path_script = PATH_SCRIPT,
+                        content = nms_content,
+                    )
                 else:
-                    print(f"found {len(modules)} modules:", indent=level+2, color=Fore.GREEN)
-                    for module_name in modules:
-                        print(f"{module_name}", indent=level+3, color=Fore.GREEN)
-                
-                # Execute actual injection
-                for element in results:
-                    assert isinstance(element, pp.ParseResults)
-                    element_type = element.get_name()
-                    if element_type is None:
-                        pass
-                    else:
-                        if element_type == "module":
-                            element_list = element.as_list()
-                            # Inject before module
-                            if nms_exists:
-                                material_nms_relative = material_nms.relative_to(Path.cwd())
-                                index_module = element_list.index("module")
-                                element_list.insert(index_module, f"// injected by {__file__}\n`ifdef VERILATOR\n  `include \"{material_nms_relative}\"\n`endif\n")
-                            
-                            # Inject before endmodule
-                            if ms_exists:
-                                material_ms_relative = material_ms.relative_to(Path.cwd())
-                                index_endmodule = element_list.index("endmodule")
-                                element_list.insert(index_endmodule, f"// injected by {__file__}\n`ifdef VERILATOR\n  `include \"{material_ms_relative}\"\n`endif\n")
-                            
-                            
-                            def join_nested(raw_list: List[List[str] | str]) -> List[str]:
-                                new_list = list()
-                                for item in raw_list:
-                                    if isinstance(item, str):
-                                        new_list.append(item)
-                                    elif isinstance(item, list):
-                                        new_item = " ".join(item)
-                                        new_list.append(new_item)
-                                    else:
-                                        raise Exception(f"unknown item type: {item}")
-                                return new_list
-                            
-                            element_list = join_nested(element_list)
-                            
-                            # Write modified data back to original
-                            text = " ".join(element_list)
-                            with path.open("w") as stream:
-                                stream.write(text)
-            else:
-                # One file should contain only 1 file-level match
-                print(f"found {len(scans)} scans, skipped", indent=level+1, color=Fore.RED)
+                    print(f"did not found module {module_name} from project-level bindings", indent=level+3, color=Fore.RED)
+
+                # Rebuild module
+                element_str = TEMPLATE_MODULE.substitute(
+                    nms_content = nms_content,
+                    module_name = module_name,
+                    module_parameter_list = module_parameter_list,
+                    module_port_list = module_port_list,
+                    ms_content = ms_content,
+                    module_body = module_body,
+                )
+            case _:
+                # Filter lists of empty strings
+                element_list = list(element)
+                element_list = list(filter(None, element_list))
+                element_str = " ".join(element_list)
+        modified_elements.append(element_str)
+    elements_str = "".join(modified_elements)
+    
+    # Write modified data back
+    with path.open("w") as stream:
+        stream.write(elements_str)
+
+def try_to_find_project_level_bindings(level=0) -> Optional[ProjectLvlBindings]:
+    if PATH_HDL_BINDINGS.exists():
+        print(f"found project-level bindings from path:", indent=level, color=Fore.GREEN)
+        print(f" - {PATH_HDL_BINDINGS}", indent=level, color=Fore.GREEN)
+        with PATH_HDL_BINDINGS.open("rb") as stream:
+            plb = pickle.load(stream)
+        return plb
+    else:
+        print(f"did not find project-level bindings, injection failed:", indent=level, color=Fore.RED)
+        print(f" - {PATH_HDL_BINDINGS}", indent=level, color=Fore.RED)
+        return None
 
 def execute_do(directory: Path, level=0):
+    # Check that project-level bindings even exist
+    maybe_plb = try_to_find_project_level_bindings(level)
+    if maybe_plb is None:
+        return
+    else:
+        plb = maybe_plb
+    
     # Replace originals with backups
     print(f"replacing original files with backups:", indent=level)
     backup_mapping = solve_backup_mapping(directory)
@@ -275,7 +329,7 @@ def execute_do(directory: Path, level=0):
             print(f"path is not backupped, injection could not be done:", indent=level+1, color=Fore.RED)
             print(f" - {original}", indent=level+1, color=Fore.RED)
         else:
-            inject(original, level=level+1)
+            inject(original, plb, level=level+1)
 
 def execute_undo(directory: Path, level=0):
     backup_mapping = solve_backup_mapping(directory)
@@ -287,7 +341,8 @@ def execute_undo(directory: Path, level=0):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["do", "undo", "status"])
+    parser.add_argument("action", choices=["do", "undo", "status", "inject"])
+    parser.add_argument("--path", type=Path)
     arguments = vars(parser.parse_args())
     
     directories_str = [
@@ -297,20 +352,40 @@ if __name__ == "__main__":
     ]
     directories = list(map(lambda d: Path(d).resolve(), directories_str))
     
-    if arguments["action"] == "do":
+    action = arguments["action"]
+    if action == "do":
         for directory in directories:
             print(f"{directory}")
             print_status(directory, level=1)
             execute_do(directory, level=1)
-    elif arguments["action"] == "undo":
+    elif action == "undo":
         for directory in directories:
             print(f"{directory}")
             print_status(directory, level=1)
             execute_undo(directory, level=1)
-    elif arguments["action"] == "status":
+    elif action == "status":
         for directory in directories:
             print(f"{directory}")
             print_status(directory, level=1)
+    elif action == "inject":
+        # Check that project-level bindings even exist
+        maybe_plb = try_to_find_project_level_bindings(level=0)
+        if maybe_plb is None:
+            pass
+        else:
+            plb = maybe_plb
+            maybe_path = arguments.get("path")
+            if maybe_path is None:
+                print(f"argument --path must be a valid path", color=Fore.RED)
+            else:
+                path = maybe_path
+                assert isinstance(path, Path)
+                if path.exists():
+                    path = path.resolve()
+                    print(f"{path}")
+                    inject(path, plb, level=1)
+                else:
+                    print(f"given path does not exist: {path}", color=Fore.RED)
     else:
         # This branch should never execute
         raise Exception(f"unknown action: {arguments["action"]}")

@@ -93,7 +93,13 @@ executable ?= ""
 # generate hdl and sw bindings
 .PHONY: verilator-generate-bindings
 verilator-generate-bindings:
-	python3 ./verification/verilator/scripts/generate_bindings.py
+	python3 ./verification/verilator/scripts/inject_bindings.py undo
+	python3 ./verification/verilator/scripts/generate_bindings.py generate
+
+# inject hdl bindings to hdl files
+.PHONY: verilator-inject-bindings
+verilator-inject-bindings:
+	python3 ./verification/verilator/scripts/inject_bindings.py do
 
 # generate sw model for hw
 .PHONY: verilator-generate-model

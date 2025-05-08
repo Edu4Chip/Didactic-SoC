@@ -2,14 +2,66 @@
 
 # How to use?
 
-`python3 generate_bindings.py`
+## Generate and write bindings to file
+
+`python3 generate_bindings.py generate`
+
+## Write out software bindings to files
+
+`python3 generate_bindings.py write_sw`
+
+## Print which paths and modules were detected and written to the output file
+
+`python3 generate_bindings.py print`
 """
 
 import re
-from typing import List
+import pickle
+import argparse
+from string import Template
+from typing import List, Dict, Optional
 from pathlib import Path
 
-clock_signal_names = {
+import pyparsing as pp
+from colorama import Fore
+
+from print import print
+from parser import parse_file, print_modules
+from bindings import PATH_HDL_BINDINGS, FileLvlBindings, ProjectLvlBindings
+
+from pprint import pprint
+
+# TODO: use full paths : module format
+# TODO: add clock signal names
+clock_signal_names: Dict[str, Dict[str, Optional[str]]] = {
+    "src/generated/DtuSubsystem.sv": {
+        "SystemControl": None,
+        "Rx": None,
+        "Tx": None,
+        "PonteEscaper": None,
+        "PonteDecoder": None,
+        "Ponte": None,
+        "AluAccu": None,
+        "Decode": None,
+        "Leros": None,
+        "ChiselSyncMemory": None,
+        "InstructionMemory": None,
+        "InstrMem": None,
+        "RegBlock": None,
+        "Gpio": None,
+        "ChiselSyncMemory_1": None,
+        "DataMemory": None,
+        "Tx_1": None,
+        "Buffer": None,
+        "BufferedTx": None,
+        "Rx_1": None,
+        "UARTRx": None,
+        "Uart": None,
+        "ApbArbiter": None,
+        "ApbMux": None,
+        "DataMemMux": None,
+        "DtuSubsystem": None,
+    },
     "Student_SS_0_0.v": "clk",
     "Didactic.v": "clk_in",
     "SysCtrl_peripherals_0.v": "clk",
@@ -53,125 +105,278 @@ clock_signal_names = {
     "analog_status_array.sv": "clk_in",
 }
 
-if __name__ == "__main__":
-    path_script_full = Path(__file__)
-    path_cwd = Path.cwd()
-    path_script = Path(str(path_script_full).removeprefix(str(path_cwd)))
+TEMPLATE_NMS_SIGNAL = Template("int unsigned ${signal_name};")
+TEMPLATE_NMS = Template("""\
+// generated from ${path_script}
+typedef struct packed {
+    ${signals}
+} ${struct_name};
+import "DPI-C" function void track_${module_name}(
+    input real itime,
+    input string name,
+    input ${struct_name} status
+);
+""")
 
-    output_directory = Path("./verification/verilator/src/generated").resolve()
-    output_directory.mkdir(exist_ok=True)
+TEMPLATE_MS_SIGNAL_ASSIGNMENT = Template("status.${signal_name} = ${signal_name};")
+TEMPLATE_MS_WITH_CLOCK_SIGNAL = Template("""\
+// generated from ${path_script}
+always @ (posedge ${clock_signal_name}) begin
+    string name;
+    ${struct_name} status;
+    ${signal_assignments}
+    $$sformat(name, "%m");
+    track_${module_name}($$realtime, name, status);
+end
+""")
+TEMPLATE_MS_WITHOUT_CLOCK_SIGNAL = Template("""\
+// generated from ${path_script}
+""")
 
-    output_directory_hdl = output_directory / "hdl"
-    output_directory_hdl.mkdir(exist_ok=True)
+TEMPLATE_SW_STRUCT_SIGNAL = Template(
+    "uint32_t ${signal_name};"
+)
+TEMPLATE_SW_SIGNAL_ASSIGNMENT = Template(
+    "status3.${name1} = status2->${name2};"
+)
+TEMPLATE_SW_SIGNAL_PRINT = Template(
+    """std::cout << "  " << std::right << std::setw(15) << "${signal_name}: " << status3.${signal_name} << std::endl;"""
+)
+TEMPLATE_SW = Template("""\
+// generated from ${path_script}
+#include <iomanip>
+#include <iostream>
 
-    output_directory_sw = output_directory / "sw"
-    output_directory_sw.mkdir(exist_ok=True)
+struct ${struct_name} {
+    ${struct_signals}
+};
 
-    output_directory_ms = output_directory_hdl / "ms"
-    output_directory_nms = output_directory_hdl / "nms"
+void track_${module_name}(double time, const char* name, const uint32_t* status) {
+    // Apparently struct members come in reverse order...
+    struct ${struct_name}* status2 = (struct ${struct_name}*)status;
+    struct {struct_name} status3;
+    ${signal_assignments}
+    #ifdef TRACK_${module_name_upper}
+    std::cout << "[" << time << "] " << __func__ << std::endl;
+    std::cout << std::string(name) << ":" << std::endl;
+    ${signal_prints}
+    #endif // TRACK_${module_name_upper}
+}
+""")
 
-    output_directory_ms.mkdir(exist_ok=True)
-    output_directory_nms.mkdir(exist_ok=True)
+PATH_SCRIPT = Path(__file__)
 
-    line_comment_matcher = re.compile(r"\/\/[\s\S]*?\n")
-    square_bracket_matcher = re.compile(r"\[[\s\S]*?\]")
-    module_matcher = re.compile(r"module (?P<name>\w*?)\s*?(?P<parameters>#\([\S\s]*?\))*?\s*?(?P<arguments>\([\S\s]*?\))")
-    argument_name_matcher = re.compile(r"^\s+(input|output|inout)\s+[\S\s]*?\s+(?P<name>\w+),?$", re.MULTILINE)
+def generate_file_level_bindings_from_scan_results(path: Path, results: pp.ParseResults, level=0) -> FileLvlBindings:
+    print(f"generating file-level bindings", indent=level)
+    result: FileLvlBindings = dict()
+    for element in results:
+        assert isinstance(element, pp.ParseResults)
+        element_type = element.get_name()
+        if element_type is None:
+            pass
+        else:
+            if element_type == "module":
+                module_kw = element[0]
+                module_name = element[1]
 
+                print(f"processing {str(path)}:{module_name} with {len(element)} elements", indent=level+1)
+
+                module_parameter_list = None
+                module_port_list = None
+                if len(element) == 7:    
+                    module_parameter_list = element[2]
+                    module_port_list = element[3]
+                    module_body_separator = element[4]
+                    module_body = element[5]
+                    endmodule_kw = element[6]
+                elif len(element) == 6:
+                    if element[2].get_name() == "module_parameter_list":
+                        module_parameter_list = element[2]
+                    elif element[2].get_name() == "module_port_list":
+                        module_port_list = element[2]
+                    else:
+                        raise Exception(f"unknown element type: {element[2].get_name()}")
+                    module_body_separator = element[3]
+                    module_body = element[4]
+                    endmodule_kw = element[5]
+                elif len(element) == 5:
+                    module_body_separator = element[2]
+                    module_body = element[3]
+                    endmodule_kw = element[4]
+                else:
+                    raise Exception(f"unsupported element length: {len(element)}")     
+
+                result[module_name] = dict()
+
+                struct_name_parts = module_name.split("_")
+                struct_name_parts = list(map(lambda s: s.capitalize(), struct_name_parts))
+                struct_name_parts.append("Status")
+                struct_name = "".join(struct_name_parts)
+
+                port_names = list()
+                if module_port_list:
+                    for port in module_port_list:
+                        if isinstance(port, pp.ParseResults) and port.get_name() == "port":
+                            port_name = port[-1]
+                            port_names.append(port_name)
+
+                # Try to solve clock signal name
+                clock_signal_name = None
+                csn_path = str(path.relative_to(Path.cwd()))
+                if csn_path in clock_signal_names.keys():
+                    if module_name in clock_signal_names[csn_path].keys():
+                        clock_signal_name = clock_signal_names[csn_path][module_name]
+                    else:
+                        print(f"module {module_name} not found in clock_signal_names[{csn_path}]", indent=level+1, color=Fore.RED)
+                else:
+                    print(f"path {csn_path} not found in clock_signal_names", indent=level+1, color=Fore.RED)
+
+                # Generate non-module-specific content
+                signals = list()
+                for port_name in port_names:
+                    signal = TEMPLATE_NMS_SIGNAL.substitute(signal_name=port_name)
+                    signals.append(signal)
+                nms = TEMPLATE_NMS.substitute(
+                    path_script=PATH_SCRIPT,
+                    signals="\n".join(signals),
+                    struct_name=struct_name,
+                    module_name=module_name,
+                )
+                result[module_name]["nms"] = nms
+                
+                # Generate module-specific content
+                if clock_signal_name:
+                    signal_assignments = list()
+                    for port_name in port_names:
+                        assignment = TEMPLATE_MS_SIGNAL_ASSIGNMENT.substitute(
+                            signal_name=port_name
+                        )
+                        signal_assignments.append(assignment)
+                    ms = TEMPLATE_MS_WITH_CLOCK_SIGNAL.substitute(
+                        path_script=PATH_SCRIPT,
+                        clock_signal_name=clock_signal_name,
+                        struct_name=struct_name,
+                        signal_assignments="\n".join(signal_assignments),
+                        module_name=module_name,
+                    )
+                else:
+                    print(f"module {module_name} does not have a clock signal", indent=level+1, color=Fore.YELLOW)
+                    ms = TEMPLATE_MS_WITHOUT_CLOCK_SIGNAL.substitute(
+                        path_script=PATH_SCRIPT,
+                    )
+                result[module_name]["ms"] = ms
+
+                # Generate software bindings
+                struct_signals = list()
+                for port_name in port_names:
+                    struct_signal = TEMPLATE_SW_STRUCT_SIGNAL.substitute(
+                        signal_name=port_name
+                    )
+                    struct_signals.append(struct_signal)
+                signal_assignments = list()
+                port_names_reversed = list(reversed(port_names))
+                for name1, name2 in zip(port_names, port_names_reversed):
+                    signal_assignment = TEMPLATE_SW_SIGNAL_ASSIGNMENT.substitute(
+                        name1=name1,
+                        name2=name2,
+                    )
+                    signal_assignments.append(signal_assignment)
+                signal_prints = list()
+                for port_name in port_names:
+                    signal_print = TEMPLATE_SW_SIGNAL_PRINT.substitute(
+                        signal_name=port_name,
+                    )
+                    signal_prints.append(signal_print)
+                sw = TEMPLATE_SW.substitute(
+                    path_script=PATH_SCRIPT,
+                    struct_name=struct_name,
+                    struct_signals="\n".join(struct_signals),
+                    module_name=module_name,
+                    signal_assignments="\n".join(signal_assignments),
+                    signal_prints="\n".join(signal_prints),
+                    module_name_upper=str(module_name).upper()
+                )
+                result[module_name]["sw"] = sw
+            else:
+                pass
+    return result
+
+def generate_file_level_bindings(path: Path, level=0) -> FileLvlBindings:
+    flb = dict()
+    print(f"{path}", indent=level)
+    maybe_scans = parse_file(path)
+    if maybe_scans is None:
+        print(f"could not generate bindings", indent=level+1, color=Fore.RED)
+    else:
+        # Get file-level matches
+        scans = list(maybe_scans)
+        if len(scans) == 0:
+            print(f"found 0 scans", indent=level+1, color=Fore.RED)
+        else:
+            if len(scans) == 1:
+                print(f"found 1 scan", indent=level+1, color=Fore.GREEN)
+                results, _, _ = scans[0]
+                # Print which modules were detected
+                print_modules(results, level=level+2)
+                # Generate file-level bindings
+                flb = generate_file_level_bindings_from_scan_results(path, results, level+2)
+            else:
+                print(f"found {len(scans)} scans, skipped", indent=level+1, color=Fore.RED)
+    return flb
+
+def generate_project_level_bindings(directories: List[Path], level=0) -> ProjectLvlBindings:
+    plb: ProjectLvlBindings = dict()
+    for directory in directories:
+        print(f"{directory}", indent=level)
+        for path in directory.iterdir():
+            flb = generate_file_level_bindings(path, level=level+1)
+            plb[path] = flb
+    return plb
+
+def execute_generate():
     directories_str = [
         "./src/generated",
         "./src/reuse",
         "./src/rtl",
     ]
     directories = list(map(lambda d: Path(d).resolve(), directories_str))
-    for directory in directories:
-        print(f"{directory}")
-        for path in list(directory.iterdir()):
-            print(f"  {path}")
-            clock_signal_name = clock_signal_names[path.name]
+    plb = generate_project_level_bindings(directories, level=0)
+    print(f"writing project-level bindings to file:")
+    print(f" - {PATH_HDL_BINDINGS}")
+    with PATH_HDL_BINDINGS.open("wb") as stream:
+        pickle.dump(plb, stream)
 
-            with path.open("r") as stream:
-                data = stream.read()
+def execute_print():
+    if PATH_HDL_BINDINGS.exists():
+        with PATH_HDL_BINDINGS.open("rb") as stream:
+            plb = pickle.load(stream)
+        for path in plb.keys():
+            print(path)
+            for module in plb[path].keys():
+                print(module, indent=1)
+                # Skip printing ms, nms and sw content
+    else:
+        print(f"bindings do not exist", color=Fore.RED)
 
-            # Remove line comments
-            # Line comments interfere with `module_matcher`
-            data = line_comment_matcher.sub("", data)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("action", choices=["generate", "write_sw", "print"])
+    parser.add_argument("--path", type=Path)
+    arguments = vars(parser.parse_args())
 
-            # Remove content between square brackets
-            # Content inside square brackets interfere with `module_matcher`
-            data = square_bracket_matcher.sub("", data)
-
-            m = module_matcher.search(data)
-            if not m:
-                raise Exception(f'could not match "module_matcher"')
-            module_name = m.group("name")
-            # module_parameters = m.group("parameters")
-            module_arguments = m.group("arguments")
-            signal_names: List[str] = list()
-            for m in argument_name_matcher.finditer(module_arguments):
-                signal_name = m.group("name")
-                signal_names.append(signal_name)
-
-            struct_name_parts = module_name.split("_")
-            struct_name_parts = list(map(lambda s: s.capitalize(), struct_name_parts))
-            struct_name_parts.append("Status")
-            struct_name = "".join(struct_name_parts)
-
-            # Generate non-module-specific content
-            output_path = output_directory_nms / path.name
-            output_path = output_path.with_suffix(".sv")
-            print(f"  -> {output_path}")
-            with output_path.open("w") as stream:
-                print(f"// generated from {path_script}", file=stream)
-                print(f"typedef struct packed {{", file=stream)
-                for signal_name in signal_names:
-                    print(f"  int unsigned {signal_name};", file=stream)
-                print(f"}} {struct_name};", file=stream)
-                print(f'import "DPI-C" function void track_{module_name}(input real itime, input string name, input {struct_name} status);', file=stream)
-
-            # Generate module-specific content
-            output_path = output_directory_ms / path.name
-            output_path = output_path.with_suffix(".sv")
-            print(f"  -> {output_path}")
-            with output_path.open("w") as stream:
-                print(f"// generated from {path_script}", file=stream)
-                if clock_signal_name:
-                    print(f"always @ (posedge {clock_signal_name}) begin", file=stream)
-                    print(f"  string name;", file=stream)
-                    print(f"  {struct_name} status;", file=stream)
-                    for signal_name in signal_names:
-                        print(f"  status.{signal_name} = {signal_name};", file=stream)
-                    print(f'  $sformat(name, "%m");', file=stream)
-                    print(f"  track_{module_name}($realtime, name, status);", file=stream)
-                    print(f"end", file=stream)
-                else:
-                    print(f"  module {path.name} does not have a clock signal")
-
-            # Generate software bindings
-            output_path = output_directory_sw / path.name
-            output_path = output_path.with_suffix(".cpp")
-            print(f"  -> {output_path}")
-            with output_path.open("w") as stream:
-                print(f"// generated from {path_script}", file=stream)
-                print(f"#include <iostream>", file=stream)
-                print(f"#include <iomanip>", file=stream)
-
-                print(f"struct {struct_name} {{", file=stream)
-                for signal_name in signal_names:
-                    print(f"  uint32_t {signal_name};", file=stream)
-                print(f"}};", file=stream)
-
-                print(f"void track_{module_name}(double time, const char* name, const uint32_t* status) {{", file=stream)
-                print(f"  // Apparently struct members come in reverse order...", file=stream)
-                print(f"  struct {struct_name}* status2 = (struct {struct_name}*)status;", file=stream)
-                print(f"  struct {struct_name} status3;", file=stream)
-                signal_names_reversed = list(reversed(signal_names))
-                for name1, name2 in zip(signal_names, signal_names_reversed):
-                    print(f"  status3.{name1} = status2->{name2};", file=stream)
-                print(f"#ifdef TRACK_{module_name.upper()}", file=stream)
-                print(f'  std::cout << "[" << time << "] " << __func__ << std::endl;', file=stream)
-                print(f'  std::cout << std::string(name) << ":" << std::endl;', file=stream)
-                for signal_name in signal_names:
-                    print(f'  std::cout << "  " << std::right << std::setw(15) << "{signal_name}: " << status3.{signal_name} << std::endl;', file=stream)
-                print(f"#endif // TRACK_{module_name.upper()}", file=stream)
-                print(f"}}", file=stream)
+    action = arguments["action"]
+    if action == "generate":
+        path = arguments.get("path", None)
+        if path is None:
+            execute_generate()
+        else:
+            flb = generate_file_level_bindings(path, level=0)
+            pprint(flb)
+    elif action == "write_sw":
+        # TODO
+        raise NotImplementedError
+    elif action == "print":
+        execute_print()        
+    else:
+        # This branch should never execute
+        raise Exception(f"unknown action: {action}")
