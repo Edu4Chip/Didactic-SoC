@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : dtu_wrapper_0.v
-// Creation date : 25.04.2025
-// Creation time : 15:04:33
+// Creation date : 12.05.2025
+// Creation time : 13:54:28
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.4 64-bit
@@ -88,6 +88,7 @@ module dtu_wrapper_0 #(
     wire       i_dtu_ss_PREADY;
     wire       i_dtu_ss_PSEL;
     wire       i_dtu_ss_PSLVERR;
+    wire [3:0] i_dtu_ss_PSTRB;
     wire [31:0] i_dtu_ss_PWDATA;
     wire       i_dtu_ss_PWRITE;
     wire       i_dtu_ss_clk_in;
@@ -115,6 +116,7 @@ module dtu_wrapper_0 #(
     assign PREADY = i_dtu_ss_APB_to_APB_PREADY;
     assign i_dtu_ss_APB_to_APB_PSEL = PSEL;
     assign PSLVERR = i_dtu_ss_APB_to_APB_PSLVERR;
+    assign i_dtu_ss_APB_to_APB_PSTRB = PSTRB;
     assign i_dtu_ss_APB_to_APB_PWDATA = PWDATA;
     assign i_dtu_ss_APB_to_APB_PWRITE = PWRITE;
     assign ss_cg_clk_in_to_Clock_clk = clk;
@@ -129,7 +131,6 @@ module dtu_wrapper_0 #(
     assign ss_cg_en_to_ss_ctrl_2 = ss_ctrl_2[0];
     assign ss_high_speed_cg_en_to_ss_ctrl_2 = ss_ctrl_2[1];
 
-
     // i_dtu_ss assignments:
     assign i_dtu_ss_PADDR = i_dtu_ss_APB_to_APB_PADDR;
     assign i_dtu_ss_PENABLE = i_dtu_ss_APB_to_APB_PENABLE;
@@ -137,6 +138,7 @@ module dtu_wrapper_0 #(
     assign i_dtu_ss_APB_to_APB_PREADY = i_dtu_ss_PREADY;
     assign i_dtu_ss_PSEL = i_dtu_ss_APB_to_APB_PSEL;
     assign i_dtu_ss_APB_to_APB_PSLVERR = i_dtu_ss_PSLVERR;
+    assign i_dtu_ss_PSTRB = i_dtu_ss_APB_to_APB_PSTRB;
     assign i_dtu_ss_PWDATA = i_dtu_ss_APB_to_APB_PWDATA;
     assign i_dtu_ss_PWRITE = i_dtu_ss_APB_to_APB_PWRITE;
     assign i_dtu_ss_clk_in = ss_cg_clk_out_to_i_dtu_ss_Clock_clk;
@@ -163,6 +165,7 @@ module dtu_wrapper_0 #(
         .PADDR               (i_dtu_ss_PADDR),
         .PENABLE             (i_dtu_ss_PENABLE),
         .PSEL                (i_dtu_ss_PSEL),
+        .PSTRB               (i_dtu_ss_PSTRB),
         .PWDATA              (i_dtu_ss_PWDATA),
         .PWRITE              (i_dtu_ss_PWRITE),
         .PRDATA              (i_dtu_ss_PRDATA),
@@ -182,9 +185,7 @@ module dtu_wrapper_0 #(
         // Interface: pmod_gpio
         .pmod_gpi            (i_dtu_ss_pmod_gpi),
         .pmod_gpio_oe        (i_dtu_ss_pmod_gpio_oe),
-        .pmod_gpo            (i_dtu_ss_pmod_gpo),
-        // These ports are not in any interface
-        .PSTRB               ());
+        .pmod_gpo            (i_dtu_ss_pmod_gpo));
 
     // IP-XACT VLNV: tuni.fi:tech:tech_cg:1.0
     tech_cg ss_cg(

@@ -157,6 +157,14 @@
 							</ipxact:physicalPort>
 							<ipxact:isInformative>false</ipxact:isInformative>
 						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>PSTRB</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>PSTRB</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
@@ -648,18 +656,6 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:vendorExtensions>
-		<kactus2:fileDependencies>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/Student_SS_2.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/nms/Student_SS_2.sv</kactus2:fileRef2>
-				<ipxact:description>Include reference to verification/verilator/src/hdl/nms/Student_SS_2.sv</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/Student_SS_2.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/ms/Student_SS_2.sv</kactus2:fileRef2>
-				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/Student_SS_2.sv</ipxact:description>
-			</kactus2:fileDependency>
-		</kactus2:fileDependencies>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>
