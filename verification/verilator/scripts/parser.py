@@ -12,7 +12,7 @@ Import `parse_file` from this file and use it to parse given Path-object
 """
 
 import argparse
-from typing import Generator, Tuple, Optional, List
+from typing import Generator, Tuple, Optional, List, Dict, Any
 from pathlib import Path
 
 import pyparsing as pp
@@ -20,11 +20,11 @@ from colorama import Fore
 
 from print import print
 
-exceptions_str: List[str] = [
+EXCEPTIONS_STR: List[str] = [
     # Why this file fails is currently unknown
     "src/rtl/ibex_wrapper.sv",
 ]
-exceptions = list(map(lambda p: Path(p).resolve(), exceptions_str))
+EXCEPTIONS = list(map(lambda p: Path(p).resolve(), EXCEPTIONS_STR))
 
 # TODO: rename into file_lvl_results or similar
 ParserResult = Generator[Tuple[pp.ParseResults, int, int]]
@@ -131,7 +131,8 @@ def parse_string(data: str) -> ParserResult:
     return stx_file.scan_string(data)
 
 def parse_file(path: Path) -> Optional[ParserResult]:
-    if path in exceptions:
+    path = path.resolve()
+    if path in EXCEPTIONS:
         print(f"file is exceptional, could not parse automatically:", color=Fore.RED)
         print(f" - {path}", color=Fore.RED)
         return None
@@ -140,17 +141,100 @@ def parse_file(path: Path) -> Optional[ParserResult]:
             data = stream.read()
         return parse_string(data)
 
+def execute_parse(arguments: Dict[str, Any]):
+    path = arguments["path"]
+    file_level_matches_generator = parse_file(path)
+    if file_level_matches_generator is None:
+        print(f"failed to parse {path}", color=Fore.RED)
+        exit(-1)
+    file_level_matches = list(file_level_matches_generator)
+    # Expect 1 file-level match
+    if len(file_level_matches) != 1:
+        print(f"found {len(file_level_matches)} file-level matches", color=Fore.RED)
+    for (file_level_match, _, _) in file_level_matches:
+        file_level_match.pprint()
+
+def execute_print(arguments: Dict[str, Any]):
+    paths = arguments["paths"]
+    for path in paths:
+        print(f"{path}", indent=0)
+        file_level_matches_generator = parse_file(path)
+        if file_level_matches_generator is None:
+            print(f"failed to parse {path}", color=Fore.RED)
+            continue
+        file_level_matches = list(file_level_matches_generator)
+        # Expect 1 file-level match
+        if len(file_level_matches) != 1:
+            print(f"found {len(file_level_matches)} file-level matches", color=Fore.RED)
+            continue
+        file_level_match, _, _ = file_level_matches[0]
+        for element in file_level_match:
+            assert isinstance(element, pp.ParseResults)
+            match element.get_name():
+                case "module":
+                    element_list = element.as_list()
+                    element_dict = element.as_dict()
+                    if arguments["modules"]:
+                        module_name = element_dict["module_name"]
+                        print(f"{module_name}", indent=1)
+                    if arguments["parameters"]:
+                        raise NotImplementedError
+                    if arguments["ports"]:
+                        module_port_list = None
+                        match len(element_list):
+                            case 5:
+                                # No parameters or ports
+                                pass
+                            case 6:
+                                # Either parameters or ports
+                                if "module_port_list" in element_dict.keys():
+                                    module_port_list = element_list[2]
+                            case 7:
+                                # Both parameters and ports
+                                module_port_list = element_list[3]
+                            case other:
+                                raise Exception(f"unsupported element list length: {other}")
+                        if module_port_list is None:
+                            print(f"no ports", indent=2)
+                        else:
+                            _ = module_port_list.pop(0)
+                            _ = module_port_list.pop(-1)
+                            for i in range(len(module_port_list)):
+                                module_port_list[i] = " ".join(module_port_list[i])
+                            for port in module_port_list:
+                                print(f"{port}", indent=2)
+                case "other":
+                    pass
+                case other:
+                    raise Exception(f"unknown element type: {other}")
+
 if __name__ == "__main__":
-    argument_parser = argparse.ArgumentParser()
-    argument_parser.add_argument("path")
-    arguments = vars(argument_parser.parse_args())
+    # Parse program arguments
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(
+        dest="action",
+        required=True,
+    )
+    parser_parse = subparsers.add_parser(
+        "parse",
+        help="print full parsing result of given path",
+    )
+    parser_parse.add_argument("path", type=Path)
+    parser_print = subparsers.add_parser(
+        "print",
+        help="print selected information extracted from given paths",
+    )
+    parser_print.add_argument("paths", type=Path, nargs="+")
+    parser_print.add_argument("--modules", action="store_true")
+    parser_print.add_argument("--parameters", action="store_true")
+    parser_print.add_argument("--ports", action="store_true")
+    arguments = vars(parser.parse_args())
     
-    path = Path(arguments["path"])
-    maybe_scans = parse_file(path)
-    if maybe_scans is None:
-        print(f"failed to parse file:", color=Fore.RED)
-        print(f" - {path}", color=Fore.RED)
-    else:
-        for scan in maybe_scans:
-            results, _, _ = scan
-            results.pprint()
+    action = arguments["action"]
+    match action:
+        case "parse":
+            execute_parse(arguments)
+        case "print":
+            execute_print(arguments)
+        case other:
+            raise Exception(f"unknown action: {other}")
