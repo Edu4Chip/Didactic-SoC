@@ -15,7 +15,6 @@
 `python3 generate_bindings.py print`
 """
 
-import re
 import pickle
 import argparse
 from string import Template
@@ -31,78 +30,161 @@ from bindings import PATH_HDL_BINDINGS, FileLvlBindings, ProjectLvlBindings
 
 from pprint import pprint
 
-# TODO: use full paths : module format
-# TODO: add clock signal names
-clock_signal_names: Dict[str, Dict[str, Optional[str]]] = {
-    "src/generated/DtuSubsystem.sv": {
-        "SystemControl": None,
-        "Rx": None,
-        "Tx": None,
-        "PonteEscaper": None,
-        "PonteDecoder": None,
-        "Ponte": None,
-        "AluAccu": None,
-        "Decode": None,
-        "Leros": None,
-        "ChiselSyncMemory": None,
-        "InstructionMemory": None,
-        "InstrMem": None,
-        "RegBlock": None,
-        "Gpio": None,
-        "ChiselSyncMemory_1": None,
-        "DataMemory": None,
-        "Tx_1": None,
-        "Buffer": None,
-        "BufferedTx": None,
-        "Rx_1": None,
-        "UARTRx": None,
-        "Uart": None,
-        "ApbArbiter": None,
-        "ApbMux": None,
-        "DataMemMux": None,
-        "DtuSubsystem": None,
+CLOCK_SIGNAL_NAMES: Dict[str, Dict[str, Optional[str]]] = {
+    "src/generated/analog_wrapper_0.v": {
+        "analog_wrapper_0": "clk_in",
     },
-    "Student_SS_0_0.v": "clk",
-    "Didactic.v": "clk_in",
-    "SysCtrl_peripherals_0.v": "clk",
-    "Student_SS_2_0.v": "clk",
-    "SysCtrl_SS_wrapper_0.v": "clk",
-    "Student_SS_1_0.v": "clk_in",
-    "SysCtrl_SS_0.v": "clk_internal",
-    "Student_SS_3_0.v": "clk_in",
-    "jtag_dbg_wrapper.sv": "clk_i",
-    "BootRom.sv": "clk_i",
-    "ibex_axi_bridge.sv": "clk_i",
-    "mem_axi_bridge.sv": "clk_i",
-    "sp_sram.sv": "clk_i",
-    "student_ss_1.sv": "clk_in",
-    "SS_Ctrl_reg_array.sv": "clk",
-    "Student_SS_3.sv": "clk_in",
-    "AX4LITE_APB_converter_wrapper.sv": "clk",
-    "Student_SS_2.sv": "clk_in",
-    "ICN_SS.sv": "clk",
-    "DtuSubsystem.sv": "clock",
-    # Does not have clock signal...
-    "pmod_mux.sv": None,
-    "Student_area_0.sv": "clk_in",
-    "SysCtrl_xbar.sv": "clk_i",
-    "io_cell_frame_sysctrl.sv": "clk_in",
-    "obi_to_apb_intf.sv": "clk_i",
-    "peripherals_obi_to_apb.sv": "clk",
-    "ibex_wrapper.sv": "clk_i",
-    "obi_cut_intf.sv": "clk_i",
-    "obi_icn_ss.sv": "clk",
-    "sysctrl_obi_xbar.sv": "clk",
-    "dtu_ss.sv": "clk_in",
-    # Does not have clock signal...
-    "student_ss_analog.sv": None,
-    "jtag_dbg_wrapper_obi.sv": "clk_i",
-    "tum_wrapper_0.v": "clk_in",
-    "dtu_wrapper_0.v": "clk",
-    "analog_wrapper_0.v": "clk_in",
-    "kth_wrapper_0.v": "clk_in",
-    "imt_wrapper_0.v": "clk_in",
-    "analog_status_array.sv": "clk_in",
+    "src/generated/Didactic.v": {
+        "Didactic": "clk_in",
+    },
+    "src/generated/DtuSubsystem.sv": {
+        "SystemControl": "clock",
+        "Rx": "clock",
+        "Tx": "clock",
+        "PonteEscaper": "clock",
+        "PonteDecoder": "clock",
+        "Ponte": "clock",
+        "AluAccu": "clock",
+        # Does not have clock signal
+        "Decode": None,
+        "Leros": "clock",
+        "ChiselSyncMemory": "clock",
+        "InstructionMemory": "clock",
+        "InstrMem": "clock",
+        "RegBlock": "clock",
+        "Gpio": "clock",
+        "ChiselSyncMemory_1": "clock",
+        "DataMemory": "clock",
+        "Tx_1": "clock",
+        "Buffer": "clock",
+        "BufferedTx": "clock",
+        "Rx_1": "clock",
+        "UARTRx": "clock",
+        "Uart": "clock",
+        "ApbArbiter": "clock",
+        # Does not have clock signal
+        "ApbMux": None,
+        "DataMemMux": "clock",
+        "DtuSubsystem": "clock",
+    },
+    "src/generated/dtu_wrapper_0.v": {
+        "dtu_wrapper_0": "clk",
+    },
+    "src/generated/imt_wrapper_0.v": {
+        "imt_wrapper_0": "clk_in",
+    },
+    "src/generated/kth_wrapper_0.v": {
+        "kth_wrapper_0": "clk_in",
+    },
+    "src/generated/Student_SS_0_0.v": {
+        "Student_SS_0_0": "clk",
+    },
+    "src/generated/Student_SS_1_0.v": {
+        "Student_SS_1_0": "clk_in",
+    },
+    "src/generated/Student_SS_2_0.v": {
+        "Student_SS_2_0": "clk",
+    },
+    "src/generated/Student_SS_3_0.v": {
+        "Student_SS_3_0": "clk_in",
+    },
+    "src/generated/SysCtrl_peripherals_0.v": {
+        "SysCtrl_peripherals_0": "clk",
+    },
+    "src/generated/SysCtrl_SS_0.v": {
+        "SysCtrl_SS_0": "clk_internal",
+    },
+    "src/generated/SysCtrl_SS_wrapper_0.v": {
+        "SysCtrl_SS_wrapper_0": "clock",
+    },
+    "src/generated/tum_wrapper_0.v": {
+        "tum_wrapper_0": "clk_in",
+    },
+
+    "src/reuse/ibex_axi_bridge.sv": {
+        "ibex_axi_bridge": "clk_i",
+    },
+    "src/reuse/jtag_dbg_wrapper.sv": {
+        "jtag_dbg_wrapper": "clk_i",
+    },
+    "src/reuse/mem_axi_bridge.sv": {
+        "mem_axi_bridge": "clk_i",
+    },
+    # TODO: maybe the dots in signal names cause havoc?
+    #"src/reuse/obi_to_apb_intf.sv": {
+    #    "found 0 file-level matches": None,
+    #    "obi_to_apb_intf": "clk_i",
+    #},
+    "src/reuse/sp_sram.sv": {
+        "sp_sram": "clk_i",
+    },
+
+    "src/rtl/analog_status_array.sv": {
+        "analog_status_array": "clk_in",
+    },
+    "src/rtl/AX4LITE_APB_converter_wrapper.sv": {
+        "AX4LITE_APB_converter_wrapper": "clk",
+    },
+    "src/rtl/dtu_ss.sv": {
+        "dtu_ss": "clk_in",
+    },
+    # TODO: maybe custom type instead of logic cause havoc?
+    #"src/rtl/ibex_wrapper.sv": {
+    #    "skip": None,
+    #    "ibex_wrapper": "clk_i",
+    #},
+    "src/rtl/ICN_SS.sv": {
+        "ICN_SS": "clk",
+    },
+    "src/rtl/io_cell_frame_sysctrl.sv": {
+        "io_cell_frame_sysctrl": "clk_in",
+    },
+    "src/rtl/jtag_dbg_wrapper_obi.sv": {
+        "jtag_dbg_wrapper_obi": "clk_i",
+    },
+    # TODO
+    #"src/rtl/obi_cut_intf.sv": {
+    #    "found 0 file-level matches": None,
+    #    "obi_cut_intf": "clk_i",
+    #},
+    "src/rtl/obi_icn_ss.sv": {
+        "obi_icn_ss": "clk",
+    },
+    "src/rtl/peripherals_obi_to_apb.sv": {
+        "peripherals_obi_to_apb": "clk",
+    },
+    "src/rtl/pmod_mux.sv": {
+        # Does not have clock signal
+        "pmod_mux": None,
+    },
+    "src/rtl/sp_sram.sv": {
+        "sp_sram": "clk_i",
+    },
+    "src/rtl/SS_Ctrl_reg_array.sv": {
+        "SS_Ctrl_reg_array": "clk",
+    },
+    "src/rtl/Student_area_0.sv": {
+        "Student_area_0": "clk_in",
+    },
+    "src/rtl/student_ss_1.sv": {
+        "student_ss_1": "clk_in",
+    },
+    "src/rtl/Student_SS_2.sv": {
+        "student_ss_2": "clk_in",
+    },
+    "src/rtl/Student_SS_3.sv": {
+        "Student_SS_3": "clk_in",
+    },
+    "src/rtl/student_ss_analog.sv": {
+        # Does not have clock signal
+        "student_ss_analog": None,
+    },
+    "src/rtl/sysctrl_obi_xbar.sv": {
+        "sysctrl_obi_xbar": "clk",
+    },
+    "src/rtl/SysCtrl_xbar.sv": {
+        "SysCtrl_xbar": "clk_i",
+    },
 }
 
 TEMPLATE_NMS_SIGNAL = Template("int unsigned ${signal_name};")
@@ -223,9 +305,9 @@ def generate_file_level_bindings_from_scan_results(path: Path, results: pp.Parse
                 # Try to solve clock signal name
                 clock_signal_name = None
                 csn_path = str(path.relative_to(Path.cwd()))
-                if csn_path in clock_signal_names.keys():
-                    if module_name in clock_signal_names[csn_path].keys():
-                        clock_signal_name = clock_signal_names[csn_path][module_name]
+                if csn_path in CLOCK_SIGNAL_NAMES.keys():
+                    if module_name in CLOCK_SIGNAL_NAMES[csn_path].keys():
+                        clock_signal_name = CLOCK_SIGNAL_NAMES[csn_path][module_name]
                     else:
                         print(f"module {module_name} not found in clock_signal_names[{csn_path}]", indent=level+1, color=Fore.RED)
                 else:
