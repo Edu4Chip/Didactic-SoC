@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_0.v
 // Creation date : 12.05.2025
-// Creation time : 14:32:35
+// Creation time : 14:39:41
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.4 64-bit
@@ -48,7 +48,7 @@ module SysCtrl_SS_0 #(
     input  logic                        obi_gnt,
     input  logic                        obi_gntpar,
     input  logic         [31:0]         obi_rdata,
-    input  logic         [1:0]          obi_rid,
+    input  logic                        obi_rid,
     input  logic                        obi_rvalid,
     input  logic                        obi_rvalidpar,
     output logic         [31:0]         obi_addr,
@@ -403,7 +403,7 @@ module SysCtrl_SS_0 #(
     wire [31:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_rdata;
     wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_req;
     wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_reqpar;
-    wire [1:0] sysctrl_obi_xbar_obi_chip_top_to_OBI_rid;
+    wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_rid;
     wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_rready;
     wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_rreadypar;
     wire       sysctrl_obi_xbar_obi_chip_top_to_OBI_ruser;
@@ -1276,7 +1276,7 @@ module SysCtrl_SS_0 #(
     assign sysctrl_obi_xbar_top_rdata = sysctrl_obi_xbar_obi_chip_top_to_OBI_rdata;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_req = sysctrl_obi_xbar_top_req;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_reqpar = sysctrl_obi_xbar_top_reqpar;
-    assign sysctrl_obi_xbar_top_rid = sysctrl_obi_xbar_obi_chip_top_to_OBI_rid[0];
+    assign sysctrl_obi_xbar_top_rid = sysctrl_obi_xbar_obi_chip_top_to_OBI_rid;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rready = sysctrl_obi_xbar_top_rready;
     assign sysctrl_obi_xbar_obi_chip_top_to_OBI_rreadypar = sysctrl_obi_xbar_top_rreadypar;
     assign sysctrl_obi_xbar_top_rvalid = sysctrl_obi_xbar_obi_chip_top_to_OBI_rvalid;

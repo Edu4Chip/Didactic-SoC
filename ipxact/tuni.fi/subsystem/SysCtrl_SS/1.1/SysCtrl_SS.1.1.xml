@@ -1873,7 +1873,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>uuid_e75e8f45_e47f_4724_8fdb_0aa15b6ab0d4</ipxact:left>
+							<ipxact:left>uuid_e75e8f45_e47f_4724_8fdb_0aa15b6ab0d4-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>

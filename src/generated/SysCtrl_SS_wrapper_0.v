@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 12.05.2025
-// Creation time : 14:32:35
+// Creation time : 14:39:41
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.4 64-bit
@@ -206,7 +206,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [31:0] SysCtrl_SS_OBI_to_OBI_rdata;
     wire       SysCtrl_SS_OBI_to_OBI_req;
     wire       SysCtrl_SS_OBI_to_OBI_reqpar;
-    wire [1:0] SysCtrl_SS_OBI_to_OBI_rid;
+    wire       SysCtrl_SS_OBI_to_OBI_rid;
     wire       SysCtrl_SS_OBI_to_OBI_rready;
     wire       SysCtrl_SS_OBI_to_OBI_rreadypar;
     wire       SysCtrl_SS_OBI_to_OBI_ruser;
@@ -268,7 +268,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [31:0] SysCtrl_SS_obi_rdata;
     wire       SysCtrl_SS_obi_req;
     wire       SysCtrl_SS_obi_reqpar;
-    wire [1:0] SysCtrl_SS_obi_rid;
+    wire       SysCtrl_SS_obi_rid;
     wire       SysCtrl_SS_obi_rready;
     wire       SysCtrl_SS_obi_rreadypar;
     wire       SysCtrl_SS_obi_ruser;
@@ -351,7 +351,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_OBI_to_OBI_rdata = obi_rdata;
     assign obi_req = SysCtrl_SS_OBI_to_OBI_req;
     assign obi_reqpar = SysCtrl_SS_OBI_to_OBI_reqpar;
-    assign SysCtrl_SS_OBI_to_OBI_rid[0] = obi_rid;
+    assign SysCtrl_SS_OBI_to_OBI_rid = obi_rid;
     assign obi_rready = SysCtrl_SS_OBI_to_OBI_rready;
     assign obi_rreadypar = SysCtrl_SS_OBI_to_OBI_rreadypar;
     assign SysCtrl_SS_OBI_to_OBI_rvalid = obi_rvalid;
