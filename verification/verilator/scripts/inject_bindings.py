@@ -9,52 +9,340 @@
 ## Remove injected bindings
 
 `python3 inject_bindings.py undo`
+
+## Print status
+
+`python3 inject_bindings.py status`
 """
 
 import os
-import re
+import pickle
 import shutil
 import argparse
-from pprint import pprint
+from string import Template
+from typing import Dict, List, Optional, Any
 from pathlib import Path
 
 import pyparsing as pp
-from colorama import Fore, Style
+from colorama import Fore
 
+from print import print
+from parser import parse_file, print_modules
+from bindings import PATH_HDL_BINDINGS, ProjectLvlBindings
 
-def solve_backup_mapping(directory):
-    # Solve which originals exist
-    backup_mapping = dict()
-    for path in list(directory.iterdir()):
-        if path.suffix == ".bak":
+TEMPLATE_MS = Template("""\
+// injected by ${path_script}
+`ifdef VERILATOR
+  ${content}
+`endif
+""")
+
+TEMPLATE_NMS = Template("""\
+// injected by ${path_script}
+`ifdef VERILATOR
+  ${content}
+`endif
+""")
+
+TEMPLATE_MODULE = Template("""\
+${nms_content}
+module ${module_name} ${module_parameter_list} ${module_port_list};
+${ms_content}
+${module_body}
+endmodule
+""")
+
+PATH_SCRIPT = f"{__file__}"
+
+def get_original_paths(directory: Path) -> List[Path]:
+    return list(filter(lambda p: p.suffix != ".bak", directory.iterdir()))
+
+def get_backup_paths(directory: Path) -> List[Path]:
+    return list(filter(lambda p: p.suffix == ".bak", directory.iterdir()))
+
+def flatten_nested_list(raw_list: List[List[Any] | str]) -> List[str]:
+    new_list = list()
+    for item in raw_list:
+        if isinstance(item, str):
+            new_list.append(item)
+        elif isinstance(item, list):
+            joined = flatten_nested_list(item)
+            new_list.extend(joined)
+        else:
+            raise Exception(f"unsupported item type: {item}")
+    return new_list
+
+def solve_backup_mapping(directory: Path) -> Dict[Path, Optional[Path]]:
+    result: Dict[Path, Optional[Path]] = dict()
+    originals = get_original_paths(directory)
+    backups = get_backup_paths(directory)
+    for original in originals:
+        backup = Path(str(original) + ".bak")
+        if backup in backups:
+            result[original] = backup
+        else:
+            result[original] = None
+    return result
+
+def solve_orphaned_backups(directory: Path) -> List[Path]:
+    result = list()
+    originals = get_original_paths(directory)
+    backups = get_backup_paths(directory)
+    for backup in backups:
+        expected_original = backup.with_suffix("")
+        if expected_original in originals:
             pass
         else:
-            backup_mapping[path] = None
-    # Solve which originals are backupped and which backups are orphans
-    orphaned_backups = list()
-    for path in list(directory.iterdir()):
-        if path.suffix == ".bak":
-            original = path.with_suffix("")
-            backup = path
-            if original in backup_mapping.keys():
-                backup_mapping[original] = backup
-            else:
-                orphaned_backups.append(backup)
-        else:
-            pass
-    # Solve which originals are not backupped
-    orphaned_originals = list()
+            result.append(backup)
+    return result
+
+def solve_orphaned_originals(directory: Path) -> List[Path]:
+    result = list()
+    backup_mapping = solve_backup_mapping(directory)
     for original, backup in backup_mapping.items():
         if backup is None:
-            orphaned_originals.append(original)
+            result.append(original)
         else:
             pass
-    return backup_mapping, orphaned_backups, orphaned_originals
+    return result
 
+def print_status(directory: Path, level=0):
+    backup_mapping = solve_backup_mapping(directory)
+    has_backupped_originals = False
+    for original, backup in backup_mapping.items():
+        if backup is None:
+            pass
+        else:
+            has_backupped_originals = True
+            break
+    if has_backupped_originals:
+        print(f"originals with backups:", indent=level, color=Fore.GREEN)
+        for original, backup in backup_mapping.items():
+            if backup is None:
+                # Handled later
+                pass
+            else:
+                print(f"    {original}", indent=level+1, color=Fore.GREEN)
+                print(f"<-> {backup}", indent=level+1, color=Fore.GREEN)
+    
+    orphaned_originals = solve_orphaned_originals(directory)
+    if 0 < len(orphaned_originals):
+        # This is concerning
+        print(f"found {len(orphaned_originals)} originals without backups:", indent=level, color=Fore.YELLOW)
+        for oo in orphaned_originals:
+            print(f"{oo}", indent=level+1, color=Fore.YELLOW)
+    
+    orphaned_backups = solve_orphaned_backups(directory)
+    if 0 < len(orphaned_backups):
+        # This should never happen
+        print(f"found {len(orphaned_backups)} orphaned backups:", indent=level, color=Fore.RED)
+        for ob in orphaned_backups:
+            print(f"{ob}", indent=level+1, color=Fore.RED)
+
+def replace_original_with_backup(original: Path, backup: Path):
+    shutil.copy2(backup, original)
+    os.remove(backup)
+
+def try_replace_original_with_backup(original: Path, backup: Optional[Path], level=0) -> bool:
+    if backup is None:
+        print(f"file has no backup:", indent=level, color=Fore.YELLOW)
+        print(f" - {original}", indent=level, color=Fore.YELLOW)
+        return False
+    else:
+        print(f"{original}", indent=level, color=Fore.GREEN)
+        print(f" <- {backup}", indent=level, color=Fore.GREEN)
+        replace_original_with_backup(original, backup)
+        return True
+
+def inject(path: Path, plb: ProjectLvlBindings, level=0):
+    print(f"injecting {path}", indent=level)
+    if path not in plb.keys():
+        print(f"path not found in project-level bindings", indent=level+1, color=Fore.RED)
+        return
+
+    # Execute injection
+    file_level_result_generator = parse_file(path)
+    if file_level_result_generator is None:
+        print(f"failed to parse file, injection failed", indent=level+1, color=Fore.RED)
+        return
+
+    file_level_result = list(file_level_result_generator)
+
+    # One file must contain only 1 file-level match
+    match len(file_level_result):
+        case 1:
+            # Success
+            file_level_match, _, _ = file_level_result[0]
+        case other:
+            print(f"found {other} file-level matches, injection failed", indent=level+1, color=Fore.RED)
+            return
+
+    # Print which modules were detected
+    print_modules(file_level_match, level=level+1)
+
+    # Execute actual injection
+    print(f"executing injection", indent=level+1)
+    modified_elements = list()
+    for element in file_level_match:
+        assert isinstance(element, pp.ParseResults)
+        element_type = element.get_name()
+        if element_type is None:
+            continue
+        match element_type:
+            case "module":
+                element_dict = element.as_dict()
+                element_list = element.as_list()
+
+                module_name = element_dict["module_name"]
+                
+                module_parameter_list = element_dict.get("module_parameter_list", "")
+                
+                # Can not use dict because all except one port are removed
+                #module_port_list = element_dict.get("module_port_list", "")
+                module_port_list = ""
+                for sub_element in element:
+                    if isinstance(sub_element, pp.ParseResults) and sub_element.get_name() == "module_port_list":
+                        module_port_list_list = sub_element
+                        # Remove surrounding braces
+                        _ = module_port_list_list.pop(0)
+                        _ = module_port_list_list.pop(-1)
+                        # Join separate port definitions
+                        new_module_port_list = list()
+                        for port in module_port_list_list:
+                            new_port = " ".join(port)
+                            new_module_port_list.append(new_port)
+                        # Combine port definitions into a port list
+                        module_port_list = ",\n".join(new_module_port_list)
+                        module_port_list = "(" + module_port_list + ")"
+
+                module_body = element_dict["module_body"][0]
+
+                if isinstance(module_parameter_list, list):
+                    module_parameter_list = " ".join(module_parameter_list)
+                if isinstance(module_port_list, list):
+                    # Remove surrounding braces
+                    _ = module_port_list.pop(0)
+                    _ = module_port_list.pop(-1)
+                    # Join separate port definitions
+                    new_module_port_list = list()
+                    for port in module_port_list:
+                        new_port = " ".join(port)
+                        new_module_port_list.append(new_port)
+                    # Combine port definitions into a port list
+                    module_port_list = ",\n".join(new_module_port_list)
+                    module_port_list = "(" + module_port_list + ")"
+
+                ms_content = None
+                nms_content = None
+                if module_name in plb[path].keys():
+                    ms_content = plb[path][module_name]["ms"]
+                    ms_content = TEMPLATE_MS.substitute(
+                        path_script = PATH_SCRIPT,
+                        content = ms_content
+                    )
+                    nms_content = plb[path][module_name]["nms"]
+                    nms_content = TEMPLATE_NMS.substitute(
+                        path_script = PATH_SCRIPT,
+                        content = nms_content,
+                    )
+                else:
+                    print(f"did not found module {module_name} from project-level bindings", indent=level+3, color=Fore.RED)
+
+                # Rebuild module
+                element_str = TEMPLATE_MODULE.substitute(
+                    nms_content = nms_content,
+                    module_name = module_name,
+                    module_parameter_list = module_parameter_list,
+                    module_port_list = module_port_list,
+                    ms_content = ms_content,
+                    module_body = module_body,
+                )
+            case _:
+                # Filter lists of empty strings
+                element_list = list(element)
+                element_list = list(filter(None, element_list))
+                element_str = " ".join(element_list)
+        modified_elements.append(element_str)
+    elements_str = "".join(modified_elements)
+    
+    # Write modified data back
+    with path.open("w") as stream:
+        stream.write(elements_str)
+
+def try_to_find_project_level_bindings(level=0) -> Optional[ProjectLvlBindings]:
+    if PATH_HDL_BINDINGS.exists():
+        print(f"found project-level bindings from path:", indent=level, color=Fore.GREEN)
+        print(f" - {PATH_HDL_BINDINGS}", indent=level, color=Fore.GREEN)
+        with PATH_HDL_BINDINGS.open("rb") as stream:
+            plb = pickle.load(stream)
+        return plb
+    else:
+        print(f"did not find project-level bindings, injection failed:", indent=level, color=Fore.RED)
+        print(f" - {PATH_HDL_BINDINGS}", indent=level, color=Fore.RED)
+        return None
+
+def execute_do(directory: Path, level=0):
+    # Check that project-level bindings even exist
+    maybe_plb = try_to_find_project_level_bindings(level)
+    if maybe_plb is None:
+        return
+    else:
+        plb = maybe_plb
+    
+    # Replace originals with backups
+    print(f"replacing original files with backups:", indent=level)
+    backup_mapping = solve_backup_mapping(directory)
+    for original, backup in backup_mapping.items():
+        if try_replace_original_with_backup(original, backup, level=level+1):
+            backup_mapping[original] = None
+        else:
+            # Fine if backup was not created before
+            pass
+    
+    # Check that no original has backups
+    backup_mapping = solve_backup_mapping(directory)
+    for original, backup in backup_mapping.items():
+        if backup is None:
+            pass
+        else:
+            # This branch should never execute
+            raise Exception(f"original {original} still has backup after replacement")
+
+    # Create backups from originals
+    print(f"creating backups from originals:", indent=level)
+    orphaned_originals = solve_orphaned_originals(directory)
+    if 0 < len(orphaned_originals):
+        print(f"found {len(orphaned_originals)} originals without backups:", indent=level, color=Fore.GREEN)
+        for oo in orphaned_originals:
+            backup = Path(str(oo) + ".bak")
+            print(f"   {oo}", indent=level+1, color=Fore.GREEN)
+            print(f"-> {backup}", indent=level+1, color=Fore.GREEN)
+            shutil.copy2(oo, backup)
+    else:
+        print(f"found {len(orphaned_originals)} originals without backups", indent=level, color=Fore.YELLOW)
+    
+    # Execute injections to originals which are backupped
+    print(f"injecting originals", indent=level)
+    backup_mapping = solve_backup_mapping(directory)
+    for original, backup in backup_mapping.items():
+        if backup is None:
+            print(f"path is not backupped, injection could not be done:", indent=level+1, color=Fore.RED)
+            print(f" - {original}", indent=level+1, color=Fore.RED)
+        else:
+            inject(original, plb, level=level+1)
+
+def execute_undo(directory: Path, level=0):
+    backup_mapping = solve_backup_mapping(directory)
+    
+    # Replace originals with backups
+    print(f"replacing original files with backups:", indent=level)
+    for original, backup in backup_mapping.items():
+        _ = try_replace_original_with_backup(original, backup, level=level+1)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["do", "undo"])
+    parser.add_argument("action", choices=["do", "undo", "status", "inject"])
+    parser.add_argument("--path", type=Path)
     arguments = vars(parser.parse_args())
     
     directories_str = [
@@ -63,132 +351,41 @@ if __name__ == "__main__":
         "./src/rtl",
     ]
     directories = list(map(lambda d: Path(d).resolve(), directories_str))
-    for directory in directories:
-        print(f"{directory}")
-        backup_mapping, orphaned_backups, orphaned_originals = solve_backup_mapping(directory)
-        if 0 < len(orphaned_originals):
-            print(Fore.RED + f"  found {len(orphaned_originals)} originals without backups:" + Style.RESET_ALL)
-            for oo in orphaned_originals:
-                print(Fore.RED + f"    {oo}" + Style.RESET_ALL)
-        if 0 < len(orphaned_backups):
-            print(Fore.RED + f"  found {len(orphaned_backups)} orphaned backups:" + Style.RESET_ALL)
-            for ob in orphaned_backups:
-                print(Fore.RED + f"    {ob}" + Style.RESET_ALL)
-        if arguments["action"] == "do":
-            # Replace originals with backups
-            print(f"  replacing original files with backups:")
-            for original, backup in backup_mapping.items():
-                if backup is None:
-                    pass
-                else:
-                    # Replace original with backup
-                    print(Fore.GREEN + f"    {original}" + Style.RESET_ALL)
-                    print(Fore.GREEN + f" <- {backup}" + Style.RESET_ALL)
-                    shutil.copy2(backup, original)
-                    # Remove backup
-                    os.remove(backup)
-                    backup_mapping[original] = None
-            # Create backups from originals
-            print(f"  creating backups from originals:")
-            orphaned_originals = list()
-            for original, backup in backup_mapping.items():
-                if backup is None:
-                    orphaned_originals.append(original)
-                else:
-                    pass
-            if 0 < len(orphaned_originals):
-                print(Fore.GREEN + f"  found {len(orphaned_originals)} originals without backups:" + Style.RESET_ALL)
-                for oo in orphaned_originals:
-                    backup = Path(str(oo) + ".bak")
-                    print(Fore.GREEN + f"    {oo}" + Style.RESET_ALL)
-                    print(Fore.GREEN + f" -> {backup}" + Style.RESET_ALL)
-                    shutil.copy2(oo, backup)
-            else:
-                print(Fore.YELLOW + f"  found {len(orphaned_originals)} originals without backups" + Style.RESET_ALL)
-            # Execute injections to originals which are backupped
-            print(f"  injecting originals")
-            backup_mapping, _, _ = solve_backup_mapping(directory)
-            for original, backup in backup_mapping.items():
-                if backup is None:
-                    print(Fore.RED + f"  path is not backupped, injection could not be done:" + Style.RESET_ALL)
-                    print(Fore.RED + f"  - {original}" + Style.RESET_ALL)
-                else:
-                    # Can we find injection material for the original?
-                    original_relative = original.relative_to(Path.cwd())
-                    root_ms = Path.cwd() / Path("verification/verilator/src/hdl/ms")
-                    root_nms = Path.cwd() / Path("verification/verilator/src/hdl/nms")
-                    material_ms = root_ms / original_relative
-                    material_nms = root_nms / original_relative
-                    ms_exists = material_ms.exists()
-                    if not ms_exists:
-                        print(Fore.YELLOW + f"    module specific injection material not found for original:" + Style.RESET_ALL)
-                        print(Fore.YELLOW + f"     - {original}" + Style.RESET_ALL)
-                        # Create missing path
-                        material_ms.parent.mkdir(parents=True, exist_ok=True)
-                        material_ms.touch(exist_ok=False)
-                        print(Fore.RED + f"    created new path to module specific injection material:" + Style.RESET_ALL)
-                        print(Fore.RED + f"     - {material_ms}" + Style.RESET_ALL)
-                        print(Fore.RED + f"    rerun this script" + Style.RESET_ALL)
-                    nms_exists = material_nms.exists()
-                    if not nms_exists:
-                        print(Fore.YELLOW + f"    non-module specific injection material not found for original:" + Style.RESET_ALL)
-                        print(Fore.YELLOW + f"     - {original}" + Style.RESET_ALL)
-                        # Create missing path
-                        material_nms.parent.mkdir(parents=True, exist_ok=True)
-                        material_nms.touch(exist_ok=False)
-                        print(Fore.RED + f"    created new path to non-module specific injection material:" + Style.RESET_ALL)
-                        print(Fore.RED + f"     - {material_nms}" + Style.RESET_ALL)
-                        print(Fore.RED + f"    rerun this script" + Style.RESET_ALL)
-                    with original.open("r") as stream:
-                        data = stream.read()
-                    parser = \
-                        pp.SkipTo("module") \
-                        + "module" \
-                        + pp.Word(pp.alphanums + "_").set_results_name("module name") \
-                        + pp.Opt("#(" + pp.SkipTo(")") + ")") \
-                        + pp.Opt("(" + pp.SkipTo(")", ignore=pp.cppStyleComment) + ")" + ";") \
-                        + pp.SkipTo("endmodule") \
-                        + "endmodule"
-                    result = parser.scan_string(data)
-                    scans = list(result)
-                    if len(scans) == 0:
-                        print(Fore.RED + f"    no scans found for {original}" + Style.RESET_ALL)
-                    elif len(scans) == 1:
-                        scan = scans[0]
-                        scan = scan[0]
-                        scan = list(scan)
-                        # Inject before module
-                        if ms_exists:
-                            material_ms_relative = material_ms.relative_to(Path.cwd())
-                            index_module = scan.index("module")
-                            scan.insert(index_module, f"// injected by {__file__}\n`ifdef VERILATOR\n  `include \"{material_ms_relative}\"\n`endif\n")
-                        # Inject before endmodule
-                        if nms_exists:
-                            material_nms_relative = material_nms.relative_to(Path.cwd())
-                            index_endmodule = scan.index("endmodule")
-                            scan.insert(index_endmodule, f"// injected by {__file__}\n`ifdef VERILATOR\n  `include \"{material_nms_relative}\"\n`endif\n")
-                        #pprint(scan)
-                        # Write modified data back to original
-                        text = " ".join(scan)
-                        #print(text)
-                        with original.open("w") as stream:
-                            stream.write(text)
-                    else:
-                        print(Fore.RED + f"    multiple scans found for {original}" + Style.RESET_ALL)
-        elif arguments["action"] == "undo":
-            # Replace originals with backups
-            print(f"  replacing original files with backups:")
-            for original, backup in backup_mapping.items():
-                if backup is None:
-                    pass
-                else:
-                    # Replace original with backup
-                    print(Fore.GREEN + f"    {original}" + Style.RESET_ALL)
-                    print(Fore.GREEN + f" <- {backup}" + Style.RESET_ALL)
-                    shutil.copy2(backup, original)
-                    # Remove backup
-                    os.remove(backup)
-                    backup_mapping[original] = None
+    
+    action = arguments["action"]
+    if action == "do":
+        for directory in directories:
+            print(f"{directory}")
+            print_status(directory, level=1)
+            execute_do(directory, level=1)
+    elif action == "undo":
+        for directory in directories:
+            print(f"{directory}")
+            print_status(directory, level=1)
+            execute_undo(directory, level=1)
+    elif action == "status":
+        for directory in directories:
+            print(f"{directory}")
+            print_status(directory, level=1)
+    elif action == "inject":
+        # Check that project-level bindings even exist
+        maybe_plb = try_to_find_project_level_bindings(level=0)
+        if maybe_plb is None:
+            pass
         else:
-            # This branch should never execute
-            raise Exception(f"unknown action: {arguments["action"]}")
+            plb = maybe_plb
+            maybe_path = arguments.get("path")
+            if maybe_path is None:
+                print(f"argument --path must be a valid path", color=Fore.RED)
+            else:
+                path = maybe_path
+                assert isinstance(path, Path)
+                if path.exists():
+                    path = path.resolve()
+                    print(f"{path}")
+                    inject(path, plb, level=1)
+                else:
+                    print(f"given path does not exist: {path}", color=Fore.RED)
+    else:
+        # This branch should never execute
+        raise Exception(f"unknown action: {arguments["action"]}")
