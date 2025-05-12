@@ -627,23 +627,6 @@
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>PSTRB_0</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>in</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>3</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:parameters>

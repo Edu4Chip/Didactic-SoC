@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 12.05.2025
-// Creation time : 13:54:28
+// Creation time : 14:32:35
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.4 64-bit
@@ -18,9 +18,9 @@ module SysCtrl_SS_wrapper_0 #(
     parameter                              IOCELL_COUNT     = 25,
     parameter                              IOCELL_CFGW      = 5,
     parameter                              NUM_SS           = 5,
+    parameter                              OBI_IDW          = 1,
     parameter                              OBI_CHKW         = 1,
-    parameter                              OBI_USERW        = 1,
-    parameter                              OBI_IDW          = 1
+    parameter                              OBI_USERW        = 1
 ) (
     // Interface: Clock
     inout  logic                        clock,
@@ -49,7 +49,7 @@ module SysCtrl_SS_wrapper_0 #(
     input  logic                        obi_gnt,
     input  logic                        obi_gntpar,
     input  logic         [31:0]         obi_rdata,
-    input  logic         [1:0]          obi_rid,
+    input  logic                        obi_rid,
     input  logic                        obi_rvalid,
     input  logic                        obi_rvalidpar,
     output logic         [31:0]         obi_addr,
@@ -351,7 +351,7 @@ module SysCtrl_SS_wrapper_0 #(
     assign SysCtrl_SS_OBI_to_OBI_rdata = obi_rdata;
     assign obi_req = SysCtrl_SS_OBI_to_OBI_req;
     assign obi_reqpar = SysCtrl_SS_OBI_to_OBI_reqpar;
-    assign SysCtrl_SS_OBI_to_OBI_rid = obi_rid;
+    assign SysCtrl_SS_OBI_to_OBI_rid[0] = obi_rid;
     assign obi_rready = SysCtrl_SS_OBI_to_OBI_rready;
     assign obi_rreadypar = SysCtrl_SS_OBI_to_OBI_rreadypar;
     assign SysCtrl_SS_OBI_to_OBI_rvalid = obi_rvalid;

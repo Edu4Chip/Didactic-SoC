@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : imt_wrapper_0.v
 // Creation date : 12.05.2025
-// Creation time : 13:54:28
+// Creation time : 14:32:35
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.4 64-bit
@@ -44,10 +44,7 @@ module imt_wrapper_0 #(
     // Interface: pmod_gpio
     input  logic         [15:0]         pmod_gpi,
     output logic         [15:0]         pmod_gpio_oe,
-    output logic         [15:0]         pmod_gpo,
-
-    // These ports are not in any interface
-    input  logic         [3:0]          PSTRB_0
+    output logic         [15:0]         pmod_gpo
 );
 
     // ss_cg_clk_in_to_Clock wires:

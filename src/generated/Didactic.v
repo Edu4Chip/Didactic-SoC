@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
 // Creation date : 12.05.2025
-// Creation time : 13:54:28
+// Creation time : 14:32:35
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -144,7 +144,7 @@ module Didactic #(
     wire [31:0] SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rdata;
     wire       SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_req;
     wire       SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_reqpar;
-    wire [1:0] SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rid;
+    wire       SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rid;
     wire       SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rready;
     wire       SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rreadypar;
     wire       SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_ruser;
@@ -227,7 +227,7 @@ module Didactic #(
     wire [31:0] SystemControl_SS_obi_rdata;
     wire       SystemControl_SS_obi_req;
     wire       SystemControl_SS_obi_reqpar;
-    wire [1:0] SystemControl_SS_obi_rid;
+    wire       SystemControl_SS_obi_rid;
     wire       SystemControl_SS_obi_rready;
     wire       SystemControl_SS_obi_rreadypar;
     wire       SystemControl_SS_obi_ruser;
@@ -609,7 +609,7 @@ module Didactic #(
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rdata = i_obi_icn_ss_obi_rdata;
     assign i_obi_icn_ss_obi_req = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_req;
     assign i_obi_icn_ss_obi_reqpar = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_reqpar;
-    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rid[0] = i_obi_icn_ss_obi_rid;
+    assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rid = i_obi_icn_ss_obi_rid;
     assign i_obi_icn_ss_obi_rready = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rready;
     assign i_obi_icn_ss_obi_rreadypar = SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rreadypar;
     assign SystemControl_SS_OBI_to_i_obi_icn_ss_OBI_rvalid = i_obi_icn_ss_obi_rvalid;
@@ -646,7 +646,8 @@ module Didactic #(
         .NUM_GPIO            (16),
         .IOCELL_COUNT        (25),
         .IOCELL_CFGW         (5),
-        .NUM_SS              (5))
+        .NUM_SS              (5),
+        .OBI_IDW             (1))
     SystemControl_SS(
         // Interface: Clock
         .clock               (clk_in),
@@ -822,9 +823,7 @@ module Didactic #(
         // Interface: pmod_gpio
         .pmod_gpi            (i_imt_ss_wrapper_pmod_gpi),
         .pmod_gpio_oe        (i_imt_ss_wrapper_pmod_gpio_oe),
-        .pmod_gpo            (i_imt_ss_wrapper_pmod_gpo),
-        // These ports are not in any interface
-        .PSTRB_0             ());
+        .pmod_gpo            (i_imt_ss_wrapper_pmod_gpo));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:kth_wrapper:1.0
     kth_wrapper_0 #(

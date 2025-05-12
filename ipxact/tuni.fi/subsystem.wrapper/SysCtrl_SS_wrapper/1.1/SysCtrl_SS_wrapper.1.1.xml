@@ -1641,7 +1641,7 @@
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>0</ipxact:left>
+							<ipxact:left>uuid_fa5201da_ac16_4ded_8372_0a9584042bad-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -1927,7 +1927,7 @@
 					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>1</ipxact:left>
+							<ipxact:left>uuid_fa5201da_ac16_4ded_8372_0a9584042bad-1</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
@@ -2391,6 +2391,10 @@
 		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_a512a41d_9afb_4165_9556_4f5b6b9d5b8a" resolve="user">
 			<ipxact:name>NUM_SS</ipxact:name>
 			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_fa5201da_ac16_4ded_8372_0a9584042bad" resolve="user">
+			<ipxact:name>OBI_IDW</ipxact:name>
+			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
