@@ -106,3 +106,4 @@ set_property -dict {PACKAGE_PIN N16 IOSTANDARD LVCMOS33} [get_ports {ana_core_ou
 # digital header
 set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[0]}]
 set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[1]}]
+

@@ -389,6 +389,14 @@ module sysctrl_obi_xbar #(
       .default_idx_i    ('0)
   );
 
+  // obi xbar is passing through only minimal signals with default so tieoff rready
+  for (genvar i=0; i<TARGETS;i++) begin : tieoff_optionals
+    assign target_bus[i].rready    = 1'b1;
+    assign target_bus[i].rreadypar = 1'b0;
+    assign target_bus_cut[i].rready    = 1'b1;
+    assign target_bus_cut[i].rreadypar = 1'b0;
+  end
+
   // Interface: obi_imem
   assign target_bus_cut[0].err = imem_err;
 //  assign target_bus_cut[0].exokay = imem_exokay;
