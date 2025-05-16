@@ -6,13 +6,13 @@ Import `parse_file` from this file and use it to parse given Path-object
 
 # How to test?
 
-`python3 parser.py <file.v>`
+`python3 parser.py parse <file>`
 
-`python3 test_parser.py`
+`python3 parser.py print --modules --ports <files>`
 """
 
 import argparse
-from typing import Generator, Tuple, Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any
 from pathlib import Path
 
 import pyparsing as pp
@@ -23,33 +23,68 @@ from print import print
 EXCEPTIONS_STR: List[str] = [
     # Why this file fails is currently unknown
     "src/rtl/ibex_wrapper.sv",
+    # Name collision at sw level
+    "src/reuse/sp_sram.sv",
+    "src/rtl/sp_sram.sv",
 ]
 EXCEPTIONS = list(map(lambda p: Path(p).resolve(), EXCEPTIONS_STR))
 
-# TODO: rename into file_lvl_results or similar
-ParserResult = Generator[Tuple[pp.ParseResults, int, int]]
-
-def print_modules(results: pp.ParseResults, level=0):
-    modules = list()
-    for element in results:
-        assert isinstance(element, pp.ParseResults)
-        element_type = element.get_name()
-        if element_type is None:
-            print(f"found element without name", indent=level, color=Fore.RED)
-        else:
-            if element_type == "module":
-                module_name = element[1]
-                modules.append(module_name)
-            else:
+class ParsedModule:
+    def __init__(self, module: pp.ParseResults):
+        self.module = module
+        module_list = self.module.as_list()
+        module_kw = module_list[0]
+        self.name = module_list[1]
+        self.parameter_list = None
+        self.port_list = None
+        module_separator = self.module[-3]
+        self.body = self.module[-2]
+        endmodule_kw = self.module[-1]
+        match len(module_list):
+            case 5:
+                # No parameters or ports
                 pass
-    if len(modules) == 0:
-        print(f"found 0 modules", indent=level, color=Fore.RED)
-    else:
-        print(f"found {len(modules)} modules:", indent=level, color=Fore.GREEN)
-        for module_name in modules:
-            print(f"{module_name}", indent=level+1, color=Fore.GREEN)
+            case 6:
+                # Either parameters or ports
+                if "module_parameter_list" in self.module.as_dict().keys():
+                    self.parameter_list = self.module[2]
+                elif "module_port_list" in self.module.as_dict().keys():
+                    self.port_list = self.module[2]
+                else:
+                    raise Exception(f"module with 6 elements do not contain parameters or ports")
+            case 7:
+                # Both parameters and ports
+                self.parameter_list = self.module[2]
+                self.port_list = self.module[3]
+            case other:
+                raise Exception(f"module has unsupported amount of elements: {other}")
 
-def parse_string(data: str) -> ParserResult:
+    def ports(self) -> Optional[List[str]]:
+        if self.port_list is None:
+            return None
+        ports_str = list()
+        for port in self.port_list:
+            port_str = " ".join(port)
+            ports_str.append(port_str)
+        return ports_str
+
+class ParserResult:
+    def __init__(self, file_level_match: pp.ParseResults):
+        self.file_level_match = file_level_match
+    
+    def modules(self) -> List[ParsedModule]:
+        modules = list()
+        for element in self.file_level_match:
+            assert isinstance(element, pp.ParseResults)
+            if element.get_name() == "module":
+                module = ParsedModule(element)
+                modules.append(module)
+        return modules
+
+    def print(self):
+        self.file_level_match.pprint()
+
+def parse_string(data: str, level=0) -> Optional[ParserResult]:
     # Syntax for common elements
     stx_identifier = pp.Word(
         pp.alphas,
@@ -99,9 +134,9 @@ def parse_string(data: str) -> ParserResult:
     stx_port = pp.Group(stx_port) \
         .set_results_name("port")
     stx_module_port_list = pp.Group(
-        pp.Literal("(") +
+        pp.Literal("(").suppress() +
         pp.DelimitedList(stx_port, ",") +
-        pp.Literal(")")
+        pp.Literal(")").suppress()
     ).set_results_name("module_port_list")
     
     # Syntax for module
@@ -128,85 +163,53 @@ def parse_string(data: str) -> ParserResult:
     ).set_results_name("other")
     stx_file = pp.OneOrMore(stx_other + stx_module)
 
-    return stx_file.scan_string(data)
+    match_generator = stx_file.scan_string(data)
+    match_list = list(match_generator)
 
-def parse_file(path: Path) -> Optional[ParserResult]:
+    if len(match_list) != 1:
+        print(f"found {len(match_list)} file-level matches, expected one", indent=level)
+        return None
+    file_level_match, _, _ = match_list[0]
+    return ParserResult(file_level_match)
+
+def parse_file(path: Path, level=0) -> Optional[ParserResult]:
     path = path.resolve()
     if path in EXCEPTIONS:
-        print(f"file is exceptional, could not parse automatically:", color=Fore.RED)
-        print(f" - {path}", color=Fore.RED)
+        print(f"exceptional file, could not parse", indent=level, color=Fore.RED)
         return None
-    else:
-        with path.open("r") as stream:
-            data = stream.read()
-        return parse_string(data)
+    with path.open("r") as stream:
+        data = stream.read()
+    return parse_string(data)
 
 def execute_parse(arguments: Dict[str, Any]):
     path = arguments["path"]
-    file_level_matches_generator = parse_file(path)
-    if file_level_matches_generator is None:
+    result = parse_file(path)
+    if result is None:
         print(f"failed to parse {path}", color=Fore.RED)
-        exit(-1)
-    file_level_matches = list(file_level_matches_generator)
-    # Expect 1 file-level match
-    if len(file_level_matches) != 1:
-        print(f"found {len(file_level_matches)} file-level matches", color=Fore.RED)
-    for (file_level_match, _, _) in file_level_matches:
-        file_level_match.pprint()
+        return
+    result.print()
 
 def execute_print(arguments: Dict[str, Any]):
     paths = arguments["paths"]
     for path in paths:
         print(f"{path}", indent=0)
-        file_level_matches_generator = parse_file(path)
-        if file_level_matches_generator is None:
-            print(f"failed to parse {path}", color=Fore.RED)
+        result = parse_file(path, level=1)
+        if result is None:
+            print(f"could not parse", color=Fore.RED, indent=1)
             continue
-        file_level_matches = list(file_level_matches_generator)
-        # Expect 1 file-level match
-        if len(file_level_matches) != 1:
-            print(f"found {len(file_level_matches)} file-level matches", color=Fore.RED)
-            continue
-        file_level_match, _, _ = file_level_matches[0]
-        for element in file_level_match:
-            assert isinstance(element, pp.ParseResults)
-            match element.get_name():
-                case "module":
-                    element_list = element.as_list()
-                    element_dict = element.as_dict()
-                    if arguments["modules"]:
-                        module_name = element_dict["module_name"]
-                        print(f"{module_name}", indent=1)
-                    if arguments["parameters"]:
-                        raise NotImplementedError
-                    if arguments["ports"]:
-                        module_port_list = None
-                        match len(element_list):
-                            case 5:
-                                # No parameters or ports
-                                pass
-                            case 6:
-                                # Either parameters or ports
-                                if "module_port_list" in element_dict.keys():
-                                    module_port_list = element_list[2]
-                            case 7:
-                                # Both parameters and ports
-                                module_port_list = element_list[3]
-                            case other:
-                                raise Exception(f"unsupported element list length: {other}")
-                        if module_port_list is None:
-                            print(f"no ports", indent=2)
+        for module in result.modules():
+            if arguments["modules"]:
+                print(f"{module.name}", indent=1)
+            if arguments["parameters"]:
+                raise NotImplementedError
+            if arguments["ports"]:
+                ports = module.ports()
+                if ports is not None:
+                    for port in ports:
+                        if arguments["modules"]:
+                            print(port, indent=2)
                         else:
-                            _ = module_port_list.pop(0)
-                            _ = module_port_list.pop(-1)
-                            for i in range(len(module_port_list)):
-                                module_port_list[i] = " ".join(module_port_list[i])
-                            for port in module_port_list:
-                                print(f"{port}", indent=2)
-                case "other":
-                    pass
-                case other:
-                    raise Exception(f"unknown element type: {other}")
+                            print(port, indent=1)
 
 if __name__ == "__main__":
     # Parse program arguments
@@ -226,12 +229,11 @@ if __name__ == "__main__":
     )
     parser_print.add_argument("paths", type=Path, nargs="+")
     parser_print.add_argument("--modules", action="store_true")
-    parser_print.add_argument("--parameters", action="store_true")
+    # parser_print.add_argument("--parameters", action="store_true")
     parser_print.add_argument("--ports", action="store_true")
     arguments = vars(parser.parse_args())
     
-    action = arguments["action"]
-    match action:
+    match arguments["action"]:
         case "parse":
             execute_parse(arguments)
         case "print":

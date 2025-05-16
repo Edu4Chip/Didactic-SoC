@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional
 from pathlib import Path
 
 # File-level bindings
@@ -6,7 +6,7 @@ from pathlib import Path
 # 1. module
 # 2. type (nms, ms, sw)
 # Value: generated bindings
-FileLvlBindings = Dict[str, Dict[str, str]]
+FileLvlBindings = Dict[str, Dict[str, Optional[str]]]
 
 # Project-level bindings
 # Keys:
@@ -14,6 +14,6 @@ FileLvlBindings = Dict[str, Dict[str, str]]
 # 2. module
 # 3. type (nms, ms, sw)
 # Value: generated bindings
-ProjectLvlBindings = Dict[Path, FileLvlBindings]
+ProjectLvlBindings = Dict[Path, Optional[FileLvlBindings]]
 
 PATH_HDL_BINDINGS = Path("./verification/verilator/hdl_bindings.pickle").resolve()
