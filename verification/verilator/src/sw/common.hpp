@@ -26,28 +26,7 @@
 // ===========================================
 
 // Generated DPI bindings
-#include "../verification/verilator/src/generated/sw/AX4LITE_APB_converter_wrapper.cpp"
-#include "../verification/verilator/src/generated/sw/Didactic.cpp"
-#include "../verification/verilator/src/generated/sw/ICN_SS.cpp"
-#include "../verification/verilator/src/generated/sw/SS_Ctrl_reg_array.cpp"
-#include "../verification/verilator/src/generated/sw/Student_SS_0_0.cpp"
-#include "../verification/verilator/src/generated/sw/Student_SS_1_0.cpp"
-#include "../verification/verilator/src/generated/sw/Student_SS_2.cpp"
-#include "../verification/verilator/src/generated/sw/Student_SS_2_0.cpp"
-#include "../verification/verilator/src/generated/sw/Student_SS_3.cpp"
-#include "../verification/verilator/src/generated/sw/Student_SS_3_0.cpp"
-#include "../verification/verilator/src/generated/sw/Student_area_0.cpp"
-#include "../verification/verilator/src/generated/sw/SysCtrl_SS_0.cpp"
-#include "../verification/verilator/src/generated/sw/SysCtrl_SS_wrapper_0.cpp"
-#include "../verification/verilator/src/generated/sw/SysCtrl_peripherals_0.cpp"
-#include "../verification/verilator/src/generated/sw/SysCtrl_xbar.cpp"
-#include "../verification/verilator/src/generated/sw/ibex_axi_bridge.cpp"
-#include "../verification/verilator/src/generated/sw/io_cell_frame_sysctrl.cpp"
-#include "../verification/verilator/src/generated/sw/jtag_dbg_wrapper.cpp"
-#include "../verification/verilator/src/generated/sw/mem_axi_bridge.cpp"
-#include "../verification/verilator/src/generated/sw/pmod_mux.cpp"
-#include "../verification/verilator/src/generated/sw/sp_sram.cpp"
-#include "../verification/verilator/src/generated/sw/student_ss_1.cpp"
+#include "../verification/verilator/src/generated/includes.cpp"
 
 // Key: path to the module, value: clock cycles recorded by the module
 std::map<std::string, unsigned int> CYCLE_COUNTS;
