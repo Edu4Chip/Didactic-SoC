@@ -15,5 +15,3 @@ FileLvlBindings = Dict[str, Dict[str, Optional[str]]]
 # 3. type (nms, ms, sw)
 # Value: generated bindings
 ProjectLvlBindings = Dict[Path, Optional[FileLvlBindings]]
-
-PATH_HDL_BINDINGS = Path("./verification/verilator/hdl_bindings.pickle").resolve()

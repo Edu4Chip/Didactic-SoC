@@ -33,7 +33,7 @@ from colorama import Fore
 
 from print import print
 from parser import parse_file
-from bindings import PATH_HDL_BINDINGS, FileLvlBindings, ProjectLvlBindings
+from bindings import FileLvlBindings, ProjectLvlBindings
 
 CLOCK_SIGNAL_NAMES: Dict[str, Dict[str, Optional[str]]] = {
     "src/generated/analog_wrapper_0.v": {
@@ -362,14 +362,15 @@ def generate_file_level_bindings(path: Path, level=0) -> Optional[FileLvlBinding
 def execute_bindings(arguments: Dict[str, Any]):
     files = arguments["files"]
     files = list(map(lambda p: p.resolve(), files))
+    path_hdl_bindings = arguments["output_hdl"]
     plb: ProjectLvlBindings = dict()
     for file in files:
         flb = generate_file_level_bindings(file, level=0)
         plb[file] = flb
     # Write bindings to pickle-file
-    with PATH_HDL_BINDINGS.open("wb") as stream:
+    with path_hdl_bindings.open("wb") as stream:
         pickle.dump(plb, stream)
-    print(f"wrote project-level bindings to path {PATH_HDL_BINDINGS}")
+    print(f"wrote project-level bindings to path {path_hdl_bindings}")
     print(f"creating files for software bindings and an include file with correct paths")
     include_paths: List[Path] = list()
     for path in plb.keys():
@@ -402,10 +403,11 @@ def execute_bindings(arguments: Dict[str, Any]):
     print(f"wrote software bindings include file to path {PATH_SW_INCLUDES}")
 
 def execute_print(arguments: Dict[str, Any]):
-    if not PATH_HDL_BINDINGS.exists():
+    path_hdl_bindings = arguments["hdl_bindings"]
+    if not path_hdl_bindings.exists():
         print(f"bindings do not exist", color=Fore.RED)
         return
-    with PATH_HDL_BINDINGS.open("rb") as stream:
+    with path_hdl_bindings.open("rb") as stream:
         plb = pickle.load(stream)
     for path in plb.keys():
         print(path)
@@ -420,11 +422,13 @@ if __name__ == "__main__":
         "bindings",
         help="generate hdl and sw bindings"
     )
+    parser_bindings.add_argument("--output-hdl", type=Path, required=True)
     parser_bindings.add_argument("files", type=Path, nargs="+")
     parser_print = subparsers.add_parser(
         "print",
         help="print generated bindings",
     )
+    parser_print.add_argument("hdl-bindings", type=Path)
     arguments = vars(parser.parse_args())
 
     match arguments["action"]:
