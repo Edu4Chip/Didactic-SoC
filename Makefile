@@ -89,17 +89,34 @@ fpga: check-env
 ######################################################################
 
 executable ?= ""
+files = \
+	./src/generated/*.*v \
+	./src/reuse/*.*v \
+	./src/rtl/*.*v
+hdl_bindings = ./verification/verilator/hdl_bindings.pickle
+
+# backup hdl files
+.PHONY: verilator-backup-hdls
+verilator-backup-hdls:
+	./verification/verilator/scripts/backups.py backup ${files} 
+
+# restore backupped hdl files
+.PHONY: verilator-restore-hdls
+verilator-restore-hdls:
+	./verification/verilator/scripts/backups.py restore ${files}
 
 # generate hdl and sw bindings
 .PHONY: verilator-generate-bindings
 verilator-generate-bindings:
-	python3 ./verification/verilator/scripts/inject_bindings.py undo
-	python3 ./verification/verilator/scripts/generate_bindings.py generate
+	make verilator-restore-hdls
+	./verification/verilator/scripts/generate.py bindings --output-hdl ${hdl_bindings} ${files}
 
 # inject hdl bindings to hdl files
 .PHONY: verilator-inject-bindings
 verilator-inject-bindings:
-	python3 ./verification/verilator/scripts/inject_bindings.py do
+	make verilator-restore-hdls
+	make verilator-backup-hdls
+	./verification/verilator/scripts/inject.py --input-hdl ${hdl_bindings} ${files}
 
 # generate sw model for hw
 .PHONY: verilator-generate-model
