@@ -59,6 +59,16 @@ class ParsedModule:
             case other:
                 raise Exception(f"module has unsupported amount of elements: {other}")
 
+    def parameters(self) -> Optional[List[str]]:
+        if self.parameter_list is None:
+            return None
+        parameters_str = list()
+        for parameter in self.parameter_list:
+            parameter_str = parameter.split()
+            parameter_str = " ".join(parameter_str)
+            parameters_str.append(parameter_str)
+        return parameters_str
+
     def ports(self) -> Optional[List[str]]:
         if self.port_list is None:
             return None
@@ -71,18 +81,41 @@ class ParsedModule:
 class ParserResult:
     def __init__(self, file_level_match: pp.ParseResults):
         self.file_level_match = file_level_match
-    
-    def modules(self) -> List[ParsedModule]:
-        modules = list()
-        for element in self.file_level_match:
-            assert isinstance(element, pp.ParseResults)
-            if element.get_name() == "module":
-                module = ParsedModule(element)
-                modules.append(module)
-        return modules
 
     def print(self):
         self.file_level_match.pprint()
+
+    def elements(self) -> List[str | ParsedModule]:
+        # Iterate through all elements and classify them properly
+        elements: List[str | ParsedModule] = list()
+        for element in self.file_level_match:
+            assert isinstance(element, pp.ParseResults)
+            match element.get_name():
+                case "module":
+                    module = ParsedModule(element)
+                    elements.append(module)
+                case "other":
+                    # Filter empty strings
+                    element_list = element.as_list()
+                    element_list = list(filter(None, element_list))
+                    element_str = " ".join(element_list)
+                    if element_str:
+                        elements.append(element_str)
+                    else:
+                        # No need to propagate empty string
+                        pass
+                case other:
+                    raise Exception(f"element with unknown name: {other}")
+        return elements
+
+    def modules(self) -> List[ParsedModule]:
+        elements = self.elements()
+        modules = list()
+        for element in elements:
+            if isinstance(element, ParsedModule):
+                modules.append(element)
+        return modules
+
 
 def parse_string(data: str, level=0) -> Optional[ParserResult]:
     # Syntax for common elements
@@ -101,9 +134,9 @@ def parse_string(data: str, level=0) -> Optional[ParserResult]:
 
     # Syntax for module parameters
     stx_module_parameter_list = pp.Group(
-        pp.Literal("#(") +
+        pp.Literal("#(").suppress() +
         pp.SkipTo(")") +
-        pp.Literal(")")
+        pp.Literal(")").suppress()
     ).set_results_name("module_parameter_list")
     
     # Syntax for module ports

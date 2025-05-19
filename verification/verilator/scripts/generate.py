@@ -6,18 +6,13 @@
 
 ## Generate and write bindings to file
 
-`python3 generate_bindings.py generate`
-
-## Write out software bindings to files
-
-`python3 generate_bindings.py write_sw`
+`./bindings.py bindings --output-hdl <hdl-bindings.pickle> <file(s)>`
 
 ## Print which paths and modules were detected and written to the output file
 
-`python3 generate_bindings.py print`
+`./generate.py print <hdl-bindings.pickle>`
 """
 
-# TODO: docstring
 # TODO: sw level bindings can have name collisions...
 # TODO: now insert ms and nms content from verification/verilator/src/hdl/...
 # TODO: this should also contain cycle counters
