@@ -11,7 +11,7 @@
 import pickle
 import argparse
 from string import Template
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Any
 from pathlib import Path
 
 from colorama import Fore
@@ -120,18 +120,6 @@ def inject(plb: ProjectLvlBindings, path: Path, level=0) -> bool:
     with path.open("w") as stream:
         stream.write(elements_str)
     return True
-
-def try_to_find_project_level_bindings(level=0) -> Optional[ProjectLvlBindings]:
-    if PATH_HDL_BINDINGS.exists():
-        print(f"found project-level bindings from path:", indent=level, color=Fore.GREEN)
-        print(f" - {PATH_HDL_BINDINGS}", indent=level, color=Fore.GREEN)
-        with PATH_HDL_BINDINGS.open("rb") as stream:
-            plb = pickle.load(stream)
-        return plb
-    else:
-        print(f"did not find project-level bindings, injection failed:", indent=level, color=Fore.RED)
-        print(f" - {PATH_HDL_BINDINGS}", indent=level, color=Fore.RED)
-        return None
 
 def execute_inject(arguments: Dict[str, Any]):
     path_hdl_bindings = arguments["input_hdl"]
