@@ -13,12 +13,12 @@
 
 void dtu_reset_enable() {
   volatile uint32_t mask = RST_CTRL;
-  RST_CTRL = (mask | 2u<<2);
+  RST_CTRL = (mask & (~(2u<<2)));
 }
 
 void dtu_reset_disable() {
   volatile uint32_t mask = RST_CTRL;
-  RST_CTRL = (mask & (~(2u<<2)));
+  RST_CTRL = (mask | 2u<<2);
 }
 
 void dtu_clock_enable() {
@@ -31,28 +31,37 @@ void dtu_clock_disable() {
   SS2_CTRL = (mask & (~1u));
 }
 
-void leros_reset_enable() {
+void setSysCtrlBits(uint32_t bit) {
   volatile int * sysCtrl = (int *) (0x01052C00);
   volatile uint32_t mask = *sysCtrl;
-  *sysCtrl = (mask | 0x1u);
+  *sysCtrl = (mask | (1 << bit));
+}
+
+void clearSysCtrlBits(uint32_t bit) {
+  volatile int * sysCtrl = (int *) (0x01052C00);
+  volatile uint32_t mask = *sysCtrl;
+  *sysCtrl = (mask & (~(1 << bit)));
+}
+
+void leros_reset_enable() {
+  setSysCtrlBits(0);
 }
 
 void leros_reset_disable() {
-  volatile int * sysCtrl = (int *) (0x01052C00);
-  volatile uint32_t mask = *sysCtrl;
-   *sysCtrl = (mask & (~0x1u));
+  clearSysCtrlBits(0);
+}
+
+void leros_reset() {
+  leros_reset_enable();
+  leros_reset_disable();
 }
 
 void leros_boot_from_rom() {
-  volatile int * sysCtrl = (int *) (0x01052C00);
-  volatile uint32_t mask = *sysCtrl;
-   *sysCtrl = (mask & (~0x2u));
+  clearSysCtrlBits(1);
 }
 
 void leros_boot_from_ram() {
-  volatile int * sysCtrl = (int *) (0x01052C00);
-  volatile uint32_t mask = *sysCtrl;
-  *sysCtrl = (mask | 0x2u);
+  setSysCtrlBits(1);
 }
 
 void dtu_init() {

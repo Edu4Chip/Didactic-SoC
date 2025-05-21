@@ -83,15 +83,9 @@ module dtu_ss(
     .io_irq(irq_2),
     .io_irqEn(irq_en_2),
     .io_ssCtrl(ss_ctrl_2),
-    .io_pmod_0_gpi(pmod_gpi[3:0]),
-    .io_pmod_0_gpo(pmod_gpo[3:0]),
-    .io_pmod_0_oe(pmod_gpio_oe[3:0]),
-    .io_pmod_1_gpi(pmod_gpi[7:4]),
-    .io_pmod_1_gpo(pmod_gpo[7:4]),
-    .io_pmod_1_oe(pmod_gpio_oe[7:4])
+    .io_gpio_in(pmod_gpi),
+    .io_gpio_out(pmod_gpo),
+    .io_gpio_outputEnable(pmod_gpio_oe)
   );
-
-  assign pmod_gpo[15:8] = 'h0;
-  assign pmod_gpio_oe[15:8] = 'h0;
 
 endmodule
