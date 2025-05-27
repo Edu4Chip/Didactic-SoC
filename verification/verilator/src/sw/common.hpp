@@ -32,15 +32,20 @@
 std::map<std::string, unsigned int> CYCLE_COUNTS;
 
 // Add module to the cycle counter
-void register_module(const char* path_c) {
+void register_module(const char* path_c, const char* module_c) {
   std::string path(path_c);
-  CYCLE_COUNTS[path] = 0;
+  std::string module_name(module_c);
+  std::string path_to_module = path + ":" + module_name;
+  std::cout << "registering" << " " << path_to_module << std::endl;
+  CYCLE_COUNTS[path_to_module] = 0;
 }
 
 // Increment module clock cycle count in the cycle counter
-void increment_cycle_count(const char* path_c) {
+void increment_cycle_count(const char* path_c, const char* module_c) {
   std::string path(path_c);
-  CYCLE_COUNTS[path] += 1;
+  std::string module_name(module_c);
+  std::string path_to_module = path + ":" + module_name;
+  CYCLE_COUNTS[path_to_module] += 1;
 }
 
 struct SignalPropagationFailure {
