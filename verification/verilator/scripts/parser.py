@@ -159,7 +159,7 @@ def parse_string(data: str, level=0) -> Optional[ParserResult]:
         pp.Keyword("inout")
     )
     stx_port = (
-        stx_direction +
+        pp.Opt(stx_direction) +
         pp.Opt(stx_net_type) +
         pp.Opt(stx_range) +
         stx_identifier
