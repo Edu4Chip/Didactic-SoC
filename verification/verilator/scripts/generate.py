@@ -10,14 +10,17 @@
 
 ## Print which paths and modules were detected and written to the output file
 
-`./generate.py print <hdl-bindings.pickle>`
+`./generate.py print --print-modules <hdl-bindings.pickle>`
+
+## Print generated sw bindings for selected module, e.g. Didactic
+
+`./generate.py print --print-modules --print-sw <hdl-bindings.pickle> Dida*`
 """
 
 # TODO: sw level bindings can have name collisions...
-# TODO: now insert ms and nms content from verification/verilator/src/hdl/...
-# TODO: this should also contain cycle counters
 
 import pickle
+import fnmatch
 import argparse
 from string import Template
 from typing import List, Dict, Optional, Any
@@ -189,6 +192,7 @@ CLOCK_SIGNAL_NAMES: Dict[str, Dict[str, Optional[str]]] = {
 
 TEMPLATE_NMS_SIGNAL = Template("    int unsigned ${signal_name};")
 TEMPLATE_NMS = Template("""\
+`include "verification/verilator/src/hdl/common.v"
 // generated from ${path_script}
 typedef struct packed {
 ${signals}
@@ -198,11 +202,21 @@ import "DPI-C" function void track_${module_name}(
     input string name,
     input ${struct_name} status
 );
+${content_from_fs}
 """)
 
 TEMPLATE_MS_SIGNAL_ASSIGNMENT = Template("    status.${signal_name} = ${signal_name};")
 TEMPLATE_MS_WITH_CLOCK_SIGNAL = Template("""\
 // generated from ${path_script}
+//`INCREMENT_CYCLE_COUNT(${clock_signal_name})
+import "DPI-C" function void register_module(input string path, input string modulename);
+import "DPI-C" function void increment_cycle_count(input string path, input string modulename);
+initial begin
+    register_module("${path_file}", "${module_name}");
+end
+always @ (posedge ${clock_signal_name}) begin
+    increment_cycle_count("${path_file}", "${module_name}");
+end                                    
 always @ (posedge ${clock_signal_name}) begin
     string name;
     ${struct_name} status;
@@ -210,9 +224,11 @@ ${signal_assignments}
     $$sformat(name, "%m");
     track_${module_name}($$realtime, name, status);
 end
+${content_from_fs}
 """)
 TEMPLATE_MS_WITHOUT_CLOCK_SIGNAL = Template("""\
 // generated from ${path_script}
+${content_from_fs}
 """)
 
 TEMPLATE_SW_STRUCT_SIGNAL = Template(
@@ -250,9 +266,50 @@ PATH_SCRIPT = Path(__file__)
 PATH_GENERATED = Path("./verification/verilator/src/generated").resolve()
 PATH_SW_INCLUDES = PATH_GENERATED / Path("includes.cpp")
 
-def generate_file_level_bindings(path: Path, level=0) -> Optional[FileLvlBindings]:
+def check_root_directory(root_directory: Optional[Path], level=0) -> Optional[Path]:
+    if root_directory is None:
+        print(f"root directory not provided", indent=level, color=Fore.YELLOW)
+        return None
+    root_directory = root_directory.resolve()
+    if not root_directory.exists():
+        print(f"root directory does not exist: {root_directory}", indent=level, color=Fore.RED)
+        return None
+    if not root_directory.is_dir():
+        print(f"root directory must be a directory: {root_directory}", indent=level, color=Fore.RED)
+        return None
+    return root_directory
+
+def try_to_read_content(path: Path, level=0) -> Optional[str]:
+    if not path.exists():
+        print(f"path to filesystem content does not exist: {path}", indent=level, color=Fore.RED)
+        return None
+    if not path.is_file():
+        print(f"path to filesystem content must be a file: {path}", indent=level, color=Fore.RED)
+        return None
+    with path.open("r") as stream:
+        content = stream.read()
+    return content
+
+def try_read_ms_content_from_filesystem(root_directory: Optional[Path], target_path: Path, module: str, level=0) -> Optional[str]:
+    root_directory = check_root_directory(root_directory)
+    if root_directory is None:
+        return None
+    path_to_content = root_directory / target_path.relative_to(Path.cwd()) / Path(module)
+    path_to_content = path_to_content.with_suffix(".v")
+    content = try_to_read_content(path_to_content, level=level)
+    return content
+
+def try_read_nms_content_from_filesystem(root_directory: Optional[Path], target_path: Path, level=0) -> Optional[str]:
+    root_directory = check_root_directory(root_directory, level=level)
+    if root_directory is None:
+        return None
+    path_to_content = root_directory / target_path.relative_to(Path.cwd())
+    content = try_to_read_content(path_to_content, level=level)
+    return content
+
+def generate_file_level_bindings(path: Path, input_hdl_ms: Optional[Path], input_hdl_nms: Optional[Path], level=0) -> Optional[FileLvlBindings]:
     print(f"{path}", indent=level)
-    result = parse_file(path)
+    result = parse_file(path, level=level+1)
     if result is None:
         print(f"could not generate bindings", indent=level+1, color=Fore.RED)
         return None
@@ -284,9 +341,11 @@ def generate_file_level_bindings(path: Path, level=0) -> Optional[FileLvlBinding
                     port_name = port[-1]
                     port_names.append(port_name)
 
-        # TODO: add content from filesystem?
-
         # Generate non-module-specific content
+        nms_from_fs = try_read_nms_content_from_filesystem(input_hdl_nms, path, level=level+1)
+        if nms_from_fs is None:
+            print(f"could not load non-module-specific content from filesystem", indent=level+1, color=Fore.YELLOW)
+            nms_from_fs = ""
         signals = list()
         for port_name in port_names:
             signal = TEMPLATE_NMS_SIGNAL.substitute(signal_name=port_name)
@@ -296,10 +355,15 @@ def generate_file_level_bindings(path: Path, level=0) -> Optional[FileLvlBinding
             signals="\n".join(signals),
             struct_name=struct_name,
             module_name=module.name,
+            content_from_fs=nms_from_fs,
         )
         flb[module.name]["nms"] = nms
         
         # Generate module-specific content
+        ms_from_fs = try_read_ms_content_from_filesystem(input_hdl_ms, path, module.name, level=level+1)
+        if ms_from_fs is None:
+            print(f"could not load module-specific content from filesystem", indent=level+1, color=Fore.YELLOW)
+            ms_from_fs = ""
         if clock_signal_name:
             signal_assignments = list()
             for port_name in port_names:
@@ -313,11 +377,14 @@ def generate_file_level_bindings(path: Path, level=0) -> Optional[FileLvlBinding
                 struct_name=struct_name,
                 signal_assignments="\n".join(signal_assignments),
                 module_name=module.name,
+                content_from_fs=ms_from_fs,
+                path_file=str(path),
             )
         else:
             print(f"module {module.name} does not have a clock signal", indent=level+1, color=Fore.YELLOW)
             ms = TEMPLATE_MS_WITHOUT_CLOCK_SIGNAL.substitute(
                 path_script=PATH_SCRIPT,
+                content_from_fs=ms_from_fs,
             )
         flb[module.name]["ms"] = ms
 
@@ -357,10 +424,12 @@ def generate_file_level_bindings(path: Path, level=0) -> Optional[FileLvlBinding
 def execute_bindings(arguments: Dict[str, Any]):
     files = arguments["files"]
     files = list(map(lambda p: p.resolve(), files))
+    path_input_hdl_ms = arguments.get("input_hdl_ms")
+    path_input_hdl_nms = arguments.get("input_hdl_nms")
     path_hdl_bindings = arguments["output_hdl"]
     plb: ProjectLvlBindings = dict()
     for file in files:
-        flb = generate_file_level_bindings(file, level=0)
+        flb = generate_file_level_bindings(file, path_input_hdl_ms, path_input_hdl_nms, level=0)
         plb[file] = flb
     # Write bindings to pickle-file
     with path_hdl_bindings.open("wb") as stream:
@@ -398,17 +467,42 @@ def execute_bindings(arguments: Dict[str, Any]):
     print(f"wrote software bindings include file to path {PATH_SW_INCLUDES}")
 
 def execute_print(arguments: Dict[str, Any]):
-    path_hdl_bindings = arguments["hdl_bindings"]
+    path_hdl_bindings = arguments["hdl-bindings"]
+    module_matchers = arguments.get("modules", None)
+    if isinstance(module_matchers, list):
+        if len(module_matchers) == 0:
+            module_matchers = None
     if not path_hdl_bindings.exists():
         print(f"bindings do not exist", color=Fore.RED)
         return
     with path_hdl_bindings.open("rb") as stream:
         plb = pickle.load(stream)
     for path in plb.keys():
-        print(path)
-        for module in plb[path].keys():
-            print(module, indent=1)
-            # Skip printing ms, nms and sw content
+        flb = plb[path]
+        if flb is None:
+            print(f"{path}", color=Fore.YELLOW)
+            continue
+        for module in flb.keys():
+            skip = False
+            if module_matchers is not None:
+                skip = True
+                for module_matcher in module_matchers:
+                    if fnmatch.fnmatch(module, module_matcher):
+                        skip = False
+                        break
+            if skip:
+                continue
+            if arguments["print_modules"]:
+                print(f"{path}:{module}")
+            mlb = flb[module]
+            if mlb is None:
+                continue
+            if arguments["print_ms"]:
+                print(f"{mlb["ms"]}")
+            if arguments["print_nms"]:
+                print(f"{mlb["nms"]}")
+            if arguments["print_sw"]:
+                print(f"{mlb["sw"]}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -417,13 +511,20 @@ if __name__ == "__main__":
         "bindings",
         help="generate hdl and sw bindings"
     )
+    parser_bindings.add_argument("--input-hdl-ms", type=Path)
+    parser_bindings.add_argument("--input-hdl-nms", type=Path)
     parser_bindings.add_argument("--output-hdl", type=Path, required=True)
     parser_bindings.add_argument("files", type=Path, nargs="+")
     parser_print = subparsers.add_parser(
         "print",
         help="print generated bindings",
     )
+    parser_print.add_argument("--print-modules", action="store_true")
+    parser_print.add_argument("--print-ms", action="store_true")
+    parser_print.add_argument("--print-nms", action="store_true")
+    parser_print.add_argument("--print-sw", action="store_true")
     parser_print.add_argument("hdl-bindings", type=Path)
+    parser_print.add_argument("modules", type=str, nargs="*")
     arguments = vars(parser.parse_args())
 
     match arguments["action"]:
