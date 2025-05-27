@@ -200,7 +200,7 @@ def parse_string(data: str, level=0) -> Optional[ParserResult]:
     match_list = list(match_generator)
 
     if len(match_list) != 1:
-        print(f"found {len(match_list)} file-level matches, expected one", indent=level)
+        print(f"found {len(match_list)} file-level matches, expected one", indent=level, color=Fore.RED)
         return None
     file_level_match, _, _ = match_list[0]
     return ParserResult(file_level_match)
@@ -212,7 +212,7 @@ def parse_file(path: Path, level=0) -> Optional[ParserResult]:
         return None
     with path.open("r") as stream:
         data = stream.read()
-    return parse_string(data)
+    return parse_string(data, level=level)
 
 def execute_parse(arguments: Dict[str, Any]):
     path = arguments["path"]
