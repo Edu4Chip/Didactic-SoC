@@ -93,7 +93,9 @@ files = \
 	./src/generated/*.*v \
 	./src/reuse/*.*v \
 	./src/rtl/*.*v
-hdl_bindings = ./verification/verilator/hdl_bindings.pickle
+hdl_bindings_ms = ./verification/verilator/src/hdl/ms
+hdl_bindings_nms = ./verification/verilator/src/hdl/nms
+hdl_bindings_pickle = ./verification/verilator/hdl_bindings.pickle
 
 # backup hdl files
 .PHONY: verilator-backup-hdls
@@ -109,14 +111,19 @@ verilator-restore-hdls:
 .PHONY: verilator-generate-bindings
 verilator-generate-bindings:
 	make verilator-restore-hdls
-	./verification/verilator/scripts/generate.py bindings --output-hdl ${hdl_bindings} ${files}
+	./verification/verilator/scripts/generate.py \
+		bindings \
+		--input-hdl-ms ${hdl_bindings_ms} \
+		--input-hdl-nms ${hdl_bindings_nms} \
+		--output-hdl ${hdl_bindings_pickle} \
+		${files}
 
 # inject hdl bindings to hdl files
 .PHONY: verilator-inject-bindings
 verilator-inject-bindings:
 	make verilator-restore-hdls
 	make verilator-backup-hdls
-	./verification/verilator/scripts/inject.py --input-hdl ${hdl_bindings} ${files}
+	./verification/verilator/scripts/inject.py --input-hdl ${hdl_bindings_pickle} ${files}
 
 # generate sw model for hw
 .PHONY: verilator-generate-model
