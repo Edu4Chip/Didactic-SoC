@@ -128,7 +128,7 @@ verilator-inject-bindings:
 # generate sw model for hw
 .PHONY: verilator-generate-model
 verilator-generate-model:
-	./verification/verilator/scripts/run.sh $(executable)
+	./verification/verilator/scripts/verilate.py verilate $(executable)
 
 # build sw model with sw testbench
 .PHONY: verilator-build
