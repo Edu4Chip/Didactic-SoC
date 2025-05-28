@@ -99,7 +99,7 @@ def execute_json(arguments: Dict[str, Any], verilator_arguments: List[str]) -> b
 
 def execute_verilate(arguments: Dict[str, Any], verilator_arguments: List[str]) -> bool:
     executable = arguments["executable"]
-    if executable is None:
+    if executable is None or len(executable) == 0:
         executable = "example"
         print(f"executable not given, selecting default: {executable}", color=Fore.YELLOW)
     else:
