@@ -1,0 +1,22 @@
+diff --recursive --unified vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv vendor_ips_new/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv
+--- vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv	2025-05-28 19:27:34.872261800 +0300
++++ vendor_ips_new/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv	2025-05-28 19:38:59.972914189 +0300
+@@ -24,6 +24,7 @@
+ // unchanged. The counter is also protected against under- and overflows.
+ 
+ `include "prim_assert.sv"
++`include "prim_mubi_pkg.sv"
+ 
+ module prim_count
+   import prim_count_pkg::*;
+diff --recursive --unified vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_scr.sv vendor_ips_new/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_scr.sv
+--- vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_scr.sv	2025-05-28 19:27:34.872261800 +0300
++++ vendor_ips_new/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_scr.sv	2025-05-28 19:39:06.640893923 +0300
+@@ -22,6 +22,7 @@
+ // See also: prim_cipher_pkg, prim_prince
+ 
+ `include "prim_assert.sv"
++`include "prim_mubi_pkg.sv"
+ 
+ module prim_ram_1p_scr import prim_ram_1p_pkg::*; #(
+   parameter  int Depth               = 16*1024, // Needs to be a power of 2 if NumAddrScrRounds > 0.
