@@ -1,11 +1,12 @@
 diff --recursive --unified vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv vendor_ips_new/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv
 --- vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv	2025-05-28 19:27:34.872261800 +0300
 +++ vendor_ips_new/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv	2025-05-28 19:38:59.972914189 +0300
-@@ -24,6 +24,7 @@
+@@ -24,6 +24,8 @@
  // unchanged. The counter is also protected against under- and overflows.
  
  `include "prim_assert.sv"
 +`include "prim_mubi_pkg.sv"
++`include "prim_count_pkg.sv"
  
  module prim_count
    import prim_count_pkg::*;
