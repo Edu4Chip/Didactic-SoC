@@ -205,6 +205,22 @@ import "DPI-C" function void track_${module_name}(
 ${content_from_fs}
 """)
 
+# TODO: detect when signal is writable
+# TODO: what output <type> to use?
+# TODO: how to handle possible name collision?
+TEMPLATE_SIGNAL_ACCESSOR = Template("""\
+export "DPI-C" task read_${signal_name};
+task read_${signal_name};
+    output bit out_${signal_name};
+    out_${signal_name} = ${signal_name};
+endtask
+//export "DPI-C" task write_${signal_name};
+//task write_${signal_name};
+//    input bit in_${signal_name};
+//    ${signal_name} = in_${signal_name};
+//endtask
+""")
+
 TEMPLATE_MS_SIGNAL_ASSIGNMENT = Template("    status.${signal_name} = ${signal_name};")
 TEMPLATE_MS_WITH_CLOCK_SIGNAL = Template("""\
 // generated from ${path_script}
@@ -224,10 +240,12 @@ ${signal_assignments}
     $$sformat(name, "%m");
     track_${module_name}($$realtime, name, status);
 end
+${signal_accessors}
 ${content_from_fs}
 """)
 TEMPLATE_MS_WITHOUT_CLOCK_SIGNAL = Template("""\
 // generated from ${path_script}
+${signal_accessors}
 ${content_from_fs}
 """)
 
@@ -364,6 +382,14 @@ def generate_file_level_bindings(path: Path, input_hdl_ms: Optional[Path], input
         if ms_from_fs is None:
             print(f"could not load module-specific content from filesystem", indent=level+1, color=Fore.YELLOW)
             ms_from_fs = ""
+        signal_accessors_list = list()
+        for port_name in port_names:
+            accessor = TEMPLATE_SIGNAL_ACCESSOR.substitute(
+                signal_name=port_name,
+            )
+            signal_accessors_list.append(accessor)
+        signal_accessors = "\n".join(signal_accessors_list)
+
         if clock_signal_name:
             signal_assignments = list()
             for port_name in port_names:
@@ -377,6 +403,7 @@ def generate_file_level_bindings(path: Path, input_hdl_ms: Optional[Path], input
                 struct_name=struct_name,
                 signal_assignments="\n".join(signal_assignments),
                 module_name=module.name,
+                signal_accessors=signal_accessors,
                 content_from_fs=ms_from_fs,
                 path_file=str(path),
             )
@@ -384,6 +411,7 @@ def generate_file_level_bindings(path: Path, input_hdl_ms: Optional[Path], input
             print(f"module {module.name} does not have a clock signal", indent=level+1, color=Fore.YELLOW)
             ms = TEMPLATE_MS_WITHOUT_CLOCK_SIGNAL.substitute(
                 path_script=PATH_SCRIPT,
+                signal_accessors=signal_accessors,
                 content_from_fs=ms_from_fs,
             )
         flb[module.name]["ms"] = ms
