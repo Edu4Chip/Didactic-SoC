@@ -36,7 +36,9 @@ void register_module(const char* path_c, const char* module_c) {
   std::string path(path_c);
   std::string module_name(module_c);
   std::string path_to_module = path + ":" + module_name;
+#ifdef PRINT_REGISTERED_MODULES
   std::cout << "registering" << " " << path_to_module << std::endl;
+#endif
   CYCLE_COUNTS[path_to_module] = 0;
 }
 
