@@ -133,7 +133,7 @@ void task_initialize(const ContextPointer& context, const ModelPointer& model) {
   model->jtag_tdo = 0;
   model->jtag_tms = 0;
   model->jtag_trst = 0;
-  model->reset = 1;
+  model->reset = 0;
   model->spi_csn = 0;
   model->spi_data = 0;
   model->spi_sck = 0;
