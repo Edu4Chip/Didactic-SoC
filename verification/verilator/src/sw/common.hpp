@@ -155,4 +155,51 @@ void task_deassert_reset(const ContextPointer& context, const ModelPointer& mode
   model->reset = 1;
 }
 
+class Simulator {
+public:
+  ContextPointer context;
+  ModelPointer model;
+  TracerPointer tracer;
+  Simulator(int argc, char** argv) {
+    this->context = std::make_unique<Context>();
+    this->context->commandArgs(argc, argv);
+    this->context->debug(1);
+    this->context->randReset(2);
+    this->context->randSeed(12345);
+    this->model = std::make_unique<Model>(this->context.get(), "TOP");
+    this->tracer = nullptr;
+#if VM_TRACE
+    auto flag = Verilated::commandArgsPlusMatch("trace");
+    if (flag && strcmp(flag, "+trace") == 0) {
+      Verilated::traceEverOn(true);
+      this->tracer = std::make_unique<Tracer>();
+      this->model->trace(this->tracer.get(), 99);
+      Verilated::mkdir("logs");
+      this->tracer->open("logs/vlt_dump.vcd");
+    }
+#endif
+  }
+  void record_signals() {
+#if VM_TRACE
+    if (this->tracer) {
+      this->tracer->dump(this->context->time());
+    }
+#endif
+  }
+  void finish_half_cycle() {
+    this->model->eval();
+    this->record_signals();
+    this->context->timeInc(1);
+  }
+  void finish_simulation() {
+    this->record_signals();
+    this->model->final();
+#if VM_TRACE
+    if (this->tracer) {
+      this->tracer->close();
+    }
+#endif
+  }
+};
+
 #endif /* COMMON_H */
