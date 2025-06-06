@@ -163,7 +163,7 @@ public:
   Simulator(int argc, char** argv) {
     this->context = std::make_unique<Context>();
     this->context->commandArgs(argc, argv);
-    this->context->debug(1);
+    this->context->debug(0);
     this->context->randReset(2);
     this->context->randSeed(12345);
     this->model = std::make_unique<Model>(this->context.get(), "TOP");
