@@ -72,7 +72,7 @@ void check_signal_propagation(const char* path, double time, const char* name1, 
   if (value1 != value2) {
     SignalPropagationFailure spf;
     spf.path = path;
-    spf.time = time;
+    spf.time = static_cast<unsigned int>(time);
     spf.name1 = name1;
     spf.name2 = name2;
     spf.value1 = value1;
