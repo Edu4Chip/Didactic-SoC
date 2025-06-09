@@ -14,8 +14,10 @@ jobs:
         python-version: '3.13'
     - name: check environment
       run: |
+        curl --proto '=https' --tlsv1.2 https://pulp-platform.github.io/bender/init -sSf | sh
         verilator --version
         python --version
+        bender --version
         python -m pip install --requirement verification/verilator/requirements.txt
         make verilator-generate-bindings
         make verilator-inject-bindings
