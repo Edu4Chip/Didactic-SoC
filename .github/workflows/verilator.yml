@@ -16,3 +16,4 @@ jobs:
       run: |
         verilator --version
         python --version
+        make verilator-generate-bindings
