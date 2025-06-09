@@ -20,9 +20,7 @@ jobs:
         python --version
         bender --version
         python -m pip install --requirement verification/verilator/requirements.txt
-        cp verification/verilator/bender/Bender.local Bender.local
-        patch Bender.yml verification/verilator/patches/Bender.yml.patch
-        make repository_init
+        make verilator-initialize
         make verilator-generate-bindings
         make verilator-inject-bindings
         make verilator-generate-model
