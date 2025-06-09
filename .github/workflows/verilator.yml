@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test-verilator:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -18,3 +18,6 @@ jobs:
         python --version
         python -m pip install --requirement verification/verilator/requirements.txt
         make verilator-generate-bindings
+        make verilator-inject-bindings
+        make verilator-generate-model
+        make verilator-run
