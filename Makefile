@@ -97,6 +97,13 @@ hdl_bindings_ms = ./verification/verilator/src/hdl/ms
 hdl_bindings_nms = ./verification/verilator/src/hdl/nms
 hdl_bindings_pickle = ./verification/verilator/hdl_bindings.pickle
 
+.PHONY: verilator-initialize
+verilator-initialize:
+	cp verification/verilator/bender/Bender.local Bender.local
+	patch Bender.yml verification/verilator/patches/Bender.yml.patch
+	make repository_init
+	patch -p0 < verification/verilator/patches/vendor_ips.patch
+
 # backup hdl files
 .PHONY: verilator-backup-hdls
 verilator-backup-hdls:
