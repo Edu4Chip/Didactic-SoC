@@ -51,12 +51,16 @@ VERILATOR_SUPPRESSIONS = [
     "-Wno-MULTIDRIVEN",
     # TODO: this error might be important to fix
     "-Wno-BLKANDNBLK",
+    # TODO: following file fails without this option: .bender/git/checkouts/common_cells-3bd5b2d671aaec0e/src/addr_decode_dync.sv
+    "-Wno-STMTDLY",
 ]
 
 # TODO: maybe add explicit clock?
 VERILATOR_OTHER_ARGUMENTS = [
     "--top-module", "Didactic",
     "+define+RVFI",
+    # TODO: following file fails without this option: .bender/git/checkouts/common_cells-3bd5b2d671aaec0e/src/addr_decode_dync.sv
+    "--no-timing",
 ]
 
 def get_files_from_bender() -> Optional[List[str]]:
