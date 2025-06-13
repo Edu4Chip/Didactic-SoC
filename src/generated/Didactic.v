@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
 // Creation date : 13.06.2025
-// Creation time : 13:23:28
+// Creation time : 14:24:42
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -28,6 +28,7 @@ module Didactic #(
 ) (
     // Interface: Clock
     inout  wire                         clk_in,
+    inout  wire                         clk_out,
 
     // Interface: GPIO
     inout  wire          [15:0]         gpio,
@@ -650,7 +651,8 @@ module Didactic #(
         .OBI_IDW             (1))
     SystemControl_SS(
         // Interface: Clock
-        .clock               (clk_in),
+        .clock_in            (clk_in),
+        .clock_out           (clk_out),
         // Interface: Clock_int
         .clk                 (SystemControl_SS_clk),
         // Interface: GPIO

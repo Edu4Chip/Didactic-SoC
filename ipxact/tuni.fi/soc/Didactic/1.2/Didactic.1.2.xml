@@ -14,12 +14,19 @@
 					<ipxact:portMaps>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>clock_in</ipxact:name>
+								<ipxact:name>xtal_in</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
 								<ipxact:name>clk_in</ipxact:name>
 							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>xtal_out</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>clk_out</ipxact:name>
+							</ipxact:physicalPort>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -685,6 +692,17 @@
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>clk_out</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:fileSets>
@@ -729,42 +747,42 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/Didactic.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:23:29 on 13.06.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:24:44 on 13.06.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:23:29 on 13.06.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:24:44 on 13.06.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/dtu_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:23:29 on 13.06.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:24:44 on 13.06.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/kth_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:23:29 on 13.06.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:24:44 on 13.06.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/tum_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:23:29 on 13.06.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:24:44 on 13.06.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/imt_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:23:29 on 13.06.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:24:44 on 13.06.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/analog_wrapper_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:23:29 on 13.06.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:24:44 on 13.06.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 			<ipxact:file>
 				<ipxact:name>../../../../../src/generated/SysCtrl_SS_0.v</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
-				<ipxact:description>Generated at 13:23:29 on 13.06.2025 by Kactus2. </ipxact:description>
+				<ipxact:description>Generated at 14:24:44 on 13.06.2025 by Kactus2. </ipxact:description>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>

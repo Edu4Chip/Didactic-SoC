@@ -14,12 +14,19 @@
 					<ipxact:portMaps>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>clock_in</ipxact:name>
+								<ipxact:name>xtal_in</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>clock</ipxact:name>
+								<ipxact:name>clock_in</ipxact:name>
 							</ipxact:physicalPort>
-							<ipxact:isInformative>false</ipxact:isInformative>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>xtal_out</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>clock_out</ipxact:name>
+							</ipxact:physicalPort>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
@@ -1361,12 +1368,12 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>clock</ipxact:name>
+				<ipxact:name>clock_in</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>inout</ipxact:direction>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
-							<ipxact:typeName>logic</ipxact:typeName>
+							<ipxact:typeName>wire</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
@@ -1916,7 +1923,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -2359,6 +2366,17 @@
 							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>clock_out</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>wire</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 		</ipxact:ports>

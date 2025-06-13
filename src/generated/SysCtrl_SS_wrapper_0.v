@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
 // Creation date : 13.06.2025
-// Creation time : 13:23:29
+// Creation time : 14:24:42
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.5 64-bit
@@ -23,7 +23,8 @@ module SysCtrl_SS_wrapper_0 #(
     parameter                              OBI_USERW        = 1
 ) (
     // Interface: Clock
-    inout  logic                        clock,
+    inout  wire                         clock_in,
+    inout  wire                         clock_out,
 
     // Interface: Clock_int
     output logic                        clk,
@@ -556,7 +557,8 @@ module SysCtrl_SS_wrapper_0 #(
         // Interface: Cfg
         .cell_cfg            (i_io_cell_frame_cell_cfg),
         // Interface: Clock
-        .clk_in              (clock),
+        .clk_in              (clock_in),
+        .clk_out             (clock_out),
         // Interface: Clock_internal
         .clk_internal        (i_io_cell_frame_clk_internal),
         // Interface: GPIO

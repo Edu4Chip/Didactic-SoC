@@ -272,6 +272,7 @@ module tb_didactic();
   )i_didactic (
     // Interface: Clock
     .clk_in(dut_clk),
+    .clk_out(),
     // Interface: GPIO
     .gpio({dut_gpio_15,dut_gpio_14,dut_gpio_13,dut_gpio_12,
            dut_gpio_11,dut_gpio_10,dut_gpio_9,dut_gpio_8,
