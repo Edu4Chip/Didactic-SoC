@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 12.05.2025
-// Creation time : 14:39:41
+// Creation date : 13.06.2025
+// Creation time : 13:23:29
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.4 64-bit
+// Tool : Kactus2 3.13.5 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:SysCtrl_SS_wrapper:1.1
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/SysCtrl_SS_wrapper/1.1/SysCtrl_SS_wrapper.1.1.xml
@@ -16,7 +16,7 @@ module SysCtrl_SS_wrapper_0 #(
     parameter                              SS_CTRL_W        = 8,
     parameter                              NUM_GPIO         = 16,
     parameter                              IOCELL_COUNT     = 25,
-    parameter                              IOCELL_CFGW      = 5,
+    parameter                              IOCELL_CFGW      = 10,
     parameter                              NUM_SS           = 5,
     parameter                              OBI_IDW          = 1,
     parameter                              OBI_CHKW         = 1,
@@ -169,14 +169,14 @@ module SysCtrl_SS_wrapper_0 #(
     // SysCtrl_SS_Reset_ICN_to_Reset_icn wires:
     wire       SysCtrl_SS_Reset_ICN_to_Reset_icn_reset;
     // i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg wires:
-    wire [124:0] i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
+    wire [249:0] i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg_cfg;
     // i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel wires:
     wire [15:0] i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel_gpo;
     // i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO wires:
     wire [15:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpi;
     wire [15:0] i_pmod_mux_gpio_core_to_SysCtrl_SS_GPIO_gpo;
     // SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core wires:
-    wire [124:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
+    wire [249:0] SysCtrl_SS_io_cell_cfg_to_i_pmod_mux_cell_cfg_from_core_cfg;
     // i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal wires:
     wire [15:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpi;
     wire [15:0] i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal_gpo;
@@ -236,7 +236,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire [15:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpo;
 
     // SysCtrl_SS port wires:
-    wire [124:0] SysCtrl_SS_cell_cfg;
+    wire [249:0] SysCtrl_SS_cell_cfg;
     wire       SysCtrl_SS_clk_internal;
     wire [15:0] SysCtrl_SS_gpio_from_core;
     wire [15:0] SysCtrl_SS_gpio_to_core;
@@ -295,7 +295,7 @@ module SysCtrl_SS_wrapper_0 #(
     wire       SysCtrl_SS_uart_rx_internal;
     wire       SysCtrl_SS_uart_tx_internal;
     // i_io_cell_frame port wires:
-    wire [124:0] i_io_cell_frame_cell_cfg;
+    wire [249:0] i_io_cell_frame_cell_cfg;
     wire       i_io_cell_frame_clk_internal;
     wire [15:0] i_io_cell_frame_gpio_from_core;
     wire [15:0] i_io_cell_frame_gpio_to_core;
@@ -313,8 +313,8 @@ module SysCtrl_SS_wrapper_0 #(
     wire       i_io_cell_frame_uart_rx_internal;
     wire       i_io_cell_frame_uart_tx_internal;
     // i_pmod_mux port wires:
-    wire [124:0] i_pmod_mux_cell_cfg_from_core;
-    wire [124:0] i_pmod_mux_cell_cfg_to_io;
+    wire [249:0] i_pmod_mux_cell_cfg_from_core;
+    wire [249:0] i_pmod_mux_cell_cfg_to_io;
     wire [15:0] i_pmod_mux_gpio_from_core;
     wire [15:0] i_pmod_mux_gpio_from_io;
     wire [15:0] i_pmod_mux_gpio_to_core;
@@ -468,7 +468,7 @@ module SysCtrl_SS_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.1
     SysCtrl_SS_0 #(
-        .IOCELL_CFG_W        (5),
+        .IOCELL_CFG_W        (10),
         .IOCELL_COUNT        (25),
         .NUM_GPIO            (16),
         .SS_CTRL_W           (8),
@@ -549,7 +549,7 @@ module SysCtrl_SS_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:subsystem.io:io_cell_frame_sysctrl:1.0
     io_cell_frame_sysctrl #(
-        .IOCELL_CFG_W        (5),
+        .IOCELL_CFG_W        (10),
         .IOCELL_COUNT        (25),
         .NUM_GPIO            (16))
     i_io_cell_frame(
@@ -603,7 +603,7 @@ module SysCtrl_SS_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:ip:pmod_mux:1.0
     pmod_mux #(
-        .IOCELL_CFG_W        (5),
+        .IOCELL_CFG_W        (10),
         .IOCELL_COUNT        (25),
         .NUM_GPIO            (16))
     i_pmod_mux(

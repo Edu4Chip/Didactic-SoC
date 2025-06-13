@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 12.05.2025
-// Creation time : 14:39:41
+// Creation date : 13.06.2025
+// Creation time : 13:23:28
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -11,7 +11,7 @@
 //                 * programmable via JTAG
 //                 
 // Created by    : 
-// Tool : Kactus2 3.13.4 64-bit
+// Tool : Kactus2 3.13.5 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:soc:Didactic:1.2
 // whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/soc/Didactic/1.2/Didactic.1.2.xml
@@ -22,7 +22,7 @@ module Didactic #(
     parameter                              DW               = 32,    // Global SoC data width
     parameter                              SS_CTRL_W        = 8,    // SoC SS control width
     parameter                              NUM_GPIO         = 16,    // SoC GPIO Cell count. Default 16.
-    parameter                              IOCELL_CFG_W     = 5,    // Tech cell control width.
+    parameter                              IOCELL_CFG_W     = 10,    // Tech cell control width.
     parameter                              IOCELL_COUNT     = 25,    // number of configurable io cells in design
     parameter                              NUM_SS           = 5    // number of student systems present in top level.
 ) (
@@ -645,7 +645,7 @@ module Didactic #(
         .SS_CTRL_W           (8),
         .NUM_GPIO            (16),
         .IOCELL_COUNT        (25),
-        .IOCELL_CFGW         (5),
+        .IOCELL_CFGW         (10),
         .NUM_SS              (5),
         .OBI_IDW             (1))
     SystemControl_SS(
