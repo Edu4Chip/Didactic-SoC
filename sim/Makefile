@@ -23,8 +23,7 @@ TB_DEFINES = \
 # Dut defines:
 # * RVFi required by tracer
 # * Synthesis disables verification assertions within
-# pulp / ibex codes. we assume they are working packages,
-# so disabled by default.
+# pulp / ibex codes
 DUT_DEFINES = \
 	+define+RVFI \
 	+define+INC_ASSERT \
@@ -70,7 +69,6 @@ INCLUDES ?= \
 	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/dv/sv/dv_utils \
 	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/ip/prim/rtl \
 	+incdir+$(IBEX_DIR)/rtl
-
 
 env:
 	mkdir -p $(BUILD_DIR)/logs/compile

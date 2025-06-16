@@ -15,7 +15,7 @@
 `define EXIT_FAIL     1
 `define EXIT_ERROR   -1
 
-`define CLK_PERIOD 125ns // 8 MHz generic quarts oscillator?
+`define CLK_PERIOD 83ns // 12 MHz generic quartz oscillator?
 `define FAST_CLK_PERIOD 1ns // fast input
 // fast clk makes sim run very slow, disable it by default
 //`define ACTIVE_FAST_CLK 1
