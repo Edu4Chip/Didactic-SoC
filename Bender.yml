@@ -108,6 +108,7 @@ sources:
     - src/tech_generic/tech_cg.sv
     - src/tech_generic/tech_not.sv
     - src/tech_generic/io_cell.sv
+    - src/tech_generic/analog_clk_cell.sv
     - src/rtl/SS_Ctrl_reg_array.sv
     - src/rtl/pmod_mux.sv
     - src/rtl/Student_area_0.sv
