@@ -107,7 +107,6 @@ sources:
     - src/tech_generic/tech_sync.sv
     - src/tech_generic/tech_cg.sv
     - src/tech_generic/tech_not.sv
-    - src/tech_generic/io_cell.sv
     - src/tech_generic/analog_clk_cell.sv
     - src/rtl/SS_Ctrl_reg_array.sv
     - src/rtl/pmod_mux.sv
@@ -134,6 +133,7 @@ sources:
 
   - target: not(synthesis)
     files:
+    - src/tech_generic/io_cell.sv
     - vendor_ips/pulp/rtl/tb/riscv_pkg.sv
     - vendor_ips/pulp/rtl/vip/uart_tb_rx.sv
     - src/tb/spi/if_spi_slave.sv
