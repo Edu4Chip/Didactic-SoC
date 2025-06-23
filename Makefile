@@ -88,7 +88,7 @@ fpga: check-env
 # verilator targets
 ######################################################################
 
-executable ?= ""
+testcase ?= ""
 files = \
 	./src/generated/*.*v \
 	./src/reuse/*.*v \
@@ -135,7 +135,7 @@ verilator-inject-bindings:
 # generate sw model for hw
 .PHONY: verilator-generate-model
 verilator-generate-model:
-	./verification/verilator/scripts/verilate.py verilate $(executable)
+	./verification/verilator/scripts/verilate.py verilate $(testcase)
 
 # build sw model with sw testbench
 .PHONY: verilator-build

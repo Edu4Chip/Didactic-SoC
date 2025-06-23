@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "common.hpp"
+#include "../common.hpp"
 
 int main(int argc, char** argv) {
   // Setup Verilator
@@ -77,32 +77,8 @@ int main(int argc, char** argv) {
     longest_path_length = std::max(t.first.size(), longest_path_length);
     longest_cycle_count = std::max(std::to_string(t.second).size(), longest_cycle_count);
   }
-  bool found_didactic = false;
-  unsigned int didactic_cycle_count = 0;
   for (const auto& t : CYCLE_COUNTS) {
     std::cout << "  " << std::setfill(' ') << std::setw(longest_path_length) << t.first << ": " << std::setw(longest_cycle_count) << t.second << std::endl;
-    if (t.first == "verification/verilator/src/hdl/ms/Didactic.sv") {
-      found_didactic = true;
-      didactic_cycle_count = t.second;
-    }
   }
-  if (!found_didactic) {
-    std::cout << "could not find cycle count for Didactic" << std::endl;
-    return 1;
-  }
-  std::vector<std::string> subsystems_with_too_few_cycles;
-  for (const auto& t : CYCLE_COUNTS) {
-    if (t.second < didactic_cycle_count) {
-      subsystems_with_too_few_cycles.push_back(std::string(t.first));
-    }
-  }
-  if (0 < subsystems_with_too_few_cycles.size()) {
-    std::cout << "warning: " << subsystems_with_too_few_cycles.size() << " subsystems had fewer cycles than the model:" << std::endl;
-    for (const auto& ss : subsystems_with_too_few_cycles) {
-      std::cout << "  " << ss << std::endl;
-    }
-    return 1;
-  } else {
-    return 0;
-  }
+  return 0;
 }

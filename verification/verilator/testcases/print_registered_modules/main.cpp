@@ -1,5 +1,5 @@
 #define PRINT_REGISTERED_MODULES
-#include "common.hpp"
+#include "../common.hpp"
 
 int main(int argc, char** argv) {
     const auto context = std::make_unique<Context>();
