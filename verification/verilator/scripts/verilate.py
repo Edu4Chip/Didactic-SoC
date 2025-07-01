@@ -16,6 +16,63 @@ from colorama import Fore
 
 from print import print
 
+# FIXME: make bender filelists work
+MANUAL_FILES = [
+    "-I./.bender/git/checkouts/riscv-dbg-0a8f5dd79750e659/src/",
+    "-I./.bender/git/checkouts/riscv-dbg-0a8f5dd79750e659/debug_rom/",
+    "./.bender/git/checkouts/riscv-dbg-0a8f5dd79750e659/src/dm_pkg.sv",
+
+    "-I./.bender/git/checkouts/common_cells-3bd5b2d671aaec0e/src/",
+    "-I./.bender/git/checkouts/common_cells-3bd5b2d671aaec0e/include/",
+    "-I./.bender/git/checkouts/common_cells-3bd5b2d671aaec0e/src/deprecated/",
+    "./.bender/git/checkouts/common_cells-3bd5b2d671aaec0e/src/cf_math_pkg.sv",
+    # File name does not correspond to module name
+    "./.bender/git/checkouts/common_cells-3bd5b2d671aaec0e/src/cdc_4phase.sv",
+    "./.bender/git/checkouts/common_cells-3bd5b2d671aaec0e/src/cdc_reset_ctrlr_pkg.sv",
+
+    "-I./.bender/git/checkouts/obi-cbdec09f22f66762/src/",
+    "-I./.bender/git/checkouts/obi-cbdec09f22f66762/include/",
+    "./.bender/git/checkouts/obi-cbdec09f22f66762/src/obi_pkg.sv",
+    "./.bender/git/checkouts/obi-cbdec09f22f66762/src/obi_intf.sv",
+    # File name does not correspond to module name
+    "./.bender/git/checkouts/obi-cbdec09f22f66762/src/obi_xbar.sv",
+
+    "./.bender/git/checkouts/apb-e4460f86c75afc6a/src/apb_pkg.sv",
+    "./.bender/git/checkouts/apb-e4460f86c75afc6a/src/apb_intf.sv",
+
+    # File name does not correspond to module name
+    "./.bender/git/checkouts/tech_cells_generic-c6f7639ae8d3c67d/src/rtl/tc_clk.sv",
+
+    "-I./.bender/git/checkouts/apb_uart-82e60c3a7ada9dd1/src/",
+
+    "-I./.bender/git/checkouts/apb_gpio-f882c1c8a370562e/rtl/",
+
+    "-I./vendor_ips/ibex/rtl/",
+    "-I./vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/",
+    "-I./vendor_ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/",
+    "-I./vendor_ips/ibex/dv/uvm/core_ibex/common/prim/",
+    "-I./vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/",
+    "./vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv",
+    "./vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv",
+    "./vendor_ips/ibex/rtl/ibex_pkg.sv",
+    "./vendor_ips/ibex/rtl/ibex_tracer_pkg.sv",
+    "./vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv",
+    "./vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv",
+    "./vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv",
+
+    "-I./vendor_ips/apb_spi_master/",
+    "-I./vendor_ips/axi_spi_master/",
+
+    "-I./src/generated/",
+    "-I./src/rtl/",
+    "-I./src/reuse/",
+    "-I./src/tech_generic/",
+    "./src/generated/Didactic.v",
+    # File name does not correspond to module name
+    "./src/tech_generic/io_cell.sv",
+]
+
+# FIXME: make bender filelists work
 BENDER_ARGUMENTS = [
     "bender",
     "script",
@@ -176,15 +233,18 @@ if __name__ == "__main__":
     parser_verilate.add_argument("testcase", nargs="?")
     arguments = vars(parser.parse_args())
 
-    files_from_bender = get_files_from_bender()
-    if files_from_bender is None:
-        exit(-1)
+    # FIXME: make bender filelists work
+    #files_from_bender = get_files_from_bender()
+    #if files_from_bender is None:
+    #    exit(-1)
 
     verilator_arguments = [
         "verilator",
     ]
-    verilator_arguments.extend(files_from_bender)
-    verilator_arguments.extend(VERILATOR_INCLUDES)
+    verilator_arguments.extend(MANUAL_FILES)
+    # FIXME: make bender filelists work
+    #verilator_arguments.extend(files_from_bender)
+    #verilator_arguments.extend(VERILATOR_INCLUDES)
     verilator_arguments.extend(VERILATOR_OTHER_ARGUMENTS)
     match arguments["action"]:
         case "lint":
