@@ -1,4 +1,4 @@
-#include "common.hpp"
+#include "../common.hpp"
 
 int main(int argc, char** argv) {
     auto simulator = Simulator(argc, argv);

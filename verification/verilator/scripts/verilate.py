@@ -102,25 +102,48 @@ def execute_json(arguments: Dict[str, Any], verilator_arguments: List[str]) -> b
         return False
 
 def execute_verilate(arguments: Dict[str, Any], verilator_arguments: List[str]) -> bool:
-    executable = arguments["executable"]
-    if executable is None or len(executable) == 0:
-        executable = "example"
-        print(f"executable not given, selecting default: {executable}", color=Fore.YELLOW)
+    testcase = arguments["testcase"]
+    if testcase is None or len(testcase) == 0:
+        testcase = "example"
+        print(f"testcase not given, selecting default: {testcase}", color=Fore.YELLOW)
     else:
-        print(f"executable given: {executable}", color=Fore.GREEN)
-    executable = Path(f"./verification/verilator/src/sw/{executable}.cpp").resolve()
-    if not executable.exists():
-        print(f"path to executable does not exist: {executable}", color=Fore.RED)
+        print(f"testcase given: {testcase}", color=Fore.GREEN)
+    testcase_root = Path(f"./verification/verilator/testcases/{testcase}").resolve()
+    testcase_main = testcase_root / "main.cpp"
+    testcase_patches = testcase_root / "patches.patch"
+    if not testcase_main.exists():
+        print(f"path to testcase does not exist: {testcase_main}", color=Fore.RED)
         return False
-    if not executable.is_file():
-        print(f"path to executable is not a file: {executable}", color=Fore.RED)
+    if not testcase_main.is_file():
+        print(f"path to testcase is not a file: {testcase_main}", color=Fore.RED)
         return False
-
+    if testcase_patches.exists():
+        if not testcase_patches.is_file():
+            print(f"path to testcase patches is not a file: {testcase_patches}", color=Fore.RED)
+            return False
+        patch_arguments = [
+            "patch",
+            "--strip=0",
+            f"--input={testcase_patches}",
+        ]
+        result = subprocess.run(patch_arguments, capture_output=True, text=True)
+        if result.stdout.strip():
+            print(result.stdout)
+        if result.stderr.strip():
+            print(result.stderr)
+        if result.returncode == 0:
+            print(f"patch ok")
+        else:
+            print(f"patch failed")
+            return False
+    else:
+        print(f"path to testcase patches does not exist: {testcase_patches}", color=Fore.YELLOW)
+        print(f"patching is not executed", color=Fore.YELLOW)
     verilator_arguments.extend([
         "--cc",
         "--exe",
         "--trace",
-        str(executable),
+        str(testcase_main),
     ])
     verilator_arguments.extend(VERILATOR_SUPPRESSIONS)
     result = subprocess.run(verilator_arguments, capture_output=True, text=True)
@@ -131,7 +154,7 @@ def execute_verilate(arguments: Dict[str, Any], verilator_arguments: List[str]) 
         return True
     else:
         print(f"fail")
-        return False 
+        return False
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -148,9 +171,9 @@ if __name__ == "__main__":
     )
     parser_verilate = subparsers.add_parser(
         "verilate",
-        help="translate HDL into SW and combine with executable",
+        help="apply patches, translate HDL into SW and combine with testcase executable",
     )
-    parser_verilate.add_argument("executable", nargs="?")
+    parser_verilate.add_argument("testcase", nargs="?")
     arguments = vars(parser.parse_args())
 
     files_from_bender = get_files_from_bender()
