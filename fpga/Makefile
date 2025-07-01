@@ -22,4 +22,4 @@ all_xilinx_gui:
 	$(VIVADO) -mode gui -source ../fpga/xilinx/run.tcl &
 
 load_elf:
-	riscv32-unkown-elf-gdb ../build/sw/$(TEST).elf -x ../fpga/xilinx/connect-and-load.gdb
+	riscv32-unknown-elf-gdb ../build/sw/$(TEST).elf -x ../fpga/xilinx/connect-and-load.gdb
