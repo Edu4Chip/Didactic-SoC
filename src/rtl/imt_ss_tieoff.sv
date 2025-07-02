@@ -45,7 +45,7 @@ module imt_ss(
   assign PSLVERR = 'd0;
   assign PREADY  = 'd0;
   assign PRDATA  = 'd0;
-  assign irq_3   = 'd0;
+  assign irq_1   = 'd0;
 
   assign pmod_gpo     = 'h0;
   assign pmod_gpio_oe = 'h0;
