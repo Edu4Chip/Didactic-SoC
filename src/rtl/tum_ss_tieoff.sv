@@ -29,8 +29,8 @@ module tum_ss(
     input  logic        reset_int,
 
     // Interface: SS_Ctrl
-    input  logic        irq_en_1,
-    input  logic [7:0]  ss_ctrl_1,
+    input  logic        irq_en_3,
+    input  logic [7:0]  ss_ctrl_3,
     
     //Interface: GPIO pmod 
     input  logic [15:0]  pmod_gpi,
