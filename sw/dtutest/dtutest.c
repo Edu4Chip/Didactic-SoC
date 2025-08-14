@@ -102,7 +102,7 @@ void load_selftest() {
 *(volatile unsigned int*)(0x01052040) = 0x8000;
 }
 
-int main() {
+int main2() {
 
   dtu_init();
   SYS_CTRL = 0x7;
@@ -122,4 +122,20 @@ int main() {
   }
 
   return 0; // selftest passed
+}
+
+int main() {
+
+  PMOD_CTRL = 2; // route pmod to dtu_ss
+
+  SS2_CTRL = 1; // enable clock for dtu_ss
+
+  RST_CTRL = 9; // deassert dtu_ss and icn reset
+
+  SYS_CTRL = 1; // reset leros
+
+  SYS_CTRL = 0; // deassert leros reset
+
+  return 0;
+
 }

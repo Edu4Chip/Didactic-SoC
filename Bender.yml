@@ -92,6 +92,7 @@ sources:
   - target: didactic_obi
     files:
     - src/rtl/sp_sram.sv
+    - src/rtl/sram.sv
     - src/reuse/obi_to_apb_intf.sv
     - src/rtl/sysctrl_obi_xbar.sv
     - src/rtl/jtag_dbg_wrapper_obi.sv
