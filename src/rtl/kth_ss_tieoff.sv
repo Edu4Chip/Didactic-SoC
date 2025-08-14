@@ -5,7 +5,7 @@
     * integration tieoff
 */
 
-module kth_ss_tieoff(
+module kth_ss(
     // Interface: APB
     input  logic [31:0] PADDR,
     input  logic        PENABLE,
