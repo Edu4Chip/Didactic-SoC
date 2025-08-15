@@ -290,14 +290,14 @@ module sysctrl_obi_xbar #(
     input  logic                         reset_n
 );
 
-  localparam TARGETS = 6;
+  localparam TARGETS = 7;
   localparam INITIATORS = 3;
   localparam XBAR_INITIATOR_CUTS =0;
   localparam XBAR_TARGET_CUTS =0;
   
-  OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) target_bus [TARGETS-1:0]();
+  OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) target_bus     [TARGETS-1:0]();
   OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) target_bus_cut [TARGETS-1:0]();
-  OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) initiator_bus [INITIATORS-1:0] ();
+  OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) initiator_bus     [INITIATORS-1:0] ();
   OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) initiator_bus_cut [INITIATORS-1:0] ();
 
   if(XBAR_INITIATOR_CUTS) begin
@@ -363,12 +363,14 @@ module sysctrl_obi_xbar #(
 
   assign AddrMapXBAR = 
     '{
-      '{idx: 32'd0, start_addr: ADDR_BASE+TARGET_SIZE*5, end_addr: ADDR_BASE+TARGET_SIZE*6},//icn. 
-      '{idx: 32'd1, start_addr: ADDR_BASE+TARGET_SIZE*4, end_addr: ADDR_BASE+TARGET_SIZE*5},//ctrl
-      '{idx: 32'd2, start_addr: ADDR_BASE+TARGET_SIZE*3, end_addr: ADDR_BASE+TARGET_SIZE*4},//periph
-      '{idx: 32'd3, start_addr: ADDR_BASE+TARGET_SIZE*2, end_addr: ADDR_BASE+TARGET_SIZE*3},//dbg
-      '{idx: 32'd4, start_addr: ADDR_BASE+TARGET_SIZE*1, end_addr: ADDR_BASE+TARGET_SIZE*2},//dmem
-      '{idx: 32'd5, start_addr: ADDR_BASE+TARGET_SIZE*0, end_addr: ADDR_BASE+TARGET_SIZE*1} //imem
+      '{idx: 32'd0, start_addr: 'h0, end_addr: ADDR_BASE},// 0 addr reg stack
+      '{idx: 32'd1, start_addr: ADDR_BASE+TARGET_SIZE*5, end_addr: ADDR_BASE+TARGET_SIZE*6},//icn. 
+      '{idx: 32'd2, start_addr: ADDR_BASE+TARGET_SIZE*4, end_addr: ADDR_BASE+TARGET_SIZE*5},//ctrl
+      '{idx: 32'd3, start_addr: ADDR_BASE+TARGET_SIZE*3, end_addr: ADDR_BASE+TARGET_SIZE*4},//periph
+      '{idx: 32'd4, start_addr: ADDR_BASE+TARGET_SIZE*2, end_addr: ADDR_BASE+TARGET_SIZE*3},//dbg
+      '{idx: 32'd5, start_addr: ADDR_BASE+TARGET_SIZE*1, end_addr: ADDR_BASE+TARGET_SIZE*2},//dmem
+      '{idx: 32'd6, start_addr: ADDR_BASE+TARGET_SIZE*0, end_addr: ADDR_BASE+TARGET_SIZE*1} //imem
+      
     };
 
   obi_xbar_intf #(
@@ -387,6 +389,25 @@ module sysctrl_obi_xbar #(
       .addr_map_i       (AddrMapXBAR),
       .en_default_idx_i ('0),
       .default_idx_i    ('0)
+  );
+
+  zero_reg_array #(
+    .AW(OBI_AW),
+    .DW(OBI_DW)
+  ) i_zero_reg_array (
+    .clk(clk),
+    .reset_n(reset_n),
+    .addr_i(target_bus_cut[6].addr),
+    .be_i(target_bus_cut[6].be),
+    .req_i(target_bus_cut[6].req),
+    .wdata_i(target_bus_cut[6].wdata),
+    .we_i(target_bus_cut[6].we),
+    .rready_i(target_bus_cut[6].rready),
+    .rdata_o(target_bus_cut[6].rdata),
+    .rvalid_o(target_bus_cut[6].rvalid),
+    .rvalidpar_o(target_bus_cut[6].rvalidpar),
+    .gnt_o(target_bus_cut[6].gnt),
+    .gntpar_o(target_bus_cut[6].gntpar)
   );
 
   // obi xbar is passing through only minimal signals with default so tieoff rready
