@@ -34,7 +34,7 @@ sources:
       - vendor_ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh
       - vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv
-      - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh
+      #- vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh
       - vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv
       - vendor_ips/ibex/rtl/ibex_pkg.sv
       - vendor_ips/ibex/rtl/ibex_csr.sv
@@ -44,6 +44,7 @@ sources:
       - vendor_ips/ibex/rtl/ibex_alu.sv
       - vendor_ips/ibex/rtl/ibex_fetch_fifo.sv
       - vendor_ips/ibex/rtl/ibex_prefetch_buffer.sv
+      - vendor_ips/ibex/rtl/ibex_multdiv_slow.sv
       - vendor_ips/ibex/rtl/ibex_multdiv_fast.sv
       - vendor_ips/ibex/rtl/ibex_register_file_ff.sv
       - vendor_ips/ibex/rtl/ibex_ex_block.sv
@@ -141,8 +142,8 @@ sources:
     - vendor_ips/pulp/rtl/tb/riscv_pkg.sv
     - vendor_ips/pulp/rtl/vip/uart_tb_rx.sv
     - src/tb/spi/if_spi_slave.sv
-    - src/tb/jtag/jtag_pkg.sv
-    - src/tb/tb_didactic.sv
+    #- src/tb/jtag/jtag_pkg.sv
+    ##- src/tb/tb_didactic.sv
 
 vendor_package:
   - name: ibex
@@ -173,6 +174,7 @@ vendor_package:
       - "rtl/ibex_alu.sv"
       - "rtl/ibex_fetch_fifo.sv"
       - "rtl/ibex_prefetch_buffer.sv"
+      - "rtl/ibex_multdiv_slow.sv"
       - "rtl/ibex_multdiv_fast.sv"
       - "rtl/ibex_register_file_ff.sv"
       - "rtl/ibex_ex_block.sv"

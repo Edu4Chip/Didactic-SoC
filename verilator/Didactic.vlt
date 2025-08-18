@@ -1,0 +1,23 @@
+`verilator_config
+
+// Ignore duplicate modules
+lint_off -rule MODDUP
+
+// Waive macro redefinition warnings on prim_assert
+lint_off -rule REDEFMACRO -file "**/prim_assert_dummy_macros.svh" -match "*"
+lint_off -rule REDEFMACRO -file "**/prim_assert.sv" -match "*"
+
+// Waivers on external dependcies
+lint_off -rule WIDTHTRUNC -file "*/.bender/*" -match "*"
+lint_off -rule WIDTHEXPAND -file "*/.bender/*" -match "*"
+lint_off -rule CASEINCOMPLETE -file "*/vendor_ips/*" -match "*"
+lint_off -rule CASEINCOMPLETE -file "*/.bender/*" -match "*"
+lint_off -rule CMPCONST -file "*/.bender/*" -match "*"
+lint_off -rule WIDTHEXPAND -file "*/vendor_ips/*" -match "*"
+lint_off -rule UNSIGNED -file "*/.bender/*" -match "*"
+
+// Waive MULTIDRIVEN on Ibex tracer
+lint_off -rule MULTIDRIVEN -file "*/ibex_tracer.sv" -match "*"
+
+// LATCH intentional, waive warning
+lint_off -rule LATCH -file "*/prim_clock_gating.v" -match "*"

@@ -100,6 +100,6 @@ module sp_sram #(
 
 `endif
 
-  assign ruser_o = 1'b0;
+  //assign ruser_o = 1'b0;
 
 endmodule

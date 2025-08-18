@@ -112,10 +112,10 @@ module obi_icn_ss #(
     input  logic                  reset_n
   );
 
-  localparam TARGETS            =   5;
-  localparam INITIATORS         = 1+1;//actual + tieoff
-  localparam ICN_INITIATOR_CUTS =   0;
-  localparam ICN_TARGET_CUTS    =   0;
+  localparam int unsigned TARGETS            =   5;
+  localparam int unsigned INITIATORS         = 1+1;//actual + tieoff
+  localparam bit ICN_INITIATOR_CUTS =   0;
+  localparam bit ICN_TARGET_CUTS    =   0;
 
   typedef struct packed {
     int unsigned idx;
@@ -137,59 +137,32 @@ module obi_icn_ss #(
       '{idx: 32'd4, start_addr: ADDR_BASE+SS_SIZE*0, end_addr: ADDR_BASE+SS_SIZE*1} //
      };
 
-  // bus defaults 32 
+  // bus defaults 32
   OBI_BUS #() target_bus [TARGETS-1:0]();
   OBI_BUS #() target_bus_cut [TARGETS-1:0]();
   OBI_BUS #() initiator_bus [INITIATORS-1-1:0] ();//no tieoff
   OBI_BUS #() initiator_bus_cut [INITIATORS-1:0] ();
   APB #() icn_bus [TARGETS-1:0] ();
- 
-  if(ICN_INITIATOR_CUTS) begin
+
+  obi_cut_intf #(
+    .Bypass(~ICN_INITIATOR_CUTS)
+  ) i_initiator_cut(
+    .clk_i(clk),
+    .rst_ni(reset_n),
+    .obi_s(initiator_bus[0]),
+    .obi_m(initiator_bus_cut[0])
+  );
+
+  for (genvar i = 0; i < TARGETS; i++) begin
     obi_cut_intf #(
-      .Bypass(1'b0)
-    ) i_initiator_cut(
+      .Bypass(~ICN_TARGET_CUTS)
+    ) i_target_cut(
       .clk_i(clk),
       .rst_ni(reset_n),
-      .obi_s(initiator_bus[0]),
-      .obi_m(initiator_bus_cut[0])
+      .obi_s(target_bus[i]),
+      .obi_m(target_bus_cut[i])
     );
   end
-  else begin
-    obi_cut_intf #(
-      .Bypass(1'b1)
-    ) i_initiator_bypass_cut(
-      .clk_i(clk),
-      .rst_ni(reset_n),
-      .obi_s(initiator_bus[0]),
-      .obi_m(initiator_bus_cut[0])
-    );
-  end
-
-  if(ICN_TARGET_CUTS) begin
-    for (genvar i = 0; i < TARGETS; i++) begin : target_cuts
-      obi_cut_intf #(
-        .Bypass(1'b0)
-      ) i_target_cut(
-        .clk_i(clk),
-        .rst_ni(reset_n),
-        .obi_s(target_bus[i]),
-        .obi_m(target_bus_cut[i])
-      );
-    end
-  end
-  else begin
-    for (genvar i = 0; i < TARGETS; i++) begin : target_no_cuts
-      obi_cut_intf #(
-        .Bypass(1'b1)
-      ) i_target_cut(
-        .clk_i(clk),
-        .rst_ni(reset_n),
-        .obi_s(target_bus[i]),
-        .obi_m(target_bus_cut[i])
-      );
-    end
-  end
-
 
   obi_xbar_intf #(
     .NumSbrPorts       (INITIATORS),
@@ -318,5 +291,6 @@ module obi_icn_ss #(
 //  assign obi_ruser = initiator_bus[0].ruser;
   assign obi_rvalid = initiator_bus[0].rvalid;
   assign obi_rvalidpar = initiator_bus[0].rvalidpar;
+
 
 endmodule

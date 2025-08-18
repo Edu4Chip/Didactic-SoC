@@ -290,10 +290,10 @@ module sysctrl_obi_xbar #(
     input  logic                         reset_n
 );
 
-  localparam TARGETS = 6;
-  localparam INITIATORS = 3;
-  localparam XBAR_INITIATOR_CUTS =0;
-  localparam XBAR_TARGET_CUTS =0;
+  localparam int unsigned TARGETS = 6;
+  localparam int unsigned INITIATORS = 3;
+  localparam bit XBAR_INITIATOR_CUTS = 0;
+  localparam bit XBAR_TARGET_CUTS    = 0;
   
   OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) target_bus [TARGETS-1:0]();
   OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) target_bus_cut [TARGETS-1:0]();
