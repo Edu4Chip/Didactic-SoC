@@ -9,9 +9,11 @@ TESTCASE ?= blink
 START_TIME=`date +%F_%H:%M`
 SHELL = bash
 BUILD_DIR ?= ../build
-CC=riscv32-unknown-elf-gcc
-CFLAGS=-O0 -g -ffunction-sections -fdata-sections -Icommon/
-ELF2HEX_BIN ?= riscv32-unknown-elf-elf2hex
+PREFIX ?= riscv32-unknown-elf
+CC=$(PREFIX)-gcc
+CFLAGS=-O2 -g -ffunction-sections -fdata-sections -Icommon/
+ELF2HEX_BIN ?= $(PREFIX)-elf2hex
+OBJDUMP ?= $(PREFIX)-objdump
 
 env:
 	mkdir -p $(BUILD_DIR)/sw
@@ -25,4 +27,10 @@ build_test:
 hex_test:
 	$(ELF2HEX_BIN) --bit-width 32 --input $(BUILD_DIR)/sw/$(TESTCASE).elf --output $(BUILD_DIR)/sw/$(TESTCASE).hex
 
-test: env build_test hex_test
+dump:
+	$(OBJDUMP) $(BUILD_DIR)/sw/$(TESTCASE).elf -d > $(BUILD_DIR)/sw/$(TESTCASE).asm
+
+cleanup:
+	@rm -fr $(BUILD_DIR)/sw/*.o 
+
+test: env build_test hex_test dump cleanup
