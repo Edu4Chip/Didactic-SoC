@@ -137,6 +137,7 @@ module obi_icn_ss #(
       '{idx: 32'd4, start_addr: ADDR_BASE+SS_SIZE*0, end_addr: ADDR_BASE+SS_SIZE*1} //
      };
 
+  /*
   // bus defaults 32
   OBI_BUS #() target_bus [TARGETS-1:0]();
   OBI_BUS #() target_bus_cut [TARGETS-1:0]();
@@ -292,5 +293,6 @@ module obi_icn_ss #(
   assign obi_rvalid = initiator_bus[0].rvalid;
   assign obi_rvalidpar = initiator_bus[0].rvalidpar;
 
+*/
 
 endmodule

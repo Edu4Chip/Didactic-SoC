@@ -1288,7 +1288,7 @@ module SysCtrl_SS_0 #(
     apb_gpio #(
         .APB_ADDR_WIDTH      (12),
         .PAD_NUM             (16),
-        .NBIT_PADCFG         (0))
+        .NBIT_PADCFG         (1))
     apb_gpio(
         // Interface: APB
         .PADDR               (apb_gpio_PADDR),

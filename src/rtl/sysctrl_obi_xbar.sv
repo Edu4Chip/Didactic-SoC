@@ -300,6 +300,7 @@ module sysctrl_obi_xbar #(
   OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) initiator_bus [INITIATORS-1:0] ();
   OBI_BUS #(.OBI_CFG(obi_pkg::ObiDefaultConfig)) initiator_bus_cut [INITIATORS-1:0] ();
 
+/*
   if(XBAR_INITIATOR_CUTS) begin
     for (genvar i = 0; i < INITIATORS; i++) begin : initiator_cuts
       obi_cut_intf #(
@@ -349,6 +350,7 @@ module sysctrl_obi_xbar #(
       );
     end
   end
+*/
 
   localparam ADDR_BASE   = 32'h0100_0000;
   localparam TARGET_SIZE = 'h1_0000;
@@ -371,6 +373,7 @@ module sysctrl_obi_xbar #(
       '{idx: 32'd5, start_addr: ADDR_BASE+TARGET_SIZE*0, end_addr: ADDR_BASE+TARGET_SIZE*1} //imem
     };
 
+/*
   obi_xbar_intf #(
       .NumSbrPorts       (INITIATORS),
       .NumMgrPorts       (TARGETS),
@@ -388,6 +391,7 @@ module sysctrl_obi_xbar #(
       .en_default_idx_i ('0),
       .default_idx_i    ('0)
   );
+*/
 
   // obi xbar is passing through only minimal signals with default so tieoff rready
   for (genvar i=0; i<TARGETS;i++) begin : tieoff_optionals
