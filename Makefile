@@ -30,8 +30,13 @@ check-env:
 	mkdir -p $(BUILD_DIR)/logs/opt
 	mkdir -p $(BUILD_DIR)/logs/sim
 
-clean:
+clean_build:
 	rm -rf $(BUILD_DIR)
+
+clean_ips:
+	rm -fr ./bender
+
+clean_all: clean_build clean_ips
 
 ######################################################################
 #
