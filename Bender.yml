@@ -7,10 +7,10 @@ package:
 dependencies:           # TODO: only 1st level dependencies needed, also semantic versions prefered over commit hashes
   apb_gpio:     { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "f82caeb7f7d89427f05e9af5ed31e0675efe0d83" }
   apb_uart:     { git: "https://github.com/pulp-platform/apb_uart.git", rev: "6c7dde3d749ac8274377745c105da8c8b8cd27c6" }
-  axi:          { git: "https://github.com/pulp-platform/axi.git", rev:  "28f70b468b0e969ea7ce13773b872636585558c1" }
-  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", rev: "47b020ab3355116f750a5f14c67a409d5c11c5df" }
+  axi:          { git: "https://github.com/pulp-platform/axi.git", version: "0.38.0" }
+  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: "1.37.0" }
   riscv-dbg:    { git: "https://github.com/pulp-platform/riscv-dbg.git", rev: "618ee6e0e2610ef47e0dcc4df6748af3dffff731" }
-  apb:          { git: "https://github.com/pulp-platform/apb.git", rev: "e486aa2b7302e3113414c9e5eeeb10d7e36172eb" }
+  apb:          { git: "https://github.com/pulp-platform/apb.git", version: "0.2.1" }
   obi:          { git: "https://github.com/pulp-platform/obi.git", rev: "ad1d48f025be540344960ea83b4bff39876f9b36" }
 #  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" }
 #  kth_ss: { path: 'Subsystem_KTH/src/interface/kth_ss' }
