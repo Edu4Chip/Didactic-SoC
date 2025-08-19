@@ -35,6 +35,7 @@ clean_build:
 
 clean_ips:
 	rm -fr ./.bender
+	rm -fr ./vendor_ips
 
 clean_all: clean_build clean_ips
 

@@ -27,14 +27,12 @@ sources:
 
   - target: vendor
     files:
+      - vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv
-      - vendor_ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh
-      - vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv
-      #- vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh
       - vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv
       - vendor_ips/ibex/rtl/ibex_pkg.sv
       - vendor_ips/ibex/rtl/ibex_csr.sv

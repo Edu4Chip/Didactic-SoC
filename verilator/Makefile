@@ -1,4 +1,4 @@
-
+ROOT            ?= $(realpath $(CURDIR))/../
 BUILD_DIR       ?= $(realpath $(CURDIR))/../build
 VERIL_DIR       ?= $(realpath $(CURDIR))/../verilator
 VERIL_BUILD_DIR ?= $(BUILD_DIR)/verilator_build
@@ -16,8 +16,6 @@ TOP_MODULE     = Didactic
 CPP_TOP        = $(VERIL_DIR)/Tb$(TOP_MODULE).cpp
 
 FLIST = $(shell $(BENDER) script flist $(BENDER_TARGETS))
-IBEX_PATH = $(BUILD_DIR)/../vendor_ips/ibex
-
 
 VERIL_DEFINES ?= \
 	+define+VERILATOR=1 \
@@ -26,14 +24,14 @@ VERIL_DEFINES ?= \
 	+define+COMMON_CELLS_ASSERTS_OFF
 
 VERIL_INCLUDES ?= \
+	+incdir+$(ROOT)/vendor_ips/ibex/vendor/lowrisc_ip/dv/sv/dv_utils \
+	+incdir+$(ROOT)/vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl \
 	+incdir+$(shell $(BENDER) path common_cells)/include \
 	+incdir+$(shell $(BENDER) path apb)/include \
 	+incdir+$(shell $(BENDER) path axi)/include \
 	+incdir+$(shell $(BENDER) path obi)/include \
-	+incdir+$(shell $(BENDER) path register_interface)/include \
-	+incdir+$(IBEX_PATH)/vendor/lowrisc_ip/dv/sv/dv_utils \
-	+incdir+$(IBEX_PATH)/vendor/lowrisc_ip/ip/prim/rtl \
-	+incdir+$(IBEX_PATH)/rtl
+	+incdir+$(shell $(BENDER) path register_interface)/include
+
 
 vlint:
 	@echo "Verilator compilation"
