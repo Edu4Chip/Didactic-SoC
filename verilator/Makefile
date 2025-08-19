@@ -32,11 +32,7 @@ VERIL_INCLUDES ?= \
 	+incdir+$(shell $(BENDER) path obi)/include \
 	+incdir+$(shell $(BENDER) path register_interface)/include
 
-
-vlint:
-	@echo "Verilator compilation"
-	verilator \
-	--lint-only \
+VERIL_FLAGS ?= \
 	-O3 -sv \
 	$(VERIL_INCLUDES) \
 	$(VERIL_DEFINES) \
@@ -44,10 +40,13 @@ vlint:
 	$(FLIST) \
 	--top-module $(TOP_MODULE)
 
+vlint:
+	verilator \
+	--lint-only \
+	$(VERIL_FLAGS)
 
 verilate:
-	@echo "Verilator compilation"
-	verilator $(FLIST)
+	verilator $(VERIL_FLAGS) --exe $(CPP_TOP) --cc
 	
 
 simv:

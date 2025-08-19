@@ -10,6 +10,8 @@ lint_off -rule REDEFMACRO -file "**/prim_assert.sv" -match "*"
 // Waivers on external dependcies
 lint_off -rule WIDTHTRUNC -file "*/.bender/*" -match "*"
 lint_off -rule WIDTHEXPAND -file "*/.bender/*" -match "*"
+lint_off -rule LATCH -file "*/.bender/*" -match "*"
+lint_off -rule UNOPTFLAT -file "*/.bender/*" -match "*"
 lint_off -rule CASEINCOMPLETE -file "*/vendor_ips/*" -match "*"
 lint_off -rule CASEINCOMPLETE -file "*/.bender/*" -match "*"
 lint_off -rule CMPCONST -file "*/.bender/*" -match "*"
