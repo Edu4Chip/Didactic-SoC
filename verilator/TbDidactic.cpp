@@ -2,17 +2,13 @@
 #include <memory>
 #include <stdio.h>
 
-#include "VDidactic.h"
-#include "verilated_fst_c.h"
-#include "verilated.h"
-
-//class TbDidactic : public Testbench<VDidactic> {};
+#include "TbDidactic.h"
 
 int main(int argc, char** argv) {
 
   Verilated::commandArgs(argc, argv);
   printf("Hello!\n");
-  //TbDidactic* tb = new TbRtTop();
+  TbDidactic* tb = new TbDidactic();
   //const std::string TestName = xstr(TEST);
   //const std::string ElfPath  = "./tmp_elf";
 
@@ -33,7 +29,9 @@ int main(int argc, char** argv) {
     }
   }
 */
-  //delete tb;
+  delete tb;
+  printf("All good\n");
+
 
   return 0;
 }

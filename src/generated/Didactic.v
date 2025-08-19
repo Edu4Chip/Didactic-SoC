@@ -27,21 +27,21 @@ module Didactic #(
     parameter                              NUM_SS           = 5    // number of student systems present in top level.
 ) (
     // Interface: Clock
-    inout  wire                         clk_in,
+    inout  wire                         clk_i,
     inout  wire                         clk_out,
 
     // Interface: GPIO
     inout  wire          [15:0]         gpio,
 
     // Interface: JTAG
-    inout  wire                         jtag_tck,
-    inout  wire                         jtag_tdi,
-    inout  wire                         jtag_tdo,
-    inout  wire                         jtag_tms,
-    inout  wire                         jtag_trst,
+    inout  wire                         jtag_tck_i,
+    inout  wire                         jtag_td_i,
+    inout  wire                         jtag_td_o,
+    inout  wire                         jtag_tms_i,
+    inout  wire                         jtag_trst_ni,
 
     // Interface: Reset
-    inout  wire                         reset,
+    inout  wire                         rst_ni,
 
     // Interface: SPI
     inout  wire          [1:0]          spi_csn,
@@ -651,7 +651,7 @@ module Didactic #(
         .OBI_IDW             (1))
     SystemControl_SS(
         // Interface: Clock
-        .clock_in            (clk_in),
+        .clock_in            (clk_i),
         .clock_out           (clk_out),
         // Interface: Clock_int
         .clk                 (SystemControl_SS_clk),
@@ -662,11 +662,11 @@ module Didactic #(
         // Interface: IRQ
         .irq_i               (SystemControl_SS_irq_i),
         // Interface: JTAG
-        .jtag_tck            (jtag_tck),
-        .jtag_tdi            (jtag_tdi),
-        .jtag_tdo            (jtag_tdo),
-        .jtag_tms            (jtag_tms),
-        .jtag_trst           (jtag_trst),
+        .jtag_tck            (jtag_tck_i),
+        .jtag_tdi            (jtag_td_i),
+        .jtag_tdo            (jtag_td_o),
+        .jtag_tms            (jtag_tms_i),
+        .jtag_trst           (jtag_trst_ni),
         // Interface: OBI
         .obi_err             (SystemControl_SS_obi_err),
         .obi_gnt             (SystemControl_SS_obi_gnt),
@@ -685,7 +685,7 @@ module Didactic #(
         .obi_wdata           (SystemControl_SS_obi_wdata),
         .obi_we              (SystemControl_SS_obi_we),
         // Interface: Reset
-        .reset               (reset),
+        .reset               (rst_ni),
         // Interface: Reset_SS
         .reset_ss            (SystemControl_SS_reset_ss),
         // Interface: Reset_icn

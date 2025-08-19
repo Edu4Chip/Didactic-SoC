@@ -15,7 +15,8 @@ BENDER_TARGETS  = \
 TOP_MODULE     = Didactic
 CPP_TOP        = $(VERIL_DIR)/Tb$(TOP_MODULE).cpp
 
-FLIST = $(shell $(BENDER) script flist $(BENDER_TARGETS))
+FLIST  = $(shell $(BENDER) script flist $(BENDER_TARGETS))
+VBENCH = $(shell $(BENDER) path vbench)
 
 VERIL_DEFINES ?= \
 	+define+VERILATOR=1 \
@@ -49,6 +50,12 @@ vlint:
 verilate: init
 	verilator \
 	$(VERIL_FLAGS) \
+	--timing \
+	--trace-fst \
+	--trace-structs \
+	--trace-params \
+	--hierarchical \
+	-CFLAGS "-I$(VBENCH)/src" \
 	--exe $(CPP_TOP) \
 	--cc \
 	--build \
