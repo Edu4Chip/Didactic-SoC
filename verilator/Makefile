@@ -40,13 +40,20 @@ VERIL_FLAGS ?= \
 	$(FLIST) \
 	--top-module $(TOP_MODULE)
 
-vlint:
-	verilator \
-	--lint-only \
-	$(VERIL_FLAGS)
+init:
+	mkdir -p $(VERIL_BUILD_DIR)
 
-verilate:
-	verilator $(VERIL_FLAGS) --exe $(CPP_TOP) --cc
+vlint:
+	verilator --lint-only $(VERIL_FLAGS)
+
+verilate: init
+	verilator \
+	$(VERIL_FLAGS) \
+	--exe $(CPP_TOP) \
+	--cc \
+	--build \
+	--Mdir $(VERIL_BUILD_DIR)/obj_dir \
+	-j `nproc`
 	
 
 simv:
