@@ -18,6 +18,8 @@ if { $PROJECT eq "z1" } {
 } elseif { $PROJECT eq "vcu118" } {
   set XILINX_PART xvup9p-flga2104-2L-e
   puts "ERROR: VCU118 constraints are empty"
+} elseif { $PROJECT eq "basys3" } {
+  set XILINX_PART xc7a35tcpg236-1
 } else {
   puts "PROJECT variable contains unsupported board!"
   break
@@ -51,6 +53,10 @@ set_property include_dirs $INCLUDE_DIRS [current_fileset]
 # File read
 add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi]
 
+if { $PROJECT eq "basys3" } {
+  add_files -norecurse $DIR/../src/rtl/DidacticBasys3.v
+}
+
 set_property file_type SystemVerilog [get_files *.v]
 
 # 
@@ -61,7 +67,11 @@ set_property verilog_define { SYNTHESIS=1 FPGA=1 PRIM_DEFAULT_IMPL=prim_pkg::Imp
 
 set_property source_mgmt_mode None [current_project]
 
-set_property top Didactic [current_fileset]
+if { $PROJECT eq "basys3" } {
+  set_property top DidacticBasys3 [current_fileset]
+} else {
+  set_property top Didactic [current_fileset]
+}
 
 update_compile_order -fileset sources_1
 
