@@ -7,6 +7,7 @@
 int main(int argc, char** argv) {
 
   Verilated::commandArgs(argc, argv);
+  Verilated::traceEverOn(true);
 
   TbDidactic* tb = new TbDidactic();
   tb->print_logo();
@@ -14,12 +15,24 @@ int main(int argc, char** argv) {
   if (argc == 1) {
     printf("No ELF supplied, exiting..\n\n");
   } else {
-    const char* Elf = argv[1];
-    printf("ELF: build/sw/%s.elf\n\n", Elf);
+
+    const std::string Elf(argv[1]);
+    const std::string ElfPath = "build/sw/" + Elf + ".elf";
+    //printf("ELF path is %s\n", ElfPath);
+
+    std::cout 
+      << "Looking for ELF in " 
+      << ElfPath 
+      << std::endl
+      << std::endl;
 
     tb->open_trace("../build/verilator_build/waveform.fst");
     for (int it=0;it<100;it++) tb->tick();
 
+    tb->reset();
+    tb->jtag_reset_master();
+    tb->jtag_init();
+    
   }
 
   //const std::string TestName = xstr(TEST);

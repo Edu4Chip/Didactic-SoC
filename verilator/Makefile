@@ -6,6 +6,7 @@ VERIL_BUILD_DIR ?= $(BUILD_DIR)/verilator_build
 BENDER         ?= bender
 BENDER_TARGETS  = \
                   -t tech_cells_generic_exclude_deprecated \
+				  -t tech_cells_generic_exclude_tc_clk \
                   -t rtl \
                   -t vendor \
                   -t verilator \
@@ -34,9 +35,10 @@ VERIL_INCLUDES ?= \
 	+incdir+$(shell $(BENDER) path register_interface)/include
 
 VERIL_FLAGS ?= \
-	-O3 -sv \
-	$(VERIL_INCLUDES) \
 	$(VERIL_DEFINES) \
+	$(VERIL_INCLUDES) \
+	-O3 -sv \
+	--timing \
 	$(VERIL_DIR)/$(TOP_MODULE).vlt \
 	$(FLIST) \
 	--top-module $(TOP_MODULE)
@@ -46,18 +48,19 @@ init:
 
 vlint:
 	verilator --lint-only $(VERIL_FLAGS)
+	@echo "Lint OK!"
 
-verilate: init
+verilate: clean init
 	verilator \
 	$(VERIL_FLAGS) \
-	--timing \
 	--trace-fst \
 	--trace-structs \
 	--trace-params \
 	--hierarchical \
-	-CFLAGS "-I$(VBENCH)/src" \
 	--exe $(CPP_TOP) \
 	--cc \
+	-CFLAGS "-I$(VBENCH)/src" \
+	--unroll-count 256 \
 	--build \
 	--Mdir $(VERIL_BUILD_DIR)/obj_dir \
 	-j `nproc`
@@ -65,3 +68,7 @@ verilate: init
 
 simv:
 	$(VERIL_BUILD_DIR)/obj_dir/V$(TOP_MODULE) $(ELF)
+
+.PHONY: clean
+clean:
+	@rm -rf $(VERIL_BUILD_DIR)
