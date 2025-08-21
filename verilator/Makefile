@@ -64,4 +64,4 @@ verilate: init
 	
 
 simv:
-	@echo "Verilator simulation"
+	$(VERIL_BUILD_DIR)/obj_dir/V$(TOP_MODULE) $(ELF)

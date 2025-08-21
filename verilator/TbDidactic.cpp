@@ -7,8 +7,21 @@
 int main(int argc, char** argv) {
 
   Verilated::commandArgs(argc, argv);
-  printf("Hello!\n");
+
   TbDidactic* tb = new TbDidactic();
+  tb->print_logo();
+
+  if (argc == 1) {
+    printf("No ELF supplied, exiting..\n\n");
+  } else {
+    const char* Elf = argv[1];
+    printf("ELF: build/sw/%s.elf\n\n", Elf);
+
+    tb->open_trace("../build/verilator_build/waveform.fst");
+    for (int it=0;it<100;it++) tb->tick();
+
+  }
+
   //const std::string TestName = xstr(TEST);
   //const std::string ElfPath  = "./tmp_elf";
 
@@ -30,7 +43,6 @@ int main(int argc, char** argv) {
   }
 */
   delete tb;
-  printf("All good\n");
 
 
   return 0;
