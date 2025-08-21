@@ -366,7 +366,7 @@ module sysctrl_obi_xbar #(
       '{idx: 32'd0, start_addr: ADDR_BASE+TARGET_SIZE*5, end_addr: ADDR_BASE+TARGET_SIZE*6},//icn. 
       '{idx: 32'd1, start_addr: ADDR_BASE+TARGET_SIZE*4, end_addr: ADDR_BASE+TARGET_SIZE*5},//ctrl
       '{idx: 32'd2, start_addr: ADDR_BASE+TARGET_SIZE*3, end_addr: ADDR_BASE+TARGET_SIZE*4},//periph
-      '{idx: 32'd3, start_addr: ADDR_BASE+TARGET_SIZE*2, end_addr: ADDR_BASE+TARGET_SIZE*3},//dbg
+      '{idx: 32'd3, start_addr: 0, end_addr: 0+TARGET_SIZE},//dbg
       '{idx: 32'd4, start_addr: ADDR_BASE+TARGET_SIZE*1, end_addr: ADDR_BASE+TARGET_SIZE*2},//dmem
       '{idx: 32'd5, start_addr: ADDR_BASE+TARGET_SIZE*0, end_addr: ADDR_BASE+TARGET_SIZE*1} //imem
     };
