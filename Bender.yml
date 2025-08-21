@@ -136,7 +136,6 @@ sources:
 
   - target: not(synthesis)
     files:
-    - src/tech_generic/tc_clk.sv
     - src/tech_generic/io_cell.sv
     - vendor_ips/pulp/rtl/tb/riscv_pkg.sv
     - vendor_ips/pulp/rtl/vip/uart_tb_rx.sv

@@ -32,6 +32,8 @@ int main(int argc, char** argv) {
     tb->reset();
     tb->jtag_reset_master();
     tb->jtag_init();
+
+    tb->didactic_memtest();
     
   }
 

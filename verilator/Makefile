@@ -6,7 +6,6 @@ VERIL_BUILD_DIR ?= $(BUILD_DIR)/verilator_build
 BENDER         ?= bender
 BENDER_TARGETS  = \
                   -t tech_cells_generic_exclude_deprecated \
-				  -t tech_cells_generic_exclude_tc_clk \
                   -t rtl \
                   -t vendor \
                   -t verilator \
