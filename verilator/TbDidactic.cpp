@@ -2,6 +2,15 @@
 #include <memory>
 #include <stdio.h>
 
+#define CLKI      clk_in
+#define RSTNI     reset
+
+#define JTAGTCK   jtag_tck
+#define JTAGTDI   jtag_tdi
+#define JTAGTDO   jtag_tdo
+#define JTAGTMS   jtag_tms
+#define JTAGTRSTN jtag_trst
+
 #include "TbDidactic.h"
 
 int main(int argc, char** argv) {
