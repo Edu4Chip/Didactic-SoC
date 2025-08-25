@@ -25,6 +25,12 @@ lint_off -rule CMPCONST -file "*/.bender/*" -match "*"
 lint_off -rule WIDTHEXPAND -file "*/vendor_ips/*" -match "*"
 lint_off -rule UNSIGNED -file "*/.bender/*" -match "*"
 
+// OBI
+lint_off -rule ASCRANGE -file "*/obi-*/*" -match "*"
+lint_off -rule ASCRANGE -file "*/obi*.sv" -match "*"
+lint_off -rule WIDTHTRUNC -file "*/obi*.sv" -match "*"
+lint_off -rule WIDTHEXPAND -file "*/obi*.sv" -match "*"
+
 lint_off -rule BLKSEQ -file "*/tech_generic/*" -match "*"
 
 
