@@ -26,8 +26,11 @@ lint_off -rule WIDTHEXPAND -file "*/vendor_ips/*" -match "*"
 lint_off -rule UNSIGNED -file "*/.bender/*" -match "*"
 
 // OBI
-lint_off -rule ASCRANGE -file "*/obi-*/*" -match "*"
-lint_off -rule ASCRANGE -file "*/obi*.sv" -match "*"
+// ASCRANGE unknown by 5.008
+//lint_off -rule ASCRANGE -file "*/obi-*/*" -match "*"
+//lint_off -rule ASCRANGE -file "*/obi*.sv" -match "*"
+lint_off -rule LITENDIAN -file "*/obi-*/*" -match "*"
+lint_off -rule LITENDIAN -file "*/obi*.sv" -match "*"
 lint_off -rule WIDTHTRUNC -file "*/obi*.sv" -match "*"
 lint_off -rule WIDTHEXPAND -file "*/obi*.sv" -match "*"
 

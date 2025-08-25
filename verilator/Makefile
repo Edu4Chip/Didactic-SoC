@@ -66,7 +66,7 @@ verilate: clean init
 	
 
 simv:
-	$(VERIL_BUILD_DIR)/obj_dir/V$(TOP_MODULE) $(ELF)
+	$(VERIL_BUILD_DIR)/obj_dir/V$(TOP_MODULE) $(TEST)
 
 .PHONY: clean
 clean:

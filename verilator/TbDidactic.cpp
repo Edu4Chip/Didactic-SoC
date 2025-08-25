@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <stdio.h>
+#include <filesystem>
 
 #define CLKI      clk_internal
 #define RSTNI     reset_internal
@@ -22,27 +23,41 @@ int main(int argc, char** argv) {
   tb->print_logo();
 
   if (argc == 1) {
-    printf("No ELF supplied, exiting..\n\n");
+    printf("[TB] No TEST specified, exiting..\n\n");
   } else {
 
     const std::string Elf(argv[1]);
-    const std::string ElfPath = "build/sw/" + Elf + ".elf";
-    //printf("ELF path is %s\n", ElfPath);
 
-    std::cout 
-      << "Looking for ELF in " 
-      << ElfPath 
-      << std::endl
-      << std::endl;
+    std::cout << "[TB] Looking for ELF: " << Elf << std::endl;
 
-    tb->open_trace("../build/verilator_build/waveform.fst");
-    for (int it=0;it<100;it++) tb->tick();
+    std::filesystem::path elfpath = std::string("../build/sw/") + Elf + ".elf";
+    bool elfPathExists = std::filesystem::exists(elfpath);
+    
+    if(!elfPathExists) {
+      std::cout << "[TB] ERROR! ELF not found in path " << elfpath << std::endl << std::endl;
+    } 
+    else {
+      std::cout << "[TB] ELF path is " << elfpath << std::endl;
 
-    tb->reset();
-    tb->jtag_reset_master();
-    tb->jtag_init();
+      tb->open_trace("../build/verilator_build/waveform.fst");
+      for (int it=0;it<100;it++) tb->tick();
 
-    tb->didactic_memtest();
+      tb->reset();
+      tb->jtag_reset_master();
+      tb->jtag_init();
+
+      if (Elf == "memtest") {
+        tb->didactic_memtest();
+      } else {
+        tb->jtag_run_elf(elfpath.string());
+        tb->jtag_wait_eoc();
+      }
+
+    } 
+
+
+
+
     
   }
 
