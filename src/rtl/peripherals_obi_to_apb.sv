@@ -111,7 +111,7 @@ module peripherals_obi_to_apb #(
       '{idx: 32'd1, start_addr: ADDR_BASE+APB_SIZE*1, end_addr: ADDR_BASE+APB_SIZE*2},//uart
       '{idx: 32'd2, start_addr: ADDR_BASE+APB_SIZE*0, end_addr: ADDR_BASE+APB_SIZE*1} //gpio
      };
-/*
+
   // bus defaults 32 
   OBI_BUS #() target_bus [TARGETS-1:0]();
   OBI_BUS #() target_bus_cut [TARGETS-1:0]();
@@ -279,5 +279,5 @@ module peripherals_obi_to_apb #(
 //  assign ruser = initiator_bus[0].ruser;
   assign rvalid = initiator_bus[0].rvalid;
   assign rvalidpar = initiator_bus[0].rvalidpar;
-*/
+
 endmodule

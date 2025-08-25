@@ -72,7 +72,7 @@ module dtu_ss(
     .clock(clk_in),
     .reset(reset_pos),
     .io_apb_psel(PSEL),
-    .io_apb_paddr(PADDR[11:0]),
+    .io_apb_paddr(PADDR),
     .io_apb_penable(PENABLE),
     .io_apb_pwdata(PWDATA),
     .io_apb_pwrite(PWRITE),

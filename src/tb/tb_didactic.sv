@@ -20,6 +20,8 @@
 // fast clk makes sim run very slow, disable it by default
 //`define ACTIVE_FAST_CLK 1
 
+`timescale 1ns/1ps
+
 module tb_didactic();
   // no top ports. params and defines used to control tb
 
@@ -129,9 +131,8 @@ module tb_didactic();
 // PKG init
 ////////////////////////////////
 
-  // TODO: use PULP JTAG package
-  //jtag_pkg::test_mode_if_t   test_mode_if = new;
-  //jtag_pkg::debug_mode_if_t  debug_mode_if = new;
+  jtag_pkg::test_mode_if_t   test_mode_if = new;
+  jtag_pkg::debug_mode_if_t  debug_mode_if = new;
 
 /////////////////////////////
 // clk process
