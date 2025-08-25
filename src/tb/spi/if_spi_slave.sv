@@ -18,8 +18,8 @@ interface spi_slave
     parameter period = 50ns
   );
 
-  timeunit      1ns;
-  timeprecision 1ps;
+  //timeunit      1ns;
+  //timeprecision 1ps;
 
   localparam SPI_STD     = 2'b00;
   localparam SPI_QUAD_TX = 2'b01;

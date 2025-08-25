@@ -2,14 +2,14 @@
 #include <memory>
 #include <stdio.h>
 
-#define CLKI      clk_in
-#define RSTNI     reset
+#define CLKI      clk_internal
+#define RSTNI     reset_internal
 
-#define JTAGTCK   jtag_tck
-#define JTAGTDI   jtag_tdi
-#define JTAGTDO   jtag_tdo
-#define JTAGTMS   jtag_tms
-#define JTAGTRSTN jtag_trst
+#define JTAGTCK   jtag_tck_internal
+#define JTAGTDI   jtag_tdi_internal
+#define JTAGTDO   jtag_tdo_internal
+#define JTAGTMS   jtag_tms_internal
+#define JTAGTRSTN jtag_trst_internal
 
 #include "TbDidactic.h"
 

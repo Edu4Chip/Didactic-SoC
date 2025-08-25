@@ -12,8 +12,8 @@ BENDER_TARGETS  = \
                   -t tracer \
                   -t didactic_obi
 
-TOP_MODULE     = Didactic
-CPP_TOP        = $(VERIL_DIR)/Tb$(TOP_MODULE).cpp
+TOP_MODULE     = SysCtrl_SS_0
+CPP_TOP        = $(VERIL_DIR)/TbDidactic.cpp
 
 FLIST  = $(shell $(BENDER) script flist $(BENDER_TARGETS))
 VBENCH = $(shell $(BENDER) path vbench)
@@ -38,7 +38,7 @@ VERIL_FLAGS ?= \
 	$(VERIL_INCLUDES) \
 	-O3 -sv \
 	--timing \
-	$(VERIL_DIR)/$(TOP_MODULE).vlt \
+	$(VERIL_DIR)/Didactic.vlt \
 	$(FLIST) \
 	--top-module $(TOP_MODULE)
 

@@ -1,10 +1,10 @@
 #include "verilated_fst_c.h"
 #include "verilated.h"
-#include "VDidactic.h"
+#include "VSysCtrl_SS_0.h"
 #include "Testbench.h"
 
 // Add platform-specific overrides in this file
-class TbDidactic : public Testbench<VDidactic> {
+class TbDidactic : public Testbench<VSysCtrl_SS_0> {
 
     public:
 

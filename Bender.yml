@@ -138,7 +138,8 @@ sources:
     files:
     - src/tech_generic/io_cell.sv
     - vendor_ips/pulp/rtl/tb/riscv_pkg.sv
-    - vendor_ips/pulp/rtl/vip/uart_tb_rx.sv
+    # Explicit timescale, naughty naughty
+    #- vendor_ips/pulp/rtl/vip/uart_tb_rx.sv
     - src/tb/spi/if_spi_slave.sv
     #- src/tb/jtag/jtag_pkg.sv
     ##- src/tb/tb_didactic.sv
