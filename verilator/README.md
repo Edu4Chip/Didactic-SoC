@@ -17,8 +17,8 @@ This flow utilizes [`vbench`](https://github.com/ANurmi/vbench) to provide the f
 
 ### Known Limitations
 
-`Didactic.v` does not work correctly as a top-level on any tested version, however, running the simulation from one level lower in the hierarchy (`top=SysCtrl_SS_0`) seems to work flawlessly.
-
+- `Didactic.v` does not work correctly as a top-level on any tested version, however, running the simulation from one level lower in the hierarchy (`top=SysCtrl_SS_0`) seems to work flawlessly.
+- Other interfaces that JTAG are untested. UART should employ [mock](https://github.com/openhwgroup/cva6/blob/master/corev_apu/tb/common/mock_uart.sv) instance for this type of high-level, lightweight simulation.
 ### Tested Verilator Versions
 - 5.008
 - 5.024
