@@ -12,6 +12,8 @@
 #define JTAGTMS   jtag_tms_internal
 #define JTAGTRSTN jtag_trst_internal
 
+#define IDCODE    0x1c0ffee1
+
 #include "TbDidactic.h"
 
 int main(int argc, char** argv) {
@@ -52,37 +54,9 @@ int main(int argc, char** argv) {
         tb->jtag_run_elf(elfpath.string());
         tb->jtag_wait_eoc();
       }
-
     } 
-
-
-
-
-    
   }
-
-  //const std::string TestName = xstr(TEST);
-  //const std::string ElfPath  = "./tmp_elf";
-
-  //tb->open_trace("./waveform.fst");
-  //for (int it=0;it<100;it++) tb->tick();
-
-  /*if (TestName == "") {
-    printf("TEST not set, exiting\n");
-  } else {
-    tb->reset();
-    tb->jtag_reset_master();
-    tb->jtag_init();
-    if (TestName == "jtag_access") {
-      tb->jtag_memory_test();
-    } else { // software test
-      tb->jtag_elf_run(ElfPath, JTAG_LOAD);
-      tb->jtag_wait_eoc();
-    }
-  }
-*/
   delete tb;
-
 
   return 0;
 }
