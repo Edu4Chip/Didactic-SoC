@@ -7,11 +7,12 @@ package:
 dependencies:           # TODO: only 1st level dependencies needed, also semantic versions prefered over commit hashes
   apb_gpio:     { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "f82caeb7f7d89427f05e9af5ed31e0675efe0d83" }
   apb_uart:     { git: "https://github.com/pulp-platform/apb_uart.git", rev: "6c7dde3d749ac8274377745c105da8c8b8cd27c6" }
-  axi:          { git: "https://github.com/pulp-platform/axi.git", rev:  "28f70b468b0e969ea7ce13773b872636585558c1" }
-  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", rev: "47b020ab3355116f750a5f14c67a409d5c11c5df" }
+  axi:          { git: "https://github.com/pulp-platform/axi.git", version: "0.38.0" }
+  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: "1.37.0" }
   riscv-dbg:    { git: "https://github.com/pulp-platform/riscv-dbg.git", rev: "618ee6e0e2610ef47e0dcc4df6748af3dffff731" }
-  apb:          { git: "https://github.com/pulp-platform/apb.git", rev: "e486aa2b7302e3113414c9e5eeeb10d7e36172eb" }
+  apb:          { git: "https://github.com/pulp-platform/apb.git", version: "0.2.1" }
   obi:          { git: "https://github.com/pulp-platform/obi.git", rev: "ad1d48f025be540344960ea83b4bff39876f9b36" }
+  vbench:       { git: "https://github.com/ANurmi/vbench", rev: "main" }
 #  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" }
 #  kth_ss: { path: 'Subsystem_KTH/src/interface/kth_ss' }
 # NOTE: axi pkg contains file that is not supported by all tools! 
@@ -148,17 +149,67 @@ vendor_package:
   - name: ibex
     target_dir: vendor_ips/ibex
     upstream: { git: "https://github.com/lowRISC/ibex", rev: "8a3d46f095db817fafdad9de4d157ccb83a267fb" }
+    include_from_upstream:
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv"
+      - "vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh"
+      - "dv/uvm/core_ibex/common/prim/prim_pkg.sv"
+      - "vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv"
+      - "dv/uvm/core_ibex/common/prim/prim_buf.sv"
+      - "syn/rtl/prim_clock_gating.v"
+      - "rtl/ibex_pkg.sv"
+      - "rtl/ibex_tracer_pkg.sv"
+      - "rtl/ibex_tracer.sv"
+      - "rtl/ibex_csr.sv"
+      - "rtl/ibex_compressed_decoder.sv"
+      - "rtl/ibex_decoder.sv"
+      - "rtl/ibex_counter.sv"
+      - "rtl/ibex_alu.sv"
+      - "rtl/ibex_fetch_fifo.sv"
+      - "rtl/ibex_prefetch_buffer.sv"
+      - "rtl/ibex_multdiv_fast.sv"
+      - "rtl/ibex_register_file_ff.sv"
+      - "rtl/ibex_ex_block.sv"
+      - "rtl/ibex_controller.sv"
+      - "rtl/ibex_cs_registers.sv"
+      - "rtl/ibex_pmp.sv"
+      - "rtl/ibex_if_stage.sv"
+      - "rtl/ibex_id_stage.sv"
+      - "rtl/ibex_load_store_unit.sv"
+      - "rtl/ibex_wb_stage.sv"
+      - "rtl/ibex_core.sv"
+      - "rtl/ibex_top.sv"
+      - "rtl/ibex_top_tracing.sv"
 
   - name: pulp
     target_dir: vendor_ips/pulp
     upstream: { git: "https://github.com/pulp-platform/pulp.git", rev: "b6ae54700b76395b049742ebfc52c5aaf6e148a5" }
+    include_from_upstream:
+      - rtl/tb/riscv_pkg.sv
+      - rtl/vip/uart_tb_rx.sv
 
 
   - name: apb_spi_master
     target_dir: vendor_ips/apb_spi_master
     upstream: { git: "https://github.com/pulp-platform/apb_spi_master.git", rev: "3fce81084b15870f4bd9da7806cf950774f9672e" }
+    include_from_upstream:
+      - apb_spi_master.sv
+      - spi_master_apb_if.sv
 
 
   - name: axi_spi_master
     target_dir: vendor_ips/axi_spi_master
     upstream: { git: "https://github.com/pulp-platform/axi_spi_master.git", rev: "ee219078353a76e468674c25675f5b7fe5f51127" }
+    include_from_upstream:
+      - spi_master_fifo.sv
+      - spi_master_tx.sv
+      - spi_master_rx.sv
+      - spi_master_controller.sv
+      - spi_master_clkgen.sv
