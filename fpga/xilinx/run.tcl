@@ -63,7 +63,7 @@ set_property file_type SystemVerilog [get_files *.v]
 set_property is_global_include true [get_files prim_assert_dummy_macros.svh]
 
 # Use xilinx specific cg          
-set_property verilog_define { SYNTHESIS=1 FPGA=1 PRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx} [current_fileset]
+set_property verilog_define { COMMON_CELLS_ASSERTS_OFF=1 SYNTHESIS=1 FPGA=1 PRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx} [current_fileset]
 
 set_property source_mgmt_mode None [current_project]
 

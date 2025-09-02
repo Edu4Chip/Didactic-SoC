@@ -53,11 +53,11 @@ set_property -dict {PACKAGE_PIN H16 IOSTANDARD LVCMOS33} [get_ports clk_in]
 set_property -dict {PACKAGE_PIN M20 IOSTANDARD LVCMOS33} [get_ports reset]
 
 ## JTAG
-set_property -dict {PACKAGE_PIN Y7 IOSTANDARD LVCMOS33} [get_ports jtag_tck]
-set_property -dict {PACKAGE_PIN T14 IOSTANDARD LVCMOS33} [get_ports jtag_tdi]
-set_property -dict {PACKAGE_PIN U12 IOSTANDARD LVCMOS33} [get_ports jtag_tdo]
-set_property -dict {PACKAGE_PIN V13 IOSTANDARD LVCMOS33} [get_ports jtag_tms]
-set_property -dict {PACKAGE_PIN M19 IOSTANDARD LVCMOS33} [get_ports jtag_trst]
+set_property -dict {PACKAGE_PIN Y7 IOSTANDARD LVCMOS33} [get_ports jtag_tck];
+set_property -dict {PACKAGE_PIN T14 IOSTANDARD LVCMOS33} [get_ports jtag_tdi];
+set_property -dict {PACKAGE_PIN U12 IOSTANDARD LVCMOS33} [get_ports jtag_tdo];
+set_property -dict {PACKAGE_PIN V13 IOSTANDARD LVCMOS33} [get_ports jtag_tms];
+set_property -dict {PACKAGE_PIN M19 IOSTANDARD LVCMOS33} [get_ports jtag_trst]; #O_L7P_T1_AD2P_35 Sch=sw[1]
 
 ## UART
 set_property -dict {PACKAGE_PIN V15 IOSTANDARD LVCMOS33} [get_ports uart_rx]
