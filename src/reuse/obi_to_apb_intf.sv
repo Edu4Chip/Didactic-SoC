@@ -20,6 +20,9 @@ module obi_to_apb_intf #(
     // APB phase FSM
     typedef enum logic [1:0] {SETUP, ACCESS, HANDSHAKE} state_e;
     state_e state_d, state_q;
+
+    logic [31:0] data;
+    logic err;
   
     // Feed these through.
     assign apb_o.paddr  = obi_i.addr;
@@ -28,8 +31,8 @@ module obi_to_apb_intf #(
     assign apb_o.psel   = obi_i.req;
     assign apb_o.pstrb  = obi_i.be;
   
-    assign obi_i.err    = apb_o.pslverr;
-    assign obi_i.rdata  = apb_o.prdata;
+    assign obi_i.err    = err;
+    assign obi_i.rdata  = data;
   
     // Tie PPROT to {0: unprivileged, 1: non-secure, 0: data}
     assign apb_o.pprot   = 3'b010;
@@ -61,8 +64,12 @@ module obi_to_apb_intf #(
     always_ff @(posedge clk_i or negedge rst_ni) begin
       if (!rst_ni) begin
         state_q <= SETUP;
+        data <= 32'b0;
+        err <= 1'b0;
       end else begin
         state_q <= state_d;
+        data <= apb_o.prdata;
+        err <= apb_o.pslverr;
       end
     end
   

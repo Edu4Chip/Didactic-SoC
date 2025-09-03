@@ -1,0 +1,4 @@
+overrides:
+    common_cells: { git: "https://github.com/pulp-platform/common_cells.git", rev: "10dac0ff3387e14b1129be33cad1e9a7d71aed7f" }
+    apb: { git: "https://github.com/pulp-platform/apb.git", rev: "e486aa2b7302e3113414c9e5eeeb10d7e36172eb" }
+    axi: { git: "https://github.com/pulp-platform/axi.git", rev:  "28f70b468b0e969ea7ce13773b872636585558c1" }

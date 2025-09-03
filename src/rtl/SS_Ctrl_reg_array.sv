@@ -24,7 +24,8 @@ module SS_Ctrl_reg_array #(
     parameter IOCELL_COUNT     = 28, // update/propagate this value to match cell numbers
     parameter AW = 32,
     parameter DW = 32,
-    parameter SS_CTRL_W = 31 // configurable up to 31 bits
+    parameter SS_CTRL_W = 31, // configurable up to 31 bits
+    parameter NUM_SS = 4
 ) (
 
     // Interface: Clock
@@ -34,7 +35,7 @@ module SS_Ctrl_reg_array #(
     input  logic reset_n,
 
     // Interface: icn_ss_ctrl
-    output logic [SS_CTRL_W-1:0]          ss_ctrl_icn,
+    output logic [SS_CTRL_W-1:0] ss_ctrl_icn,
 
     // Interface: io_cfg
     output logic [(IOCELL_CFG_W*IOCELL_COUNT)-1:0] cell_cfg,
@@ -56,16 +57,7 @@ module SS_Ctrl_reg_array #(
     output logic reset_icn,
 
     // Interface: rst_ss_0
-    output logic reset_ss_0,
-
-    // Interface: rst_ss_1
-    output logic reset_ss_1,
-
-    // Interface: rst_ss_2
-    output logic reset_ss_2,
-
-    // Interface: rst_ss_3
-    output logic reset_ss_3,
+    output logic [NUM_SS-1:0] reset_ss,
 
     // Interface: ss_ctrl_0
     output logic                 irq_en_0,
@@ -83,11 +75,15 @@ module SS_Ctrl_reg_array #(
     output logic                 irq_en_3,
     output logic [SS_CTRL_W-1:0] ss_ctrl_3,
 
+    // Interface: ss_ctrl_4
+    output logic                 irq_en_4,
+    output logic [SS_CTRL_W-1:0] ss_ctrl_4,
+
     // Interface: pmod_ctrl
     output logic [7:0] pmod_sel,
 
     // Interface: fetch_en
-    output logic [4:0] fetch_en
+    output logic [3:0] fetch_en
 );
 
 
@@ -98,9 +94,10 @@ module SS_Ctrl_reg_array #(
   logic [31:0] ss_1_ctrl_reg;
   logic [31:0] ss_2_ctrl_reg;
   logic [31:0] ss_3_ctrl_reg;
-  logic [31:0] ss_ctrl_reserved_0_reg;
+  logic [31:0] ss_4_ctrl_reg;
   logic [31:0] ss_ctrl_reserved_1_reg;
   logic [31:0] pmod_sel_reg;
+  // gpio layout: uart/spi/gpio
   logic [IOCELL_COUNT-1:0][31:0] io_cell_cfg_reg;
 
   logic [31:0] boot_reg_0;
@@ -123,11 +120,11 @@ module SS_Ctrl_reg_array #(
         ss_1_ctrl_reg <= 'h0;
         ss_2_ctrl_reg <= 'h0;
         ss_3_ctrl_reg <= 'h0;
-        ss_ctrl_reserved_0_reg <= 'h0;
+        ss_4_ctrl_reg <= 'h0;
         ss_ctrl_reserved_1_reg <= 'h0;
         pmod_sel_reg <= 'h4;
         for(int i=0; i < IOCELL_COUNT; i++) begin
-          io_cell_cfg_reg[i] <= 'h0;
+          io_cell_cfg_reg[i] <= 'hE;
         end
         boot_reg_0 <= 'h6f;
         boot_reg_1 <= 'h6f;
@@ -147,53 +144,48 @@ module SS_Ctrl_reg_array #(
       end
 
       if (we_i & req_i & ~rvalid_reg) begin
+
+        // io cell cfg
+        for(int i=0; i < IOCELL_COUNT; i++) begin
+          if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
+            io_cell_cfg_reg[i] <= wdata_i;
+          end
+        end
+
         case (addr_i[16:0])
-          'h0:  fetch_en_reg       <= wdata_i;
-          'h4:  ss_rst_reg         <= wdata_i;
+          'h0:  fetch_en_reg <= wdata_i;
+          'h4:  ss_rst_reg   <= wdata_i;
 
-          'h8:  icn_ctrl_reg       <= wdata_i;
-          'hC:  ss_0_ctrl_reg      <= wdata_i;
-          'h10: ss_1_ctrl_reg      <= wdata_i;
-          'h14: ss_2_ctrl_reg      <= wdata_i;
-          'h18: ss_3_ctrl_reg      <= wdata_i;
+          'h8:  icn_ctrl_reg           <= wdata_i;
+          'hC:  ss_0_ctrl_reg          <= wdata_i;
+          'h10: ss_1_ctrl_reg          <= wdata_i;
+          'h14: ss_2_ctrl_reg          <= wdata_i;
+          'h18: ss_3_ctrl_reg          <= wdata_i;
+          'h1C: ss_4_ctrl_reg          <= wdata_i;
 
-          'h1C: ss_ctrl_reserved_0_reg <= wdata_i;
           'h20: ss_ctrl_reserved_1_reg <= wdata_i;
 
-          'h24: pmod_sel_reg        <= wdata_i;
+          'h24: pmod_sel_reg <= wdata_i;
 
-          'h28: io_cell_cfg_reg[0]  <= wdata_i;
-          'h2C: io_cell_cfg_reg[1]  <= wdata_i;
-          'h30: io_cell_cfg_reg[2]  <= wdata_i;
-          'h34: io_cell_cfg_reg[3]  <= wdata_i;
+          //unrolled io cells conf would be here
 
-          'h38: io_cell_cfg_reg[4]  <= wdata_i;
-          'h3C: io_cell_cfg_reg[5]  <= wdata_i;
-          'h40: io_cell_cfg_reg[6]  <= wdata_i;
-          'h44: io_cell_cfg_reg[7]  <= wdata_i;
-
-          'h48: io_cell_cfg_reg[8]  <= wdata_i;
-          'h4C: io_cell_cfg_reg[9]  <= wdata_i;
-          'h50: io_cell_cfg_reg[10] <= wdata_i;
-          'h54: io_cell_cfg_reg[11] <= wdata_i;
-          'h58: io_cell_cfg_reg[12] <= wdata_i;
-          'h5C: io_cell_cfg_reg[13] <= wdata_i;
-          'h60: io_cell_cfg_reg[14] <= wdata_i;
-
-          'h64: io_cell_cfg_reg[15] <= wdata_i;
-          'h68: io_cell_cfg_reg[16] <= wdata_i;
-
-          //'h6C: io_cell_cfg_reg[17] <= wdata_i;
-          //'h70: io_cell_cfg_reg[18] <= wdata_i;
-
-          'h100: boot_reg_0 <= wdata_i;
-          'h104: boot_reg_1 <= wdata_i;
+          'h100: boot_reg_0   <= wdata_i;
+          'h104: boot_reg_1   <= wdata_i;
           'h180: return_reg_0 <= wdata_i;
           'h184: return_reg_1 <= wdata_i;
         endcase
+
         rvalid_reg <= 1'b1;
       end
       else if(~we_i & req_i & ~rvalid_reg) begin 
+
+        for(int i=0; i < IOCELL_COUNT; i++) begin
+          if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
+              rdata_out_reg <= io_cell_cfg_reg[i];
+          end
+        end
+
+        // io cell cfg
         case(addr_i[16:0])
 
           'h0:  rdata_out_reg <= fetch_en_reg;
@@ -204,42 +196,19 @@ module SS_Ctrl_reg_array #(
           'h10: rdata_out_reg <= ss_1_ctrl_reg;
           'h14: rdata_out_reg <= ss_2_ctrl_reg;
           'h18: rdata_out_reg <= ss_3_ctrl_reg;
+          'h1C: rdata_out_reg <= ss_4_ctrl_reg;
 
-          'h1C: rdata_out_reg <= ss_ctrl_reserved_0_reg;
           'h20: rdata_out_reg <= ss_ctrl_reserved_1_reg;
 
           'h24: rdata_out_reg <= pmod_sel_reg;
-          // gpio 0
-          'h28: rdata_out_reg <= io_cell_cfg_reg[0];
-          'h2C: rdata_out_reg <= io_cell_cfg_reg[1];
-          'h30: rdata_out_reg <= io_cell_cfg_reg[2];
-          'h34: rdata_out_reg <= io_cell_cfg_reg[3];
-          // gpio 1
-          'h38: rdata_out_reg <= io_cell_cfg_reg[4];
-          'h3C: rdata_out_reg <= io_cell_cfg_reg[5];
-          'h40: rdata_out_reg <= io_cell_cfg_reg[6];
-          'h44: rdata_out_reg <= io_cell_cfg_reg[7];
-          // spi
-          'h48: rdata_out_reg <= io_cell_cfg_reg[8];
-          'h4C: rdata_out_reg <= io_cell_cfg_reg[9];
-          'h50: rdata_out_reg <= io_cell_cfg_reg[10];
-          'h54: rdata_out_reg <= io_cell_cfg_reg[11];
-          'h58: rdata_out_reg <= io_cell_cfg_reg[12];
-          'h5C: rdata_out_reg <= io_cell_cfg_reg[13];
-          'h60: rdata_out_reg <= io_cell_cfg_reg[14];
-          // uart
-          'h64: rdata_out_reg <= io_cell_cfg_reg[15];
-          'h68: rdata_out_reg <= io_cell_cfg_reg[16];
-          // reserves
-          //'h6C: rdata_out_reg = io_cell_cfg_reg[17];
-          //'h70: rdata_out_reg = io_cell_cfg_reg[18];
+
+          //unrolled io cells conf would be here
 
           'h100: rdata_out_reg <= boot_reg_0;
           'h104: rdata_out_reg <= boot_reg_1;
           'h180: rdata_out_reg <= return_reg_0;
           'h184: rdata_out_reg <= return_reg_1;
-          
-          default: rdata_out_reg <= 'hBADACCE5; 
+ 
         endcase
         rvalid_reg <= 1'b1;
       end
@@ -247,7 +216,7 @@ module SS_Ctrl_reg_array #(
         rvalid_reg <= 1'b1;
       end
       else begin
-        gnt_reg <= 1'b1;
+        gnt_reg    <= 1'b1;
         rvalid_reg <= 1'b0;
       end
     end
@@ -256,11 +225,11 @@ module SS_Ctrl_reg_array #(
   always_comb // 
   begin : comb_logic
     
-    rvalid_o = rvalid_reg;
+    rvalid_o    = rvalid_reg;
     rvalidpar_o = ~rvalid_reg;
-    gnt_o = gnt_reg;
-    gntpar_o = ~gnt_reg;
-    rdata_o = rdata_out_reg;
+    gnt_o       = gnt_reg;
+    gntpar_o    = ~gnt_reg;
+    rdata_o     = rdata_out_reg;
 
     for(int i=0; i < IOCELL_COUNT; i++) begin
       cell_cfg[i*IOCELL_CFG_W +:IOCELL_CFG_W] = io_cell_cfg_reg[i];
@@ -268,16 +237,12 @@ module SS_Ctrl_reg_array #(
 
 end // comb_logic
 
-// assign ins
-
+// assign ins - potential status regs that can be read
 
 // assign outs
 
 assign reset_icn  = ss_rst_reg[0];
-assign reset_ss_0 = ss_rst_reg[1];
-assign reset_ss_1 = ss_rst_reg[2];
-assign reset_ss_2 = ss_rst_reg[3];
-assign reset_ss_3 = ss_rst_reg[4];
+assign reset_ss = ss_rst_reg[NUM_SS:1];
 
 assign irq_en_0    = ss_0_ctrl_reg[31];
 assign ss_ctrl_0   = ss_0_ctrl_reg[SS_CTRL_W-1:0];
@@ -287,11 +252,13 @@ assign irq_en_2    = ss_2_ctrl_reg[31] ;
 assign ss_ctrl_2   = ss_2_ctrl_reg[SS_CTRL_W-1:0];
 assign irq_en_3    = ss_3_ctrl_reg[31];
 assign ss_ctrl_3   = ss_3_ctrl_reg[SS_CTRL_W-1:0];
+assign irq_en_4    = ss_4_ctrl_reg[31];
+assign ss_ctrl_4   = ss_4_ctrl_reg[SS_CTRL_W-1:0];
 assign ss_ctrl_icn = icn_ctrl_reg[SS_CTRL_W-1:0];
 
 assign pmod_sel = pmod_sel_reg;
 
-assign fetch_en = fetch_en_reg[4:0];
+assign fetch_en = fetch_en_reg[3:0];
 
 // this functionality can be recreated by kamel framework once memory design is finalized.
 // ipxact register map needs to be synced to this rtl first

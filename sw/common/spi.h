@@ -28,10 +28,10 @@
 #define INTSTA *(uint32_t*)(SPI_BASE + 0x28u)
 
 #define CTRL_BASE 0x01040000
-#define SPI_PAD_CFG_DATA0 *(uint32_t*)(CTRL_BASE + 0x54)
-#define SPI_PAD_CFG_DATA1 *(uint32_t*)(CTRL_BASE + 0x58)
-#define SPI_PAD_CFG_DATA2 *(uint32_t*)(CTRL_BASE + 0x5C)
-#define SPI_PAD_CFG_DATA3 *(uint32_t*)(CTRL_BASE + 0x60)
+#define SPI_PAD_CFG_DATA0 *(uint32_t*)(CTRL_BASE + 0x3C)
+#define SPI_PAD_CFG_DATA1 *(uint32_t*)(CTRL_BASE + 0x40)
+#define SPI_PAD_CFG_DATA2 *(uint32_t*)(CTRL_BASE + 0x44)
+#define SPI_PAD_CFG_DATA3 *(uint32_t*)(CTRL_BASE + 0x48)
 
 void spi_init(){
   // cfg regs 8 through 14

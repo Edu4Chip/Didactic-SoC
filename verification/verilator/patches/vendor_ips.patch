@@ -1,0 +1,15 @@
+--- vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv
++++ vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv
+@@ -26,0 +26,2 @@
++`include "prim_mubi_pkg.sv"
++`include "prim_count_pkg.sv"
+
+--- vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_scr.sv
++++ vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_scr.sv
+@@ -24,0 +24,1 @@
++`include "prim_mubi_pkg.sv"
+
+--- vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_mubi_pkg.sv
++++ vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_mubi_pkg.sv
+@@ -12,0 +12,1 @@
++`include "verification/verilator/src/hdl/missing_definitions.sv"

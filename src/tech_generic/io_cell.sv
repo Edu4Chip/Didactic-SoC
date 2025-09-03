@@ -1,6 +1,6 @@
 /*
   Project: Edu4Chip
-  Module(s): io_cell, o_cell, i_cell
+  Module(s): io_cell, o_cell, i_cell, clk_cell
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
   Description:
@@ -57,21 +57,7 @@ module clk_cell (
     inout  wire  CLK_N_PAD
   );
 
-  `ifdef FPGA
-    IOBUF i_clk_p_iobuf(
-      .T (1'b1), 
-      .I (1'b0),
-      .O (CLK_TO_CORE),
-      .IO(CLK_P_PAD)
-    );
-    IOBUF i_clk_n_iobuf(
-      .T (1'b1), 
-      .I (1'b0),
-      .O (),
-      .IO(CLK_N_PAD)
-    );
-  `else
-    assign CLK_TO_CORE = CLK_P_PAD;
-  `endif
+  assign CLK_TO_CORE = CLK_P_PAD;
+  assign CLK_N_PAD = ~CLK_P_PAD;
   
 endmodule

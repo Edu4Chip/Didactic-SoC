@@ -7500,9 +7500,6 @@
 				<ipxact:name>../../../../../src/rtl/sysctrl_obi_xbar.sv</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 11:37:30 on 24.03.2025 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>433e0ad7d1d0d41764b779957f3754a9b2ed135d</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>

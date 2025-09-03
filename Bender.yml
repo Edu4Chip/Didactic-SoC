@@ -7,12 +7,21 @@ package:
 dependencies:           # TODO: only 1st level dependencies needed, also semantic versions prefered over commit hashes
   apb_gpio:     { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "f82caeb7f7d89427f05e9af5ed31e0675efe0d83" }
   apb_uart:     { git: "https://github.com/pulp-platform/apb_uart.git", rev: "6c7dde3d749ac8274377745c105da8c8b8cd27c6" }
-  axi:          { git: "https://github.com/pulp-platform/axi.git", rev:  "69b2dc5b28379855415f4b007b624648a02431bc" }
-  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", rev: "9afda9abb565971649c2aa0985639c096f351171" }
+  axi:          { git: "https://github.com/pulp-platform/axi.git", version: "0.38.0" }
+  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: "1.37.0" }
   riscv-dbg:    { git: "https://github.com/pulp-platform/riscv-dbg.git", rev: "618ee6e0e2610ef47e0dcc4df6748af3dffff731" }
-  apb:          { git: "https://github.com/pulp-platform/apb.git", rev: "e486aa2b7302e3113414c9e5eeeb10d7e36172eb" }
-  obi:          { git: "https://github.com/pulp-platform/obi.git", rev: "8097928cf1b43712f93d5356f336397879b4ad2c" }
+  apb:          { git: "https://github.com/pulp-platform/apb.git", version: "0.2.1" }
+  obi:          { git: "https://github.com/pulp-platform/obi.git", rev: "ad1d48f025be540344960ea83b4bff39876f9b36" }
+  vbench:       { git: "https://github.com/ANurmi/vbench", rev: "main" }
 #  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" }
+#  kth_ss: { path: 'Subsystem_KTH/src/interface/kth_ss' }
+# NOTE: axi pkg contains file that is not supported by all tools! 
+#
+# in file:
+# .bender/git/checkouts/axi-<hash>/Bender.yml
+#
+# comment out line 88:
+# #  - src/axi_xbar_unmuxed.sv
 
 sources:
 
@@ -84,6 +93,7 @@ sources:
   - target: didactic_obi
     files:
     - src/rtl/sp_sram.sv
+    - src/rtl/sram.sv
     - src/reuse/obi_to_apb_intf.sv
     - src/rtl/sysctrl_obi_xbar.sv
     - src/rtl/jtag_dbg_wrapper_obi.sv
@@ -96,26 +106,39 @@ sources:
     files:
     - src/rtl/io_cell_frame_sysctrl.sv
     - src/tech_generic/io_cell_wrapper.sv
+    - src/tech_generic/tech_sync.sv
     - src/tech_generic/tech_cg.sv
-    - src/tech_generic/io_cell.sv
-    - src/generated/Student_SS_0_0.v
-    - src/generated/Student_SS_1_0.v
-    - src/generated/Student_SS_2_0.v
-    - src/generated/Student_SS_3_0.v
+    - src/tech_generic/tech_not.sv
+    - src/tech_generic/analog_clk_cell.sv
     - src/rtl/SS_Ctrl_reg_array.sv
     - src/rtl/pmod_mux.sv
+    - src/rtl/imt_ss_tieoff.sv
+    - src/rtl/kth_ss_tieoff.sv
+    - src/rtl/tum_ss_tieoff.sv
+#    - src/rtl/Student_area_0.sv
+#    - src/rtl/student_ss_1.sv
+#    - src/rtl/Student_SS_2.sv
+#    - src/rtl/Student_SS_3.sv
+    - src/rtl/analog_status_array.sv
+    - src/rtl/student_ss_analog.sv
+    - src/generated/imt_wrapper_0.v
+    - src/generated/kth_wrapper_0.v
+    - src/generated/tum_wrapper_0.v
+#    - src/generated/Student_SS_0_0.v
+#    - src/generated/Student_SS_1_0.v
+#    - src/generated/Student_SS_2_0.v
+#    - src/generated/Student_SS_3_0.v
     - src/generated/DtuSubsystem.sv
-    - src/rtl/Student_area_0.sv
-    - src/rtl/student_ss_1.sv
-    - src/rtl/Student_SS_2.sv
-    - src/rtl/Student_SS_3.sv
+    - src/rtl/dtu_ss.sv
+    - src/generated/dtu_wrapper_0.v
+    - src/generated/analog_wrapper_0.v
     - src/generated/SysCtrl_SS_0.v
     - src/generated/SysCtrl_SS_wrapper_0.v
-    - src/rtl/student_ss_analog.sv
     - src/generated/Didactic.v
 
   - target: not(synthesis)
     files:
+    - src/tech_generic/io_cell.sv
     - vendor_ips/pulp/rtl/tb/riscv_pkg.sv
     - vendor_ips/pulp/rtl/vip/uart_tb_rx.sv
     - src/tb/spi/if_spi_slave.sv
@@ -125,7 +148,47 @@ sources:
 vendor_package:
   - name: ibex
     target_dir: vendor_ips/ibex
-    upstream: { git: "https://github.com/lowRISC/ibex", rev: "6e466c1504b61333d1b2ba85c69bff94b65e9284" }
+    upstream: { git: "https://github.com/lowRISC/ibex", rev: "8a3d46f095db817fafdad9de4d157ccb83a267fb" }
+    include_from_upstream:
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv"
+      - "vendor/lowrisc_ip/dv/sv/dv_utils/dv_fcov_macros.svh"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_assert.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_assert_dummy_macros.svh"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_assert_sec_cm.svh"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_flop_macros.sv"
+      - "vendor/lowrisc_ip/ip/prim/rtl/prim_assert_standard_macros.svh"
+      - "dv/uvm/core_ibex/common/prim/prim_pkg.sv"
+      - "vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv"
+      - "dv/uvm/core_ibex/common/prim/prim_buf.sv"
+      - "vendor/lowrisc_ip/ip/prim_xilinx/rtl/prim_xilinx_clock_gating.sv"
+      - "dv/uvm/core_ibex/common/prim/prim_clock_gating.sv"
+      - "syn/rtl/prim_clock_gating.v"
+      - "rtl/ibex_pkg.sv"
+      - "rtl/ibex_tracer_pkg.sv"
+      - "rtl/ibex_tracer.sv"
+      - "rtl/ibex_csr.sv"
+      - "rtl/ibex_compressed_decoder.sv"
+      - "rtl/ibex_decoder.sv"
+      - "rtl/ibex_counter.sv"
+      - "rtl/ibex_alu.sv"
+      - "rtl/ibex_fetch_fifo.sv"
+      - "rtl/ibex_prefetch_buffer.sv"
+      - "rtl/ibex_multdiv_fast.sv"
+      - "rtl/ibex_register_file_ff.sv"
+      - "rtl/ibex_ex_block.sv"
+      - "rtl/ibex_controller.sv"
+      - "rtl/ibex_cs_registers.sv"
+      - "rtl/ibex_pmp.sv"
+      - "rtl/ibex_if_stage.sv"
+      - "rtl/ibex_id_stage.sv"
+      - "rtl/ibex_load_store_unit.sv"
+      - "rtl/ibex_wb_stage.sv"
+      - "rtl/ibex_core.sv"
+      - "rtl/ibex_top.sv"
+      - "rtl/ibex_top_tracing.sv"
 
   - name: pulp
     target_dir: vendor_ips/pulp
@@ -133,6 +196,9 @@ vendor_package:
     exclude_from_upstream:
       - "rtl/tb/dpi_models"
       - "rtl/tb/tb_driver"
+    include_from_upstream:
+      - "rtl/tb/riscv_pkg.sv"
+      - "rtl/vip/uart_tb_rx.sv"
 
   - name: apb_spi_master
     target_dir: vendor_ips/apb_spi_master
@@ -143,7 +209,16 @@ vendor_package:
       - "spi_master_fifo.sv"
       - "spi_master_rx.sv"
       - "spi_master_tx.sv"
+    include_from_upstream:
+      - "apb_spi_master.sv"
+      - "spi_master_apb_if.sv"
 
   - name: axi_spi_master
     target_dir: vendor_ips/axi_spi_master
     upstream: { git: "https://github.com/pulp-platform/axi_spi_master.git", rev: "ee219078353a76e468674c25675f5b7fe5f51127" }
+    include_from_upstream:
+      - "spi_master_fifo.sv"
+      - "spi_master_tx.sv"
+      - "spi_master_rx.sv"
+      - "spi_master_controller.sv"
+      - "spi_master_clkgen.sv"

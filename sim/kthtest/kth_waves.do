@@ -1,0 +1,35 @@
+add wave -position insertpoint  \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/APB_AW \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/APB_DW \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/ROWS \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/COLS \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/INSTR_DATA_WIDTH \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/INSTR_ADDR_WIDTH \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/INSTR_HOPS_WIDTH \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/IO_ADDR_WIDTH \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/IO_DATA_WIDTH \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/INSTR_BASE_ADDR \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/INSTR_SIZE_BYTES \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/DATA_IN_BASE_ADDR \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/DATA_IN_SIZE_BYTES \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/DATA_OUT_BASE_ADDR \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/DATA_OUT_SIZE_BYTES \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/CTRL_BASE_ADDR \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/CTRL_SIZE_BYTES \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/PADDR \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/PENABLE \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/PSEL \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/PWDATA \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/PWRITE \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/PRDATA \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/PREADY \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/PSLVERR \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/clk_in \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/high_speed_clk \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/irq_3 \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/reset_int \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/irq_en_3 \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/ss_ctrl_3 \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/pmod_gpi \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/pmod_gpo \
+sim:/tb_didactic/i_didactic/i_kth_ss_wrapper/i_kth_ss/pmod_gpio_oe

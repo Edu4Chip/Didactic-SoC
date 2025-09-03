@@ -13,3 +13,4 @@ vendor_ips
 *.jou
 *.str
 .Xil
+Bender.lock

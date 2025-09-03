@@ -9,6 +9,10 @@
 		<ipxact:instanceName>i_obi_icn_ss</ipxact:instanceName>
 		<ipxact:view viewRef="flat_verilog"/>
 	</ipxact:viewConfiguration>
+	<ipxact:viewConfiguration>
+		<ipxact:instanceName>analog_wrapper_0</ipxact:instanceName>
+		<ipxact:view viewRef="hierarchical"/>
+	</ipxact:viewConfiguration>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 		<kactus2:kts_attributes>

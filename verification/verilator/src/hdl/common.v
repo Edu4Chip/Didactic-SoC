@@ -11,6 +11,8 @@ Assuming that "clk" is the clock signal of the module.
 ```
 */
 
+/* deprecated in favor of code generation via python */
+
 `define INCREMENT_CYCLE_COUNT(clk) \
     `ifdef VERILATOR \
     import "DPI-C" function void register_module(input string path); \

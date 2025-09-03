@@ -14,6 +14,7 @@
 					<ipxact:configurableElementValue referenceId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79">uuid_3777da60_8580_4b50_b427_8bd245188123</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960">uuid_f7826066_d90a_4d4c_9391_cfeef631857f</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b">uuid_f59fdf20_4566_47aa_b925_96a29c6c62dc</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_821beacc_94a8_4945_a136_d7d715007099">uuid_d27d07c6_0466_4ff7_8ad4_be74f3b07e63</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -24,15 +25,16 @@
 					<kactus2:portPosition busRef="Reset" x="110" y="70"/>
 					<kactus2:portPosition busRef="fetch_en" x="110" y="290"/>
 					<kactus2:portPosition busRef="icn_ss_ctrl" x="-110" y="120"/>
-					<kactus2:portPosition busRef="io_cfg" x="-110" y="320"/>
+					<kactus2:portPosition busRef="io_cfg" x="-110" y="360"/>
 					<kactus2:portPosition busRef="obi_target" x="110" y="210"/>
-					<kactus2:portPosition busRef="pmod_sel" x="-110" y="360"/>
+					<kactus2:portPosition busRef="pmod_sel" x="-110" y="400"/>
 					<kactus2:portPosition busRef="rst_icn" x="-110" y="40"/>
 					<kactus2:portPosition busRef="rst_ss" x="-110" y="80"/>
 					<kactus2:portPosition busRef="ss_ctrl_0" x="-110" y="160"/>
 					<kactus2:portPosition busRef="ss_ctrl_1" x="-110" y="200"/>
 					<kactus2:portPosition busRef="ss_ctrl_2" x="-110" y="240"/>
 					<kactus2:portPosition busRef="ss_ctrl_3" x="-110" y="280"/>
+					<kactus2:portPosition busRef="ss_ctrl_4" x="-110" y="320"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -49,10 +51,10 @@
 				<kactus2:position x="600" y="280"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
-					<kactus2:portPosition busRef="Debug" x="-110" y="250"/>
+					<kactus2:portPosition busRef="Debug" x="-110" y="290"/>
 					<kactus2:portPosition busRef="FetchEn" x="-110" y="70"/>
 					<kactus2:portPosition busRef="IRQ_fast" x="-110" y="410"/>
-					<kactus2:portPosition busRef="Reset" x="-110" y="230"/>
+					<kactus2:portPosition busRef="Reset" x="-110" y="270"/>
 					<kactus2:portPosition busRef="dmem" x="110" y="130"/>
 					<kactus2:portPosition busRef="imem" x="110" y="50"/>
 				</kactus2:portPositions>
@@ -149,7 +151,7 @@
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
-					<kactus2:adHocVisible portName="INT" x="110" y="150"/>
+					<kactus2:adHocVisible portName="INT" x="110" y="140"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -163,7 +165,7 @@
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{98154dd7-1db5-499c-8468-f1569646dadf}</kactus2:uuid>
-				<kactus2:position x="280" y="470"/>
+				<kactus2:position x="280" y="510"/>
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="Clock" x="-110" y="40"/>
 					<kactus2:portPosition busRef="Debug" x="110" y="60"/>
@@ -465,6 +467,11 @@
 			<ipxact:activeInterface componentInstanceRef="ctrl_reg_array" busRef="obi_target"/>
 			<ipxact:activeInterface componentInstanceRef="sysctrl_obi_xbar" busRef="obi_ctrl"/>
 		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>ctrl_reg_array_ss_ctrl_4_to_ss_ctrl_4</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="ctrl_reg_array" busRef="ss_ctrl_4"/>
+			<ipxact:hierInterface busRef="ss_ctrl_4"/>
+		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
 		<ipxact:adHocConnection>
@@ -522,19 +529,12 @@
 				<ipxact:internalPortReference componentInstanceRef="i_ibex_wrapper" portRef="irq_fast_i">
 					<ipxact:partSelect>
 						<ipxact:range>
-							<ipxact:left>7</ipxact:left>
+							<ipxact:left>8</ipxact:left>
 							<ipxact:right>4</ipxact:right>
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:internalPortReference>
-				<ipxact:externalPortReference portRef="sysctrl_irq_i">
-					<ipxact:partSelect>
-						<ipxact:range>
-							<ipxact:left>3</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:range>
-					</ipxact:partSelect>
-				</ipxact:externalPortReference>
+				<ipxact:externalPortReference portRef="sysctrl_irq_i"/>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
 		<ipxact:adHocConnection>
@@ -544,7 +544,7 @@
 					<ipxact:partSelect>
 						<ipxact:range>
 							<ipxact:left>14</ipxact:left>
-							<ipxact:right>8</ipxact:right>
+							<ipxact:right>9</ipxact:right>
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:internalPortReference>
@@ -552,7 +552,7 @@
 					<ipxact:partSelect>
 						<ipxact:range>
 							<ipxact:left>14</ipxact:left>
-							<ipxact:right>8</ipxact:right>
+							<ipxact:right>9</ipxact:right>
 						</ipxact:range>
 					</ipxact:partSelect>
 				</ipxact:externalPortReference>
@@ -596,6 +596,10 @@
 			<ipxact:name>OBI_IDW</ipxact:name>
 			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_d27d07c6_0466_4ff7_8ad4_be74f3b07e63" resolve="user">
+			<ipxact:name>NUM_SS</ipxact:name>
+			<ipxact:value>4</ipxact:value>
+		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
@@ -636,15 +640,15 @@
 				<kactus2:position x="60" y="340"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ctrl_reg_array_io_cfg_to_io_cell_cfg" kactus2:offPage="false">
-				<kactus2:position x="170" y="380"/>
-				<kactus2:position x="60" y="380"/>
+				<kactus2:position x="170" y="420"/>
+				<kactus2:position x="60" y="420"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_JTAG_to_JTAG" kactus2:offPage="false">
-				<kactus2:position x="170" y="560"/>
-				<kactus2:position x="60" y="560"/>
+				<kactus2:position x="170" y="600"/>
+				<kactus2:position x="60" y="600"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_Clock_to_Clk" kactus2:offPage="true">
-				<kactus2:position x="140" y="510"/>
+				<kactus2:position x="140" y="550"/>
 				<kactus2:position x="1430" y="670"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ctrl_reg_array_Clock_to_Clk" kactus2:offPage="true">
@@ -712,20 +716,20 @@
 				<kactus2:position x="60" y="960"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_Reset_to_Reset" kactus2:offPage="true">
-				<kactus2:position x="140" y="530"/>
+				<kactus2:position x="140" y="570"/>
 				<kactus2:position x="1430" y="710"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_core_reset_to_i_ibex_wrapper_Reset" kactus2:offPage="false">
-				<kactus2:position x="390" y="510"/>
-				<kactus2:position x="490" y="510"/>
+				<kactus2:position x="390" y="550"/>
+				<kactus2:position x="490" y="550"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_Debug_to_i_ibex_wrapper_Debug" kactus2:offPage="false">
-				<kactus2:position x="390" y="530"/>
-				<kactus2:position x="490" y="530"/>
+				<kactus2:position x="390" y="570"/>
+				<kactus2:position x="490" y="570"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ctrl_reg_array_pmod_sel_to_pmod_sel" kactus2:offPage="false">
-				<kactus2:position x="170" y="420"/>
-				<kactus2:position x="60" y="420"/>
+				<kactus2:position x="170" y="460"/>
+				<kactus2:position x="60" y="460"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SS_Ctrl_reg_array_pmod_sel_to_pmod_sel" kactus2:offPage="false">
 				<kactus2:position x="170" y="420"/>
@@ -792,7 +796,7 @@
 				<kactus2:position x="460" y="710"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="apb_uart_INT_to_i_ibex_wrapper_irq_fast_i" kactus2:offPage="true">
-				<kactus2:position x="1380" y="210"/>
+				<kactus2:position x="1380" y="200"/>
 				<kactus2:position x="460" y="710"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="apb_spi_master_events_o_to_i_ibex_wrapper_irq_fast_i" kactus2:offPage="true">
@@ -842,23 +846,23 @@
 				<kactus2:position x="1130" y="220"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_OBI_T_to_sysctrl_obi_xbar_obi_jtag_dm_target" kactus2:offPage="true">
-				<kactus2:position x="420" y="620"/>
+				<kactus2:position x="420" y="660"/>
 				<kactus2:position x="780" y="230"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="jtag_dbg_wrapper_OBI_I_to_sysctrl_obi_xbar_obi_jtag_dm_init" kactus2:offPage="true">
-				<kactus2:position x="420" y="600"/>
+				<kactus2:position x="420" y="640"/>
 				<kactus2:position x="780" y="250"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem" kactus2:offPage="false">
 				<kactus2:position x="710" y="330"/>
-				<kactus2:position x="740" y="330"/>
-				<kactus2:position x="740" y="170"/>
+				<kactus2:position x="770" y="330"/>
+				<kactus2:position x="770" y="170"/>
 				<kactus2:position x="810" y="170"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem" kactus2:offPage="false">
 				<kactus2:position x="710" y="410"/>
-				<kactus2:position x="750" y="410"/>
-				<kactus2:position x="750" y="200"/>
+				<kactus2:position x="780" y="410"/>
+				<kactus2:position x="780" y="200"/>
 				<kactus2:position x="810" y="200"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_imem_mem_to_sysctrl_obi_xbar_obi_imem" kactus2:offPage="false">
@@ -885,6 +889,10 @@
 				<kactus2:position x="470" y="710"/>
 				<kactus2:position x="490" y="710"/>
 			</kactus2:route>
+			<kactus2:route kactus2:connRef="ctrl_reg_array_ss_ctrl_4_to_ss_ctrl_4" kactus2:offPage="false">
+				<kactus2:position x="170" y="380"/>
+				<kactus2:position x="60" y="380"/>
+			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>
 			<kactus2:adHocVisible portName="irq_upper_tieoff" x="60" y="690"/>
@@ -892,7 +900,7 @@
 		</kactus2:adHocVisibilities>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>JTAG</kactus2:name>
-			<kactus2:position x="60" y="560"/>
+			<kactus2:position x="60" y="600"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -937,7 +945,7 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>io_cell_cfg</kactus2:name>
-			<kactus2:position x="60" y="380"/>
+			<kactus2:position x="60" y="420"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -982,7 +990,7 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>pmod_sel</kactus2:name>
-			<kactus2:position x="60" y="420"/>
+			<kactus2:position x="60" y="460"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
@@ -992,13 +1000,18 @@
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>IRQ</kactus2:name>
-			<kactus2:position x="60" y="820"/>
+			<kactus2:position x="60" y="800"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
 			<kactus2:name>OBI</kactus2:name>
 			<kactus2:position x="1460" y="260"/>
 			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>ss_ctrl_4</kactus2:name>
+			<kactus2:position x="60" y="380"/>
+			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:note>
 			<kactus2:position x="530" y="560"/>
@@ -1007,10 +1020,10 @@
 			<kactus2:timestamp>22.04.2024 14:01</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:note>
-			<kactus2:position x="520" y="760"/>
-			<kactus2:content>TODO: Define IMEM and DMEM dimensions.</kactus2:content>
+			<kactus2:position x="170" y="770"/>
+			<kactus2:content>IRQ port assign values need to be updated manually if changed.</kactus2:content>
 			<kactus2:associations/>
-			<kactus2:timestamp>22.04.2024 14:03</kactus2:timestamp>
+			<kactus2:timestamp>10.04.2025 10:20</kactus2:timestamp>
 		</kactus2:note>
 	</ipxact:vendorExtensions>
 </ipxact:design>
