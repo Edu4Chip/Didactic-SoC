@@ -1456,9 +1456,9 @@ module SysCtrl_SS_0 #(
 
     // IP-XACT VLNV: tuni.fi:lowRISC:ibex:1.1
     ibex_wrapper #(
-        .DmHaltAddr          (16910336),
-        .DmExceptionAddr     (16910358),
-        .DmBaseAddr          (16908288))
+        .DmHaltAddr          ('h800),
+        .DmExceptionAddr     ('h808),
+        .DmBaseAddr          ('h0))
     i_ibex_wrapper(
         // Interface: Clock
         .clk_i               (i_ibex_wrapper_clk_i),
@@ -1537,7 +1537,7 @@ module SysCtrl_SS_0 #(
 
     // IP-XACT VLNV: tuni.fi:ip:jtag_dbg_wrapper_obi:1.0
     jtag_dbg_wrapper_obi #(
-        .DM_BASE_ADDRESS     (16908288),
+        .DM_BASE_ADDRESS     ('h0),
         .DM_ID_VALUE         (470810337))
     jtag_dbg_wrapper(
         // Interface: Clock

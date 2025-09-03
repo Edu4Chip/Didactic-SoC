@@ -239,7 +239,7 @@ module tb_didactic();
       // poll
       while(jtag_data[31] == 0) begin
         // todo: wire core status register
-        debug_mode_if.readMem(32'h01020380, jtag_data, jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
+        debug_mode_if.readMem(32'h00000380, jtag_data, jtag_tck, jtag_tms, jtag_trstn, jtag_tdi, jtag_tdo);
         #100us;
       end
 
