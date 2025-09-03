@@ -163,6 +163,8 @@ vendor_package:
       - "dv/uvm/core_ibex/common/prim/prim_pkg.sv"
       - "vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv"
       - "dv/uvm/core_ibex/common/prim/prim_buf.sv"
+      - "vendor/lowrisc_ip/ip/prim_xilinx/rtl/prim_xilinx_clock_gating.sv"
+      - "dv/uvm/core_ibex/common/prim/prim_clock_gating.sv"
       - "syn/rtl/prim_clock_gating.v"
       - "rtl/ibex_pkg.sv"
       - "rtl/ibex_tracer_pkg.sv"
