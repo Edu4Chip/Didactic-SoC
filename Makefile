@@ -85,6 +85,8 @@ test_all: check-env compile elaborate build_test run_sim
 ######################################################################
 # fpga targets
 ######################################################################
+sim_fpga: check-env
+	$(MAKE) -C fpga vivado_sim BUILD_DIR=$(BUILD_DIR)
 
 fpga: check-env
 	$(MAKE) -C fpga all_xilinx BUILD_DIR=$(BUILD_DIR)

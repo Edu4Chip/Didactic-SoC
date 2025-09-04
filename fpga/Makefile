@@ -13,21 +13,24 @@ TEST ?= blink
 export BUILD_DIR ?= ../build
 export PROJECT ?= z1
 
-vivado_sim:
+init:
+	mkdir -p $(BUILD_DIR)/fpga/logs
+
+vivado_sim: init
 	cd $(BUILD_DIR)
-	$(VIVADO) -mode batch -source ../fpga/xilinx/sim.tcl \
+	$(VIVADO) -mode batch -notrace -source ../fpga/xilinx/scripts/sim.tcl \
 	-log $(BUILD_DIR)/fpga/logs/vivado.log \
 	-nojournal
 
-all_xilinx:
+all_xilinx: init
 	cd $(BUILD_DIR)
-	$(VIVADO) -mode batch -notrace -source ../fpga/xilinx/run.tcl \
+	$(VIVADO) -mode batch -notrace -source ../fpga/xilinx/scripts/run.tcl \
 	-log $(BUILD_DIR)/fpga/logs/vivado.log \
 	-nojournal 
 
-all_xilinx_gui:
+all_xilinx_gui: init
 	cd $(BUILD_DIR)
-	$(VIVADO) -mode gui -source ../fpga/xilinx/run.tcl &
+	$(VIVADO) -mode gui -source ../fpga/xilinx/scripts/run.tcl &
 
 load_elf:
 	riscv32-unknown-elf-gdb ../build/sw/$(TEST).elf -x ../fpga/xilinx/connect-and-load.gdb
