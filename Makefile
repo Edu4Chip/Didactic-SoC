@@ -93,66 +93,6 @@ fpga: check-env
 # verilator targets
 ######################################################################
 
-testcase ?= ""
-files = \
-	./src/generated/*.*v \
-	./src/reuse/*.*v \
-	./src/rtl/*.*v
-hdl_bindings_ms = ./verification/verilator/src/hdl/ms
-hdl_bindings_nms = ./verification/verilator/src/hdl/nms
-hdl_bindings_pickle = ./verification/verilator/hdl_bindings.pickle
-
-.PHONY: verilator-initialize
-verilator-initialize:
-	cp verification/verilator/bender/Bender.local Bender.local
-	patch Bender.yml verification/verilator/patches/Bender.yml.patch
-	make repository_init
-	patch -p0 < verification/verilator/patches/vendor_ips.patch
-
-# backup hdl files
-.PHONY: verilator-backup-hdls
-verilator-backup-hdls:
-	./verification/verilator/scripts/backups.py backup ${files} 
-
-# restore backupped hdl files
-.PHONY: verilator-restore-hdls
-verilator-restore-hdls:
-	./verification/verilator/scripts/backups.py restore ${files}
-
-# generate hdl and sw bindings
-.PHONY: verilator-generate-bindings
-verilator-generate-bindings:
-	make verilator-restore-hdls
-	./verification/verilator/scripts/generate.py \
-		bindings \
-		--input-hdl-ms ${hdl_bindings_ms} \
-		--input-hdl-nms ${hdl_bindings_nms} \
-		--output-hdl ${hdl_bindings_pickle} \
-		${files}
-
-# inject hdl bindings to hdl files
-.PHONY: verilator-inject-bindings
-verilator-inject-bindings:
-	make verilator-restore-hdls
-	make verilator-backup-hdls
-	./verification/verilator/scripts/inject.py --input-hdl ${hdl_bindings_pickle} ${files}
-
-# generate sw model for hw
-.PHONY: verilator-generate-model
-verilator-generate-model:
-	./verification/verilator/scripts/verilate.py verilate $(testcase)
-
-# build sw model with sw testbench
-.PHONY: verilator-build
-verilator-build:
-	make --directory=obj_dir --makefile=VDidactic.mk
-
-# run sw testbench
-.PHONY: verilator-run
-verilator-run: verilator-build
-	./obj_dir/VDidactic
-
-# run sw testbench with tracing
-.PHONY: verilator-run-traced
-verilator-run-traced: verilator-build
-	./obj_dir/VDidactic +trace
+.PHONY: verilate
+verilate:
+	@python3 ./verification/verilator/verilate.py

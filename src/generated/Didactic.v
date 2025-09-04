@@ -765,6 +765,7 @@ module Didactic #(
         // Interface: high_speed_clk
         .high_speed_clk      (analog_wrapper_0_high_speed_clk));
 
+`ifndef VERILATOR
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:dtu_wrapper:1.0
     dtu_wrapper_0 #(
         .APB_AW              (32),
@@ -795,7 +796,9 @@ module Didactic #(
         .pmod_gpi            (i_dtu_ss_wrapper_pmod_gpi),
         .pmod_gpio_oe        (i_dtu_ss_wrapper_pmod_gpio_oe),
         .pmod_gpo            (i_dtu_ss_wrapper_pmod_gpo));
+`endif
 
+`ifndef VERILATOR
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:imt_wrapper:1.0
     imt_wrapper_0 #(
         .APB_DW              (32),
@@ -826,7 +829,9 @@ module Didactic #(
         .pmod_gpi            (i_imt_ss_wrapper_pmod_gpi),
         .pmod_gpio_oe        (i_imt_ss_wrapper_pmod_gpio_oe),
         .pmod_gpo            (i_imt_ss_wrapper_pmod_gpo));
+`endif
 
+`ifndef VERILATOR
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:kth_wrapper:1.0
     kth_wrapper_0 #(
         .APB_DW              (32),
@@ -857,6 +862,7 @@ module Didactic #(
         .pmod_gpi            (i_kth_ss_wrapper_pmod_gpi),
         .pmod_gpio_oe        (i_kth_ss_wrapper_pmod_gpio_oe),
         .pmod_gpo            (i_kth_ss_wrapper_pmod_gpo));
+`endif
 
     // IP-XACT VLNV: tuni.fi:interconnect:obi_icn_ss:1.0
     obi_icn_ss #(
@@ -943,6 +949,7 @@ module Didactic #(
         // Interface: reset
         .reset_n             (i_obi_icn_ss_reset_n));
 
+`ifndef VERILATOR
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:tum_wrapper:1.0
     tum_wrapper_0 #(
         .APB_DW              (32),
@@ -973,6 +980,6 @@ module Didactic #(
         .pmod_gpi            (i_tum_ss_warpper_pmod_gpi),
         .pmod_gpio_oe        (i_tum_ss_warpper_pmod_gpio_oe),
         .pmod_gpo            (i_tum_ss_warpper_pmod_gpo));
-
+`endif
 
 endmodule

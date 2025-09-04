@@ -1,4 +1,0 @@
-ColumnLimit: 999
-PointerAlignment: Left
-AllowShortFunctionsOnASingleLine: Empty
-IndentCaseLabels: true
