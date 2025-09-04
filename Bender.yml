@@ -79,6 +79,10 @@ sources:
       - vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_clock_gating.sv
       - vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_xilinx/rtl/prim_xilinx_clock_gating.sv
 
+  - target: xilinx
+    files:
+      - fpga/hdl/tb_didactic_fpga.sv
+
   - target: didactic_axi
     files:
     - src/generated/SysCtrl_peripherals_0.v

@@ -8,7 +8,7 @@
 create_clock -period 125.000 -name global_clk -waveform {0.000 62.500} -add [get_ports clk_in]
 
 ## JTAG clock
-create_clock -period 125.000 -name jtag_clk -waveform {0.000 62.500} -add [get_ports jtag_tck]
+create_clock -period 200.000 -name jtag_clk -waveform {0.000 62.500} -add [get_ports jtag_tck]
 set_input_jitter jtag_clk 1.000
 
 ## Highspeed clock

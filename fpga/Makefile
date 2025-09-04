@@ -13,9 +13,17 @@ TEST ?= blink
 export BUILD_DIR ?= ../build
 export PROJECT ?= z1
 
+vivado_sim:
+	cd $(BUILD_DIR)
+	$(VIVADO) -mode batch -source ../fpga/xilinx/sim.tcl \
+	-log $(BUILD_DIR)/fpga/logs/vivado.log \
+	-nojournal
+
 all_xilinx:
 	cd $(BUILD_DIR)
-	$(VIVADO) -mode batch -notrace -source ../fpga/xilinx/run.tcl  
+	$(VIVADO) -mode batch -notrace -source ../fpga/xilinx/run.tcl \
+	-log $(BUILD_DIR)/fpga/logs/vivado.log \
+	-nojournal 
 
 all_xilinx_gui:
 	cd $(BUILD_DIR)

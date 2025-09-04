@@ -1,7 +1,4 @@
 build/
-obj_dir/
-logs/
-*.wlf
 modelsim.ini
 transcript
 etch*
@@ -9,8 +6,4 @@ sim/stdout/uart
 sim/trace_core*.log
 .bender
 vendor_ips
-*.log
-*.jou
-*.str
-.Xil
 Bender.lock
