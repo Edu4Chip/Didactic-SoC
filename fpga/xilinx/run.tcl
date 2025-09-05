@@ -70,7 +70,7 @@ set_property verilog_define { SYNTHESIS=1 FPGA=1 PRIM_DEFAULT_IMPL=prim_pkg::Imp
 
 set_property source_mgmt_mode None [current_project]
 if { $PROJECT eq "z1" } {
-  add_files -norecurse $DIR/../src/rtl/DidacticZ1.v
+  set_property top DidacticZ1 [current_fileset]
 } elseif { $PROJECT eq "basys3" } {
   set_property top DidacticBasys3 [current_fileset]
 } else {
