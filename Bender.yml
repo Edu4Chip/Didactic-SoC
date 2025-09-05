@@ -81,6 +81,7 @@ sources:
 
   - target: xilinx
     files:
+      - fpga/hdl/VipDidactic.sv
       - fpga/hdl/tb_didactic_fpga.sv
 
   - target: didactic_axi

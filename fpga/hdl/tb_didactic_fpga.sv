@@ -1,10 +1,18 @@
 module tb_didactic_fpga ();
 
-  initial begin : main_tb
-    $display("Start sim");
-    #10;
-    $display("End sim");
+  localparam time RunTime = 1us;
+
+  logic clk, rst;
+
+  initial begin
+    $display("### STARTING SIMULATION ###");
   end
+
+  final begin
+    $display("### ENDING SIMULATION, TIME: %0d ns", $time);
+  end
+
+  VipDidactic #() i_vip ();
 
   Didactic #(
   // no top params allowed

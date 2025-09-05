@@ -14,4 +14,4 @@ set_property verilog_define { \
 
 set_property file_type SystemVerilog [get_files *.v]
 
-#launch_simulation
+launch_simulation
