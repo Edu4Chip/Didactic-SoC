@@ -27,7 +27,7 @@ if { $PROJECT eq "z1" } {
 
 set DIR [exec pwd]
 
-create_project didactic-z1 ../build/fpga/$PROJECT -force -part $XILINX_PART
+create_project didactic-$PROJECT ../build/fpga/$PROJECT -force -part $XILINX_PART
 
 # add include paths of RTL
 set COMMON_CELLS_DIR [exec bender path common_cells]
@@ -53,6 +53,9 @@ set_property include_dirs $INCLUDE_DIRS [current_fileset]
 # File read
 add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi]
 
+if { $PROJECT eq "z1" } {
+  add_files -norecurse $DIR/../src/rtl/DidacticZ1.v
+}
 if { $PROJECT eq "basys3" } {
   add_files -norecurse $DIR/../src/rtl/DidacticBasys3.v
 }
@@ -66,8 +69,9 @@ set_property is_global_include true [get_files prim_assert_dummy_macros.svh]
 set_property verilog_define { SYNTHESIS=1 FPGA=1 PRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx} [current_fileset]
 
 set_property source_mgmt_mode None [current_project]
-
-if { $PROJECT eq "basys3" } {
+if { $PROJECT eq "z1" } {
+  add_files -norecurse $DIR/../src/rtl/DidacticZ1.v
+} elseif { $PROJECT eq "basys3" } {
   set_property top DidacticBasys3 [current_fileset]
 } else {
   set_property top Didactic [current_fileset]
