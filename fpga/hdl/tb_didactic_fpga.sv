@@ -1,6 +1,12 @@
 module tb_didactic_fpga ();
 
- Didactic #(
+  initial begin : main_tb
+    $display("Start sim");
+    #10;
+    $display("End sim");
+  end
+
+  Didactic #(
   // no top params allowed
   )i_didactic (
     // Interface: Clock
