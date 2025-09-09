@@ -145,14 +145,7 @@ module SS_Ctrl_reg_array #(
 
       if (we_i & req_i & ~rvalid_reg) begin
 
-        // io cell cfg
-        for(int i=0; i < IOCELL_COUNT; i++) begin
-          if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
-            io_cell_cfg_reg[i] <= wdata_i;
-          end
-        end
-
-        case (addr_i[16:0])
+        case (addr_i[15:0])
           'h0:  fetch_en_reg <= wdata_i;
           'h4:  ss_rst_reg   <= wdata_i;
 
@@ -169,24 +162,25 @@ module SS_Ctrl_reg_array #(
 
           //unrolled io cells conf would be here
 
-          'h100: boot_reg_0   <= wdata_i;
-          'h104: boot_reg_1   <= wdata_i;
-          'h180: return_reg_0 <= wdata_i;
-          'h184: return_reg_1 <= wdata_i;
+          'h100: return_reg_0 <= wdata_i;
+          'h104: return_reg_1 <= wdata_i;
+          'h180: boot_reg_0   <= wdata_i;
+          'h184: boot_reg_1   <= wdata_i;
+          default: begin
+              // io cell cfg
+              for(int i=0; i < IOCELL_COUNT; i++) begin
+                if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
+                  io_cell_cfg_reg[i] <= wdata_i;
+                end
+              end
+            end
         endcase
 
         rvalid_reg <= 1'b1;
       end
       else if(~we_i & req_i & ~rvalid_reg) begin 
 
-        for(int i=0; i < IOCELL_COUNT; i++) begin
-          if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
-              rdata_out_reg <= io_cell_cfg_reg[i];
-          end
-        end
-
-        // io cell cfg
-        case(addr_i[16:0])
+        case(addr_i[15:0])
 
           'h0:  rdata_out_reg <= fetch_en_reg;
           'h4:  rdata_out_reg <= ss_rst_reg;
@@ -204,11 +198,18 @@ module SS_Ctrl_reg_array #(
 
           //unrolled io cells conf would be here
 
-          'h100: rdata_out_reg <= boot_reg_0;
-          'h104: rdata_out_reg <= boot_reg_1;
-          'h180: rdata_out_reg <= return_reg_0;
-          'h184: rdata_out_reg <= return_reg_1;
- 
+          'h100: rdata_out_reg <= return_reg_0;
+          'h104: rdata_out_reg <= return_reg_1;
+          'h180: rdata_out_reg <= boot_reg_0;
+          'h184: rdata_out_reg <= boot_reg_1;
+          default: begin
+            // io cell cfg
+            for(int i=0; i < IOCELL_COUNT; i++) begin
+              if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
+                rdata_out_reg <= io_cell_cfg_reg[i];
+              end
+            end
+          end
         endcase
         rvalid_reg <= 1'b1;
       end
