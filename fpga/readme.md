@@ -6,9 +6,11 @@ OpenOCD is used for connecting to FPGA board and load programs and monitor their
 
 ## Prototyping requirements
 
-OpenOCD: RISC compatible OpenOCD (https://github.com/riscv-collab/riscv-openocd).
+OpenOCD: use mainline openocd, tagged release 0.12.0 ([https://github.com/riscv-collab/riscv-openocd](https://github.com/openocd-org/openocd)). 
 
-* debug module requires old version: for example commit 28f630d24568fb3518723349df60bcd30b68bf7b should be compliant. 
+* Some distros have it supplied with APT, you can either check that or build it yourself 
+
+* either get tag 0.12.0 or directly commit 9ea7f3d647c8ecf6b0f1424002dfc3f4504a162c  
 
 * clone, checkout, build locally
 
