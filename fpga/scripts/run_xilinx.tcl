@@ -54,10 +54,10 @@ set_property include_dirs $INCLUDE_DIRS [current_fileset]
 add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi]
 
 if { $PROJECT eq "z1" } {
-  add_files -norecurse $DIR/../src/rtl/DidacticZ1.v
+  add_files -norecurse $DIR/rtl/DidacticZ1.v
 }
 if { $PROJECT eq "basys3" } {
-  add_files -norecurse $DIR/../src/rtl/DidacticBasys3.v
+  add_files -norecurse $DIR/rtl/DidacticBasys3.v
 }
 
 set_property file_type SystemVerilog [get_files *.v]
@@ -79,7 +79,7 @@ if { $PROJECT eq "z1" } {
 
 update_compile_order -fileset sources_1
 
-add_files -fileset constrs_1 -norecurse xilinx/$PROJECT.xdc
+add_files -fileset constrs_1 -norecurse constraints/$PROJECT.xdc
 
 #Elaborate design
 synth_design -rtl -name rtl_1 -sfcu
