@@ -25,4 +25,4 @@ all_xilinx_gui: check_env
 	$(VIVADO) -mode gui -source ../fpga/scripts/run_xilinx.tcl &
 
 load_elf: check_env
-	riscv32-unknown-elf-gdb $(BUILD_DIR)/sw/$(TEST).elf -x ../fpga/utils/connect-and-load.gdb
+	riscv32-unknown-elf-gdb $(BUILD_DIR)/fpga/sw/$(TEST).elf -x ../fpga/utils/connect-and-load.gdb
