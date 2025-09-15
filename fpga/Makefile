@@ -13,13 +13,16 @@ TEST ?= blink
 export BUILD_DIR ?= ../build
 export PROJECT ?= z1
 
-all_xilinx:
+check_env:
+	mkdir -p $(BUILD_DIR)
+
+all_xilinx: check_env
 	cd $(BUILD_DIR)
 	$(VIVADO) -mode batch -notrace -source ../fpga/xilinx/run.tcl  
 
-all_xilinx_gui:
+all_xilinx_gui: check_env
 	cd $(BUILD_DIR)
 	$(VIVADO) -mode gui -source ../fpga/xilinx/run.tcl &
 
-load_elf:
-	riscv32-unknown-elf-gdb ../build/sw/$(TEST).elf -x ../fpga/xilinx/connect-and-load.gdb
+load_elf: check_env
+	riscv32-unknown-elf-gdb $(BUILD_DIR)/sw/$(TEST).elf -x ../fpga/xilinx/connect-and-load.gdb
