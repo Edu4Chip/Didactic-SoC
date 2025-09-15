@@ -10,4 +10,4 @@
 	- **TDO** – AD2 (CN2-9)
 	- **TMS** – AD3 (CN2-12)
 	- **GND** – GND
-- select FTDI channel 0 in `fpga/xilinx/openocd-didactic.cfg` using `ftdi channel 0`
+- select FTDI channel 0 in `fpga/utils/openocd-didactic.cfg` using `ftdi channel 0`
