@@ -224,7 +224,7 @@
 	<ipxact:memoryMaps>
 		<ipxact:memoryMap>
 			<ipxact:name>AnalogStatusMap</ipxact:name>
-			<ipxact:addressBlock>
+			<ipxact:addressBlock misalignmentAllowed="true">
 				<ipxact:name>RegBlock</ipxact:name>
 				<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				<ipxact:range>'h16</ipxact:range>
@@ -355,7 +355,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
+							<ipxact:defaultValue>'h1</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -575,7 +575,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue></ipxact:defaultValue>
+							<ipxact:defaultValue>'h0</ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -595,6 +595,11 @@
 							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue>'h2</ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
@@ -612,6 +617,11 @@
 							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
+					<ipxact:drivers>
+						<ipxact:driver>
+							<ipxact:defaultValue>'h3</ipxact:defaultValue>
+						</ipxact:driver>
+					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 		</ipxact:ports>

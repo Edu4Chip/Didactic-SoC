@@ -211,42 +211,40 @@
 			<ipxact:target/>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
-			<ipxact:name>analog_io</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="analog_interface" version="1.1"/>
+			<ipxact:name>digital_gpio</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="analog_interface.absDef" version="1.1"/>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
 					<ipxact:portMaps>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>ana_core_in</ipxact:name>
+								<ipxact:name>gpo</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>ana_core_in</ipxact:name>
+								<ipxact:name>pmod_gpo</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>ana_core_out</ipxact:name>
+								<ipxact:name>gpi</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>ana_core_out</ipxact:name>
+								<ipxact:name>pmod_gpi</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>ana_core_io</ipxact:name>
+								<ipxact:name>gpio_oe</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>ana_core_io</ipxact:name>
+								<ipxact:name>pmod_gpio_oe</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
+			<ipxact:initiator/>
 		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
@@ -567,18 +565,18 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>ana_core_in</ipxact:name>
+				<ipxact:name>pmod_gpo</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>1</ipxact:left>
+							<ipxact:left>15</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
+							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
@@ -589,18 +587,18 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>ana_core_out</ipxact:name>
+				<ipxact:name>pmod_gpi</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>2</ipxact:left>
+							<ipxact:left>15</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
+							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
@@ -611,18 +609,18 @@
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>ana_core_io</ipxact:name>
+				<ipxact:name>pmod_gpio_oe</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>1</ipxact:left>
+							<ipxact:left>15</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
+							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>

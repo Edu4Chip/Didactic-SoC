@@ -6,45 +6,7 @@
 	<ipxact:version>1.0</ipxact:version>
 	<ipxact:busInterfaces>
 		<ipxact:busInterface>
-			<ipxact:name>analog_bus</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="analog_interface" version="1.1"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="analog_interface.absDef" version="1.1"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>ana_core_in</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>ana_core_in</ipxact:name>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>ana_core_out</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>ana_core_out</ipxact:name>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>ana_core_io</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>ana_core_io</ipxact:name>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:system>
-				<ipxact:group>external_io</ipxact:group>
-			</ipxact:system>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>status_0</ipxact:name>
+			<ipxact:name>digital_gpio</ipxact:name>
 			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
 			<ipxact:abstractionTypes>
 				<ipxact:abstractionType>
@@ -55,67 +17,23 @@
 								<ipxact:name>gpo</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>status_0</ipxact:name>
+								<ipxact:name>pmod_gpo</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>status_1</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
-					<ipxact:portMaps>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>gpo</ipxact:name>
+								<ipxact:name>gpi</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>status_1</ipxact:name>
+								<ipxact:name>pmod_gpi</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>status_2</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
-					<ipxact:portMaps>
 						<ipxact:portMap>
 							<ipxact:logicalPort>
-								<ipxact:name>gpo</ipxact:name>
+								<ipxact:name>gpio_oe</ipxact:name>
 							</ipxact:logicalPort>
 							<ipxact:physicalPort>
-								<ipxact:name>status_2</ipxact:name>
-							</ipxact:physicalPort>
-						</ipxact:portMap>
-					</ipxact:portMaps>
-				</ipxact:abstractionType>
-			</ipxact:abstractionTypes>
-			<ipxact:initiator/>
-		</ipxact:busInterface>
-		<ipxact:busInterface>
-			<ipxact:name>status_3</ipxact:name>
-			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
-			<ipxact:abstractionTypes>
-				<ipxact:abstractionType>
-					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
-					<ipxact:portMaps>
-						<ipxact:portMap>
-							<ipxact:logicalPort>
-								<ipxact:name>gpo</ipxact:name>
-							</ipxact:logicalPort>
-							<ipxact:physicalPort>
-								<ipxact:name>status_3</ipxact:name>
+								<ipxact:name>pmod_gpio_oe</ipxact:name>
 							</ipxact:physicalPort>
 						</ipxact:portMap>
 					</ipxact:portMaps>
@@ -137,130 +55,56 @@
 				<ipxact:name>verilog_implementation</ipxact:name>
 				<ipxact:language>Verilog</ipxact:language>
 				<ipxact:moduleName>student_ss_analog</ipxact:moduleName>
-				<ipxact:moduleParameters>
-					<ipxact:moduleParameter parameterId="uuid_52ffc6d7_c948_470a_b41b_bba6a5e682a2" usageType="nontyped">
-						<ipxact:name>NUM_IO</ipxact:name>
-						<ipxact:value>uuid_bdefb060_b54e_42e0_8f46_2ac1c24a98eb</ipxact:value>
-					</ipxact:moduleParameter>
-				</ipxact:moduleParameters>
 			</ipxact:componentInstantiation>
 		</ipxact:instantiations>
 		<ipxact:ports>
 			<ipxact:port>
-				<ipxact:name>ana_core_out</ipxact:name>
+				<ipxact:name>pmod_gpi</ipxact:name>
 				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
+					<ipxact:direction>in</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>2</ipxact:left>
+							<ipxact:left>15</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
+							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>ana_core_in</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>1</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>status_1</ipxact:name>
+				<ipxact:name>pmod_gpo</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>15</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
+							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
-				<ipxact:name>status_0</ipxact:name>
+				<ipxact:name>pmod_gpio_oe</ipxact:name>
 				<ipxact:wire>
 					<ipxact:direction>out</ipxact:direction>
 					<ipxact:vectors>
 						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
+							<ipxact:left>15</ipxact:left>
 							<ipxact:right>0</ipxact:right>
 						</ipxact:vector>
 					</ipxact:vectors>
 					<ipxact:wireTypeDefs>
 						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>status_2</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>status_3</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>out</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>31</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
-						</ipxact:wireTypeDef>
-					</ipxact:wireTypeDefs>
-				</ipxact:wire>
-			</ipxact:port>
-			<ipxact:port>
-				<ipxact:name>ana_core_io</ipxact:name>
-				<ipxact:wire>
-					<ipxact:direction>inout</ipxact:direction>
-					<ipxact:vectors>
-						<ipxact:vector>
-							<ipxact:left>1</ipxact:left>
-							<ipxact:right>0</ipxact:right>
-						</ipxact:vector>
-					</ipxact:vectors>
-					<ipxact:wireTypeDefs>
-						<ipxact:wireTypeDef>
-							<ipxact:typeName>wire</ipxact:typeName>
+							<ipxact:typeName>logic</ipxact:typeName>
 						</ipxact:wireTypeDef>
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
@@ -273,9 +117,6 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/rtl/student_ss_analog.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>0db0928ab2af2b6b6fc1f21b07a70a2bd64b2570</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : analog_wrapper_0.v
-// Creation date : 02.07.2025
-// Creation time : 14:36:33
+// Creation date : 29.09.2025
+// Creation time : 14:36:53
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.5 64-bit
@@ -38,10 +38,10 @@ module analog_wrapper_0 #(
     input  logic                        irq_en,
     input  logic         [7:0]          ss_ctrl,
 
-    // Interface: analog_io
-    inout  wire          [1:0]          ana_core_in,
-    inout  wire          [1:0]          ana_core_io,
-    inout  wire          [2:0]          ana_core_out,
+    // Interface: digital_gpio
+    input  logic         [15:0]         pmod_gpi,
+    output logic         [15:0]         pmod_gpio_oe,
+    output logic         [15:0]         pmod_gpo,
 
     // Interface: high_speed_clk
     input  logic                        high_speed_clk
@@ -63,27 +63,21 @@ module analog_wrapper_0 #(
     wire       analog_status_array_clk_to_ss_cg_clk_out_clk;
     // analog_status_array_reset_to_Reset wires:
     wire       analog_status_array_reset_to_Reset_reset;
-    // analog_ss_status_1_to_analog_status_array_status_1 wires:
-    wire [31:0] analog_ss_status_1_to_analog_status_array_status_1_gpo;
-    // analog_status_array_status_0_to_analog_ss_status_0 wires:
-    wire [31:0] analog_status_array_status_0_to_analog_ss_status_0_gpo;
     // ss_high_speed_cg_clk_in_to_high_speed_clk wires:
     wire       ss_high_speed_cg_clk_in_to_high_speed_clk_clk;
-    // analog_ss_status_2_to_analog_status_array_status_2 wires:
-    wire [31:0] analog_ss_status_2_to_analog_status_array_status_2_gpo;
-    // analog_ss_status_3_to_analog_status_array_status_3 wires:
-    wire [31:0] analog_ss_status_3_to_analog_status_array_status_3_gpo;
-    // analog_ss_analog_bus_to_analog_io wires:
+    // analog_ss_digital_gpio_to_digital_gpio wires:
+    wire [15:0] analog_ss_digital_gpio_to_digital_gpio_gpi;
+    wire [15:0] analog_ss_digital_gpio_to_digital_gpio_gpio_oe;
+    wire [15:0] analog_ss_digital_gpio_to_digital_gpio_gpo;
 
     // Ad-hoc wires:
     wire       ss_cg_en_to_ss_ctrl;
     wire       ss_high_speed_cg_en_to_ss_ctrl;
 
     // analog_ss port wires:
-    wire [31:0] analog_ss_status_0;
-    wire [31:0] analog_ss_status_1;
-    wire [31:0] analog_ss_status_2;
-    wire [31:0] analog_ss_status_3;
+    wire [15:0] analog_ss_pmod_gpi;
+    wire [15:0] analog_ss_pmod_gpio_oe;
+    wire [15:0] analog_ss_pmod_gpo;
     // analog_status_array port wires:
     wire [11:0] analog_status_array_PADDR;
     wire       analog_status_array_PENABLE;
@@ -96,10 +90,6 @@ module analog_wrapper_0 #(
     wire       analog_status_array_PWRITE;
     wire       analog_status_array_clk_in;
     wire       analog_status_array_reset_n;
-    wire [31:0] analog_status_array_status_0;
-    wire [31:0] analog_status_array_status_1;
-    wire [31:0] analog_status_array_status_2;
-    wire [31:0] analog_status_array_status_3;
     // ss_cg port wires:
     wire       ss_cg_clk;
     wire       ss_cg_clk_out;
@@ -121,16 +111,18 @@ module analog_wrapper_0 #(
     assign ss_cg_clk_in_to_Clock_clk = clk_in;
     assign ss_high_speed_cg_clk_in_to_high_speed_clk_clk = high_speed_clk;
     assign irq = 0;
+    assign analog_ss_digital_gpio_to_digital_gpio_gpi = pmod_gpi;
+    assign pmod_gpio_oe = analog_ss_digital_gpio_to_digital_gpio_gpio_oe;
+    assign pmod_gpo = analog_ss_digital_gpio_to_digital_gpio_gpo;
     assign analog_status_array_reset_to_Reset_reset = reset_int;
     assign ss_cg_en_to_ss_ctrl = ss_ctrl[0];
     assign ss_high_speed_cg_en_to_ss_ctrl = ss_ctrl[1];
 
 
     // analog_ss assignments:
-    assign analog_status_array_status_0_to_analog_ss_status_0_gpo = analog_ss_status_0;
-    assign analog_ss_status_1_to_analog_status_array_status_1_gpo = analog_ss_status_1;
-    assign analog_ss_status_2_to_analog_status_array_status_2_gpo = analog_ss_status_2;
-    assign analog_ss_status_3_to_analog_status_array_status_3_gpo = analog_ss_status_3;
+    assign analog_ss_pmod_gpi = analog_ss_digital_gpio_to_digital_gpio_gpi;
+    assign analog_ss_digital_gpio_to_digital_gpio_gpio_oe = analog_ss_pmod_gpio_oe;
+    assign analog_ss_digital_gpio_to_digital_gpio_gpo = analog_ss_pmod_gpo;
     // analog_status_array assignments:
     assign analog_status_array_PADDR = analog_status_array_APB_to_APB_PADDR[11:0];
     assign analog_status_array_PENABLE = analog_status_array_APB_to_APB_PENABLE;
@@ -143,10 +135,6 @@ module analog_wrapper_0 #(
     assign analog_status_array_PWRITE = analog_status_array_APB_to_APB_PWRITE;
     assign analog_status_array_clk_in = analog_status_array_clk_to_ss_cg_clk_out_clk;
     assign analog_status_array_reset_n = analog_status_array_reset_to_Reset_reset;
-    assign analog_status_array_status_0 = analog_status_array_status_0_to_analog_ss_status_0_gpo;
-    assign analog_status_array_status_1 = analog_ss_status_1_to_analog_status_array_status_1_gpo;
-    assign analog_status_array_status_2 = analog_ss_status_2_to_analog_status_array_status_2_gpo;
-    assign analog_status_array_status_3 = analog_ss_status_3_to_analog_status_array_status_3_gpo;
     // ss_cg assignments:
     assign ss_cg_clk = ss_cg_clk_in_to_Clock_clk;
     assign analog_status_array_clk_to_ss_cg_clk_out_clk = ss_cg_clk_out;
@@ -157,18 +145,10 @@ module analog_wrapper_0 #(
 
     // IP-XACT VLNV: tuni.fi:analog:student_ss_analog:1.0
     student_ss_analog     analog_ss(
-        // Interface: analog_bus
-        .ana_core_in         (ana_core_in[1:0]),
-        .ana_core_io         (ana_core_io[1:0]),
-        .ana_core_out        (ana_core_out[2:0]),
-        // Interface: status_0
-        .status_0            (analog_ss_status_0),
-        // Interface: status_1
-        .status_1            (analog_ss_status_1),
-        // Interface: status_2
-        .status_2            (analog_ss_status_2),
-        // Interface: status_3
-        .status_3            (analog_ss_status_3));
+        // Interface: digital_gpio
+        .pmod_gpi            (analog_ss_pmod_gpi),
+        .pmod_gpio_oe        (analog_ss_pmod_gpio_oe),
+        .pmod_gpo            (analog_ss_pmod_gpo));
 
     // IP-XACT VLNV: tuni.fi:ip:analog_status_array:1.0
     analog_status_array analog_status_array(
@@ -187,13 +167,13 @@ module analog_wrapper_0 #(
         // Interface: reset
         .reset_n             (analog_status_array_reset_n),
         // Interface: status_0
-        .status_0            (analog_status_array_status_0),
+        .status_0            (32'h0),
         // Interface: status_1
-        .status_1            (analog_status_array_status_1),
+        .status_1            (32'h1),
         // Interface: status_2
-        .status_2            (analog_status_array_status_2),
+        .status_2            (32'h2),
         // Interface: status_3
-        .status_3            (analog_status_array_status_3));
+        .status_3            (32'h3));
 
     // IP-XACT VLNV: tuni.fi:tech:tech_cg:1.0
     tech_cg ss_cg(

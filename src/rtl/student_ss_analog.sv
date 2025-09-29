@@ -1,8 +1,9 @@
 /*
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
+    * Paul
   Description:
-    * example analog student area tieoff code
+    * Analog integration module
 */
 module student_ss_analog #(
   )(
@@ -12,8 +13,8 @@ module student_ss_analog #(
     output logic [15:0]  pmod_gpio_oe  
   );
 
-  assign pmod_gpio_oe = 'b0;
-  assign pmod_gpio = 'b0;
+  assign pmod_gpio_oe = 'hF;
+  assign pmod_gpo = 'b0;
 
   analog_block inst (
     .control(pmod_gpi)

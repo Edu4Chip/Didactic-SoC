@@ -284,6 +284,42 @@
 			</ipxact:abstractionTypes>
 			<ipxact:target/>
 		</ipxact:busInterface>
+		<ipxact:busInterface>
+			<ipxact:name>ss_4_pmod_gpio</ipxact:name>
+			<ipxact:busType vendor="tuni.fi" library="interface" name="GPIO" version="1.0"/>
+			<ipxact:abstractionTypes>
+				<ipxact:abstractionType>
+					<ipxact:abstractionRef vendor="tuni.fi" library="interface" name="GPIO.absDef" version="1.0"/>
+					<ipxact:portMaps>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gpo</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ss_4_pmod_gpo</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gpi</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ss_4_pmod_gpi</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+						<ipxact:portMap>
+							<ipxact:logicalPort>
+								<ipxact:name>gpio_oe</ipxact:name>
+							</ipxact:logicalPort>
+							<ipxact:physicalPort>
+								<ipxact:name>ss_4_pmod_gpio_oe</ipxact:name>
+							</ipxact:physicalPort>
+						</ipxact:portMap>
+					</ipxact:portMaps>
+				</ipxact:abstractionType>
+			</ipxact:abstractionTypes>
+			<ipxact:target/>
+		</ipxact:busInterface>
 	</ipxact:busInterfaces>
 	<ipxact:model>
 		<ipxact:views>
@@ -311,13 +347,8 @@
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter parameterId="uuid_672cede9_6983_4242_828a_99c730f1d477" usageType="nontyped">
 						<ipxact:name>NUM_GPIO</ipxact:name>
-						<ipxact:description>number of dedicated gpio cells</ipxact:description>
+						<ipxact:description>number of subsystems that can control gpio on top level.</ipxact:description>
 						<ipxact:value>uuid_ac68504e_7c24_44db_a80e_b9bfebb39655</ipxact:value>
-					</ipxact:moduleParameter>
-					<ipxact:moduleParameter parameterId="uuid_109ae6cb_f763_4be3_a0bc_380af11907ee" usageType="nontyped">
-						<ipxact:name>NUM_SS</ipxact:name>
-						<ipxact:description>number of subsystems on top level. TODO: combine ss vectors and make this even more generic</ipxact:description>
-						<ipxact:value>uuid_5459086b_15fd_4230_8551_2d57e838c371</ipxact:value>
 					</ipxact:moduleParameter>
 				</ipxact:moduleParameters>
 			</ipxact:componentInstantiation>
@@ -681,6 +712,57 @@
 					</ipxact:wireTypeDefs>
 				</ipxact:wire>
 			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>ss_4_pmod_gpio_oe</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_ac68504e_7c24_44db_a80e_b9bfebb39655-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>ss_4_pmod_gpo</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>in</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_ac68504e_7c24_44db_a80e_b9bfebb39655-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
+			<ipxact:port>
+				<ipxact:name>ss_4_pmod_gpi</ipxact:name>
+				<ipxact:wire>
+					<ipxact:direction>out</ipxact:direction>
+					<ipxact:vectors>
+						<ipxact:vector>
+							<ipxact:left>uuid_ac68504e_7c24_44db_a80e_b9bfebb39655-1</ipxact:left>
+							<ipxact:right>0</ipxact:right>
+						</ipxact:vector>
+					</ipxact:vectors>
+					<ipxact:wireTypeDefs>
+						<ipxact:wireTypeDef>
+							<ipxact:typeName>logic</ipxact:typeName>
+						</ipxact:wireTypeDef>
+					</ipxact:wireTypeDefs>
+				</ipxact:wire>
+			</ipxact:port>
 		</ipxact:ports>
 	</ipxact:model>
 	<ipxact:fileSets>
@@ -693,19 +775,19 @@
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="7" parameterId="uuid_a0d54e9e_a863_4b6d_9ffb_adb0dd301f2e" resolve="user">
+		<ipxact:parameter kactus2:usageCount="13" parameterId="uuid_a0d54e9e_a863_4b6d_9ffb_adb0dd301f2e" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:description>control bus width for each individual IO cell</ipxact:description>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="7" parameterId="uuid_d1e10fb4_d1e0_43a1_b5da_816635063659" resolve="user">
+		<ipxact:parameter kactus2:usageCount="13" parameterId="uuid_d1e10fb4_d1e0_43a1_b5da_816635063659" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>number of controllable cells</ipxact:description>
 			<ipxact:value>26</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="22" parameterId="uuid_ac68504e_7c24_44db_a80e_b9bfebb39655" resolve="user">
+		<ipxact:parameter kactus2:usageCount="61" parameterId="uuid_ac68504e_7c24_44db_a80e_b9bfebb39655" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
-			<ipxact:description>number of dedicated gpio cells</ipxact:description>
+			<ipxact:description>number of subsystems that can control gpio on top level.</ipxact:description>
 			<ipxact:value>8</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_5459086b_15fd_4230_8551_2d57e838c371">

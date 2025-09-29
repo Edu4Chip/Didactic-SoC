@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : SysCtrl_SS_wrapper_0.v
-// Creation date : 02.07.2025
-// Creation time : 14:36:33
+// Creation date : 29.09.2025
+// Creation time : 14:36:53
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.5 64-bit
@@ -126,7 +126,12 @@ module SysCtrl_SS_wrapper_0 #(
 
     // Interface: ss_4_ctrl
     output logic                        irq_en_4,
-    output logic         [7:0]          ss_ctrl_4
+    output logic         [7:0]          ss_ctrl_4,
+
+    // Interface: ss_4_pmod_gpio
+    input  logic         [15:0]         ss_4_pmod_gpio_oe,
+    input  logic         [15:0]         ss_4_pmod_gpo,
+    output logic         [15:0]         ss_4_pmod_gpi
 );
 
     // SysCtrl_SS_ICN_SS_Ctrl_to_ICN_SS_Ctrl wires:
@@ -235,6 +240,10 @@ module SysCtrl_SS_wrapper_0 #(
     wire [15:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpi;
     wire [15:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpio_oe;
     wire [15:0] i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpo;
+    // i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio wires:
+    wire [15:0] i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio_gpi;
+    wire [15:0] i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio_gpo;
 
     // SysCtrl_SS port wires:
     wire [249:0] SysCtrl_SS_cell_cfg;
@@ -333,6 +342,9 @@ module SysCtrl_SS_wrapper_0 #(
     wire [15:0] i_pmod_mux_ss_3_pmod_gpi;
     wire [15:0] i_pmod_mux_ss_3_pmod_gpio_oe;
     wire [15:0] i_pmod_mux_ss_3_pmod_gpo;
+    wire [15:0] i_pmod_mux_ss_4_pmod_gpi;
+    wire [15:0] i_pmod_mux_ss_4_pmod_gpio_oe;
+    wire [15:0] i_pmod_mux_ss_4_pmod_gpo;
 
     // Assignments for the ports of the encompassing component:
     assign clk = i_io_cell_frame_Clock_internal_to_SysCtrl_SS_Clk_clk;
@@ -373,6 +385,9 @@ module SysCtrl_SS_wrapper_0 #(
     assign ss_3_pmod_gpi = i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpi;
     assign i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpio_oe = ss_3_pmod_gpio_oe;
     assign i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpo = ss_3_pmod_gpo;
+    assign ss_4_pmod_gpi = i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio_gpi;
+    assign i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio_gpio_oe = ss_4_pmod_gpio_oe;
+    assign i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio_gpo = ss_4_pmod_gpo;
     assign ss_ctrl_0 = SysCtrl_SS_SS_Ctrl_0_to_SS_0_Ctrl_clk_ctrl;
     assign ss_ctrl_1 = SysCtrl_SS_SS_Ctrl_1_to_SS_1_Ctrl_clk_ctrl;
     assign ss_ctrl_2 = SysCtrl_SS_SS_Ctrl_2_to_SS_2_Ctrl_clk_ctrl;
@@ -466,6 +481,9 @@ module SysCtrl_SS_wrapper_0 #(
     assign i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpi = i_pmod_mux_ss_3_pmod_gpi;
     assign i_pmod_mux_ss_3_pmod_gpio_oe = i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpio_oe;
     assign i_pmod_mux_ss_3_pmod_gpo = i_pmod_mux_ss_3_pmod_gpio_to_ss_3_pmod_gpio_gpo;
+    assign i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio_gpi = i_pmod_mux_ss_4_pmod_gpi;
+    assign i_pmod_mux_ss_4_pmod_gpio_oe = i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio_gpio_oe;
+    assign i_pmod_mux_ss_4_pmod_gpo = i_pmod_mux_ss_4_pmod_gpio_to_ss_4_pmod_gpio_gpo;
 
     // IP-XACT VLNV: tuni.fi:subsystem:SysCtrl_SS:1.1
     SysCtrl_SS_0 #(
@@ -636,7 +654,11 @@ module SysCtrl_SS_wrapper_0 #(
         // Interface: ss_3_pmod_gpio
         .ss_3_pmod_gpio_oe   (i_pmod_mux_ss_3_pmod_gpio_oe),
         .ss_3_pmod_gpo       (i_pmod_mux_ss_3_pmod_gpo),
-        .ss_3_pmod_gpi       (i_pmod_mux_ss_3_pmod_gpi));
+        .ss_3_pmod_gpi       (i_pmod_mux_ss_3_pmod_gpi),
+        // Interface: ss_4_pmod_gpio
+        .ss_4_pmod_gpio_oe   (i_pmod_mux_ss_4_pmod_gpio_oe),
+        .ss_4_pmod_gpo       (i_pmod_mux_ss_4_pmod_gpo),
+        .ss_4_pmod_gpi       (i_pmod_mux_ss_4_pmod_gpi));
 
 
 endmodule

@@ -26,13 +26,6 @@
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{f70f6cfc-1435-4074-9dd4-21adc74d3df3}</kactus2:uuid>
 				<kactus2:position x="920" y="60"/>
-				<kactus2:portPositions>
-					<kactus2:portPosition busRef="analog_bus" x="110" y="60"/>
-					<kactus2:portPosition busRef="status_0" x="-110" y="70"/>
-					<kactus2:portPosition busRef="status_1" x="-110" y="50"/>
-					<kactus2:portPosition busRef="status_2" x="-110" y="100"/>
-					<kactus2:portPosition busRef="status_3" x="-110" y="130"/>
-				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
 		<ipxact:componentInstance>
@@ -47,8 +40,8 @@
 					<kactus2:portPosition busRef="reset" x="-110" y="300"/>
 					<kactus2:portPosition busRef="status_0" x="110" y="70"/>
 					<kactus2:portPosition busRef="status_1" x="110" y="50"/>
-					<kactus2:portPosition busRef="status_2" x="110" y="100"/>
-					<kactus2:portPosition busRef="status_3" x="110" y="130"/>
+					<kactus2:portPosition busRef="status_2" x="110" y="90"/>
+					<kactus2:portPosition busRef="status_3" x="110" y="110"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -90,34 +83,14 @@
 			<ipxact:hierInterface busRef="Reset"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>analog_ss_status_1_to_analog_status_array_status_1</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="analog_ss" busRef="status_1"/>
-			<ipxact:activeInterface componentInstanceRef="analog_status_array" busRef="status_1"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>analog_status_array_status_0_to_analog_ss_status_0</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="analog_status_array" busRef="status_0"/>
-			<ipxact:activeInterface componentInstanceRef="analog_ss" busRef="status_0"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
 			<ipxact:name>ss_high_speed_cg_clk_in_to_high_speed_clk</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="ss_high_speed_cg" busRef="clk_in"/>
 			<ipxact:hierInterface busRef="high_speed_clk"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>analog_ss_status_2_to_analog_status_array_status_2</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="analog_ss" busRef="status_2"/>
-			<ipxact:activeInterface componentInstanceRef="analog_status_array" busRef="status_2"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>analog_ss_status_3_to_analog_status_array_status_3</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="analog_ss" busRef="status_3"/>
-			<ipxact:activeInterface componentInstanceRef="analog_status_array" busRef="status_3"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>analog_ss_analog_bus_to_analog_io</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="analog_ss" busRef="analog_bus"/>
-			<ipxact:hierInterface busRef="analog_io"/>
+			<ipxact:name>analog_ss_digital_gpio_to_digital_gpio</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="analog_ss" busRef="digital_gpio"/>
+			<ipxact:hierInterface busRef="digital_gpio"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
@@ -192,14 +165,6 @@
 				<kactus2:position x="490" y="360"/>
 				<kactus2:position x="60" y="360"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="analog_ss_status_1_to_analog_status_array_status_1" kactus2:offPage="false">
-				<kactus2:position x="810" y="110"/>
-				<kactus2:position x="710" y="110"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="analog_status_array_status_0_to_analog_ss_status_0" kactus2:offPage="false">
-				<kactus2:position x="710" y="130"/>
-				<kactus2:position x="810" y="130"/>
-			</kactus2:route>
 			<kactus2:route kactus2:connRef="ss_high_speed_cg_en_to_ss_ctrl" kactus2:offPage="false">
 				<kactus2:position x="60" y="180"/>
 				<kactus2:position x="150" y="180"/>
@@ -210,17 +175,9 @@
 				<kactus2:position x="170" y="270"/>
 				<kactus2:position x="60" y="270"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="analog_ss_status_2_to_analog_status_array_status_2" kactus2:offPage="false">
-				<kactus2:position x="810" y="160"/>
-				<kactus2:position x="710" y="160"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="analog_ss_status_3_to_analog_status_array_status_3" kactus2:offPage="false">
-				<kactus2:position x="810" y="190"/>
-				<kactus2:position x="710" y="190"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="analog_ss_analog_bus_to_analog_io" kactus2:offPage="false">
-				<kactus2:position x="1030" y="120"/>
-				<kactus2:position x="1140" y="120"/>
+			<kactus2:route kactus2:connRef="analog_ss_digital_gpio_to_digital_gpio" kactus2:offPage="false">
+				<kactus2:position x="1030" y="100"/>
+				<kactus2:position x="1140" y="100"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>
@@ -258,8 +215,8 @@
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
-			<kactus2:name>analog_io</kactus2:name>
-			<kactus2:position x="1140" y="120"/>
+			<kactus2:name>digital_gpio</kactus2:name>
+			<kactus2:position x="1140" y="100"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>

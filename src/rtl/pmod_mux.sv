@@ -51,7 +51,12 @@ module pmod_mux #(
     // Interface: ss_3_pmod_0
     input  logic [NUM_GPIO-1:0] ss_3_pmod_gpio_oe,
     input  logic [NUM_GPIO-1:0] ss_3_pmod_gpo,
-    output logic [NUM_GPIO-1:0] ss_3_pmod_gpi
+    output logic [NUM_GPIO-1:0] ss_3_pmod_gpi,
+
+    // Interface: ss_3_pmod_0
+    input  logic [NUM_GPIO-1:0] ss_4_pmod_gpio_oe,
+    input  logic [NUM_GPIO-1:0] ss_4_pmod_gpo,
+    output logic [NUM_GPIO-1:0] ss_4_pmod_gpi
 
 );
 
@@ -81,6 +86,7 @@ module pmod_mux #(
         ss_1_pmod_gpi = 'h0;
         ss_2_pmod_gpi = 'h0;
         ss_3_pmod_gpi = 'h0;
+        ss_4_pmod_gpi = 'h0;
       end
 
       1: begin
@@ -92,6 +98,7 @@ module pmod_mux #(
         ss_1_pmod_gpi = gpio_from_io;
         ss_2_pmod_gpi = 'h0;
         ss_3_pmod_gpi = 'h0;
+        ss_4_pmod_gpi = 'h0;
       end
 
       2: begin
@@ -103,6 +110,7 @@ module pmod_mux #(
         ss_1_pmod_gpi = 'h0;
         ss_2_pmod_gpi = gpio_from_io;
         ss_3_pmod_gpi = 'h0;
+        ss_4_pmod_gpi = 'h0;
       end
 
       3: begin
@@ -114,6 +122,19 @@ module pmod_mux #(
         ss_1_pmod_gpi = 'h0;
         ss_2_pmod_gpi = 'h0;
         ss_3_pmod_gpi = gpio_from_io;
+        ss_4_pmod_gpi = 'h0;
+      end
+
+      4: begin
+        gpio_to_io = ss_4_pmod_gpo;
+        for(int i = 0; i < NUM_GPIO; i++) begin
+          cell_cfg_to_io[(i+IOCELL_COUNT-NUM_GPIO)*IOCELL_CFG_W] = ss_4_pmod_gpio_oe[i];
+        end
+        ss_0_pmod_gpi = 'h0;
+        ss_1_pmod_gpi = 'h0;
+        ss_2_pmod_gpi = 'h0;
+        ss_3_pmod_gpi = 'h0;
+        ss_4_pmod_gpi = gpio_from_io;
       end
 
       default: begin
@@ -125,6 +146,7 @@ module pmod_mux #(
         ss_1_pmod_gpi = 'h0;
         ss_2_pmod_gpi = 'h0;
         ss_3_pmod_gpi = 'h0;
+        ss_4_pmod_gpi = 'h0;
       end
 
     endcase
