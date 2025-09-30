@@ -119,14 +119,6 @@ module tb_didactic();
   assign dut_jtag_tms   = jtag_tms;
   assign jtag_tdo       = dut_jtag_tdo;
 
-  tri1 dut_ana_in_0;
-  tri1 dut_ana_in_1;
-  tri1 dut_ana_out_0;
-  tri1 dut_ana_out_1;
-  tri1 dut_ana_out_2;
-  tri1 dut_ana_io_0;
-  tri1 dut_ana_io_1;
-
 ////////////////////////////////
 // PKG init
 ////////////////////////////////
@@ -294,9 +286,6 @@ module tb_didactic();
     .uart_rx(dut_uart_rx),
     .uart_tx(dut_uart_tx),
     // Interface: analog_if
-    .ana_core_in({dut_ana_in_1, dut_ana_in_0}),
-    .ana_core_out({dut_ana_out_2, dut_ana_out_1, dut_ana_out_0}),
-    .ana_core_io({dut_ana_io_1, dut_ana_io_0}),
     .high_speed_clk_n_in(dut_fast_clk_neg),
     .high_speed_clk_p_in(dut_fast_clk)
   );

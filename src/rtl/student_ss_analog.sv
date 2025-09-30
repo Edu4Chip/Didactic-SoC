@@ -13,7 +13,7 @@ module student_ss_analog #(
     output logic [15:0]  pmod_gpio_oe  
   );
 
-  assign pmod_gpio_oe = 'hF;
+  assign pmod_gpio_oe = 'hFFFF;
   assign pmod_gpo = 'b0;
 
   analog_block inst (

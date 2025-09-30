@@ -8,6 +8,7 @@
  *    -
  */
 #include "gpio.h"
+#include "soc_ctrl.h"
 //#include "uart.h"
 #include <stdint.h>
 
@@ -16,6 +17,8 @@ int main(){
   const uint32_t all_0 = 0x0;
   volatile uint32_t read_val = 0xFFFFFFFF;
   volatile uint32_t errors = 0;
+
+  pmod_target(5);
 
   //uart_init();
 

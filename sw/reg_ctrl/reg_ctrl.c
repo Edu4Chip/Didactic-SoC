@@ -25,8 +25,8 @@ int main(){
 
  // uart_print("initial reset round done");
 
-  for(uint32_t i=0; i<5; i++){
-    pmod_target(i);// only 4 pmod targets exist currently
+  for(uint32_t i=0; i<8; i++){
+    pmod_target(i);// only 0-4 pmod targets exist currently
   }
   
 //  uart_print("pmod loop");
