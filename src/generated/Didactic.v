@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 02.07.2025
-// Creation time : 14:36:33
+// Creation date : 29.09.2025
+// Creation time : 14:36:53
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -51,11 +51,6 @@ module Didactic #(
     // Interface: UART
     inout  wire                         uart_rx,
     inout  wire                         uart_tx,
-
-    // Interface: analog_io
-    inout  wire          [1:0]          ana_core_in,
-    inout  wire          [1:0]          ana_core_io,
-    inout  wire          [2:0]          ana_core_out,
 
     // Interface: high_speed_clock
     inout  wire                         high_speed_clk_n_in,
@@ -158,7 +153,6 @@ module Didactic #(
     wire       i_obi_icn_ss_reset_to_SystemControl_SS_Reset_icn_reset;
     // SystemControl_SS_ICN_SS_Ctrl_to_i_obi_icn_ss_icn_ss_ctrl wires:
     wire [7:0] SystemControl_SS_ICN_SS_Ctrl_to_i_obi_icn_ss_icn_ss_ctrl_clk_ctrl;
-    // analog_wrapper_0_analog_io_to_analog_io wires:
     // analog_wrapper_0_APB_to_i_obi_icn_ss_apb_4 wires:
     wire [31:0] analog_wrapper_0_APB_to_i_obi_icn_ss_apb_4_PADDR;
     wire       analog_wrapper_0_APB_to_i_obi_icn_ss_apb_4_PENABLE;
@@ -188,6 +182,10 @@ module Didactic #(
     wire [15:0] i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpi;
     wire [15:0] i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpio_oe;
     wire [15:0] i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpo;
+    // SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio wires:
+    wire [15:0] SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpi;
+    wire [15:0] SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpio_oe;
+    wire [15:0] SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpo;
 
     // Ad-hoc wires:
     wire       i_dtu_ss_wrapper_reset_int_to_SystemControl_SS_reset_ss;
@@ -251,6 +249,9 @@ module Didactic #(
     wire [15:0] SystemControl_SS_ss_3_pmod_gpi;
     wire [15:0] SystemControl_SS_ss_3_pmod_gpio_oe;
     wire [15:0] SystemControl_SS_ss_3_pmod_gpo;
+    wire [15:0] SystemControl_SS_ss_4_pmod_gpi;
+    wire [15:0] SystemControl_SS_ss_4_pmod_gpio_oe;
+    wire [15:0] SystemControl_SS_ss_4_pmod_gpo;
     wire [7:0] SystemControl_SS_ss_ctrl_0;
     wire [7:0] SystemControl_SS_ss_ctrl_1;
     wire [7:0] SystemControl_SS_ss_ctrl_2;
@@ -271,6 +272,9 @@ module Didactic #(
     wire       analog_wrapper_0_high_speed_clk;
     wire       analog_wrapper_0_irq;
     wire       analog_wrapper_0_irq_en;
+    wire [15:0] analog_wrapper_0_pmod_gpi;
+    wire [15:0] analog_wrapper_0_pmod_gpio_oe;
+    wire [15:0] analog_wrapper_0_pmod_gpo;
     wire       analog_wrapper_0_reset_int;
     wire [7:0] analog_wrapper_0_ss_ctrl;
     // i_dtu_ss_wrapper port wires:
@@ -475,6 +479,9 @@ module Didactic #(
     assign i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpi = SystemControl_SS_ss_3_pmod_gpi;
     assign SystemControl_SS_ss_3_pmod_gpio_oe = i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpio_oe;
     assign SystemControl_SS_ss_3_pmod_gpo = i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpo;
+    assign SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpi = SystemControl_SS_ss_4_pmod_gpi;
+    assign SystemControl_SS_ss_4_pmod_gpio_oe = SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpio_oe;
+    assign SystemControl_SS_ss_4_pmod_gpo = SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpo;
     assign SystemControl_SS_SS_0_Ctrl_to_i_imt_ss_wrapper_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_0;
     assign SystemControl_SS_SS_1_Ctrl_to_i_tum_ss_warpper_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_1;
     assign SystemControl_SS_SS_2_Ctrl_to_i_dtu_ss_wrapper_SS_Ctrl_clk_ctrl = SystemControl_SS_ss_ctrl_2;
@@ -495,6 +502,9 @@ module Didactic #(
     assign analog_wrapper_0_high_speed_clk = i_tum_ss_warpper_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal_clk;
     assign analog_wrapper_0_irq_to_SystemControl_SS_irq_i = analog_wrapper_0_irq;
     assign analog_wrapper_0_irq_en = analog_wrapper_0_SS_Ctrl_to_SystemControl_SS_ss_4_ctrl_irq_en;
+    assign analog_wrapper_0_pmod_gpi = SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpi;
+    assign SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpio_oe = analog_wrapper_0_pmod_gpio_oe;
+    assign SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpo = analog_wrapper_0_pmod_gpo;
     assign analog_wrapper_0_reset_int = analog_wrapper_0_reset_int_to_SystemControl_SS_reset_ss;
     assign analog_wrapper_0_ss_ctrl = analog_wrapper_0_SS_Ctrl_to_SystemControl_SS_ss_4_ctrl_clk_ctrl;
     // i_dtu_ss_wrapper assignments:
@@ -732,7 +742,11 @@ module Didactic #(
         .ss_3_pmod_gpi       (SystemControl_SS_ss_3_pmod_gpi),
         // Interface: ss_4_ctrl
         .irq_en_4            (SystemControl_SS_irq_en_4),
-        .ss_ctrl_4           (SystemControl_SS_ss_ctrl_4));
+        .ss_ctrl_4           (SystemControl_SS_ss_ctrl_4),
+        // Interface: ss_4_pmod_gpio
+        .ss_4_pmod_gpio_oe   (SystemControl_SS_ss_4_pmod_gpio_oe),
+        .ss_4_pmod_gpo       (SystemControl_SS_ss_4_pmod_gpo),
+        .ss_4_pmod_gpi       (SystemControl_SS_ss_4_pmod_gpi));
 
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:analog_wrapper:1.0
     analog_wrapper_0 #(
@@ -758,14 +772,13 @@ module Didactic #(
         // Interface: SS_Ctrl
         .irq_en              (analog_wrapper_0_irq_en),
         .ss_ctrl             (analog_wrapper_0_ss_ctrl),
-        // Interface: analog_io
-        .ana_core_in         (ana_core_in[1:0]),
-        .ana_core_io         (ana_core_io[1:0]),
-        .ana_core_out        (ana_core_out[2:0]),
+        // Interface: digital_gpio
+        .pmod_gpi            (analog_wrapper_0_pmod_gpi),
+        .pmod_gpio_oe        (analog_wrapper_0_pmod_gpio_oe),
+        .pmod_gpo            (analog_wrapper_0_pmod_gpo),
         // Interface: high_speed_clk
         .high_speed_clk      (analog_wrapper_0_high_speed_clk));
 
-`ifndef VERILATOR
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:dtu_wrapper:1.0
     dtu_wrapper_0 #(
         .APB_AW              (32),
@@ -796,9 +809,7 @@ module Didactic #(
         .pmod_gpi            (i_dtu_ss_wrapper_pmod_gpi),
         .pmod_gpio_oe        (i_dtu_ss_wrapper_pmod_gpio_oe),
         .pmod_gpo            (i_dtu_ss_wrapper_pmod_gpo));
-`endif
 
-`ifndef VERILATOR
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:imt_wrapper:1.0
     imt_wrapper_0 #(
         .APB_DW              (32),
@@ -829,9 +840,7 @@ module Didactic #(
         .pmod_gpi            (i_imt_ss_wrapper_pmod_gpi),
         .pmod_gpio_oe        (i_imt_ss_wrapper_pmod_gpio_oe),
         .pmod_gpo            (i_imt_ss_wrapper_pmod_gpo));
-`endif
 
-`ifndef VERILATOR
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:kth_wrapper:1.0
     kth_wrapper_0 #(
         .APB_DW              (32),
@@ -862,7 +871,6 @@ module Didactic #(
         .pmod_gpi            (i_kth_ss_wrapper_pmod_gpi),
         .pmod_gpio_oe        (i_kth_ss_wrapper_pmod_gpio_oe),
         .pmod_gpo            (i_kth_ss_wrapper_pmod_gpo));
-`endif
 
     // IP-XACT VLNV: tuni.fi:interconnect:obi_icn_ss:1.0
     obi_icn_ss #(
@@ -949,7 +957,6 @@ module Didactic #(
         // Interface: reset
         .reset_n             (i_obi_icn_ss_reset_n));
 
-`ifndef VERILATOR
     // IP-XACT VLNV: tuni.fi:subsystem.wrapper:tum_wrapper:1.0
     tum_wrapper_0 #(
         .APB_DW              (32),
@@ -980,6 +987,6 @@ module Didactic #(
         .pmod_gpi            (i_tum_ss_warpper_pmod_gpi),
         .pmod_gpio_oe        (i_tum_ss_warpper_pmod_gpio_oe),
         .pmod_gpo            (i_tum_ss_warpper_pmod_gpo));
-`endif
+
 
 endmodule

@@ -45,6 +45,7 @@
 					<kactus2:portPosition busRef="ss_2_pmod_gpio" x="110" y="540"/>
 					<kactus2:portPosition busRef="ss_3_pmod_gpio" x="110" y="560"/>
 					<kactus2:portPosition busRef="ss_4_ctrl" x="110" y="370"/>
+					<kactus2:portPosition busRef="ss_4_pmod_gpio" x="110" y="580"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_i" x="-110" y="500"/>
@@ -183,9 +184,9 @@
 					<kactus2:portPosition busRef="IRQ" x="110" y="50"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="150"/>
-					<kactus2:portPosition busRef="analog_io" x="110" y="150"/>
 					<kactus2:portPosition busRef="high_speed_clk" x="-110" y="170"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="160"/>
+					<kactus2:portPosition busRef="digital_gpio" x="110" y="120"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq" x="110" y="70"/>
@@ -341,11 +342,6 @@
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="high_speed_clock_internal"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>analog_wrapper_0_analog_io_to_analog_io</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="analog_wrapper_0" busRef="analog_io"/>
-			<ipxact:hierInterface busRef="analog_io"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
 			<ipxact:name>analog_wrapper_0_APB_to_i_obi_icn_ss_apb_4</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="analog_wrapper_0" busRef="APB"/>
 			<ipxact:activeInterface componentInstanceRef="i_obi_icn_ss" busRef="apb_4"/>
@@ -374,6 +370,11 @@
 			<ipxact:name>i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="i_kth_ss_wrapper" busRef="pmod_gpio"/>
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_3_pmod_gpio"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_4_pmod_gpio"/>
+			<ipxact:activeInterface componentInstanceRef="analog_wrapper_0" busRef="digital_gpio"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
@@ -725,10 +726,6 @@
 				<kactus2:position x="780" y="1090"/>
 				<kactus2:position x="420" y="140"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="analog_wrapper_0_analog_io_to_analog_io" kactus2:offPage="false">
-				<kactus2:position x="1030" y="1070"/>
-				<kactus2:position x="1140" y="1070"/>
-			</kactus2:route>
 			<kactus2:route kactus2:connRef="analog_wrapper_0_APB_to_i_obi_icn_ss_apb_4" kactus2:offPage="false">
 				<kactus2:position x="810" y="1040"/>
 				<kactus2:position x="710" y="1040"/>
@@ -752,6 +749,10 @@
 			<kactus2:route kactus2:connRef="i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio" kactus2:offPage="true">
 				<kactus2:position x="1060" y="790"/>
 				<kactus2:position x="420" y="620"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio" kactus2:offPage="true">
+				<kactus2:position x="420" y="640"/>
+				<kactus2:position x="1060" y="1040"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:interfaceGraphics>
@@ -793,11 +794,6 @@
 			<kactus2:name>high_speed_clock</kactus2:name>
 			<kactus2:position x="60" y="380"/>
 			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>analog_io</kactus2:name>
-			<kactus2:position x="1140" y="1070"/>
-			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:adHocVisibilities/>
 	</ipxact:vendorExtensions>

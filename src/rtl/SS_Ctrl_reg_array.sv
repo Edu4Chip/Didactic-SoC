@@ -124,7 +124,7 @@ module SS_Ctrl_reg_array #(
         ss_ctrl_reserved_1_reg <= 'h0;
         pmod_sel_reg <= 'h4;
         for(int i=0; i < IOCELL_COUNT; i++) begin
-          io_cell_cfg_reg[i] <= 'hE;
+          io_cell_cfg_reg[i] <= 'hD;
         end
         boot_reg_0 <= 'h6f;
         boot_reg_1 <= 'h6f;
@@ -169,7 +169,7 @@ module SS_Ctrl_reg_array #(
           default: begin
               // io cell cfg
               for(int i=0; i < IOCELL_COUNT; i++) begin
-                if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
+                if ( addr_i[15:0] == 'h28+i*4) begin // check 28 - 88
                   io_cell_cfg_reg[i] <= wdata_i;
                 end
               end
@@ -205,7 +205,7 @@ module SS_Ctrl_reg_array #(
           default: begin
             // io cell cfg
             for(int i=0; i < IOCELL_COUNT; i++) begin
-              if ( addr_i[16:0] == 'h28+i*4) begin // check 28 - 88
+              if ( addr_i[15:0] == 'h28+i*4) begin // check 28 - 88
                 rdata_out_reg <= io_cell_cfg_reg[i];
               end
             end

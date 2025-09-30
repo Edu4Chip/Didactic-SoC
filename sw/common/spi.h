@@ -53,13 +53,13 @@ void spi_read(uint32_t addr){
   //toggle data pins to inputs
   volatile uint32_t mask = 0;
   mask = SPI_PAD_CFG_DATA0;
-  SPI_PAD_CFG_DATA0 = (mask | 1u);
+  SPI_PAD_CFG_DATA0 = (mask | 3u);
   mask = SPI_PAD_CFG_DATA1;
-  SPI_PAD_CFG_DATA1 = (mask | 1u);
+  SPI_PAD_CFG_DATA1 = (mask | 3u);
   mask = SPI_PAD_CFG_DATA2;
-  SPI_PAD_CFG_DATA2 = (mask | 1u);
+  SPI_PAD_CFG_DATA2 = (mask | 3u);
   mask = SPI_PAD_CFG_DATA3;
-  SPI_PAD_CFG_DATA3 = (mask | 1u);
+  SPI_PAD_CFG_DATA3 = (mask | 3u);
 
            //data      addr    cmd
   SPILEN = (32u<<16 | 32u<<8 | 8u);

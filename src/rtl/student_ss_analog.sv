@@ -1,38 +1,32 @@
 /*
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
+    * Paul
   Description:
-    * example analog student area tieoff code
+    * Analog integration module
 */
 module student_ss_analog #(
   )(
-
-    // interface: analog_IO
-    inout wire [1:0] ana_core_in,
-    inout wire [2:0] ana_core_out,
-    inout wire [1:0] ana_core_io,
-
-    // interface: status_0
-    output wire [31:0] status_0,
-
-    // interface: status_1
-    output wire [31:0] status_1,
-
-    // interface: status_2
-    output wire [31:0] status_2,
-
-    // interface: status_3
-    output wire [31:0] status_3
+    //Interface: GPIO pmod 
+    input  logic [15:0]  pmod_gpi,
+    output logic [15:0]  pmod_gpo,
+    output logic [15:0]  pmod_gpio_oe  
   );
 
-  // minimal analog integration model
-  assign ana_core_in  = 'd0;
-  assign ana_core_out = 'd0;
-  assign ana_core_io  = 'd0;
+  assign pmod_gpio_oe = 'hFFFF;
+  assign pmod_gpo = 'b0;
 
-  assign status_0 = 'h0;
-  assign status_1 = 'h1;
-  assign status_2 = 'h2;
-  assign status_3 = 'h3;
+  analog_block inst (
+    .control(pmod_gpi)
+  );
 
+endmodule
+
+module analog_block (
+    input  logic [15:0]  control
+  );
+  // black box module, will be replaced during backend flow 
+  // with actual analog block
+  // the block's analog IOs will be handled by the block 
+  // and are not passed through the digital part
 endmodule
