@@ -24,11 +24,6 @@ module DidacticZ1 (
     inout  wire                         uart_rx,
     inout  wire                         uart_tx,
 
-    // Interface: analog_if
-    inout  wire          [1:0]          ana_core_in,
-    inout  wire          [1:0]          ana_core_io,
-    inout  wire          [2:0]          ana_core_out,
-
     // Interface: high_speed_clock
     inout  wire                         high_speed_clk_n_in,
     inout  wire                         high_speed_clk_p_in
@@ -55,9 +50,6 @@ module DidacticZ1 (
     .spi_sck(spi_sck),
     .uart_rx(uart_rx),
     .uart_tx(uart_tx),
-    .ana_core_in(ana_core_in),
-    .ana_core_out(ana_core_out),
-    .ana_core_io(ana_core_io),
     .high_speed_clk_n_in(1'b0),
     .high_speed_clk_p_in(1'b0)
   );
