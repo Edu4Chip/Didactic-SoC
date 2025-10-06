@@ -95,15 +95,15 @@ set_property -dict {PACKAGE_PIN W13 IOSTANDARD LVCMOS33} [get_ports {gpio[15]}]
 # btn
 set_property -dict {PACKAGE_PIN D19 IOSTANDARD LVCMOS33} [get_ports high_speed_clk_n_in]
 set_property -dict {PACKAGE_PIN D20 IOSTANDARD LVCMOS33} [get_ports high_speed_clk_p_in]
-set_property -dict {PACKAGE_PIN L20 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[0]}]
-set_property -dict {PACKAGE_PIN L19 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[1]}]
+#set_property -dict {PACKAGE_PIN L20 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[0]}]
+#set_property -dict {PACKAGE_PIN L19 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[1]}]
 
 # led
-set_property -dict {PACKAGE_PIN R14 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[0]}]
-set_property -dict {PACKAGE_PIN P14 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[1]}]
-set_property -dict {PACKAGE_PIN N16 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[2]}]
+#set_property -dict {PACKAGE_PIN R14 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[0]}]
+#set_property -dict {PACKAGE_PIN P14 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[1]}]
+#set_property -dict {PACKAGE_PIN N16 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[2]}]
 
 # digital header
-set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[0]}]
-set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[1]}]
+#set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[0]}]
+#set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[1]}]
 
