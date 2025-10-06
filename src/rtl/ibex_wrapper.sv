@@ -35,7 +35,7 @@ module ibex_wrapper #(
     parameter                              RndCnstIbexNonce = 64'hf79780bc735f3843,
     parameter bit                          SecureIbex       = 1'b0,
     parameter ibex_pkg::rv32b_e            RV32B            = ibex_pkg::RV32BNone,
-    parameter ibex_pkg::rv32m_e            RV32M            = ibex_pkg::RV32MNone,
+    parameter ibex_pkg::rv32m_e            RV32M            = ibex_pkg::RV32MFast,
     parameter ibex_pkg::regfile_e          RegFile          = ibex_pkg::RegFileFF,
     parameter ibex_pkg::lfsr_perm_t        RndCnstLfsrPerm  = ibex_pkg::RndCnstLfsrPermDefault,
     parameter ibex_pkg::lfsr_seed_t        RndCnstLfsrSeed  = ibex_pkg::RndCnstLfsrSeedDefault,
