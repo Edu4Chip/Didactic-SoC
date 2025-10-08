@@ -47,8 +47,8 @@
 					<kactus2:portPosition busRef="IRQ" x="110" y="350"/>
 					<kactus2:portPosition busRef="Reset" x="110" y="190"/>
 					<kactus2:portPosition busRef="SS_CTRL" x="-110" y="320"/>
-					<kactus2:portPosition busRef="pmod_gpio" x="110" y="120"/>
 					<kactus2:portPosition busRef="high_speed_clk" x="-110" y="190"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="120"/>
 				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -90,14 +90,14 @@
 			<ipxact:activeInterface componentInstanceRef="i_imt_ss" busRef="high_speed_clk"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>ss_high_speed_cg_clk_in_to_high_speed_clk</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="ss_high_speed_cg" busRef="clk_in"/>
-			<ipxact:hierInterface busRef="high_speed_clk"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
 			<ipxact:name>i_imt_ss_pmod_gpio_to_pmod_gpio</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="i_imt_ss" busRef="pmod_gpio"/>
 			<ipxact:hierInterface busRef="pmod_gpio"/>
+		</ipxact:interconnection>
+		<ipxact:interconnection>
+			<ipxact:name>ss_high_speed_cg_clk_in_to_high_speed_clk</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="ss_high_speed_cg" busRef="clk_in"/>
+			<ipxact:hierInterface busRef="high_speed_clk"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
@@ -152,32 +152,22 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_imt_ss_IRQ_to_IRQ" kactus2:offPage="false">
 				<kactus2:position x="710" y="410"/>
-				<kactus2:position x="800" y="410"/>
-				<kactus2:position x="800" y="410"/>
 				<kactus2:position x="820" y="410"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_imt_ss_APB_to_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="360"/>
-				<kactus2:position x="800" y="360"/>
-				<kactus2:position x="800" y="360"/>
 				<kactus2:position x="820" y="360"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_imt_ss_SS_CTRL_to_SS_Ctrl" kactus2:offPage="false">
 				<kactus2:position x="490" y="380"/>
-				<kactus2:position x="80" y="380"/>
-				<kactus2:position x="80" y="380"/>
 				<kactus2:position x="60" y="380"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_imt_ss_Reset_to_Reset" kactus2:offPage="false">
 				<kactus2:position x="710" y="250"/>
-				<kactus2:position x="800" y="250"/>
-				<kactus2:position x="800" y="250"/>
 				<kactus2:position x="820" y="250"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ss_cg_clk_out_to_i_imt_ss_Clock" kactus2:offPage="false">
 				<kactus2:position x="390" y="100"/>
-				<kactus2:position x="470" y="100"/>
-				<kactus2:position x="470" y="100"/>
 				<kactus2:position x="490" y="100"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Student_SS_3_pmod_gpio_0_to_pmod_gpio_0" kactus2:offPage="false">
@@ -196,19 +186,15 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ss_high_speed_cg_clk_out_to_i_imt_ss_high_speed_clk" kactus2:offPage="false">
 				<kactus2:position x="390" y="250"/>
-				<kactus2:position x="470" y="250"/>
-				<kactus2:position x="470" y="250"/>
 				<kactus2:position x="490" y="250"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="i_imt_ss_pmod_gpio_to_pmod_gpio" kactus2:offPage="false">
+				<kactus2:position x="710" y="180"/>
+				<kactus2:position x="820" y="180"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="ss_high_speed_cg_clk_in_to_high_speed_clk" kactus2:offPage="false">
 				<kactus2:position x="170" y="250"/>
 				<kactus2:position x="60" y="250"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="i_imt_ss_pmod_gpio_to_pmod_gpio" kactus2:offPage="false">
-				<kactus2:position x="710" y="180"/>
-				<kactus2:position x="800" y="180"/>
-				<kactus2:position x="800" y="180"/>
-				<kactus2:position x="820" y="180"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:adHocVisibilities>
@@ -240,14 +226,14 @@
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
-			<kactus2:name>high_speed_clk</kactus2:name>
-			<kactus2:position x="60" y="250"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
 			<kactus2:name>pmod_gpio</kactus2:name>
 			<kactus2:position x="820" y="180"/>
 			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>high_speed_clk</kactus2:name>
+			<kactus2:position x="60" y="250"/>
+			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>
