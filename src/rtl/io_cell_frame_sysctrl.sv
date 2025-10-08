@@ -84,20 +84,20 @@ module io_cell_frame_sysctrl #(
   // jtag, reset and clk not configurable to avoid locking SoC
 
   // reset
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_rst(.FROM_CORE(1'b0), .TO_CORE(reset_internal), .PAD(reset), .io_cell_cfg(10'hE));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_rst(.FROM_CORE(1'b0), .TO_CORE(reset_internal), .PAD(reset), .io_cell_cfg(IOCELL_CFG_W'('hE)));
   // clk
 `ifndef FPGA
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_clk(.FROM_CORE(1'b0), .TO_CORE(clk_internal), .PAD(clk_in), .io_cell_cfg(10'hE));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_clk(.FROM_CORE(1'b0), .TO_CORE(clk_internal), .PAD(clk_in), .io_cell_cfg(IOCELL_CFG_W'('hE)));
 `else
   assign clk_internal = clk_in;
 `endif
 
   // jtag
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tck (.FROM_CORE(1'b0),              .TO_CORE(jtag_tck_internal),  .PAD(jtag_tck),  .io_cell_cfg(10'hF));
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tms (.FROM_CORE(1'b0),              .TO_CORE(jtag_tms_internal),  .PAD(jtag_tms),  .io_cell_cfg(10'hF));
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_trst(.FROM_CORE(1'b0),              .TO_CORE(jtag_trst_internal), .PAD(jtag_trst), .io_cell_cfg(10'hF));
-  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tdi (.FROM_CORE(1'b0),              .TO_CORE(jtag_tdi_internal),  .PAD(jtag_tdi),  .io_cell_cfg(10'hF));
-  io_cell_wrapper#(.CELL_TYPE(1), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tdo (.FROM_CORE(jtag_tdo_internal), .TO_CORE(),                   .PAD(jtag_tdo),  .io_cell_cfg(10'hE));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tck (.FROM_CORE(1'b0),              .TO_CORE(jtag_tck_internal),  .PAD(jtag_tck),  .io_cell_cfg(IOCELL_CFG_W'('hF)));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tms (.FROM_CORE(1'b0),              .TO_CORE(jtag_tms_internal),  .PAD(jtag_tms),  .io_cell_cfg(IOCELL_CFG_W'('hF)));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_trst(.FROM_CORE(1'b0),              .TO_CORE(jtag_trst_internal), .PAD(jtag_trst), .io_cell_cfg(IOCELL_CFG_W'('hF)));
+  io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tdi (.FROM_CORE(1'b0),              .TO_CORE(jtag_tdi_internal),  .PAD(jtag_tdi),  .io_cell_cfg(IOCELL_CFG_W'('hF)));
+  io_cell_wrapper#(.CELL_TYPE(1), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_jtag_tdo (.FROM_CORE(jtag_tdo_internal), .TO_CORE(),                   .PAD(jtag_tdo),  .io_cell_cfg(IOCELL_CFG_W'('hE)));
 
   // uart
   io_cell_wrapper#(.CELL_TYPE(2), .IOCELL_CFG_W(IOCELL_CFG_W)) i_io_cell_uart_rx(.FROM_CORE(1'b0),             .TO_CORE(uart_rx_internal), .PAD(uart_rx), .io_cell_cfg(cell_cfg[1*IOCELL_CFG_W-1:0*IOCELL_CFG_W]));
