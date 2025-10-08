@@ -34,7 +34,7 @@ void uart_init(){
   // init uart settings (for typical tx/rx setup)
   IIR_FCR = 1u;
   LCR = (1u<<7 | 3u);
-  RBR_THR_DLL = 27u;//divisor to define baudrate: ~57600 = (frequency, 100MHz)/(16*RBR_THR_DLL)
+  RBR_THR_DLL = 27u;//divisor to define baudrate: ~230400 = (frequency, 100MHz)/(16*RBR_THR_DLL)
   LCR = 3u;
   IER_DLM = 1u;// enable transmitter holding register empty interrupt
   IIR_FCR = 2u; // receiver fifo reset
