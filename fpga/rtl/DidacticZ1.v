@@ -22,12 +22,8 @@ module DidacticZ1 (
 
     // Interface: UART
     inout  wire                         uart_rx,
-    inout  wire                         uart_tx,
-
-    // Interface: high_speed_clock
-    inout  wire                         high_speed_clk_n_in,
-    inout  wire                         high_speed_clk_p_in
-
+    inout  wire                         uart_tx
+    
 );
 
   wire clk_8MHz;
@@ -49,9 +45,7 @@ module DidacticZ1 (
     .spi_data(spi_data),
     .spi_sck(spi_sck),
     .uart_rx(uart_rx),
-    .uart_tx(uart_tx),
-    .high_speed_clk_n_in(1'b0),
-    .high_speed_clk_p_in(1'b0)
+    .uart_tx(uart_tx)
   );
 
 endmodule

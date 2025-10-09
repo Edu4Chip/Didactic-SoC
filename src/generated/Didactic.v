@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : Didactic.v
-// Creation date : 29.09.2025
-// Creation time : 14:36:53
+// Creation date : 08.10.2025
+// Creation time : 12:12:35
 // Description   : Edu4Chip top level example SoC.
 //                 
 //                 Spec: 
@@ -28,7 +28,6 @@ module Didactic #(
 ) (
     // Interface: Clock
     inout  wire                         clk_in,
-    inout  wire                         clk_out,
 
     // Interface: GPIO
     inout  wire          [15:0]         gpio,
@@ -50,18 +49,13 @@ module Didactic #(
 
     // Interface: UART
     inout  wire                         uart_rx,
-    inout  wire                         uart_tx,
-
-    // Interface: high_speed_clock
-    inout  wire                         high_speed_clk_n_in,
-    inout  wire                         high_speed_clk_p_in
+    inout  wire                         uart_tx
 );
 
     // SystemControl_SS_UART_to_UART wires:
     // SystemControl_SS_SPI_to_SPI wires:
     // SystemControl_SS_GPIO_to_GPIO wires:
     // SystemControl_SS_Reset_to_Reset wires:
-    // SystemControl_SS_Clock_to_Clock wires:
     // SystemControl_SS_Clock_int_to_i_imt_ss_wrapper_Clock wires:
     wire       SystemControl_SS_Clock_int_to_i_imt_ss_wrapper_Clock_clk;
     // SystemControl_SS_SS_0_Ctrl_to_i_imt_ss_wrapper_SS_Ctrl wires:
@@ -77,10 +71,6 @@ module Didactic #(
     // SystemControl_SS_SS_3_Ctrl_to_i_kth_ss_wrapper_SS_Ctrl wires:
     wire [7:0] SystemControl_SS_SS_3_Ctrl_to_i_kth_ss_wrapper_SS_Ctrl_clk_ctrl;
     wire       SystemControl_SS_SS_3_Ctrl_to_i_kth_ss_wrapper_SS_Ctrl_irq_en;
-    // SystemControl_SS_high_speed_clock_to_high_speed_clock wires:
-    // i_tum_ss_warpper_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal
-    // wires:
-    wire       i_tum_ss_warpper_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal_clk;
     // i_obi_icn_ss_apb_0_to_i_imt_ss_wrapper_APB wires:
     wire [31:0] i_obi_icn_ss_apb_0_to_i_imt_ss_wrapper_APB_PADDR;
     wire       i_obi_icn_ss_apb_0_to_i_imt_ss_wrapper_APB_PENABLE;
@@ -186,6 +176,7 @@ module Didactic #(
     wire [15:0] SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpi;
     wire [15:0] SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpio_oe;
     wire [15:0] SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpo;
+    // SystemControl_SS_Clock_to_Clock wires:
 
     // Ad-hoc wires:
     wire       i_dtu_ss_wrapper_reset_int_to_SystemControl_SS_reset_ss;
@@ -201,7 +192,6 @@ module Didactic #(
 
     // SystemControl_SS port wires:
     wire       SystemControl_SS_clk;
-    wire       SystemControl_SS_high_speed_clk_internal;
     wire       SystemControl_SS_irq_en_0;
     wire       SystemControl_SS_irq_en_1;
     wire       SystemControl_SS_irq_en_2;
@@ -434,7 +424,6 @@ module Didactic #(
 
     // SystemControl_SS assignments:
     assign SystemControl_SS_Clock_int_to_i_imt_ss_wrapper_Clock_clk = SystemControl_SS_clk;
-    assign i_tum_ss_warpper_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal_clk = SystemControl_SS_high_speed_clk_internal;
     assign SystemControl_SS_SS_0_Ctrl_to_i_imt_ss_wrapper_SS_Ctrl_irq_en = SystemControl_SS_irq_en_0;
     assign SystemControl_SS_SS_1_Ctrl_to_i_tum_ss_warpper_SS_Ctrl_irq_en = SystemControl_SS_irq_en_1;
     assign SystemControl_SS_SS_2_Ctrl_to_i_dtu_ss_wrapper_SS_Ctrl_irq_en = SystemControl_SS_irq_en_2;
@@ -499,7 +488,7 @@ module Didactic #(
     assign analog_wrapper_0_PWDATA = analog_wrapper_0_APB_to_i_obi_icn_ss_apb_4_PWDATA;
     assign analog_wrapper_0_PWRITE = analog_wrapper_0_APB_to_i_obi_icn_ss_apb_4_PWRITE;
     assign analog_wrapper_0_clk_in = SystemControl_SS_Clock_int_to_i_imt_ss_wrapper_Clock_clk;
-    assign analog_wrapper_0_high_speed_clk = i_tum_ss_warpper_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal_clk;
+    assign analog_wrapper_0_high_speed_clk = 0;
     assign analog_wrapper_0_irq_to_SystemControl_SS_irq_i = analog_wrapper_0_irq;
     assign analog_wrapper_0_irq_en = analog_wrapper_0_SS_Ctrl_to_SystemControl_SS_ss_4_ctrl_irq_en;
     assign analog_wrapper_0_pmod_gpi = SystemControl_SS_ss_4_pmod_gpio_to_analog_wrapper_0_digital_gpio_gpi;
@@ -518,7 +507,7 @@ module Didactic #(
     assign i_dtu_ss_wrapper_PWDATA = i_obi_icn_ss_apb_2_to_i_dtu_ss_wrapper_APB_PWDATA;
     assign i_dtu_ss_wrapper_PWRITE = i_obi_icn_ss_apb_2_to_i_dtu_ss_wrapper_APB_PWRITE;
     assign i_dtu_ss_wrapper_clk = SystemControl_SS_Clock_int_to_i_imt_ss_wrapper_Clock_clk;
-    assign i_dtu_ss_wrapper_high_speed_clk = i_tum_ss_warpper_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal_clk;
+    assign i_dtu_ss_wrapper_high_speed_clk = 0;
     assign i_dtu_ss_wrapper_irq_to_SystemControl_SS_irq_i = i_dtu_ss_wrapper_irq;
     assign i_dtu_ss_wrapper_irq_en_2 = SystemControl_SS_SS_2_Ctrl_to_i_dtu_ss_wrapper_SS_Ctrl_irq_en;
     assign i_dtu_ss_wrapper_pmod_gpi = i_dtu_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_2_pmod_gpio_gpi;
@@ -537,7 +526,7 @@ module Didactic #(
     assign i_imt_ss_wrapper_PWDATA = i_obi_icn_ss_apb_0_to_i_imt_ss_wrapper_APB_PWDATA;
     assign i_imt_ss_wrapper_PWRITE = i_obi_icn_ss_apb_0_to_i_imt_ss_wrapper_APB_PWRITE;
     assign i_imt_ss_wrapper_clk_in = SystemControl_SS_Clock_int_to_i_imt_ss_wrapper_Clock_clk;
-    assign i_imt_ss_wrapper_high_speed_clk = i_tum_ss_warpper_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal_clk;
+    assign i_imt_ss_wrapper_high_speed_clk = 0;
     assign i_imt_ss_wrapper_irq_to_SystemControl_SS_irq_i = i_imt_ss_wrapper_irq;
     assign i_imt_ss_wrapper_irq_en_3 = SystemControl_SS_SS_0_Ctrl_to_i_imt_ss_wrapper_SS_Ctrl_irq_en;
     assign i_imt_ss_wrapper_pmod_gpi = SystemControl_SS_ss_0_pmod_gpio_to_i_imt_ss_wrapper_pmod_gpio_gpi;
@@ -556,7 +545,7 @@ module Didactic #(
     assign i_kth_ss_wrapper_PWDATA = i_obi_icn_ss_apb_3_to_i_kth_ss_wrapper_APB_PWDATA;
     assign i_kth_ss_wrapper_PWRITE = i_obi_icn_ss_apb_3_to_i_kth_ss_wrapper_APB_PWRITE;
     assign i_kth_ss_wrapper_clk_in = SystemControl_SS_Clock_int_to_i_imt_ss_wrapper_Clock_clk;
-    assign i_kth_ss_wrapper_high_speed_clk = i_tum_ss_warpper_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal_clk;
+    assign i_kth_ss_wrapper_high_speed_clk = 0;
     assign i_kth_ss_wrapper_irq_to_SystemControl_SS_irq_i = i_kth_ss_wrapper_irq;
     assign i_kth_ss_wrapper_irq_en_3 = SystemControl_SS_SS_3_Ctrl_to_i_kth_ss_wrapper_SS_Ctrl_irq_en;
     assign i_kth_ss_wrapper_pmod_gpi = i_kth_ss_wrapper_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio_gpi;
@@ -640,7 +629,7 @@ module Didactic #(
     assign i_tum_ss_warpper_PWDATA = i_obi_icn_ss_apb_1_to_i_tum_ss_warpper_APB_PWDATA;
     assign i_tum_ss_warpper_PWRITE = i_obi_icn_ss_apb_1_to_i_tum_ss_warpper_APB_PWRITE;
     assign i_tum_ss_warpper_clk_in = SystemControl_SS_Clock_int_to_i_imt_ss_wrapper_Clock_clk;
-    assign i_tum_ss_warpper_high_speed_clk = i_tum_ss_warpper_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal_clk;
+    assign i_tum_ss_warpper_high_speed_clk = 0;
     assign i_tum_ss_warpper_irq_to_SystemControl_SS_irq_i = i_tum_ss_warpper_irq;
     assign i_tum_ss_warpper_irq_en_3 = SystemControl_SS_SS_1_Ctrl_to_i_tum_ss_warpper_SS_Ctrl_irq_en;
     assign i_tum_ss_warpper_pmod_gpi = i_tum_ss_warpper_pmod_gpio_to_SystemControl_SS_ss_1_pmod_gpio_gpi;
@@ -662,7 +651,6 @@ module Didactic #(
     SystemControl_SS(
         // Interface: Clock
         .clock_in            (clk_in),
-        .clock_out           (clk_out),
         // Interface: Clock_int
         .clk                 (SystemControl_SS_clk),
         // Interface: GPIO
@@ -719,11 +707,6 @@ module Didactic #(
         // Interface: UART
         .uart_rx             (uart_rx),
         .uart_tx             (uart_tx),
-        // Interface: high_speed_clock
-        .high_speed_clk_n_in (high_speed_clk_n_in),
-        .high_speed_clk_p_in (high_speed_clk_p_in),
-        // Interface: high_speed_clock_internal
-        .high_speed_clk_internal(SystemControl_SS_high_speed_clk_internal),
         // Interface: ss_0_pmod_gpio
         .ss_0_pmod_gpio_oe   (SystemControl_SS_ss_0_pmod_gpio_oe),
         .ss_0_pmod_gpo       (SystemControl_SS_ss_0_pmod_gpo),

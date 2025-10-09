@@ -20,7 +20,7 @@
 				<kactus2:portPositions>
 					<kactus2:portPosition busRef="BootSel" x="-110" y="360"/>
 					<kactus2:portPosition busRef="BootSel_internal" x="110" y="550"/>
-					<kactus2:portPosition busRef="Cfg" x="110" y="430"/>
+					<kactus2:portPosition busRef="Cfg" x="110" y="460"/>
 					<kactus2:portPosition busRef="Clock" x="-110" y="280"/>
 					<kactus2:portPosition busRef="Clock_internal" x="110" y="510"/>
 					<kactus2:portPosition busRef="FetchEn" x="-110" y="320"/>
@@ -230,16 +230,6 @@
 			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="GPIO_internal"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>i_io_cell_frame_high_speed_clock_to_high_speed_clock</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="high_speed_clock"/>
-			<ipxact:hierInterface busRef="high_speed_clock"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="i_io_cell_frame" busRef="high_speed_clock_internal"/>
-			<ipxact:hierInterface busRef="high_speed_clock_internal"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
 			<ipxact:name>SysCtrl_SS_Reset_SS_to_Reset_SS</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="SysCtrl_SS" busRef="Reset_SS"/>
 			<ipxact:hierInterface busRef="Reset_SS"/>
@@ -431,9 +421,7 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_pmod_mux_cell_cfg_to_io_to_i_io_cell_frame_Cfg" kactus2:offPage="false">
 				<kactus2:position x="490" y="520"/>
-				<kactus2:position x="410" y="520"/>
-				<kactus2:position x="410" y="490"/>
-				<kactus2:position x="390" y="490"/>
+				<kactus2:position x="390" y="520"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_pmod_mux_pmod_sel_to_SysCtrl_SS_pmod_sel" kactus2:offPage="false">
 				<kactus2:position x="710" y="490"/>
@@ -450,14 +438,6 @@
 			<kactus2:route kactus2:connRef="i_pmod_mux_gpio_io_to_i_io_cell_frame_GPIO_internal" kactus2:offPage="false">
 				<kactus2:position x="490" y="100"/>
 				<kactus2:position x="390" y="100"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="i_io_cell_frame_high_speed_clock_to_high_speed_clock" kactus2:offPage="false">
-				<kactus2:position x="170" y="380"/>
-				<kactus2:position x="60" y="380"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="i_io_cell_frame_high_speed_clock_internal_to_high_speed_clock_internal" kactus2:offPage="false">
-				<kactus2:position x="390" y="860"/>
-				<kactus2:position x="1260" y="860"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SysCtrl_SS_Reset_SS_to_Reset_SS" kactus2:offPage="false">
 				<kactus2:position x="1150" y="430"/>
@@ -577,16 +557,6 @@
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:interfaceGraphics>
-			<kactus2:name>high_speed_clock</kactus2:name>
-			<kactus2:position x="60" y="380"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>high_speed_clock_internal</kactus2:name>
-			<kactus2:position x="1260" y="860"/>
-			<kactus2:direction x="-1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
 			<kactus2:name>Reset_SS</kactus2:name>
 			<kactus2:position x="1260" y="430"/>
 			<kactus2:direction x="-1" y="0"/>
@@ -626,6 +596,11 @@
 			<kactus2:position x="820" y="250"/>
 			<kactus2:direction x="-1" y="0"/>
 		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>ss_4_pmod_gpio</kactus2:name>
+			<kactus2:position x="820" y="300"/>
+			<kactus2:direction x="-1" y="0"/>
+		</kactus2:interfaceGraphics>
 		<kactus2:note>
 			<kactus2:position x="220" y="180"/>
 			<kactus2:content>This module contains tech IO cells. Insert ifdef clauses to RTL file to get platform specific cells inserted.
@@ -635,10 +610,5 @@ For ASIC, replace with tech files.</kactus2:content>
 			<kactus2:timestamp>05.07.2024 11:51</kactus2:timestamp>
 		</kactus2:note>
 		<kactus2:adHocVisibilities/>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>ss_4_pmod_gpio</kactus2:name>
-			<kactus2:position x="820" y="300"/>
-			<kactus2:direction x="-1" y="0"/>
-		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>

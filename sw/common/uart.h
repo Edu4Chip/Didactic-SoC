@@ -34,7 +34,7 @@ void uart_init(){
   // init uart settings (for typical tx/rx setup)
   IIR_FCR = 1u;
   LCR = (1u<<7 | 3u);
-  RBR_THR_DLL = 20u;//divisor to define baudrate: ~38400 = (frequency, 12)/(16*RBR_THR_DLL)
+  RBR_THR_DLL = 27u;//divisor to define baudrate: ~230400 = (frequency, 100MHz)/(16*RBR_THR_DLL)
   LCR = 3u;
   IER_DLM = 1u;// enable transmitter holding register empty interrupt
   IIR_FCR = 2u; // receiver fifo reset
@@ -68,7 +68,7 @@ void uart_print(const char str[]){
 
 int uart_loopback_test(){
 
-  RBR_THR_DLL = 'K';
+  RBR_THR_DLL = 'f';
   volatile char tmp_val='O';
   volatile uint32_t wait_loop=0;
   while(wait_loop<500){
@@ -77,7 +77,7 @@ int uart_loopback_test(){
   }
 
   tmp_val = RBR_THR_DLL;
-  if (tmp_val == 'K'){
+  if (tmp_val == 'f'){
     return 0; // pass
   }else{
     return 1; // failure
