@@ -1534,15 +1534,15 @@ ibex commit sha: &lt;changing while in development&gt;</ipxact:description>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_c9619ec7_b9ef_433d_8401_b683e8972cda">
 			<ipxact:name>RV32M</ipxact:name>
-			<ipxact:value>RV32MFast</ipxact:value>
+			<ipxact:value>ibex_pkg::RV32MFast</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_4fef434c_1236_4d76_a1d4_3d4717f56665">
 			<ipxact:name>RV32B</ipxact:name>
-			<ipxact:value>RV32BNone</ipxact:value>
+			<ipxact:value>ibex_pkg::RV32BNone</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_1938fbd5_6ca7_4b31_ad1a_6a61ae2ceb47">
 			<ipxact:name>RegFile</ipxact:name>
-			<ipxact:value>RegFileFF</ipxact:value>
+			<ipxact:value>ibex_pkg::RegFileFF</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_1e5d28c8_6274_4749_88b3_4aa6a2283da3" type="bit">
 			<ipxact:name>BranchTargetALU</ipxact:name>
@@ -1582,11 +1582,11 @@ ibex commit sha: &lt;changing while in development&gt;</ipxact:description>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_135ad218_e725_4f23_8f24_930387e33128">
 			<ipxact:name>RndCnstLfsrSeed</ipxact:name>
-			<ipxact:value>RndCnstLfsrSeedDefault</ipxact:value>
+			<ipxact:value>ibex_pkg::RndCnstLfsrSeedDefault</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_17e660f0_f6b9_4d87_8d15_bc9b76ab41fb">
 			<ipxact:name>RndCnstLfsrPerm</ipxact:name>
-			<ipxact:value>RndCnstLfsrPermDefault</ipxact:value>
+			<ipxact:value>ibex_pkg::RndCnstLfsrPermDefault</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_db4ff119_295e_4928_a759_bdf24abd066a" resolve="user">
 			<ipxact:name>DmHaltAddr</ipxact:name>
