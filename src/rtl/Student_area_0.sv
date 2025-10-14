@@ -116,8 +116,8 @@ module Student_area_0 #(
   end
 
   assign irq          =  1'b0;
-  assign pmod_gpo     = 15'h0;
-  assign pmod_gpio_oe = 15'h0;
+  assign pmod_gpo     = 16'h0;
+  assign pmod_gpio_oe = 16'h0;
 
 /////// SVA /////////
 
