@@ -1534,7 +1534,7 @@ ibex commit sha: &lt;changing while in development&gt;</ipxact:description>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_c9619ec7_b9ef_433d_8401_b683e8972cda">
 			<ipxact:name>RV32M</ipxact:name>
-			<ipxact:value>RV32MNone</ipxact:value>
+			<ipxact:value>RV32MFast</ipxact:value>
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_4fef434c_1236_4d76_a1d4_3d4717f56665">
 			<ipxact:name>RV32B</ipxact:name>

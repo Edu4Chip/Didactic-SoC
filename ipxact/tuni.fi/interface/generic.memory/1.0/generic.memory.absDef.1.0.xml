@@ -9,6 +9,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>REQ</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isRequest>true</ipxact:isRequest>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
@@ -39,12 +42,17 @@
 		<ipxact:port>
 			<ipxact:logicalName>ADDR</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isAddress>true</ipxact:isAddress>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_8b9a2863_b9d3_4e6d_a62c_0c07ab4d45a1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_8b9a2863_b9d3_4e6d_a62c_0c07ab4d45a1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -52,12 +60,17 @@
 		<ipxact:port>
 			<ipxact:logicalName>WDATA</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>uuid_505216a4_b424_4113_92d9_9f8d4f3cbb5c</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>uuid_505216a4_b424_4113_92d9_9f8d4f3cbb5c</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -67,10 +80,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>uuid_505216a4_b424_4113_92d9_9f8d4f3cbb5c/8</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>optional</ipxact:presence>
+					<ipxact:width>uuid_505216a4_b424_4113_92d9_9f8d4f3cbb5c/8</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -78,17 +93,32 @@
 		<ipxact:port>
 			<ipxact:logicalName>RDATA</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_505216a4_b424_4113_92d9_9f8d4f3cbb5c</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_505216a4_b424_4113_92d9_9f8d4f3cbb5c</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 	</ipxact:ports>
+	<ipxact:parameters>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_8b9a2863_b9d3_4e6d_a62c_0c07ab4d45a1">
+			<ipxact:name>ADDR_WIDTH</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_505216a4_b424_4113_92d9_9f8d4f3cbb5c">
+			<ipxact:name>DATA_WIDTH</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 	</ipxact:vendorExtensions>

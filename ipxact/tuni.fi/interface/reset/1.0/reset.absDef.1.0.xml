@@ -9,6 +9,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>reset</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isReset>true</ipxact:isReset>
+				</ipxact:qualifier>
 				<ipxact:onSystem>
 					<ipxact:group>external_io</ipxact:group>
 					<ipxact:presence>required</ipxact:presence>

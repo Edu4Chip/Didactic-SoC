@@ -14,12 +14,12 @@
 				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>uuid_0e8467dc_1006_4b1c_a733_feb76f90fee5-1</ipxact:width>
+					<ipxact:width>uuid_0e8467dc_1006_4b1c_a733_feb76f90fee5</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>uuid_0e8467dc_1006_4b1c_a733_feb76f90fee5-1</ipxact:width>
+					<ipxact:width>uuid_0e8467dc_1006_4b1c_a733_feb76f90fee5</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -47,12 +47,12 @@
 				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5-1</ipxact:width>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5*uuid_0e3dbb5d_382f_445e_ae7f_5a7c1c0f82f7</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5-1</ipxact:width>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5*uuid_0e3dbb5d_382f_445e_ae7f_5a7c1c0f82f7</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -62,12 +62,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>1</ipxact:width>
+					<ipxact:width>uuid_0e3dbb5d_382f_445e_ae7f_5a7c1c0f82f7</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>1</ipxact:width>
+					<ipxact:width>uuid_0e3dbb5d_382f_445e_ae7f_5a7c1c0f82f7</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -77,12 +77,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>1</ipxact:width>
+					<ipxact:width>uuid_0e3dbb5d_382f_445e_ae7f_5a7c1c0f82f7</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>1</ipxact:width>
+					<ipxact:width>uuid_0e3dbb5d_382f_445e_ae7f_5a7c1c0f82f7</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -92,12 +92,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
-					<ipxact:width>1</ipxact:width>
+					<ipxact:width>uuid_0e3dbb5d_382f_445e_ae7f_5a7c1c0f82f7</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>optional</ipxact:presence>
-					<ipxact:width>1</ipxact:width>
+					<ipxact:width>uuid_0e3dbb5d_382f_445e_ae7f_5a7c1c0f82f7</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -110,12 +110,12 @@
 				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5-1</ipxact:width>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
-					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5-1</ipxact:width>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -140,12 +140,12 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
-					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5/8-1</ipxact:width>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5/8</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>optional</ipxact:presence>
-					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5/8-1</ipxact:width>
+					<ipxact:width>uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5/8</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -159,6 +159,10 @@
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_9fe20576_95d0_44b8_8e4b_d587959d53e5">
 			<ipxact:name>DATA_WIDTH</ipxact:name>
 			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="3" parameterId="uuid_0e3dbb5d_382f_445e_ae7f_5a7c1c0f82f7">
+			<ipxact:name>TARGETS</ipxact:name>
+			<ipxact:value>1</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

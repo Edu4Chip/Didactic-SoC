@@ -1290,7 +1290,7 @@
 					<ipxact:remapAddresses>
 						<ipxact:remapAddress>'h01020000</ipxact:remapAddress>
 					</ipxact:remapAddresses>
-					<ipxact:range>'hffff</ipxact:range>
+					<ipxact:range>'h10000</ipxact:range>
 				</ipxact:baseAddresses>
 			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
@@ -1582,7 +1582,7 @@
 					<ipxact:remapAddresses>
 						<ipxact:remapAddress>'h01010000</ipxact:remapAddress>
 					</ipxact:remapAddresses>
-					<ipxact:range>'hffff</ipxact:range>
+					<ipxact:range>'h10000</ipxact:range>
 				</ipxact:baseAddresses>
 			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
@@ -1874,7 +1874,7 @@
 					<ipxact:remapAddresses>
 						<ipxact:remapAddress>'h01000000</ipxact:remapAddress>
 					</ipxact:remapAddresses>
-					<ipxact:range>'hffff</ipxact:range>
+					<ipxact:range>'h10000</ipxact:range>
 				</ipxact:baseAddresses>
 			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
@@ -2064,7 +2064,7 @@
 					<ipxact:remapAddresses>
 						<ipxact:remapAddress>'h01030000</ipxact:remapAddress>
 					</ipxact:remapAddresses>
-					<ipxact:range>'hffff</ipxact:range>
+					<ipxact:range>'h10000</ipxact:range>
 				</ipxact:baseAddresses>
 			</ipxact:mirroredTarget>
 		</ipxact:busInterface>
@@ -2296,7 +2296,7 @@
 					<ipxact:remapAddresses>
 						<ipxact:remapAddress>'h01050000</ipxact:remapAddress>
 					</ipxact:remapAddresses>
-					<ipxact:range>'hffff</ipxact:range>
+					<ipxact:range>'h10000</ipxact:range>
 				</ipxact:baseAddresses>
 			</ipxact:mirroredTarget>
 		</ipxact:busInterface>

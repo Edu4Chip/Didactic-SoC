@@ -139,7 +139,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
-					<ipxact:baseAddress>0</ipxact:baseAddress>
+					<ipxact:baseAddress>'h0</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -267,7 +267,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
-					<ipxact:baseAddress>100</ipxact:baseAddress>
+					<ipxact:baseAddress>'h100</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -395,7 +395,7 @@
 			</ipxact:abstractionTypes>
 			<ipxact:initiator>
 				<ipxact:addressSpaceRef addressSpaceRef="peripherals">
-					<ipxact:baseAddress>200</ipxact:baseAddress>
+					<ipxact:baseAddress>'h200</ipxact:baseAddress>
 				</ipxact:addressSpaceRef>
 			</ipxact:initiator>
 		</ipxact:busInterface>
@@ -633,7 +633,7 @@
 	<ipxact:addressSpaces>
 		<ipxact:addressSpace>
 			<ipxact:name>peripherals</ipxact:name>
-			<ipxact:range>'hFFFF</ipxact:range>
+			<ipxact:range>'h10000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:segments>
 				<ipxact:segment>
@@ -1304,9 +1304,6 @@
 				<ipxact:name>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</ipxact:name>
 				<ipxact:fileType>verilogSource</ipxact:fileType>
 				<ipxact:description>Generated at 10:07:47 on 19.02.2024 by Kactus2. </ipxact:description>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>dcebbee36aec4d56aef511900c2e1553b4bec18e</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
@@ -1333,23 +1330,6 @@
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
-		<kactus2:fileDependencies>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/axi_lite_to_apb_intf.sv</kactus2:fileRef2>
-				<ipxact:description>Submodule instantiation of module axi_lite_to_apb_intf</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/nms/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef2>
-				<ipxact:description>Include reference to verification/verilator/src/hdl/nms/AX4LITE_APB_converter_wrapper.sv</ipxact:description>
-			</kactus2:fileDependency>
-			<kactus2:fileDependency manual="false" bidirectional="false" locked="false">
-				<kactus2:fileRef1>../../../../../src/rtl/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef1>
-				<kactus2:fileRef2>$External$/verification/verilator/src/hdl/ms/AX4LITE_APB_converter_wrapper.sv</kactus2:fileRef2>
-				<ipxact:description>Include reference to verification/verilator/src/hdl/ms/AX4LITE_APB_converter_wrapper.sv</ipxact:description>
-			</kactus2:fileDependency>
-		</kactus2:fileDependencies>
 		<kactus2:kts_attributes>
 			<kactus2:kts_productHier>Flat</kactus2:kts_productHier>
 			<kactus2:kts_implementation>HW</kactus2:kts_implementation>

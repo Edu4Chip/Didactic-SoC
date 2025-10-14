@@ -9,6 +9,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>AR_ADDR</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isAddress>true</ipxact:isAddress>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>uuid_8e134934_f295_4f1a_bb41_31c15f7e7b6c</ipxact:width>
@@ -69,6 +72,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>AW_ADDR</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isAddress>true</ipxact:isAddress>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>uuid_8e134934_f295_4f1a_bb41_31c15f7e7b6c</ipxact:width>
@@ -144,6 +150,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>R_DATA</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>uuid_5e2592df_b7ae_44bd_9ee1_cf647a2432f0</ipxact:width>
@@ -234,6 +243,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>W_DATA</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>uuid_5e2592df_b7ae_44bd_9ee1_cf647a2432f0</ipxact:width>

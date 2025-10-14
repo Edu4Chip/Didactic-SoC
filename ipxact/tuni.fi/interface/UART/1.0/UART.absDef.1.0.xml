@@ -12,14 +12,17 @@
 				<ipxact:onSystem>
 					<ipxact:group>external_io</ipxact:group>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>inout</ipxact:direction>
 				</ipxact:onSystem>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
@@ -30,14 +33,17 @@
 				<ipxact:onSystem>
 					<ipxact:group>external_io</ipxact:group>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>inout</ipxact:direction>
 				</ipxact:onSystem>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>1</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>

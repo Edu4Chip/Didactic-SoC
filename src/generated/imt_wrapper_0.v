@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // File          : imt_wrapper_0.v
-// Creation date : 29.09.2025
-// Creation time : 14:36:53
+// Creation date : 14.10.2025
+// Creation time : 13:46:23
 // Description   : 
 // Created by    : 
 // Tool : Kactus2 3.13.5 64-bit
@@ -70,12 +70,12 @@ module imt_wrapper_0 #(
     wire       ss_cg_clk_out_to_i_imt_ss_Clock_clk;
     // ss_high_speed_cg_clk_out_to_i_imt_ss_high_speed_clk wires:
     wire       ss_high_speed_cg_clk_out_to_i_imt_ss_high_speed_clk_clk;
-    // ss_high_speed_cg_clk_in_to_high_speed_clk wires:
-    wire       ss_high_speed_cg_clk_in_to_high_speed_clk_clk;
     // i_imt_ss_pmod_gpio_to_pmod_gpio wires:
     wire [15:0] i_imt_ss_pmod_gpio_to_pmod_gpio_gpi;
     wire [15:0] i_imt_ss_pmod_gpio_to_pmod_gpio_gpio_oe;
     wire [15:0] i_imt_ss_pmod_gpio_to_pmod_gpio_gpo;
+    // ss_high_speed_cg_clk_in_to_high_speed_clk wires:
+    wire       ss_high_speed_cg_clk_in_to_high_speed_clk_clk;
 
     // Ad-hoc wires:
     wire       ss_cg_en_to_ss_ctrl_3;

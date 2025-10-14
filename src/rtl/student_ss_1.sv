@@ -48,15 +48,10 @@ module student_ss_1 #(
     input  logic              irq_en_1,
     input  logic [7:0]        ss_ctrl_1,
     
-    //Interface: GPIO pmod 0
-    input  logic [3:0]        pmod_0_gpi,
-    output logic [3:0]        pmod_0_gpo,
-    output logic [3:0]        pmod_0_gpio_oe,
-
-    //Interface: GPIO pmod 1
-    input  logic [3:0]        pmod_1_gpi,
-    output logic [3:0]        pmod_1_gpo,
-    output logic [3:0]        pmod_1_gpio_oe
+    //Interface: GPIO pmod
+    input  logic [15:0]        pmod_gpi,
+    output logic [15:0]        pmod_gpo,
+    output logic [15:0]        pmod_gpio_oe
 );
 
   logic [31:0] field_0;
@@ -76,7 +71,7 @@ module student_ss_1 #(
 
     end
     else begin
-      field_1[7:4] <= pmod_1_gpi;
+      field_1[15:8] <= pmod_gpi[15:8];
 
 
       if(PSEL) begin
@@ -128,18 +123,18 @@ module student_ss_1 #(
     PRDATA  <= PRDATA_reg;
     PREADY  <= PREADY_reg;
 
-    pmod_0_gpo <= field_0 [3:0];
+    pmod_gpo <= field_0 [7:0];
 
   end
 
   assign irq_1 = 1'b0;
   // set as always outs
-  assign pmod_0_gpio_oe = 4'h0;
+  assign pmod_gpio_oe[7:0] = 8'h0;
   // set as always ins
-  assign pmod_1_gpio_oe = 4'hF;
+  assign pmod_gpio_oe[15:8] = 8'hF;
 
-  //tieoff pmod_0 outputs as it is not in use
-  assign pmod_1_gpo = 4'h0;  
+  //tieoff rest of pmod outputs as it is not in use
+  assign pmod_gpo[15:8] = 8'h0;  
 
 /////// SVA /////////
 
