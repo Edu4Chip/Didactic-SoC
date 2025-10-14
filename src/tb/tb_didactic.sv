@@ -15,10 +15,7 @@
 `define EXIT_FAIL     1
 `define EXIT_ERROR   -1
 
-`define CLK_PERIOD 83ns // 12 MHz generic quartz oscillator?
-`define FAST_CLK_PERIOD 1ns // fast input
-// fast clk makes sim run very slow, disable it by default
-//`define ACTIVE_FAST_CLK 1
+`define CLK_PERIOD 10ns // up to 100MHz variable clk speed 
 
 `timescale 1ns/1ps
 
@@ -61,17 +58,12 @@ module tb_didactic();
 ////////////////////////////////
   logic clk = 1'b0;
   logic reset = 1'b0;
-  logic fast_clk = 1'b0;
   
   tri0 dut_clk;
-  tri0 dut_fast_clk;
-  tri0 dut_fast_clk_neg;
   tri0 dut_reset;
 
   assign dut_clk      = clk;
   assign dut_reset    = reset;
-  assign dut_fast_clk = fast_clk;
-  assign dut_fast_clk_neg = ~fast_clk;
 
   tri0 dut_uart_rx;
   tri0 dut_uart_tx;
@@ -264,7 +256,6 @@ module tb_didactic();
   )i_didactic (
     // Interface: Clock
     .clk_in(dut_clk),
-    .clk_out(),
     // Interface: GPIO
     .gpio({dut_gpio_15,dut_gpio_14,dut_gpio_13,dut_gpio_12,
            dut_gpio_11,dut_gpio_10,dut_gpio_9,dut_gpio_8,
@@ -284,10 +275,7 @@ module tb_didactic();
     .spi_sck(dut_spi_sck),
     // Interface: UART
     .uart_rx(dut_uart_rx),
-    .uart_tx(dut_uart_tx),
-    // Interface: analog_if
-    .high_speed_clk_n_in(dut_fast_clk_neg),
-    .high_speed_clk_p_in(dut_fast_clk)
+    .uart_tx(dut_uart_tx)
   );
 
 ///////////////////////////////////////////////////////////////
@@ -296,7 +284,7 @@ module tb_didactic();
 // if tb module is not in use, loopback uart
 `ifdef USE_UART
   uart_tb_rx #(
-    .BAUD_RATE ( 38400      ),
+    .BAUD_RATE ( 230400     ),
     .PARITY_EN ( 0          )
   ) i_uart_rx (
     .rx        ( dut_uart_tx),

@@ -25,15 +25,7 @@ module DidacticBasys3 (
     inout  wire                         uart_rx,
     inout  wire                         uart_tx,
 
-    // Interface: analog_if
-    inout  wire          [1:0]          ana_core_in,
-    inout  wire          [1:0]          ana_core_io,
-    inout  wire          [2:0]          ana_core_out,
-
-    // Interface: high_speed_clock
-    inout  wire                         high_speed_clk_n_in,
-    inout  wire                         high_speed_clk_p_in,
-
+    // FPGA specifics
     input wire res,
     output wire [6:0] seg,
     output wire [3:0] an,
@@ -72,12 +64,7 @@ module DidacticBasys3 (
     .spi_data(spi_data),
     .spi_sck(spi_sck),
     .uart_rx(uart_rx),
-    .uart_tx(uart_tx),
-    .ana_core_in(ana_core_in),
-    .ana_core_out(ana_core_out),
-    .ana_core_io(ana_core_io),
-    .high_speed_clk_n_in(high_speed_clk_n_in),
-    .high_speed_clk_p_in(high_speed_clk_p_in)
+    .uart_tx(uart_tx)
   );
 
 

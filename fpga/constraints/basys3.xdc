@@ -131,18 +131,18 @@ set_property -dict {PACKAGE_PIN N17 IOSTANDARD LVCMOS33} [get_ports jtag_tck]
 set_property -dict {PACKAGE_PIN P18 IOSTANDARD LVCMOS33} [get_ports jtag_tms]
 set_property -dict {PACKAGE_PIN L17 IOSTANDARD LVCMOS33} [get_ports jtag_trst]
 set_property -dict {PACKAGE_PIN M19 IOSTANDARD LVCMOS33} [get_ports uart_rx]
-set_property -dict {PACKAGE_PIN P17 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[2]}]
+#set_property -dict {PACKAGE_PIN P17 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[2]}]
 set_property -dict {PACKAGE_PIN R18 IOSTANDARD LVCMOS33} [get_ports uart_tx]
 
 ##Pmod Header JXADC
 set_property -dict {PACKAGE_PIN J3 IOSTANDARD LVCMOS33} [get_ports high_speed_clk_p_in]
-set_property -dict {PACKAGE_PIN L3 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[0]}]
-set_property -dict {PACKAGE_PIN M2 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[0]}]
-set_property -dict {PACKAGE_PIN N2 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[0]}]
+#set_property -dict {PACKAGE_PIN L3 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[0]}]
+#set_property -dict {PACKAGE_PIN M2 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[0]}]
+#set_property -dict {PACKAGE_PIN N2 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[0]}]
 set_property -dict {PACKAGE_PIN K3 IOSTANDARD LVCMOS33} [get_ports high_speed_clk_n_in]
-set_property -dict {PACKAGE_PIN M3 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[1]}]
-set_property -dict {PACKAGE_PIN M1 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[1]}]
-set_property -dict {PACKAGE_PIN N1 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[1]}]
+#set_property -dict {PACKAGE_PIN M3 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[1]}]
+#set_property -dict {PACKAGE_PIN M1 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[1]}]
+#set_property -dict {PACKAGE_PIN N1 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[1]}]
 
 
 ##VGA Connector
