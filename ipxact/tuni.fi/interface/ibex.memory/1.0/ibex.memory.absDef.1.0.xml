@@ -9,6 +9,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>ADDR</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isAddress>true</ipxact:isAddress>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>32</ipxact:width>
@@ -54,6 +57,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>GNT</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isResponse>true</ipxact:isResponse>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
@@ -69,6 +75,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>RDATA</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>32</ipxact:width>
@@ -99,6 +108,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>REQ</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isRequest>true</ipxact:isRequest>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
@@ -114,6 +126,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>RVALID</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isValid>true</ipxact:isValid>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
@@ -129,6 +144,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>WDATA</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:width>32</ipxact:width>

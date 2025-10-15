@@ -33,28 +33,24 @@
 					<kactus2:portPosition busRef="IRQ3" x="110" y="470"/>
 					<kactus2:portPosition busRef="JTAG" x="-110" y="160"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="240"/>
-					<kactus2:portPosition busRef="Reset_SS" x="110" y="100"/>
+					<kactus2:portPosition busRef="Reset_SS" x="110" y="260"/>
 					<kactus2:portPosition busRef="Reset_icn" x="110" y="550"/>
 					<kactus2:portPosition busRef="SPI" x="-110" y="120"/>
-					<kactus2:portPosition busRef="SS_0_Ctrl" x="110" y="300"/>
-					<kactus2:portPosition busRef="SS_1_Ctrl" x="110" y="320"/>
-					<kactus2:portPosition busRef="SS_2_Ctrl" x="110" y="340"/>
-					<kactus2:portPosition busRef="SS_3_Ctrl" x="110" y="360"/>
+					<kactus2:portPosition busRef="SS_0_Ctrl" x="110" y="320"/>
+					<kactus2:portPosition busRef="SS_1_Ctrl" x="110" y="340"/>
+					<kactus2:portPosition busRef="SS_2_Ctrl" x="110" y="360"/>
+					<kactus2:portPosition busRef="SS_3_Ctrl" x="110" y="380"/>
 					<kactus2:portPosition busRef="UART" x="-110" y="80"/>
-					<kactus2:portPosition busRef="high_speed_clock" x="-110" y="320"/>
-					<kactus2:portPosition busRef="high_speed_clock_internal" x="110" y="60"/>
-					<kactus2:portPosition busRef="ss_0_pmod_gpio_0" x="110" y="580"/>
-					<kactus2:portPosition busRef="ss_0_pmod_gpio_1" x="110" y="600"/>
-					<kactus2:portPosition busRef="ss_1_pmod_gpio_0" x="110" y="640"/>
-					<kactus2:portPosition busRef="ss_1_pmod_gpio_1" x="110" y="660"/>
-					<kactus2:portPosition busRef="ss_2_pmod_gpio_0" x="110" y="700"/>
-					<kactus2:portPosition busRef="ss_2_pmod_gpio_1" x="110" y="720"/>
-					<kactus2:portPosition busRef="ss_3_pmod_gpio_0" x="110" y="760"/>
-					<kactus2:portPosition busRef="ss_3_pmod_gpio_1" x="110" y="780"/>
+					<kactus2:portPosition busRef="ss_ctrl_4" x="110" y="400"/>
+					<kactus2:portPosition busRef="ss_4_pmod_gpio" x="-110" y="460"/>
+					<kactus2:portPosition busRef="ss_3_pmod_gpio" x="-110" y="440"/>
+					<kactus2:portPosition busRef="ss_2_pmod_gpio" x="-110" y="420"/>
+					<kactus2:portPosition busRef="ss_1_pmod_gpio" x="-110" y="400"/>
+					<kactus2:portPosition busRef="ss_0_pmod_gpio" x="-110" y="380"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_i" x="110" y="450"/>
-					<kactus2:adHocVisible portName="reset_ss" x="110" y="120"/>
+					<kactus2:adHocVisible portName="reset_ss" x="110" y="280"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -100,13 +96,15 @@
 					<kactus2:portPosition busRef="IRQ" x="-110" y="150"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
-					<kactus2:portPosition busRef="high_speed_clk_in" x="110" y="130"/>
+					<kactus2:portPosition busRef="high_speed_clk_in" x="110" y="50"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="70"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="90"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="130"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq" x="-110" y="170"/>
 					<kactus2:adHocVisible portName="rst" x="-110" y="80"/>
+					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="70"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -129,10 +127,12 @@
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="100"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="120"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="100"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_1" x="-110" y="170"/>
 					<kactus2:adHocVisible portName="reset_int" x="-110" y="80"/>
+					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -153,13 +153,15 @@
 					<kactus2:portPosition busRef="IRQ" x="-110" y="150"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
-					<kactus2:portPosition busRef="high_speed_clk" x="110" y="140"/>
+					<kactus2:portPosition busRef="high_speed_clk" x="110" y="40"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="80"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="100"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="90"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_2" x="-110" y="170"/>
 					<kactus2:adHocVisible portName="reset_int" x="-110" y="80"/>
+					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -180,13 +182,15 @@
 					<kactus2:portPosition busRef="IRQ" x="-110" y="150"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
-					<kactus2:portPosition busRef="high_speed_clk" x="110" y="140"/>
-					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="60"/>
-					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="80"/>
+					<kactus2:portPosition busRef="high_speed_clk" x="110" y="40"/>
+					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="90"/>
+					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="110"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="100"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
 					<kactus2:adHocVisible portName="irq_3" x="-110" y="170"/>
 					<kactus2:adHocVisible portName="reset_int" x="-110" y="80"/>
+					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -196,6 +200,9 @@
 			<ipxact:vendorExtensions>
 				<kactus2:uuid>{ba76b1b6-e12c-418b-9c88-8d954e2c7302}</kactus2:uuid>
 				<kactus2:position x="920" y="940"/>
+				<kactus2:portPositions>
+					<kactus2:portPosition busRef="digital_gpio" x="-110" y="40"/>
+				</kactus2:portPositions>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
 	</ipxact:componentInstances>
@@ -306,79 +313,34 @@
 			<ipxact:activeInterface componentInstanceRef="Student_SS_3" busRef="Clock"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_0" busRef="pmod_gpio_0"/>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_0_pmod_gpio_0"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_0_pmod_gpio_1"/>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_0" busRef="pmod_gpio_1"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_1" busRef="pmod_gpio_0"/>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_1_pmod_gpio_0"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_1" busRef="pmod_gpio_1"/>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_1_pmod_gpio_1"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_2" busRef="pmod_gpio_0"/>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_2_pmod_gpio_0"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_2_pmod_gpio_1"/>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_2" busRef="pmod_gpio_1"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_3" busRef="pmod_gpio_0"/>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_3_pmod_gpio_0"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_3" busRef="pmod_gpio_1"/>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_3_pmod_gpio_1"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
 			<ipxact:name>interconnect_ss_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn</ipxact:name>
 			<ipxact:activeInterface componentInstanceRef="interconnect_ss" busRef="AXI4LITE_icn"/>
 			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="AXI4LITE_icn"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_high_speed_clock_to_high_speed_clock</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="high_speed_clock"/>
-			<ipxact:hierInterface busRef="high_speed_clock"/>
+			<ipxact:name>Student_SS_0_pmod_gpio_to_SystemControl_SS_ss_0_pmod_gpio</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="Student_SS_0" busRef="pmod_gpio"/>
+			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_0_pmod_gpio"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>SystemControl_SS_high_speed_clock_internal_to_Student_SS_0_high_speed_clk_in</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="high_speed_clock_internal"/>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_0" busRef="high_speed_clk_in"/>
+			<ipxact:name>Student_SS_1_pmod_gpio_to_SystemControl_SS_ss_1_pmod_gpio</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="Student_SS_1" busRef="pmod_gpio"/>
+			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_1_pmod_gpio"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>Student_SS_1_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_1" busRef="high_speed_clk"/>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="high_speed_clock_internal"/>
+			<ipxact:name>Student_SS_2_pmod_gpio_to_SystemControl_SS_ss_2_pmod_gpio</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="Student_SS_2" busRef="pmod_gpio"/>
+			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_2_pmod_gpio"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>Student_SS_2_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_2" busRef="high_speed_clk"/>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="high_speed_clock_internal"/>
+			<ipxact:name>SystemControl_SS_ss_4_pmod_gpio_to_student_ss_analog_0_digital_gpio</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_4_pmod_gpio"/>
+			<ipxact:activeInterface componentInstanceRef="student_ss_analog_0" busRef="digital_gpio"/>
 		</ipxact:interconnection>
 		<ipxact:interconnection>
-			<ipxact:name>Student_SS_3_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="Student_SS_3" busRef="high_speed_clk"/>
-			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="high_speed_clock_internal"/>
-		</ipxact:interconnection>
-		<ipxact:interconnection>
-			<ipxact:name>student_ss_analog_0_analog_bus_to_analog_if</ipxact:name>
-			<ipxact:activeInterface componentInstanceRef="student_ss_analog_0" busRef="analog_bus"/>
-			<ipxact:hierInterface busRef="analog_if"/>
+			<ipxact:name>Student_SS_3_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio</ipxact:name>
+			<ipxact:activeInterface componentInstanceRef="Student_SS_3" busRef="pmod_gpio"/>
+			<ipxact:activeInterface componentInstanceRef="SystemControl_SS" busRef="ss_3_pmod_gpio"/>
 		</ipxact:interconnection>
 	</ipxact:interconnections>
 	<ipxact:adHocConnections>
@@ -550,6 +512,34 @@
 				</ipxact:internalPortReference>
 			</ipxact:portReferences>
 		</ipxact:adHocConnection>
+		<ipxact:adHocConnection>
+			<ipxact:name>Student_SS_0_high_speed_clk_to_tiedValue</ipxact:name>
+			<ipxact:tiedValue>0</ipxact:tiedValue>
+			<ipxact:portReferences>
+				<ipxact:internalPortReference componentInstanceRef="Student_SS_0" portRef="high_speed_clk"/>
+			</ipxact:portReferences>
+		</ipxact:adHocConnection>
+		<ipxact:adHocConnection>
+			<ipxact:name>Student_SS_1_high_speed_clk_to_tiedValue</ipxact:name>
+			<ipxact:tiedValue>0</ipxact:tiedValue>
+			<ipxact:portReferences>
+				<ipxact:internalPortReference componentInstanceRef="Student_SS_1" portRef="high_speed_clk"/>
+			</ipxact:portReferences>
+		</ipxact:adHocConnection>
+		<ipxact:adHocConnection>
+			<ipxact:name>Student_SS_2_high_speed_clk_to_tiedValue</ipxact:name>
+			<ipxact:tiedValue>0</ipxact:tiedValue>
+			<ipxact:portReferences>
+				<ipxact:internalPortReference componentInstanceRef="Student_SS_2" portRef="high_speed_clk"/>
+			</ipxact:portReferences>
+		</ipxact:adHocConnection>
+		<ipxact:adHocConnection>
+			<ipxact:name>Student_SS_3_high_speed_clk_to_tiedValue</ipxact:name>
+			<ipxact:tiedValue>0</ipxact:tiedValue>
+			<ipxact:portReferences>
+				<ipxact:internalPortReference componentInstanceRef="Student_SS_3" portRef="high_speed_clk"/>
+			</ipxact:portReferences>
+		</ipxact:adHocConnection>
 	</ipxact:adHocConnections>
 	<ipxact:parameters>
 		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_af160ab0_303b_4739_92cf_faf7577ad88d" resolve="user">
@@ -627,7 +617,7 @@
 				<kactus2:position x="490" y="240"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_SS_0_Ctrl_to_Student_SS_0_SS_Ctrl" kactus2:offPage="true">
-				<kactus2:position x="420" y="360"/>
+				<kactus2:position x="420" y="380"/>
 				<kactus2:position x="780" y="170"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="interconnect_ss_APB0_to_Student_SS_0_APB" kactus2:offPage="false">
@@ -643,7 +633,7 @@
 				<kactus2:position x="810" y="410"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_SS_1_Ctrl_to_Student_SS_1_SS_Ctrl" kactus2:offPage="true">
-				<kactus2:position x="420" y="380"/>
+				<kactus2:position x="420" y="400"/>
 				<kactus2:position x="780" y="390"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_Clock_int_to_Student_SS_2_Clock" kactus2:offPage="true">
@@ -655,7 +645,7 @@
 				<kactus2:position x="810" y="630"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_SS_2_Ctrl_to_Student_SS_2_SS_Ctrl" kactus2:offPage="true">
-				<kactus2:position x="420" y="400"/>
+				<kactus2:position x="420" y="420"/>
 				<kactus2:position x="780" y="610"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_JTAG_to_JTAG" kactus2:offPage="false">
@@ -667,7 +657,7 @@
 				<kactus2:position x="490" y="610"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_SS_3_Ctrl_to_Student_SS_3_SS_Ctrl" kactus2:offPage="true">
-				<kactus2:position x="420" y="420"/>
+				<kactus2:position x="420" y="440"/>
 				<kactus2:position x="780" y="830"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="interconnect_ss_APB3_to_Student_SS_3_APB" kactus2:offPage="false">
@@ -682,76 +672,24 @@
 				<kactus2:position x="1030" y="480"/>
 				<kactus2:position x="1140" y="480"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_0_pmod_gpio_0_to_SystemControl_SS_ss_0_pmod_gpio_0" kactus2:offPage="true">
-				<kactus2:position x="1060" y="130"/>
-				<kactus2:position x="420" y="640"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_ss_0_pmod_gpio_1_to_Student_SS_0_pmod_gpio_1" kactus2:offPage="true">
-				<kactus2:position x="420" y="660"/>
-				<kactus2:position x="1060" y="150"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_1_pmod_gpio_0_to_SystemControl_SS_ss_1_pmod_gpio_0" kactus2:offPage="true">
-				<kactus2:position x="1060" y="380"/>
-				<kactus2:position x="420" y="700"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_1_pmod_gpio_1_to_SystemControl_SS_ss_1_pmod_gpio_1" kactus2:offPage="true">
-				<kactus2:position x="1060" y="400"/>
-				<kactus2:position x="420" y="720"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_2_pmod_gpio_0_to_SystemControl_SS_ss_2_pmod_gpio_0" kactus2:offPage="true">
-				<kactus2:position x="1060" y="580"/>
-				<kactus2:position x="420" y="760"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_ss_2_pmod_gpio_1_to_Student_SS_2_pmod_gpio_1" kactus2:offPage="true">
-				<kactus2:position x="420" y="780"/>
-				<kactus2:position x="1060" y="600"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_3_pmod_gpio_0_to_SystemControl_SS_ss_3_pmod_gpio_0" kactus2:offPage="true">
-				<kactus2:position x="1060" y="780"/>
-				<kactus2:position x="420" y="820"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_3_pmod_gpio_1_to_SystemControl_SS_ss_3_pmod_gpio_1" kactus2:offPage="true">
-				<kactus2:position x="1060" y="800"/>
-				<kactus2:position x="420" y="840"/>
-			</kactus2:route>
 			<kactus2:route kactus2:connRef="interconnect_ss_AXI4LITE_icn_to_SystemControl_SS_AXI4LITE_icn" kactus2:offPage="false">
 				<kactus2:position x="490" y="280"/>
 				<kactus2:position x="390" y="280"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_high_speed_clock_to_high_speed_clock" kactus2:offPage="false">
-				<kactus2:position x="170" y="380"/>
-				<kactus2:position x="60" y="380"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="SystemControl_SS_high_speed_clock_internal_to_Student_SS_0_high_speed_clk_in" kactus2:offPage="true">
-				<kactus2:position x="420" y="120"/>
-				<kactus2:position x="1060" y="190"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_1_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal" kactus2:offPage="true">
-				<kactus2:position x="1060" y="430"/>
-				<kactus2:position x="420" y="120"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_2_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal" kactus2:offPage="true">
-				<kactus2:position x="1060" y="640"/>
-				<kactus2:position x="420" y="120"/>
-			</kactus2:route>
-			<kactus2:route kactus2:connRef="Student_SS_3_high_speed_clk_to_SystemControl_SS_high_speed_clock_internal" kactus2:offPage="true">
-				<kactus2:position x="1060" y="860"/>
-				<kactus2:position x="420" y="120"/>
-			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_reset_ss_to_Student_SS_0_rst" kactus2:offPage="true">
-				<kactus2:position x="420" y="180"/>
+				<kactus2:position x="420" y="340"/>
 				<kactus2:position x="780" y="140"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_reset_ss_to_Student_SS_1_reset_int" kactus2:offPage="true">
-				<kactus2:position x="420" y="180"/>
+				<kactus2:position x="420" y="340"/>
 				<kactus2:position x="780" y="360"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_reset_ss_to_Student_SS_2_reset_int" kactus2:offPage="true">
-				<kactus2:position x="420" y="180"/>
+				<kactus2:position x="420" y="340"/>
 				<kactus2:position x="780" y="580"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_reset_ss_to_Student_SS_3_reset_int" kactus2:offPage="true">
-				<kactus2:position x="420" y="180"/>
+				<kactus2:position x="420" y="340"/>
 				<kactus2:position x="780" y="800"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="Student_SS_0_irq_to_SystemControl_SS_irq_i" kactus2:offPage="true">
@@ -770,9 +708,27 @@
 				<kactus2:position x="780" y="890"/>
 				<kactus2:position x="420" y="510"/>
 			</kactus2:route>
-			<kactus2:route kactus2:connRef="student_ss_analog_0_analog_bus_to_analog_if" kactus2:offPage="false">
-				<kactus2:position x="1030" y="980"/>
-				<kactus2:position x="1140" y="980"/>
+			<kactus2:route kactus2:connRef="Student_SS_0_pmod_gpio_to_SystemControl_SS_ss_0_pmod_gpio" kactus2:offPage="true">
+				<kactus2:position x="1060" y="190"/>
+				<kactus2:position x="140" y="440"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_SS_1_pmod_gpio_to_SystemControl_SS_ss_1_pmod_gpio" kactus2:offPage="true">
+				<kactus2:position x="1060" y="380"/>
+				<kactus2:position x="140" y="460"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_SS_2_pmod_gpio_to_SystemControl_SS_ss_2_pmod_gpio" kactus2:offPage="true">
+				<kactus2:position x="1060" y="590"/>
+				<kactus2:position x="140" y="480"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="SystemControl_SS_ss_4_pmod_gpio_to_student_ss_analog_0_digital_gpio" kactus2:offPage="false">
+				<kactus2:position x="170" y="520"/>
+				<kactus2:position x="150" y="520"/>
+				<kactus2:position x="150" y="980"/>
+				<kactus2:position x="810" y="980"/>
+			</kactus2:route>
+			<kactus2:route kactus2:connRef="Student_SS_3_pmod_gpio_to_SystemControl_SS_ss_3_pmod_gpio" kactus2:offPage="true">
+				<kactus2:position x="1060" y="820"/>
+				<kactus2:position x="140" y="500"/>
 			</kactus2:route>
 		</kactus2:routes>
 		<kactus2:interfaceGraphics>
@@ -809,16 +765,6 @@
 			<kactus2:name>bus</kactus2:name>
 			<kactus2:position x="1140" y="310"/>
 			<kactus2:direction x="0" y="-1"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>analog_if</kactus2:name>
-			<kactus2:position x="1140" y="980"/>
-			<kactus2:direction x="-1" y="0"/>
-		</kactus2:interfaceGraphics>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>high_speed_clock</kactus2:name>
-			<kactus2:position x="60" y="380"/>
-			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
 		<kactus2:note>
 			<kactus2:position x="510" y="440"/>

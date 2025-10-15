@@ -11,15 +11,27 @@
 			<ipxact:wire>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_3b0c1758_0760_4f85_afcf_ab76a56e46f4*uuid_53118885_73eb_4e74_96db_cefbb0f0d4b0</ipxact:width>
 					<ipxact:direction>out</ipxact:direction>
 				</ipxact:onInitiator>
 				<ipxact:onTarget>
 					<ipxact:presence>required</ipxact:presence>
+					<ipxact:width>uuid_3b0c1758_0760_4f85_afcf_ab76a56e46f4*uuid_53118885_73eb_4e74_96db_cefbb0f0d4b0</ipxact:width>
 					<ipxact:direction>in</ipxact:direction>
 				</ipxact:onTarget>
 			</ipxact:wire>
 		</ipxact:port>
 	</ipxact:ports>
+	<ipxact:parameters>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_3b0c1758_0760_4f85_afcf_ab76a56e46f4">
+			<ipxact:name>IO_CELL_CFG_WIDTH</ipxact:name>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_53118885_73eb_4e74_96db_cefbb0f0d4b0">
+			<ipxact:name>IO_COUNT</ipxact:name>
+			<ipxact:value>1</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 	</ipxact:vendorExtensions>

@@ -10,6 +10,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>req</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isRequest>true</ipxact:isRequest>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
@@ -25,6 +28,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>addr</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isAddress>true</ipxact:isAddress>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>uuid_6b59f8de_b9e5_48a3_b73b_17c85dc45bf5</ipxact:width>
@@ -72,6 +78,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>wdata</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>uuid_87311856_0555_46db_906a_8fe2eea673db</ipxact:width>
@@ -120,6 +129,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>gnt</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isResponse>true</ipxact:isResponse>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
@@ -215,6 +227,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>reqpar</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isRequest>true</ipxact:isRequest>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
@@ -230,6 +245,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>gntpar</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isResponse>true</ipxact:isResponse>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
@@ -260,6 +278,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>rvalid</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isValid>true</ipxact:isValid>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>1</ipxact:width>
@@ -291,6 +312,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>rdata</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isData>true</ipxact:isData>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>required</ipxact:presence>
 					<ipxact:width>uuid_87311856_0555_46db_906a_8fe2eea673db</ipxact:width>
@@ -371,6 +395,9 @@
 		<ipxact:port>
 			<ipxact:logicalName>rvalidpar</ipxact:logicalName>
 			<ipxact:wire>
+				<ipxact:qualifier>
+					<ipxact:isValid>true</ipxact:isValid>
+				</ipxact:qualifier>
 				<ipxact:onInitiator>
 					<ipxact:presence>optional</ipxact:presence>
 					<ipxact:width>1</ipxact:width>

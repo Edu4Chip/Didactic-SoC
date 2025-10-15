@@ -7,6 +7,16 @@
 	<ipxact:description>AXI4 standard interface.</ipxact:description>
 	<ipxact:directConnection>true</ipxact:directConnection>
 	<ipxact:isAddressable>true</ipxact:isAddressable>
+	<ipxact:parameters>
+		<ipxact:parameter parameterId="uuid_0c583e32_1923_484f_833f_b3ff7fd2aa32">
+			<ipxact:name>DATA_WIDTH</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_0da19693_eca1_490b_9690_6169e85225ab">
+			<ipxact:name>ADDRESS_WIDTH</ipxact:name>
+			<ipxact:value>32</ipxact:value>
+		</ipxact:parameter>
+	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
 	</ipxact:vendorExtensions>
