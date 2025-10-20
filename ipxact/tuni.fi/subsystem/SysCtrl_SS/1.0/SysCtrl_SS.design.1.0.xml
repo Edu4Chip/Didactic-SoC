@@ -158,6 +158,7 @@
 					<ipxact:configurableElementValue referenceId="uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2">uuid_ac754a52_641d_45a0_945d_a6b366405072</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_315fc4be_48e9_4a09_bebd_291d9dba9fea">uuid_856edc44_5264_45ad_94ea_67fdfc6dfbd2</ipxact:configurableElementValue>
 					<ipxact:configurableElementValue referenceId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79">uuid_3777da60_8580_4b50_b427_8bd245188123</ipxact:configurableElementValue>
+					<ipxact:configurableElementValue referenceId="uuid_5d06c338_5418_41f9_8956_5e784a799c9e">uuid_0409a884_08da_475c_a157_e2588c6aaa51</ipxact:configurableElementValue>
 				</ipxact:configurableElementValues>
 			</ipxact:componentRef>
 			<ipxact:vendorExtensions>
@@ -656,6 +657,10 @@
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:value>26</ipxact:value>
 		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_0409a884_08da_475c_a157_e2588c6aaa51" resolve="user">
+			<ipxact:name>NUM_SS</ipxact:name>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_af1dc1b2_e8c6_4271_bf5e_082c38a450e4" resolve="user">
 			<ipxact:name>NUM_GPIO</ipxact:name>
 			<ipxact:value>5</ipxact:value>
@@ -1095,6 +1100,11 @@
 			<kactus2:position x="60" y="840"/>
 			<kactus2:direction x="1" y="0"/>
 		</kactus2:interfaceGraphics>
+		<kactus2:interfaceGraphics>
+			<kactus2:name>ss_ctrl_4</kactus2:name>
+			<kactus2:position x="60" y="380"/>
+			<kactus2:direction x="1" y="0"/>
+		</kactus2:interfaceGraphics>
 		<kactus2:note>
 			<kactus2:position x="1150" y="270"/>
 			<kactus2:content>This ICN xbar remaps addresses to CPU.</kactus2:content>
@@ -1113,10 +1123,5 @@
 			<kactus2:associations/>
 			<kactus2:timestamp>22.04.2024 14:03</kactus2:timestamp>
 		</kactus2:note>
-		<kactus2:interfaceGraphics>
-			<kactus2:name>ss_ctrl_4</kactus2:name>
-			<kactus2:position x="60" y="380"/>
-			<kactus2:direction x="1" y="0"/>
-		</kactus2:interfaceGraphics>
 	</ipxact:vendorExtensions>
 </ipxact:design>

@@ -1718,10 +1718,10 @@
 		</ipxact:parameter>
 		<ipxact:parameter kactus2:usageCount="26" parameterId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
-			<ipxact:description>configurable up to 31 bits</ipxact:description>
+			<ipxact:description>configurable: 2 &lt;= N &lt;= 31</ipxact:description>
 			<ipxact:value>31</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_5d06c338_5418_41f9_8956_5e784a799c9e">
+		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_5d06c338_5418_41f9_8956_5e784a799c9e" resolve="user">
 			<ipxact:name>NUM_SS</ipxact:name>
 			<ipxact:value>4</ipxact:value>
 		</ipxact:parameter>

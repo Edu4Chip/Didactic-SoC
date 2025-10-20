@@ -1214,29 +1214,29 @@
 				<ipxact:moduleParameters>
 					<ipxact:moduleParameter parameterId="uuid_5e7b3ac1_ef7b_45b5_9a82_2b8f0da75f11" usageType="nontyped">
 						<ipxact:name>IOCELL_CFG_W</ipxact:name>
-						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_2c7a1578_ec8a_449c_86c2_570c690a2960uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
+						<ipxact:value>uuid_2c7a1578_ec8a_449c_86c2_570c690a2960</ipxact:value>
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter parameterId="uuid_6f25151f_4ea9_4710_9779_3c26f1ee9ebf" usageType="nontyped">
 						<ipxact:name>IOCELL_COUNT</ipxact:name>
 						<ipxact:description>update/propagate this value to match cell numbers</ipxact:description>
-						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_0a0d304a_6f1b_439d_accf_677be230b07buuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
+						<ipxact:value>uuid_0a0d304a_6f1b_439d_accf_677be230b07b</ipxact:value>
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter parameterId="uuid_3a2f8661_ccea_46fb_94fb_444d3b76588b" usageType="nontyped">
 						<ipxact:name>AW</ipxact:name>
-						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_19e1335c_c372_4cb0_8dd1_e691d99210a2uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
+						<ipxact:value>uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2</ipxact:value>
 					</ipxact:moduleParameter>
-					<ipxact:moduleParameter parameterId="uuid_b7298cc7_74eb_491d_b66f_2db5c0fd9c9d" usageType="nontyped">
+					<ipxact:moduleParameter kactus2:usageCount="1" parameterId="uuid_b7298cc7_74eb_491d_b66f_2db5c0fd9c9d" usageType="nontyped">
 						<ipxact:name>DW</ipxact:name>
-						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_315fc4be_48e9_4a09_bebd_291d9dba9feauuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
+						<ipxact:value>uuid_b7298cc7_74eb_491d_b66f_2db5c0fd9c9d</ipxact:value>
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter parameterId="uuid_95962932_5e1d_490e_a892_5e78b0bcf829" usageType="nontyped">
 						<ipxact:name>SS_CTRL_W</ipxact:name>
 						<ipxact:description>configurable up to 31 bits</ipxact:description>
-						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
+						<ipxact:value>uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79</ipxact:value>
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter parameterId="uuid_b15d2201_e456_4b94_a030_21f266887af9" usageType="nontyped">
 						<ipxact:name>NUM_SS</ipxact:name>
-						<ipxact:value>uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aeduuid_821beacc_94a8_4945_a136_d7d715007099uuid_e6eb1e50_e1a1_4d90_bdda_6391538f5aed</ipxact:value>
+						<ipxact:value>uuid_821beacc_94a8_4945_a136_d7d715007099</ipxact:value>
 					</ipxact:moduleParameter>
 				</ipxact:moduleParameters>
 			</ipxact:componentInstantiation>
@@ -1798,23 +1798,20 @@
 			<ipxact:file>
 				<ipxact:name>../../../../../src/rtl/SS_Ctrl_reg_array.sv</ipxact:name>
 				<ipxact:fileType>systemVerilogSource</ipxact:fileType>
-				<ipxact:vendorExtensions>
-					<kactus2:hash>00916236c4e4a4ecaefec0f2cdbca74674ccbca8</kactus2:hash>
-				</ipxact:vendorExtensions>
 			</ipxact:file>
 		</ipxact:fileSet>
 	</ipxact:fileSets>
 	<ipxact:parameters>
-		<ipxact:parameter kactus2:usageCount="26" parameterId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b" resolve="user">
+		<ipxact:parameter kactus2:usageCount="27" parameterId="uuid_0a0d304a_6f1b_439d_accf_677be230b07b" resolve="user">
 			<ipxact:name>IOCELL_COUNT</ipxact:name>
 			<ipxact:description>update/propagate this value to match cell numbers</ipxact:description>
 			<ipxact:value>28</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="27" parameterId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960" resolve="user">
+		<ipxact:parameter kactus2:usageCount="28" parameterId="uuid_2c7a1578_ec8a_449c_86c2_570c690a2960" resolve="user">
 			<ipxact:name>IOCELL_CFG_W</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="25" parameterId="uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2" resolve="user">
+		<ipxact:parameter kactus2:usageCount="26" parameterId="uuid_19e1335c_c372_4cb0_8dd1_e691d99210a2" resolve="user">
 			<ipxact:name>AW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
@@ -1822,12 +1819,12 @@
 			<ipxact:name>DW</ipxact:name>
 			<ipxact:value>32</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="64" parameterId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79" resolve="user">
+		<ipxact:parameter kactus2:usageCount="65" parameterId="uuid_ad2e483f_edb7_46d0_a1bd_2557dac3bd79" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
-			<ipxact:description>configurable up to 31 bits</ipxact:description>
+			<ipxact:description>configurable: 2 &lt;= N &lt;= 31</ipxact:description>
 			<ipxact:value>31</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter kactus2:usageCount="4" parameterId="uuid_821beacc_94a8_4945_a136_d7d715007099" resolve="user">
+		<ipxact:parameter kactus2:usageCount="5" parameterId="uuid_821beacc_94a8_4945_a136_d7d715007099" resolve="user">
 			<ipxact:name>NUM_SS</ipxact:name>
 			<ipxact:value>4</ipxact:value>
 		</ipxact:parameter>

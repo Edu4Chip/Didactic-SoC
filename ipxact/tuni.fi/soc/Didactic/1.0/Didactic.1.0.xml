@@ -642,6 +642,11 @@ Spec:
 			<ipxact:description>number of configurable io cells in design.</ipxact:description>
 			<ipxact:value>25</ipxact:value>
 		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_95b4e342_4b86_4c3d_bace_b9b34360bfb9" resolve="user">
+			<ipxact:name>NUM_SS</ipxact:name>
+			<ipxact:description>Number of configurable SS.</ipxact:description>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:author>Matti Käyrä</kactus2:author>

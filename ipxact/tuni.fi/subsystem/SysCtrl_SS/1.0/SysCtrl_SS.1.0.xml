@@ -689,6 +689,7 @@
 						<ipxact:configurableElementValue referenceId="uuid_f59fdf20_4566_47aa_b925_96a29c6c62dc">uuid_d5b2f795_afb3_4f05_bf1e_5ea9de10bf4c</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_af1dc1b2_e8c6_4271_bf5e_082c38a450e4">uuid_b9265546_6fd0_412f_b5e5_7f62aca69ff4</ipxact:configurableElementValue>
 						<ipxact:configurableElementValue referenceId="uuid_3777da60_8580_4b50_b427_8bd245188123">uuid_acf5c976_d744_4d71_b8fe_289308668ff7</ipxact:configurableElementValue>
+						<ipxact:configurableElementValue referenceId="uuid_0409a884_08da_475c_a157_e2588c6aaa51">uuid_16ff29bd_d050_464a_b316_d11e1980b7c8</ipxact:configurableElementValue>
 					</ipxact:configurableElementValues>
 				</ipxact:designRef>
 			</ipxact:designInstantiation>
@@ -1835,6 +1836,10 @@
 		<ipxact:parameter kactus2:usageCount="2" parameterId="uuid_acf5c976_d744_4d71_b8fe_289308668ff7" resolve="user">
 			<ipxact:name>SS_CTRL_W</ipxact:name>
 			<ipxact:value>8</ipxact:value>
+		</ipxact:parameter>
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_16ff29bd_d050_464a_b316_d11e1980b7c8" resolve="user">
+			<ipxact:name>NUM_SS</ipxact:name>
+			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

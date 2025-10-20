@@ -2144,6 +2144,10 @@
 			<ipxact:name>IOCELL_CFGW</ipxact:name>
 			<ipxact:value>5</ipxact:value>
 		</ipxact:parameter>
+		<ipxact:parameter parameterId="uuid_7f86116c_b522_4958_861d_d9b1decd309d" resolve="user">
+			<ipxact:name>NUM_SS</ipxact:name>
+			<ipxact:value>5</ipxact:value>
+		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>
 		<kactus2:version>3,13,0,0</kactus2:version>
