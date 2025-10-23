@@ -83,10 +83,10 @@ module Pll (
   #(.BANDWIDTH            ("OPTIMIZED"),
     .COMPENSATION         ("ZHOLD"),
     .STARTUP_WAIT         ("FALSE"),
-    .DIVCLK_DIVIDE        (1),
-    .CLKFBOUT_MULT        (8),
+    .DIVCLK_DIVIDE        (5),
+    .CLKFBOUT_MULT        (33),
     .CLKFBOUT_PHASE       (0.000),
-    .CLKOUT0_DIVIDE       (125),
+    .CLKOUT0_DIVIDE       (33),
     .CLKOUT0_PHASE        (0.000),
     .CLKOUT0_DUTY_CYCLE   (0.500),
     .CLKIN1_PERIOD        (8.000))

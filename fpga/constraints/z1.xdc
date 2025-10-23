@@ -5,21 +5,11 @@
 ##############
 
 ## Global clk
-create_clock -period 125.000 -name global_clk -waveform {0.000 62.500} -add [get_ports clk_in]
+create_clock -period 8.000 -name global_clk -waveform {0.000 4.000} -add [get_ports clk_in]
 
 ## JTAG clock
 create_clock -period 125.000 -name jtag_clk -waveform {0.000 62.500} -add [get_ports jtag_tck]
 set_input_jitter jtag_clk 1.000
-
-## Highspeed clock
-create_clock -period 125.000 -name clk_p -waveform {0.000 62.500} -add [get_ports high_speed_clk_p_in]
-create_clock -period 125.000 -name clk_n -waveform {0.000 62.500} -add [get_ports high_speed_clk_n_in]
-
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets SystemControl_SS/i_io_cell_frame/i_clk_cell/i_clk_p_iobuf/O]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets SystemControl_SS/i_io_cell_frame/i_clk_cell/i_clk_n_iobuf/O]
-
-set_input_jitter clk_p 1.000
-set_input_jitter clk_n 1.000
 
 ## JTAG specifics
 set_input_delay -clock jtag_clk -clock_fall 5.000 [get_ports jtag_tdi]
@@ -37,10 +27,8 @@ set_false_path -from [get_ports uart_rx]
 set_false_path -from [get_ports gpio]
 set_false_path -to [get_ports uart_tx]
 
-#set_false_path -from [get_pins SystemControl_SS/SysCtrl_SS/SS_Ctrl_reg_array/ss_rst_reg_reg*/D]
-
 # Clock crossing characteristics
-set_clock_groups -asynchronous -group global_clk -group jtag_clk -group clk_p
+set_clock_groups -logically_exclusive -group [get_clocks -include_generated_clocks global_clk] -group [get_clocks jtag_clk]
 
 ##################
 # IO
@@ -91,19 +79,3 @@ set_property -dict {PACKAGE_PIN V16 IOSTANDARD LVCMOS33} [get_ports {gpio[12]}]
 set_property -dict {PACKAGE_PIN W16 IOSTANDARD LVCMOS33} [get_ports {gpio[13]}]
 set_property -dict {PACKAGE_PIN V12 IOSTANDARD LVCMOS33} [get_ports {gpio[14]}]
 set_property -dict {PACKAGE_PIN W13 IOSTANDARD LVCMOS33} [get_ports {gpio[15]}]
-
-# btn
-set_property -dict {PACKAGE_PIN D19 IOSTANDARD LVCMOS33} [get_ports high_speed_clk_n_in]
-set_property -dict {PACKAGE_PIN D20 IOSTANDARD LVCMOS33} [get_ports high_speed_clk_p_in]
-#set_property -dict {PACKAGE_PIN L20 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[0]}]
-#set_property -dict {PACKAGE_PIN L19 IOSTANDARD LVCMOS33} [get_ports {ana_core_in[1]}]
-
-# led
-#set_property -dict {PACKAGE_PIN R14 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[0]}]
-#set_property -dict {PACKAGE_PIN P14 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[1]}]
-#set_property -dict {PACKAGE_PIN N16 IOSTANDARD LVCMOS33} [get_ports {ana_core_out[2]}]
-
-# digital header
-#set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[0]}]
-#set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports {ana_core_io[1]}]
-
