@@ -1,6 +1,6 @@
 # Verification
 
-basic testbench and program loading is completed. Testbench alters software file target based on variables on elaboration command. 
+Basic testbench and program loading is completed. Testbench alters software file target based on variables on elaboration command. 
 
 ## Baremetal programs
 

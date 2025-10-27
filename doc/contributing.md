@@ -18,13 +18,13 @@ HW diagrams are XML files and git is not very great at handling those merges cor
 
 While reused RTL has been behaviorally proven in previous projects, some tweaks were done to interfaces. This results in requirement to rerun verification to them. It is considered sufficent to run them as part of the top level simulations.
 
-Some compilation errors are still present as the xbar logic for example is largely unfinished.
+Some compilation errors are still present as the xbar logic for example is largely unfinished for optional features.
 
 ## verification flow
 
-Verification flow is initially ony for questa but there is also experimental verilator flow. Both are considered as intial versions, improvements could be done.
+Verification flow is initially only for questa but there is also experimental verilator flow. Both are considered as intial versions, improvements could be done.
 
-Additional verification tools could improve the project such as open source verification and formal analysis tools.
+Additional verification tools could improve the project such as open source verification and formal analysis tools. 
 
 ## synthesis flow
 

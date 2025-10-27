@@ -10,7 +10,7 @@ Considerations were done to formalize design proposals.
 
 * reusability
 
-Top level RTL and integration is done with kactus2 HW designer.
+Top level RTL and integration is done with Kactus2 HW designer.
 
 ## Dropped features
 
