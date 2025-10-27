@@ -2706,6 +2706,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>top_exokay</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -2721,7 +2722,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -3256,6 +3257,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>periph_ruser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -3271,7 +3273,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -3300,6 +3302,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>periph_exokay</ipxact:name>
+				<ipxact:description>dir: in, default value: 1'b1</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -3315,7 +3318,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -3554,6 +3557,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dm_init_auser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -3569,13 +3573,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dm_init_wuser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -3591,7 +3596,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -3642,6 +3647,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dm_init_atop</ipxact:name>
+				<ipxact:description>dir: in, default value: 6'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -3657,13 +3663,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>6'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dm_init_memtype</ipxact:name>
+				<ipxact:description>dir: in, default value: 2'b00</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -3679,13 +3686,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>2'b00</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dm_init_mid</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -3701,13 +3709,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dm_init_dbg</ipxact:name>
+				<ipxact:description>dir: in, default value: 1'b1</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -3723,7 +3732,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -4016,6 +4025,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dm_init_prot</ipxact:name>
+				<ipxact:description>dir: in, default value: 3'b111</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -4031,7 +4041,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>3'b111</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -4478,6 +4488,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dm_target_ruser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -4493,7 +4504,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -4522,6 +4533,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dm_target_exokay</ipxact:name>
+				<ipxact:description>dir: in, default value: 1'b1</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -4537,7 +4549,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -4742,6 +4754,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>instr_auser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -4757,13 +4770,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>instr_wuser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -4779,7 +4793,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -4830,6 +4844,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>instr_atop</ipxact:name>
+				<ipxact:description>dir: in, default value: 6'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -4845,13 +4860,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>6'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>instr_memtype</ipxact:name>
+				<ipxact:description>dir: in, default value: 2'b00</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -4867,13 +4883,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>2'b00</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>instr_mid</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -4889,13 +4906,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>instr_dbg</ipxact:name>
+				<ipxact:description>dir: in, default value: 1'b1</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -4911,7 +4929,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -5204,6 +5222,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>instr_prot</ipxact:name>
+				<ipxact:description>dir: in, default value: 3'b111</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -5219,7 +5238,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>3'b111</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -5336,6 +5355,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>data_auser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -5351,13 +5371,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>data_wuser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -5373,7 +5394,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -5424,6 +5445,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>data_atop</ipxact:name>
+				<ipxact:description>dir: in, default value: 6'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -5439,13 +5461,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>6'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>data_memtype</ipxact:name>
+				<ipxact:description>dir: in, default value: 2'b00</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -5461,13 +5484,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>2'b00</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>data_mid</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -5483,13 +5507,14 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>data_dbg</ipxact:name>
+				<ipxact:description>dir: in, default value: 1'b1</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -5505,7 +5530,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -5798,6 +5823,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>data_prot</ipxact:name>
+				<ipxact:description>dir: in, default value: 3'b111</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -5813,7 +5839,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>3'b111</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -6260,6 +6286,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dmem_ruser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -6275,7 +6302,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -6304,6 +6331,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>dmem_exokay</ipxact:name>
+				<ipxact:description>dir: in, default value: 1'b1</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -6319,7 +6347,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -6854,6 +6882,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>imem_ruser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -6869,7 +6898,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -6898,6 +6927,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>imem_exokay</ipxact:name>
+				<ipxact:description>dir: in, default value: 1'b1</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -6913,7 +6943,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -7030,6 +7060,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>ctrl_exokay</ipxact:name>
+				<ipxact:description>dir: in, default value: 1'b1</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -7045,7 +7076,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
