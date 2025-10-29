@@ -129,7 +129,7 @@ module Rx(	// leros/src/main/scala/leros/uart/UARTRx.scala:24:7
       rxReg_REG <= 1'h0;	// leros/src/main/scala/leros/uart/UARTRx.scala:24:7, :34:30
       rxReg <= 1'h0;	// leros/src/main/scala/leros/uart/UARTRx.scala:24:7, :34:22
       shiftReg <= 8'h0;	// leros/src/main/scala/leros/uart/UARTRx.scala:37:25
-      cntReg <= 20'h340;	// leros/src/main/scala/leros/uart/UARTRx.scala:38:23
+      cntReg <= 20'h363;	// leros/src/main/scala/leros/uart/UARTRx.scala:38:23
       bitsReg <= 4'h0;	// leros/src/main/scala/leros/uart/UARTRx.scala:39:24
       valReg <= 1'h0;	// leros/src/main/scala/leros/uart/UARTRx.scala:24:7, :40:23
     end
@@ -143,11 +143,11 @@ module Rx(	// leros/src/main/scala/leros/uart/UARTRx.scala:24:7
       if (|cntReg)	// leros/src/main/scala/leros/uart/UARTRx.scala:38:23, :42:15
         cntReg <= cntReg - 20'h1;	// leros/src/main/scala/leros/uart/UARTRx.scala:38:23, :43:22
       else if (|bitsReg) begin	// leros/src/main/scala/leros/uart/UARTRx.scala:39:24, :44:22
-        cntReg <= 20'h340;	// leros/src/main/scala/leros/uart/UARTRx.scala:38:23
+        cntReg <= 20'h363;	// leros/src/main/scala/leros/uart/UARTRx.scala:38:23
         bitsReg <= bitsReg - 4'h1;	// leros/src/main/scala/leros/uart/UARTRx.scala:39:24, :47:24
       end
       else if (~rxReg & falling_REG) begin	// leros/src/main/scala/leros/uart/UARTRx.scala:34:22, :35:{17,24,35}
-        cntReg <= 20'h4E0;	// leros/src/main/scala/leros/uart/UARTRx.scala:38:23, :53:12
+        cntReg <= 20'h514;	// leros/src/main/scala/leros/uart/UARTRx.scala:38:23, :53:12
         bitsReg <= 4'h8;	// leros/src/main/scala/leros/uart/UARTRx.scala:39:24, :54:13
       end
       valReg <=
@@ -215,7 +215,7 @@ module Tx(	// leros/src/main/scala/leros/uart/UARTTx.scala:21:7
         if (io_channel_valid)	// leros/src/main/scala/leros/uart/UARTTx.scala:22:14
           bitsReg <= 4'hB;	// leros/src/main/scala/leros/uart/UARTTx.scala:31:24, :47:17
       end
-      cntReg <= 20'h340;	// leros/src/main/scala/leros/uart/UARTTx.scala:30:23, :38:12
+      cntReg <= 20'h363;	// leros/src/main/scala/leros/uart/UARTTx.scala:30:23, :38:12
     end
     else	// leros/src/main/scala/leros/uart/UARTTx.scala:33:31
       cntReg <= cntReg - 20'h1;	// leros/src/main/scala/leros/uart/UARTTx.scala:30:23, :54:22
@@ -1309,7 +1309,7 @@ module Gpio(	// src/main/scala/dtu/peripherals/Gpio.scala:17:7
   input         dmemPort_wr,	// src/main/scala/dtu/peripherals/Gpio.scala:19:20
   input  [11:0] gpioPort_in,	// src/main/scala/dtu/peripherals/Gpio.scala:20:20
   output [11:0] gpioPort_out,	// src/main/scala/dtu/peripherals/Gpio.scala:20:20
-                gpioPort_outputEnable	// src/main/scala/dtu/peripherals/Gpio.scala:20:20
+                gpioPort_oe	// src/main/scala/dtu/peripherals/Gpio.scala:20:20
 );
 
   reg  [11:0] outputEnables;	// src/main/scala/dtu/peripherals/Gpio.scala:22:30
@@ -1357,7 +1357,7 @@ module Gpio(	// src/main/scala/dtu/peripherals/Gpio.scala:17:7
        ? gpioPort_in
        : dmemPort_rdData_REG == 2'h1 ? outputs : outputEnables};	// src/main/scala/dtu/peripherals/Gpio.scala:17:7, :22:30, :23:24, :26:{19,39,72}
   assign gpioPort_out = outputs;	// src/main/scala/dtu/peripherals/Gpio.scala:17:7, :23:24
-  assign gpioPort_outputEnable = outputEnables;	// src/main/scala/dtu/peripherals/Gpio.scala:17:7, :22:30
+  assign gpioPort_oe = outputEnables;	// src/main/scala/dtu/peripherals/Gpio.scala:17:7, :22:30
 endmodule
 
 module DataMemory(	// src/main/scala/dtu/DataMemory.scala:16:7
@@ -1855,24 +1855,24 @@ module DataMemMux(	// src/main/scala/dtu/DataMemMux.scala:21:7
   assign io_targets_3_wr = io_master_wr & io_master_wrAddr[15:1] == 15'h1022;	// src/main/scala/dtu/DataMemMux.scala:21:7, :59:7, :67:38, :70:7, :71:29
 endmodule
 
-module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
-  input         clock,	// src/main/scala/dtu/DtuSubsystem.scala:71:7
-                reset,	// src/main/scala/dtu/DtuSubsystem.scala:71:7
-  input  [11:0] io_apb_paddr,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  input         io_apb_psel,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-                io_apb_penable,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-                io_apb_pwrite,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  input  [3:0]  io_apb_pstrb,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  input  [31:0] io_apb_pwdata,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  output        io_apb_pready,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  output [31:0] io_apb_prdata,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  output        io_apb_pslverr,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-                io_irq,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  input         io_irqEn,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  input  [7:0]  io_ssCtrl,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  input  [15:0] io_gpio_in,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-  output [15:0] io_gpio_out,	// src/main/scala/dtu/DtuSubsystem.scala:73:14
-                io_gpio_outputEnable	// src/main/scala/dtu/DtuSubsystem.scala:73:14
+module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:67:7
+  input         clock,	// src/main/scala/dtu/DtuSubsystem.scala:67:7
+                reset,	// src/main/scala/dtu/DtuSubsystem.scala:67:7
+  input  [11:0] io_apb_paddr,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  input         io_apb_psel,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+                io_apb_penable,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+                io_apb_pwrite,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  input  [3:0]  io_apb_pstrb,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  input  [31:0] io_apb_pwdata,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  output        io_apb_pready,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  output [31:0] io_apb_prdata,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  output        io_apb_pslverr,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+                io_irq,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  input         io_irqEn,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  input  [7:0]  io_ssCtrl,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  input  [15:0] io_gpio_in,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+  output [15:0] io_gpio_out,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+                io_gpio_outputEnable	// src/main/scala/dtu/DtuSubsystem.scala:69:14
 );
 
   wire [31:0] _dmemMux_io_master_rdData;	// src/main/scala/dtu/DataMemMux.scala:116:25
@@ -1919,37 +1919,37 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
   wire        _arb_io_merged_pwrite;	// src/main/scala/apb/ApbArbiter.scala:11:21
   wire [3:0]  _arb_io_merged_pstrb;	// src/main/scala/apb/ApbArbiter.scala:11:21
   wire [31:0] _arb_io_merged_pwdata;	// src/main/scala/apb/ApbArbiter.scala:11:21
-  wire        _uart_uartPins_tx;	// src/main/scala/dtu/DtuSubsystem.scala:93:20
-  wire [31:0] _uart_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:93:20
-  wire [31:0] _dmem_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:92:20
-  wire [31:0] _gpio_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:91:20
-  wire [11:0] _gpio_gpioPort_out;	// src/main/scala/dtu/DtuSubsystem.scala:91:20
-  wire [11:0] _gpio_gpioPort_outputEnable;	// src/main/scala/dtu/DtuSubsystem.scala:91:20
-  wire        _regBlock_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:90:24
-  wire [31:0] _regBlock_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:90:24
-  wire [31:0] _regBlock_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:90:24
-  wire [15:0] _rom_io_instr;	// src/main/scala/dtu/DtuSubsystem.scala:87:19
-  wire [15:0] _instrMem_instrPort_instr;	// src/main/scala/dtu/DtuSubsystem.scala:86:24
-  wire        _instrMem_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:86:24
-  wire [31:0] _instrMem_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:86:24
-  wire [9:0]  _leros_imemIO_addr;	// src/main/scala/dtu/DtuSubsystem.scala:83:21
-  wire [15:0] _leros_dmemIO_rdAddr;	// src/main/scala/dtu/DtuSubsystem.scala:83:21
-  wire [15:0] _leros_dmemIO_wrAddr;	// src/main/scala/dtu/DtuSubsystem.scala:83:21
-  wire [31:0] _leros_dmemIO_wrData;	// src/main/scala/dtu/DtuSubsystem.scala:83:21
-  wire        _leros_dmemIO_wr;	// src/main/scala/dtu/DtuSubsystem.scala:83:21
-  wire [3:0]  _leros_dmemIO_wrMask;	// src/main/scala/dtu/DtuSubsystem.scala:83:21
-  wire        _ponte_io_uart_tx;	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-  wire [15:0] _ponte_io_apb_paddr;	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-  wire        _ponte_io_apb_psel;	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-  wire        _ponte_io_apb_penable;	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-  wire        _ponte_io_apb_pwrite;	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-  wire [31:0] _ponte_io_apb_pwdata;	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-  wire        _sysCtrl_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:79:23
-  wire [31:0] _sysCtrl_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:79:23
-  wire        _sysCtrl_ctrlPort_lerosReset;	// src/main/scala/dtu/DtuSubsystem.scala:79:23
-  wire        _sysCtrl_ctrlPort_lerosBootFromRam;	// src/main/scala/dtu/DtuSubsystem.scala:79:23
-  wire        _sysCtrl_ctrlPort_lerosUartLoopBack;	// src/main/scala/dtu/DtuSubsystem.scala:79:23
-  SystemControl sysCtrl (	// src/main/scala/dtu/DtuSubsystem.scala:79:23
+  wire        _uart_uartPins_tx;	// src/main/scala/dtu/DtuSubsystem.scala:89:20
+  wire [31:0] _uart_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:89:20
+  wire [31:0] _dmem_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:88:20
+  wire [31:0] _gpio_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:87:20
+  wire [11:0] _gpio_gpioPort_out;	// src/main/scala/dtu/DtuSubsystem.scala:87:20
+  wire [11:0] _gpio_gpioPort_oe;	// src/main/scala/dtu/DtuSubsystem.scala:87:20
+  wire        _regBlock_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:86:24
+  wire [31:0] _regBlock_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:86:24
+  wire [31:0] _regBlock_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:86:24
+  wire [15:0] _rom_io_instr;	// src/main/scala/dtu/DtuSubsystem.scala:83:19
+  wire [15:0] _instrMem_instrPort_instr;	// src/main/scala/dtu/DtuSubsystem.scala:82:24
+  wire        _instrMem_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:82:24
+  wire [31:0] _instrMem_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:82:24
+  wire [9:0]  _leros_imemIO_addr;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+  wire [15:0] _leros_dmemIO_rdAddr;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+  wire [15:0] _leros_dmemIO_wrAddr;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+  wire [31:0] _leros_dmemIO_wrData;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+  wire        _leros_dmemIO_wr;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+  wire [3:0]  _leros_dmemIO_wrMask;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+  wire        _ponte_io_uart_tx;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+  wire [15:0] _ponte_io_apb_paddr;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+  wire        _ponte_io_apb_psel;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+  wire        _ponte_io_apb_penable;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+  wire        _ponte_io_apb_pwrite;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+  wire [31:0] _ponte_io_apb_pwdata;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+  wire        _sysCtrl_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
+  wire [31:0] _sysCtrl_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
+  wire        _sysCtrl_ctrlPort_lerosReset;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
+  wire        _sysCtrl_ctrlPort_lerosBootFromRam;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
+  wire        _sysCtrl_ctrlPort_lerosUartLoopBack;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
+  SystemControl sysCtrl (	// src/main/scala/dtu/DtuSubsystem.scala:75:23
     .clock                      (clock),
     .reset                      (reset),
     .apbPort_psel               (_apbMux_io_targets_2_psel),	// src/main/scala/apb/ApbMux.scala:96:24
@@ -1962,11 +1962,11 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
     .ctrlPort_lerosBootFromRam  (_sysCtrl_ctrlPort_lerosBootFromRam),
     .ctrlPort_lerosUartLoopBack (_sysCtrl_ctrlPort_lerosUartLoopBack)
   );
-  Ponte ponte (	// src/main/scala/dtu/DtuSubsystem.scala:80:21
+  Ponte ponte (	// src/main/scala/dtu/DtuSubsystem.scala:76:21
     .clock          (clock),
     .reset          (reset),
     .io_uart_tx     (_ponte_io_uart_tx),
-    .io_uart_rx     (io_gpio_in[1]),	// src/main/scala/dtu/DtuSubsystem.scala:77:27
+    .io_uart_rx     (io_gpio_in[1]),	// src/main/scala/dtu/DtuSubsystem.scala:73:27
     .io_apb_paddr   (_ponte_io_apb_paddr),
     .io_apb_psel    (_ponte_io_apb_psel),
     .io_apb_penable (_ponte_io_apb_penable),
@@ -1975,12 +1975,12 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
     .io_apb_pready  (_arb_io_masters_0_pready),	// src/main/scala/apb/ApbArbiter.scala:11:21
     .io_apb_prdata  (_arb_io_masters_0_prdata)	// src/main/scala/apb/ApbArbiter.scala:11:21
   );
-  Leros leros (	// src/main/scala/dtu/DtuSubsystem.scala:83:21
+  Leros leros (	// src/main/scala/dtu/DtuSubsystem.scala:79:21
     .clock         (clock),
-    .reset         (reset | _sysCtrl_ctrlPort_lerosReset),	// src/main/scala/dtu/DtuSubsystem.scala:79:23, :84:31
+    .reset         (reset | _sysCtrl_ctrlPort_lerosReset),	// src/main/scala/dtu/DtuSubsystem.scala:75:23, :80:31
     .imemIO_addr   (_leros_imemIO_addr),
     .imemIO_instr
-      (_sysCtrl_ctrlPort_lerosBootFromRam ? _instrMem_instrPort_instr : _rom_io_instr),	// src/main/scala/dtu/DtuSubsystem.scala:79:23, :86:24, :87:19, :98:28
+      (_sysCtrl_ctrlPort_lerosBootFromRam ? _instrMem_instrPort_instr : _rom_io_instr),	// src/main/scala/dtu/DtuSubsystem.scala:75:23, :82:24, :83:19, :94:28
     .dmemIO_rdAddr (_leros_dmemIO_rdAddr),
     .dmemIO_rdData (_dmemMux_io_master_rdData),	// src/main/scala/dtu/DataMemMux.scala:116:25
     .dmemIO_wrAddr (_leros_dmemIO_wrAddr),
@@ -1988,10 +1988,10 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
     .dmemIO_wr     (_leros_dmemIO_wr),
     .dmemIO_wrMask (_leros_dmemIO_wrMask)
   );
-  InstructionMemory instrMem (	// src/main/scala/dtu/DtuSubsystem.scala:86:24
+  InstructionMemory instrMem (	// src/main/scala/dtu/DtuSubsystem.scala:82:24
     .clock           (clock),
     .reset           (reset),
-    .instrPort_addr  (_leros_imemIO_addr),	// src/main/scala/dtu/DtuSubsystem.scala:83:21
+    .instrPort_addr  (_leros_imemIO_addr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
     .instrPort_instr (_instrMem_instrPort_instr),
     .apbPort_paddr   (_apbMux_io_targets_0_paddr[9:0]),	// src/main/scala/apb/ApbMux.scala:96:24, :102:16
     .apbPort_psel    (_apbMux_io_targets_0_psel),	// src/main/scala/apb/ApbMux.scala:96:24
@@ -2002,13 +2002,13 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
     .apbPort_pready  (_instrMem_apbPort_pready),
     .apbPort_prdata  (_instrMem_apbPort_prdata)
   );
-  InstrMem rom (	// src/main/scala/dtu/DtuSubsystem.scala:87:19
+  InstrMem rom (	// src/main/scala/dtu/DtuSubsystem.scala:83:19
     .clock    (clock),
     .reset    (reset),
-    .io_addr  (_leros_imemIO_addr),	// src/main/scala/dtu/DtuSubsystem.scala:83:21
+    .io_addr  (_leros_imemIO_addr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
     .io_instr (_rom_io_instr)
   );
-  RegBlock regBlock (	// src/main/scala/dtu/DtuSubsystem.scala:90:24
+  RegBlock regBlock (	// src/main/scala/dtu/DtuSubsystem.scala:86:24
     .clock           (clock),
     .reset           (reset),
     .apbPort_paddr   (_apbMux_io_targets_1_paddr[3:0]),	// src/main/scala/apb/ApbMux.scala:96:24, :102:16
@@ -2024,19 +2024,19 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
     .dmemPort_wrData (_dmemMux_io_targets_1_wrData),	// src/main/scala/dtu/DataMemMux.scala:116:25
     .dmemPort_wr     (_dmemMux_io_targets_1_wr)	// src/main/scala/dtu/DataMemMux.scala:116:25
   );
-  Gpio gpio (	// src/main/scala/dtu/DtuSubsystem.scala:91:20
-    .clock                 (clock),
-    .reset                 (reset),
-    .dmemPort_rdAddr       (_dmemMux_io_targets_2_rdAddr[1:0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
-    .dmemPort_rdData       (_gpio_dmemPort_rdData),
-    .dmemPort_wrAddr       (_dmemMux_io_targets_2_wrAddr[1:0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
-    .dmemPort_wrData       (_dmemMux_io_targets_2_wrData),	// src/main/scala/dtu/DataMemMux.scala:116:25
-    .dmemPort_wr           (_dmemMux_io_targets_2_wr),	// src/main/scala/dtu/DataMemMux.scala:116:25
-    .gpioPort_in           (io_gpio_in[15:4]),	// src/main/scala/dtu/DtuSubsystem.scala:126:33
-    .gpioPort_out          (_gpio_gpioPort_out),
-    .gpioPort_outputEnable (_gpio_gpioPort_outputEnable)
+  Gpio gpio (	// src/main/scala/dtu/DtuSubsystem.scala:87:20
+    .clock           (clock),
+    .reset           (reset),
+    .dmemPort_rdAddr (_dmemMux_io_targets_2_rdAddr[1:0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
+    .dmemPort_rdData (_gpio_dmemPort_rdData),
+    .dmemPort_wrAddr (_dmemMux_io_targets_2_wrAddr[1:0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
+    .dmemPort_wrData (_dmemMux_io_targets_2_wrData),	// src/main/scala/dtu/DataMemMux.scala:116:25
+    .dmemPort_wr     (_dmemMux_io_targets_2_wr),	// src/main/scala/dtu/DataMemMux.scala:116:25
+    .gpioPort_in     (io_gpio_in[15:4]),	// src/main/scala/dtu/DtuSubsystem.scala:122:33
+    .gpioPort_out    (_gpio_gpioPort_out),
+    .gpioPort_oe     (_gpio_gpioPort_oe)
   );
-  DataMemory dmem (	// src/main/scala/dtu/DtuSubsystem.scala:92:20
+  DataMemory dmem (	// src/main/scala/dtu/DtuSubsystem.scala:88:20
     .clock           (clock),
     .reset           (reset),
     .dmemPort_rdAddr (_dmemMux_io_targets_0_rdAddr[7:0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
@@ -2046,12 +2046,12 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
     .dmemPort_wr     (_dmemMux_io_targets_0_wr),	// src/main/scala/dtu/DataMemMux.scala:116:25
     .dmemPort_wrMask (_dmemMux_io_targets_0_wrMask)	// src/main/scala/dtu/DataMemMux.scala:116:25
   );
-  Uart uart (	// src/main/scala/dtu/DtuSubsystem.scala:93:20
+  Uart uart (	// src/main/scala/dtu/DtuSubsystem.scala:89:20
     .clock           (clock),
     .reset           (reset),
     .uartPins_tx     (_uart_uartPins_tx),
     .uartPins_rx
-      (_sysCtrl_ctrlPort_lerosUartLoopBack ? _uart_uartPins_tx : io_gpio_in[3]),	// src/main/scala/dtu/DtuSubsystem.scala:76:27, :79:23, :93:20, :94:26
+      (_sysCtrl_ctrlPort_lerosUartLoopBack ? _uart_uartPins_tx : io_gpio_in[3]),	// src/main/scala/dtu/DtuSubsystem.scala:72:27, :75:23, :89:20, :90:26
     .dmemPort_rdAddr (_dmemMux_io_targets_3_rdAddr[0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
     .dmemPort_rdData (_uart_dmemPort_rdData),
     .dmemPort_wrAddr (_dmemMux_io_targets_3_wrAddr[0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
@@ -2061,11 +2061,11 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
   ApbArbiter arb (	// src/main/scala/apb/ApbArbiter.scala:11:21
     .clock                (clock),
     .reset                (reset),
-    .io_masters_0_paddr   (_ponte_io_apb_paddr),	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-    .io_masters_0_psel    (_ponte_io_apb_psel),	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-    .io_masters_0_penable (_ponte_io_apb_penable),	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-    .io_masters_0_pwrite  (_ponte_io_apb_pwrite),	// src/main/scala/dtu/DtuSubsystem.scala:80:21
-    .io_masters_0_pwdata  (_ponte_io_apb_pwdata),	// src/main/scala/dtu/DtuSubsystem.scala:80:21
+    .io_masters_0_paddr   (_ponte_io_apb_paddr),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+    .io_masters_0_psel    (_ponte_io_apb_psel),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+    .io_masters_0_penable (_ponte_io_apb_penable),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+    .io_masters_0_pwrite  (_ponte_io_apb_pwrite),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+    .io_masters_0_pwdata  (_ponte_io_apb_pwdata),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
     .io_masters_0_pready  (_arb_io_masters_0_pready),
     .io_masters_0_prdata  (_arb_io_masters_0_prdata),
     .io_masters_1_paddr   ({4'h0, io_apb_paddr}),	// src/main/scala/apb/ApbArbiter.scala:17:23
@@ -2105,56 +2105,56 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:71:7
     .io_targets_0_pwrite  (_apbMux_io_targets_0_pwrite),
     .io_targets_0_pstrb   (_apbMux_io_targets_0_pstrb),
     .io_targets_0_pwdata  (_apbMux_io_targets_0_pwdata),
-    .io_targets_0_pready  (_instrMem_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:86:24
-    .io_targets_0_prdata  (_instrMem_apbPort_prdata),	// src/main/scala/dtu/DtuSubsystem.scala:86:24
+    .io_targets_0_pready  (_instrMem_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:82:24
+    .io_targets_0_prdata  (_instrMem_apbPort_prdata),	// src/main/scala/dtu/DtuSubsystem.scala:82:24
     .io_targets_1_paddr   (_apbMux_io_targets_1_paddr),
     .io_targets_1_psel    (_apbMux_io_targets_1_psel),
     .io_targets_1_penable (_apbMux_io_targets_1_penable),
     .io_targets_1_pwrite  (_apbMux_io_targets_1_pwrite),
     .io_targets_1_pwdata  (_apbMux_io_targets_1_pwdata),
-    .io_targets_1_pready  (_regBlock_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:90:24
-    .io_targets_1_prdata  (_regBlock_apbPort_prdata),	// src/main/scala/dtu/DtuSubsystem.scala:90:24
+    .io_targets_1_pready  (_regBlock_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:86:24
+    .io_targets_1_prdata  (_regBlock_apbPort_prdata),	// src/main/scala/dtu/DtuSubsystem.scala:86:24
     .io_targets_2_psel    (_apbMux_io_targets_2_psel),
     .io_targets_2_penable (_apbMux_io_targets_2_penable),
     .io_targets_2_pwrite  (_apbMux_io_targets_2_pwrite),
     .io_targets_2_pwdata  (_apbMux_io_targets_2_pwdata),
-    .io_targets_2_pready  (_sysCtrl_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:79:23
-    .io_targets_2_prdata  (_sysCtrl_apbPort_prdata)	// src/main/scala/dtu/DtuSubsystem.scala:79:23
+    .io_targets_2_pready  (_sysCtrl_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:75:23
+    .io_targets_2_prdata  (_sysCtrl_apbPort_prdata)	// src/main/scala/dtu/DtuSubsystem.scala:75:23
   );
   DataMemMux dmemMux (	// src/main/scala/dtu/DataMemMux.scala:116:25
     .clock               (clock),
     .reset               (reset),
-    .io_master_rdAddr    (_leros_dmemIO_rdAddr),	// src/main/scala/dtu/DtuSubsystem.scala:83:21
+    .io_master_rdAddr    (_leros_dmemIO_rdAddr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
     .io_master_rdData    (_dmemMux_io_master_rdData),
-    .io_master_wrAddr    (_leros_dmemIO_wrAddr),	// src/main/scala/dtu/DtuSubsystem.scala:83:21
-    .io_master_wrData    (_leros_dmemIO_wrData),	// src/main/scala/dtu/DtuSubsystem.scala:83:21
-    .io_master_wr        (_leros_dmemIO_wr),	// src/main/scala/dtu/DtuSubsystem.scala:83:21
-    .io_master_wrMask    (_leros_dmemIO_wrMask),	// src/main/scala/dtu/DtuSubsystem.scala:83:21
+    .io_master_wrAddr    (_leros_dmemIO_wrAddr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+    .io_master_wrData    (_leros_dmemIO_wrData),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+    .io_master_wr        (_leros_dmemIO_wr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+    .io_master_wrMask    (_leros_dmemIO_wrMask),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
     .io_targets_0_rdAddr (_dmemMux_io_targets_0_rdAddr),
-    .io_targets_0_rdData (_dmem_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:92:20
+    .io_targets_0_rdData (_dmem_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:88:20
     .io_targets_0_wrAddr (_dmemMux_io_targets_0_wrAddr),
     .io_targets_0_wrData (_dmemMux_io_targets_0_wrData),
     .io_targets_0_wr     (_dmemMux_io_targets_0_wr),
     .io_targets_0_wrMask (_dmemMux_io_targets_0_wrMask),
     .io_targets_1_rdAddr (_dmemMux_io_targets_1_rdAddr),
-    .io_targets_1_rdData (_regBlock_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:90:24
+    .io_targets_1_rdData (_regBlock_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:86:24
     .io_targets_1_wrAddr (_dmemMux_io_targets_1_wrAddr),
     .io_targets_1_wrData (_dmemMux_io_targets_1_wrData),
     .io_targets_1_wr     (_dmemMux_io_targets_1_wr),
     .io_targets_2_rdAddr (_dmemMux_io_targets_2_rdAddr),
-    .io_targets_2_rdData (_gpio_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:91:20
+    .io_targets_2_rdData (_gpio_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:87:20
     .io_targets_2_wrAddr (_dmemMux_io_targets_2_wrAddr),
     .io_targets_2_wrData (_dmemMux_io_targets_2_wrData),
     .io_targets_2_wr     (_dmemMux_io_targets_2_wr),
     .io_targets_3_rdAddr (_dmemMux_io_targets_3_rdAddr),
-    .io_targets_3_rdData (_uart_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:93:20
+    .io_targets_3_rdData (_uart_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:89:20
     .io_targets_3_wrAddr (_dmemMux_io_targets_3_wrAddr),
     .io_targets_3_wrData (_dmemMux_io_targets_3_wrData),
     .io_targets_3_wr     (_dmemMux_io_targets_3_wr)
   );
-  assign io_irq = 1'h0;	// src/main/scala/dtu/DtuSubsystem.scala:71:7, :74:10
+  assign io_irq = 1'h0;	// src/main/scala/dtu/DtuSubsystem.scala:67:7, :70:10
   assign io_gpio_out =
-    {_gpio_gpioPort_out, 1'h0, _uart_uartPins_tx, 1'h0, _ponte_io_uart_tx};	// src/main/scala/dtu/DtuSubsystem.scala:71:7, :74:10, :80:21, :91:20, :93:20, :119:36
-  assign io_gpio_outputEnable = {_gpio_gpioPort_outputEnable, 4'hA};	// src/main/scala/dtu/DtuSubsystem.scala:71:7, :91:20, :125:54
+    {_gpio_gpioPort_out, 1'h0, _uart_uartPins_tx, 1'h0, _ponte_io_uart_tx};	// src/main/scala/dtu/DtuSubsystem.scala:67:7, :70:10, :76:21, :87:20, :89:20, :115:36
+  assign io_gpio_outputEnable = {_gpio_gpioPort_oe, 4'hA};	// src/main/scala/dtu/DtuSubsystem.scala:67:7, :87:20, :121:44
 endmodule
 
