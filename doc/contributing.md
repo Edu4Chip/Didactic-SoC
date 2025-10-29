@@ -8,9 +8,9 @@ When merging branches, branch should always sync itself to main branch before ac
 
 E.G. Require merge of main to branch before accepting any requests.
 
-## IPXACT 
+## IP-XACT 
 
-IPXACT models are preliminarily "okay". but as the work continues, new additions and improvements should regurarly be done. This also mandates need to run regeneration of the RTL, as any update in IPXACT, might cause change in generated results.
+IP-XACT models are preliminarily "okay". but as the work continues, new additions and improvements should regurarly be done. This also mandates need to run regeneration of the RTL, as any update in IP-XACT, might cause change in generated results.
 
 HW diagrams are XML files and git is not very great at handling those merges correctly. It should be taken care manually that XML is always in sane state, and that only fully correct versions are merged.
 

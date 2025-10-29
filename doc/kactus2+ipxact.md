@@ -15,3 +15,5 @@ You can also see the [kactus2dev](https://github.com/kactus2/kactus2dev/) reposi
 ## Kactus2 briefly
 
 IP-XACT packaged modules are placed and connected in hardware diagrams to create full SoCs. Structural RTL is generated based on these diagrams. Hierarchical designs can be further used to generate supportive items such as soc address headers, Renode platform files and documentation.
+
+Video guides how to use Kactus2 can be found at [youtube/Kactus2Tutorial](https://www.youtube.com/@Kactus2Tutorial). 

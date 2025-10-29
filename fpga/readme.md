@@ -76,7 +76,7 @@ While flow is automated, following special requirements should be noted.
 
 ### File type change
 
-For vivado compiles, kactus2 generated files need to be defined as systemverilog, despite their file extension of .v (verilog). This is due to IPXACT definition for port type, which is tehnically not according to verilog standard (most tools do support it).
+For vivado compiles, Kactus2 generated files need to be defined as systemverilog, despite their file extension of .v (verilog). This is due to IP-XACT definition for port type, which is tehnically not according to verilog standard (most tools do support it).
 
 Easiest way to do this in Vivado:
 

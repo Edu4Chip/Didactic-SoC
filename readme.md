@@ -40,7 +40,7 @@ doc: All documentation is gathered within this folder.
 
 fpga: Tool scripts, documentation and constraint files for FPGA platforms should be added to this folder.
 
-ipxact: XML files of IPXACT definitions are kept within this folder.
+ipxact: XML files of IP-XACT definitions are kept within this folder.
 
 sim: Simulation Makefiles and scripts are kept in this folder. Additionally, supporting files and/or scripts such as for waveform generation can be added here. 
 

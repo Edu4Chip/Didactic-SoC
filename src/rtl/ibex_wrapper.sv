@@ -2,14 +2,13 @@
 // File          : ibex_wrapper.v
 // Creation date : 21.03.2025
 // Creation time : 10:54:00
-// Description   : IBEX cpu top ipxact interface model. Core by lowRISC. IPXACT by TUNI.
+// Description   : IBEX cpu top ipxact interface model. Core by lowRISC. IP-XACT by TUNI.
 //                 
 //                 ibex commit sha: <changing while in development>
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
 // Plugin : Verilog generator 2.4
-// This file was generated based on IP-XACT component tuni.fi:lowRISC:ibex:1.1
-// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/lowRISC/ibex/1.1/ibex.1.1.xml
+// Interface was originally generated based on IP-XACT component tuni.fi:lowRISC:ibex:1.1
 //-----------------------------------------------------------------------------
 /*
   Contributors:

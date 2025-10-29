@@ -1,7 +1,6 @@
 //-----------------------------------------------------------------------------
 // File          : pmod_mux.v
-// This file was generated based on IP-XACT component tuni.fi:ip:pmod_mux:1.0
-// whose XML file is <repository>/ipxact/tuni.fi/ip/pmod_mux/1.0/pmod_mux.1.0.xml
+// This interface was originally generated based on IP-XACT component tuni.fi:ip:pmod_mux:1.0
 //-----------------------------------------------------------------------------
 /*
   Contributors:

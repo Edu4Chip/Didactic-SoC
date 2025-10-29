@@ -3,7 +3,7 @@
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
   Description:
-    * split OBI Bus to 4x APB
+    * split OBI Bus to 5x APB
 
 */
 
