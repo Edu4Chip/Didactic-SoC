@@ -6,13 +6,13 @@
 // Created by    : 
 // Tool : Kactus2 3.13.3 64-bit
 // Plugin : Verilog generator 2.4
-// This file was generated based on IP-XACT component tuni.fi:interconnect:peripherals_obi_to_apb:1.0
+// This interface was originally generated based on IP-XACT component tuni.fi:interconnect:peripherals_obi_to_apb:1.0
 //-----------------------------------------------------------------------------
 /*
   Contributors:
     * Matti Käyrä (matti.kayra@tuni.fi)
   Description:
-    * split OBI Bus to 3x APB
+    * split OBI Bus to 3x APB for staff peripherals
 
 */
 

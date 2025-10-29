@@ -195,9 +195,9 @@
 					<kactus2:portPosition busRef="clock" x="110" y="90"/>
 					<kactus2:portPosition busRef="obi_chip_top" x="110" y="200"/>
 					<kactus2:portPosition busRef="obi_core_dmem" x="-110" y="140"/>
-					<kactus2:portPosition busRef="obi_core_imem" x="-110" y="110"/>
+					<kactus2:portPosition busRef="obi_core_imem" x="-110" y="120"/>
 					<kactus2:portPosition busRef="obi_ctrl" x="-110" y="210"/>
-					<kactus2:portPosition busRef="obi_dmem" x="-110" y="90"/>
+					<kactus2:portPosition busRef="obi_dmem" x="-110" y="60"/>
 					<kactus2:portPosition busRef="obi_imem" x="-110" y="40"/>
 					<kactus2:portPosition busRef="obi_jtag_dm_init" x="-110" y="190"/>
 					<kactus2:portPosition busRef="obi_jtag_dm_target" x="-110" y="170"/>
@@ -855,14 +855,14 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_ibex_wrapper_imem_to_sysctrl_obi_xbar_obi_core_imem" kactus2:offPage="false">
 				<kactus2:position x="710" y="330"/>
-				<kactus2:position x="770" y="330"/>
-				<kactus2:position x="770" y="170"/>
-				<kactus2:position x="810" y="170"/>
+				<kactus2:position x="750" y="330"/>
+				<kactus2:position x="750" y="180"/>
+				<kactus2:position x="810" y="180"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_ibex_wrapper_dmem_to_sysctrl_obi_xbar_obi_core_dmem" kactus2:offPage="false">
 				<kactus2:position x="710" y="410"/>
-				<kactus2:position x="780" y="410"/>
-				<kactus2:position x="780" y="200"/>
+				<kactus2:position x="760" y="410"/>
+				<kactus2:position x="760" y="200"/>
 				<kactus2:position x="810" y="200"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_imem_mem_to_sysctrl_obi_xbar_obi_imem" kactus2:offPage="false">
@@ -871,9 +871,9 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_dmem_mem_to_sysctrl_obi_xbar_obi_dmem" kactus2:offPage="false">
 				<kactus2:position x="710" y="210"/>
-				<kactus2:position x="730" y="210"/>
-				<kactus2:position x="730" y="150"/>
-				<kactus2:position x="810" y="150"/>
+				<kactus2:position x="740" y="210"/>
+				<kactus2:position x="740" y="120"/>
+				<kactus2:position x="810" y="120"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="sysctrl_obi_xbar_obi_chip_top_to_OBI" kactus2:offPage="false">
 				<kactus2:position x="1030" y="260"/>

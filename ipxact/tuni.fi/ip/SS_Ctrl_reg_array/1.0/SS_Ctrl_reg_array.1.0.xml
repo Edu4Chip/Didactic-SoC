@@ -111,7 +111,9 @@
 					</ipxact:portMaps>
 				</ipxact:abstractionType>
 			</ipxact:abstractionTypes>
-			<ipxact:target/>
+			<ipxact:target>
+				<ipxact:memoryMapRef memoryMapRef="sysctrl_ctrl_reg_array"/>
+			</ipxact:target>
 		</ipxact:busInterface>
 		<ipxact:busInterface>
 			<ipxact:name>icn_ss_ctrl</ipxact:name>

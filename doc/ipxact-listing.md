@@ -1,16 +1,14 @@
-# IPXACT
+# IP-XACT
 
-This repository contains various ipxact models. Models are created with Kactus2 Tool.
-
-Generally they relate to SoC-project of EDU4Chip but they are generic and reusable for any purposes.
+This repository contains various IP-XACT models. Models are created with Kactus2 Tool. Models relate to Didactic SoC chip of EDU4Chip project but they are generic and reusable for any purposes.
 
 Initial goal is to have minimal setup of definitions to be able to create simple SoC with Kactus2.
 
-IPXACT XML files within ipxact folder follow VLNV (vendor-library-name-version) folder hierarchy.
+IP-XACT XML files within ipxact folder follow VLNV (vendor-library-name-version) folder hierarchy.
 
 ## interfaces
 
-This is listing of IPXACT interfaces contained with this repository.
+This is listing of IP-XACT interfaces contained with this repository.
 
 | Name | Description | Notes |
 |-|-|-|
@@ -56,4 +54,4 @@ This repository includes source files and wrappers to integratable modules.
 
 ## Generated RTL
 
-IPXACT and Kactus2 combination can be used to generate structural RTL. These can be inspected to greater detail through Kactus2.
+IP-XACT and Kactus2 combination can be used to generate structural RTL. These can be inspected to greater detail through Kactus2.

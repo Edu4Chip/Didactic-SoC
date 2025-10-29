@@ -3,6 +3,7 @@
 # Baremetal controller SW flow makefile
 # Contributor(s):
 #   -Matti Käyrä (matti.kayra@tuni.fi)
+#   -Antti Nurmi
 ###
 
 TESTCASE ?= blink
