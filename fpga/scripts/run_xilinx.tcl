@@ -9,9 +9,12 @@ set CPUS [exec getconf _NPROCESSORS_ONLN]
 if { ![info exists CPUS] } {
   set CPUS 4
 }
-#
+
 set PROJECT $::env(PROJECT)
 set BUILD_DIR $::env(BUILD_DIR)
+set FPGADIR=$(PWD)
+echo $FPGADIR
+exit 0
 
 if { $PROJECT eq "z1" } {
   set XILINX_PART xc7z020clg400-1
@@ -27,7 +30,7 @@ if { $PROJECT eq "z1" } {
 
 set DIR [exec pwd]
 
-create_project didactic-$PROJECT ../build/fpga/$PROJECT -force -part $XILINX_PART
+create_project didactic-$PROJECT $BUILD_DIR/$PROJECT -force -part $XILINX_PART
 
 # add include paths of RTL
 set COMMON_CELLS_DIR [exec bender path common_cells]
@@ -106,9 +109,9 @@ wait_on_run impl_1
 open_run impl_1
 
 # Generate reports
-exec mkdir -p $BUILD_DIR/fpga/logs/
+exec mkdir -p $BUILD_DIR/logs/
 
-check_timing                                                          -file $BUILD_DIR/fpga/logs/$PROJECT.check_timing.rpt
-report_timing -max_paths 50 -nworst 50 -delay_type max -sort_by slack -file $BUILD_DIR/fpga/logs/$PROJECT.timing_WORST_50.rpt
-report_timing -nworst 1 -delay_type max -sort_by group                -file $BUILD_DIR/fpga/logs/$PROJECT.timing.rpt
-report_utilization -hierarchical                                      -file $BUILD_DIR/fpga/logs/$PROJECT.utilization.rpt
+check_timing                                                          -file $BUILD_DIR/logs/$PROJECT.check_timing.rpt
+report_timing -max_paths 50 -nworst 50 -delay_type max -sort_by slack -file $BUILD_DIR/logs/$PROJECT.timing_WORST_50.rpt
+report_timing -nworst 1 -delay_type max -sort_by group                -file $BUILD_DIR/logs/$PROJECT.timing.rpt
+report_utilization -hierarchical                                      -file $BUILD_DIR/logs/$PROJECT.utilization.rpt

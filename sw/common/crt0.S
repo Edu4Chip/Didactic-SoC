@@ -33,7 +33,7 @@ changeStack:
   .section .vectors, "ax"
   .option norvc;
   .org 0x0
-  jal x0, default_handler
+  jal x0, reset_handler
   jal x0, default_handler
   jal x0, default_handler
   jal x0, default_handler
