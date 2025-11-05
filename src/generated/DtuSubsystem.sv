@@ -64,20 +64,24 @@ module SystemControl(	// src/main/scala/dtu/SystemControl.scala:7:7
                 ctrlPort_lerosUartLoopBack	// src/main/scala/dtu/SystemControl.scala:10:20
 );
 
-  reg  lerosResetReg;	// src/main/scala/dtu/SystemControl.scala:16:30
-  reg  lerosBootFromRamReg;	// src/main/scala/dtu/SystemControl.scala:17:36
-  reg  lerosUartLoopBackReg;	// src/main/scala/dtu/SystemControl.scala:18:37
-  wire apbPort_pready_0 = apbPort_psel & apbPort_penable;	// src/main/scala/dtu/SystemControl.scala:31:21
+  reg lerosResetReg;	// src/main/scala/dtu/SystemControl.scala:16:30
+  reg lerosBootFromRamReg;	// src/main/scala/dtu/SystemControl.scala:17:36
+  reg lerosUartLoopBackReg;	// src/main/scala/dtu/SystemControl.scala:18:37
+  reg ackReg;	// src/main/scala/dtu/SystemControl.scala:29:23
   always @(posedge clock) begin	// src/main/scala/dtu/SystemControl.scala:7:7
     if (reset) begin	// src/main/scala/dtu/SystemControl.scala:7:7
       lerosResetReg <= 1'h0;	// src/main/scala/dtu/SystemControl.scala:7:7, :16:30
       lerosBootFromRamReg <= 1'h0;	// src/main/scala/dtu/SystemControl.scala:7:7, :17:36
       lerosUartLoopBackReg <= 1'h0;	// src/main/scala/dtu/SystemControl.scala:7:7, :18:37
+      ackReg <= 1'h0;	// src/main/scala/dtu/SystemControl.scala:7:7, :29:23
     end
-    else if (apbPort_pready_0 & apbPort_pwrite) begin	// src/main/scala/dtu/SystemControl.scala:16:30, :31:{21,41}, :35:26, :36:21
-      lerosResetReg <= apbPort_pwdata[0];	// src/main/scala/dtu/SystemControl.scala:16:30, :36:38
-      lerosBootFromRamReg <= apbPort_pwdata[1];	// src/main/scala/dtu/SystemControl.scala:17:36, :37:44
-      lerosUartLoopBackReg <= apbPort_pwdata[2];	// src/main/scala/dtu/SystemControl.scala:18:37, :38:45
+    else begin	// src/main/scala/dtu/SystemControl.scala:7:7
+      if (apbPort_psel & apbPort_penable & apbPort_pwrite) begin	// src/main/scala/dtu/SystemControl.scala:39:40
+        lerosResetReg <= apbPort_pwdata[0];	// src/main/scala/dtu/SystemControl.scala:16:30, :41:36
+        lerosBootFromRamReg <= apbPort_pwdata[1];	// src/main/scala/dtu/SystemControl.scala:17:36, :42:42
+        lerosUartLoopBackReg <= apbPort_pwdata[2];	// src/main/scala/dtu/SystemControl.scala:18:37, :43:43
+      end
+      ackReg <= ~ackReg & (apbPort_psel | ackReg);	// src/main/scala/dtu/SystemControl.scala:29:23, :30:16, :31:12, :32:28, :33:12
     end
   end // always @(posedge)
   `ifdef ENABLE_INITIAL_REG_	// src/main/scala/dtu/SystemControl.scala:7:7
@@ -94,13 +98,14 @@ module SystemControl(	// src/main/scala/dtu/SystemControl.scala:7:7
         lerosResetReg = _RANDOM[/*Zero width*/ 1'b0][0];	// src/main/scala/dtu/SystemControl.scala:7:7, :16:30
         lerosBootFromRamReg = _RANDOM[/*Zero width*/ 1'b0][1];	// src/main/scala/dtu/SystemControl.scala:7:7, :16:30, :17:36
         lerosUartLoopBackReg = _RANDOM[/*Zero width*/ 1'b0][2];	// src/main/scala/dtu/SystemControl.scala:7:7, :16:30, :18:37
+        ackReg = _RANDOM[/*Zero width*/ 1'b0][3];	// src/main/scala/dtu/SystemControl.scala:7:7, :16:30, :29:23
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/SystemControl.scala:7:7
       `FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/SystemControl.scala:7:7
     `endif // FIRRTL_AFTER_INITIAL
   `endif // ENABLE_INITIAL_REG_
-  assign apbPort_pready = apbPort_pready_0;	// src/main/scala/dtu/SystemControl.scala:7:7, :31:21
+  assign apbPort_pready = ackReg;	// src/main/scala/dtu/SystemControl.scala:7:7, :29:23
   assign apbPort_prdata =
     {29'h0, lerosUartLoopBackReg, lerosBootFromRamReg, lerosResetReg};	// src/main/scala/dtu/SystemControl.scala:7:7, :16:30, :17:36, :18:37, :23:18
   assign ctrlPort_lerosReset = lerosResetReg;	// src/main/scala/dtu/SystemControl.scala:7:7, :16:30
@@ -996,7 +1001,6 @@ endmodule
 module DidacticSram(	// src/main/scala/mem/DidacticSpSram.scala:18:7
   input         clock,	// src/main/scala/mem/DidacticSpSram.scala:18:7
                 reset,	// src/main/scala/mem/DidacticSpSram.scala:18:7
-                io_req,	// src/main/scala/mem/DidacticSpSram.scala:21:14
   input  [7:0]  io_wordAddr,	// src/main/scala/mem/DidacticSpSram.scala:21:14
   input         io_write,	// src/main/scala/mem/DidacticSpSram.scala:21:14
   input  [31:0] io_wrData,	// src/main/scala/mem/DidacticSpSram.scala:21:14
@@ -1011,7 +1015,7 @@ module DidacticSram(	// src/main/scala/mem/DidacticSpSram.scala:18:7
   ) mem (	// src/main/scala/mem/DidacticSpSram.scala:30:41
     .clk_i   (clock),
     .rst_ni  (~reset),	// src/main/scala/mem/DidacticSpSram.scala:35:20
-    .req_i   (io_req),
+    .req_i   (1'h1),	// src/main/scala/mem/DidacticSpSram.scala:21:14, :30:41
     .we_i    (io_write),
     .addr_i  (io_wordAddr),
     .wdata_i (io_wrData),
@@ -1020,59 +1024,63 @@ module DidacticSram(	// src/main/scala/mem/DidacticSpSram.scala:18:7
   );
 endmodule
 
-module InstructionMemory(	// src/main/scala/dtu/InstructionMemory.scala:30:7
-  input         clock,	// src/main/scala/dtu/InstructionMemory.scala:30:7
-                reset,	// src/main/scala/dtu/InstructionMemory.scala:30:7
-  input  [9:0]  instrPort_addr,	// src/main/scala/dtu/InstructionMemory.scala:36:21
-  output [15:0] instrPort_instr,	// src/main/scala/dtu/InstructionMemory.scala:36:21
-  input  [9:0]  apbPort_paddr,	// src/main/scala/dtu/InstructionMemory.scala:37:19
-  input         apbPort_psel,	// src/main/scala/dtu/InstructionMemory.scala:37:19
-                apbPort_penable,	// src/main/scala/dtu/InstructionMemory.scala:37:19
-                apbPort_pwrite,	// src/main/scala/dtu/InstructionMemory.scala:37:19
-  input  [3:0]  apbPort_pstrb,	// src/main/scala/dtu/InstructionMemory.scala:37:19
-  input  [31:0] apbPort_pwdata,	// src/main/scala/dtu/InstructionMemory.scala:37:19
-  output        apbPort_pready,	// src/main/scala/dtu/InstructionMemory.scala:37:19
-  output [31:0] apbPort_prdata	// src/main/scala/dtu/InstructionMemory.scala:37:19
+module InstructionMemory(	// src/main/scala/dtu/InstructionMemory.scala:29:7
+  input         clock,	// src/main/scala/dtu/InstructionMemory.scala:29:7
+                reset,	// src/main/scala/dtu/InstructionMemory.scala:29:7
+  input  [9:0]  instrPort_addr,	// src/main/scala/dtu/InstructionMemory.scala:35:21
+  output [15:0] instrPort_instr,	// src/main/scala/dtu/InstructionMemory.scala:35:21
+  input  [9:0]  apbPort_paddr,	// src/main/scala/dtu/InstructionMemory.scala:36:19
+  input         apbPort_psel,	// src/main/scala/dtu/InstructionMemory.scala:36:19
+                apbPort_penable,	// src/main/scala/dtu/InstructionMemory.scala:36:19
+                apbPort_pwrite,	// src/main/scala/dtu/InstructionMemory.scala:36:19
+  input  [3:0]  apbPort_pstrb,	// src/main/scala/dtu/InstructionMemory.scala:36:19
+  input  [31:0] apbPort_pwdata,	// src/main/scala/dtu/InstructionMemory.scala:36:19
+  output        apbPort_pready,	// src/main/scala/dtu/InstructionMemory.scala:36:19
+  output [31:0] apbPort_prdata	// src/main/scala/dtu/InstructionMemory.scala:36:19
 );
 
   wire [31:0] _m_io_rdData;	// src/main/scala/mem/DidacticSpSram.scala:8:19
-  reg         instrPort_instr_REG;	// src/main/scala/dtu/InstructionMemory.scala:70:35
-  always @(posedge clock)	// src/main/scala/dtu/InstructionMemory.scala:30:7
-    instrPort_instr_REG <= instrPort_addr[0];	// src/main/scala/dtu/InstructionMemory.scala:70:{35,50}
-  `ifdef ENABLE_INITIAL_REG_	// src/main/scala/dtu/InstructionMemory.scala:30:7
-    `ifdef FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/InstructionMemory.scala:30:7
-      `FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/InstructionMemory.scala:30:7
+  reg         ackReg;	// src/main/scala/dtu/InstructionMemory.scala:47:23
+  reg         instrPort_instr_REG;	// src/main/scala/dtu/InstructionMemory.scala:67:12
+  wire        _GEN = apbPort_psel & apbPort_penable & apbPort_pwrite;	// src/main/scala/dtu/InstructionMemory.scala:72:40
+  always @(posedge clock) begin	// src/main/scala/dtu/InstructionMemory.scala:29:7
+    if (reset)	// src/main/scala/dtu/InstructionMemory.scala:29:7
+      ackReg <= 1'h0;	// src/main/scala/dtu/InstructionMemory.scala:29:7, :47:23
+    else	// src/main/scala/dtu/InstructionMemory.scala:29:7
+      ackReg <= ~ackReg & (apbPort_psel | ackReg);	// src/main/scala/dtu/InstructionMemory.scala:47:23, :48:16, :49:12, :50:28, :51:12
+    instrPort_instr_REG <= instrPort_addr[0];	// src/main/scala/dtu/InstructionMemory.scala:67:{12,27}
+  end // always @(posedge)
+  `ifdef ENABLE_INITIAL_REG_	// src/main/scala/dtu/InstructionMemory.scala:29:7
+    `ifdef FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/InstructionMemory.scala:29:7
+      `FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/InstructionMemory.scala:29:7
     `endif // FIRRTL_BEFORE_INITIAL
-    logic [31:0] _RANDOM[0:0];	// src/main/scala/dtu/InstructionMemory.scala:30:7
-    initial begin	// src/main/scala/dtu/InstructionMemory.scala:30:7
-      `ifdef INIT_RANDOM_PROLOG_	// src/main/scala/dtu/InstructionMemory.scala:30:7
-        `INIT_RANDOM_PROLOG_	// src/main/scala/dtu/InstructionMemory.scala:30:7
+    logic [31:0] _RANDOM[0:0];	// src/main/scala/dtu/InstructionMemory.scala:29:7
+    initial begin	// src/main/scala/dtu/InstructionMemory.scala:29:7
+      `ifdef INIT_RANDOM_PROLOG_	// src/main/scala/dtu/InstructionMemory.scala:29:7
+        `INIT_RANDOM_PROLOG_	// src/main/scala/dtu/InstructionMemory.scala:29:7
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// src/main/scala/dtu/InstructionMemory.scala:30:7
-        _RANDOM[/*Zero width*/ 1'b0] = `RANDOM;	// src/main/scala/dtu/InstructionMemory.scala:30:7
-        instrPort_instr_REG = _RANDOM[/*Zero width*/ 1'b0][0];	// src/main/scala/dtu/InstructionMemory.scala:30:7, :70:35
+      `ifdef RANDOMIZE_REG_INIT	// src/main/scala/dtu/InstructionMemory.scala:29:7
+        _RANDOM[/*Zero width*/ 1'b0] = `RANDOM;	// src/main/scala/dtu/InstructionMemory.scala:29:7
+        ackReg = _RANDOM[/*Zero width*/ 1'b0][0];	// src/main/scala/dtu/InstructionMemory.scala:29:7, :47:23
+        instrPort_instr_REG = _RANDOM[/*Zero width*/ 1'b0][1];	// src/main/scala/dtu/InstructionMemory.scala:29:7, :47:23, :67:12
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/InstructionMemory.scala:30:7
-      `FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/InstructionMemory.scala:30:7
+    `ifdef FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/InstructionMemory.scala:29:7
+      `FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/InstructionMemory.scala:29:7
     `endif // FIRRTL_AFTER_INITIAL
   `endif // ENABLE_INITIAL_REG_
   DidacticSram m (	// src/main/scala/mem/DidacticSpSram.scala:8:19
     .clock       (clock),
     .reset       (reset),
-    .io_req      (~apbPort_psel | ~apbPort_pwrite | apbPort_penable & apbPort_pwrite),	// src/main/scala/dtu/InstructionMemory.scala:51:22, :55:{10,27}, :57:32, src/main/scala/mem/DidacticSpSram.scala:46:12
-    .io_wordAddr
-      (apbPort_psel
-         ? (apbPort_pwrite ? apbPort_paddr[9:2] : apbPort_paddr[9:2])
-         : instrPort_addr[8:1]),	// src/main/scala/dtu/InstructionMemory.scala:51:22, :55:27, :56:47, :57:51, :59:22, :67:39, src/main/scala/mem/DidacticSpSram.scala:48:17
-    .io_write    (apbPort_psel & apbPort_pwrite),	// src/main/scala/dtu/InstructionMemory.scala:51:22, :55:27, src/main/scala/mem/DidacticSpSram.scala:47:14
+    .io_wordAddr (_GEN | apbPort_psel ? apbPort_paddr[9:2] : instrPort_addr[8:1]),	// src/main/scala/dtu/InstructionMemory.scala:56:28, :58:18, :59:19, :72:{40,59}, src/main/scala/mem/DidacticSpSram.scala:48:17, :54:17
+    .io_write    (_GEN),	// src/main/scala/dtu/InstructionMemory.scala:72:40
     .io_wrData   (apbPort_pwdata),
     .io_rdData   (_m_io_rdData),
     .io_mask     (apbPort_pstrb)
   );
-  assign instrPort_instr = instrPort_instr_REG ? _m_io_rdData[31:16] : _m_io_rdData[15:0];	// src/main/scala/dtu/InstructionMemory.scala:30:7, :68:19, :69:19, :70:{27,35}, src/main/scala/mem/DidacticSpSram.scala:8:19
-  assign apbPort_pready = apbPort_psel & apbPort_penable;	// src/main/scala/dtu/InstructionMemory.scala:30:7, :45:18, :51:22, :53:20
-  assign apbPort_prdata = _m_io_rdData;	// src/main/scala/dtu/InstructionMemory.scala:30:7, src/main/scala/mem/DidacticSpSram.scala:8:19
+  assign instrPort_instr = instrPort_instr_REG ? _m_io_rdData[31:16] : _m_io_rdData[15:0];	// src/main/scala/dtu/InstructionMemory.scala:29:7, :66:25, :67:12, :68:11, :69:11, src/main/scala/mem/DidacticSpSram.scala:8:19
+  assign apbPort_pready = ackReg;	// src/main/scala/dtu/InstructionMemory.scala:29:7, :47:23
+  assign apbPort_prdata = _m_io_rdData;	// src/main/scala/dtu/InstructionMemory.scala:29:7, src/main/scala/mem/DidacticSpSram.scala:8:19
 endmodule
 
 module InstrMem(	// leros/src/main/scala/leros/InstrMem.scala:19:7
@@ -1204,35 +1212,36 @@ module RegBlock(	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
   reg  [31:0] lerosToIbexRegs_1;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32
   reg  [31:0] lerosToIbexRegs_2;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32
   reg  [31:0] lerosToIbexRegs_3;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32
-  reg  [1:0]  apbPort_prdata_REG;	// src/main/scala/dtu/peripherals/RegBlock.scala:41:44
-  reg  [31:0] casez_tmp;	// src/main/scala/dtu/peripherals/RegBlock.scala:41:18
-  always_comb begin	// src/main/scala/dtu/peripherals/RegBlock.scala:41:18
-    casez (apbPort_prdata_REG)	// src/main/scala/dtu/peripherals/RegBlock.scala:41:{18,44}
+  reg         apbAckReg;	// src/main/scala/dtu/peripherals/RegBlock.scala:38:26
+  reg  [31:0] apbPort_prdata_REG;	// src/main/scala/dtu/peripherals/RegBlock.scala:47:28
+  reg  [31:0] casez_tmp;	// src/main/scala/dtu/peripherals/RegBlock.scala:47:28
+  always_comb begin	// src/main/scala/dtu/peripherals/RegBlock.scala:47:28
+    casez (apbPort_paddr[3:2])	// src/main/scala/dtu/peripherals/RegBlock.scala:46:31, :47:28
       2'b00:
-        casez_tmp = lerosToIbexRegs_0;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :41:18
+        casez_tmp = lerosToIbexRegs_0;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :47:28
       2'b01:
-        casez_tmp = lerosToIbexRegs_1;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :41:18
+        casez_tmp = lerosToIbexRegs_1;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :47:28
       2'b10:
-        casez_tmp = lerosToIbexRegs_2;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :41:18
+        casez_tmp = lerosToIbexRegs_2;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :47:28
       default:
-        casez_tmp = lerosToIbexRegs_3;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :41:18
-    endcase	// src/main/scala/dtu/peripherals/RegBlock.scala:41:{18,44}
+        casez_tmp = lerosToIbexRegs_3;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :47:28
+    endcase	// src/main/scala/dtu/peripherals/RegBlock.scala:46:31, :47:28
   end // always_comb
-  wire        apbPort_pready_0 = apbPort_psel & apbPort_penable;	// src/main/scala/dtu/peripherals/RegBlock.scala:43:21
-  reg  [1:0]  dmemPort_rdData_REG;	// src/main/scala/dtu/peripherals/RegBlock.scala:52:45
-  reg  [31:0] casez_tmp_0;	// src/main/scala/dtu/peripherals/RegBlock.scala:52:19
-  always_comb begin	// src/main/scala/dtu/peripherals/RegBlock.scala:52:19
-    casez (dmemPort_rdData_REG)	// src/main/scala/dtu/peripherals/RegBlock.scala:52:{19,45}
+  reg  [1:0]  dmemPort_rdData_REG;	// src/main/scala/dtu/peripherals/RegBlock.scala:54:45
+  reg  [31:0] casez_tmp_0;	// src/main/scala/dtu/peripherals/RegBlock.scala:54:19
+  always_comb begin	// src/main/scala/dtu/peripherals/RegBlock.scala:54:19
+    casez (dmemPort_rdData_REG)	// src/main/scala/dtu/peripherals/RegBlock.scala:54:{19,45}
       2'b00:
-        casez_tmp_0 = ibexToLerosRegs_0;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :52:19
+        casez_tmp_0 = ibexToLerosRegs_0;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :54:19
       2'b01:
-        casez_tmp_0 = ibexToLerosRegs_1;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :52:19
+        casez_tmp_0 = ibexToLerosRegs_1;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :54:19
       2'b10:
-        casez_tmp_0 = ibexToLerosRegs_2;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :52:19
+        casez_tmp_0 = ibexToLerosRegs_2;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :54:19
       default:
-        casez_tmp_0 = ibexToLerosRegs_3;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :52:19
-    endcase	// src/main/scala/dtu/peripherals/RegBlock.scala:52:{19,45}
+        casez_tmp_0 = ibexToLerosRegs_3;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :54:19
+    endcase	// src/main/scala/dtu/peripherals/RegBlock.scala:54:{19,45}
   end // always_comb
+  wire        _GEN = apbPort_psel & apbPort_penable & apbPort_pwrite;	// src/main/scala/dtu/peripherals/RegBlock.scala:49:40
   always @(posedge clock) begin	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
     if (reset) begin	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
       ibexToLerosRegs_0 <= 32'h0;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:{32,40}
@@ -1243,39 +1252,41 @@ module RegBlock(	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
       lerosToIbexRegs_1 <= 32'h0;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:40, :35:32
       lerosToIbexRegs_2 <= 32'h0;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:40, :35:32
       lerosToIbexRegs_3 <= 32'h0;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:40, :35:32
+      apbAckReg <= 1'h0;	// src/main/scala/dtu/peripherals/RegBlock.scala:38:26
     end
     else begin	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
-      if (apbPort_pready_0 & apbPort_pwrite & apbPort_paddr[3:2] == 2'h0)	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :40:31, :43:{21,41}, :46:26, :47:33
+      if (_GEN & apbPort_paddr[3:2] == 2'h0)	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :46:31, :49:{40,59}, :50:31
         ibexToLerosRegs_0 <= apbPort_pwdata;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32
-      if (apbPort_pready_0 & apbPort_pwrite & apbPort_paddr[3:2] == 2'h1)	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :40:31, :43:{21,41}, :46:26, :47:33
+      if (_GEN & apbPort_paddr[3:2] == 2'h1)	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :46:31, :49:{40,59}, :50:31
         ibexToLerosRegs_1 <= apbPort_pwdata;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32
-      if (apbPort_pready_0 & apbPort_pwrite & apbPort_paddr[3:2] == 2'h2)	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :40:31, :43:{21,41}, :46:26, :47:33
+      if (_GEN & apbPort_paddr[3:2] == 2'h2)	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :46:31, :49:{40,59}, :50:31
         ibexToLerosRegs_2 <= apbPort_pwdata;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32
-      if (apbPort_pready_0 & apbPort_pwrite & (&(apbPort_paddr[3:2])))	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :40:31, :43:{21,41}, :46:26, :47:33
+      if (_GEN & (&(apbPort_paddr[3:2])))	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32, :46:31, :49:{40,59}, :50:31
         ibexToLerosRegs_3 <= apbPort_pwdata;	// src/main/scala/dtu/peripherals/RegBlock.scala:34:32
-      if (dmemPort_wr & dmemPort_wrAddr == 2'h0)	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :47:33, :53:21, :54:38
+      if (dmemPort_wr & dmemPort_wrAddr == 2'h0)	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :50:31, :55:21, :56:38
         lerosToIbexRegs_0 <= dmemPort_wrData;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32
-      if (dmemPort_wr & dmemPort_wrAddr == 2'h1)	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :47:33, :53:21, :54:38
+      if (dmemPort_wr & dmemPort_wrAddr == 2'h1)	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :50:31, :55:21, :56:38
         lerosToIbexRegs_1 <= dmemPort_wrData;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32
-      if (dmemPort_wr & dmemPort_wrAddr == 2'h2)	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :47:33, :53:21, :54:38
+      if (dmemPort_wr & dmemPort_wrAddr == 2'h2)	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :50:31, :55:21, :56:38
         lerosToIbexRegs_2 <= dmemPort_wrData;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32
-      if (dmemPort_wr & (&dmemPort_wrAddr))	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :53:21, :54:38
+      if (dmemPort_wr & (&dmemPort_wrAddr))	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32, :55:21, :56:38
         lerosToIbexRegs_3 <= dmemPort_wrData;	// src/main/scala/dtu/peripherals/RegBlock.scala:35:32
+      apbAckReg <= ~apbAckReg & (apbPort_psel | apbAckReg);	// src/main/scala/dtu/peripherals/RegBlock.scala:38:26, :39:19, :40:15, :41:28, :42:15
     end
-    apbPort_prdata_REG <= apbPort_paddr[3:2];	// src/main/scala/dtu/peripherals/RegBlock.scala:40:31, :41:44
-    dmemPort_rdData_REG <= dmemPort_rdAddr;	// src/main/scala/dtu/peripherals/RegBlock.scala:52:45
+    apbPort_prdata_REG <= casez_tmp;	// src/main/scala/dtu/peripherals/RegBlock.scala:47:28
+    dmemPort_rdData_REG <= dmemPort_rdAddr;	// src/main/scala/dtu/peripherals/RegBlock.scala:54:45
   end // always @(posedge)
   `ifdef ENABLE_INITIAL_REG_	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
     `ifdef FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
       `FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
     `endif // FIRRTL_BEFORE_INITIAL
-    logic [31:0] _RANDOM[0:8];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
+    logic [31:0] _RANDOM[0:9];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
     initial begin	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
       `ifdef INIT_RANDOM_PROLOG_	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
         `INIT_RANDOM_PROLOG_	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
       `endif // INIT_RANDOM_PROLOG_
       `ifdef RANDOMIZE_REG_INIT	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
-        for (logic [3:0] i = 4'h0; i < 4'h9; i += 4'h1) begin
+        for (logic [3:0] i = 4'h0; i < 4'hA; i += 4'h1) begin
           _RANDOM[i] = `RANDOM;	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
         end	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
         ibexToLerosRegs_0 = _RANDOM[4'h0];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :34:32
@@ -1286,17 +1297,18 @@ module RegBlock(	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
         lerosToIbexRegs_1 = _RANDOM[4'h5];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :35:32
         lerosToIbexRegs_2 = _RANDOM[4'h6];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :35:32
         lerosToIbexRegs_3 = _RANDOM[4'h7];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :35:32
-        apbPort_prdata_REG = _RANDOM[4'h8][1:0];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :41:44
-        dmemPort_rdData_REG = _RANDOM[4'h8][3:2];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :41:44, :52:45
+        apbAckReg = _RANDOM[4'h8][0];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :38:26
+        apbPort_prdata_REG = {_RANDOM[4'h8][31:1], _RANDOM[4'h9][0]};	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :38:26, :47:28
+        dmemPort_rdData_REG = _RANDOM[4'h9][2:1];	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :47:28, :54:45
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
       `FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7
     `endif // FIRRTL_AFTER_INITIAL
   `endif // ENABLE_INITIAL_REG_
-  assign apbPort_pready = apbPort_pready_0;	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :43:21
-  assign apbPort_prdata = casez_tmp;	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :41:18
-  assign dmemPort_rdData = casez_tmp_0;	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :52:19
+  assign apbPort_pready = apbAckReg;	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :38:26
+  assign apbPort_prdata = apbPort_prdata_REG;	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :47:28
+  assign dmemPort_rdData = casez_tmp_0;	// src/main/scala/dtu/peripherals/RegBlock.scala:22:7, :54:19
 endmodule
 
 module Gpio(	// src/main/scala/dtu/peripherals/Gpio.scala:17:7
@@ -1374,7 +1386,6 @@ module DataMemory(	// src/main/scala/dtu/DataMemory.scala:16:7
   DidacticSram m (	// src/main/scala/mem/DidacticSpSram.scala:8:19
     .clock       (clock),
     .reset       (reset),
-    .io_req      (1'h1),	// src/main/scala/mem/DidacticSpSram.scala:46:12
     .io_wordAddr (dmemPort_wr ? dmemPort_wrAddr : dmemPort_rdAddr),	// src/main/scala/dtu/DataMemory.scala:26:21, src/main/scala/mem/DidacticSpSram.scala:48:17, :54:17
     .io_write    (dmemPort_wr),
     .io_wrData   (dmemPort_wrData),
@@ -1470,6 +1481,7 @@ module UARTRx(	// leros/src/main/scala/leros/uart/UARTRx.scala:102:7
   input        clock,	// leros/src/main/scala/leros/uart/UARTRx.scala:102:7
                reset,	// leros/src/main/scala/leros/uart/UARTRx.scala:102:7
                io_rxd,	// leros/src/main/scala/leros/uart/UARTRx.scala:103:14
+               io_out_ready,	// leros/src/main/scala/leros/uart/UARTRx.scala:103:14
   output       io_out_valid,	// leros/src/main/scala/leros/uart/UARTRx.scala:103:14
   output [7:0] io_out_bits	// leros/src/main/scala/leros/uart/UARTRx.scala:103:14
 );
@@ -1491,159 +1503,169 @@ module UARTRx(	// leros/src/main/scala/leros/uart/UARTRx.scala:102:7
     .io_in_ready  (_buf_io_in_ready),
     .io_in_valid  (_rx_io_channel_valid),	// leros/src/main/scala/leros/uart/UARTRx.scala:107:18
     .io_in_bits   (_rx_io_channel_bits),	// leros/src/main/scala/leros/uart/UARTRx.scala:107:18
-    .io_out_ready (1'h0),	// leros/src/main/scala/leros/uart/UARTRx.scala:103:14, :108:19
+    .io_out_ready (io_out_ready),
     .io_out_valid (io_out_valid),
     .io_out_bits  (io_out_bits)
   );
 endmodule
 
-module Uart(	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-  input         clock,	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-                reset,	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-  output        uartPins_tx,	// src/main/scala/dtu/peripherals/Uart.scala:26:20
-  input         uartPins_rx,	// src/main/scala/dtu/peripherals/Uart.scala:26:20
-                dmemPort_rdAddr,	// src/main/scala/dtu/peripherals/Uart.scala:27:20
-  output [31:0] dmemPort_rdData,	// src/main/scala/dtu/peripherals/Uart.scala:27:20
-  input         dmemPort_wrAddr,	// src/main/scala/dtu/peripherals/Uart.scala:27:20
-  input  [31:0] dmemPort_wrData,	// src/main/scala/dtu/peripherals/Uart.scala:27:20
-  input         dmemPort_wr	// src/main/scala/dtu/peripherals/Uart.scala:27:20
+module Uart(	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+  input         clock,	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+                reset,	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+  output        uartPins_tx,	// src/main/scala/dtu/peripherals/Uart.scala:27:20
+  input         uartPins_rx,	// src/main/scala/dtu/peripherals/Uart.scala:27:20
+                dmemPort_rdAddr,	// src/main/scala/dtu/peripherals/Uart.scala:28:20
+  output [31:0] dmemPort_rdData,	// src/main/scala/dtu/peripherals/Uart.scala:28:20
+  input         dmemPort_wrAddr,	// src/main/scala/dtu/peripherals/Uart.scala:28:20
+  input  [31:0] dmemPort_wrData,	// src/main/scala/dtu/peripherals/Uart.scala:28:20
+  input         dmemPort_wr	// src/main/scala/dtu/peripherals/Uart.scala:28:20
 );
 
-  wire       _rx_io_out_valid;	// src/main/scala/dtu/peripherals/Uart.scala:30:18
-  wire [7:0] _rx_io_out_bits;	// src/main/scala/dtu/peripherals/Uart.scala:30:18
-  wire       _tx_io_channel_ready;	// src/main/scala/dtu/peripherals/Uart.scala:29:18
-  reg        REG;	// src/main/scala/dtu/peripherals/Uart.scala:39:15
-  always @(posedge clock)	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-    REG <= ~dmemPort_rdAddr;	// src/main/scala/dtu/peripherals/Uart.scala:39:{15,32}
-  `ifdef ENABLE_INITIAL_REG_	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-    `ifdef FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-      `FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/peripherals/Uart.scala:24:7
+  wire       _rx_io_out_valid;	// src/main/scala/dtu/peripherals/Uart.scala:31:18
+  wire [7:0] _rx_io_out_bits;	// src/main/scala/dtu/peripherals/Uart.scala:31:18
+  wire       _tx_io_channel_ready;	// src/main/scala/dtu/peripherals/Uart.scala:30:18
+  reg        REG;	// src/main/scala/dtu/peripherals/Uart.scala:40:15
+  always @(posedge clock)	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+    REG <= ~dmemPort_rdAddr;	// src/main/scala/dtu/peripherals/Uart.scala:40:{15,32}
+  `ifdef ENABLE_INITIAL_REG_	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+    `ifdef FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+      `FIRRTL_BEFORE_INITIAL	// src/main/scala/dtu/peripherals/Uart.scala:25:7
     `endif // FIRRTL_BEFORE_INITIAL
-    logic [31:0] _RANDOM[0:0];	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-    initial begin	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-      `ifdef INIT_RANDOM_PROLOG_	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-        `INIT_RANDOM_PROLOG_	// src/main/scala/dtu/peripherals/Uart.scala:24:7
+    logic [31:0] _RANDOM[0:0];	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+    initial begin	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+      `ifdef INIT_RANDOM_PROLOG_	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+        `INIT_RANDOM_PROLOG_	// src/main/scala/dtu/peripherals/Uart.scala:25:7
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-        _RANDOM[/*Zero width*/ 1'b0] = `RANDOM;	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-        REG = _RANDOM[/*Zero width*/ 1'b0][0];	// src/main/scala/dtu/peripherals/Uart.scala:24:7, :39:15
+      `ifdef RANDOMIZE_REG_INIT	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+        _RANDOM[/*Zero width*/ 1'b0] = `RANDOM;	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+        REG = _RANDOM[/*Zero width*/ 1'b0][0];	// src/main/scala/dtu/peripherals/Uart.scala:25:7, :40:15
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/peripherals/Uart.scala:24:7
-      `FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/peripherals/Uart.scala:24:7
+    `ifdef FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/peripherals/Uart.scala:25:7
+      `FIRRTL_AFTER_INITIAL	// src/main/scala/dtu/peripherals/Uart.scala:25:7
     `endif // FIRRTL_AFTER_INITIAL
   `endif // ENABLE_INITIAL_REG_
-  BufferedTx tx (	// src/main/scala/dtu/peripherals/Uart.scala:29:18
+  BufferedTx tx (	// src/main/scala/dtu/peripherals/Uart.scala:30:18
     .clock            (clock),
     .reset            (reset),
     .io_txd           (uartPins_tx),
     .io_channel_ready (_tx_io_channel_ready),
-    .io_channel_valid (dmemPort_wr & dmemPort_wrAddr),	// src/main/scala/dtu/peripherals/Uart.scala:32:23, :45:21, :46:29
-    .io_channel_bits  (dmemPort_wrData[7:0])	// src/main/scala/dtu/peripherals/Uart.scala:33:22
+    .io_channel_valid (dmemPort_wr & dmemPort_wrAddr),	// src/main/scala/dtu/peripherals/Uart.scala:33:23, :46:21, :47:29
+    .io_channel_bits  (dmemPort_wrData[7:0])	// src/main/scala/dtu/peripherals/Uart.scala:34:22
   );
-  UARTRx rx (	// src/main/scala/dtu/peripherals/Uart.scala:30:18
+  UARTRx rx (	// src/main/scala/dtu/peripherals/Uart.scala:31:18
     .clock        (clock),
     .reset        (reset),
     .io_rxd       (uartPins_rx),
+    .io_out_ready (dmemPort_wr & ~dmemPort_wrAddr),	// src/main/scala/dtu/peripherals/Uart.scala:37:19, :46:21, :47:29
     .io_out_valid (_rx_io_out_valid),
     .io_out_bits  (_rx_io_out_bits)
   );
   assign dmemPort_rdData =
-    REG ? {30'h0, _tx_io_channel_ready, _rx_io_out_valid} : {24'h0, _rx_io_out_bits};	// src/main/scala/dtu/peripherals/Uart.scala:24:7, :29:18, :30:18, :39:{15,42}, :40:21, :42:21
+    REG ? {30'h0, _tx_io_channel_ready, _rx_io_out_valid} : {24'h0, _rx_io_out_bits};	// src/main/scala/dtu/peripherals/Uart.scala:25:7, :30:18, :31:18, :40:{15,42}, :41:21, :43:21
 endmodule
 
-module ApbArbiter(	// src/main/scala/apb/ApbArbiter.scala:25:7
-  input         clock,	// src/main/scala/apb/ApbArbiter.scala:25:7
-                reset,	// src/main/scala/apb/ApbArbiter.scala:25:7
-  input  [15:0] io_masters_0_paddr,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  input         io_masters_0_psel,	// src/main/scala/apb/ApbArbiter.scala:26:14
-                io_masters_0_penable,	// src/main/scala/apb/ApbArbiter.scala:26:14
-                io_masters_0_pwrite,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  input  [31:0] io_masters_0_pwdata,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  output        io_masters_0_pready,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  output [31:0] io_masters_0_prdata,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  input  [15:0] io_masters_1_paddr,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  input         io_masters_1_psel,	// src/main/scala/apb/ApbArbiter.scala:26:14
-                io_masters_1_penable,	// src/main/scala/apb/ApbArbiter.scala:26:14
-                io_masters_1_pwrite,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  input  [3:0]  io_masters_1_pstrb,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  input  [31:0] io_masters_1_pwdata,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  output        io_masters_1_pready,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  output [31:0] io_masters_1_prdata,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  output        io_masters_1_pslverr,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  output [15:0] io_merged_paddr,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  output        io_merged_psel,	// src/main/scala/apb/ApbArbiter.scala:26:14
-                io_merged_penable,	// src/main/scala/apb/ApbArbiter.scala:26:14
-                io_merged_pwrite,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  output [3:0]  io_merged_pstrb,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  output [31:0] io_merged_pwdata,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  input         io_merged_pready,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  input  [31:0] io_merged_prdata,	// src/main/scala/apb/ApbArbiter.scala:26:14
-  input         io_merged_pslverr	// src/main/scala/apb/ApbArbiter.scala:26:14
+module ApbArbiter(	// src/main/scala/apb/ApbArbiter.scala:27:7
+  input         clock,	// src/main/scala/apb/ApbArbiter.scala:27:7
+                reset,	// src/main/scala/apb/ApbArbiter.scala:27:7
+  input  [15:0] io_masters_0_paddr,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  input         io_masters_0_psel,	// src/main/scala/apb/ApbArbiter.scala:28:14
+                io_masters_0_penable,	// src/main/scala/apb/ApbArbiter.scala:28:14
+                io_masters_0_pwrite,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  input  [31:0] io_masters_0_pwdata,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  output        io_masters_0_pready,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  output [31:0] io_masters_0_prdata,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  input  [15:0] io_masters_1_paddr,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  input         io_masters_1_psel,	// src/main/scala/apb/ApbArbiter.scala:28:14
+                io_masters_1_penable,	// src/main/scala/apb/ApbArbiter.scala:28:14
+                io_masters_1_pwrite,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  input  [3:0]  io_masters_1_pstrb,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  input  [31:0] io_masters_1_pwdata,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  output        io_masters_1_pready,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  output [31:0] io_masters_1_prdata,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  output        io_masters_1_pslverr,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  output [15:0] io_merged_paddr,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  output        io_merged_psel,	// src/main/scala/apb/ApbArbiter.scala:28:14
+                io_merged_penable,	// src/main/scala/apb/ApbArbiter.scala:28:14
+                io_merged_pwrite,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  output [3:0]  io_merged_pstrb,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  output [31:0] io_merged_pwdata,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  input         io_merged_pready,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  input  [31:0] io_merged_prdata,	// src/main/scala/apb/ApbArbiter.scala:28:14
+  input         io_merged_pslverr	// src/main/scala/apb/ApbArbiter.scala:28:14
 );
 
-  reg  [2:0] stateReg;	// src/main/scala/apb/ApbArbiter.scala:40:25
-  wire       _GEN = stateReg == 3'h0;	// src/main/scala/apb/ApbArbiter.scala:40:25, :48:20, :64:18
-  wire       _GEN_0 = stateReg == 3'h1;	// src/main/scala/apb/ApbArbiter.scala:40:25, :48:20, :51:18
-  wire       _GEN_1 = stateReg == 3'h2;	// src/main/scala/apb/ApbArbiter.scala:40:25, :48:20, :59:16
-  wire       _GEN_2 = _GEN_0 | _GEN_1;	// src/main/scala/apb/ApbArbiter.scala:43:31, :48:20, :57:17, :62:17
-  wire       _GEN_3 = stateReg == 3'h3;	// src/main/scala/apb/ApbArbiter.scala:40:25, :48:20, :53:18
-  wire       _GEN_4 = stateReg == 3'h4;	// src/main/scala/apb/ApbArbiter.scala:40:25, :48:20, :70:16
-  wire       _GEN_5 = _GEN | ~_GEN_2;	// src/main/scala/apb/ApbArbiter.scala:42:24, :43:31, :48:20, :57:17, :62:17
-  wire       _GEN_6 = _GEN_3 | _GEN_4;	// src/main/scala/apb/ApbArbiter.scala:45:18, :48:20, :68:17, :73:17
-  wire       _GEN_7 = _GEN | _GEN_2;	// src/main/scala/apb/ApbArbiter.scala:43:31, :48:20, :57:17, :62:17
-  always @(posedge clock) begin	// src/main/scala/apb/ApbArbiter.scala:25:7
-    if (reset)	// src/main/scala/apb/ApbArbiter.scala:25:7
-      stateReg <= 3'h0;	// src/main/scala/apb/ApbArbiter.scala:40:25, :64:18
-    else if (_GEN) begin	// src/main/scala/apb/ApbArbiter.scala:48:20
-      if (io_masters_0_psel)	// src/main/scala/apb/ApbArbiter.scala:26:14
-        stateReg <= 3'h1;	// src/main/scala/apb/ApbArbiter.scala:40:25, :51:18
-      else if (io_masters_1_psel)	// src/main/scala/apb/ApbArbiter.scala:26:14
-        stateReg <= 3'h3;	// src/main/scala/apb/ApbArbiter.scala:40:25, :53:18
+  reg  [2:0] stateReg;	// src/main/scala/apb/ApbArbiter.scala:44:25
+  reg        lastTurn;	// src/main/scala/apb/ApbArbiter.scala:45:25
+  wire       _GEN = stateReg == 3'h0;	// src/main/scala/apb/ApbArbiter.scala:44:25, :53:20, :73:18
+  wire       _GEN_0 = stateReg == 3'h1;	// src/main/scala/apb/ApbArbiter.scala:44:25, :53:20, :59:18
+  wire       _GEN_1 = stateReg == 3'h2;	// src/main/scala/apb/ApbArbiter.scala:44:25, :53:20, :68:16
+  wire       _GEN_2 = _GEN_0 | _GEN_1;	// src/main/scala/apb/ApbArbiter.scala:48:31, :53:20, :66:17, :71:17
+  wire       _GEN_3 = stateReg == 3'h3;	// src/main/scala/apb/ApbArbiter.scala:44:25, :53:20, :61:18
+  wire       _GEN_4 = stateReg == 3'h4;	// src/main/scala/apb/ApbArbiter.scala:44:25, :53:20, :80:16
+  wire       _GEN_5 = _GEN | ~_GEN_2;	// src/main/scala/apb/ApbArbiter.scala:47:24, :48:31, :53:20, :66:17, :71:17
+  wire       _GEN_6 = _GEN_3 | _GEN_4;	// src/main/scala/apb/ApbArbiter.scala:50:18, :53:20, :78:17, :83:17
+  wire       _GEN_7 = _GEN | _GEN_2;	// src/main/scala/apb/ApbArbiter.scala:48:31, :53:20, :66:17, :71:17
+  always @(posedge clock) begin	// src/main/scala/apb/ApbArbiter.scala:27:7
+    if (reset) begin	// src/main/scala/apb/ApbArbiter.scala:27:7
+      stateReg <= 3'h0;	// src/main/scala/apb/ApbArbiter.scala:44:25, :73:18
+      lastTurn <= 1'h1;	// src/main/scala/apb/ApbArbiter.scala:27:7, :45:25
     end
-    else if (_GEN_0)	// src/main/scala/apb/ApbArbiter.scala:48:20
-      stateReg <= 3'h2;	// src/main/scala/apb/ApbArbiter.scala:40:25, :59:16
-    else if (_GEN_1) begin	// src/main/scala/apb/ApbArbiter.scala:48:20
-      if (io_merged_pready)	// src/main/scala/apb/ApbArbiter.scala:26:14
-        stateReg <= 3'h0;	// src/main/scala/apb/ApbArbiter.scala:40:25, :64:18
+    else if (_GEN) begin	// src/main/scala/apb/ApbArbiter.scala:53:20
+      if (io_masters_0_psel & io_masters_1_psel)	// src/main/scala/apb/ApbArbiter.scala:55:31
+        stateReg <= {1'h0, ~lastTurn, 1'h1};	// src/main/scala/apb/ApbArbiter.scala:27:7, :44:25, :45:25, :56:{18,34}
+      else if (io_masters_0_psel)	// src/main/scala/apb/ApbArbiter.scala:28:14
+        stateReg <= 3'h1;	// src/main/scala/apb/ApbArbiter.scala:44:25, :59:18
+      else if (io_masters_1_psel)	// src/main/scala/apb/ApbArbiter.scala:28:14
+        stateReg <= 3'h3;	// src/main/scala/apb/ApbArbiter.scala:44:25, :61:18
     end
-    else if (_GEN_3)	// src/main/scala/apb/ApbArbiter.scala:48:20
-      stateReg <= 3'h4;	// src/main/scala/apb/ApbArbiter.scala:40:25, :70:16
-    else if (_GEN_4 & io_merged_pready)	// src/main/scala/apb/ApbArbiter.scala:40:25, :48:20, :74:30, :75:18
-      stateReg <= 3'h0;	// src/main/scala/apb/ApbArbiter.scala:40:25, :64:18
+    else begin	// src/main/scala/apb/ApbArbiter.scala:53:20
+      if (_GEN_0)	// src/main/scala/apb/ApbArbiter.scala:53:20
+        stateReg <= 3'h2;	// src/main/scala/apb/ApbArbiter.scala:44:25, :68:16
+      else if (_GEN_1) begin	// src/main/scala/apb/ApbArbiter.scala:53:20
+        if (io_merged_pready)	// src/main/scala/apb/ApbArbiter.scala:28:14
+          stateReg <= 3'h0;	// src/main/scala/apb/ApbArbiter.scala:44:25, :73:18
+      end
+      else if (_GEN_3)	// src/main/scala/apb/ApbArbiter.scala:53:20
+        stateReg <= 3'h4;	// src/main/scala/apb/ApbArbiter.scala:44:25, :80:16
+      else if (_GEN_4 & io_merged_pready)	// src/main/scala/apb/ApbArbiter.scala:44:25, :53:20, :84:30, :85:18
+        stateReg <= 3'h0;	// src/main/scala/apb/ApbArbiter.scala:44:25, :73:18
+      lastTurn <= ~_GEN_0 & (~_GEN_1 & _GEN_3 | lastTurn);	// src/main/scala/apb/ApbArbiter.scala:45:25, :53:20, :65:16
+    end
   end // always @(posedge)
-  `ifdef ENABLE_INITIAL_REG_	// src/main/scala/apb/ApbArbiter.scala:25:7
-    `ifdef FIRRTL_BEFORE_INITIAL	// src/main/scala/apb/ApbArbiter.scala:25:7
-      `FIRRTL_BEFORE_INITIAL	// src/main/scala/apb/ApbArbiter.scala:25:7
+  `ifdef ENABLE_INITIAL_REG_	// src/main/scala/apb/ApbArbiter.scala:27:7
+    `ifdef FIRRTL_BEFORE_INITIAL	// src/main/scala/apb/ApbArbiter.scala:27:7
+      `FIRRTL_BEFORE_INITIAL	// src/main/scala/apb/ApbArbiter.scala:27:7
     `endif // FIRRTL_BEFORE_INITIAL
-    logic [31:0] _RANDOM[0:0];	// src/main/scala/apb/ApbArbiter.scala:25:7
-    initial begin	// src/main/scala/apb/ApbArbiter.scala:25:7
-      `ifdef INIT_RANDOM_PROLOG_	// src/main/scala/apb/ApbArbiter.scala:25:7
-        `INIT_RANDOM_PROLOG_	// src/main/scala/apb/ApbArbiter.scala:25:7
+    logic [31:0] _RANDOM[0:0];	// src/main/scala/apb/ApbArbiter.scala:27:7
+    initial begin	// src/main/scala/apb/ApbArbiter.scala:27:7
+      `ifdef INIT_RANDOM_PROLOG_	// src/main/scala/apb/ApbArbiter.scala:27:7
+        `INIT_RANDOM_PROLOG_	// src/main/scala/apb/ApbArbiter.scala:27:7
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// src/main/scala/apb/ApbArbiter.scala:25:7
-        _RANDOM[/*Zero width*/ 1'b0] = `RANDOM;	// src/main/scala/apb/ApbArbiter.scala:25:7
-        stateReg = _RANDOM[/*Zero width*/ 1'b0][2:0];	// src/main/scala/apb/ApbArbiter.scala:25:7, :40:25
+      `ifdef RANDOMIZE_REG_INIT	// src/main/scala/apb/ApbArbiter.scala:27:7
+        _RANDOM[/*Zero width*/ 1'b0] = `RANDOM;	// src/main/scala/apb/ApbArbiter.scala:27:7
+        stateReg = _RANDOM[/*Zero width*/ 1'b0][2:0];	// src/main/scala/apb/ApbArbiter.scala:27:7, :44:25
+        lastTurn = _RANDOM[/*Zero width*/ 1'b0][3];	// src/main/scala/apb/ApbArbiter.scala:27:7, :44:25, :45:25
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// src/main/scala/apb/ApbArbiter.scala:25:7
-      `FIRRTL_AFTER_INITIAL	// src/main/scala/apb/ApbArbiter.scala:25:7
+    `ifdef FIRRTL_AFTER_INITIAL	// src/main/scala/apb/ApbArbiter.scala:27:7
+      `FIRRTL_AFTER_INITIAL	// src/main/scala/apb/ApbArbiter.scala:27:7
     `endif // FIRRTL_AFTER_INITIAL
   `endif // ENABLE_INITIAL_REG_
-  assign io_masters_0_pready = ~_GEN & _GEN_2 & io_merged_pready;	// src/main/scala/apb/ApbArbiter.scala:25:7, :43:31, :48:20, :57:17, :62:17
-  assign io_masters_0_prdata = io_merged_prdata;	// src/main/scala/apb/ApbArbiter.scala:25:7
-  assign io_masters_1_pready = ~_GEN_7 & _GEN_6 & io_merged_pready;	// src/main/scala/apb/ApbArbiter.scala:25:7, :43:31, :45:18, :48:20, :68:17, :73:17
-  assign io_masters_1_prdata = io_merged_prdata;	// src/main/scala/apb/ApbArbiter.scala:25:7
-  assign io_masters_1_pslverr = ~_GEN_7 & _GEN_6 & io_merged_pslverr;	// src/main/scala/apb/ApbArbiter.scala:25:7, :43:31, :44:32, :45:18, :48:20, :68:17, :73:17
-  assign io_merged_paddr = _GEN_5 ? io_masters_1_paddr : io_masters_0_paddr;	// src/main/scala/apb/ApbArbiter.scala:25:7, :42:24, :48:20
+  assign io_masters_0_pready = ~_GEN & _GEN_2 & io_merged_pready;	// src/main/scala/apb/ApbArbiter.scala:27:7, :48:31, :53:20, :66:17, :71:17
+  assign io_masters_0_prdata = io_merged_prdata;	// src/main/scala/apb/ApbArbiter.scala:27:7
+  assign io_masters_1_pready = ~_GEN_7 & _GEN_6 & io_merged_pready;	// src/main/scala/apb/ApbArbiter.scala:27:7, :48:31, :50:18, :53:20, :78:17, :83:17
+  assign io_masters_1_prdata = io_merged_prdata;	// src/main/scala/apb/ApbArbiter.scala:27:7
+  assign io_masters_1_pslverr = ~_GEN_7 & _GEN_6 & io_merged_pslverr;	// src/main/scala/apb/ApbArbiter.scala:27:7, :48:31, :49:32, :50:18, :53:20, :78:17, :83:17
+  assign io_merged_paddr = _GEN_5 ? io_masters_1_paddr : io_masters_0_paddr;	// src/main/scala/apb/ApbArbiter.scala:27:7, :47:24, :53:20
   assign io_merged_psel =
-    ~_GEN & (_GEN_2 ? io_masters_0_psel : _GEN_6 & io_masters_1_psel);	// src/main/scala/apb/ApbArbiter.scala:25:7, :43:31, :45:18, :48:20, :57:17, :62:17, :68:17, :73:17
+    ~_GEN & (_GEN_2 ? io_masters_0_psel : _GEN_6 & io_masters_1_psel);	// src/main/scala/apb/ApbArbiter.scala:27:7, :48:31, :50:18, :53:20, :66:17, :71:17, :78:17, :83:17
   assign io_merged_penable =
     ~(_GEN | _GEN_0)
-    & (_GEN_1 ? io_masters_0_penable : ~_GEN_3 & _GEN_4 & io_masters_1_penable);	// src/main/scala/apb/ApbArbiter.scala:25:7, :46:21, :48:20, :58:25, :62:17, :69:25
-  assign io_merged_pwrite = _GEN_5 ? io_masters_1_pwrite : io_masters_0_pwrite;	// src/main/scala/apb/ApbArbiter.scala:25:7, :42:24, :48:20
-  assign io_merged_pstrb = _GEN_5 ? io_masters_1_pstrb : 4'hF;	// src/main/scala/apb/ApbArbiter.scala:25:7, :26:14, :42:24, :48:20
-  assign io_merged_pwdata = _GEN_5 ? io_masters_1_pwdata : io_masters_0_pwdata;	// src/main/scala/apb/ApbArbiter.scala:25:7, :42:24, :48:20
+    & (_GEN_1 ? io_masters_0_penable : ~_GEN_3 & _GEN_4 & io_masters_1_penable);	// src/main/scala/apb/ApbArbiter.scala:27:7, :51:21, :53:20, :67:25, :71:17, :79:25
+  assign io_merged_pwrite = _GEN_5 ? io_masters_1_pwrite : io_masters_0_pwrite;	// src/main/scala/apb/ApbArbiter.scala:27:7, :47:24, :53:20
+  assign io_merged_pstrb = _GEN_5 ? io_masters_1_pstrb : 4'hF;	// src/main/scala/apb/ApbArbiter.scala:27:7, :28:14, :47:24, :53:20
+  assign io_merged_pwdata = _GEN_5 ? io_masters_1_pwdata : io_masters_0_pwdata;	// src/main/scala/apb/ApbArbiter.scala:27:7, :47:24, :53:20
 endmodule
 
 module ApbErrorTarget(	// src/main/scala/apb/ApbErrorTarget.scala:5:7
@@ -1720,40 +1742,76 @@ module ApbMux(	// src/main/scala/apb/ApbMux.scala:15:7
 
   wire _errorTarget_apbPort_pready;	// src/main/scala/apb/ApbMux.scala:34:27
   wire _errorTarget_apbPort_pslverr;	// src/main/scala/apb/ApbMux.scala:34:27
-  wire selected = io_master_psel & io_master_paddr[15:10] == 6'h0;	// src/main/scala/apb/ApbMux.scala:57:{35,53}, :60:7
-  wire selected_1 = io_master_psel & io_master_paddr[15:4] == 12'h80;	// src/main/scala/apb/ApbMux.scala:57:{35,53}, :60:7
-  wire selected_2 = io_master_psel & io_master_paddr[15:2] == 14'h300;	// src/main/scala/apb/ApbMux.scala:57:{35,53}, :60:7
-  wire _GEN = selected_2 | selected_1 | selected;	// src/main/scala/apb/ApbMux.scala:35:23, :57:35, :62:20, :63:32
+  wire selected = io_master_psel & io_master_paddr[15:10] == 6'h0;	// src/main/scala/apb/ApbMux.scala:82:{35,53}, :85:7
+  reg  wasSelected;	// src/main/scala/apb/ApbMux.scala:93:30
+  wire selected_1 = io_master_psel & io_master_paddr[15:4] == 12'h80;	// src/main/scala/apb/ApbMux.scala:82:{35,53}, :85:7
+  reg  wasSelected_1;	// src/main/scala/apb/ApbMux.scala:93:30
+  wire selected_2 = io_master_psel & io_master_paddr[15:2] == 14'h300;	// src/main/scala/apb/ApbMux.scala:82:{35,53}, :85:7
+  reg  wasSelected_2;	// src/main/scala/apb/ApbMux.scala:93:30
+  always @(posedge clock) begin	// src/main/scala/apb/ApbMux.scala:15:7
+    if (reset) begin	// src/main/scala/apb/ApbMux.scala:15:7
+      wasSelected <= 1'h0;	// src/main/scala/apb/ApbMux.scala:15:7, :93:30
+      wasSelected_1 <= 1'h0;	// src/main/scala/apb/ApbMux.scala:15:7, :93:30
+      wasSelected_2 <= 1'h0;	// src/main/scala/apb/ApbMux.scala:15:7, :93:30
+    end
+    else begin	// src/main/scala/apb/ApbMux.scala:15:7
+      wasSelected <= selected & ~io_targets_0_pready;	// src/main/scala/apb/ApbMux.scala:82:35, :93:{30,40,43}
+      wasSelected_1 <= selected_1 & ~io_targets_1_pready;	// src/main/scala/apb/ApbMux.scala:82:35, :93:{30,40,43}
+      wasSelected_2 <= selected_2 & ~io_targets_2_pready;	// src/main/scala/apb/ApbMux.scala:82:35, :93:{30,40,43}
+    end
+  end // always @(posedge)
+  `ifdef ENABLE_INITIAL_REG_	// src/main/scala/apb/ApbMux.scala:15:7
+    `ifdef FIRRTL_BEFORE_INITIAL	// src/main/scala/apb/ApbMux.scala:15:7
+      `FIRRTL_BEFORE_INITIAL	// src/main/scala/apb/ApbMux.scala:15:7
+    `endif // FIRRTL_BEFORE_INITIAL
+    logic [31:0] _RANDOM[0:0];	// src/main/scala/apb/ApbMux.scala:15:7
+    initial begin	// src/main/scala/apb/ApbMux.scala:15:7
+      `ifdef INIT_RANDOM_PROLOG_	// src/main/scala/apb/ApbMux.scala:15:7
+        `INIT_RANDOM_PROLOG_	// src/main/scala/apb/ApbMux.scala:15:7
+      `endif // INIT_RANDOM_PROLOG_
+      `ifdef RANDOMIZE_REG_INIT	// src/main/scala/apb/ApbMux.scala:15:7
+        _RANDOM[/*Zero width*/ 1'b0] = `RANDOM;	// src/main/scala/apb/ApbMux.scala:15:7
+        wasSelected = _RANDOM[/*Zero width*/ 1'b0][0];	// src/main/scala/apb/ApbMux.scala:15:7, :93:30
+        wasSelected_1 = _RANDOM[/*Zero width*/ 1'b0][1];	// src/main/scala/apb/ApbMux.scala:15:7, :93:30
+        wasSelected_2 = _RANDOM[/*Zero width*/ 1'b0][2];	// src/main/scala/apb/ApbMux.scala:15:7, :93:30
+      `endif // RANDOMIZE_REG_INIT
+    end // initial
+    `ifdef FIRRTL_AFTER_INITIAL	// src/main/scala/apb/ApbMux.scala:15:7
+      `FIRRTL_AFTER_INITIAL	// src/main/scala/apb/ApbMux.scala:15:7
+    `endif // FIRRTL_AFTER_INITIAL
+  `endif // ENABLE_INITIAL_REG_
   ApbErrorTarget errorTarget (	// src/main/scala/apb/ApbMux.scala:34:27
     .clock           (clock),
     .reset           (reset),
-    .apbPort_psel    (~_GEN & io_master_psel),	// src/main/scala/apb/ApbMux.scala:35:23, :62:20, :63:32
+    .apbPort_psel    (~(selected_2 | selected_1 | selected) & io_master_psel),	// src/main/scala/apb/ApbMux.scala:35:23, :82:35, :87:20, :88:32
     .apbPort_pready  (_errorTarget_apbPort_pready),
     .apbPort_pslverr (_errorTarget_apbPort_pslverr)
   );
   assign io_master_pready =
-    selected_2
+    wasSelected_2
       ? io_targets_2_pready
-      : selected_1
+      : wasSelected_1
           ? io_targets_1_pready
-          : selected ? io_targets_0_pready : _errorTarget_apbPort_pready;	// src/main/scala/apb/ApbMux.scala:15:7, :34:27, :35:23, :57:35, :62:20, :65:24
+          : wasSelected ? io_targets_0_pready : _errorTarget_apbPort_pready;	// src/main/scala/apb/ApbMux.scala:15:7, :34:27, :35:23, :93:30, :94:23, :95:24
   assign io_master_prdata =
-    selected_2
+    wasSelected_2
       ? io_targets_2_prdata
-      : selected_1 ? io_targets_1_prdata : selected ? io_targets_0_prdata : 32'h0;	// src/main/scala/apb/ApbMux.scala:15:7, :34:27, :35:23, :57:35, :62:20, :66:24
-  assign io_master_pslverr = ~_GEN & _errorTarget_apbPort_pslverr;	// src/main/scala/apb/ApbMux.scala:15:7, :34:27, :35:23, :62:20, :63:32, :67:25
+      : wasSelected_1 ? io_targets_1_prdata : wasSelected ? io_targets_0_prdata : 32'h0;	// src/main/scala/apb/ApbMux.scala:15:7, :34:27, :35:23, :93:30, :94:23, :96:24
+  assign io_master_pslverr =
+    ~(wasSelected_2 | selected_2 | wasSelected_1 | selected_1 | wasSelected | selected)
+    & _errorTarget_apbPort_pslverr;	// src/main/scala/apb/ApbMux.scala:15:7, :34:27, :35:23, :82:35, :87:20, :90:25, :93:30, :94:23, :97:25
   assign io_targets_0_paddr = io_master_paddr;	// src/main/scala/apb/ApbMux.scala:15:7
-  assign io_targets_0_psel = selected;	// src/main/scala/apb/ApbMux.scala:15:7, :57:35
+  assign io_targets_0_psel = selected;	// src/main/scala/apb/ApbMux.scala:15:7, :82:35
   assign io_targets_0_penable = io_master_penable;	// src/main/scala/apb/ApbMux.scala:15:7
   assign io_targets_0_pwrite = io_master_pwrite;	// src/main/scala/apb/ApbMux.scala:15:7
   assign io_targets_0_pstrb = io_master_pstrb;	// src/main/scala/apb/ApbMux.scala:15:7
   assign io_targets_0_pwdata = io_master_pwdata;	// src/main/scala/apb/ApbMux.scala:15:7
   assign io_targets_1_paddr = io_master_paddr;	// src/main/scala/apb/ApbMux.scala:15:7
-  assign io_targets_1_psel = selected_1;	// src/main/scala/apb/ApbMux.scala:15:7, :57:35
+  assign io_targets_1_psel = selected_1;	// src/main/scala/apb/ApbMux.scala:15:7, :82:35
   assign io_targets_1_penable = io_master_penable;	// src/main/scala/apb/ApbMux.scala:15:7
   assign io_targets_1_pwrite = io_master_pwrite;	// src/main/scala/apb/ApbMux.scala:15:7
   assign io_targets_1_pwdata = io_master_pwdata;	// src/main/scala/apb/ApbMux.scala:15:7
-  assign io_targets_2_psel = selected_2;	// src/main/scala/apb/ApbMux.scala:15:7, :57:35
+  assign io_targets_2_psel = selected_2;	// src/main/scala/apb/ApbMux.scala:15:7, :82:35
   assign io_targets_2_penable = io_master_penable;	// src/main/scala/apb/ApbMux.scala:15:7
   assign io_targets_2_pwrite = io_master_pwrite;	// src/main/scala/apb/ApbMux.scala:15:7
   assign io_targets_2_pwdata = io_master_pwdata;	// src/main/scala/apb/ApbMux.scala:15:7
@@ -1855,24 +1913,24 @@ module DataMemMux(	// src/main/scala/dtu/DataMemMux.scala:21:7
   assign io_targets_3_wr = io_master_wr & io_master_wrAddr[15:1] == 15'h1022;	// src/main/scala/dtu/DataMemMux.scala:21:7, :59:7, :67:38, :70:7, :71:29
 endmodule
 
-module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:67:7
-  input         clock,	// src/main/scala/dtu/DtuSubsystem.scala:67:7
-                reset,	// src/main/scala/dtu/DtuSubsystem.scala:67:7
-  input  [11:0] io_apb_paddr,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  input         io_apb_psel,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-                io_apb_penable,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-                io_apb_pwrite,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  input  [3:0]  io_apb_pstrb,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  input  [31:0] io_apb_pwdata,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  output        io_apb_pready,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  output [31:0] io_apb_prdata,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  output        io_apb_pslverr,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-                io_irq,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  input         io_irqEn,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  input  [7:0]  io_ssCtrl,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  input  [15:0] io_gpio_in,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-  output [15:0] io_gpio_out,	// src/main/scala/dtu/DtuSubsystem.scala:69:14
-                io_gpio_outputEnable	// src/main/scala/dtu/DtuSubsystem.scala:69:14
+module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:81:7
+  input         clock,	// src/main/scala/dtu/DtuSubsystem.scala:81:7
+                reset,	// src/main/scala/dtu/DtuSubsystem.scala:81:7
+  input  [11:0] io_apb_paddr,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  input         io_apb_psel,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+                io_apb_penable,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+                io_apb_pwrite,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  input  [3:0]  io_apb_pstrb,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  input  [31:0] io_apb_pwdata,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  output        io_apb_pready,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  output [31:0] io_apb_prdata,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  output        io_apb_pslverr,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+                io_irq,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  input         io_irqEn,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  input  [7:0]  io_ssCtrl,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  input  [15:0] io_gpio_in,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+  output [15:0] io_gpio_out,	// src/main/scala/dtu/DtuSubsystem.scala:83:14
+                io_gpio_outputEnable	// src/main/scala/dtu/DtuSubsystem.scala:83:14
 );
 
   wire [31:0] _dmemMux_io_master_rdData;	// src/main/scala/dtu/DataMemMux.scala:116:25
@@ -1893,94 +1951,94 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:67:7
   wire [15:0] _dmemMux_io_targets_3_wrAddr;	// src/main/scala/dtu/DataMemMux.scala:116:25
   wire [31:0] _dmemMux_io_targets_3_wrData;	// src/main/scala/dtu/DataMemMux.scala:116:25
   wire        _dmemMux_io_targets_3_wr;	// src/main/scala/dtu/DataMemMux.scala:116:25
-  wire        _apbMux_io_master_pready;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire [31:0] _apbMux_io_master_prdata;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_master_pslverr;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire [15:0] _apbMux_io_targets_0_paddr;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_targets_0_psel;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_targets_0_penable;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_targets_0_pwrite;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire [3:0]  _apbMux_io_targets_0_pstrb;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire [31:0] _apbMux_io_targets_0_pwdata;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire [15:0] _apbMux_io_targets_1_paddr;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_targets_1_psel;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_targets_1_penable;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_targets_1_pwrite;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire [31:0] _apbMux_io_targets_1_pwdata;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_targets_2_psel;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_targets_2_penable;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _apbMux_io_targets_2_pwrite;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire [31:0] _apbMux_io_targets_2_pwdata;	// src/main/scala/apb/ApbMux.scala:96:24
-  wire        _arb_io_masters_0_pready;	// src/main/scala/apb/ApbArbiter.scala:11:21
-  wire [31:0] _arb_io_masters_0_prdata;	// src/main/scala/apb/ApbArbiter.scala:11:21
-  wire [15:0] _arb_io_merged_paddr;	// src/main/scala/apb/ApbArbiter.scala:11:21
-  wire        _arb_io_merged_psel;	// src/main/scala/apb/ApbArbiter.scala:11:21
-  wire        _arb_io_merged_penable;	// src/main/scala/apb/ApbArbiter.scala:11:21
-  wire        _arb_io_merged_pwrite;	// src/main/scala/apb/ApbArbiter.scala:11:21
-  wire [3:0]  _arb_io_merged_pstrb;	// src/main/scala/apb/ApbArbiter.scala:11:21
-  wire [31:0] _arb_io_merged_pwdata;	// src/main/scala/apb/ApbArbiter.scala:11:21
-  wire        _uart_uartPins_tx;	// src/main/scala/dtu/DtuSubsystem.scala:89:20
-  wire [31:0] _uart_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:89:20
-  wire [31:0] _dmem_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:88:20
-  wire [31:0] _gpio_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:87:20
-  wire [11:0] _gpio_gpioPort_out;	// src/main/scala/dtu/DtuSubsystem.scala:87:20
-  wire [11:0] _gpio_gpioPort_oe;	// src/main/scala/dtu/DtuSubsystem.scala:87:20
-  wire        _regBlock_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:86:24
-  wire [31:0] _regBlock_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:86:24
-  wire [31:0] _regBlock_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:86:24
-  wire [15:0] _rom_io_instr;	// src/main/scala/dtu/DtuSubsystem.scala:83:19
-  wire [15:0] _instrMem_instrPort_instr;	// src/main/scala/dtu/DtuSubsystem.scala:82:24
-  wire        _instrMem_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:82:24
-  wire [31:0] _instrMem_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:82:24
-  wire [9:0]  _leros_imemIO_addr;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
-  wire [15:0] _leros_dmemIO_rdAddr;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
-  wire [15:0] _leros_dmemIO_wrAddr;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
-  wire [31:0] _leros_dmemIO_wrData;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
-  wire        _leros_dmemIO_wr;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
-  wire [3:0]  _leros_dmemIO_wrMask;	// src/main/scala/dtu/DtuSubsystem.scala:79:21
-  wire        _ponte_io_uart_tx;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-  wire [15:0] _ponte_io_apb_paddr;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-  wire        _ponte_io_apb_psel;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-  wire        _ponte_io_apb_penable;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-  wire        _ponte_io_apb_pwrite;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-  wire [31:0] _ponte_io_apb_pwdata;	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-  wire        _sysCtrl_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
-  wire [31:0] _sysCtrl_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
-  wire        _sysCtrl_ctrlPort_lerosReset;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
-  wire        _sysCtrl_ctrlPort_lerosBootFromRam;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
-  wire        _sysCtrl_ctrlPort_lerosUartLoopBack;	// src/main/scala/dtu/DtuSubsystem.scala:75:23
-  SystemControl sysCtrl (	// src/main/scala/dtu/DtuSubsystem.scala:75:23
+  wire        _apbMux_io_master_pready;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire [31:0] _apbMux_io_master_prdata;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_master_pslverr;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire [15:0] _apbMux_io_targets_0_paddr;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_targets_0_psel;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_targets_0_penable;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_targets_0_pwrite;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire [3:0]  _apbMux_io_targets_0_pstrb;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire [31:0] _apbMux_io_targets_0_pwdata;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire [15:0] _apbMux_io_targets_1_paddr;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_targets_1_psel;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_targets_1_penable;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_targets_1_pwrite;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire [31:0] _apbMux_io_targets_1_pwdata;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_targets_2_psel;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_targets_2_penable;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _apbMux_io_targets_2_pwrite;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire [31:0] _apbMux_io_targets_2_pwdata;	// src/main/scala/apb/ApbMux.scala:126:24
+  wire        _arb_io_masters_0_pready;	// src/main/scala/apb/ApbArbiter.scala:13:21
+  wire [31:0] _arb_io_masters_0_prdata;	// src/main/scala/apb/ApbArbiter.scala:13:21
+  wire [15:0] _arb_io_merged_paddr;	// src/main/scala/apb/ApbArbiter.scala:13:21
+  wire        _arb_io_merged_psel;	// src/main/scala/apb/ApbArbiter.scala:13:21
+  wire        _arb_io_merged_penable;	// src/main/scala/apb/ApbArbiter.scala:13:21
+  wire        _arb_io_merged_pwrite;	// src/main/scala/apb/ApbArbiter.scala:13:21
+  wire [3:0]  _arb_io_merged_pstrb;	// src/main/scala/apb/ApbArbiter.scala:13:21
+  wire [31:0] _arb_io_merged_pwdata;	// src/main/scala/apb/ApbArbiter.scala:13:21
+  wire        _uart_uartPins_tx;	// src/main/scala/dtu/DtuSubsystem.scala:103:20
+  wire [31:0] _uart_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:103:20
+  wire [31:0] _dmem_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:102:20
+  wire [31:0] _gpio_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:101:20
+  wire [11:0] _gpio_gpioPort_out;	// src/main/scala/dtu/DtuSubsystem.scala:101:20
+  wire [11:0] _gpio_gpioPort_oe;	// src/main/scala/dtu/DtuSubsystem.scala:101:20
+  wire        _regBlock_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:100:24
+  wire [31:0] _regBlock_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:100:24
+  wire [31:0] _regBlock_dmemPort_rdData;	// src/main/scala/dtu/DtuSubsystem.scala:100:24
+  wire [15:0] _rom_io_instr;	// src/main/scala/dtu/DtuSubsystem.scala:97:19
+  wire [15:0] _instrMem_instrPort_instr;	// src/main/scala/dtu/DtuSubsystem.scala:96:24
+  wire        _instrMem_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:96:24
+  wire [31:0] _instrMem_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:96:24
+  wire [9:0]  _leros_imemIO_addr;	// src/main/scala/dtu/DtuSubsystem.scala:93:21
+  wire [15:0] _leros_dmemIO_rdAddr;	// src/main/scala/dtu/DtuSubsystem.scala:93:21
+  wire [15:0] _leros_dmemIO_wrAddr;	// src/main/scala/dtu/DtuSubsystem.scala:93:21
+  wire [31:0] _leros_dmemIO_wrData;	// src/main/scala/dtu/DtuSubsystem.scala:93:21
+  wire        _leros_dmemIO_wr;	// src/main/scala/dtu/DtuSubsystem.scala:93:21
+  wire [3:0]  _leros_dmemIO_wrMask;	// src/main/scala/dtu/DtuSubsystem.scala:93:21
+  wire        _ponte_io_uart_tx;	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+  wire [15:0] _ponte_io_apb_paddr;	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+  wire        _ponte_io_apb_psel;	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+  wire        _ponte_io_apb_penable;	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+  wire        _ponte_io_apb_pwrite;	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+  wire [31:0] _ponte_io_apb_pwdata;	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+  wire        _sysCtrl_apbPort_pready;	// src/main/scala/dtu/DtuSubsystem.scala:89:23
+  wire [31:0] _sysCtrl_apbPort_prdata;	// src/main/scala/dtu/DtuSubsystem.scala:89:23
+  wire        _sysCtrl_ctrlPort_lerosReset;	// src/main/scala/dtu/DtuSubsystem.scala:89:23
+  wire        _sysCtrl_ctrlPort_lerosBootFromRam;	// src/main/scala/dtu/DtuSubsystem.scala:89:23
+  wire        _sysCtrl_ctrlPort_lerosUartLoopBack;	// src/main/scala/dtu/DtuSubsystem.scala:89:23
+  SystemControl sysCtrl (	// src/main/scala/dtu/DtuSubsystem.scala:89:23
     .clock                      (clock),
     .reset                      (reset),
-    .apbPort_psel               (_apbMux_io_targets_2_psel),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_penable            (_apbMux_io_targets_2_penable),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_pwrite             (_apbMux_io_targets_2_pwrite),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_pwdata             (_apbMux_io_targets_2_pwdata),	// src/main/scala/apb/ApbMux.scala:96:24
+    .apbPort_psel               (_apbMux_io_targets_2_psel),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_penable            (_apbMux_io_targets_2_penable),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_pwrite             (_apbMux_io_targets_2_pwrite),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_pwdata             (_apbMux_io_targets_2_pwdata),	// src/main/scala/apb/ApbMux.scala:126:24
     .apbPort_pready             (_sysCtrl_apbPort_pready),
     .apbPort_prdata             (_sysCtrl_apbPort_prdata),
     .ctrlPort_lerosReset        (_sysCtrl_ctrlPort_lerosReset),
     .ctrlPort_lerosBootFromRam  (_sysCtrl_ctrlPort_lerosBootFromRam),
     .ctrlPort_lerosUartLoopBack (_sysCtrl_ctrlPort_lerosUartLoopBack)
   );
-  Ponte ponte (	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+  Ponte ponte (	// src/main/scala/dtu/DtuSubsystem.scala:90:21
     .clock          (clock),
     .reset          (reset),
     .io_uart_tx     (_ponte_io_uart_tx),
-    .io_uart_rx     (io_gpio_in[1]),	// src/main/scala/dtu/DtuSubsystem.scala:73:27
+    .io_uart_rx     (io_gpio_in[1]),	// src/main/scala/dtu/DtuSubsystem.scala:87:27
     .io_apb_paddr   (_ponte_io_apb_paddr),
     .io_apb_psel    (_ponte_io_apb_psel),
     .io_apb_penable (_ponte_io_apb_penable),
     .io_apb_pwrite  (_ponte_io_apb_pwrite),
     .io_apb_pwdata  (_ponte_io_apb_pwdata),
-    .io_apb_pready  (_arb_io_masters_0_pready),	// src/main/scala/apb/ApbArbiter.scala:11:21
-    .io_apb_prdata  (_arb_io_masters_0_prdata)	// src/main/scala/apb/ApbArbiter.scala:11:21
+    .io_apb_pready  (_arb_io_masters_0_pready),	// src/main/scala/apb/ApbArbiter.scala:13:21
+    .io_apb_prdata  (_arb_io_masters_0_prdata)	// src/main/scala/apb/ApbArbiter.scala:13:21
   );
-  Leros leros (	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+  Leros leros (	// src/main/scala/dtu/DtuSubsystem.scala:93:21
     .clock         (clock),
-    .reset         (reset | _sysCtrl_ctrlPort_lerosReset),	// src/main/scala/dtu/DtuSubsystem.scala:75:23, :80:31
+    .reset         (reset | _sysCtrl_ctrlPort_lerosReset),	// src/main/scala/dtu/DtuSubsystem.scala:89:23, :94:31
     .imemIO_addr   (_leros_imemIO_addr),
     .imemIO_instr
-      (_sysCtrl_ctrlPort_lerosBootFromRam ? _instrMem_instrPort_instr : _rom_io_instr),	// src/main/scala/dtu/DtuSubsystem.scala:75:23, :82:24, :83:19, :94:28
+      (_sysCtrl_ctrlPort_lerosBootFromRam ? _instrMem_instrPort_instr : _rom_io_instr),	// src/main/scala/dtu/DtuSubsystem.scala:89:23, :96:24, :97:19, :108:28
     .dmemIO_rdAddr (_leros_dmemIO_rdAddr),
     .dmemIO_rdData (_dmemMux_io_master_rdData),	// src/main/scala/dtu/DataMemMux.scala:116:25
     .dmemIO_wrAddr (_leros_dmemIO_wrAddr),
@@ -1988,34 +2046,34 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:67:7
     .dmemIO_wr     (_leros_dmemIO_wr),
     .dmemIO_wrMask (_leros_dmemIO_wrMask)
   );
-  InstructionMemory instrMem (	// src/main/scala/dtu/DtuSubsystem.scala:82:24
+  InstructionMemory instrMem (	// src/main/scala/dtu/DtuSubsystem.scala:96:24
     .clock           (clock),
     .reset           (reset),
-    .instrPort_addr  (_leros_imemIO_addr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+    .instrPort_addr  (_leros_imemIO_addr),	// src/main/scala/dtu/DtuSubsystem.scala:93:21
     .instrPort_instr (_instrMem_instrPort_instr),
-    .apbPort_paddr   (_apbMux_io_targets_0_paddr[9:0]),	// src/main/scala/apb/ApbMux.scala:96:24, :102:16
-    .apbPort_psel    (_apbMux_io_targets_0_psel),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_penable (_apbMux_io_targets_0_penable),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_pwrite  (_apbMux_io_targets_0_pwrite),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_pstrb   (_apbMux_io_targets_0_pstrb),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_pwdata  (_apbMux_io_targets_0_pwdata),	// src/main/scala/apb/ApbMux.scala:96:24
+    .apbPort_paddr   (_apbMux_io_targets_0_paddr[9:0]),	// src/main/scala/apb/ApbMux.scala:126:24, :132:16
+    .apbPort_psel    (_apbMux_io_targets_0_psel),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_penable (_apbMux_io_targets_0_penable),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_pwrite  (_apbMux_io_targets_0_pwrite),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_pstrb   (_apbMux_io_targets_0_pstrb),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_pwdata  (_apbMux_io_targets_0_pwdata),	// src/main/scala/apb/ApbMux.scala:126:24
     .apbPort_pready  (_instrMem_apbPort_pready),
     .apbPort_prdata  (_instrMem_apbPort_prdata)
   );
-  InstrMem rom (	// src/main/scala/dtu/DtuSubsystem.scala:83:19
+  InstrMem rom (	// src/main/scala/dtu/DtuSubsystem.scala:97:19
     .clock    (clock),
     .reset    (reset),
-    .io_addr  (_leros_imemIO_addr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+    .io_addr  (_leros_imemIO_addr),	// src/main/scala/dtu/DtuSubsystem.scala:93:21
     .io_instr (_rom_io_instr)
   );
-  RegBlock regBlock (	// src/main/scala/dtu/DtuSubsystem.scala:86:24
+  RegBlock regBlock (	// src/main/scala/dtu/DtuSubsystem.scala:100:24
     .clock           (clock),
     .reset           (reset),
-    .apbPort_paddr   (_apbMux_io_targets_1_paddr[3:0]),	// src/main/scala/apb/ApbMux.scala:96:24, :102:16
-    .apbPort_psel    (_apbMux_io_targets_1_psel),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_penable (_apbMux_io_targets_1_penable),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_pwrite  (_apbMux_io_targets_1_pwrite),	// src/main/scala/apb/ApbMux.scala:96:24
-    .apbPort_pwdata  (_apbMux_io_targets_1_pwdata),	// src/main/scala/apb/ApbMux.scala:96:24
+    .apbPort_paddr   (_apbMux_io_targets_1_paddr[3:0]),	// src/main/scala/apb/ApbMux.scala:126:24, :132:16
+    .apbPort_psel    (_apbMux_io_targets_1_psel),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_penable (_apbMux_io_targets_1_penable),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_pwrite  (_apbMux_io_targets_1_pwrite),	// src/main/scala/apb/ApbMux.scala:126:24
+    .apbPort_pwdata  (_apbMux_io_targets_1_pwdata),	// src/main/scala/apb/ApbMux.scala:126:24
     .apbPort_pready  (_regBlock_apbPort_pready),
     .apbPort_prdata  (_regBlock_apbPort_prdata),
     .dmemPort_rdAddr (_dmemMux_io_targets_1_rdAddr[1:0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
@@ -2024,7 +2082,7 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:67:7
     .dmemPort_wrData (_dmemMux_io_targets_1_wrData),	// src/main/scala/dtu/DataMemMux.scala:116:25
     .dmemPort_wr     (_dmemMux_io_targets_1_wr)	// src/main/scala/dtu/DataMemMux.scala:116:25
   );
-  Gpio gpio (	// src/main/scala/dtu/DtuSubsystem.scala:87:20
+  Gpio gpio (	// src/main/scala/dtu/DtuSubsystem.scala:101:20
     .clock           (clock),
     .reset           (reset),
     .dmemPort_rdAddr (_dmemMux_io_targets_2_rdAddr[1:0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
@@ -2032,11 +2090,11 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:67:7
     .dmemPort_wrAddr (_dmemMux_io_targets_2_wrAddr[1:0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
     .dmemPort_wrData (_dmemMux_io_targets_2_wrData),	// src/main/scala/dtu/DataMemMux.scala:116:25
     .dmemPort_wr     (_dmemMux_io_targets_2_wr),	// src/main/scala/dtu/DataMemMux.scala:116:25
-    .gpioPort_in     (io_gpio_in[15:4]),	// src/main/scala/dtu/DtuSubsystem.scala:122:33
+    .gpioPort_in     (io_gpio_in[15:4]),	// src/main/scala/dtu/DtuSubsystem.scala:136:33
     .gpioPort_out    (_gpio_gpioPort_out),
     .gpioPort_oe     (_gpio_gpioPort_oe)
   );
-  DataMemory dmem (	// src/main/scala/dtu/DtuSubsystem.scala:88:20
+  DataMemory dmem (	// src/main/scala/dtu/DtuSubsystem.scala:102:20
     .clock           (clock),
     .reset           (reset),
     .dmemPort_rdAddr (_dmemMux_io_targets_0_rdAddr[7:0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
@@ -2046,29 +2104,29 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:67:7
     .dmemPort_wr     (_dmemMux_io_targets_0_wr),	// src/main/scala/dtu/DataMemMux.scala:116:25
     .dmemPort_wrMask (_dmemMux_io_targets_0_wrMask)	// src/main/scala/dtu/DataMemMux.scala:116:25
   );
-  Uart uart (	// src/main/scala/dtu/DtuSubsystem.scala:89:20
+  Uart uart (	// src/main/scala/dtu/DtuSubsystem.scala:103:20
     .clock           (clock),
     .reset           (reset),
     .uartPins_tx     (_uart_uartPins_tx),
     .uartPins_rx
-      (_sysCtrl_ctrlPort_lerosUartLoopBack ? _uart_uartPins_tx : io_gpio_in[3]),	// src/main/scala/dtu/DtuSubsystem.scala:72:27, :75:23, :89:20, :90:26
+      (_sysCtrl_ctrlPort_lerosUartLoopBack ? _uart_uartPins_tx : io_gpio_in[3]),	// src/main/scala/dtu/DtuSubsystem.scala:86:27, :89:23, :103:20, :104:26
     .dmemPort_rdAddr (_dmemMux_io_targets_3_rdAddr[0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
     .dmemPort_rdData (_uart_dmemPort_rdData),
     .dmemPort_wrAddr (_dmemMux_io_targets_3_wrAddr[0]),	// src/main/scala/dtu/DataMemMux.scala:116:25, :127:16
     .dmemPort_wrData (_dmemMux_io_targets_3_wrData),	// src/main/scala/dtu/DataMemMux.scala:116:25
     .dmemPort_wr     (_dmemMux_io_targets_3_wr)	// src/main/scala/dtu/DataMemMux.scala:116:25
   );
-  ApbArbiter arb (	// src/main/scala/apb/ApbArbiter.scala:11:21
+  ApbArbiter arb (	// src/main/scala/apb/ApbArbiter.scala:13:21
     .clock                (clock),
     .reset                (reset),
-    .io_masters_0_paddr   (_ponte_io_apb_paddr),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-    .io_masters_0_psel    (_ponte_io_apb_psel),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-    .io_masters_0_penable (_ponte_io_apb_penable),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-    .io_masters_0_pwrite  (_ponte_io_apb_pwrite),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
-    .io_masters_0_pwdata  (_ponte_io_apb_pwdata),	// src/main/scala/dtu/DtuSubsystem.scala:76:21
+    .io_masters_0_paddr   (_ponte_io_apb_paddr),	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+    .io_masters_0_psel    (_ponte_io_apb_psel),	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+    .io_masters_0_penable (_ponte_io_apb_penable),	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+    .io_masters_0_pwrite  (_ponte_io_apb_pwrite),	// src/main/scala/dtu/DtuSubsystem.scala:90:21
+    .io_masters_0_pwdata  (_ponte_io_apb_pwdata),	// src/main/scala/dtu/DtuSubsystem.scala:90:21
     .io_masters_0_pready  (_arb_io_masters_0_pready),
     .io_masters_0_prdata  (_arb_io_masters_0_prdata),
-    .io_masters_1_paddr   ({4'h0, io_apb_paddr}),	// src/main/scala/apb/ApbArbiter.scala:17:23
+    .io_masters_1_paddr   ({4'h0, io_apb_paddr}),	// src/main/scala/apb/ApbArbiter.scala:19:23
     .io_masters_1_psel    (io_apb_psel),
     .io_masters_1_penable (io_apb_penable),
     .io_masters_1_pwrite  (io_apb_pwrite),
@@ -2083,19 +2141,19 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:67:7
     .io_merged_pwrite     (_arb_io_merged_pwrite),
     .io_merged_pstrb      (_arb_io_merged_pstrb),
     .io_merged_pwdata     (_arb_io_merged_pwdata),
-    .io_merged_pready     (_apbMux_io_master_pready),	// src/main/scala/apb/ApbMux.scala:96:24
-    .io_merged_prdata     (_apbMux_io_master_prdata),	// src/main/scala/apb/ApbMux.scala:96:24
-    .io_merged_pslverr    (_apbMux_io_master_pslverr)	// src/main/scala/apb/ApbMux.scala:96:24
+    .io_merged_pready     (_apbMux_io_master_pready),	// src/main/scala/apb/ApbMux.scala:126:24
+    .io_merged_prdata     (_apbMux_io_master_prdata),	// src/main/scala/apb/ApbMux.scala:126:24
+    .io_merged_pslverr    (_apbMux_io_master_pslverr)	// src/main/scala/apb/ApbMux.scala:126:24
   );
-  ApbMux apbMux (	// src/main/scala/apb/ApbMux.scala:96:24
+  ApbMux apbMux (	// src/main/scala/apb/ApbMux.scala:126:24
     .clock                (clock),
     .reset                (reset),
-    .io_master_paddr      (_arb_io_merged_paddr),	// src/main/scala/apb/ApbArbiter.scala:11:21
-    .io_master_psel       (_arb_io_merged_psel),	// src/main/scala/apb/ApbArbiter.scala:11:21
-    .io_master_penable    (_arb_io_merged_penable),	// src/main/scala/apb/ApbArbiter.scala:11:21
-    .io_master_pwrite     (_arb_io_merged_pwrite),	// src/main/scala/apb/ApbArbiter.scala:11:21
-    .io_master_pstrb      (_arb_io_merged_pstrb),	// src/main/scala/apb/ApbArbiter.scala:11:21
-    .io_master_pwdata     (_arb_io_merged_pwdata),	// src/main/scala/apb/ApbArbiter.scala:11:21
+    .io_master_paddr      (_arb_io_merged_paddr),	// src/main/scala/apb/ApbArbiter.scala:13:21
+    .io_master_psel       (_arb_io_merged_psel),	// src/main/scala/apb/ApbArbiter.scala:13:21
+    .io_master_penable    (_arb_io_merged_penable),	// src/main/scala/apb/ApbArbiter.scala:13:21
+    .io_master_pwrite     (_arb_io_merged_pwrite),	// src/main/scala/apb/ApbArbiter.scala:13:21
+    .io_master_pstrb      (_arb_io_merged_pstrb),	// src/main/scala/apb/ApbArbiter.scala:13:21
+    .io_master_pwdata     (_arb_io_merged_pwdata),	// src/main/scala/apb/ApbArbiter.scala:13:21
     .io_master_pready     (_apbMux_io_master_pready),
     .io_master_prdata     (_apbMux_io_master_prdata),
     .io_master_pslverr    (_apbMux_io_master_pslverr),
@@ -2105,56 +2163,56 @@ module DtuSubsystem(	// src/main/scala/dtu/DtuSubsystem.scala:67:7
     .io_targets_0_pwrite  (_apbMux_io_targets_0_pwrite),
     .io_targets_0_pstrb   (_apbMux_io_targets_0_pstrb),
     .io_targets_0_pwdata  (_apbMux_io_targets_0_pwdata),
-    .io_targets_0_pready  (_instrMem_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:82:24
-    .io_targets_0_prdata  (_instrMem_apbPort_prdata),	// src/main/scala/dtu/DtuSubsystem.scala:82:24
+    .io_targets_0_pready  (_instrMem_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:96:24
+    .io_targets_0_prdata  (_instrMem_apbPort_prdata),	// src/main/scala/dtu/DtuSubsystem.scala:96:24
     .io_targets_1_paddr   (_apbMux_io_targets_1_paddr),
     .io_targets_1_psel    (_apbMux_io_targets_1_psel),
     .io_targets_1_penable (_apbMux_io_targets_1_penable),
     .io_targets_1_pwrite  (_apbMux_io_targets_1_pwrite),
     .io_targets_1_pwdata  (_apbMux_io_targets_1_pwdata),
-    .io_targets_1_pready  (_regBlock_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:86:24
-    .io_targets_1_prdata  (_regBlock_apbPort_prdata),	// src/main/scala/dtu/DtuSubsystem.scala:86:24
+    .io_targets_1_pready  (_regBlock_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:100:24
+    .io_targets_1_prdata  (_regBlock_apbPort_prdata),	// src/main/scala/dtu/DtuSubsystem.scala:100:24
     .io_targets_2_psel    (_apbMux_io_targets_2_psel),
     .io_targets_2_penable (_apbMux_io_targets_2_penable),
     .io_targets_2_pwrite  (_apbMux_io_targets_2_pwrite),
     .io_targets_2_pwdata  (_apbMux_io_targets_2_pwdata),
-    .io_targets_2_pready  (_sysCtrl_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:75:23
-    .io_targets_2_prdata  (_sysCtrl_apbPort_prdata)	// src/main/scala/dtu/DtuSubsystem.scala:75:23
+    .io_targets_2_pready  (_sysCtrl_apbPort_pready),	// src/main/scala/dtu/DtuSubsystem.scala:89:23
+    .io_targets_2_prdata  (_sysCtrl_apbPort_prdata)	// src/main/scala/dtu/DtuSubsystem.scala:89:23
   );
   DataMemMux dmemMux (	// src/main/scala/dtu/DataMemMux.scala:116:25
     .clock               (clock),
     .reset               (reset),
-    .io_master_rdAddr    (_leros_dmemIO_rdAddr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+    .io_master_rdAddr    (_leros_dmemIO_rdAddr),	// src/main/scala/dtu/DtuSubsystem.scala:93:21
     .io_master_rdData    (_dmemMux_io_master_rdData),
-    .io_master_wrAddr    (_leros_dmemIO_wrAddr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
-    .io_master_wrData    (_leros_dmemIO_wrData),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
-    .io_master_wr        (_leros_dmemIO_wr),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
-    .io_master_wrMask    (_leros_dmemIO_wrMask),	// src/main/scala/dtu/DtuSubsystem.scala:79:21
+    .io_master_wrAddr    (_leros_dmemIO_wrAddr),	// src/main/scala/dtu/DtuSubsystem.scala:93:21
+    .io_master_wrData    (_leros_dmemIO_wrData),	// src/main/scala/dtu/DtuSubsystem.scala:93:21
+    .io_master_wr        (_leros_dmemIO_wr),	// src/main/scala/dtu/DtuSubsystem.scala:93:21
+    .io_master_wrMask    (_leros_dmemIO_wrMask),	// src/main/scala/dtu/DtuSubsystem.scala:93:21
     .io_targets_0_rdAddr (_dmemMux_io_targets_0_rdAddr),
-    .io_targets_0_rdData (_dmem_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:88:20
+    .io_targets_0_rdData (_dmem_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:102:20
     .io_targets_0_wrAddr (_dmemMux_io_targets_0_wrAddr),
     .io_targets_0_wrData (_dmemMux_io_targets_0_wrData),
     .io_targets_0_wr     (_dmemMux_io_targets_0_wr),
     .io_targets_0_wrMask (_dmemMux_io_targets_0_wrMask),
     .io_targets_1_rdAddr (_dmemMux_io_targets_1_rdAddr),
-    .io_targets_1_rdData (_regBlock_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:86:24
+    .io_targets_1_rdData (_regBlock_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:100:24
     .io_targets_1_wrAddr (_dmemMux_io_targets_1_wrAddr),
     .io_targets_1_wrData (_dmemMux_io_targets_1_wrData),
     .io_targets_1_wr     (_dmemMux_io_targets_1_wr),
     .io_targets_2_rdAddr (_dmemMux_io_targets_2_rdAddr),
-    .io_targets_2_rdData (_gpio_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:87:20
+    .io_targets_2_rdData (_gpio_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:101:20
     .io_targets_2_wrAddr (_dmemMux_io_targets_2_wrAddr),
     .io_targets_2_wrData (_dmemMux_io_targets_2_wrData),
     .io_targets_2_wr     (_dmemMux_io_targets_2_wr),
     .io_targets_3_rdAddr (_dmemMux_io_targets_3_rdAddr),
-    .io_targets_3_rdData (_uart_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:89:20
+    .io_targets_3_rdData (_uart_dmemPort_rdData),	// src/main/scala/dtu/DtuSubsystem.scala:103:20
     .io_targets_3_wrAddr (_dmemMux_io_targets_3_wrAddr),
     .io_targets_3_wrData (_dmemMux_io_targets_3_wrData),
     .io_targets_3_wr     (_dmemMux_io_targets_3_wr)
   );
-  assign io_irq = 1'h0;	// src/main/scala/dtu/DtuSubsystem.scala:67:7, :70:10
+  assign io_irq = 1'h0;	// src/main/scala/dtu/DtuSubsystem.scala:81:7, :84:10
   assign io_gpio_out =
-    {_gpio_gpioPort_out, 1'h0, _uart_uartPins_tx, 1'h0, _ponte_io_uart_tx};	// src/main/scala/dtu/DtuSubsystem.scala:67:7, :70:10, :76:21, :87:20, :89:20, :115:36
-  assign io_gpio_outputEnable = {_gpio_gpioPort_oe, 4'hA};	// src/main/scala/dtu/DtuSubsystem.scala:67:7, :87:20, :121:44
+    {_gpio_gpioPort_out, 1'h0, _uart_uartPins_tx, 1'h0, _ponte_io_uart_tx};	// src/main/scala/dtu/DtuSubsystem.scala:81:7, :84:10, :90:21, :101:20, :103:20, :129:36
+  assign io_gpio_outputEnable = {_gpio_gpioPort_oe, 4'hA};	// src/main/scala/dtu/DtuSubsystem.scala:81:7, :101:20, :135:44
 endmodule
 
