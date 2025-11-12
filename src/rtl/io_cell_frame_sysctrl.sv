@@ -6,8 +6,7 @@
 // Created by    :
 // Tool : Kactus2 3.13.0 64-bit
 // Plugin : Verilog generator 2.4
-//  component tuni.fi:subsystem.io:i_io_cell_frame:1.0
-// whose XML file ipxact/tuni.fi/subsystem.io/i_io_cell_frame/1.0/i_io_cell_frame.1.0.xml
+// Interface was originally generated based on component tuni.fi:subsystem.io:i_io_cell_frame:1.0
 //-----------------------------------------------------------------------------
 /*
   Contributors:

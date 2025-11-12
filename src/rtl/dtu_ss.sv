@@ -4,8 +4,7 @@
 // Created by    : 
 // Tool : Kactus2 3.13.1 64-bit
 // Plugin : Verilog generator 2.4
-// This file was generated based on IP-XACT component tuni.fi:subsystem:student_ss_2:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/didactic-soc/ipxact/tuni.fi/subsystem/student_ss_2/1.0/student_ss_2.1.0.xml
+// Interface was originally generated based on IP-XACT component tuni.fi:subsystem:student_ss_2:1.0
 //-----------------------------------------------------------------------------
 /*
   Contributors:

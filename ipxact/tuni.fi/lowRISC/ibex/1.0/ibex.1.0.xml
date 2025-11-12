@@ -1504,7 +1504,7 @@
 			<ipxact:memoryMapRef>memoryMap_0</ipxact:memoryMapRef>
 		</ipxact:cpu>
 	</ipxact:cpus>
-	<ipxact:description>IBEX cpu top ipxact interface model. Core by lowRISC. IPXACT by TUNI.
+	<ipxact:description>IBEX cpu top ipxact interface model. Core by lowRISC. IP-XACT by TUNI.
 
 ibex commit sha: &lt;changing while in development&gt;</ipxact:description>
 	<ipxact:parameters>

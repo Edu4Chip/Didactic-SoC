@@ -300,7 +300,7 @@
 		</ipxact:addressSpace>
 		<ipxact:addressSpace>
 			<ipxact:name>ibex_imem</ipxact:name>
-			<ipxact:range>'h4000</ipxact:range>
+			<ipxact:range>'h1_0000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:addressUnitBits>8</ipxact:addressUnitBits>
 		</ipxact:addressSpace>
@@ -366,9 +366,9 @@
 						<ipxact:name>RV32E</ipxact:name>
 						<ipxact:value>uuid_3873e5bc_3152_418b_8c8e_2cc89e3b1fbe</ipxact:value>
 					</ipxact:moduleParameter>
-					<ipxact:moduleParameter dataType="rv32m_e" parameterId="uuid_fe1d2205_080a_4466_8b0f_b19fcd653c31" usageType="nontyped">
+					<ipxact:moduleParameter dataType="rv32m_e" kactus2:usageCount="1" parameterId="uuid_fe1d2205_080a_4466_8b0f_b19fcd653c31" usageType="nontyped">
 						<ipxact:name>RV32M</ipxact:name>
-						<ipxact:value>uuid_c9619ec7_b9ef_433d_8401_b683e8972cda</ipxact:value>
+						<ipxact:value>uuid_fe1d2205_080a_4466_8b0f_b19fcd653c31</ipxact:value>
 					</ipxact:moduleParameter>
 					<ipxact:moduleParameter dataType="rv32b_e" parameterId="uuid_a82ab9d7_fa24_4e07_b104_abd2f3a4175e" usageType="nontyped">
 						<ipxact:name>RV32B</ipxact:name>
@@ -1403,18 +1403,18 @@
 	<ipxact:cpus>
 		<ipxact:cpu>
 			<ipxact:name>ibex_icore</ipxact:name>
-			<ipxact:range>8</ipxact:range>
+			<ipxact:range>'h1_0000_0000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:memoryMapRef>memoryMap</ipxact:memoryMapRef>
 		</ipxact:cpu>
 		<ipxact:cpu>
 			<ipxact:name>ibex_dcore</ipxact:name>
-			<ipxact:range>8</ipxact:range>
+			<ipxact:range>'h1_0000_0000</ipxact:range>
 			<ipxact:width>32</ipxact:width>
 			<ipxact:memoryMapRef>memoryMap_0</ipxact:memoryMapRef>
 		</ipxact:cpu>
 	</ipxact:cpus>
-	<ipxact:description>IBEX cpu top ipxact interface model. Core by lowRISC. IPXACT by TUNI.
+	<ipxact:description>IBEX cpu top ipxact interface model. Core by lowRISC. IP-XACT by TUNI.
 
 ibex commit sha: &lt;changing while in development&gt;</ipxact:description>
 	<ipxact:parameters>
@@ -1438,7 +1438,7 @@ ibex commit sha: &lt;changing while in development&gt;</ipxact:description>
 			<ipxact:name>MHPMCounterWidth</ipxact:name>
 			<ipxact:value>40</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_3873e5bc_3152_418b_8c8e_2cc89e3b1fbe" type="bit">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_3873e5bc_3152_418b_8c8e_2cc89e3b1fbe" type="bit">
 			<ipxact:name>RV32E</ipxact:name>
 			<ipxact:value>1'b0</ipxact:value>
 		</ipxact:parameter>
@@ -1446,7 +1446,7 @@ ibex commit sha: &lt;changing while in development&gt;</ipxact:description>
 			<ipxact:name>RV32M</ipxact:name>
 			<ipxact:value>ibex_pkg::RV32MFast</ipxact:value>
 		</ipxact:parameter>
-		<ipxact:parameter parameterId="uuid_4fef434c_1236_4d76_a1d4_3d4717f56665">
+		<ipxact:parameter kactus2:usageCount="1" parameterId="uuid_4fef434c_1236_4d76_a1d4_3d4717f56665">
 			<ipxact:name>RV32B</ipxact:name>
 			<ipxact:value>ibex_pkg::RV32BNone</ipxact:value>
 		</ipxact:parameter>

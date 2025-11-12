@@ -6,8 +6,7 @@
 // Created by    :
 // Tool : Kactus2 3.13.1 64-bit
 // Plugin : Verilog generator 2.4
-// This file was generated based on IP-XACT component tuni.fi:ip:jtag_dbg_wrapper:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/ipxact/tuni.fi/ip/jtag_dbg_wrapper/1.0/jtag_dbg_wrapper.1.0.xml
+// This interface was originally generated based on IP-XACT component tuni.fi:ip:jtag_dbg_wrapper:1.0
 //-----------------------------------------------------------------------------
 /*
   Contributors:

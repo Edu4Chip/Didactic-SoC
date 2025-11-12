@@ -1847,6 +1847,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>obi_ruser</ipxact:name>
+				<ipxact:description>dir: in, default value: 'h0</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -1862,7 +1863,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>'h0</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>
@@ -1891,6 +1892,7 @@
 			</ipxact:port>
 			<ipxact:port>
 				<ipxact:name>obi_exokay</ipxact:name>
+				<ipxact:description>dir: in, default value: 1'b1</ipxact:description>
 				<ipxact:wire>
 					<ipxact:direction>phantom</ipxact:direction>
 					<ipxact:vectors>
@@ -1906,7 +1908,7 @@
 					</ipxact:wireTypeDefs>
 					<ipxact:drivers>
 						<ipxact:driver>
-							<ipxact:defaultValue>1'b1</ipxact:defaultValue>
+							<ipxact:defaultValue></ipxact:defaultValue>
 						</ipxact:driver>
 					</ipxact:drivers>
 				</ipxact:wire>

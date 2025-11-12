@@ -6,8 +6,7 @@
 // Created by    : 
 // Tool : Kactus2 3.13.0 64-bit
 // Plugin : Verilog generator 2.4
-// This file was generated based on IP-XACT component tuni.fi:ip:SysCtrl_xbar:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/tau-ipxact/ipxact/tuni.fi/ip/SysCtrl_xbar/1.0/SysCtrl_xbar.1.0.xml
+// Interface was originally generated based on IP-XACT component tuni.fi:ip:SysCtrl_xbar:1.0
 //-----------------------------------------------------------------------------
 /*
   Contributors:
