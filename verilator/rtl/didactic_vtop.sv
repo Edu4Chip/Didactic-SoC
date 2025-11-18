@@ -1,3 +1,10 @@
+/*
+ * A Verilator-friendly, minimal SysCtrl + student subsystem
+ * wrapper for COMP.CE.250 System-on-Chip Design.
+ *
+ * Author: Antti Nurmi <antti.nurmi@tuni.fi>
+ */
+
 module didactic_vtop #(
 ) (
     input  logic clk_i,
@@ -8,6 +15,8 @@ module didactic_vtop #(
     input  logic jtag_td_i,
     output logic jtag_td_o
 );
+
+  logic dut_uart_tx;
 
   SysCtrl_SS_0 #(
       .IOCELL_CFG_W(10),
@@ -21,16 +30,16 @@ module didactic_vtop #(
       .OBI_DW      (32),
       .NUM_SS      (5)
   ) SysCtrl_SS (
-      .clk_internal      (),
+      .clk_internal      (clk_i),
       .gpio_to_core      (),
       .gpio_from_core    (),
       .ss_ctrl_icn       (),
       .sysctrl_irq_i     (),
-      .jtag_tck_internal (),
-      .jtag_tdi_internal (),
-      .jtag_tms_internal (),
-      .jtag_trst_internal(),
-      .jtag_tdo_internal (),
+      .jtag_tck_internal (jtag_tck_i),
+      .jtag_tdi_internal (jtag_td_i),
+      .jtag_tms_internal (jtag_tms_i),
+      .jtag_trst_internal(jtag_trst_ni),
+      .jtag_tdo_internal (jtag_td_o),
       .obi_err           (),
       .obi_gnt           (),
       .obi_gntpar        (),
@@ -47,7 +56,7 @@ module didactic_vtop #(
       .obi_rreadypar     (),
       .obi_wdata         (),
       .obi_we            (),
-      .reset_internal    (),
+      .reset_internal    (rst_ni),
       .reset_icn         (),
       .reset_ss          (),
       .spim_miso_internal(),
@@ -63,7 +72,7 @@ module didactic_vtop #(
       .irq_en_3          (),
       .ss_ctrl_3         (),
       .uart_rx_internal  (),
-      .uart_tx_internal  (),
+      .uart_tx_internal  (dut_uart_tx),
       .cell_cfg          (),
       .pmod_sel          (),
       .irq_en_4          (),
@@ -87,6 +96,22 @@ module didactic_vtop #(
       .pslverr_o()
   );
 
+  /// SIMULATION-ONLY UTILITIES ///
+
+  uart_rx_passive #() i_uart_rx (
+    .rx_i (dut_uart_tx)
+  );
+
+  `define STR(s) `"s`"
+  string RepoRoot = `STR(`ROOT);
+
+  initial begin : sim_loader
+    @(posedge rst_ni);
+    $display("[DUT:SimLoader] Initializing program with $readmemh");
+    $display("[DUT:SimLoader] APPLICABLE TO SIMULATED DESIGNS ONLY");
+    $readmemh({RepoRoot,"/build/verilator_build/imem_stim.hex"}, SysCtrl_SS.i_imem.ram);
+    $readmemh({RepoRoot,"/build/verilator_build/dmem_stim.hex"}, SysCtrl_SS.i_dmem.ram);
+  end : sim_loader
 
 endmodule : didactic_vtop
 

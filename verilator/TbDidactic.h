@@ -29,7 +29,7 @@ class TbDidactic : public Testbench<Vdidactic_vtop> {
 
           if (!std::filesystem::exists(res)) {
             // naive path does not exist, look in build dir
-            std::string repo_root = xstr(ZH_ROOT);
+            std::string repo_root = xstr(ROOT);
             std::filesystem::path bd = repo_root + "/build/sw/";
             std::filesystem::path full_path = bd.string() + res.string();
             if (std::filesystem::exists( full_path.string())) {

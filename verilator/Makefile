@@ -1,4 +1,4 @@
-ROOT            = $(realpath $(CURDIR))/../
+ROOT            = $(realpath $(CURDIR))/..
 BUILD_DIR       = $(ROOT)/build
 VERIL_DIR       = $(ROOT)/verilator
 VERIL_BUILD_DIR = $(BUILD_DIR)/verilator_build
@@ -6,6 +6,9 @@ VERIL_BUILD_DIR = $(BUILD_DIR)/verilator_build
 DUT_TOP         = didactic_vtop
 CPP_TOP         = $(VERIL_DIR)/TbDidactic.cpp
 WAIVER          = $(VERIL_DIR)/didactic.vlt
+
+IMEM_WORDS = 16384
+DMEM_START = 16385
 
 BENDER_TARGETS  = \
   -t tech_cells_generic_exclude_deprecated \
@@ -21,6 +24,7 @@ SRC_FILES       = $(shell bender script flist $(BENDER_TARGETS))
 
 VERIL_DEFINES ?= \
 	+define+VERILATOR=1 \
+	+define+ROOT=$(ROOT) \
 	+define+RVFI \
 	+define+DV_FCOV_DISABLE \
 	+define+COMMON_CELLS_ASSERTS_OFF
@@ -51,23 +55,31 @@ vlint:
 	$(VERIL_COMMON)
 	@echo "Lint [OK]"
 
+
+.PHONY: $(TEST)
+$(TEST):
+	@cp $(BUILD_DIR)/sw/$(TEST).hex $(VERIL_BUILD_DIR)/verilator_stim.hex
+	@head -$(IMEM_WORDS)    $(VERIL_BUILD_DIR)/verilator_stim.hex > $(VERIL_BUILD_DIR)/imem_stim.hex
+	@tail -n +$(DMEM_START) $(VERIL_BUILD_DIR)/verilator_stim.hex > $(VERIL_BUILD_DIR)/dmem_stim.hex
+
 vbuild: init
 	verilator \
 	$(VERIL_COMMON) \
+	--timing \
 	--trace-fst \
 	--trace-structs \
 	--trace-params \
 	--hierarchical \
 	--exe $(CPP_TOP) \
 	--cc \
-	-CFLAGS "-I$(VBENCH)/src" \
+	-CFLAGS "-I$(VBENCH)/src -DROOT=$(ROOT)" \
 	--unroll-count 256 \
 	--build \
 	--Mdir $(VERIL_BUILD_DIR)/obj_dir \
 	-j `nproc`
 
-simv:
-	#simv
+simv: $(TEST)
+	$(VERIL_BUILD_DIR)/obj_dir/V$(DUT_TOP) $(TEST)
 
 clean:
 	@rm -fr $(VERIL_BUILD_DIR)
