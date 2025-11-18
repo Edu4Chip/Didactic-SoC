@@ -45,6 +45,7 @@ sources:
       - vendor_ips/ibex/rtl/ibex_fetch_fifo.sv
       - vendor_ips/ibex/rtl/ibex_prefetch_buffer.sv
       - vendor_ips/ibex/rtl/ibex_multdiv_fast.sv
+      - vendor_ips/ibex/rtl/ibex_multdiv_slow.sv
       - vendor_ips/ibex/rtl/ibex_register_file_ff.sv
       - vendor_ips/ibex/rtl/ibex_ex_block.sv
       - vendor_ips/ibex/rtl/ibex_controller.sv
@@ -136,6 +137,10 @@ sources:
     - src/generated/SysCtrl_SS_wrapper_0.v
     - src/generated/Didactic.v
 
+  - target: verilator
+    files:
+      - verilator/rtl/didactic_vtop.sv
+
   - target: not(synthesis)
     files:
     - src/tech_generic/io_cell.sv
@@ -177,6 +182,7 @@ vendor_package:
       - "rtl/ibex_fetch_fifo.sv"
       - "rtl/ibex_prefetch_buffer.sv"
       - "rtl/ibex_multdiv_fast.sv"
+      - "rtl/ibex_multdiv_slow.sv"
       - "rtl/ibex_register_file_ff.sv"
       - "rtl/ibex_ex_block.sv"
       - "rtl/ibex_controller.sv"
