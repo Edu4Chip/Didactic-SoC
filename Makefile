@@ -93,6 +93,10 @@ fpga: check-env
 # verilator targets
 ######################################################################
 
+.PHONY: vlint
+vlint:
+	$(MAKE) -C verilator vlint
+
 .PHONY: verilate
 verilate:
-	@python3 ./verification/verilator/verilate.py
+	#@python3 ./verification/verilator/verilate.py

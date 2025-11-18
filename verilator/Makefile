@@ -14,7 +14,6 @@ BENDER_TARGETS  = \
   -t tracer \
   -t didactic_obi
 
-
 SRC_FILES       = $(shell bender script flist $(BENDER_TARGETS))
 
 VERIL_DEFINES ?= \
