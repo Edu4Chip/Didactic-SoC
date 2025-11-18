@@ -169,7 +169,7 @@ module SS_Ctrl_reg_array #(
           default: begin
               // io cell cfg
               for(int i=0; i < IOCELL_COUNT; i++) begin
-                if ( addr_i[15:0] == 'h28+i*4) begin // check 28 - 88
+                if ( addr_i[15:0] == 16'('h28+i*4)) begin // check 28 - 88
                   io_cell_cfg_reg[i] <= wdata_i;
                 end
               end
@@ -205,7 +205,7 @@ module SS_Ctrl_reg_array #(
           default: begin
             // io cell cfg
             for(int i=0; i < IOCELL_COUNT; i++) begin
-              if ( addr_i[15:0] == 'h28+i*4) begin // check 28 - 88
+              if ( addr_i[15:0] == 16'('h28+i*4)) begin // check 28 - 88
                 rdata_out_reg <= io_cell_cfg_reg[i];
               end
             end
@@ -233,7 +233,7 @@ module SS_Ctrl_reg_array #(
     rdata_o     = rdata_out_reg;
 
     for(int i=0; i < IOCELL_COUNT; i++) begin
-      cell_cfg[i*IOCELL_CFG_W +:IOCELL_CFG_W] = io_cell_cfg_reg[i];
+      cell_cfg[i*IOCELL_CFG_W +:IOCELL_CFG_W] = io_cell_cfg_reg[i][9:0];
     end
 
 end // comb_logic
@@ -257,7 +257,7 @@ assign irq_en_4    = ss_4_ctrl_reg[31];
 assign ss_ctrl_4   = ss_4_ctrl_reg[SS_CTRL_W-1:0];
 assign ss_ctrl_icn = icn_ctrl_reg[SS_CTRL_W-1:0];
 
-assign pmod_sel = pmod_sel_reg;
+assign pmod_sel = pmod_sel_reg[7:0];
 
 assign fetch_en = fetch_en_reg[3:0];
 

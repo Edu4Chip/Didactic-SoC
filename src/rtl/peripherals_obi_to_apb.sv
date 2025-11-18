@@ -219,7 +219,7 @@ module peripherals_obi_to_apb #(
   assign peripheral_bus[0].prdata = APB_GPIO_PRDATA;
   assign peripheral_bus[0].pready = APB_GPIO_PREADY;
   assign peripheral_bus[0].pslverr = APB_GPIO_PSLVERR;
-  assign APB_GPIO_PADDR = peripheral_bus[0].paddr;
+  assign APB_GPIO_PADDR = peripheral_bus[0].paddr[11:0];
   assign APB_GPIO_PENABLE = peripheral_bus[0].penable;
   assign APB_GPIO_PSEL = peripheral_bus[0].psel;
   assign APB_GPIO_PWDATA = peripheral_bus[0].pwdata;
@@ -229,7 +229,7 @@ module peripherals_obi_to_apb #(
   assign peripheral_bus[1].prdata =  APB_UART_PRDATA;
   assign peripheral_bus[1].pready =  APB_UART_PREADY;
   assign peripheral_bus[1].pslverr = APB_UART_PSLVERR;
-  assign APB_UART_PADDR = peripheral_bus[1].paddr;
+  assign APB_UART_PADDR = peripheral_bus[1].paddr[11:0];
   assign APB_UART_PENABLE = peripheral_bus[1].penable;
   assign APB_UART_PSEL = peripheral_bus[1].psel;
   assign APB_UART_PWDATA = peripheral_bus[1].pwdata;
@@ -239,7 +239,7 @@ module peripherals_obi_to_apb #(
   assign peripheral_bus[2].prdata = APB_SPI_PRDATA;
   assign peripheral_bus[2].pready = APB_SPI_PREADY;
   assign peripheral_bus[2].pslverr = APB_SPI_PSLVERR;
-  assign APB_SPI_PADDR = peripheral_bus[2].paddr;
+  assign APB_SPI_PADDR = peripheral_bus[2].paddr[11:0];
   assign APB_SPI_PENABLE = peripheral_bus[2].penable;
   assign APB_SPI_PSEL = peripheral_bus[2].psel;
   assign APB_SPI_PWDATA = peripheral_bus[2].pwdata;

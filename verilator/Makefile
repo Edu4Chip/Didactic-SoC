@@ -5,6 +5,7 @@ VERIL_BUILD_DIR = $(BUILD_DIR)/verilator_build
 
 DUT_TOP         = didactic_vtop
 CPP_TOP         = $(VERIL_DIR)/tb/TbDidactic.cpp
+WAIVER          = $(VERIL_DIR)/didactic.vlt
 
 BENDER_TARGETS  = \
   -t tech_cells_generic_exclude_deprecated \
@@ -40,8 +41,10 @@ vlint:
 	verilator --lint-only \
 	$(VERIL_DEFINES) \
 	$(VERIL_INCLUDES) \
+	$(WAIVER) \
 	$(SRC_FILES) \
 	--top-module $(DUT_TOP)
+	@echo "Lint [OK]"
 
 
 clean:
