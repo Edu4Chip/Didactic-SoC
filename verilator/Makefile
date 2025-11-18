@@ -4,7 +4,7 @@ VERIL_DIR       = $(ROOT)/verilator
 VERIL_BUILD_DIR = $(BUILD_DIR)/verilator_build
 
 DUT_TOP         = didactic_vtop
-CPP_TOP         = $(VERIL_DIR)/tb/TbDidactic.cpp
+CPP_TOP         = $(VERIL_DIR)/TbDidactic.cpp
 WAIVER          = $(VERIL_DIR)/didactic.vlt
 
 BENDER_TARGETS  = \
@@ -14,6 +14,8 @@ BENDER_TARGETS  = \
   -t verilator \
   -t tracer \
   -t didactic_obi
+
+VBENCH = $(shell bender path vbench)
 
 SRC_FILES       = $(shell bender script flist $(BENDER_TARGETS))
 
@@ -32,20 +34,40 @@ VERIL_INCLUDES ?= \
 	+incdir+$(shell bender path obi)/include \
 	+incdir+$(shell bender path register_interface)/include
 
-.PHONY: init clean vlint verilate vsim
+VERIL_COMMON = \
+	$(VERIL_DEFINES) \
+	$(VERIL_INCLUDES) \
+	$(WAIVER) \
+	$(SRC_FILES) \
+	--top-module $(DUT_TOP) \
+
+.PHONY: init clean vlint vbuild simv
 
 init:
 	@mkdir -p $(VERIL_BUILD_DIR)
 
 vlint:
 	verilator --lint-only \
-	$(VERIL_DEFINES) \
-	$(VERIL_INCLUDES) \
-	$(WAIVER) \
-	$(SRC_FILES) \
-	--top-module $(DUT_TOP)
+	$(VERIL_COMMON)
 	@echo "Lint [OK]"
 
+vbuild: init
+	verilator \
+	$(VERIL_COMMON) \
+	--trace-fst \
+	--trace-structs \
+	--trace-params \
+	--hierarchical \
+	--exe $(CPP_TOP) \
+	--cc \
+	-CFLAGS "-I$(VBENCH)/src" \
+	--unroll-count 256 \
+	--build \
+	--Mdir $(VERIL_BUILD_DIR)/obj_dir \
+	-j `nproc`
+
+simv:
+	#simv
 
 clean:
 	@rm -fr $(VERIL_BUILD_DIR)

@@ -71,5 +71,22 @@ module didactic_vtop #(
       .irq_upper_tieoff  (15'h0)
   );
 
+  didactic_student_domain #(
+      .ApbAddrWidth(32'd12),
+      .ApbDataWidth(32'd32)
+  ) i_student_domain (
+      .clk_i    (clk_i),
+      .rst_ni   (rst_ni),
+      .irq_o    (),
+      .paddr_i  (),
+      .penable_i(),
+      .psel_i   (),
+      .pwdata_i (),
+      .prdata_o (),
+      .pready_o (),
+      .pslverr_o()
+  );
+
+
 endmodule : didactic_vtop
 
