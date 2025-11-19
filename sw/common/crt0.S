@@ -15,8 +15,8 @@
 reset_handler:
   la x2, stack
   la ra, postMain
-  la t0, default_handler
-  csrw mtvec, t0
+  //la t0, default_handler
+  //csrw mtvec, t0
   j main
 
 /* Didactic specific return code pass over through jtag */

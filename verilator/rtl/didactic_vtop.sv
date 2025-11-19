@@ -98,10 +98,6 @@ module didactic_vtop #(
 
   /// SIMULATION-ONLY UTILITIES ///
 
-  uart_rx_passive #() i_uart_rx (
-    .rx_i (dut_uart_tx)
-  );
-
   `define STR(s) `"s`"
   string RepoRoot = `STR(`ROOT);
 

@@ -139,7 +139,7 @@ sources:
 
   - target: verilator
     files:
-      - verilator/rtl/uart_rx_passive.sv
+      - src/rtl/mock_uart.sv
       - verilator/rtl/didactic_student_domain.sv
       - verilator/rtl/didactic_vtop.sv
 
