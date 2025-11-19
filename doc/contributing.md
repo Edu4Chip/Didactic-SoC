@@ -8,9 +8,9 @@ When merging branches, branch should always sync itself to main branch before ac
 
 E.G. Require merge of main to branch before accepting any requests.
 
-## IPXACT 
+## IP-XACT 
 
-IPXACT models are preliminarily "okay". but as the work continues, new additions and improvements should regurarly be done. This also mandates need to run regeneration of the RTL, as any update in IPXACT, might cause change in generated results.
+IP-XACT models are preliminarily "okay". but as the work continues, new additions and improvements should regurarly be done. This also mandates need to run regeneration of the RTL, as any update in IP-XACT, might cause change in generated results.
 
 HW diagrams are XML files and git is not very great at handling those merges correctly. It should be taken care manually that XML is always in sane state, and that only fully correct versions are merged.
 
@@ -18,13 +18,13 @@ HW diagrams are XML files and git is not very great at handling those merges cor
 
 While reused RTL has been behaviorally proven in previous projects, some tweaks were done to interfaces. This results in requirement to rerun verification to them. It is considered sufficent to run them as part of the top level simulations.
 
-Some compilation errors are still present as the xbar logic for example is largely unfinished.
+Some compilation errors are still present as the xbar logic for example is largely unfinished for optional features.
 
 ## verification flow
 
-Verification flow is initially ony for questa but there is also experimental verilator flow. Both are considered as intial versions, improvements could be done.
+Verification flow is initially only for questa but there is also experimental verilator flow. Both are considered as intial versions, improvements could be done.
 
-Additional verification tools could improve the project such as open source verification and formal analysis tools.
+Additional verification tools could improve the project such as open source verification and formal analysis tools. 
 
 ## synthesis flow
 

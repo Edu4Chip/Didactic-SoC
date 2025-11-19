@@ -2,7 +2,7 @@
 
 Staff area CPU (Ibex) can run RISC-V programs with ISA of RV32IMC. Example commands to crosscompile programs can be found in [sw/Makefile](../sw/Makefile).
 
-prequsite programs for the program compilation and conversion:
+Prequsite programs for the program compilation and conversion for simulation:
  
   * riscv toolchain with 32-bit IMC support
 
@@ -24,11 +24,11 @@ Preliminary single RW test case has been created for student system 0 and 1. The
 
 |memory map target | start | end | actual size |
 |-|-|-| - |
-| instruction memory | 0x0100_0000 | 0x0100_FFFF | 8kb|
-| data memory|0x0101_0000|0x0101_FFFF|8kb|
-| debug module|0x0102_0000|0x0102_FFFF|0x900|
+| instruction memory | 0x0100_0000 | 0x0100_FFFF | 16 KiB|
+| data memory|0x0101_0000|0x0101_FFFF|16 KiB|
+| debug module|0x0102_0000|0x0102_FFFF| 0x900|
 | staff peripherals|0x0103_0000|0x0103_FFFF|0x300|
-| control registers|0x0104_0000|0x0104_FFFF|0x80|
+| control registers|0x0104_0000|0x0104_FFFF|0x184|
 | interconnect|0x0105_0000|0x0105_FFFF|denoted by number of ss|
 | student 0|0x0105_0000|0x0105_0FFF||
 | student 1|0x0105_1000|0x0105_1FFF||

@@ -1,6 +1,6 @@
 # Didactic SoC
 
-This is the common chip template for the Edu4chip project. It is created with IPXACT modeling using the Kactus2 tool. Source files are reused from both open source and previous projects. This project is licensed under the terms of the Solderpad Hardware License v2.1.
+This is the common chip template for the Edu4chip project. It is created with IP-XACT modeling using the Kactus2 tool. Source files are reused from both open source and previous projects. This project is licensed under the terms of the Solderpad Hardware License v2.1.
 
 See Doc Folder for more extensive documentation and guides as well as contribution guidelines (some of which are yet to be written).
 
@@ -14,7 +14,7 @@ In addition to these requirements, system needs to be reliable and have enough p
 
 ### Interconnect type
 
-SoC architecture is interconnect bus-type agnostic. Currently, we support axi4lite and obi bus. These are 1.0 and 1.1 SoC builds. OBI is more area and performance optimized due to not requiring converters while axi4lite build has better confidence in correctness.
+SoC architecture is interconnect bus-type agnostic. Currently, we support AXI4LITE and OBI bus. These are 1.0 and 1.1 SoC builds. OBI is more area and performance optimized due to not requiring converters while axi4lite build has better confidence in correctness.
 
 To use different types, regenerate rtl code from Kactus2 Didactic top level and replace filelist command argument <code>didactic_obi</code> or <code>didactic_axi</code>
 
@@ -40,7 +40,7 @@ doc: All documentation is gathered within this folder.
 
 fpga: Tool scripts, documentation and constraint files for FPGA platforms should be added to this folder.
 
-ipxact: XML files of IPXACT definitions are kept within this folder.
+ipxact: XML files of IP-XACT definitions are kept within this folder.
 
 sim: Simulation Makefiles and scripts are kept in this folder. Additionally, supporting files and/or scripts such as for waveform generation can be added here. 
 
@@ -70,9 +70,7 @@ Verification: Contains experimental verilator setup and verification PyUVM platf
 
 * Documentation is incomplete. Once complete, it should contain details why certain template architecture was chosen as well as more extensive documentation what is included where. Additionally, template documentation should be added for "student" systems to document themselves.
 
-* pcb related items such as external clock frequency, connetivity. Initial assumption is to have external 8 MHz oscillator and IO pins for faster clock signal generator.
-
-* FPGA prototyping flow. Currently there is only short description how to get the files to compile.
+* pcb related items such as external clock frequency, connetivity. Initial assumption is to have single external clock source (signal generator / oscillator) and internal faster option.
 
 ## What is excluded from repository
 

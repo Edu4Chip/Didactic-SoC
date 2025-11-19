@@ -2,9 +2,9 @@
 
 This is Edu4Chip template SoC project.
 
-It contains among other things:
+It contains and is going to contain, among other things:
 
-* IPXACT models, created by TAU.
+* IP-XACT models, created by TAU.
 
 * reused SV from TAU projects
 
