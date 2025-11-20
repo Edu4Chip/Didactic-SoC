@@ -12,7 +12,7 @@ SHELL = bash
 BUILD_DIR ?= ../build
 XLEN ?= 32
 PREFIX ?= riscv$(XLEN)-unknown-elf
-ARCH_FLAGS ?= -march=rv32imc -mabi=ilp32
+ARCH_FLAGS ?= -march=rv32imc_zicsr -mabi=ilp32
 CC=$(PREFIX)-gcc
 CFLAGS=-O2 -g -ffunction-sections -fdata-sections -Icommon/
 OBJDUMP ?= $(PREFIX)-objdump

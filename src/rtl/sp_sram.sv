@@ -57,7 +57,9 @@ module sp_sram #(
 `ifndef ASIC /************* SIM MODEL / FPGA INFERENCE *******************/
 
   logic [DATA_WIDTH-1:0] ram [NUM_WORDS-1:0];
-  logic [ADDR_WIDTH-1:0] raddr_q;
+  logic [ADDR_WIDTH-1:0] raddr_q, local_addr;
+
+  assign local_addr = addr_i >> 2;
 
   generate
     // if defined, preload simulation memory with external file
@@ -79,7 +81,7 @@ module sp_sram #(
     end 
     else begin
       if(req_i && !we_i)
-        raddr_q <= addr_i;
+        raddr_q <= local_addr;
     end
   end
 
@@ -89,7 +91,7 @@ module sp_sram #(
       always @(posedge clk_i) begin
         if (req_i && we_i) begin
           if(be_i[i]) begin
-            ram[addr_i][(i+1)*8-1:i*8]<= wdata_i[(i+1)*8-1:i*8];
+            ram[local_addr][(i+1)*8-1:i*8]<= wdata_i[(i+1)*8-1:i*8];
           end
         end
       end
@@ -99,7 +101,5 @@ module sp_sram #(
   assign rdata_o = ram[raddr_q];
 
 `endif
-
-  assign ruser_o = 1'b0;
 
 endmodule
