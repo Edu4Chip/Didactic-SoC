@@ -25,21 +25,31 @@
 #define MSR         *( volatile uint32_t* )(0x01030118)
 #define SCR         *( volatile uint32_t* )(0x0103011C)
 
-void uart_init(){
-  // configure rx io cell
-  volatile uint32_t temp =   *( volatile uint32_t* )(0x01040028);
-  *( volatile uint32_t* )(0x01040028) = (temp | 3u);
+void uart_init(uint32_t freq, uint32_t baud){
+  // io cells are currently set to one directionals. change of dir would be like this:
+/*  // set rx io cells as receive
+  volatile uint32_t temp =   *( volatile uint32_t* )(0x010400034);
 
+  *( volatile uint32_t* )(0x010400034) = temp | u1<<11;
+*/
+
+  uint32_t divisor = freq / (baud << 4);
+
+  // Precalculated example divisor for 8MHz clock, 9600
+  // uint32_t divisor = 52;
 
   // init uart settings (for typical tx/rx setup)
-  IIR_FCR = 1u;
-  LCR = (1u<<7 | 3u);
-  RBR_THR_DLL = 27u;//divisor to define baudrate: ~230400 = (frequency, 100MHz)/(16*RBR_THR_DLL)
-  LCR = 3u;
-  IER_DLM = 1u;// enable transmitter holding register empty interrupt
-  IIR_FCR = 2u; // receiver fifo reset
-
+  IIR_FCR     = 0x00;                   // disable uart interrupt
+  LCR         = (0x80);                 // Enable DLAB (set baud rate divisor)
+  RBR_THR_DLL =  divisor;               // divisor (lo byte)
+  IER_DLM     = (divisor >> 8) & 0xFF;  // divisor (hi byte)
+  LCR         = 0x03;                   // 8 bits, no parity, one stop bit
+  IIR_FCR     = 0xC7;                   // Enable FIFO, clear them, with 14-byte threshold
+  MCR         = 0x20;                   // Autoflow mode
+  //  IER_DLM     = 1u;// enable transmitter holding register empty interrupt
+  
 }
+
 
 // Poll until the transmit buffer is empty
 int is_transmit_empty()
@@ -61,14 +71,15 @@ void uart_print(const char str[]){
 }
 
 void mock_uart_print(const char str[]) {
-  //for (int i = 0; str[i] != '\0'; i++) {
-    //RBR_THR_DLL = str[i];
-  //}
-  int i=0;
+  /*int i=0;
   do {
     RBR_THR_DLL = str[i];
     i++;
   } while (str[i] != '\0');
+*/
+  for (int i=0; str[i] != '\0'; i++) {
+    RBR_THR_DLL = str[i];
+  }
 }
 
 int uart_loopback_test(){

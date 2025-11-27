@@ -1385,7 +1385,7 @@ module SysCtrl_SS_0 #(
   .rst_ni    (apb_uart_RSTN),
   .penable_i (apb_uart_PENABLE),
   .pwrite_i  (apb_uart_PWRITE),
-  .paddr_i   ({29'b0,apb_uart_PADDR}),
+  .paddr_i   ({27'b0,apb_uart_PADDR, 2'b0}),
   .psel_i    (apb_uart_PSEL),
   .pwdata_i  (apb_uart_PWDATA),
   .prdata_o  (apb_uart_PRDATA),
