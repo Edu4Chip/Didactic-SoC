@@ -19,7 +19,6 @@ OBJCOPY ?= $(PREFIX)-objcopy
 
 env:
 	mkdir -p $(BUILD_DIR)/sw
-	echo "prerequisite: local install of RISCV32 toolchain + elf2hex"
 
 build_test:
 	$(CC) $(ARCH_FLAGS) -D__riscv__ $(CFLAGS) -c $(TESTCASE)/$(TESTCASE).c -o $(BUILD_DIR)/sw/$(TESTCASE).o 
@@ -27,17 +26,18 @@ build_test:
 	$(CC) $(ARCH_FLAGS) -Tcommon/link.ld $(BUILD_DIR)/sw/$(TESTCASE).o $(BUILD_DIR)/sw/crt0.o -nostartfiles -nostdlib -Wl,--gc-sections -o $(BUILD_DIR)/sw/$(TESTCASE).elf
 
 hex_test:
-	$(OBJCOPY) $(BUILD_DIR)/sw/$(TESTCASE).elf -O binary $(BUILD_DIR)/tmp.bin
-	xxd -ps $(BUILD_DIR)/tmp.bin $(BUILD_DIR)/tmp.hex
-	tr -d '\n' < $(BUILD_DIR)/tmp.hex > $(BUILD_DIR)/tmp_nl.hex	
-	sed -r 's/(.{8})/\1\n/g' < $(BUILD_DIR)/tmp_nl.hex > $(BUILD_DIR)/tmp_be.hex
-	sed -E 's/(..)(..)(..)(..)/\4\3\2\1/' < $(BUILD_DIR)/tmp_be.hex > $(BUILD_DIR)/tmp_le.hex
+	@echo "Formatting $(TESTCASE).elf into $(TEST).hex"
+	@$(OBJCOPY) $(BUILD_DIR)/sw/$(TESTCASE).elf -O binary $(BUILD_DIR)/tmp.bin
+	@xxd -ps $(BUILD_DIR)/tmp.bin $(BUILD_DIR)/tmp.hex
+	@tr -d '\n' < $(BUILD_DIR)/tmp.hex > $(BUILD_DIR)/tmp_nl.hex	
+	@sed -r 's/(.{8})/\1\n/g' < $(BUILD_DIR)/tmp_nl.hex > $(BUILD_DIR)/tmp_be.hex
+	@sed -E 's/(..)(..)(..)(..)/\4\3\2\1/' < $(BUILD_DIR)/tmp_be.hex > $(BUILD_DIR)/tmp_le.hex
 
 trim:
-	head -$(shell wc -w < $(BUILD_DIR)/tmp_le.hex) $(BUILD_DIR)/tmp_le.hex > $(BUILD_DIR)/sw/$(TEST).hex
+	@head -$(shell wc -w < $(BUILD_DIR)/tmp_le.hex) $(BUILD_DIR)/tmp_le.hex > $(BUILD_DIR)/sw/$(TEST).hex
 
 dump:
-	$(OBJDUMP) $(BUILD_DIR)/sw/$(TESTCASE).elf -d > $(BUILD_DIR)/sw/$(TESTCASE).asm
+	@$(OBJDUMP) $(BUILD_DIR)/sw/$(TESTCASE).elf -d > $(BUILD_DIR)/sw/$(TESTCASE).asm
 
 cleanup:
 	@rm -fr $(BUILD_DIR)/sw/*.o 

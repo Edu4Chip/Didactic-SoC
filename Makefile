@@ -73,14 +73,14 @@ run_sim: check-env
 # sw targets
 ######################################################################
 #
-build_test: check-env
+elf: check-env
 	$(MAKE) -C sw test BUILD_DIR=$(BUILD_DIR) TESTCASE=$(TEST)
 
 ######################################################################
 # full flow targets
 ######################################################################
 
-test_all: check-env compile elaborate build_test run_sim
+test_all: check-env compile elaborate elf run_sim
 
 ######################################################################
 # fpga targets
