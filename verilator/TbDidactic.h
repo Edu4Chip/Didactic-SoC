@@ -23,7 +23,11 @@ class TbDidactic : public Testbench<Vdidactic_vtop> {
 
         std::filesystem::path resolve_elf(std::string elf_name) {
           std::filesystem::path res = elf_name;
-          if (elf_name.substr(elf_name.size() - 4) != ".elf") {
+          if (elf_name.size() > 3) {
+            if (elf_name.substr(elf_name.size() - 4) != ".elf") {
+              res += ".elf";
+            } 
+          } else {
             res += ".elf";
           }
 
