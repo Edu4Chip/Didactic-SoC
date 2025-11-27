@@ -14,6 +14,9 @@ module didactic_student_domain #(
     output logic [ApbDataWidth-1:0] prdata_o
 );
 
+always  @(posedge clk_i ) begin
+  pready_o <= penable_i;
+end
 
 endmodule : didactic_student_domain
 

@@ -16,6 +16,9 @@ module didactic_vtop #(
     output logic jtag_td_o
 );
 
+  OBI_BUS obi_bus ();
+  APB apb_bus ();
+
   logic dut_uart_tx;
 
   SysCtrl_SS_0 #(
@@ -41,16 +44,16 @@ module didactic_vtop #(
       .jtag_trst_internal(jtag_trst_ni),
       .jtag_tdo_internal (jtag_td_o),
       .obi_err           (),
-      .obi_gnt           (),
+      .obi_gnt           (obi_bus.gnt),
       .obi_gntpar        (),
       .obi_rdata         (),
       .obi_rid           (),
-      .obi_rvalid        (),
+      .obi_rvalid        (obi_bus.rvalid),
       .obi_rvalidpar     (),
       .obi_addr          (),
       .obi_aid           (),
       .obi_be            (),
-      .obi_req           (),
+      .obi_req           (obi_bus.req),
       .obi_reqpar        (),
       .obi_rready        (),
       .obi_rreadypar     (),
@@ -80,6 +83,13 @@ module didactic_vtop #(
       .irq_upper_tieoff  (15'h0)
   );
 
+  obi_to_apb_intf #() i_obi_to_apb (
+    .clk_i,
+    .rst_ni,
+    .obi_i (obi_bus),
+    .apb_o (apb_bus)
+  );
+
   didactic_student_domain #(
       .ApbAddrWidth(32'd12),
       .ApbDataWidth(32'd32)
@@ -88,11 +98,11 @@ module didactic_vtop #(
       .rst_ni   (rst_ni),
       .irq_o    (),
       .paddr_i  (),
-      .penable_i(),
-      .psel_i   (),
+      .penable_i(apb_bus.penable),
+      .psel_i   (apb_bus.psel),
       .pwdata_i (),
       .prdata_o (),
-      .pready_o (),
+      .pready_o (apb_bus.pready),
       .pslverr_o()
   );
 

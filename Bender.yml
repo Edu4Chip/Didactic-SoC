@@ -13,15 +13,6 @@ dependencies:           # TODO: only 1st level dependencies needed, also semanti
   apb:          { git: "https://github.com/pulp-platform/apb.git", version: "0.2.1" }
   obi:          { git: "https://github.com/pulp-platform/obi.git", version: "0.1.7" }
   vbench:       { git: "https://github.com/ANurmi/vbench", rev: "main" }
-#  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" }
-#  kth_ss: { path: 'Subsystem_KTH/src/interface/kth_ss' }
-# NOTE: axi pkg contains file that is not supported by all tools! 
-#
-# in file:
-# .bender/git/checkouts/axi-<hash>/Bender.yml
-#
-# comment out line 88:
-# #  - src/axi_xbar_unmuxed.sv
 
 sources:
 
