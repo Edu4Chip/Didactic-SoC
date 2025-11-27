@@ -43,6 +43,7 @@ VERIL_COMMON = \
 	$(VERIL_INCLUDES) \
 	$(WAIVER) \
 	$(SRC_FILES) \
+	--timing \
 	--top-module $(DUT_TOP) \
 
 .PHONY: init clean vlint vbuild simv
@@ -65,7 +66,6 @@ $(TEST):
 vbuild: init
 	verilator \
 	$(VERIL_COMMON) \
-	--timing \
 	--trace-fst \
 	--trace-structs \
 	--trace-params \

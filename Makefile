@@ -10,6 +10,7 @@
 # Contributors: 
 # * Matti Käyrä (Matti.kayra@tuni.fi)
 # * Roni Hämäläinen (roni.hamalainen@tuni.fi)
+# * Antti Nurmi (antti.nurmi@tuni.fi)
 #######################################
 
 # Common shell variables
@@ -20,10 +21,9 @@ TEST ?= blink
 
 # Fetch submodule revisions and 
 # save work in submodules to stashes - avoid data loss by accidents
-repository_init:
+ips:
 	bender update
 	bender vendor init
-#	git submodule update --init --recursive
 
 check-env:
 	mkdir -p $(BUILD_DIR)/logs/compile
@@ -97,15 +97,10 @@ fpga: check-env
 vlint:
 	$(MAKE) -C verilator vlint
 
-.PHONY: vbuild
-vbuild:
+.PHONY: verilate
+verilate:
 	$(MAKE) -C verilator vbuild
 
 .PHONY: simv
 simv:
 	$(MAKE) -C verilator simv
-
-# Legacy target
-.PHONY: verilate
-verilate:
-	@python3 ./verification/verilator/verilate.py

@@ -37,6 +37,7 @@ lint_off -rule WIDTHEXPAND -file "*/obi*.sv" -match "*"
 
 lint_off -rule BLKSEQ -file "*/tech_generic/*" -match "*"
 
+lint_off -rule PINMISSING -file "*/axi-*/*" -match "*"
 
 // Waivers on generated RTL
 lint_off -rule UNUSEDSIGNAL -file "*/generated/*" -match "*"
