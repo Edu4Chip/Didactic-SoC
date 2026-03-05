@@ -13,6 +13,13 @@ if { ![info exists CPUS] } {
 set PROJECT $::env(PROJECT)
 set BUILD_DIR $::env(BUILD_DIR)
 
+# Optional VJTAG env var, defaults to 0
+if { [info exists ::env(VJTAG)] } {
+  set VJTAG $::env(VJTAG)
+} else {
+  set VJTAG 0
+}
+
 if { $PROJECT eq "z1" } {
   set XILINX_PART xc7z020clg400-1
 } elseif { $PROJECT eq "vcu118" } {
@@ -51,7 +58,12 @@ set INCLUDE_DIRS [list  \
 set_property include_dirs $INCLUDE_DIRS [current_fileset]
 
 # File read
-add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi]
+# Bender tags - add bscane only for VJTAG
+if { $VJTAG } {
+  add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi -t bscane]
+} else {
+  add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi]
+}
 
 if { $PROJECT eq "z1" } {
   add_files -norecurse $DIR/rtl/DidacticZ1.v

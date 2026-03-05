@@ -89,6 +89,9 @@ test_all: check-env compile elaborate build_test run_sim
 fpga: check-env
 	$(MAKE) -C fpga all_xilinx BUILD_DIR=$(BUILD_DIR)
 
+fpga_vjtag: check-env
+	$(MAKE) -C fpga all_xilinx_vjtag BUILD_DIR=$(BUILD_DIR)
+
 ######################################################################
 # verilator targets
 ######################################################################
