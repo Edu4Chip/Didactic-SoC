@@ -20,9 +20,6 @@ all_xilinx: check_env
 	cd $(BUILD_DIR)
 	$(VIVADO) -mode batch -notrace -source ../fpga/scripts/run_xilinx.tcl  
 
-all_xilinx_vjtag: check_env
-	cd $(BUILD_DIR) && VJTAG=1 $(VIVADO) -mode batch -notrace -source ../fpga/scripts/run_xilinx.tcl
-
 all_xilinx_gui: check_env
 	cd $(BUILD_DIR)
 	$(VIVADO) -mode gui -source ../fpga/scripts/run_xilinx.tcl &
