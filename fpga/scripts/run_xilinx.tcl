@@ -84,8 +84,12 @@ if { $PROJECT eq "z1" } {
 
 update_compile_order -fileset sources_1
 
-add_files -fileset constrs_1 -norecurse constraints/$PROJECT.xdc
-
+# For the vjtag use the same basys3.xdc
+if { $PROJECT eq "basys3_vjtag" } {
+  add_files -fileset constrs_1 -norecurse constraints/basys3.xdc
+} else {
+  add_files -fileset constrs_1 -norecurse constraints/$PROJECT.xdc
+}
 #Elaborate design
 synth_design -rtl -name rtl_1 -sfcu
 # sfcu -> run synthesis in single file compilation unit mode
