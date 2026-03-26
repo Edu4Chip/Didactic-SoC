@@ -24,6 +24,7 @@ class cl_apb_base_driver(uvm_driver):
         self.ev_last_clock = None
 
     def build_phase(self):
+        self.logger.info("Start build_phase() -> APB driver")
         super().build_phase()
 
         # Get the configuration object
@@ -32,6 +33,7 @@ class cl_apb_base_driver(uvm_driver):
         # Creating the cocotb-triggers event object
         self.ev_last_clock = Event("ev_last_clock")
 
+        self.logger.info("End build_phase() -> APB driver")
 
     async def run_phase(self):
         """Run phase:
@@ -39,27 +41,26 @@ class cl_apb_base_driver(uvm_driver):
         * For each sequence item it calls the clock_event, drive_transaction and
         handle_reset tasks in parallel in a fork join_none."""
 
+        self.logger.info("Start run_phase() -> APB driver")
         await super().run_phase()
 
         # Starts coroutines in parallel
         cocotb.start_soon(self.clock_event())
         cocotb.start_soon(self.drive_transaction())
         cocotb.start_soon(self.handle_reset())
-        
 
     async def clock_event(self):
         while True:
+            self.ev_last_clock.clear()
             await RisingEdge(self.cfg.vif.clk)
             self.ev_last_clock.set()
 
-            # Waits until next time step , default unit is step
-            await Timer(1)
-            self.ev_last_clock.clear()
-
     async def handle_reset(self):
         """ Kills driver process when reset is active"""
+
         while True:
-            if self.cfg.vif.rst.value.binstr == '0':
+            if (self.cfg.active_low_reset and str(self.cfg.vif.rst.value) == '0') or \
+            (not self.cfg.active_low_reset and str(self.cfg.vif.rst.value) == '1') :
                 if self.get_and_drive_process is not None:
                     self.logger.debug("Process should be killed")
                     self.get_and_drive_process.kill()
@@ -69,14 +70,19 @@ class cl_apb_base_driver(uvm_driver):
                         self.seq_item_port.item_done()
                     except UVMSequenceError:
                         self.logger.info("No current active item")
+
             await RisingEdge(self.cfg.vif.clk)
 
     async def drive_transaction(self):
         while True:
             await self.drive_reset()
 
-            while self.cfg.vif.rst.value.binstr != '1':
-                await RisingEdge(self.cfg.vif.clk)
+            if self.cfg.active_low_reset:
+                while str(self.cfg.vif.rst.value) != '1':
+                    await RisingEdge(self.cfg.vif.clk)
+            else:
+                while str(self.cfg.vif.rst.value) != '0':
+                    await RisingEdge(self.cfg.vif.clk)
 
             # Passes coroutine to process handle -> possible to kill() process
             self.get_and_drive_process = cocotb.start_soon(self.get_and_drive_transaction())
@@ -85,9 +91,6 @@ class cl_apb_base_driver(uvm_driver):
 
     async def get_and_drive_transaction(self):
         # Start driver loop
-        if self.cfg.driver is not DriverType.PRODUCER and self.cfg.driver is not DriverType.CONSUMER:
-            raise UVMFatalError(
-                f"APB DRIVER, not handled driver {self.get_full_name()}")
         await self.driver_loop()
 
     async def drive_reset(self):

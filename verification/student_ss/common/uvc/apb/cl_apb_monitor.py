@@ -27,10 +27,8 @@ class cl_apb_monitor(uvm_monitor):
         # Clock cycle counter
         self.clk_cyc_cnt = 0
 
-        # Waitstates counter
-        self.waitstates = None
-
     def build_phase(self):
+        self.logger.info("Start build_phase() -> APB monitor")
         super().build_phase()
 
         # Get the configuration object
@@ -39,15 +37,15 @@ class cl_apb_monitor(uvm_monitor):
         # Construct the analysis port
         self.ap = uvm_analysis_port("ap", self)
 
+        self.logger.info("End build_phase() -> APB monitor")
 
     async def run_phase(self):
+        self.logger.info("Start run_phase() -> APB monitor")
         await super().run_phase()
 
         cocotb.start_soon(self.cycle_counter())
-
         cocotb.start_soon(self.handle_reset())
         cocotb.start_soon(self.monitor_transaction())
-
 
     async def cycle_counter(self):
         while True:
@@ -56,16 +54,21 @@ class cl_apb_monitor(uvm_monitor):
 
     async def handle_reset(self):
         while True:
-            # is reset goes low, stop active monitor loop
-            if self.cfg.vif.rst.value.binstr == '0':
+            # is reset is active, stop active monitor loop
+            if (self.cfg.active_low_reset and str(self.cfg.vif.rst.value) == '0') or \
+            (not self.cfg.active_low_reset and str(self.cfg.vif.rst.value) == '1') :
                 if self.monitor_loop_process is not None:
                     self.monitor_loop_process.kill()
             await RisingEdge(self.cfg.vif.clk)
 
     async def monitor_transaction(self):
         while True:
-            while self.cfg.vif.rst.value.binstr != '1':
-                await RisingEdge(self.cfg.vif.clk)
+            if self.cfg.active_low_reset:
+                while str(self.cfg.vif.rst.value) != '1':
+                    await RisingEdge(self.cfg.vif.clk)
+            else:
+                while str(self.cfg.vif.rst.value) != '0':
+                    await RisingEdge(self.cfg.vif.clk)
 
             # assigning monitor loop process to handle and awaiting it to finish
             self.monitor_loop_process = cocotb.start_soon(self.monitor_loop())
@@ -75,33 +78,28 @@ class cl_apb_monitor(uvm_monitor):
         """ Monitor loop & pin wiggling """
 
         while True:
-            item = cl_apb_seq_item.create("item")
+            item = cl_apb_seq_item.create("apb_monitor_item")
+            self.logger.debug(f"New item created in monitor")
 
             await self.monitor_observe_pins(item)
 
             self.ap.write(item)
-            self.logger.debug(f"Item sent from monitor: {item}")
-
+            self.logger.debug(f"Item sent from monitor: \ {item}")
 
     async def monitor_observe_pins(self, item):
-        self.waitstates = -1
 
-        while self.cfg.vif.enable.value.binstr != '1' or self.cfg.vif.ready.value.binstr != '1':
-            if self.cfg.vif.sel.value.binstr == '1' and self.cfg.vif.ready.value.binstr != '1':
-                self.waitstates += 1
+        while str(self.cfg.vif.enable.value) != '1' or str(self.cfg.vif.ready.value) != '1':
             await RisingEdge(self.cfg.vif.clk)
 
-        item.wait_len = self.waitstates
-
-        item.addr = self.cfg.vif.addr
-        item.slverr = self.cfg.vif.slverr
+        item.addr = self.cfg.vif.addr.value
+        item.slverr = self.cfg.vif.slverr.value
 
         if self.cfg.vif.wr.value == OpType.WR:
             item.op = OpType.WR
-            item.data = self.cfg.vif.wdata
+            item.data = self.cfg.vif.wdata.value
         elif self.cfg.vif.wr.value == OpType.RD:
             item.op = OpType.RD
-            item.data = self.cfg.vif.rdata
+            item.data = self.cfg.vif.rdata.value
         else:
             self.logger.warning("Operation Type not RD or WR")
 

@@ -1,7 +1,9 @@
 # Python dependencies to run the student TB
-cocotb == 1.8.1
-pyuvm == 3.0.0
+cocotb == 2.0.0
+pyuvm == 4.0.1
 pyvsc == 0.8.8.*
+PyBoolector== 3.2.4.20240823.1
+pytest== 9.0.2
 
 # Visualise coverage
-pyucis-viewer==0.0.4.*
+pyucis-viewer== 0.0.4.*

@@ -2,7 +2,7 @@
 - The UVM Driver is an active entity that converts abstract transaction to design pin toggles.
 - Transaction level objects are obtained from the Sequencer and the UVM Driver drives them to the design via an interface handler."""
 
-from cocotb.triggers import RisingEdge, ReadOnly, ClockCycles
+from cocotb.triggers import RisingEdge, ReadOnly
 from cocotb.types import LogicArray
 from pyuvm import *
 from .apb_common import *
@@ -30,10 +30,10 @@ class cl_apb_consumer_driver(cl_apb_base_driver):
             await RisingEdge(self.cfg.vif.clk)
             await ReadOnly()
 
-        await ClockCycles(self.cfg.vif.clk, 1 + self.req.wait_len)
+        await RisingEdge(self.cfg.vif.clk)
 
         self.cfg.vif.ready.value = 1
-        self.cfg.vif.slverr.value = self.rsp.slverr
+        self.cfg.vif.slverr.value = self.req.slverr
 
         if self.cfg.vif.wr.value == 0:
             self.cfg.vif.rdata.value = self.req.data

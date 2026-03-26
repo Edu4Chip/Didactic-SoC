@@ -1,25 +1,15 @@
-""" APB Agent.
-- Provides protocol specific tasks to generate transactions, check the results and perform coverage.
-- UVM agent encapsulates the Sequencer, Driver and Monitor into a single entity.
-- The components here are instatiated and connected via TLM interfaces.
-- Can also have configuration options like:
-    - the type of UVM agent (active/passive),
-    - knobs to turn on features such as functional coverage, and other similar parameters."""
 
 from pyuvm import *
-from .cl_apb_base_driver import cl_apb_base_driver
-from .cl_apb_producer_driver import cl_apb_producer_driver
-from .cl_apb_cosumer_driver import cl_apb_consumer_driver
-from .cl_apb_sequencer import cl_apb_sequencer
-from .cl_apb_monitor import cl_apb_monitor
-from .cl_apb_coverage import cl_apb_coverage
-from .apb_common import *
-from .apb_parameterization import *
-from .cl_apb_seq_item import cl_apb_seq_item
 
+from .cl_gbus_driver import cl_gbus_driver
+from .cl_gbus_monitor import cl_gbus_monitor
+from .cl_gbus_sequencer import cl_gbus_sequencer
+from .cl_gbus_coverage import cl_gbus_coverage
+from .cl_gbus_item import cl_gbus_seq_item, gbus_change_width
+from .gbus_common import SequenceItemOverride
 
-class cl_apb_agent(uvm_agent):
-    """ UVM agent for APB """
+class cl_gbus_agent(uvm_agent):
+    """ UVM agent for Generic Bus """
 
     def __init__(self, name, parent):
         super().__init__(name, parent)
@@ -43,7 +33,6 @@ class cl_apb_agent(uvm_agent):
         self.coverage   = None
 
     def build_phase(self):
-        self.logger.info("Start build_phase() -> APB agent")
         super().build_phase()
 
         # Construct analysis port
@@ -54,35 +43,28 @@ class cl_apb_agent(uvm_agent):
 
         # Create monitor and pass handle to cfg
         ConfigDB().set(self,"monitor","cfg",self.cfg)
-        self.monitor = cl_apb_monitor.create("monitor", self)
+        self.monitor = cl_gbus_monitor.create("monitor", self)
 
         if self.cfg.is_active == uvm_active_passive_enum.UVM_ACTIVE:
             # Create driver and pass handle to cfg if active
             ConfigDB().set(self, "driver", "cfg", self.cfg)
-            if self.cfg.driver == DriverType.PRODUCER:
-                self.driver = cl_apb_producer_driver.create("driver", self)
-            elif self.cfg.driver == DriverType.CONSUMER:
-                self.driver = cl_apb_consumer_driver.create("driver", self)
-            else:
-                raise UVMFatalError(f"Driver type not set in cfg {self.cfg.get_full_name()}")
+            self.driver = cl_gbus_driver.create("driver", self)
 
             # Create sequencer and pass handle to cfg if active
             ConfigDB().set(self, "sequencer", "cfg", self.cfg)
-            self.sequencer = cl_apb_sequencer.create("sequencer", self)
+            self.sequencer = cl_gbus_sequencer.create("sequencer", self)
 
         if self.cfg.create_default_coverage:
             # Create coverage and pass handle to cfg if active
             ConfigDB().set(self,"coverage", "cfg", self.cfg)
-            self.coverage = cl_apb_coverage.create("coverage", self)
+            self.coverage = cl_gbus_coverage.create("coverage", self)
 
         # Update the sequence item width
         if self.cfg.seq_item_override == SequenceItemOverride.DEFAULT:
-            uvm_factory().set_type_override_by_type(cl_apb_seq_item, apb_change_width(self.cfg.ADDR_WIDTH, self.cfg.DATA_WIDTH))
+            uvm_factory().set_type_override_by_type(cl_gbus_seq_item, gbus_change_width(self.cfg.BUS_WIDTH))
 
-        self.logger.info("End build_phase() -> APB agent")
 
     def connect_phase(self):
-        self.logger.info("Start connect_phase() -> APB agent")
         super().connect_phase()
 
         # Connect driver and sequencer
@@ -95,5 +77,3 @@ class cl_apb_agent(uvm_agent):
         # Connect coverage
         if self.cfg.create_default_coverage:
             self.monitor.ap.connect(self.coverage.analysis_export)
-
-        self.logger.info("End connect_phase() -> APB agent")

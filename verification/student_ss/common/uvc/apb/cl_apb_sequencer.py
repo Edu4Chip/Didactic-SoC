@@ -10,7 +10,9 @@ class cl_apb_sequencer(uvm_sequencer):
         self.cfg = None
 
     def build_phase(self):
+        self.logger.info("Start build_phase() -> APB sequencer")
         super().build_phase()
 
         self.cfg = ConfigDB().get(self, "", "cfg")
 
+        self.logger.info("End build_phase() -> APB sequencer")

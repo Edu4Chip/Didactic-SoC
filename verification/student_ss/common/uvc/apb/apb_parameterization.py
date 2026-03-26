@@ -18,6 +18,6 @@ def apb_change_width(addr_width = 8, data_width = 8):
             """Setting the correct ADDR_WIDTH and DATA_WIDTH parameters"""
             self.addr <= 2 ** addr_width - 1
             self.data <= 2 ** data_width - 1
-            self.strb < 2 ** (data_width // 8)
+            self.strb <= 2 ** (data_width//8) - 1
 
     return cl_apb_seq_item_updated

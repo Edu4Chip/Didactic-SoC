@@ -29,6 +29,8 @@ class cl_apb_producer_driver(cl_apb_base_driver):
         # If unaligned to clock wait for clocking event
         await self.ev_last_clock.wait()
 
+        self.logger.debug("Driving pins from transaction")
+
         # Drive transactions through interface
         if self.req.op == OpType.WR:
             self.cfg.vif.wr.value = 1
@@ -42,13 +44,13 @@ class cl_apb_producer_driver(cl_apb_base_driver):
             if self.cfg.enable_masked_data :
                 masked_data = 0
                 strb_signal = self.req.strb
-                for i in range(4):
+                for i in range(self.cfg.STRB_WIDTH):
                     if strb_signal % 2 == 1:
                         masked_data += (self.req.data // 2**(8*i)) % 2**8 << (8*i)
                     strb_signal = strb_signal >> 1
 
                 self.cfg.vif.wdata.value = masked_data
-                self.logger.debug(f"Masked wdata: 0x{masked_data:08x}, strb={self.req.strb:04b}")
+                self.logger.debug(f"Masked wdata: {hex(masked_data)}, strb={bin(self.req.strb)}")
             else:
                 self.cfg.vif.wdata.value = self.req.data
 
@@ -61,19 +63,21 @@ class cl_apb_producer_driver(cl_apb_base_driver):
         else:
             self.logger.critical(f"Op type not WR or RD: op = {self.req.op}")
 
+        self.logger.debug("Awaiting enable-signal")
         await RisingEdge(self.cfg.vif.clk)
         self.cfg.vif.enable.value = 1
 
         await RisingEdge(self.cfg.vif.clk)
 
+        self.logger.debug("Awaiting ready-signal")
         while self.cfg.vif.ready.value != 1:
             await RisingEdge(self.cfg.vif.clk)
-
-        self.rsp.slverr = self.cfg.vif.slverr.value.integer
+        self.rsp.slverr = int(self.cfg.vif.slverr.value)
 
         # Capture consumer response
         if self.req.op == OpType.RD:
             self.rsp.data = self.cfg.vif.rdata.value
+            self.req.data = self.cfg.vif.rdata.value
 
         # Return to idle
         await self.drive_reset()

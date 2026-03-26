@@ -14,12 +14,15 @@ class cl_apb_config(uvm_object):
         #############################
 
         # Configuration knob for controlling the signal widths, default: 8
-        self.ADDR_WIDTH = 32
-        self.DATA_WIDTH = 32
-        self.STRB_WIDTH = self.DATA_WIDTH // 32
+        self.ADDR_WIDTH = 8
+        self.DATA_WIDTH = 8
+        self.STRB_WIDTH = self.DATA_WIDTH // 8
 
         # Setting agent as ACTIVE or PASSIVE
         self.is_active = uvm_active_passive_enum.UVM_ACTIVE
+
+        # Defining reset type, default active low
+        self.active_low_reset = True
 
         # Virtual interface handle
         self.vif = None
@@ -37,14 +40,11 @@ class cl_apb_config(uvm_object):
         # Control if transaction coverage is sampled, run time switch
         self.enable_transaction_coverage = True
 
-        # Control if delay coverage is sampled, run time switch
-        self.enable_delay_coverage = True
-
         # Control knob for monitor sequence item overriding
         self.seq_item_override = SequenceItemOverride.DEFAULT
 
         #######################################
-        # Specific protocol configurations
+        # Protocol specific configurations
         #######################################
 
         self.enable_masked_data = True
@@ -52,4 +52,4 @@ class cl_apb_config(uvm_object):
     def set_width_parameters(self, addr_width, data_width):
         self.ADDR_WIDTH = addr_width
         self.DATA_WIDTH = data_width
-        self.STRB_WIDTH = self.DATA_WIDTH // 8
+        self.STRB_WIDTH = data_width // 8

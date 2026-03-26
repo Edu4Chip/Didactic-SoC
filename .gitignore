@@ -14,3 +14,6 @@ vendor_ips
 *.str
 .Xil
 Bender.lock
+__pycache__
+sim_build
+.venv

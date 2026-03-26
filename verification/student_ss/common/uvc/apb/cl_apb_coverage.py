@@ -2,7 +2,6 @@
 
 import vsc
 from pyuvm import uvm_subscriber, ConfigDB
-from .apb_common import OpType
 
 class cl_apb_coverage(uvm_subscriber):
     def __init__(self, name, parent):
@@ -12,6 +11,7 @@ class cl_apb_coverage(uvm_subscriber):
         self.cfg  = None
 
     def build_phase(self):
+        self.logger.info("Start build_phase() -> APB coverage")
         super().build_phase()
 
         # Get the configuration object
@@ -19,8 +19,8 @@ class cl_apb_coverage(uvm_subscriber):
 
         self.cg_trans_kind = covergroup_trans_kind(f"{self.get_full_name()}.cg_trans_kind", self.cfg)
         self.cg_trans_data = covergroup_trans_data(f"{self.get_full_name()}.cg_trans_data", self.cfg)
-        self.cg_trans_delay = covergroup_trans_delays(f"{self.get_full_name()}.cg_trans_delay")
 
+        self.logger.info("End build_phase() -> APB coverage")
 
     def write(self, item):
         if self.cfg.enable_transaction_coverage:
@@ -28,13 +28,10 @@ class cl_apb_coverage(uvm_subscriber):
             self.cg_trans_kind.sample(item.op, item.addr, item.slverr)
 
             # sample transaction data by bits
-            for i in range(self.cfg.ADDR_WIDTH):
+            for i in range(self.cfg.DATA_WIDTH):
                 data = (item.data >> i) % 2
                 self.cg_trans_data.sample(item.op, data, i)
 
-        if self.cfg.enable_delay_coverage:
-            self.logger.debug(f"Sample delay: wait_len = {item.wait_len}")
-            self.cg_trans_delay.sample(item.wait_len)
 
 @vsc.covergroup
 class covergroup_trans_kind(object):
@@ -46,7 +43,7 @@ class covergroup_trans_kind(object):
 
         self.cfg = cfg
 
-        # defining sampeling variables
+        # defining sampling variables
         self.with_sample(
             op = vsc.bit_t(1),
             addr = vsc.bit_t(self.cfg.ADDR_WIDTH),
@@ -97,14 +94,3 @@ class covergroup_trans_data(object):
             })
 
         self.cross_data_bits_type = vsc.cross([self.trans_bitno, self.trans_data_type, self.trans_data])
-
-
-@vsc.covergroup
-class covergroup_trans_delays(object):
-    def __init__(self, name):
-        self.options.name = name
-
-        self.with_sample(
-            wait_len = vsc.bit_t(4))
-
-        self.trans_wait_len = vsc.coverpoint(self.wait_len, cp_t=vsc.bit_t(4))
