@@ -18,7 +18,7 @@ if { $PROJECT eq "z1" } {
 } elseif { $PROJECT eq "vcu118" } {
   set XILINX_PART xvup9p-flga2104-2L-e
   puts "ERROR: VCU118 constraints are empty"
-} elseif { $PROJECT eq "basys3" } {
+} elseif { $PROJECT eq "basys3" || $PROJECT eq "basys3_vjtag"} {
   set XILINX_PART xc7a35tcpg236-1
 } else {
   puts "PROJECT variable contains unsupported board!"
@@ -51,12 +51,17 @@ set INCLUDE_DIRS [list  \
 set_property include_dirs $INCLUDE_DIRS [current_fileset]
 
 # File read
-add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi]
+# Bender tags - add bscane only for basys3_vjtag project
+if { $PROJECT eq "basys3_vjtag" } {
+  add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi -t bscane]
+} else {
+  add_files -norecurse -scan_for_includes [exec bender script flist -t fpga -t xilinx -t rtl -t vendor -t synthesis -t didactic_obi]
+}
 
 if { $PROJECT eq "z1" } {
   add_files -norecurse $DIR/rtl/DidacticZ1.v
 }
-if { $PROJECT eq "basys3" } {
+if { $PROJECT eq "basys3" || $PROJECT eq "basys3_vjtag" } {
   add_files -norecurse $DIR/rtl/DidacticBasys3.v
 }
 
@@ -71,7 +76,7 @@ set_property verilog_define { SYNTHESIS=1 FPGA=1 PRIM_DEFAULT_IMPL=prim_pkg::Imp
 set_property source_mgmt_mode None [current_project]
 if { $PROJECT eq "z1" } {
   set_property top DidacticZ1 [current_fileset]
-} elseif { $PROJECT eq "basys3" } {
+} elseif { $PROJECT eq "basys3" || $PROJECT eq "basys3_vjtag" } {
   set_property top DidacticBasys3 [current_fileset]
 } else {
   set_property top Didactic [current_fileset]
@@ -79,8 +84,12 @@ if { $PROJECT eq "z1" } {
 
 update_compile_order -fileset sources_1
 
-add_files -fileset constrs_1 -norecurse constraints/$PROJECT.xdc
-
+# For the vjtag use the same basys3.xdc
+if { $PROJECT eq "basys3_vjtag" } {
+  add_files -fileset constrs_1 -norecurse constraints/basys3.xdc
+} else {
+  add_files -fileset constrs_1 -norecurse constraints/$PROJECT.xdc
+}
 #Elaborate design
 synth_design -rtl -name rtl_1 -sfcu
 # sfcu -> run synthesis in single file compilation unit mode
