@@ -16,8 +16,21 @@ module didactic_vtop #(
     output logic jtag_td_o
 );
 
+  localparam int unsigned SimCycles = 10000;
+
+  localparam int unsigned AddrWidth = 32;
+  localparam int unsigned DataWidth = 64;
+  localparam int unsigned IdWidth = 5;
+  localparam int unsigned UserWidth = 9;
+
+  AXI_BUS #(
+      .AXI_ADDR_WIDTH(AddrWidth),
+      .AXI_DATA_WIDTH(DataWidth),
+      .AXI_ID_WIDTH  (IdWidth),
+      .AXI_USER_WIDTH(UserWidth)
+  ) axi_bus ();
+
   OBI_BUS obi_bus ();
-  APB apb_bus ();
 
   logic dut_uart_tx;
 
@@ -46,19 +59,19 @@ module didactic_vtop #(
       .obi_err           (),
       .obi_gnt           (obi_bus.gnt),
       .obi_gntpar        (),
-      .obi_rdata         (),
+      .obi_rdata         (obi_bus.rdata),
       .obi_rid           (),
       .obi_rvalid        (obi_bus.rvalid),
       .obi_rvalidpar     (),
-      .obi_addr          (),
+      .obi_addr          (obi_bus.addr),
       .obi_aid           (),
-      .obi_be            (),
+      .obi_be            (obi_bus.be),
       .obi_req           (obi_bus.req),
       .obi_reqpar        (),
       .obi_rready        (),
       .obi_rreadypar     (),
-      .obi_wdata         (),
-      .obi_we            (),
+      .obi_wdata         (obi_bus.wdata),
+      .obi_we            (obi_bus.we),
       .reset_internal    (rst_ni),
       .reset_icn         (),
       .reset_ss          (),
@@ -83,27 +96,21 @@ module didactic_vtop #(
       .irq_upper_tieoff  (15'h0)
   );
 
-  obi_to_apb_intf #() i_obi_to_apb (
-    .clk_i,
-    .rst_ni,
-    .obi_i (obi_bus),
-    .apb_o (apb_bus)
+  obi_to_axi_intf #() i_obi_to_axi (
+      .clk_i,
+      .rst_ni,
+      .obi_i(obi_bus),
+      .axi_o(axi_bus)
   );
 
   didactic_student_domain #(
-      .ApbAddrWidth(32'd12),
-      .ApbDataWidth(32'd32)
+      .AxiAddrWidth(32'd12),
+      .AxiDataWidth(32'd32)
   ) i_student_domain (
-      .clk_i    (clk_i),
-      .rst_ni   (rst_ni),
-      .irq_o    (),
-      .paddr_i  (),
-      .penable_i(apb_bus.penable),
-      .psel_i   (apb_bus.psel),
-      .pwdata_i (),
-      .prdata_o (),
-      .pready_o (apb_bus.pready),
-      .pslverr_o()
+      .clk_i (clk_i),
+      .rst_ni(rst_ni),
+      .irq_o (),
+      .axi_s (axi_bus)
   );
 
   /// SIMULATION-ONLY UTILITIES ///
@@ -115,9 +122,18 @@ module didactic_vtop #(
     @(posedge rst_ni);
     $display("[DUT:SimLoader] Initializing program with $readmemh");
     $display("[DUT:SimLoader] APPLICABLE TO SIMULATED DESIGNS ONLY");
-    $readmemh({RepoRoot,"/build/verilator_build/imem_stim.hex"}, SysCtrl_SS.i_imem.ram);
-    $readmemh({RepoRoot,"/build/verilator_build/dmem_stim.hex"}, SysCtrl_SS.i_dmem.ram);
+    $readmemh({RepoRoot, "/build/verilator_build/imem_stim.hex"}, SysCtrl_SS.i_imem.ram);
+    $readmemh({RepoRoot, "/build/verilator_build/dmem_stim.hex"}, SysCtrl_SS.i_dmem.ram);
   end : sim_loader
+
+
+  sim_timeout #(
+      .Cycles(SimCycles)
+  ) i_timeout (
+      .clk_i,
+      .rst_ni
+  );
+
 
 endmodule : didactic_vtop
 

@@ -8,6 +8,7 @@ dependencies:           # TODO: only 1st level dependencies needed, also semanti
   apb_gpio:     { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "f82caeb7f7d89427f05e9af5ed31e0675efe0d83" }
   apb_uart:     { git: "https://github.com/pulp-platform/apb_uart.git", version: "0.2.3" }
   axi:          { git: "https://github.com/pulp-platform/axi.git", version: "0.38.0" }
+  axi_obi:      { git: "https://github.com/pulp-platform/axi_obi.git", version: "0.1.0" }
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", rev: "9afda9abb565971649c2aa0985639c096f351171" }
   riscv-dbg:    { git: "https://github.com/pulp-platform/riscv-dbg.git", version: "0.8.1" }
   apb:          { git: "https://github.com/pulp-platform/apb.git", version: "0.2.1" }
@@ -131,6 +132,7 @@ sources:
   - target: verilator
     files:
       - src/rtl/mock_uart.sv
+      - src/rtl/obi_to_axi_intf.sv
       - verilator/rtl/didactic_student_domain.sv
       - verilator/rtl/didactic_vtop.sv
 
