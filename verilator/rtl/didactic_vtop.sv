@@ -104,8 +104,8 @@ module didactic_vtop #(
   );
 
   didactic_student_domain #(
-      .AxiAddrWidth(32'd12),
-      .AxiDataWidth(32'd32)
+      .AxiAddrWidth(AddrWidth),
+      .AxiDataWidth(DataWidth)
   ) i_student_domain (
       .clk_i (clk_i),
       .rst_ni(rst_ni),

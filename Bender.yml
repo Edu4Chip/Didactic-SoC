@@ -133,6 +133,7 @@ sources:
     files:
       - src/rtl/mock_uart.sv
       - src/rtl/obi_to_axi_intf.sv
+      - src/rtl/axi2mem.sv
       - verilator/rtl/didactic_student_domain.sv
       - verilator/rtl/didactic_vtop.sv
 
