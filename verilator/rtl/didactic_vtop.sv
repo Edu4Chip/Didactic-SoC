@@ -118,12 +118,25 @@ module didactic_vtop #(
   `define STR(s) `"s`"
   string RepoRoot = `STR(`ROOT);
 
+  logic  sim_term;
+
+  assign sim_term = SysCtrl_SS.jtag_dbg_wrapper.target_req_i &
+      (SysCtrl_SS.jtag_dbg_wrapper.target_addr_i == 32'h01020380) &
+      SysCtrl_SS.jtag_dbg_wrapper.target_we_i;
+
   initial begin : sim_loader
     @(posedge rst_ni);
     $display("[DUT:SimLoader] Initializing program with $readmemh");
     $display("[DUT:SimLoader] APPLICABLE TO SIMULATED DESIGNS ONLY");
     $readmemh({RepoRoot, "/build/verilator_build/imem_stim.hex"}, SysCtrl_SS.i_imem.ram);
     $readmemh({RepoRoot, "/build/verilator_build/dmem_stim.hex"}, SysCtrl_SS.i_dmem.ram);
+    // Additional data stim
+    $readmemh({RepoRoot, "/stims/george.hex"}, i_student_domain.i_src_sram.sram);
+
+    @(posedge sim_term);
+    $display("[DUT:SimDump] Dumping Dst SRAM contents to %s", {
+             RepoRoot, "/build/verilator_build/dst_dump.hex"});
+    $writememh({RepoRoot, "/build/verilator_build/dst_dump.hex"}, i_student_domain.i_dst_sram.sram);
   end : sim_loader
 
 

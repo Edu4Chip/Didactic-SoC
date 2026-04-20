@@ -10,12 +10,9 @@ module didactic_student_domain #(
            AXI_BUS.Slave axi_s
 );
 
-  localparam int unsigned StudNum = 20'd`STUDENT_NUM;
+  // Get encryption key from compile-time macro
+  localparam aes128_pkg::Aes128Key_t Key = 128'h`ENC_KEY;
 
-  // Split student num accross whole key
-  localparam aes128_pkg::Aes128Key_t Key = {
-    {27'h0, StudNum[19:15]}, {27'h0, StudNum[14:10]}, {27'h0, StudNum[9:5]}, {27'h0, StudNum[4:0]}
-  };
   localparam int unsigned NumMasters = 2;
   localparam int unsigned NumSlaves = 4;
   localparam int unsigned NumMems = 2;
