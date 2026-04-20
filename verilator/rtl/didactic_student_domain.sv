@@ -43,9 +43,9 @@ module didactic_student_domain #(
   };
 
   localparam rule_t [NumSlaves-1:0] AddrMap = {
-    rule_t'{idx: 0, start_addr: 32'h01050000, end_addr: 32'h01052000},
-    rule_t'{idx: 1, start_addr: 32'h01052000, end_addr: 32'h01054000},
-    rule_t'{idx: 2, start_addr: 32'h01054000, end_addr: 32'h01055000},
+    rule_t'{idx: 0, start_addr: 32'h01050000, end_addr: 32'h01051000},
+    rule_t'{idx: 1, start_addr: 32'h01051000, end_addr: 32'h01053000},
+    rule_t'{idx: 2, start_addr: 32'h01053000, end_addr: 32'h01055000},
     rule_t'{idx: 3, start_addr: 32'h01055000, end_addr: 32'h01056000}
   };
 
@@ -93,7 +93,7 @@ module didactic_student_domain #(
   ) i_src_mem_if (
       .clk_i,
       .rst_ni,
-      .slave (slave[0]),
+      .slave (slave[1]),
       .req_o (req[0]),
       .we_o  (we[0]),
       .addr_o(addr[0]),
@@ -110,7 +110,7 @@ module didactic_student_domain #(
   ) i_dst_mem_if (
       .clk_i,
       .rst_ni,
-      .slave (slave[1]),
+      .slave (slave[2]),
       .req_o (req[1]),
       .we_o  (we[1]),
       .addr_o(addr[1]),
@@ -128,14 +128,14 @@ module didactic_student_domain #(
   ) i_aes (
       .clk_i,
       .arst_ni(rst_ni),
-      .axi_s_i(slave[2])
+      .axi_s_i(slave[3])
   );
 
   axi_dma i_dma (
       .clk_i,
       .rst_ni,
       .data_mst(master[1]),
-      .cfg_slv (slave[3])
+      .cfg_slv (slave[0])
   );
 
 
@@ -151,7 +151,7 @@ module didactic_student_domain #(
       .req_i  (req[0]),
       .we_i   (we[0]),
       .be_i   (be[0]),
-      .addr_i (addr[0][12:3]),
+      .addr_i (addr[0][11:2]),
       .wdata_i(wdata[0]),
       .rdata_o(rdata[0])
   );
@@ -167,7 +167,7 @@ module didactic_student_domain #(
       .req_i  (req[1]),
       .we_i   (we[1]),
       .be_i   (be[1]),
-      .addr_i (addr[1][12:3]),
+      .addr_i (addr[1][11:2]),
       .wdata_i(wdata[1]),
       .rdata_o(rdata[1])
   );

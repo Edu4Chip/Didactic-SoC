@@ -19,7 +19,7 @@ module didactic_vtop #(
   localparam int unsigned SimCycles = 10000;
 
   localparam int unsigned AddrWidth = 32;
-  localparam int unsigned DataWidth = 64;
+  localparam int unsigned DataWidth = 32;
   localparam int unsigned IdWidth = 5;
   localparam int unsigned UserWidth = 9;
 

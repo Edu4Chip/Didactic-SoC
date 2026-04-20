@@ -11,7 +11,7 @@ module obi_to_axi_intf #(
     AXI_BUS.Master axi_o
 );
 
-  localparam int unsigned DataWidth = 64;
+  localparam int unsigned DataWidth = 32;
   localparam int unsigned AddrWidth = 32;
   localparam int unsigned AxiIdWidth = 5;
   localparam int unsigned AxiUserWidth = 9;
