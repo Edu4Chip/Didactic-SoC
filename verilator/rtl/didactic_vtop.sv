@@ -23,6 +23,8 @@ module didactic_vtop #(
   localparam int unsigned IdWidth = 5;
   localparam int unsigned UserWidth = 9;
 
+  logic dut_uart_tx;
+
   AXI_BUS #(
       .AXI_ADDR_WIDTH(AddrWidth),
       .AXI_DATA_WIDTH(DataWidth),
@@ -31,8 +33,6 @@ module didactic_vtop #(
   ) axi_bus ();
 
   OBI_BUS obi_bus ();
-
-  logic dut_uart_tx;
 
   SysCtrl_SS_0 #(
       .IOCELL_CFG_W(10),

@@ -3,6 +3,8 @@
 // Ignore duplicate modules
 //lint_off -rule MODDUP
 
+lint_off -rule TIMESCALEMOD
+
 // Waive macro redefinition warnings on prim_assert
 lint_off -rule REDEFMACRO -file "**/prim_assert_dummy_macros.svh" -match "*"
 lint_off -rule REDEFMACRO -file "**/prim_assert.sv" -match "*"

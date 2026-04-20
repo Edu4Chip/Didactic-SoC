@@ -10,9 +10,15 @@ module didactic_student_domain #(
            AXI_BUS.Slave axi_s
 );
 
-  localparam int unsigned NumMasters = 3;
+  localparam int unsigned StudNum = 20'd`STUDENT_NUM;
+
+  // Split student num accross whole key
+  localparam aes128_pkg::Aes128Key_t Key = {
+    {27'h0, StudNum[19:15]}, {27'h0, StudNum[14:10]}, {27'h0, StudNum[9:5]}, {27'h0, StudNum[4:0]}
+  };
+  localparam int unsigned NumMasters = 2;
   localparam int unsigned NumSlaves = 4;
-  localparam int unsigned NumMems = 4;
+  localparam int unsigned NumMems = 2;
   localparam int unsigned AxiIdWidthMasters = 5;
   // AXI configuration which is automatically derived.
   localparam int unsigned AxiIdWidthSlaves = AxiIdWidthMasters + $clog2(NumMasters);
@@ -112,6 +118,26 @@ module didactic_student_domain #(
       .data_o(wdata[1]),
       .data_i(rdata[1])
   );
+
+  aes128_accelerator #(
+      .AXI_ADDR_WIDTH(AxiAddrWidth),
+      .AXI_DATA_WIDTH(AxiDataWidth),
+      .AXI_ID_WIDTH  (AxiIdWidthSlaves),
+      .AXI_USER_WIDTH(AxiUserWidth),
+      .KEY           (Key)
+  ) i_aes (
+      .clk_i,
+      .arst_ni(rst_ni),
+      .axi_s_i(slave[2])
+  );
+
+  axi_dma i_dma (
+      .clk_i,
+      .rst_ni,
+      .data_mst(master[1]),
+      .cfg_slv (slave[3])
+  );
+
 
   tc_sram #(
       .NumWords (2048),
