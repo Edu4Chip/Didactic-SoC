@@ -1,7 +1,7 @@
 [submodule "Subsystem_DTU"]
 	path = Subsystem_DTU
-	url = ../Subsystem_DTU.git
+	url = https://github.com/Edu4Chip/Subsystem_DTU.git
 [submodule "Subsystem_KTH"]
 	path = Subsystem_KTH
-	url = ../Subsystem_KTH.git
+	url = https://github.com/Edu4Chip/Subsystem_KTH.git
 	branch = main
