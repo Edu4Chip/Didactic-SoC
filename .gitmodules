@@ -1,0 +1,4 @@
+[submodule "Subsystem_KTH"]
+	path = Subsystem_KTH
+	url = git@github.com:Edu4Chip/Subsystem_KTH.git
+	branch = main
