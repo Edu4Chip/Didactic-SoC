@@ -16,7 +16,7 @@ module didactic_vtop #(
     output logic jtag_td_o
 );
 
-  localparam int unsigned SimCycles = 10000;
+  localparam int unsigned SimCycles = 20000;
 
   localparam int unsigned AddrWidth = 32;
   localparam int unsigned DataWidth = 32;
