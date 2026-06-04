@@ -36,6 +36,13 @@ MANUAL_FILES = [
     "-I./vendor_ips/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/",
     "-I./vendor_ips/ibex/dv/uvm/core_ibex/common/prim/",
     "-I./vendor_ips/ibex/syn/rtl/",
+    # prim_pkg is a package: it must be compiled explicitly (a -I include path
+    # is not enough for package resolution).
+    "./vendor_ips/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv",
+    # Use the self-contained synthesis prim_clock_gating (as the Questa flow
+    # does). Listing it explicitly stops Verilator from auto-pulling the
+    # dv/uvm wrapper variant that needs the absent prim_generic_clock_gating.
+    "./vendor_ips/ibex/syn/rtl/prim_clock_gating.v",
     "./vendor_ips/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv",
     "./vendor_ips/ibex/rtl/ibex_pkg.sv",
     "./vendor_ips/ibex/rtl/ibex_dummy_instr.sv",
@@ -67,6 +74,24 @@ MANUAL_FILES = [
     "-I./vendor_ips/apb_spi_master/",
     "-I./.bender/git/checkouts/apb_gpio-f882c1c8a370562e/rtl/",
     "-I./src/generated/",
+    # Student subsystem bodies. Their module names (tum_ss/imt_ss/dtu_ss/kth_ss)
+    # do not match their file names (*_tieoff.sv), so Verilator cannot
+    # auto-discover them via -I; they must be listed explicitly.
+    "./src/rtl/tum_ss_tieoff.sv",
+    "./src/rtl/imt_ss_tieoff.sv",
+    "./src/rtl/dtu_ss_tieoff.sv",
+    "./src/rtl/kth_ss_tieoff.sv",
+    # Group5 systolic-array AI accelerator (instantiated by tum_ss). Files are
+    # self-contained and only depend on accel_pkg via the include directory.
+    "-I../rtl/include/",
+    "../rtl/include/accel_pkg.sv",
+    "../rtl/control/control_unit.sv",
+    "../rtl/MAC/mac_pe.sv",
+    "../rtl/array/skew_shift.sv",
+    "../rtl/array/systolic_array.sv",
+    "../rtl/matrix/matrix_buffer_ab.sv",
+    "../rtl/matrix/matrix_buffer_c.sv",
+    "../rtl/top/accelerator_top.sv",
     "./src/generated/Didactic.v",
 ]
 

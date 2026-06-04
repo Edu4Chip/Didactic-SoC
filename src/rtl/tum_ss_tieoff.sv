@@ -41,13 +41,35 @@ module tum_ss(
 
 // WARNING: EVERYTHING ON AND ABOVE THIS LINE MAY BE OVERWRITTEN BY KACTUS2!!!
 
-// TODO: Replace this with your module implementation
-  assign PSLVERR = 'd0;
-  assign PREADY  = 'd0;
-  assign PRDATA  = 'd0;
-  assign irq_3   = 'd0;
-
+  // Group5 systolic-array AI accelerator integration.
+  //
+  // Reset polarity note: the SoC delivers an active-low functional reset on
+  // reset_int, while accelerator_top expects an active-high reset_int
+  // (it derives rst_n = ~reset_int internally). Invert here to match.
+  //
+  // The PMOD GPIO interface is unused by this accelerator; drive it inactive.
   assign pmod_gpo     = 'h0;
   assign pmod_gpio_oe = 'h0;
+
+  accelerator_top i_accelerator_top (
+    // Clock / reset
+    .clk_in    (clk_in),
+    .reset_int (~reset_int),    // SoC reset_int is active-low; accel wants active-high
+
+    // APB subordinate (accelerator uses APB_AW=10 of the 4 KiB window)
+    .PADDR     (PADDR[9:0]),
+    .PSEL      (PSEL),
+    .PENABLE   (PENABLE),
+    .PWRITE    (PWRITE),
+    .PWDATA    (PWDATA),
+    .PRDATA    (PRDATA),
+    .PREADY    (PREADY),
+    .PSLVERR   (PSLVERR),
+
+    // SoC interrupt / subsystem control
+    .irq_en_4  (irq_en_3),
+    .ss_ctrl_4 (ss_ctrl_3),
+    .irq_4     (irq_3)
+  );
 
 endmodule
