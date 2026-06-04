@@ -46,6 +46,7 @@ set INCLUDE_DIRS [list  \
 	                 $DIR/../$IBEX_PATH/vendor/lowrisc_ip/dv/sv/dv_utils \
 	                 $DIR/../$IBEX_PATH/vendor/lowrisc_ip/ip/prim/rtl \
 	                 $DIR/../$IBEX_PATH/rtl \
+	                 $DIR/../../rtl/include \
                  ]
 
 set_property include_dirs $INCLUDE_DIRS [current_fileset]
