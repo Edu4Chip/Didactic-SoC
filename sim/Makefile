@@ -57,6 +57,8 @@ APB_DIR          ?= $(shell $(BENDER) path apb)
 REGIF_DIR        ?= $(shell $(BENDER) path register_interface)
 OBI_DIR          ?= $(shell $(BENDER) path obi)
 IBEX_DIR         ?= $(BUILD_DIR)/../vendor_ips/ibex
+# Group5 systolic-array accelerator RTL include dir (resolves `include "accel_pkg.sv").
+ACCEL_INC_DIR    ?= $(BUILD_DIR)/../../rtl/include
 
 SIM_FLIST        ?= $(shell $(BENDER) script flist -t rtl -t vendor -t simulation -t tracer -t didactic_obi)
 
@@ -68,7 +70,8 @@ INCLUDES ?= \
 	+incdir+$(OBI_DIR)/include \
 	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/dv/sv/dv_utils \
 	+incdir+$(IBEX_DIR)/vendor/lowrisc_ip/ip/prim/rtl \
-	+incdir+$(IBEX_DIR)/rtl
+	+incdir+$(IBEX_DIR)/rtl \
+	+incdir+$(ACCEL_INC_DIR)
 
 env:
 	mkdir -p $(BUILD_DIR)/logs/compile
