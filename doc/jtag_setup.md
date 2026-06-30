@@ -1,5 +1,7 @@
 # Didactic JTAG Setup using FT2232H Mini Module
 
+This is brief how-to connect your PC to Didactic SoC via minimodule. Same setup is for both FPGA and ASIC.
+
 - Data Sheet: https://ftdichip.com/wp-content/uploads/2020/07/DS_FT2232H_Mini_Module.pdf
 ## Setup
 - Connect VBUS to VCC (CN3, pin 1 to CN3, pin 3)

@@ -35,4 +35,4 @@ Preliminary single RW test case has been created for student system 0 and 1. The
 | student 2|0x0105_2000|0x0105_2FFF|template is empty|
 | student 3|0x0105_3000|0x0105_3FFF|template is empty|
 
-Note that there is lot of unused adressing. This will not cause area overhead on most tools. (if this would, major restructuring can be done relatively easily.)
+Note that there is a lot of unused adressing. This will not cause area overhead on most tools. (if this would, major restructuring can be done relatively easily.)

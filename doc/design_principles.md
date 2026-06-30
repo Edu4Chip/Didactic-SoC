@@ -1,6 +1,6 @@
 # Design principles
 
-Considerations were done to formalize design proposals.
+Didactic SoC was designed using following principles:
 
 * Simplicity
 
@@ -10,8 +10,6 @@ Considerations were done to formalize design proposals.
 
 * reusability
 
-Top level RTL and integration is done with Kactus2 HW designer.
+## Tooling
 
-## Dropped features
-
-Due to complexity, autonomous boot and SDIO interface were decided to not be included.
+To enable junior developer onboarding, whole SoC hierarchy is implemented using Kactus2. Visual design can aid learmning process. 
