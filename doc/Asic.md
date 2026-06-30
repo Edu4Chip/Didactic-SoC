@@ -1,4 +1,4 @@
-# ASIC condirations
+# ASIC considerations
 
 ## Asic synthesis
 
