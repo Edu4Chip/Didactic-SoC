@@ -1,3 +1,3 @@
-# Graphs
+## Graphs
 
-Save your exported graph source files here
+Save your exported graphs and their source files here.

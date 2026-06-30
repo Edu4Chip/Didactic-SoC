@@ -1,3 +1,3 @@
 ## Figures
 
-Save your documentation figures here.
+Save your documentation figures and their source here.

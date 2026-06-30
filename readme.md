@@ -14,47 +14,45 @@ In addition to these requirements, system needs to be reliable and have enough p
 
 ### Interconnect type
 
-SoC architecture is interconnect bus-type agnostic. Currently, we support AXI4LITE and OBI bus. These are 1.0 and 1.1 SoC builds. OBI is more area and performance optimized due to not requiring converters while axi4lite build has better confidence in correctness.
+SoC architecture is interconnect bus-type agnostic. Currently, we support AXI4LITE and OBI bus. These are available in 1.0 and 1.1 IP-XACT versions of Didactic SoC. OBI is more area and performance optimized due to not requiring converters while AXI4LITE has better confidence in correctness due to previous experiences.
 
-To use different types, regenerate rtl code from Kactus2 Didactic top level and replace filelist command argument <code>didactic_obi</code> or <code>didactic_axi</code>
+To use different bus types, regenerate verilog RTL code from Kactus2 Didactic top level of your choosing and then replace filelist command argument with either <code>didactic_obi</code> or <code>didactic_axi</code>
 
 ## Get started
 
 This repository uses Bender, install instructions [here](https://github.com/pulp-platform/bender).
 
-After cloning this repository, run `make repository_init` to fetch all of the dependencies to correct versions. Bender initialization will offer user to resolve dependencies interactively. In these, it is correct to resolve to use ones required by this repository. Generally, these are updated to be latest releases (in either git tag or git commit hash form).
+After cloning this repository, run `make repository_init` to fetch all of the dependencies to correct versions. Bender initialization will offer user to resolve dependencies interactively. In these, it is correct to resolve to use ones required by this repository.
 
 ## Basic simulation flow
 
 Running Baremetal program on IBEX core has been abstracted to `make test_all TEST=blink` command.
 
-This will build HW libraries (`Questa`), executable binary (`riscv-toolchain`), convert binary to hexfile (`elf2hex`) and finally run the simulator (`Questa`). Testcase targets folder in sw folder and expects it to contain .c file with same name. Eg. <code>sw/hello/hello.c</code>.
+This will build HW libraries (`Questa`), executable binary (`riscv-toolchain`), convert binary to hexfile (`elf2hex`) and finally run the simulator (`Questa`). Testcase targets subfolder in sw folder and expects it to contain .c file with same name. Eg. <code>sw/hello/hello.c</code>.
 
-## Folders
+## Repository structure - Folders
 
 .bender: Open source IP are added to this project as bender dependencies. They are described in bender.yml and this folder is created by bender tool. Folder itself is not part of the repository. 
 
-build: Not included by git repository. Created as part of make commands to contain all tool outputs.
+.vendor_ips: Not included by repository. Submodules that do not directly support bender are added as vendor dependencies in bender.yml and fetched to this folder.
+
+build: Created as part of make commands to contain all tool outputs. Not part of the repository.
 
 doc: All documentation is gathered within this folder.
 
-fpga: Tool scripts, documentation and constraint files for FPGA platforms should be added to this folder.
+fpga: Tool scripts, documentation, source and constraint files for FPGA platforms should be added to this folder.
 
 ipxact: XML files of IP-XACT definitions are kept within this folder.
 
-sim: Simulation Makefiles and scripts are kept in this folder. Additionally, supporting files and/or scripts such as for waveform generation can be added here. 
+sim: Simulation Makefiles and scripts are kept in this folder. Additionally, supporting files and/or scripts such as for waveform generation can be added here.
 
-* All tool scripts need to include capability of targeting bender with scripts or make commands. Calling bender with particular commands produce output of files to target the build with. Examples are provided for questa and verilator uses.
+scripts: Contains general use scripts that are not directly part of any other major categories.
 
-scripts: General use scripts that are not directly part of any other major categories can be added here.
+src: RTL source files are added to this folder in relevant subfolders. Student subsystems can be added either as submodules, bender dependencies or directly to this fodler. If RTL is not publicly available, create a tieoff module to allow integration. (Tieoff: interface .sv/.v/.vhd that matches with the original RTL with all outputs being driven with inactive constant 0's.)
 
-src: RTL source files are added to this folder in relevant subfolders. Student subsystems can be added either as submodules, bender dependencies or directly to this fodler. If your RTL is not publicly available, create a tieoff module to allow others to proceed with their work. (Tieoff: interface .sv/.v/.vhd that matches with the original RTL with all outputs being driven with inactive constant 0's.)
-
-sw: Baremetal programs and their flow. These include common headers and simple test cases to run on RISC-V core. These may later include test cases for various student subsystems. 
+sw: Programs that can be run on the SoC, supporting files and their flow. These include common headers and simple test cases to run on RISC-V core.
 
 syn: Synthesis Makefiles and commands. Open source tools only.
-
-.vendor_ips: Not included by repository. Submodules that do not directly support bender are added as vendor dependencies in bender.yml and fetched to this folder.
 
 Verification: Contains experimental verilator setup and verification PyUVM platform for student subsystems.
 
@@ -74,5 +72,4 @@ Verification: Contains experimental verilator setup and verification PyUVM platf
 
 ## What is excluded from repository
 
-* tool outputs: tools should create build folder for their output. None of this folder content should be part of the git repository. IF need be, provide documentation how to run tools to get the same output.
-
+* tool outputs: tools should create build folder for their output. This folder content should not be part of the git repository. If needed, provide documentation how to run tools to get the same output.

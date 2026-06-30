@@ -9,3 +9,8 @@ Simulation tools used currently:
 * questasim 2024.2
 
 * verilator
+
+
+# scripts
+
+* All tool scripts need to include capability of targeting bender with scripts or make commands. Calling bender with particular commands produce output of files to target the build with. Examples are provided for questa and verilator uses.
