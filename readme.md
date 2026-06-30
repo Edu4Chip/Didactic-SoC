@@ -72,4 +72,4 @@ Verification: Contains experimental verilator setup and verification PyUVM platf
 
 ## What is excluded from repository
 
-* tool outputs: tools should create build folder for their output. This folder content should be part of the git repository. If needed, provide documentation how to run tools to get the same output.
+* tool outputs: tools should create build folder for their output. This folder content should not be part of the git repository. If needed, provide documentation how to run tools to get the same output.
