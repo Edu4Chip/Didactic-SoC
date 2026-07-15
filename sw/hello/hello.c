@@ -13,7 +13,8 @@ int main() {
 
   uart_init();
   
-  uart_print("hello from didactic!\n");
+  //uart_print("hello from didactic!\n");
+  mock_uart_print("hello from didactic!\n");
   
   return 0;
 }

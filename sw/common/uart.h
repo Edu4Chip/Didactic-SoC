@@ -41,29 +41,34 @@ void uart_init(){
 
 }
 
+// Poll until the transmit buffer is empty
+int is_transmit_empty()
+{
+    return (LSR) & 0x20;
+}
+
+// Poll until the transmit buffer is empty
+void write_serial(char a)
+{
+  while (!is_transmit_empty()) {};
+  RBR_THR_DLL = a;
+}
+
 void uart_print(const char str[]){
   for (int i = 0; str[i] != '\0'; i++) {
-
-    RBR_THR_DLL = str[i];
-
-    // best: IRQ based
-    // TBD
-
-    // better: poll when char has been sent
-    //    volatile int temp = LSR;
-    //    while(temp != 0){
-    //      temp = LSR;
-    //
-    //    }
-    //  }
-
-    // basic: manually nop until time has passed
-    volatile uint32_t wait_loop=0;
-    while(wait_loop<500){
-      asm("nop");
-      wait_loop++;
-    }
+    write_serial(str[i]);
   }
+}
+
+void mock_uart_print(const char str[]) {
+  //for (int i = 0; str[i] != '\0'; i++) {
+    //RBR_THR_DLL = str[i];
+  //}
+  int i=0;
+  do {
+    RBR_THR_DLL = str[i];
+    i++;
+  } while (str[i] != '\0');
 }
 
 int uart_loopback_test(){

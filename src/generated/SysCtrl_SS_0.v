@@ -1349,6 +1349,7 @@ module SysCtrl_SS_0 #(
         .spi_sdo2            (apb_spi_master_spi_sdo2),
         .spi_sdo3            (apb_spi_master_spi_sdo3));
 
+`ifndef VERILATOR
     // IP-XACT VLNV: tuni.fi:pulp.peripheral:apb_uart:1.0
     apb_uart apb_uart(
         // Interface: APB
@@ -1378,6 +1379,21 @@ module SysCtrl_SS_0 #(
         .OUT1N               (),
         .OUT2N               (),
         .RTSN                ());
+`else
+  mock_uart i_mock_uart (
+  .clk_i     (apb_uart_CLK),
+  .rst_ni    (apb_uart_RSTN),
+  .penable_i (apb_uart_PENABLE),
+  .pwrite_i  (apb_uart_PWRITE),
+  .paddr_i   ({29'b0,apb_uart_PADDR}),
+  .psel_i    (apb_uart_PSEL),
+  .pwdata_i  (apb_uart_PWDATA),
+  .prdata_o  (apb_uart_PRDATA),
+  .pready_o  (apb_uart_PREADY),
+  .pslverr_o (apb_uart_PSLVERR)
+);
+assign apb_uart_INT = 1'b0;
+`endif
 
     // IP-XACT VLNV: tuni.fi:ip:SS_Ctrl_reg_array:1.1
     SS_Ctrl_reg_array #(

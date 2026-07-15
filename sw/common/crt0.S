@@ -14,7 +14,9 @@
 
 reset_handler:
   la x2, stack
-  la ra, postMain 
+  la ra, postMain
+  //la t0, default_handler
+  //csrw mtvec, t0
   j main
 
 /* Didactic specific return code pass over through jtag */
@@ -24,6 +26,7 @@ postMain:
   li t1, 0x80000000
   or a0, a0, t1
   sw a0, 0(t0)
+  wfi
 
   .global changeStack
 changeStack:
@@ -33,7 +36,7 @@ changeStack:
   .section .vectors, "ax"
   .option norvc;
   .org 0x0
-  jal x0, default_handler
+  jal x0, reset_handler
   jal x0, default_handler
   jal x0, default_handler
   jal x0, default_handler
@@ -75,4 +78,7 @@ loop:
   j loop
 
 default_handler:
-  mret
+  li t0, 0x01020380
+  li t1, 0x8BADC0DE
+  sw t1, 0(t0)
+  wfi
