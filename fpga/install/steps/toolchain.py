@@ -41,17 +41,33 @@ class ToolchainStep(Step):
     title = "RISC-V Toolchain"
     description = "Download and install the riscv32-elf cross-compilation toolchain"
 
-    def __init__(self, install_dir: Path, release: str = _DEFAULT_RELEASE):
+    def __init__(self, install_dir: Path, release: str = _DEFAULT_RELEASE,
+                 force: bool = False):
         self.install_dir = install_dir
         self.release = release
+        self.force = force
+
+    def _compiler_in_install_dir(self) -> "Path | None":
+        bin_dirs = sorted(self.install_dir.glob("*/bin")) + [self.install_dir / "bin"]
+        for d in bin_dirs:
+            candidate = d / "riscv32-unknown-elf-gcc"
+            if candidate.exists():
+                return candidate
+        return None
 
     def check(self) -> bool:
-        return (
-            shutil.which("riscv32-unknown-elf-gcc") is not None
-            or (self.install_dir / "bin" / "riscv32-unknown-elf-gcc").exists()
-        )
+        if self.force:
+            return False
+        return self._compiler_in_install_dir() is not None
 
     def run(self, log: ProgressCallback) -> bool:
+        if self.force:
+            existing = self._compiler_in_install_dir()
+            if existing:
+                log("warning", f"Force-reinstall requested; overwriting existing toolchain.")
+                log("warning", f"  {existing}")
+                log("info", "")
+
         os_name, os_ver = _detect_os()
         log("info", f"Detected OS : {os_name} {os_ver}")
 
@@ -77,10 +93,10 @@ class ToolchainStep(Step):
         log("info", "")
 
         if self.dry_run:
-            log("info", f"[dry-run] Would run:")
+            log("info", "[dry-run] Would run:")
             log("info", f"  wget {url}")
             log("info", f"  tar -xJf {archive} -C {self.install_dir}")
-            log("info", f"  # then add bin/ to PATH")
+            log("info",  "  # append export PATH=... to ~/.bashrc if not already present")
             return True
 
         if not self._download(url, archive, log):
@@ -95,21 +111,13 @@ class ToolchainStep(Step):
         bin_dirs = sorted(self.install_dir.glob("*/bin")) + [self.install_dir / "bin"]
         bin_dir = next((d for d in bin_dirs if d.exists()), None)
         if bin_dir:
-            log("ok",   "")
-            log("ok",   "Toolchain installed successfully.")
-            log("info", "Add to PATH:")
-            log("info", f'  export PATH="{bin_dir}:$PATH"')
-            log("info", "  (add the line above to ~/.bashrc to make it permanent)")
+            log("ok", "")
+            log("ok", "Toolchain installed successfully.")
+            self._extend_path(bin_dir, log)
         return True
 
     def verify(self, log: ProgressCallback) -> bool:
-        bin_dirs = sorted(self.install_dir.glob("*/bin")) + [self.install_dir / "bin"]
-        compiler = next(
-            (d / "riscv32-unknown-elf-gcc"
-             for d in bin_dirs
-             if (d / "riscv32-unknown-elf-gcc").exists()),
-            None,
-        )
+        compiler = self._compiler_in_install_dir()
         if compiler:
             log("ok", f"Compiler verified : {compiler}")
             return True
@@ -119,6 +127,38 @@ class ToolchainStep(Step):
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
+
+    def _extend_path(self, bin_dir: Path, log: ProgressCallback) -> None:
+        import os
+        export_line = f'export PATH="{bin_dir}:$PATH"'
+        marker = f"# didactic-soc riscv32 toolchain"
+
+        # Check whether this bin_dir is already active in the current PATH
+        current_paths = os.environ.get("PATH", "").split(":")
+        if str(bin_dir) in current_paths:
+            log("info", f"PATH already contains {bin_dir} — no changes needed.")
+            return
+
+        bashrc = Path.home() / ".bashrc"
+        try:
+            existing = bashrc.read_text() if bashrc.exists() else ""
+        except OSError:
+            existing = ""
+
+        if str(bin_dir) in existing:
+            log("info", f"~/.bashrc already references {bin_dir} — no changes needed.")
+        else:
+            block = f"\n{marker}\n{export_line}\n"
+            try:
+                with bashrc.open("a") as f:
+                    f.write(block)
+                log("ok",   f"Added to ~/.bashrc:")
+                log("info", f"  {export_line}")
+                log("info",  "  Run 'source ~/.bashrc' or open a new terminal to activate.")
+            except OSError as exc:
+                log("warning", f"Could not write to ~/.bashrc: {exc}")
+                log("info",    "Add the following line manually:")
+                log("info",    f"  {export_line}")
 
     def _download(self, url: str, dest: Path, log: ProgressCallback) -> bool:
         if dest.exists():

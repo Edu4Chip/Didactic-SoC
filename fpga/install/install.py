@@ -76,9 +76,9 @@ examples:
     _chip_choices = sorted(CHIPS.keys())
     _needs_patch  = [k for k, v in CHIPS.items() if v["patch"]]
     p.add_argument(
-        "--ftdi-chip", choices=_chip_choices, default="ft4232h",
+        "--ftdi-chip", choices=_chip_choices, required=True,
         help=(
-            f"FTDI adapter chip variant (default: ft4232h). "
+            f"FTDI adapter chip variant (required). "
             f"Choices: {', '.join(_chip_choices)}. "
             f"Requires source patch: {', '.join(_needs_patch)}."
         ),
@@ -101,8 +101,10 @@ examples:
                    help="Skip OpenOCD clone/build/install")
     p.add_argument("--skip-toolchain",     action="store_true",
                    help="Skip RISC-V toolchain download")
-    p.add_argument("--skip-udev",          action="store_true",
+    p.add_argument("--skip-udev",           action="store_true",
                    help="Skip udev rules installation")
+    p.add_argument("--force-toolchain",    action="store_true",
+                   help="Re-download and re-install the toolchain even if already present")
     p.add_argument("--dry-run",            action="store_true",
                    help="Print what would be done without making any changes")
     return p.parse_args()
@@ -127,7 +129,8 @@ def build_steps(args: argparse.Namespace) -> list:
         steps.append(OpenOCDStep(args.build_dir, ftdi_chip=args.ftdi_chip))
     if not getattr(args, "skip_toolchain", False):
         steps.append(ToolchainStep(args.toolchain_dir,
-                                   release=args.toolchain_release))
+                                   release=args.toolchain_release,
+                                   force=getattr(args, "force_toolchain", False)))
     if not getattr(args, "skip_udev", False):
         steps.append(UdevRulesStep(openocd_rules_src))
     steps.append(BoardStep(args.board))
