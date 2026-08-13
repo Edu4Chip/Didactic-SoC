@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+"""Didactic SoC FPGA installation script.
+
+Installs all software prerequisites for building and running the Didactic SoC
+on a PYNQ-Z1, PYNQ-Z2, or Basys3 FPGA board.
+
+Each installation step is an independent module so the same step objects can
+be reused directly by a GUI wizard without any changes.
+"""
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+
+from steps import (
+    PrerequisitesStep,
+    OpenOCDStep,
+    ToolchainStep,
+    UdevRulesStep,
+    BoardStep,
+)
+
+_ANSI = {
+    "info":    "\033[0m",
+    "warning": "\033[33m",
+    "error":   "\033[31m",
+    "ok":      "\033[32m",
+    "header":  "\033[1;36m",
+    "reset":   "\033[0m",
+}
+
+
+def _cli_logger():
+    def log(level: str, msg: str) -> None:
+        colour = _ANSI.get(level, "")
+        print(f"{colour}{msg}{_ANSI['reset']}", flush=True)
+    return log
+
+
+def _print_header(title: str) -> None:
+    bar = "─" * (len(title) + 4)
+    print(f"\n{_ANSI['header']}┌{bar}┐")
+    print(f"│  {title}  │")
+    print(f"└{bar}┘{_ANSI['reset']}", flush=True)
+
+
+def _parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(
+        description="Install prerequisites for the Didactic SoC FPGA flow.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+examples:
+  # Full install for PYNQ-Z1 with standard FT4232H adapter
+  python3 install.py --board z1
+
+  # Full install for PYNQ-Z2 with automotive FT4232HA adapter
+  python3 install.py --board z2 --ftdi-chip ft4232ha
+
+  # Toolchain only (OpenOCD already installed)
+  python3 install.py --board z1 --skip-openocd --skip-udev
+""",
+    )
+    p.add_argument(
+        "--board", choices=["z1", "z2", "basys3"], required=True,
+        help="Target FPGA board",
+    )
+    p.add_argument(
+        "--ftdi-chip", choices=["ft4232h", "ft4232ha"], default="ft4232h",
+        help="FTDI adapter chip variant (default: ft4232h)",
+    )
+    p.add_argument(
+        "--build-dir", type=Path, default=Path("/tmp/didactic-install"),
+        help="Directory for cloning/building OpenOCD (default: /tmp/didactic-install)",
+    )
+    p.add_argument(
+        "--toolchain-dir", type=Path, default=Path.home() / "riscv32",
+        help="Directory to install the RISC-V toolchain (default: ~/riscv32)",
+    )
+    p.add_argument(
+        "--toolchain-release", default="2026.07.15",
+        help="riscv-gnu-toolchain release tag (default: 2026.07.15)",
+    )
+    p.add_argument("--skip-prerequisites", action="store_true",
+                   help="Skip tool availability checks")
+    p.add_argument("--skip-openocd",       action="store_true",
+                   help="Skip OpenOCD clone/build/install")
+    p.add_argument("--skip-toolchain",     action="store_true",
+                   help="Skip RISC-V toolchain download")
+    p.add_argument("--skip-udev",          action="store_true",
+                   help="Skip udev rules installation")
+    p.add_argument("--dry-run",            action="store_true",
+                   help="Print what would be done without making any changes")
+    return p.parse_args()
+
+
+def build_steps(args: argparse.Namespace) -> list:
+    """Return the ordered list of Step objects for the given arguments.
+
+    This function is the single point of entry for a GUI wizard: call it with
+    a namespace-like object to get the same step list without re-parsing CLI
+    arguments.
+    """
+    openocd_rules_src = (
+        args.build_dir / "riscv-openocd" / "contrib" / "60-openocd.rules"
+    )
+    dry_run = getattr(args, "dry_run", False)
+
+    steps = []
+    if not getattr(args, "skip_prerequisites", False):
+        steps.append(PrerequisitesStep())
+    if not getattr(args, "skip_openocd", False):
+        steps.append(OpenOCDStep(args.build_dir, ftdi_chip=args.ftdi_chip))
+    if not getattr(args, "skip_toolchain", False):
+        steps.append(ToolchainStep(args.toolchain_dir,
+                                   release=args.toolchain_release))
+    if not getattr(args, "skip_udev", False):
+        steps.append(UdevRulesStep(openocd_rules_src))
+    steps.append(BoardStep(args.board))
+
+    for step in steps:
+        step.dry_run = dry_run
+    return steps
+
+
+def main() -> int:
+    args = _parse_args()
+    log = _cli_logger()
+
+    dry_run = getattr(args, "dry_run", False)
+    if dry_run:
+        log("warning", "DRY-RUN mode — no files will be written, no commands executed.")
+
+    steps = build_steps(args)
+    failed = []
+
+    for step in steps:
+        _print_header(step.title)
+        log("info", step.description)
+
+        if step.check():
+            log("ok", f"  Already complete — skipping.")
+            continue
+
+        ok = step.run(log)
+        if not ok:
+            log("error", f"  {step.title} FAILED.")
+            failed.append(step.title)
+            if isinstance(step, PrerequisitesStep):
+                break  # missing tools make subsequent steps pointless
+
+    _print_header("Summary")
+    if failed:
+        log("error", f"Failed: {', '.join(failed)}")
+        log("warning", "Correct the errors above and re-run.")
+        return 1
+
+    log("ok", "Installation complete.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
