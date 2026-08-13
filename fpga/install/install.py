@@ -21,6 +21,7 @@ from steps import (
     UdevRulesStep,
     BoardStep,
 )
+from steps.openocd import CHIPS
 
 _ANSI = {
     "info":    "\033[0m",
@@ -52,23 +53,35 @@ def _parse_args() -> argparse.Namespace:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 examples:
-  # Full install for PYNQ-Z1 with standard FT4232H adapter
+  # Full install for PYNQ-Z1 with FT4232H adapter (default)
   python3 install.py --board z1
 
-  # Full install for PYNQ-Z2 with automotive FT4232HA adapter
+  # Full install for PYNQ-Z2 with automotive FT4232HA (applies source patch)
   python3 install.py --board z2 --ftdi-chip ft4232ha
+
+  # Full install with FT2232H adapter (natively supported, no patch needed)
+  python3 install.py --board z1 --ftdi-chip ft2232h
 
   # Toolchain only (OpenOCD already installed)
   python3 install.py --board z1 --skip-openocd --skip-udev
+
+  # Dry run — see what would happen without making any changes
+  python3 install.py --board z2 --ftdi-chip ft4232ha --dry-run
 """,
     )
     p.add_argument(
         "--board", choices=["z1", "z2", "basys3"], required=True,
         help="Target FPGA board",
     )
+    _chip_choices = sorted(CHIPS.keys())
+    _needs_patch  = [k for k, v in CHIPS.items() if v["patch"]]
     p.add_argument(
-        "--ftdi-chip", choices=["ft4232h", "ft4232ha"], default="ft4232h",
-        help="FTDI adapter chip variant (default: ft4232h)",
+        "--ftdi-chip", choices=_chip_choices, default="ft4232h",
+        help=(
+            f"FTDI adapter chip variant (default: ft4232h). "
+            f"Choices: {', '.join(_chip_choices)}. "
+            f"Requires source patch: {', '.join(_needs_patch)}."
+        ),
     )
     p.add_argument(
         "--build-dir", type=Path, default=Path("/tmp/didactic-install"),

@@ -6,6 +6,45 @@ from .base import Step, ProgressCallback
 OPENOCD_REPO   = "https://github.com/riscv-collab/riscv-openocd"
 OPENOCD_COMMIT = "9ea7f3d647c8ecf6b0f1424002dfc3f4504a162c"
 
+# Registry of known FTDI chips and their support status at the pinned commit.
+# Fields:
+#   pid         — USB product ID (hex string, no 0x prefix, as it appears in udev rules)
+#   bcd_device  — bcdDevice value OpenOCD reads to identify the chip variant
+#   type_enum   — C enum name in mpsse.h
+#   udev_in_rules — True if the PID is already present in contrib/60-openocd.rules
+#   patch       — None = natively supported; "ft4232ha" = apply the HA patch set
+#   jtag_channel — which MPSSE channel carries JTAG (informational, for the board summary)
+CHIPS = {
+    "ft2232c": {
+        "pid": "6010", "bcd_device": "0x0500",
+        "type_enum": "TYPE_FT2232C",
+        "udev_in_rules": True,
+        "patch": None,
+        "jtag_channel": "A (ADBUS)",
+    },
+    "ft2232h": {
+        "pid": "6010", "bcd_device": "0x0700",
+        "type_enum": "TYPE_FT2232H",
+        "udev_in_rules": True,
+        "patch": None,
+        "jtag_channel": "A (ADBUS)",
+    },
+    "ft4232h": {
+        "pid": "6011", "bcd_device": "0x0800",
+        "type_enum": "TYPE_FT4232H",
+        "udev_in_rules": True,
+        "patch": None,
+        "jtag_channel": "B (BDBUS)",
+    },
+    "ft4232ha": {
+        "pid": "6048", "bcd_device": "0x3600",
+        "type_enum": "TYPE_FT4232HA",
+        "udev_in_rules": False,
+        "patch": "ft4232ha",
+        "jtag_channel": "B (BDBUS)",
+    },
+}
+
 
 class OpenOCDStep(Step):
     title = "OpenOCD"
@@ -13,26 +52,31 @@ class OpenOCDStep(Step):
 
     def __init__(self, build_dir: Path, ftdi_chip: str = "ft4232h"):
         self.build_dir  = build_dir
-        self.ftdi_chip  = ftdi_chip   # "ft4232h" or "ft4232ha"
+        self.ftdi_chip  = ftdi_chip
         self.clone_dir  = build_dir / "riscv-openocd"
+        self._chip      = CHIPS[ftdi_chip]
 
     def check(self) -> bool:
         return shutil.which("openocd") is not None
 
     def run(self, log: ProgressCallback) -> bool:
+        chip = self._chip
         log("info", f"Repository  : {OPENOCD_REPO}")
         log("info", f"Commit      : {OPENOCD_COMMIT[:12]}  (full: {OPENOCD_COMMIT})")
-        log("info", f"FTDI chip   : {self.ftdi_chip.upper()}")
+        log("info", f"FTDI chip   : {self.ftdi_chip.upper()}"
+                    f"  (PID 0x{chip['pid']}, bcdDevice {chip['bcd_device']})")
+        log("info", f"JTAG channel: {chip['jtag_channel']}")
+        log("info", f"Patch needed: {'yes — ' + chip['patch'] if chip['patch'] else 'no'}")
         log("info", f"Build dir   : {self.clone_dir}")
         log("info", "")
 
         if self.dry_run:
-            log("info", f"[dry-run] Would run:")
+            log("info", "[dry-run] Would run:")
             log("info", f"  git clone {OPENOCD_REPO} {self.clone_dir}")
             log("info", f"  git checkout {OPENOCD_COMMIT}")
-            if self.ftdi_chip == "ft4232ha":
+            if chip["patch"] == "ft4232ha":
                 log("info",  "  patch src/jtag/drivers/mpsse.h  — add TYPE_FT4232HA enum value")
-                log("info",  "  patch src/jtag/drivers/mpsse.c  — map bcdDevice 0x3600 to TYPE_FT4232HA")
+                log("info",  "  patch src/jtag/drivers/mpsse.c  — map bcdDevice 0x3600 → TYPE_FT4232HA")
                 log("info",  "  patch contrib/60-openocd.rules  — add PID 0x6048 udev rule")
             log("info", "  ./bootstrap && ./configure && make -j4 && sudo make install")
             return True
@@ -41,7 +85,7 @@ class OpenOCDStep(Step):
 
         if not self._clone(log):
             return False
-        if self.ftdi_chip == "ft4232ha":
+        if chip["patch"] == "ft4232ha":
             if not self._patch_ft4232ha(log):
                 return False
         return self._build(log)
@@ -65,7 +109,7 @@ class OpenOCDStep(Step):
 
     def _clone(self, log: ProgressCallback) -> bool:
         if self.clone_dir.exists():
-            log("info", f"Source directory already exists — skipping clone.")
+            log("info", "Source directory already exists — skipping clone.")
             log("info", f"  {self.clone_dir}")
         else:
             log("info", f"Cloning {OPENOCD_REPO} …")
@@ -83,9 +127,8 @@ class OpenOCDStep(Step):
     def _patch_ft4232ha(self, log: ProgressCallback) -> bool:
         log("info", "")
         log("info", "Applying FT4232HA support patches …")
-        log("info", "  bcdDevice 0x3600 identifies the HA variant (from EEPROM Appendix A)")
+        log("info", "  bcdDevice 0x3600 identifies the HA variant (EEPROM Appendix A)")
 
-        # 1. mpsse.h — add TYPE_FT4232HA to the ftdi_chip_type enum
         h_file = self.clone_dir / "src/jtag/drivers/mpsse.h"
         text = h_file.read_text()
         if "TYPE_FT4232HA" in text:
@@ -98,7 +141,6 @@ class OpenOCDStep(Step):
             h_file.write_text(text)
             log("ok",  "  [patched] src/jtag/drivers/mpsse.h — added TYPE_FT4232HA enum value")
 
-        # 2. mpsse.c — map bcdDevice 0x3600 to TYPE_FT4232HA
         c_file = self.clone_dir / "src/jtag/drivers/mpsse.c"
         text = c_file.read_text()
         if "0x3600" in text:
@@ -116,7 +158,6 @@ class OpenOCDStep(Step):
             c_file.write_text(text)
             log("ok",  "  [patched] src/jtag/drivers/mpsse.c — case 0x3600 → TYPE_FT4232HA")
 
-        # 3. contrib/60-openocd.rules — add udev rule for PID 0x6048
         rules_file = self.clone_dir / "contrib/60-openocd.rules"
         text = rules_file.read_text()
         if "6048" in text:
@@ -149,7 +190,7 @@ class OpenOCDStep(Step):
             log("info", msg)
             if not self._cmd(cmd, cwd=self.clone_dir, log=log):
                 return False
-            log("ok", f"  done.")
+            log("ok", "  done.")
             log("info", "")
         return True
 
