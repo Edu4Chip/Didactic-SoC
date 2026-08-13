@@ -17,11 +17,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 from steps import (
     PrerequisitesStep,
     OpenOCDStep,
+    OpenOCDConfigStep,
     ToolchainStep,
     UdevRulesStep,
+    PathStep,
     BoardStep,
 )
 from steps.openocd import CHIPS
+from steps.path import _DEFAULT_SYMLINK_DIR
 
 _ANSI = {
     "info":    "\033[0m",
@@ -105,6 +108,10 @@ examples:
                    help="Skip udev rules installation")
     p.add_argument("--force-toolchain",    action="store_true",
                    help="Re-download and re-install the toolchain even if already present")
+    p.add_argument("--skip-path",          action="store_true",
+                   help="Skip symlink directory creation and PATH extension")
+    p.add_argument("--symlink-dir",        type=Path, default=_DEFAULT_SYMLINK_DIR,
+                   help=f"Directory for tool symlinks (default: {_DEFAULT_SYMLINK_DIR})")
     p.add_argument("--dry-run",            action="store_true",
                    help="Print what would be done without making any changes")
     return p.parse_args()
@@ -117,9 +124,13 @@ def build_steps(args: argparse.Namespace) -> list:
     a namespace-like object to get the same step list without re-parsing CLI
     arguments.
     """
+    # install.py lives at fpga/install/install.py → repo root is two levels up
+    repo_root = Path(__file__).resolve().parent.parent.parent
     openocd_rules_src = (
         args.build_dir / "riscv-openocd" / "contrib" / "60-openocd.rules"
     )
+    openocd_cfg = repo_root / "fpga" / "utils" / "openocd-didactic.cfg"
+
     dry_run = getattr(args, "dry_run", False)
 
     steps = []
@@ -127,10 +138,14 @@ def build_steps(args: argparse.Namespace) -> list:
         steps.append(PrerequisitesStep())
     if not getattr(args, "skip_openocd", False):
         steps.append(OpenOCDStep(args.build_dir, ftdi_chip=args.ftdi_chip))
+    steps.append(OpenOCDConfigStep(openocd_cfg, args.ftdi_chip))
     if not getattr(args, "skip_toolchain", False):
         steps.append(ToolchainStep(args.toolchain_dir,
                                    release=args.toolchain_release,
                                    force=getattr(args, "force_toolchain", False)))
+    if not getattr(args, "skip_path", False):
+        steps.append(PathStep(args.toolchain_dir,
+                              symlink_dir=getattr(args, "symlink_dir", _DEFAULT_SYMLINK_DIR)))
     if not getattr(args, "skip_udev", False):
         steps.append(UdevRulesStep(openocd_rules_src))
     steps.append(BoardStep(args.board))

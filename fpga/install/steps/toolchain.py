@@ -108,12 +108,8 @@ class ToolchainStep(Step):
         if not self._extract(archive, log):
             return False
 
-        bin_dirs = sorted(self.install_dir.glob("*/bin")) + [self.install_dir / "bin"]
-        bin_dir = next((d for d in bin_dirs if d.exists()), None)
-        if bin_dir:
-            log("ok", "")
-            log("ok", "Toolchain installed successfully.")
-            self._extend_path(bin_dir, log)
+        log("ok", "")
+        log("ok", "Toolchain installed successfully.")
         return True
 
     def verify(self, log: ProgressCallback) -> bool:
@@ -127,38 +123,6 @@ class ToolchainStep(Step):
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
-
-    def _extend_path(self, bin_dir: Path, log: ProgressCallback) -> None:
-        import os
-        export_line = f'export PATH="{bin_dir}:$PATH"'
-        marker = f"# didactic-soc riscv32 toolchain"
-
-        # Check whether this bin_dir is already active in the current PATH
-        current_paths = os.environ.get("PATH", "").split(":")
-        if str(bin_dir) in current_paths:
-            log("info", f"PATH already contains {bin_dir} — no changes needed.")
-            return
-
-        bashrc = Path.home() / ".bashrc"
-        try:
-            existing = bashrc.read_text() if bashrc.exists() else ""
-        except OSError:
-            existing = ""
-
-        if str(bin_dir) in existing:
-            log("info", f"~/.bashrc already references {bin_dir} — no changes needed.")
-        else:
-            block = f"\n{marker}\n{export_line}\n"
-            try:
-                with bashrc.open("a") as f:
-                    f.write(block)
-                log("ok",   f"Added to ~/.bashrc:")
-                log("info", f"  {export_line}")
-                log("info",  "  Run 'source ~/.bashrc' or open a new terminal to activate.")
-            except OSError as exc:
-                log("warning", f"Could not write to ~/.bashrc: {exc}")
-                log("info",    "Add the following line manually:")
-                log("info",    f"  {export_line}")
 
     def _download(self, url: str, dest: Path, log: ProgressCallback) -> bool:
         if dest.exists():

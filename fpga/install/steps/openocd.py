@@ -21,6 +21,9 @@ CHIPS = {
         "udev_in_rules": True,
         "patch": None,
         "jtag_channel": "A (ADBUS)",
+        "openocd_channel": 0,         # channel index for ftdi channel directive
+        "openocd_vid": "0x0403",
+        "openocd_pid": "0x6010",
     },
     "ft2232h": {
         "pid": "6010", "bcd_device": "0x0700",
@@ -28,6 +31,9 @@ CHIPS = {
         "udev_in_rules": True,
         "patch": None,
         "jtag_channel": "A (ADBUS)",
+        "openocd_channel": 0,
+        "openocd_vid": "0x0403",
+        "openocd_pid": "0x6010",
     },
     "ft4232h": {
         "pid": "6011", "bcd_device": "0x0800",
@@ -35,6 +41,9 @@ CHIPS = {
         "udev_in_rules": True,
         "patch": None,
         "jtag_channel": "B (BDBUS)",
+        "openocd_channel": 1,
+        "openocd_vid": "0x0403",
+        "openocd_pid": "0x6011",
     },
     "ft4232ha": {
         "pid": "6048", "bcd_device": "0x3600",
@@ -42,6 +51,9 @@ CHIPS = {
         "udev_in_rules": False,
         "patch": "ft4232ha",
         "jtag_channel": "B (BDBUS)",
+        "openocd_channel": 1,
+        "openocd_vid": "0x0403",
+        "openocd_pid": "0x6048",
     },
 }
 
@@ -57,7 +69,17 @@ class OpenOCDStep(Step):
         self._chip      = CHIPS[ftdi_chip]
 
     def check(self) -> bool:
-        return shutil.which("openocd") is not None
+        if not shutil.which("openocd"):
+            return False
+        if self._chip.get("patch") == "ft4232ha":
+            # Binary present but we need to confirm the source was patched and
+            # built with FT4232HA support.  Use the patched header as the
+            # indicator — if the clone doesn't exist or lacks the enum value,
+            # we must rebuild.
+            h_file = self.clone_dir / "src/jtag/drivers/mpsse.h"
+            if not h_file.exists() or "TYPE_FT4232HA" not in h_file.read_text():
+                return False
+        return True
 
     def run(self, log: ProgressCallback) -> bool:
         chip = self._chip
@@ -66,7 +88,13 @@ class OpenOCDStep(Step):
         log("info", f"FTDI chip   : {self.ftdi_chip.upper()}"
                     f"  (PID 0x{chip['pid']}, bcdDevice {chip['bcd_device']})")
         log("info", f"JTAG channel: {chip['jtag_channel']}")
-        log("info", f"Patch needed: {'yes — ' + chip['patch'] if chip['patch'] else 'no'}")
+        h_file = self.clone_dir / "src/jtag/drivers/mpsse.h"
+        patch_applied = chip["patch"] == "ft4232ha" and h_file.exists() and "TYPE_FT4232HA" in h_file.read_text()
+        if chip["patch"]:
+            patch_status = "already applied" if patch_applied else "will be applied"
+            log("info", f"Patch needed: yes — {chip['patch']} ({patch_status})")
+        else:
+            log("info",  "Patch needed: no")
         log("info", f"Build dir   : {self.clone_dir}")
         log("info", "")
 
