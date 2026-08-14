@@ -1,7 +1,18 @@
+import os
 import shutil
 import subprocess
 from pathlib import Path
 from .base import Step, ProgressCallback
+
+_DEFAULT_PREFIX = Path.home() / ".local"
+
+
+def _needs_sudo(path: Path) -> bool:
+    """Return True if path (or its closest existing parent) is not user-writable."""
+    p = path
+    while not p.exists():
+        p = p.parent
+    return not os.access(p, os.W_OK)
 
 OPENOCD_REPO   = "https://github.com/riscv-collab/riscv-openocd"
 OPENOCD_COMMIT = "9ea7f3d647c8ecf6b0f1424002dfc3f4504a162c"
@@ -62,14 +73,24 @@ class OpenOCDStep(Step):
     title = "OpenOCD"
     description = "Clone, build and install OpenOCD with RISC-V JTAG support"
 
-    def __init__(self, build_dir: Path, ftdi_chip: str = "ft4232h"):
-        self.build_dir  = build_dir
-        self.ftdi_chip  = ftdi_chip
-        self.clone_dir  = build_dir / "riscv-openocd"
-        self._chip      = CHIPS[ftdi_chip]
+    def __init__(self, build_dir: Path, ftdi_chip: str = "ft4232h",
+                 install_prefix: Path = _DEFAULT_PREFIX):
+        self.build_dir      = build_dir
+        self.ftdi_chip      = ftdi_chip
+        self.install_prefix = install_prefix
+        self.clone_dir      = build_dir / "riscv-openocd"
+        self._chip          = CHIPS[ftdi_chip]
+
+    def _openocd_bin(self) -> "Path | None":
+        """Return the openocd binary path, checking prefix/bin first then PATH."""
+        prefix_bin = self.install_prefix / "bin" / "openocd"
+        if prefix_bin.exists():
+            return prefix_bin
+        found = shutil.which("openocd")
+        return Path(found) if found else None
 
     def check(self) -> bool:
-        if not shutil.which("openocd"):
+        if not self._openocd_bin():
             return False
         if self._chip.get("patch") == "ft4232ha":
             # Binary present but we need to confirm the source was patched and
@@ -95,10 +116,14 @@ class OpenOCDStep(Step):
             log("info", f"Patch needed: yes — {chip['patch']} ({patch_status})")
         else:
             log("info",  "Patch needed: no")
-        log("info", f"Build dir   : {self.clone_dir}")
+        sudo_needed = _needs_sudo(self.install_prefix)
+        log("info", f"Install prefix : {self.install_prefix}")
+        log("info", f"Requires sudo  : {'yes' if sudo_needed else 'no'}")
+        log("info", f"Build dir      : {self.clone_dir}")
         log("info", "")
 
         if self.dry_run:
+            install_cmd = ("sudo " if sudo_needed else "") + "make install"
             log("info", "[dry-run] Would run:")
             log("info", f"  git clone {OPENOCD_REPO} {self.clone_dir}")
             log("info", f"  git checkout {OPENOCD_COMMIT}")
@@ -106,7 +131,7 @@ class OpenOCDStep(Step):
                 log("info",  "  patch src/jtag/drivers/mpsse.h  — add TYPE_FT4232HA enum value")
                 log("info",  "  patch src/jtag/drivers/mpsse.c  — map bcdDevice 0x3600 → TYPE_FT4232HA")
                 log("info",  "  patch contrib/60-openocd.rules  — add PID 0x6048 udev rule")
-            log("info", "  ./bootstrap && ./configure && make -j4 && sudo make install")
+            log("info", f"  ./bootstrap && ./configure --prefix={self.install_prefix} && make -j4 && {install_cmd}")
             return True
 
         self.build_dir.mkdir(parents=True, exist_ok=True)
@@ -119,16 +144,16 @@ class OpenOCDStep(Step):
         return self._build(log)
 
     def verify(self, log: ProgressCallback) -> bool:
-        path = shutil.which("openocd")
-        if path:
-            log("ok", f"openocd found : {path}")
-            result = subprocess.run(["openocd", "--version"],
+        binary = self._openocd_bin()
+        if binary:
+            log("ok", f"openocd found : {binary}")
+            result = subprocess.run([str(binary), "--version"],
                                     capture_output=True, text=True)
             version_line = (result.stdout or result.stderr).splitlines()
             if version_line:
                 log("info", f"  {version_line[0]}")
             return True
-        log("error", "openocd not found on PATH after installation.")
+        log("error", f"openocd not found in {self.install_prefix / 'bin'} or on PATH.")
         return False
 
     # ------------------------------------------------------------------
@@ -207,11 +232,28 @@ class OpenOCDStep(Step):
         return True
 
     def _build(self, log: ProgressCallback) -> bool:
+        sudo_needed = _needs_sudo(self.install_prefix)
+        install_cmd = ["sudo", "make", "install"] if sudo_needed else ["make", "install"]
+
+        if sudo_needed:
+            log("info", "")
+            log("info", f"Prefix {self.install_prefix} requires sudo for installation.")
+            log("info", "Authenticating now so the prompt appears before compilation starts …")
+            result = subprocess.run(["sudo", "-v"])
+            if result.returncode != 0:
+                log("error", "sudo authentication failed.")
+                return False
+            log("ok", "sudo credentials obtained.")
+
         stages = [
-            (["./bootstrap"],             "Step 1/4 — Bootstrap (generating configure script) …"),
-            (["./configure"],             "Step 2/4 — Configure …"),
-            (["make", "-j4"],             "Step 3/4 — Compile  (this takes several minutes) …"),
-            (["sudo", "make", "install"], "Step 4/4 — Install  (requires sudo) …"),
+            (["./bootstrap"],
+             "Step 1/4 — Bootstrap …"),
+            (["./configure", f"--prefix={self.install_prefix}"],
+             f"Step 2/4 — Configure  (prefix: {self.install_prefix}) …"),
+            (["make", "-j4"],
+             "Step 3/4 — Compile  (this takes several minutes) …"),
+            (install_cmd,
+             f"Step 4/4 — Install into {self.install_prefix} …"),
         ]
         log("info", "")
         for cmd, msg in stages:
@@ -230,7 +272,7 @@ class OpenOCDStep(Step):
                 text=True, bufsize=1,
             )
             for line in proc.stdout:
-                log("info", "    " + line.rstrip())
+                log("detail", "    " + line.rstrip())
             proc.wait()
             if proc.returncode != 0:
                 log("error", f"  Command failed (exit {proc.returncode}): {' '.join(cmd)}")

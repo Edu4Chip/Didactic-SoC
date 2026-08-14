@@ -1,6 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import Callable
 
+# Log levels (lowest to highest priority):
+#   detail  — subprocess output, path listings, per-item progress  (verbose only)
+#   info    — key status lines, step headers                        (normal + verbose)
+#   ok      — success confirmations                                 (all levels)
+#   warning — non-fatal problems                                    (all levels)
+#   error   — failures                                              (all levels)
 ProgressCallback = Callable[[str, str], None]
 
 

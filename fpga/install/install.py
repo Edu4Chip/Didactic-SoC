@@ -23,7 +23,7 @@ from steps import (
     PathStep,
     BoardStep,
 )
-from steps.openocd import CHIPS
+from steps.openocd import CHIPS, _DEFAULT_PREFIX as _DEFAULT_OPENOCD_PREFIX
 from steps.path import _DEFAULT_SYMLINK_DIR
 
 _ANSI = {
@@ -36,8 +36,20 @@ _ANSI = {
 }
 
 
-def _cli_logger():
+_LEVELS = {
+    # level → minimum verbosity needed to display it (0=quiet, 1=normal, 2=verbose)
+    "error":   0,
+    "warning": 0,
+    "ok":      0,
+    "info":    1,
+    "detail":  2,
+}
+
+
+def _cli_logger(verbosity: int = 1):
     def log(level: str, msg: str) -> None:
+        if verbosity < _LEVELS.get(level, 1):
+            return
         colour = _ANSI.get(level, "")
         print(f"{colour}{msg}{_ANSI['reset']}", flush=True)
     return log
@@ -91,6 +103,11 @@ examples:
         help="Directory for cloning/building OpenOCD (default: /tmp/didactic-install)",
     )
     p.add_argument(
+        "--openocd-prefix", type=Path, default=_DEFAULT_OPENOCD_PREFIX,
+        help=f"OpenOCD install prefix (default: {_DEFAULT_OPENOCD_PREFIX}). "
+             "Use a path under your home directory to avoid sudo.",
+    )
+    p.add_argument(
         "--toolchain-dir", type=Path, default=Path.home() / "riscv32",
         help="Directory to install the RISC-V toolchain (default: ~/riscv32)",
     )
@@ -114,6 +131,8 @@ examples:
                    help=f"Directory for tool symlinks (default: {_DEFAULT_SYMLINK_DIR})")
     p.add_argument("--dry-run",            action="store_true",
                    help="Print what would be done without making any changes")
+    p.add_argument("-v", "--verbose",      action="store_true",
+                   help="Show full subprocess output (git clone, make, etc.)")
     return p.parse_args()
 
 
@@ -137,7 +156,9 @@ def build_steps(args: argparse.Namespace) -> list:
     if not getattr(args, "skip_prerequisites", False):
         steps.append(PrerequisitesStep())
     if not getattr(args, "skip_openocd", False):
-        steps.append(OpenOCDStep(args.build_dir, ftdi_chip=args.ftdi_chip))
+        steps.append(OpenOCDStep(args.build_dir, ftdi_chip=args.ftdi_chip,
+                                 install_prefix=getattr(args, "openocd_prefix",
+                                                        _DEFAULT_OPENOCD_PREFIX)))
     steps.append(OpenOCDConfigStep(openocd_cfg, args.ftdi_chip))
     if not getattr(args, "skip_toolchain", False):
         steps.append(ToolchainStep(args.toolchain_dir,
@@ -157,7 +178,8 @@ def build_steps(args: argparse.Namespace) -> list:
 
 def main() -> int:
     args = _parse_args()
-    log = _cli_logger()
+    verbosity = 2 if getattr(args, "verbose", False) else 1
+    log = _cli_logger(verbosity)
 
     dry_run = getattr(args, "dry_run", False)
     if dry_run:
@@ -165,13 +187,15 @@ def main() -> int:
 
     steps = build_steps(args)
     failed = []
+    path_step_ran = False
 
     for step in steps:
         _print_header(step.title)
         log("info", step.description)
 
-        if step.check():
-            log("ok", f"  Already complete — skipping.")
+        already_done = step.check()
+        if already_done:
+            log("ok", "  Already complete — skipping.")
             continue
 
         ok = step.run(log)
@@ -180,6 +204,8 @@ def main() -> int:
             failed.append(step.title)
             if isinstance(step, PrerequisitesStep):
                 break  # missing tools make subsequent steps pointless
+        elif isinstance(step, PathStep):
+            path_step_ran = True
 
     _print_header("Summary")
     if failed:
@@ -188,6 +214,14 @@ def main() -> int:
         return 1
 
     log("ok", "Installation complete.")
+
+    if path_step_ran:
+        script = Path(__file__).parent / "install.sh"
+        log("info", "")
+        log("warning", "PATH was updated but is not yet active in this terminal.")
+        log("info",    "To activate it without opening a new terminal, re-run using:")
+        log("info",    f"  source {script} <same arguments>")
+
     return 0
 
 
