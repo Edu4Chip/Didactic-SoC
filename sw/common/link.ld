@@ -14,6 +14,7 @@
  */
 
 OUTPUT_ARCH(riscv)
+ENTRY(reset_handler)
 SEARCH_DIR(.)
 __DYNAMIC = 0;
 

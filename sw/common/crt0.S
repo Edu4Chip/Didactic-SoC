@@ -12,6 +12,7 @@
 
   .section .text
 
+  .globl reset_handler
 reset_handler:
   la x2, stack
   la ra, postMain 

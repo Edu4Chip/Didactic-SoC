@@ -1,3 +1,16 @@
+# =============================================================================
+# Project      : DidacticSoC
+# File         : fpga/install/steps/base.py
+# Description  : Abstract Step base class and ProgressCallback type alias;
+#                defines the check / run / verify interface shared by all
+#                installation step modules.
+# -----------------------------------------------------------------------------
+# Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
+# License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
+# Contributors : LogiqWorks Ltd.
+# Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
+#                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
+# =============================================================================
 from abc import ABC, abstractmethod
 from typing import Callable
 

@@ -1,0 +1,16 @@
+# Didactic SoC — RISC-V debug GUI
+#
+# Install:
+#   pip install -r fpga/debug/requirements.txt
+#
+# Python >= 3.10 required (PySide6 6.x constraint)
+
+# GUI framework
+PySide6 == 6.11.1
+
+# GDB Machine Interface — controls riscv32-unknown-elf-gdb programmatically
+# Used for ELF loading, memory read/write, halt/run/step
+pygdbmi == 0.11.0.0
+
+# Serial port access — streams UART output from the FTDI adapter's serial channel
+pyserial == 3.5

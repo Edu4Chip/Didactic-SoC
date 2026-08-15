@@ -1,4 +1,17 @@
 #!/usr/bin/env sh
+# =============================================================================
+# Project      : DidacticSoC
+# File         : fpga/install/install.sh
+# Description  : Shell wrapper that invokes install.py then sources the shell
+#                RC file so PATH changes take effect immediately in the current
+#                terminal session.
+# -----------------------------------------------------------------------------
+# Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
+# License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
+# Contributors : LogiqWorks Ltd.
+# Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
+#                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
+# =============================================================================
 # Run install.py, then source the shell RC file so PATH changes take effect
 # in the current shell session.
 #

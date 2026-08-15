@@ -1,0 +1,21 @@
+{
+    "openocd": {
+        "repo":      "https://github.com/riscv-collab/riscv-openocd",
+        "commit":    "9ea7f3d647c8ecf6b0f1424002dfc3f4504a162c",
+        "rules_url": "https://raw.githubusercontent.com/riscv-collab/riscv-openocd/9ea7f3d647c8ecf6b0f1424002dfc3f4504a162c/contrib/60-openocd.rules"
+    },
+    "toolchain": {
+        "url_template":    "https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/{release}/riscv32-elf-{os_tag}-gcc.tar.xz",
+        "default_release": "2026.07.15"
+    },
+    "pynq_boards": {
+        "pynq-z1": {
+            "url":    "https://github.com/cathalmccabe/pynq-z1_board_files/raw/master/pynq-z1.zip",
+            "prefix": "pynq-z1"
+        },
+        "pynq-z2": {
+            "url":    "https://dpoauwgwqsy2x.cloudfront.net/Download/pynq-z2.zip",
+            "prefix": "pynq-z2"
+        }
+    }
+}

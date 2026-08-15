@@ -1,0 +1,314 @@
+{
+  "peripherals": [
+    {
+      "name": "GPIO",
+      "base": "0x01030000",
+      "description": "",
+      "registers": [
+        {
+          "name": "PAD_IN",
+          "offset": "0x08",
+          "access": "R",
+          "description": ""
+        },
+        {
+          "name": "PAD_OUT",
+          "offset": "0x0c",
+          "access": "R/W",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "UART",
+      "base": "0x01030100",
+      "description": "",
+      "registers": [
+        {
+          "name": "RBR_THR_DLL",
+          "offset": "0x00",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "IER_DLM",
+          "offset": "0x04",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "IIR_FCR",
+          "offset": "0x08",
+          "access": "R",
+          "description": ""
+        },
+        {
+          "name": "LCR",
+          "offset": "0x0c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "MCR",
+          "offset": "0x10",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "LSR",
+          "offset": "0x14",
+          "access": "R",
+          "description": ""
+        },
+        {
+          "name": "MSR",
+          "offset": "0x18",
+          "access": "R",
+          "description": ""
+        },
+        {
+          "name": "SCR",
+          "offset": "0x1c",
+          "access": "R/W",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "SPI",
+      "base": "0x01030200",
+      "description": "",
+      "registers": [
+        {
+          "name": "STATUS",
+          "offset": "0x00",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "CLKDIV",
+          "offset": "0x04",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SPICMD",
+          "offset": "0x08",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SPIADR",
+          "offset": "0x0c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SPILEN",
+          "offset": "0x10",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SPIDUM",
+          "offset": "0x14",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "TXFIFO",
+          "offset": "0x18",
+          "access": "W",
+          "description": ""
+        },
+        {
+          "name": "RXFIFO",
+          "offset": "0x20",
+          "access": "R",
+          "description": ""
+        },
+        {
+          "name": "INTCFG",
+          "offset": "0x24",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "INTSTA",
+          "offset": "0x28",
+          "access": "R",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "SoC Control",
+      "base": "0x01040000",
+      "description": "",
+      "registers": [
+        {
+          "name": "RST_CTRL",
+          "offset": "0x04",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_CTRL",
+          "offset": "0x0c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_CTRL",
+          "offset": "0x10",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_CTRL",
+          "offset": "0x14",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_CTRL",
+          "offset": "0x18",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS4_CTRL",
+          "offset": "0x1c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PMOD_CTRL",
+          "offset": "0x24",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SPI_PAD_CFG_DATA0",
+          "offset": "0x3c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SPI_PAD_CFG_DATA1",
+          "offset": "0x40",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SPI_PAD_CFG_DATA2",
+          "offset": "0x44",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SPI_PAD_CFG_DATA3",
+          "offset": "0x48",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO0",
+          "offset": "0x4c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO1",
+          "offset": "0x50",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO2",
+          "offset": "0x54",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO3",
+          "offset": "0x58",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO4",
+          "offset": "0x5c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO5",
+          "offset": "0x60",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO6",
+          "offset": "0x64",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO7",
+          "offset": "0x68",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO8",
+          "offset": "0x6c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO9",
+          "offset": "0x70",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO10",
+          "offset": "0x74",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO11",
+          "offset": "0x78",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO12",
+          "offset": "0x7c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO13",
+          "offset": "0x80",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO14",
+          "offset": "0x84",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PAD_CFG_GPIO15",
+          "offset": "0x88",
+          "access": "R/W",
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

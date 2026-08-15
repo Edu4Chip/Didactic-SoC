@@ -1,8 +1,22 @@
+# =============================================================================
+# Project      : DidacticSoC
+# File         : fpga/install/steps/openocd.py
+# Description  : OpenOCDStep — clones the RISC-V OpenOCD fork, optionally
+#                patches it for the automotive FT4232HA chip, builds it with
+#                libftdi/libusb support, and installs it under the install root.
+# -----------------------------------------------------------------------------
+# Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
+# License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
+# Contributors : LogiqWorks Ltd.
+# Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
+#                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
+# =============================================================================
 import os
 import shutil
 import subprocess
 from pathlib import Path
 from .base import Step, ProgressCallback
+from .links import OPENOCD_REPO, OPENOCD_COMMIT
 
 _DEFAULT_PREFIX = Path.home() / ".local"
 
@@ -13,9 +27,6 @@ def _needs_sudo(path: Path) -> bool:
     while not p.exists():
         p = p.parent
     return not os.access(p, os.W_OK)
-
-OPENOCD_REPO   = "https://github.com/riscv-collab/riscv-openocd"
-OPENOCD_COMMIT = "9ea7f3d647c8ecf6b0f1424002dfc3f4504a162c"
 
 # Registry of known FTDI chips and their support status at the pinned commit.
 # Fields:

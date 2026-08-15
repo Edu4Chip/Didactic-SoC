@@ -1,3 +1,16 @@
+# =============================================================================
+# Project      : DidacticSoC
+# File         : fpga/install/steps/prerequisites.py
+# Description  : PrerequisitesStep — verifies that all required build tools
+#                (git, cmake, make, autoconf, pkg-config, pip, etc.) are
+#                present before the installation begins.
+# -----------------------------------------------------------------------------
+# Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
+# License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
+# Contributors : LogiqWorks Ltd.
+# Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
+#                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
+# =============================================================================
 import shutil
 from .base import Step, ProgressCallback
 

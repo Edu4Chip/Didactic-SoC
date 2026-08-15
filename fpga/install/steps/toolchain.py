@@ -1,15 +1,25 @@
+# =============================================================================
+# Project      : DidacticSoC
+# File         : fpga/install/steps/toolchain.py
+# Description  : ToolchainStep — downloads and extracts a pre-built RISC-V GNU
+#                toolchain tarball (riscv32-unknown-elf) into the install root.
+# -----------------------------------------------------------------------------
+# Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
+# License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
+# Contributors : LogiqWorks Ltd.
+# Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
+#                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
+# =============================================================================
 import shutil
 import sys
 import tarfile
 import urllib.request
 from pathlib import Path
 from .base import Step, ProgressCallback
+from .links import TOOLCHAIN_URL_TEMPLATE, TOOLCHAIN_DEFAULT_RELEASE
 
-_DEFAULT_RELEASE = "2026.07.15"
-_BASE_URL = (
-    "https://github.com/riscv-collab/riscv-gnu-toolchain"
-    "/releases/download/{release}/riscv32-elf-{os_tag}-gcc.tar.xz"
-)
+_DEFAULT_RELEASE = TOOLCHAIN_DEFAULT_RELEASE
+_BASE_URL        = TOOLCHAIN_URL_TEMPLATE
 _OS_MAP = {
     ("ubuntu", "22.04"): "ubuntu-22.04",
     ("ubuntu", "24.04"): "ubuntu-24.04",

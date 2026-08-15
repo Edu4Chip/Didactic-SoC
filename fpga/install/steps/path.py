@@ -1,3 +1,16 @@
+# =============================================================================
+# Project      : DidacticSoC
+# File         : fpga/install/steps/path.py
+# Description  : PathStep — creates a canonical symlink directory for all
+#                installed binaries and appends an export line to the user's
+#                shell RC file.
+# -----------------------------------------------------------------------------
+# Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
+# License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
+# Contributors : LogiqWorks Ltd.
+# Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
+#                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
+# =============================================================================
 import os
 from pathlib import Path
 from .base import Step, ProgressCallback
@@ -36,9 +49,13 @@ class PathStep(Step):
     )
 
     def __init__(self, toolchain_install_dir: Path,
-                 symlink_dir: Path = _DEFAULT_SYMLINK_DIR):
+                 symlink_dir: Path = _DEFAULT_SYMLINK_DIR,
+                 extra_bin_dirs: "list[Path] | None" = None):
         self.toolchain_install_dir = toolchain_install_dir
         self.symlink_dir = symlink_dir
+        # Additional binary directories whose contents are also symlinked in
+        # (e.g. openocd/bin so 'openocd' appears alongside the toolchain).
+        self.extra_bin_dirs: list[Path] = extra_bin_dirs or []
 
     def check(self) -> bool:
         if not self.symlink_dir.exists():
@@ -63,6 +80,8 @@ class PathStep(Step):
             log("info", "[dry-run] Step 1 — Would create symlink directory and populate:")
             log("info", f"  mkdir -p {self.symlink_dir}")
             log("info",  "  ln -sf <toolchain>/bin/* <symlink_dir>/")
+            for d in self.extra_bin_dirs:
+                log("info", f"  ln -sf {d}/* <symlink_dir>/")
             log("info", "")
             log("info", "[dry-run] Step 2 — Would extend PATH:")
             log("info", f"  echo '{_MARKER}' >> {rc_path}")
@@ -121,6 +140,34 @@ class PathStep(Step):
         log("info", f"  source : {bin_dir}")
         log("info", f"  target : {self.symlink_dir}")
         log("info", "")
+
+        for extra_dir in self.extra_bin_dirs:
+            if not extra_dir.is_dir():
+                log("warning", f"Extra bin dir not found, skipping: {extra_dir}")
+                continue
+            extra_tools = sorted(p for p in extra_dir.iterdir()
+                                 if p.is_file() or p.is_symlink())
+            ec = eu = es = 0
+            for tool in extra_tools:
+                link = self.symlink_dir / tool.name
+                if link.is_symlink():
+                    if link.resolve() == tool.resolve():
+                        es += 1
+                        continue
+                    link.unlink()
+                    link.symlink_to(tool)
+                    eu += 1
+                elif link.exists():
+                    log("warning", f"  {link.name}: non-symlink file exists — skipping")
+                    es += 1
+                else:
+                    link.symlink_to(tool)
+                    ec += 1
+            log("ok",   f"Extra symlinks ({extra_dir.name}): "
+                        f"{ec} created, {eu} updated, {es} unchanged")
+            log("info", f"  source : {extra_dir}")
+            log("info", "")
+
         return True
 
     def _extend_rc(self, export_line: str, rc_path: Path,

@@ -1,3 +1,15 @@
+# =============================================================================
+# Project      : DidacticSoC
+# File         : fpga/install/steps/openocd_config.py
+# Description  : OpenOCDConfigStep — patches openocd-didactic.cfg with the
+#                FTDI chip variant (ft4232h or ft4232ha) chosen by the user.
+# -----------------------------------------------------------------------------
+# Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
+# License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
+# Contributors : LogiqWorks Ltd.
+# Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
+#                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
+# =============================================================================
 import re
 from pathlib import Path
 from .base import Step, ProgressCallback

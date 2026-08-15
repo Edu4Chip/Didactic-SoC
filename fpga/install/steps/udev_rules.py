@@ -1,15 +1,25 @@
+# =============================================================================
+# Project      : DidacticSoC
+# File         : fpga/install/steps/udev_rules.py
+# Description  : UdevRulesStep — installs the OpenOCD udev rules file
+#                (60-openocd.rules) so FTDI USB adapters are accessible without
+#                root privileges.
+# -----------------------------------------------------------------------------
+# Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
+# License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
+# Contributors : LogiqWorks Ltd.
+# Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
+#                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
+# =============================================================================
 import subprocess
 import urllib.request
 from pathlib import Path
 from .base import Step, ProgressCallback
-from .openocd import OPENOCD_COMMIT
+from .links import OPENOCD_RULES_URL
 
 _RULES_DST = Path("/etc/udev/rules.d/60-openocd.rules")
 _RULES_FILENAME = "60-openocd.rules"
-_RULES_URL = (
-    f"https://raw.githubusercontent.com/riscv-collab/riscv-openocd"
-    f"/{OPENOCD_COMMIT}/contrib/{_RULES_FILENAME}"
-)
+_RULES_URL = OPENOCD_RULES_URL
 
 # Paths searched in order before falling back to a download
 _SYSTEM_CANDIDATES = [

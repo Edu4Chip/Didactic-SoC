@@ -1,3 +1,16 @@
+# =============================================================================
+# Project      : DidacticSoC
+# File         : fpga/install/steps/board.py
+# Description  : BoardStep — prints JTAG wiring tables and board-specific
+#                connection notes for PYNQ-Z1, PYNQ-Z2, and Basys3 as the
+#                final step of the installation.
+# -----------------------------------------------------------------------------
+# Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
+# License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
+# Contributors : LogiqWorks Ltd.
+# Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
+#                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
+# =============================================================================
 from .base import Step, ProgressCallback
 
 # Signal | FPGA Pin | Z1 connector | Z2 connector
