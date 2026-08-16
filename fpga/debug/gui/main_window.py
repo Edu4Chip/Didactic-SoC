@@ -168,6 +168,7 @@ class MainWindow(QMainWindow):
         h_splitter.setStretchFactor(0, 0)
         h_splitter.setStretchFactor(1, 1)
         h_splitter.setSizes([380, 720])
+        self._h_splitter = h_splitter
 
         # ── Bottom pane: UART terminal spanning full width ────────────────
         self._uart_panel = UartTerminalPanel()
@@ -388,6 +389,7 @@ class MainWindow(QMainWindow):
     def _save_settings(self) -> None:
         s = self._settings()
         s.setValue("window/geometry",      self.saveGeometry())
+        s.setValue("window/h_splitter",    self._h_splitter.saveState())
         s.setValue("uart/port",            self._conn_panel.uart_port())
         s.setValue("uart/baud_index",      self._conn_panel.uart_baud_index())
         s.setValue("uart/custom_baud",     self._conn_panel.uart_custom_baud())
@@ -397,6 +399,9 @@ class MainWindow(QMainWindow):
         geom = s.value("window/geometry")
         if geom:
             self.restoreGeometry(geom)
+        h_split = s.value("window/h_splitter")
+        if h_split:
+            self._h_splitter.restoreState(h_split)
         port = s.value("uart/port", "")
         if port:
             self._conn_panel.set_uart_port(port)

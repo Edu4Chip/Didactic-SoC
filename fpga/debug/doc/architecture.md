@@ -98,7 +98,7 @@ GdbClient.disconnect()
 GdbClient.load_elf(path)            # halt, load symbols, download binary
 GdbClient.run()                     # monitor resume
 GdbClient.halt()                    # monitor halt
-GdbClient.step()                    # monitor step
+GdbClient.step() -> int | None      # software single-step; returns new PC
 GdbClient.get_pc() -> int | None
 GdbClient.read_word(addr) -> int    # raises RuntimeError on failure
 GdbClient.write_word(addr, value)
@@ -199,9 +199,11 @@ saved on close and restored on startup:
 | Key | Value |
 |---|---|
 | `window/geometry` | size and screen position |
+| `window/h_splitter` | horizontal splitter position (left panel vs tabs) |
 | `uart/port` | selected device path (e.g. `/dev/ttyUSB0`) |
 | `uart/baud_index` | index into the baud preset combo |
 | `uart/custom_baud` | text field content when Custom is selected |
+| `elf/last_dir` | last directory used in the ELF file browser |
 
 If the saved UART port is not present in the current port list (device
 disconnected), it is added as a placeholder entry so it is pre-selected for
@@ -315,19 +317,90 @@ defaults to **R/W**.
 
 ## Hardware Notes
 
-### Why `monitor` commands instead of GDB-native execution
+### Why `monitor` commands for run and halt
 
-This core's RISC-V Debug Module has intermittently broken abstract command
-support. Abstract commands are used by GDB's RSP layer for register access
-(setting PC, reading registers). Using GDB's `-exec-continue` also puts GDB
-into a state where it waits for the target to stop — if the target runs an
-infinite loop, GDB blocks forever.
+`monitor resume` and `monitor halt` are OpenOCD Tcl commands executed via the
+`qRcmd` RSP packet. They bypass GDB's execution state machine entirely and
+return to the caller immediately. This avoids GDB blocking indefinitely when
+the target runs an infinite loop — a `-exec-continue` on an infinite-loop
+target would sit waiting for a `T05` stop reply that never comes.
 
-`monitor resume` / `monitor halt` / `monitor step` are OpenOCD TCL commands
-executed directly by the OpenOCD server; they bypass GDB's execution state
-machine and return `^done` immediately. OpenOCD still sends `*running` and
-`*stopped` async notifications to GDB, which the worker picks up via
-`poll_notifications()`.
+### Single-step implementation
+
+The `SystemControl_SS` black box (RISC-V CPU + debug module) has several
+constraints that rule out standard single-step approaches:
+
+| Mechanism | Outcome |
+|---|---|
+| `dcsr.step` via `monitor step` or `-exec-step-instruction` | OpenOCD hangs — the CPU steps but halt completion is never signalled back |
+| Hardware breakpoints via RSP `Z1` (`-break-insert -h`) | "Ignoring packet error" — OpenOCD's RISC-V backend rejects `Z1` |
+| Hardware breakpoints via `monitor bp … hw` | OpenOCD hangs — the trigger module CSR (`tselect`) access never completes |
+| Software breakpoints via RSP `Z0` (`-break-insert -t`) | Silent failure — the CPU runs past the intended stop point with no error |
+
+**What works** was determined by reading `dcsr` directly:
+
+```
+dcsr = 0x4000b0c3
+  xdebugver = 4  →  debug spec 0.13 compliant
+  ebreakm   = 1  →  EBREAK in M-mode enters debug mode
+  prv       = 3  →  CPU is in M-mode
+```
+
+And confirming that instruction memory is writable via the debug module:
+
+```
+monitor mww 0x01000130 0x00100073   # write EBREAK
+monitor mdw 0x01000130              # reads back 0x00100073  ✓
+```
+
+**Implemented approach — C.EBREAK patch + `-exec-continue`:**
+
+1. Decode the instruction at the current PC using a built-in RV32IMC decoder
+   (`GdbClient._next_pcs`) to find all reachable next-PCs (1 for sequential
+   instructions, 2 for conditional branches, 1 for unconditional jumps).
+
+2. For each next-PC, read the 4-byte aligned word containing it, patch in
+   `C.EBREAK` (`0x9002`) at the correct 16-bit half-word offset, and write the
+   patched word back via `monitor mww`.
+
+   `C.EBREAK` is used instead of full `EBREAK` (`0x00100073`) because
+   `bits[1:0] = 0b10` causes the CPU to treat the 16 bits as a compressed
+   instruction regardless of what was originally there. This handles both
+   compressed and unaligned 32-bit next-PCs without needing to know the
+   instruction size at the destination.
+
+3. Resume with `-exec-continue` (RSP `vCont;c`). GDB is now in Running state
+   and correctly expects a `T05` stop reply — using `monitor resume` instead
+   would cause GDB to receive `T05` unsolicited when the EBREAK fires, which
+   confuses GDB and makes subsequent monitor commands time out.
+
+4. Poll passively for `*stopped` — first scanning the `-exec-continue` response
+   burst (the step is so fast that `T05` often arrives before pygdbmi reads the
+   `(gdb)` prompt), then calling `poll_notifications()` in a loop with 50 ms
+   intervals up to a 5-second timeout.
+
+5. Restore all patched words via `monitor mww` and return the new PC.
+
+**RV32IMC instruction decoder** (`GdbClient._next_pcs`):
+
+The decoder reads one 32-bit word at the current PC and returns the list of
+reachable next addresses:
+
+- `bits[1:0] != 0b11` → 16-bit compressed instruction (RVC):
+  - `C.J`, `C.JAL` → single target (PC + sign-extended 12-bit imm)
+  - `C.BEQZ`, `C.BNEZ` → two targets (PC+2 and PC + sign-extended 9-bit imm)
+  - `C.JR`, `C.JALR` → single target (register value, read via GDB)
+  - All others → PC+2
+- `bits[1:0] == 0b11` → 32-bit instruction:
+  - `JAL` (opcode `0x6F`) → single target (PC + sign-extended 21-bit imm)
+  - `JALR` (opcode `0x67`) → single target ((rs1 + sign-extended 12-bit imm) & ~1)
+  - Conditional branches (opcode `0x63`) → two targets (PC+4 and PC + sign-extended 13-bit imm)
+  - All others → PC+4
+
+**Limitation:** `dcsr.stepie = 0` means interrupts are disabled for the single
+instruction that executes during each step. Interrupt-driven UART TX does not
+make progress while stepping instruction-by-instruction. Use run + breakpoint
+for code that depends on interrupts.
 
 ### ELF entry point
 

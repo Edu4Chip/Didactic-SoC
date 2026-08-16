@@ -1,5 +1,50 @@
 # Debug Tool — Known Issues & Findings
 
+## 6. Single-step not supported by hardware — software workaround implemented
+
+**Symptom:** Clicking the Step button had no visible effect, or the target ran
+continuously without stopping.
+
+**Investigation results:**
+
+| Attempt | Outcome | Root cause |
+|---|---|---|
+| `monitor step` | 10-second timeout | CPU steps but debug module never signals halt completion |
+| `-exec-step-instruction` | 10-second timeout | Same underlying issue via GDB RSP `vCont;s` |
+| `-break-insert -h -t` (RSP Z1) | "Ignoring packet error" | OpenOCD RISC-V backend rejects Z1 hardware breakpoint packet |
+| `monitor bp … hw` | 10-second timeout | Trigger module CSR (`tselect`) access hangs the debug module |
+| `-break-insert -t` (RSP Z0, software BP) | Target ran forever | GDB's Z0 write fails silently; instruction memory appears read-only via RSP memory write |
+| `monitor mww` direct write | **Success** | Instruction memory IS writable through the OpenOCD memory bus |
+
+**Key diagnostic commands and findings:**
+
+```
+(gdb) monitor reg dcsr
+dcsr (/32): 0x4000b0c3
+```
+
+Decoded:
+- `xdebugver = 4` — debug spec 0.13 compliant
+- `ebreakm = 1` — **EBREAK in M-mode enters debug mode** ← the enabling condition
+- `prv = 3` — CPU is running in M-mode
+- `stepie = 0` — interrupts disabled during single step
+
+```
+(gdb) monitor mww 0x01000130 0x00100073
+(gdb) monitor mdw 0x01000130
+0x01000130: 00100073     ← write succeeded; instruction memory is writable via mww
+```
+
+**Fix:** Software single-step implemented in `GdbClient.step()` — see
+`doc/architecture.md § Single-step implementation` for full details.
+
+The short version: patch `C.EBREAK` (`0x9002`) into instruction memory at the
+next PC via `monitor mww`, resume with `-exec-continue` so GDB expects `T05`,
+poll passively for `*stopped`, restore the original instruction. No hardware
+trigger module or RSP breakpoint packets are involved.
+
+---
+
 ## 1. GDB memory write fails with "Ignoring packet error" on peripheral registers
 
 **Symptom:** `set *((int*)0x01030100) = 0x41` in GDB produces repeated "Ignoring packet error" and nothing is sent.

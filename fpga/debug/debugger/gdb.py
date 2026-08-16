@@ -5,6 +5,8 @@
 #                speaks GDB MI3 protocol over a RISC-V GDB subprocess; uses
 #                OpenOCD monitor commands for execution control to avoid
 #                blocking GDB on infinite-loop targets.
+#                Single-step is implemented in software (breakpoint + resume)
+#                because hardware dcsr.step is not wired in SystemControl_SS.
 # -----------------------------------------------------------------------------
 # Copyright    : Copyright (c) 2026 LogiqWorks Ltd.
 # License      : Solderpad Hardware Licence Version 2.1 (SHL-2.1)
@@ -12,10 +14,43 @@
 # Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
 #                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
 # =============================================================================
+import re
 import socket
 import shutil
 from pathlib import Path
 from pygdbmi.gdbcontroller import GdbController
+
+
+def _sext(val: int, bits: int) -> int:
+    """Sign-extend a bits-wide unsigned integer to a Python int."""
+    if val & (1 << (bits - 1)):
+        val -= 1 << bits
+    return val
+
+
+def _parse_int(val: str) -> "int | None":
+    """Parse an integer from a GDB value string.
+
+    GDB can return values in several formats:
+      "0x0000001c"          plain hex
+      "28"                  plain decimal
+      "(void *) 0x0000001c" type-decorated pointer
+    We extract the first 0x… token, falling back to the first digit run.
+    """
+    val = val.strip()
+    m = re.search(r'0x([0-9a-fA-F]+)', val)
+    if m:
+        try:
+            return int(m.group(1), 16)
+        except ValueError:
+            pass
+    m = re.search(r'\d+', val)
+    if m:
+        try:
+            return int(m.group())
+        except ValueError:
+            pass
+    return None
 
 _DEFAULT_GDB = "riscv32-unknown-elf-gdb"
 _DEFAULT_PORT = 3333
@@ -109,21 +144,164 @@ class GdbClient:
     def halt(self) -> None:
         self.send_console("monitor halt")
 
-    def step(self) -> None:
-        self.send_console("monitor step")
+    def step(self) -> "int | None":
+        """Software single-step by patching C.EBREAK into instruction memory.
+
+        dcsr.ebreakm=1: EBREAK (and C.EBREAK) in M-mode enters debug mode.
+        Instruction memory is writable via the debug module (monitor mww).
+        GDB's Z0 RSP path (-break-insert -t) fails silently on this target, so
+        we write directly through OpenOCD.
+
+        C.EBREAK (0x9002) is used at every next-PC regardless of what
+        instruction was there: bits[1:0]=0b10 forces the CPU to decode it as a
+        16-bit instruction, which is C.EBREAK, halting via ebreakm.
+
+        Returns the new PC after the step.
+        """
+        pc = self.get_pc()
+        if pc is None:
+            raise RuntimeError("step: cannot read PC")
+        word = self.read_word(pc)
+        if word is None:
+            raise RuntimeError(f"step: cannot read instruction at {pc:#010x}")
+
+        next_pcs = self._next_pcs(pc, word)
+
+        # Build per-word patches.  Two next-PCs can share a word (rare but
+        # possible for compressed branches), so accumulate before writing.
+        originals: dict[int, int] = {}  # word_addr -> original word
+        pending:   dict[int, int] = {}  # word_addr -> patched word
+
+        for addr in next_pcs:
+            word_addr = addr & ~3
+            offset    = addr &  2   # 0 or 2
+            if word_addr not in originals:
+                w = self.read_word(word_addr)
+                if w is None:
+                    raise RuntimeError(f"step: cannot read at {word_addr:#010x}")
+                originals[word_addr] = w
+                pending[word_addr]   = w
+            if offset == 0:
+                pending[word_addr] = (pending[word_addr] & 0xFFFF0000) | 0x9002
+            else:
+                pending[word_addr] = (pending[word_addr] & 0x0000FFFF) | (0x9002 << 16)
+
+        for word_addr, pw in pending.items():
+            self.send_console(f"monitor mww {word_addr:#x} {pw:#x}")
+
+        msgs = self._mi("-exec-continue")
+
+        def _has_stopped(batch: list) -> bool:
+            return any(
+                m.get("type") == "notify" and m.get("message") == "stopped"
+                for m in batch
+            )
+
+        # Fast path: *stopped often arrives in the same -exec-continue burst.
+        if not _has_stopped(msgs):
+            for _ in range(100):  # 5-second timeout, 50 ms per poll
+                if _has_stopped(self.poll_notifications(timeout=0.05)):
+                    break
+            else:
+                for word_addr, orig in originals.items():
+                    self.send_console(f"monitor mww {word_addr:#x} {orig:#x}")
+                self.send_console("monitor halt")
+                raise RuntimeError("step: timeout — C.EBREAK did not halt the target")
+
+        for word_addr, orig in originals.items():
+            self.send_console(f"monitor mww {word_addr:#x} {orig:#x}")
+
+        return self.get_pc()
+
+    def get_register(self, reg: int) -> "int | None":
+        """Read integer register x<reg> (0–31) from GDB."""
+        resp = self._mi(f"-data-evaluate-expression $x{reg}")
+        for r in resp:
+            if r.get("type") == "result" and r.get("message") == "done":
+                val = str(r.get("payload", {}).get("value", ""))
+                return _parse_int(val)
+        return None
+
+    def _next_pcs(self, pc: int, word: int) -> "list[int]":
+        """Decode the RV32IMC instruction at pc and return all reachable next PCs."""
+        lo = word & 0xFFFF
+
+        # 16-bit compressed instruction: bits[1:0] != 0b11
+        if (lo & 0x3) != 0x3:
+            q  = lo & 0x3
+            f3 = (lo >> 13) & 0x7
+            if q == 1:
+                # C.J (f3=101) and C.JAL (f3=001, RV32 only) — unconditional
+                if f3 in (0b101, 0b001):
+                    raw = ((lo >> 12 & 1) << 11 | (lo >> 8 & 1) << 10 |
+                           (lo >> 9 & 3) << 8  | (lo >> 6 & 1) << 7  |
+                           (lo >> 7 & 1) << 6  | (lo >> 2 & 1) << 5  |
+                           (lo >> 11 & 1) << 4 | (lo >> 3 & 7) << 1)
+                    return [(pc + _sext(raw, 12)) & 0xFFFFFFFF]
+                # C.BEQZ (f3=110) and C.BNEZ (f3=111) — conditional
+                if f3 in (0b110, 0b111):
+                    raw = ((lo >> 12 & 1) << 8 | (lo >> 5 & 3) << 6 |
+                           (lo >> 2 & 1) << 5  | (lo >> 10 & 3) << 3 |
+                           (lo >> 3 & 3) << 1)
+                    taken = (pc + _sext(raw, 9)) & 0xFFFFFFFF
+                    return sorted({pc + 2, taken})
+            if q == 2 and f3 == 0b100:
+                # C.JR / C.JALR: target = rs1
+                rs1 = (lo >> 7) & 0x1F
+                rs2 = (lo >> 2) & 0x1F
+                if rs2 == 0 and rs1 != 0:
+                    val = self.get_register(rs1) or (pc + 2)
+                    return [val & 0xFFFFFFFF]
+            return [pc + 2]
+
+        # 32-bit instruction
+        opcode = word & 0x7F
+
+        # JAL — unconditional, target = PC + imm20
+        if opcode == 0x6F:
+            raw = ((word >> 31 & 1) << 20 | (word >> 12 & 0xFF) << 12 |
+                   (word >> 20 & 1) << 11 | (word >> 21 & 0x3FF) << 1)
+            return [(pc + _sext(raw, 21)) & 0xFFFFFFFF]
+
+        # JALR — target = (rs1 + imm12) & ~1
+        if opcode == 0x67:
+            rs1 = (word >> 15) & 0x1F
+            imm = _sext(word >> 20, 12)
+            val = self.get_register(rs1) or 0
+            return [((val + imm) & ~1) & 0xFFFFFFFF]
+
+        # Conditional branches — both taken and not-taken paths
+        if opcode == 0x63:
+            raw = ((word >> 31 & 1) << 12 | (word >> 7 & 1) << 11 |
+                   (word >> 25 & 0x3F) << 5 | (word >> 8 & 0xF) << 1)
+            taken = (pc + _sext(raw, 13)) & 0xFFFFFFFF
+            return sorted({pc + 4, taken})
+
+        return [pc + 4]
 
     def reset_halt(self) -> None:
         self._mi('-interpreter-exec console "monitor halt"')
 
     def get_pc(self) -> int | None:
+        # Primary path: GDB expression (value may be decorated, e.g. "(void *) 0x42")
         resp = self._mi("-data-evaluate-expression $pc")
         for r in resp:
             if r.get("type") == "result" and r.get("message") == "done":
-                val = r.get("payload", {}).get("value", "")
-                try:
-                    return int(val, 0)
-                except (ValueError, TypeError):
-                    pass
+                val = str(r.get("payload", {}).get("value", ""))
+                result = _parse_int(val)
+                if result is not None:
+                    return result
+        # Fallback: ask OpenOCD directly ("pc (/32): 0x00000042")
+        resp = self._mi('-interpreter-exec console "monitor reg pc"')
+        for r in resp:
+            payload = r.get("payload") or ""
+            if isinstance(payload, str):
+                m = re.search(r'0x([0-9a-fA-F]+)', payload)
+                if m:
+                    try:
+                        return int(m.group(1), 16)
+                    except ValueError:
+                        pass
         return None
 
     # ------------------------------------------------------------------

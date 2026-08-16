@@ -11,7 +11,9 @@
 # Contact      : Dobroslav Tsonev  <dobroslav.tsonev@logiqworks.io>
 #                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
 # =============================================================================
-from PySide6.QtCore import Signal
+from pathlib import Path
+
+from PySide6.QtCore import Signal, QSettings
 from PySide6.QtGui import QFont
 from PySide6.QtWidgets import (
     QGroupBox, QVBoxLayout, QHBoxLayout,
@@ -55,11 +57,14 @@ class ElfLoaderPanel(QGroupBox):
         root.addWidget(self._log)
 
     def _browse(self) -> None:
+        s = QSettings("DidacticSoC", "SoCDebugger")
+        last_dir = s.value("elf/last_dir", "")
         path, _ = QFileDialog.getOpenFileName(
-            self, "Select ELF", "", "ELF files (*.elf);;All files (*)"
+            self, "Select ELF", last_dir, "ELF files (*.elf);;All files (*)"
         )
         if path:
             self._path_edit.setText(path)
+            s.setValue("elf/last_dir", str(Path(path).parent))
 
     def _load(self) -> None:
         path = self._path_edit.text().strip()

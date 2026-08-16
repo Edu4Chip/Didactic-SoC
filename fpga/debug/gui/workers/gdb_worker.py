@@ -137,8 +137,8 @@ class GdbWorker(QThread):
                 self.target_halted.emit(pc or 0)
 
             elif cmd == "step":
-                self._client.step()
-                pc = self._client.get_pc()
+                self.target_running.emit()
+                pc = self._client.step()
                 self.target_halted.emit(pc or 0)
 
             elif cmd == "reset":
