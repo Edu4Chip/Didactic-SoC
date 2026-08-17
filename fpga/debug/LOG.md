@@ -1,5 +1,76 @@
 # Debug Tool — Known Issues & Findings
 
+## 8. Disassembly panel added
+
+A **Disassembly** tab was added to the right-hand tab widget. It shows the
+disassembled program with a PC marker (`▶`), breakpoint gutter (`●`), and a
+compact call-stack list.
+
+The disassembly is built once at ELF load time using
+`riscv32-unknown-elf-objdump -d --no-show-raw-insn` as a subprocess. The result
+is cached and reused on every halt/step/reset with zero GDB I/O. The panel never
+updates while the target is running.
+
+Using GDB's `-data-disassemble` instead (the first implementation) caused the
+same `abstractcs.cmderr` latch problem described in entry #7 below.
+
+---
+
+## 7. `step()` silently failed to write C.EBREAK — root cause: `abstractcs.cmderr` latch
+
+**Symptom:** After adding the disassembly panel, clicking Step caused the target
+to resume and run freely without stopping. `step()` timed out with "C.EBREAK did
+not halt the target."
+
+**Root cause:** GDB's `-data-read-memory-bytes` (used inside `step()` to decode
+the current instruction and to read the word to be patched) causes OpenOCD to use
+the **program buffer** access path: it writes a `lw a0,0(a0); ebreak` snippet
+into the debug module's program buffer and executes it on the hart. On this
+target, program-buffer execution leaves `abstractcs.cmderr` latched.
+
+OpenOCD checks `cmderr` before executing every abstract command. When `cmderr`
+is set, OpenOCD clears it and returns `ERROR_FAIL` without executing the
+command. This means the subsequent `monitor mww` call (which writes the
+C.EBREAK patch into IMEM) silently fails — the write never happens. GDB resumes
+the target with the original instruction in place, hits nothing, and `step()`
+times out after 5 seconds.
+
+The same issue occurred when `disassemble()` was called (via GDB's
+`-data-disassemble`) at ELF load time before running: the thousands of
+target-memory reads it triggered latched `cmderr`, which then broke the first
+`monitor mww` in `step()`.
+
+**Diagnosis method:** Manual GDB console sequence:
+```
+monitor reg pc          → 0x01000116
+monitor mdw 0x01000116  → 0x47920001  (16-bit C.LWSP at PC)
+monitor mdw 0x01000118  → 0x07854792  (word at next_pc)
+monitor mww 0x01000118 0x07859002     (patch C.EBREAK into lower halfword)
+monitor mdw 0x01000118  → 0x07859002  (write verified)
+monitor resume          → target halted immediately on C.EBREAK ✓
+monitor mww 0x01000118 0x07854792     (restore)
+monitor resume          → target ran freely ✓
+monitor halt            → PC = 0x010000e4 ✓
+```
+This sequence worked because it uses only `monitor` commands, which use the
+direct abstract-command path and do not touch the program buffer or latch
+`cmderr`. The Python `step()` used GDB MI commands for the reads, which used
+the program buffer and broke the subsequent `mww`.
+
+**Fix:** All reads inside `step()` were changed from GDB MI commands to
+OpenOCD `monitor` commands:
+- `get_pc()` → `_monitor_reg_pc()` (sends `monitor reg pc`)
+- `read_word(pc)` → `_monitor_mdw(pc & ~3)` (sends `monitor mdw`)
+- `read_word(word_addr)` → `_monitor_mdw(word_addr)` (sends `monitor mdw`)
+
+A `monitor mdw` readback verification was also added after each `monitor mww`
+so a failed write raises a specific error immediately instead of timing out.
+
+ELF-load disassembly was changed from GDB's `-data-disassemble` to
+`riscv32-unknown-elf-objdump` (subprocess on the ELF file, no target I/O).
+
+---
+
 ## 6. Single-step not supported by hardware — software workaround implemented
 
 **Symptom:** Clicking the Step button had no visible effect, or the target ran

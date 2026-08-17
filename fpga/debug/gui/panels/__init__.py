@@ -20,9 +20,11 @@ from .memory import MemoryPanel
 from .gdb_console import GdbConsolePanel
 from .register_map_panel import RegisterMapPanel
 from .gdb_snippets_panel import GdbSnippetsPanel
+from .disassembly_panel import DisassemblyPanel
 
 __all__ = [
     "ConnectionPanel", "UartTerminalPanel",
     "ElfLoaderPanel", "ExecutionPanel", "MemoryPanel",
     "GdbConsolePanel", "RegisterMapPanel", "GdbSnippetsPanel",
+    "DisassemblyPanel",
 ]

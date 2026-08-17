@@ -26,6 +26,7 @@ from gui.panels import (
     ConnectionPanel, UartTerminalPanel,
     ElfLoaderPanel, ExecutionPanel, MemoryPanel,
     GdbConsolePanel, RegisterMapPanel, GdbSnippetsPanel,
+    DisassemblyPanel,
 )
 from gui.workers import GdbWorker, UartWorker
 
@@ -153,15 +154,17 @@ class MainWindow(QMainWindow):
         left_layout.addWidget(self._mem_panel)
         left_layout.addStretch()
 
-        # Right column — GDB console + Register map + Snippets
+        # Right column — GDB console + Register map + Snippets + Disassembly
         self._gdb_console    = GdbConsolePanel()
         self._reg_map_panel  = RegisterMapPanel()
         self._snippets_panel = GdbSnippetsPanel()
+        self._disasm_panel   = DisassemblyPanel()
 
         tabs = QTabWidget()
         tabs.addTab(self._gdb_console,    "GDB Console")
         tabs.addTab(self._reg_map_panel,  "Register Map")
         tabs.addTab(self._snippets_panel, "GDB Snippets")
+        tabs.addTab(self._disasm_panel,   "Disassembly")
 
         h_splitter.addWidget(left)
         h_splitter.addWidget(tabs)
@@ -260,6 +263,15 @@ class MainWindow(QMainWindow):
         gw.memory_written.connect(rp.on_memory_written)
         gw.target_halted.connect(rp.on_target_halted)
         gw.target_running.connect(rp.on_target_running)
+
+        # Disassembly panel ↔ GDB worker
+        dp = self._disasm_panel
+        gw.disassembly_ready.connect(dp.update_disassembly)
+        gw.stack_ready.connect(dp.update_stack)
+        gw.breakpoint_added.connect(lambda addr: dp.on_breakpoint_changed(addr, True))
+        gw.breakpoint_removed.connect(lambda addr: dp.on_breakpoint_changed(addr, False))
+        dp.breakpoint_toggled.connect(gw.request_toggle_breakpoint)
+        dp.frame_selected.connect(gw.request_disassemble)
 
     # ------------------------------------------------------------------
     # Worker lifecycle

@@ -46,6 +46,7 @@ the previous session (stored in `~/.config/DidacticSoC/SoCDebugger.conf`).
 │  Execution   │  GDB Console                                 │
 │  Memory      │  Register Map                                │
 │              │  GDB Snippets                                │
+│              │  Disassembly                                 │
 ├──────────────────────────────────────────────────────────────┤
 │  UART Terminal  (full width, always visible)                  │
 └──────────────────────────────────────────────────────────────┘
@@ -149,7 +150,7 @@ GDB is connected.
 |---|---|
 | **▶ Run** | `monitor resume` — resumes execution from current PC |
 | **⏸ Halt** | `monitor halt` — stops the CPU |
-| **⤵ Step** | `monitor step` — executes one instruction |
+| **⤵ Step** | Software single-step — executes exactly one instruction |
 | **↺ Reset** | `monitor halt` — halts (hardware reset is not available) |
 
 The same controls are also available in the main toolbar.
@@ -157,11 +158,18 @@ The same controls are also available in the main toolbar.
 The status indicator shows **Running** (green) or **Halted** (amber). The PC
 field is updated automatically when the target halts.
 
-> **Why `monitor` instead of GDB native commands?**  
+> **How Step works:**  
+> Hardware single-step (`dcsr.step`) and hardware breakpoints are not functional
+> on this target. Step patches `C.EBREAK` (`0x9002`) into instruction memory at
+> the next PC via `monitor mww`, resumes with `-exec-continue`, waits for the
+> resulting halt, then restores the original instruction. See
+> `doc/architecture.md § Single-step implementation` for full details.
+
+> **Why `monitor resume`/`halt` instead of GDB native commands for Run/Halt:**  
 > GDB's `-exec-continue` waits for the target to stop before returning. Because
 > the SoC typically runs infinite loops, GDB would block indefinitely and become
-> unresponsive. `monitor resume`/`halt`/`step` are OpenOCD TCL commands that
-> return immediately and do not block GDB's MI interface.
+> unresponsive. `monitor resume`/`halt` are OpenOCD TCL commands that return
+> immediately and do not block GDB's MI interface.
 
 ---
 
@@ -281,6 +289,41 @@ syntax).
 
 - `reset_uart` — initialises the UART peripheral for 57600 baud (FPGA 25 MHz).
   Run this if the UART was not initialised by a loaded program.
+
+---
+
+### Disassembly *(tab)*
+
+Shows the disassembled program with a PC marker and click-to-toggle breakpoints.
+A compact call-stack list sits above the instruction table.
+
+**How the view is populated:**
+
+- When an ELF is loaded the entire binary is disassembled once using
+  `riscv32-unknown-elf-objdump` and cached. The cache is reused on every
+  subsequent halt or step with no additional target communication.
+- The view **never updates while the target is running** — it is a passive
+  display that refreshes only on halt, step, and reset.
+
+**PC marker and scroll:**
+
+- The current PC row is highlighted in blue and marked `▶` in the gutter.
+- After halt or step the view scrolls to the PC row automatically.
+
+**Breakpoints:**
+
+- Click the gutter column (`▶`/`●` column) on any instruction row to toggle a
+  software breakpoint at that address.
+- Active breakpoints are marked `●` (red). An address that is both the current
+  PC and a breakpoint shows `⊙`.
+- Breakpoints are implemented by patching `C.EBREAK` (`0x9002`) into instruction
+  memory via `monitor mww`. They are not GDB software breakpoints and do not
+  appear in GDB's breakpoint list.
+
+**Call stack:**
+
+- The stack list above the table shows the backtrace when the target is halted.
+  Clicking a frame navigates the disassembly to that frame's address.
 
 ---
 

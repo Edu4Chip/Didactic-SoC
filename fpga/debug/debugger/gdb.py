@@ -17,6 +17,7 @@
 import re
 import socket
 import shutil
+import subprocess
 from pathlib import Path
 from pygdbmi.gdbcontroller import GdbController
 
@@ -64,7 +65,6 @@ def is_openocd_running(host: str = "localhost", port: int = _DEFAULT_PORT,
     avoids the 'attempted gdb connection rejected' noise in OpenOCD logs.
     Falls back to a socket probe on platforms where ss is unavailable.
     """
-    import subprocess
     try:
         result = subprocess.run(
             ["ss", "-tln", f"sport = :{port}"],
@@ -102,6 +102,7 @@ class GdbClient:
         self._gdb_path = gdb_path or find_gdb()
         self._port = port
         self._ctrl: GdbController | None = None
+        self._breakpoints: dict[int, tuple[int, int]] = {}  # addr -> (word_addr, orig)
 
     # ------------------------------------------------------------------
     # Lifecycle
@@ -139,44 +140,92 @@ class GdbClient:
     # ------------------------------------------------------------------
 
     def run(self) -> None:
+        # Only pay the get_pc() round-trip when breakpoints are active.
+        # Without breakpoints this reduces back to a single monitor resume.
+        if self._breakpoints:
+            pc = self.get_pc()
+            if pc is not None and pc in self._breakpoints:
+                # At a BP address: restore original, step past it, then re-arm.
+                word_addr, orig = self._breakpoints.pop(pc)
+                self.send_console(f"monitor mww {word_addr:#x} {orig:#x}")
+                try:
+                    self.step()
+                finally:
+                    self.add_breakpoint(pc)
         self.send_console("monitor resume")
 
     def halt(self) -> None:
         self.send_console("monitor halt")
 
+    def _monitor_mdw(self, addr: int) -> "int | None":
+        """Read one aligned word via OpenOCD's monitor mdw command.
+
+        Bypasses GDB's -data-read-memory-bytes path.  GDB's path can use the
+        program buffer, which on this target leaves abstractcs.cmderr set.
+        A latched cmderr causes the very next abstract command (our mww) to
+        return ERROR_FAIL without executing, so no C.EBREAK ever reaches IMEM.
+        OpenOCD's monitor mdw uses a different access path that does not leave
+        cmderr latched.
+        """
+        aligned = addr & ~3
+        resp = self.send_console(f"monitor mdw {aligned:#x}")
+        for r in resp:
+            payload = r.get("payload") or ""
+            if isinstance(payload, str):
+                m = re.search(r'[0-9a-fA-F]+:\s+([0-9a-fA-F]{8})', payload)
+                if m:
+                    return int(m.group(1), 16)
+        return None
+
     def step(self) -> "int | None":
         """Software single-step by patching C.EBREAK into instruction memory.
 
-        dcsr.ebreakm=1: EBREAK (and C.EBREAK) in M-mode enters debug mode.
-        Instruction memory is writable via the debug module (monitor mww).
-        GDB's Z0 RSP path (-break-insert -t) fails silently on this target, so
-        we write directly through OpenOCD.
+        Uses only OpenOCD monitor commands for every read and write so the
+        access path matches the working manual test exactly:
+          monitor reg pc / monitor mdw / monitor mww / -exec-continue
 
-        C.EBREAK (0x9002) is used at every next-PC regardless of what
-        instruction was there: bits[1:0]=0b10 forces the CPU to decode it as a
-        16-bit instruction, which is C.EBREAK, halting via ebreakm.
+        dcsr.ebreakm=1 → EBREAK in M-mode enters debug mode.
+        C.EBREAK (0x9002) is a 16-bit instruction: bits[1:0]=0b10 forces the
+        CPU to decode it as compressed, which triggers the ebreakm halt.
 
         Returns the new PC after the step.
         """
-        pc = self.get_pc()
+        # Read PC via OpenOCD to avoid any GDB→DM abstract-command round-trip.
+        pc = self._monitor_reg_pc()
+        if pc is None:
+            pc = self.get_pc()
         if pc is None:
             raise RuntimeError("step: cannot read PC")
-        word = self.read_word(pc)
-        if word is None:
-            raise RuntimeError(f"step: cannot read instruction at {pc:#010x}")
+
+        # Read the aligned word(s) containing the current instruction.
+        pc_aligned = pc & ~3
+        aw0 = self._monitor_mdw(pc_aligned)
+        if aw0 is None:
+            raise RuntimeError(f"step: cannot read at {pc_aligned:#010x}")
+        if pc & 2:
+            # Instruction starts in the upper halfword — may cross into next word.
+            aw1 = self._monitor_mdw(pc_aligned + 4) or 0
+            word = (aw0 >> 16) | ((aw1 & 0xFFFF) << 16)
+        else:
+            word = aw0
 
         next_pcs = self._next_pcs(pc, word)
 
         # Build per-word patches.  Two next-PCs can share a word (rare but
         # possible for compressed branches), so accumulate before writing.
+        # Skip addresses that already carry a user breakpoint — they already
+        # have C.EBREAK and will halt naturally; restoring them would remove
+        # the user's breakpoint.
         originals: dict[int, int] = {}  # word_addr -> original word
         pending:   dict[int, int] = {}  # word_addr -> patched word
 
         for addr in next_pcs:
+            if addr in self._breakpoints:
+                continue  # already has C.EBREAK from a user BP
             word_addr = addr & ~3
             offset    = addr &  2   # 0 or 2
             if word_addr not in originals:
-                w = self.read_word(word_addr)
+                w = self._monitor_mdw(word_addr)
                 if w is None:
                     raise RuntimeError(f"step: cannot read at {word_addr:#010x}")
                 originals[word_addr] = w
@@ -188,6 +237,14 @@ class GdbClient:
 
         for word_addr, pw in pending.items():
             self.send_console(f"monitor mww {word_addr:#x} {pw:#x}")
+            # Verify the write took effect — a silent mww failure (cmderr latch)
+            # would leave the original instruction in place and step times out.
+            actual = self._monitor_mdw(word_addr)
+            if actual != pw:
+                raise RuntimeError(
+                    f"step: mww verify failed at {word_addr:#x}: "
+                    f"wrote {pw:#010x}, read back {actual!r:#010x}"
+                )
 
         msgs = self._mi("-exec-continue")
 
@@ -203,15 +260,119 @@ class GdbClient:
                 if _has_stopped(self.poll_notifications(timeout=0.05)):
                     break
             else:
+                # In all-stop mode, after -exec-continue only -exec-interrupt is
+                # accepted while the target is running.  send_console("monitor halt")
+                # is rejected by GDB, causing a 10-second timeout that kills the MI
+                # connection.  Interrupt first, then restore the patched words.
+                try:
+                    self._mi("-exec-interrupt")
+                    for _ in range(40):   # 2-second grace period
+                        if _has_stopped(self.poll_notifications(timeout=0.05)):
+                            break
+                except Exception:
+                    pass
                 for word_addr, orig in originals.items():
-                    self.send_console(f"monitor mww {word_addr:#x} {orig:#x}")
-                self.send_console("monitor halt")
+                    try:
+                        self.send_console(f"monitor mww {word_addr:#x} {orig:#x}")
+                    except Exception:
+                        pass
                 raise RuntimeError("step: timeout — C.EBREAK did not halt the target")
 
         for word_addr, orig in originals.items():
             self.send_console(f"monitor mww {word_addr:#x} {orig:#x}")
 
         return self.get_pc()
+
+    # ------------------------------------------------------------------
+    # Disassembly and stack
+    # ------------------------------------------------------------------
+
+    def disassemble(self, start: int, end: int) -> list[dict]:
+        resp = self._mi(f"-data-disassemble -s {start:#x} -e {end:#x} -- 0")
+        for r in resp:
+            if r.get("type") == "result" and r.get("message") == "done":
+                return r.get("payload", {}).get("asm_insns", [])
+        return []
+
+    def disassemble_elf(self, elf_path: str) -> list[dict]:
+        """Disassemble an ELF file via objdump — no target memory access, no GDB I/O.
+
+        Uses the objdump from the same toolchain as the configured GDB binary.
+        Returns a list of dicts in GDB MI asm_insns format so the disassembly
+        panel can consume it without change.
+        """
+        objdump = self._gdb_path.replace("-gdb", "-objdump")
+        if not Path(objdump).exists():
+            objdump = shutil.which("riscv32-unknown-elf-objdump") or ""
+        if not objdump:
+            return []
+        try:
+            result = subprocess.run(
+                [objdump, "-d", "--no-show-raw-insn", elf_path],
+                capture_output=True, text=True, timeout=30,
+            )
+        except Exception:
+            return []
+
+        insns: list[dict] = []
+        current_func = ""
+        for line in result.stdout.splitlines():
+            m = re.match(r'^([0-9a-fA-F]+)\s+<([^>]+)>:', line)
+            if m:
+                current_func = m.group(2)
+                continue
+            m = re.match(r'^\s+([0-9a-fA-F]+):\s+(.*)', line)
+            if m:
+                try:
+                    addr = int(m.group(1), 16)
+                except ValueError:
+                    continue
+                insns.append({
+                    "address": f"0x{addr:08x}",
+                    "func-name": current_func,
+                    "offset": "",
+                    "inst": m.group(2).strip(),
+                })
+        return insns
+
+    def get_stack_frames(self) -> list[dict]:
+        resp = self._mi("-stack-list-frames")
+        for r in resp:
+            if r.get("type") == "result" and r.get("message") == "done":
+                return r.get("payload", {}).get("stack", [])
+        return []
+
+    # ------------------------------------------------------------------
+    # Breakpoints (C.EBREAK patch via monitor mww)
+    # ------------------------------------------------------------------
+
+    def add_breakpoint(self, addr: int) -> None:
+        if addr in self._breakpoints:
+            return
+        word_addr = addr & ~3
+        orig = self.read_word(word_addr)
+        if orig is None:
+            raise RuntimeError(f"add_breakpoint: cannot read at {word_addr:#010x}")
+        offset = addr & 2
+        if offset == 0:
+            patched = (orig & 0xFFFF0000) | 0x9002
+        else:
+            patched = (orig & 0x0000FFFF) | (0x9002 << 16)
+        self._breakpoints[addr] = (word_addr, orig)
+        self.send_console(f"monitor mww {word_addr:#x} {patched:#x}")
+
+    def remove_breakpoint(self, addr: int) -> None:
+        if addr not in self._breakpoints:
+            return
+        word_addr, orig = self._breakpoints.pop(addr)
+        self.send_console(f"monitor mww {word_addr:#x} {orig:#x}")
+
+    def has_breakpoint(self, addr: int) -> bool:
+        return addr in self._breakpoints
+
+    @property
+    def breakpoint_addrs(self) -> set[int]:
+        return set(self._breakpoints.keys())
 
     def get_register(self, reg: int) -> "int | None":
         """Read integer register x<reg> (0–31) from GDB."""
@@ -278,6 +439,20 @@ class GdbClient:
             return sorted({pc + 4, taken})
 
         return [pc + 4]
+
+    def _monitor_reg_pc(self) -> "int | None":
+        """Read PC via OpenOCD's monitor reg pc — no GDB abstract-command path."""
+        resp = self.send_console("monitor reg pc")
+        for r in resp:
+            payload = r.get("payload") or ""
+            if isinstance(payload, str):
+                m = re.search(r'0x([0-9a-fA-F]+)', payload)
+                if m:
+                    try:
+                        return int(m.group(1), 16)
+                    except ValueError:
+                        pass
+        return None
 
     def reset_halt(self) -> None:
         self._mi('-interpreter-exec console "monitor halt"')

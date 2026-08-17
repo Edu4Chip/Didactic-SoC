@@ -31,7 +31,8 @@ fpga/debug/
         ├── uart_terminal.py     UartTerminalPanel
         ├── gdb_console.py       GdbConsolePanel
         ├── register_map_panel.py RegisterMapPanel
-        └── gdb_snippets_panel.py GdbSnippetsPanel
+        ├── gdb_snippets_panel.py GdbSnippetsPanel
+        └── disassembly_panel.py DisassemblyPanel
 ```
 
 ---
@@ -71,17 +72,51 @@ Machine Interface (MI3) protocol.
 
 **Key design decisions:**
 
-- **`monitor halt` / `monitor resume` / `monitor step`** are used instead of
-  GDB's native `-exec-continue` / `-exec-interrupt` / `-exec-step-instruction`.
-  GDB's execution commands wait for the target to stop before returning; because
-  the SoC typically runs an infinite loop, GDB would block indefinitely and all
-  subsequent MI commands would time out. OpenOCD's `monitor` commands execute via
+- **`monitor halt` / `monitor resume`** are used for run/halt instead of GDB's
+  native `-exec-continue` / `-exec-interrupt`. GDB's execution commands wait for
+  the target to stop before returning; because the SoC typically runs an infinite
+  loop, GDB would block indefinitely. OpenOCD's `monitor` commands execute via
   the TCL interpreter and return immediately.
 
-- **Memory access uses GDB MI** (`-data-read-memory-bytes`,
-  `-data-write-memory-bytes`), which goes through the system bus. Writing
-  peripheral registers via `set *((int*)addr)` or GDB's memory write packet
-  causes "Ignoring packet error" on this debug module.
+- **`-exec-continue` is used only inside `step()`**, not for normal run. Step
+  puts GDB into Running state so it correctly expects the `T05` stop reply when
+  the C.EBREAK fires; using `monitor resume` for step would deliver `T05`
+  unsolicited and confuse GDB's MI state machine.
+
+- **All memory and register reads inside `step()` use OpenOCD `monitor`
+  commands** (`monitor mdw`, `monitor reg pc`) rather than GDB MI commands
+  (`-data-read-memory-bytes`, `-data-evaluate-expression`). GDB's memory-read
+  path triggers program-buffer execution (loads `lw a0,0(a0); ebreak` into the
+  debug module's program buffer and runs it on the hart), which leaves
+  `abstractcs.cmderr` latched on this target. A latched `cmderr` causes the very
+  next abstract command — the `monitor mww` that writes C.EBREAK — to silently
+  fail: OpenOCD clears `cmderr` and returns `ERROR_FAIL` without executing the
+  write. No C.EBREAK is written, `-exec-continue` resumes the target freely, and
+  `step()` times out after 5 seconds. Using `monitor mdw` avoids the program
+  buffer entirely and does not latch `cmderr`.
+
+- **Memory access for the Memory panel** uses GDB MI (`-data-read-memory-bytes`,
+  `-data-write-memory-bytes`). Writing peripheral registers via GDB's memory
+  write packet causes "Ignoring packet error" on this debug module; use
+  `monitor mww` for peripherals.
+
+- **Disassembly is built from the ELF file** using `riscv32-unknown-elf-objdump`
+  as a subprocess at load time — not via GDB's `-data-disassemble`. The latter
+  reads target IMEM through the debug module and would latch `cmderr` for the
+  same reason as above. The objdump output is cached once and reused on every
+  halt/step/reset with zero GDB I/O.
+
+  > **Possible future revert to live FPGA disassembly:** GDB's `-data-disassemble`
+  > could be used again if called at a point where `cmderr` latching is harmless —
+  > for example, *after* a `step()` has already completed (patches written,
+  > target halted at the new PC, originals restored), or *while the target is
+  > running* (so there is no pending `monitor mww` for cmderr to silently block).
+  > Concretely, calling `-data-disassemble` from the `halt` or `reset` dispatch
+  > (rather than `load_elf`) would be safe: by that point `step()` is not in
+  > progress, and cmderr set by the disassembly read would be cleared before any
+  > subsequent `step()` call begins. The objdump approach is kept for now because
+  > it is faster (no JTAG round-trips), works offline, and gives the full binary
+  > view even before the first halt.
 
 - **`is_openocd_running()`** checks whether port 3333 is in LISTEN state using
   `ss -tln` rather than opening a TCP connection. Opening a connection causes
@@ -93,18 +128,23 @@ Machine Interface (MI3) protocol.
 
 ```python
 # Public interface
-GdbClient.connect()                 # start GDB subprocess, connect to :3333
+GdbClient.connect()                    # start GDB subprocess, connect to :3333
 GdbClient.disconnect()
-GdbClient.load_elf(path)            # halt, load symbols, download binary
-GdbClient.run()                     # monitor resume
-GdbClient.halt()                    # monitor halt
-GdbClient.step() -> int | None      # software single-step; returns new PC
+GdbClient.load_elf(path)               # halt, load symbols, download binary
+GdbClient.run()                        # monitor resume
+GdbClient.halt()                       # monitor halt
+GdbClient.step() -> int | None         # software single-step; returns new PC
 GdbClient.get_pc() -> int | None
-GdbClient.read_word(addr) -> int    # raises RuntimeError on failure
+GdbClient.read_word(addr) -> int       # raises RuntimeError on failure
 GdbClient.write_word(addr, value)
-GdbClient.send_mi(cmd)              # raw MI command
-GdbClient.send_console(cmd)         # GDB console / monitor command
-GdbClient.poll_notifications()      # non-blocking poll for async GDB messages
+GdbClient.disassemble_elf(path) -> list[dict]   # objdump; no target I/O
+GdbClient.add_breakpoint(addr)         # patch C.EBREAK into IMEM
+GdbClient.remove_breakpoint(addr)      # restore original instruction
+GdbClient.has_breakpoint(addr) -> bool
+GdbClient.breakpoint_addrs -> set[int]
+GdbClient.send_mi(cmd)                 # raw MI command
+GdbClient.send_console(cmd)            # GDB console / monitor command
+GdbClient.poll_notifications()         # non-blocking poll for async GDB messages
 ```
 
 ### `uart.py` — UartMonitor
@@ -139,7 +179,16 @@ request_read_mem(addr)
 request_write_mem(addr, value)
 request_pc()
 request_raw_command(cmd)
+request_toggle_breakpoint(addr)
+request_disassemble(addr)        # frame navigation only; target must be halted
 ```
+
+**Disassembly cache:** at ELF load time the worker calls `disassemble_elf(path)`
+(subprocess objdump, no target I/O), stores the result in `_disasm_cache`, and
+emits `disassembly_ready`. On every subsequent halt/step/reset `_emit_halted()`
+reuses the cache — it never calls any GDB or OpenOCD command. This is essential:
+any GDB memory read between a halt and the next `step()` call can latch
+`abstractcs.cmderr` and silently break the C.EBREAK write (see Hardware Notes).
 
 Each slot puts `(command_name, args)` on an internal `queue.Queue`. The worker
 thread's main loop dequeues and dispatches one command per iteration, then polls
@@ -154,22 +203,27 @@ already running.
 **Signals emitted to the GUI:**
 
 ```python
-connected           # GDB subprocess started and connected to OpenOCD
-disconnected        # GDB subprocess exited
-error(str)          # any exception from the GDB layer
-elf_loaded          # download complete
-target_halted(int)  # CPU stopped; int = PC
-target_running      # CPU started
-pc_updated(int)     # PC read (from request_pc or after halt)
-memory_read(int, int)   # addr, value
-memory_written(int)     # addr
-console_output(str) # GDB console/log text (for GDB Console panel)
+connected                                # GDB subprocess started and connected to OpenOCD
+disconnected                             # GDB subprocess exited
+error(str)                               # any exception from the GDB layer
+elf_loaded                               # download complete
+target_halted(int)                       # CPU stopped; int = PC
+target_running                           # CPU started
+pc_updated(int)                          # PC read (from request_pc or after halt)
+memory_read(int, int)                    # addr, value
+memory_written(int)                      # addr
+console_output(str)                      # GDB console/log text (for GDB Console panel)
+disassembly_ready(list, int, list, bool) # insns, pc, bp_addrs, scroll_to_pc
+stack_ready(list)                        # stack frames
+breakpoint_added(int)                    # addr
+breakpoint_removed(int)                  # addr
 ```
 
 **Async notification handling:** `poll_notifications()` returns any GDB async
-records (e.g. `*stopped`, `*running`, `=thread-group-started`) that arrived
-since the last poll. `_handle_async()` translates these into the appropriate
-signals.
+records (e.g. `*stopped`, `*running`) that arrived since the last poll.
+`_handle_async()` emits only UI-state signals (`target_halted`, `target_running`)
+— it performs **no GDB I/O**. Issuing any GDB command from an async handler
+while the target may still be running causes the "Ignoring packet error" loop.
 
 ### `UartWorker` (QThread)
 
@@ -260,6 +314,20 @@ CPU halt tracking:
   `_is_halted` is False.
 - Selecting a register row auto-triggers a read via `read_requested`.
 
+#### `DisassemblyPanel`
+
+A `QGroupBox` containing a call-stack list (`QListWidget`, max 88 px tall) and a
+three-column disassembly table (`QTableWidget`): gutter | address | instruction.
+
+**Update policy — passive display only:**
+- Updated via `disassembly_ready` signal on halt, step, and reset.
+- Never polls while the target is running; no async GDB I/O.
+- The gutter column shows `▶` at the current PC, `●` at breakpoint addresses,
+  and `⊙` when both coincide. Clicking the gutter column toggles a breakpoint.
+
+**Incremental breakpoint update:** `on_breakpoint_changed(addr, added)` updates
+only the single gutter cell for the changed address — no full table rebuild.
+
 #### `GdbSnippetsPanel`
 
 Includes `_GdbHighlighter` (a `QSyntaxHighlighter` subclass) that colours lines
@@ -317,6 +385,36 @@ defaults to **R/W**.
 
 ## Hardware Notes
 
+### Command compatibility reference
+
+Commands that behave incorrectly on this target and their working alternatives.
+All failures were confirmed by direct testing; root causes are documented in
+`LOG.md`.
+
+| Category | Broken command | Failure mode | Working alternative |
+|---|---|---|---|
+| **Run** | `-exec-continue` | Blocks indefinitely on infinite-loop targets; GDB waits for `T05` that never arrives | `monitor resume` |
+| **Halt** | `-exec-interrupt` | Not accepted by GDB while target is running via `monitor resume` (GDB is not in Running state) | `monitor halt` |
+| **Reset** | `monitor reset halt` | Timeout — no physical reset line on the FPGA board (`reset_config none`) | `monitor halt` |
+| **Single-step** | `monitor step` / `-exec-step-instruction` (`vCont;s`) | Timeout — CPU steps but debug module never signals halt completion | C.EBREAK patch via `monitor mww` + `-exec-continue` (see §Single-step) |
+| **Hardware breakpoints** | `-break-insert -h` (RSP `Z1`) | "Ignoring packet error" — OpenOCD RISC-V backend rejects `Z1` | C.EBREAK patch via `monitor mww` |
+| **Hardware breakpoints** | `monitor bp … hw` | Timeout — trigger-module CSR (`tselect`) access hangs the debug module | C.EBREAK patch via `monitor mww` |
+| **Software breakpoints** | `-break-insert -t` (RSP `Z0`) | Silent failure — IMEM appears read-only via the RSP memory-write packet | `monitor mww` to write C.EBREAK (`0x9002`) directly |
+| **Memory write (peripherals)** | `-data-write-memory-bytes`, `set *((int*)addr)=val` | "Ignoring packet error" — GDB's write path uses the program buffer, which is unreliable for memory-mapped I/O | `monitor mww addr val` |
+| **Memory read (inside `step()`)** | `-data-read-memory-bytes` | Uses program buffer (`lw a0,0(a0); ebreak` on hart), leaving `abstractcs.cmderr` latched; subsequent `monitor mww` silently does nothing and C.EBREAK is never written | `monitor mdw addr` |
+| **Register read (inside `step()`)** | `-data-evaluate-expression $pc` | Same cmderr risk as above when used immediately before `monitor mww` | `monitor reg pc` |
+| **Disassembly at load time** | `-data-disassemble` (GDB MI) | Reads entire IMEM via program buffer, latching `cmderr` and breaking the first `monitor mww` in the next `step()` call | `riscv32-unknown-elf-objdump -d` on the ELF file (no target I/O) |
+
+**The `abstractcs.cmderr` latch pattern** (rows 8–10) is the most subtle failure
+mode. Any GDB command that triggers program-buffer execution sets `cmderr` as a
+side effect on this target. OpenOCD checks `cmderr` before every abstract
+command; when set it clears `cmderr` and returns `ERROR_FAIL` without executing
+— so the *next* command after a program-buffer read silently fails. The fix in
+all cases is to use OpenOCD's `monitor` commands instead of GDB MI for reads that
+immediately precede a `monitor mww`.
+
+---
+
 ### Why `monitor` commands for run and halt
 
 `monitor resume` and `monitor halt` are OpenOCD Tcl commands executed via the
@@ -355,13 +453,18 @@ monitor mdw 0x01000130              # reads back 0x00100073  ✓
 
 **Implemented approach — C.EBREAK patch + `-exec-continue`:**
 
-1. Decode the instruction at the current PC using a built-in RV32IMC decoder
+1. Read the current PC via `monitor reg pc` (OpenOCD direct path — see
+   critical note on `abstractcs.cmderr` below).
+
+2. Read the aligned word(s) containing the current instruction via
+   `monitor mdw`, decode it with the built-in RV32IMC decoder
    (`GdbClient._next_pcs`) to find all reachable next-PCs (1 for sequential
    instructions, 2 for conditional branches, 1 for unconditional jumps).
 
-2. For each next-PC, read the 4-byte aligned word containing it, patch in
-   `C.EBREAK` (`0x9002`) at the correct 16-bit half-word offset, and write the
-   patched word back via `monitor mww`.
+3. For each next-PC, read the 4-byte aligned word containing it via
+   `monitor mdw`, patch in `C.EBREAK` (`0x9002`) at the correct 16-bit
+   half-word offset, write the patched word back via `monitor mww`, and
+   verify the write with a `monitor mdw` readback.
 
    `C.EBREAK` is used instead of full `EBREAK` (`0x00100073`) because
    `bits[1:0] = 0b10` causes the CPU to treat the 16 bits as a compressed
@@ -369,17 +472,33 @@ monitor mdw 0x01000130              # reads back 0x00100073  ✓
    compressed and unaligned 32-bit next-PCs without needing to know the
    instruction size at the destination.
 
-3. Resume with `-exec-continue` (RSP `vCont;c`). GDB is now in Running state
+4. Resume with `-exec-continue` (RSP `vCont;c`). GDB is now in Running state
    and correctly expects a `T05` stop reply — using `monitor resume` instead
    would cause GDB to receive `T05` unsolicited when the EBREAK fires, which
    confuses GDB and makes subsequent monitor commands time out.
 
-4. Poll passively for `*stopped` — first scanning the `-exec-continue` response
+5. Poll passively for `*stopped` — first scanning the `-exec-continue` response
    burst (the step is so fast that `T05` often arrives before pygdbmi reads the
    `(gdb)` prompt), then calling `poll_notifications()` in a loop with 50 ms
    intervals up to a 5-second timeout.
 
-5. Restore all patched words via `monitor mww` and return the new PC.
+6. Restore all patched words via `monitor mww` and return the new PC.
+
+**Critical: why all reads in `step()` use `monitor` commands, not GDB MI**
+
+GDB's `-data-read-memory-bytes` causes OpenOCD to use the **program buffer**:
+it writes a `lw a0,0(a0); ebreak` snippet into the debug module's program
+buffer and executes it on the hart. On this target, program-buffer execution
+leaves `abstractcs.cmderr` latched. OpenOCD checks `cmderr` before every
+abstract command; if set it clears `cmderr` and returns `ERROR_FAIL` without
+executing the command. This means the very next `monitor mww` call silently
+does nothing — no C.EBREAK ever reaches IMEM — and `-exec-continue` resumes
+the target with the original instruction, causing a 5-second timeout.
+
+`monitor mdw` and `monitor reg pc` use a direct abstract-command register/memory
+access that does not go through the program buffer and does not latch `cmderr`.
+Using these for all reads inside `step()` (matching the access path of a working
+manual test) eliminates the silent write failure.
 
 **RV32IMC instruction decoder** (`GdbClient._next_pcs`):
 
