@@ -72,16 +72,30 @@ Machine Interface (MI3) protocol.
 
 **Key design decisions:**
 
-- **`monitor halt` / `monitor resume`** are used for run/halt instead of GDB's
-  native `-exec-continue` / `-exec-interrupt`. GDB's execution commands wait for
-  the target to stop before returning; because the SoC typically runs an infinite
-  loop, GDB would block indefinitely. OpenOCD's `monitor` commands execute via
-  the TCL interpreter and return immediately.
+- **`monitor resume`** is used for `run()` rather than `-exec-continue`.
+  `-exec-continue` puts GDB into Running state and blocks until `T05` arrives;
+  because the SoC typically runs an infinite loop, GDB would block indefinitely.
+  `monitor resume` is an OpenOCD Tcl command executed via `qRcmd` that returns
+  immediately, leaving GDB in "stopped" state.
+
+- **Breakpoint hit detection uses polling.** Because `monitor resume` keeps GDB
+  in "stopped" state, when C.EBREAK fires OpenOCD sends `T05` to GDB as an
+  unsolicited stop reply. GDB discards it — no `*stopped` is emitted to MI. The
+  worker tracks a `_target_is_running` flag (True after `run()`, False after
+  `halt()`/`step()`/`reset()`). While True, the main loop calls
+  `_poll_target_state()` every 200 ms, which sends `monitor targets` and parses
+  the output for "halted". On detection it reads the PC via `monitor reg pc` and
+  emits `target_halted` + `disassembly_ready` to update the GUI.
 
 - **`-exec-continue` is used only inside `step()`**, not for normal run. Step
   puts GDB into Running state so it correctly expects the `T05` stop reply when
-  the C.EBREAK fires; using `monitor resume` for step would deliver `T05`
+  C.EBREAK fires; using `monitor resume` for step would deliver `T05`
   unsolicited and confuse GDB's MI state machine.
+
+- **Halt uses `monitor halt`** (OpenOCD JTAG path, confirmed working) rather
+  than `-exec-interrupt` (which sends `vCont;t` over RSP). RSP execution
+  commands are unreliable on this debug module: `vCont;s` (single-step) timed
+  out in early testing, so `vCont;t` is also avoided.
 
 - **All memory and register reads inside `step()` use OpenOCD `monitor`
   commands** (`monitor mdw`, `monitor reg pc`) rather than GDB MI commands
@@ -224,6 +238,15 @@ records (e.g. `*stopped`, `*running`) that arrived since the last poll.
 `_handle_async()` emits only UI-state signals (`target_halted`, `target_running`)
 — it performs **no GDB I/O**. Issuing any GDB command from an async handler
 while the target may still be running causes the "Ignoring packet error" loop.
+`*stopped` notifications from GDB cover the `step()` path (GDB is in Running
+state during step, so T05 is forwarded normally); they do not cover the `run()`
+path (see Run/halt implementation).
+
+**Breakpoint polling:** while `_target_is_running` is True the main loop calls
+`_poll_target_state()` every 200 ms. This sends `monitor targets` via
+`send_console`, parses the response for "halted", and — if detected — reads the
+PC via `monitor reg pc` and calls `_emit_halted()`. This is the only path that
+updates the GUI when a user breakpoint fires during `run()`.
 
 ### `UartWorker` (QThread)
 
@@ -393,8 +416,8 @@ All failures were confirmed by direct testing; root causes are documented in
 
 | Category | Broken command | Failure mode | Working alternative |
 |---|---|---|---|
-| **Run** | `-exec-continue` | Blocks indefinitely on infinite-loop targets; GDB waits for `T05` that never arrives | `monitor resume` |
-| **Halt** | `-exec-interrupt` | Not accepted by GDB while target is running via `monitor resume` (GDB is not in Running state) | `monitor halt` |
+| **Run** | `-exec-continue` | Blocks indefinitely on infinite-loop targets — GDB waits for `T05` that never arrives during normal execution | `monitor resume` (OpenOCD Tcl via `qRcmd`; returns immediately; BP hits detected by polling `monitor targets` every 200 ms) |
+| **Halt** | `-exec-interrupt` (RSP `vCont;t`) | RSP execution commands unreliable on this debug module; `vCont;s` (single-step) timed out in early testing | `monitor halt` (OpenOCD JTAG path, confirmed working) |
 | **Reset** | `monitor reset halt` | Timeout — no physical reset line on the FPGA board (`reset_config none`) | `monitor halt` |
 | **Single-step** | `monitor step` / `-exec-step-instruction` (`vCont;s`) | Timeout — CPU steps but debug module never signals halt completion | C.EBREAK patch via `monitor mww` + `-exec-continue` (see §Single-step) |
 | **Hardware breakpoints** | `-break-insert -h` (RSP `Z1`) | "Ignoring packet error" — OpenOCD RISC-V backend rejects `Z1` | C.EBREAK patch via `monitor mww` |
@@ -415,13 +438,29 @@ immediately precede a `monitor mww`.
 
 ---
 
-### Why `monitor` commands for run and halt
+### Run/halt implementation
 
-`monitor resume` and `monitor halt` are OpenOCD Tcl commands executed via the
-`qRcmd` RSP packet. They bypass GDB's execution state machine entirely and
-return to the caller immediately. This avoids GDB blocking indefinitely when
-the target runs an infinite loop — a `-exec-continue` on an infinite-loop
-target would sit waiting for a `T05` stop reply that never comes.
+**Run** uses `monitor resume` (OpenOCD Tcl command via `qRcmd` RSP packet). It
+executes immediately and returns, leaving GDB in "stopped" state. GDB does not
+issue `vCont;c` and is unaware the target is running. `-exec-continue` is not
+used for run: on a target running an infinite loop it would put GDB into Running
+state and block indefinitely waiting for `T05`.
+
+**Breakpoint hit notification** is handled by hardware polling. Because `monitor
+resume` keeps GDB in "stopped" state, the `T05` stop reply that OpenOCD sends
+when C.EBREAK fires arrives unsolicited. GDB discards it without emitting
+`*stopped` to the MI interface. Instead, the worker sets `_target_is_running =
+True` when `run()` is called and polls `monitor targets` every 200 ms in its
+main loop. When the output contains "halted", the worker reads the PC via
+`monitor reg pc` and emits `target_halted` + `disassembly_ready` to update the
+GUI toolbar and disassembly panel. `_target_is_running` is cleared on `halt()`,
+`step()`, and `reset()` so polling stops as soon as the worker knows the target
+is halted.
+
+**Halt** uses `monitor halt` via `-interpreter-exec console`. OpenOCD's JTAG
+halt path is confirmed working on this target. `-exec-interrupt` (RSP `vCont;t`)
+is avoided: RSP execution commands are unreliable on this debug module —
+`vCont;s` (single-step) timed out in early testing.
 
 ### Single-step implementation
 
@@ -483,6 +522,37 @@ monitor mdw 0x01000130              # reads back 0x00100073  ✓
    intervals up to a 5-second timeout.
 
 6. Restore all patched words via `monitor mww` and return the new PC.
+
+**Stepping from a user breakpoint address**
+
+When the CPU is halted at an address where a user breakpoint is active,
+`C.EBREAK` (`0x9002`) is already in instruction memory at that address.
+Two problems arise if `step()` does not account for this:
+
+- `_monitor_mdw(pc)` returns the patched word (with `C.EBREAK` in the relevant
+  halfword), not the original instruction. `_next_pcs` decodes `C.EBREAK` and
+  returns `[pc+2]`, which is coincidentally correct for this 2-byte opcode —
+  but the word read to build the step-patch also contains `C.EBREAK`, so the
+  "original" saved for later restore is already patched.
+
+- When `-exec-continue` resumes, the CPU fetches from PC and immediately hits
+  the existing `C.EBREAK` (from the user breakpoint). It halts at the same
+  address. `step()` treats this as a successful step and "restores" a value that
+  was already patched. PC appears unchanged.
+
+The fix: at entry, if `pc in self._breakpoints`, pop the entry (saving
+`(bp_word_addr, bp_orig)`), temporarily write `bp_orig` back to memory, then
+proceed with the normal step logic. Because the original instruction is now in
+memory, `_monitor_mdw` returns the real opcode and `-exec-continue` executes it.
+After the step (success or failure), `_rearm_breakpoint(pc, bp_word_addr,
+bp_orig)` patches `C.EBREAK` back and re-inserts the entry into `_breakpoints`.
+
+The user breakpoint remains armed after every step — it fires again on the next
+`run` or any subsequent step that lands back at that address.
+
+`add_breakpoint()` is also changed from `read_word()` (GDB MI) to `_monitor_mdw()`
+for the same cmderr reason — setting a breakpoint from the GUI while the target
+is halted would otherwise leave cmderr latched and silently corrupt the write.
 
 **Critical: why all reads in `step()` use `monitor` commands, not GDB MI**
 

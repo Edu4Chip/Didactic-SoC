@@ -162,14 +162,20 @@ field is updated automatically when the target halts.
 > Hardware single-step (`dcsr.step`) and hardware breakpoints are not functional
 > on this target. Step patches `C.EBREAK` (`0x9002`) into instruction memory at
 > the next PC via `monitor mww`, resumes with `-exec-continue`, waits for the
-> resulting halt, then restores the original instruction. See
-> `doc/architecture.md § Single-step implementation` for full details.
+> resulting halt, then restores the original instruction. When halted at a user
+> breakpoint (`⊙`), Step first temporarily restores the original instruction at
+> the current PC, executes it, then re-arms the breakpoint — so the breakpoint
+> remains active for future runs. See `doc/architecture.md § Single-step
+> implementation` for full details.
 
-> **Why `monitor resume`/`halt` instead of GDB native commands for Run/Halt:**  
-> GDB's `-exec-continue` waits for the target to stop before returning. Because
-> the SoC typically runs infinite loops, GDB would block indefinitely and become
-> unresponsive. `monitor resume`/`halt` are OpenOCD TCL commands that return
-> immediately and do not block GDB's MI interface.
+> **Run/Halt implementation:**  
+> **Run** uses `monitor resume` (OpenOCD Tcl command; returns immediately, GDB
+> stays in stopped state). Breakpoint hits are detected by polling `monitor
+> targets` every 200 ms in the background worker — when the output shows
+> "halted" the toolbar and disassembly panel update automatically. **Halt** uses
+> `monitor halt` (OpenOCD JTAG path, confirmed working) rather than
+> `-exec-interrupt` (which sends `vCont;t` over RSP — RSP execution commands are
+> unreliable on this debug module).
 
 ---
 

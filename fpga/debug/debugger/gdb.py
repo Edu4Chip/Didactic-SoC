@@ -141,7 +141,6 @@ class GdbClient:
 
     def run(self) -> None:
         # Only pay the get_pc() round-trip when breakpoints are active.
-        # Without breakpoints this reduces back to a single monitor resume.
         if self._breakpoints:
             pc = self.get_pc()
             if pc is not None and pc in self._breakpoints:
@@ -197,10 +196,24 @@ class GdbClient:
         if pc is None:
             raise RuntimeError("step: cannot read PC")
 
+        # If the current PC is a user breakpoint, C.EBREAK is physically in
+        # memory instead of the real instruction.  Pop it from the dict and
+        # restore the original word so:
+        #   (a) the CPU executes the real instruction when we resume, and
+        #   (b) _monitor_mdw returns the real value for _next_pcs decoding.
+        # _rearm_breakpoint() puts it back after the step (success or failure).
+        pc_was_bp   = pc in self._breakpoints
+        bp_word_addr = bp_orig = 0
+        if pc_was_bp:
+            bp_word_addr, bp_orig = self._breakpoints.pop(pc)
+            self.send_console(f"monitor mww {bp_word_addr:#x} {bp_orig:#x}")
+
         # Read the aligned word(s) containing the current instruction.
         pc_aligned = pc & ~3
         aw0 = self._monitor_mdw(pc_aligned)
         if aw0 is None:
+            if pc_was_bp:
+                self._rearm_breakpoint(pc, bp_word_addr, bp_orig)
             raise RuntimeError(f"step: cannot read at {pc_aligned:#010x}")
         if pc & 2:
             # Instruction starts in the upper halfword — may cross into next word.
@@ -227,6 +240,8 @@ class GdbClient:
             if word_addr not in originals:
                 w = self._monitor_mdw(word_addr)
                 if w is None:
+                    if pc_was_bp:
+                        self._rearm_breakpoint(pc, bp_word_addr, bp_orig)
                     raise RuntimeError(f"step: cannot read at {word_addr:#010x}")
                 originals[word_addr] = w
                 pending[word_addr]   = w
@@ -241,6 +256,13 @@ class GdbClient:
             # would leave the original instruction in place and step times out.
             actual = self._monitor_mdw(word_addr)
             if actual != pw:
+                for wa, orig in originals.items():
+                    try:
+                        self.send_console(f"monitor mww {wa:#x} {orig:#x}")
+                    except Exception:
+                        pass
+                if pc_was_bp:
+                    self._rearm_breakpoint(pc, bp_word_addr, bp_orig)
                 raise RuntimeError(
                     f"step: mww verify failed at {word_addr:#x}: "
                     f"wrote {pw:#010x}, read back {actual!r:#010x}"
@@ -276,10 +298,18 @@ class GdbClient:
                         self.send_console(f"monitor mww {word_addr:#x} {orig:#x}")
                     except Exception:
                         pass
+                if pc_was_bp:
+                    try:
+                        self._rearm_breakpoint(pc, bp_word_addr, bp_orig)
+                    except Exception:
+                        pass
                 raise RuntimeError("step: timeout — C.EBREAK did not halt the target")
 
         for word_addr, orig in originals.items():
             self.send_console(f"monitor mww {word_addr:#x} {orig:#x}")
+
+        if pc_was_bp:
+            self._rearm_breakpoint(pc, bp_word_addr, bp_orig)
 
         return self.get_pc()
 
@@ -350,9 +380,22 @@ class GdbClient:
         if addr in self._breakpoints:
             return
         word_addr = addr & ~3
-        orig = self.read_word(word_addr)
+        # Use _monitor_mdw (OpenOCD direct path) to avoid latching cmderr.
+        # read_word() uses -data-read-memory-bytes → program buffer → cmderr;
+        # the subsequent monitor mww then silently fails.
+        orig = self._monitor_mdw(word_addr)
         if orig is None:
             raise RuntimeError(f"add_breakpoint: cannot read at {word_addr:#010x}")
+        offset = addr & 2
+        if offset == 0:
+            patched = (orig & 0xFFFF0000) | 0x9002
+        else:
+            patched = (orig & 0x0000FFFF) | (0x9002 << 16)
+        self._breakpoints[addr] = (word_addr, orig)
+        self.send_console(f"monitor mww {word_addr:#x} {patched:#x}")
+
+    def _rearm_breakpoint(self, addr: int, word_addr: int, orig: int) -> None:
+        """Re-patch C.EBREAK for a BP that was temporarily restored during step."""
         offset = addr & 2
         if offset == 0:
             patched = (orig & 0xFFFF0000) | 0x9002

@@ -38,14 +38,18 @@ set_clock_groups -logically_exclusive -group [get_clocks -include_generated_cloc
 set_property -dict {PACKAGE_PIN H16 IOSTANDARD LVCMOS33} [get_ports clk_in]
 
 ## RESET
-set_property -dict {PACKAGE_PIN M20 IOSTANDARD LVCMOS33} [get_ports reset]
+#set_property -dict {PACKAGE_PIN M20 IOSTANDARD LVCMOS33} [get_ports reset]
+set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS33} [get_ports reset]
+set_property PULLTYPE PULLUP [get_ports reset]
 
 ## JTAG
 set_property -dict {PACKAGE_PIN Y7 IOSTANDARD LVCMOS33} [get_ports jtag_tck]
 set_property -dict {PACKAGE_PIN T14 IOSTANDARD LVCMOS33} [get_ports jtag_tdi]
 set_property -dict {PACKAGE_PIN U12 IOSTANDARD LVCMOS33} [get_ports jtag_tdo]
 set_property -dict {PACKAGE_PIN V13 IOSTANDARD LVCMOS33} [get_ports jtag_tms]
-set_property -dict {PACKAGE_PIN M19 IOSTANDARD LVCMOS33} [get_ports jtag_trst]
+#set_property -dict {PACKAGE_PIN M19 IOSTANDARD LVCMOS33} [get_ports jtag_trst]
+set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports jtag_trst]
+set_property PULLTYPE PULLUP [get_ports jtag_trst]
 
 ## UART
 set_property -dict {PACKAGE_PIN V15 IOSTANDARD LVCMOS33} [get_ports uart_rx]

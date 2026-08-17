@@ -1,5 +1,95 @@
 # Debug Tool — Known Issues & Findings
 
+## 10. Breakpoint hit not visible — GUI stayed in Running state
+
+**Symptom:** After resuming with breakpoints set, the target would hit C.EBREAK
+and halt, but the GUI toolbar remained green (Running) and the disassembly panel
+did not update. The user had to click Halt manually to see the current PC.
+
+**Root cause:** `run()` uses `monitor resume` (OpenOCD Tcl command via `qRcmd`
+RSP packet). This bypasses GDB's execution state machine — GDB remains in
+"stopped" state and never sends `vCont;c`. When C.EBREAK fires, OpenOCD halts
+the target and sends `T05` to GDB. Because GDB was not expecting a stop reply
+(it never issued a run command via RSP), it treated T05 as unsolicited and
+discarded it without emitting `*stopped` to the MI interface. The worker's
+`_handle_async()` never saw the notification, so no `target_halted` signal was
+emitted and the GUI never updated.
+
+`-exec-continue` cannot replace `monitor resume`: on a target that runs an
+infinite loop, `-exec-continue` puts GDB into Running state and blocks until
+`T05` arrives — which never happens during normal execution, so GDB hangs.
+
+**Fix — hardware polling:**
+
+The worker tracks a `_target_is_running` flag (set True after `run()` and
+`load_elf`, set False after `halt()`, `step()`, and `reset()`). While True, the
+worker's main loop calls `_poll_target_state()` every 200 ms:
+
+```python
+msgs = self._client.send_console("monitor targets")
+halted = any("halted" in self._extract_text(m).lower() for m in msgs)
+if not halted:
+    return
+self._target_is_running = False
+pc = self._client._monitor_reg_pc() or 0
+self._emit_halted(pc, scroll=True)
+```
+
+`monitor targets` returns a table of all debug targets and their states
+(running / halted). When the output contains "halted" (because C.EBREAK fired),
+the PC is read via `monitor reg pc` and the GUI is updated via `_emit_halted`,
+which emits `target_halted` (toolbar state) and `disassembly_ready` (panel
+scroll and PC marker).
+
+---
+
+## 9. Step refused to advance past a user breakpoint
+
+**Symptom:** After a breakpoint fires and the user clicks Halt to see the
+current location, clicking Step leaves the PC unchanged — the disassembly
+panel continues to show `⊙` (PC-at-breakpoint) at the same address.
+
+**Root cause:** When halted at a user breakpoint, `C.EBREAK` (`0x9002`) is
+physically in instruction memory at the current PC.  `step()` called
+`_monitor_mdw(pc)` to read the instruction, but received `C.EBREAK` instead of
+the real opcode.  Two compounding problems followed:
+
+1. **Wrong `originals` value.** `_next_pcs` decoded `0x9002` (q=2, f3=4,
+   rs1=0) and returned `[pc+2]` — coincidentally the right next-PC for a 2-byte
+   instruction, but the `_monitor_mdw` read to build the patch also returned the
+   BP-patched word.  `originals[word_addr]` was set to the already-patched value
+   (`0x…9002`), not the true original.
+
+2. **CPU re-fired the existing C.EBREAK.**  After writing the step-patch and
+   calling `-exec-continue`, the CPU fetched from the **current PC**, where
+   `C.EBREAK` was still in memory (the lower halfword from the user breakpoint).
+   It halted immediately at the same address.  `step()` treated that as a
+   successful step, restored `originals` (which was the already-patched value —
+   no effective change), and returned the same PC.
+
+The user saw: PC unchanged, `⊙` still shown, Step appeared to do nothing.
+
+**Fix (two changes in `gdb.py`):**
+
+1. `add_breakpoint()` was also affected by the same cmderr issue as `step()`: it
+   called `read_word()` (GDB MI, program buffer, latches cmderr) before the
+   `monitor mww`.  Changed to use `_monitor_mdw()` (OpenOCD direct path).
+
+2. `step()`: at entry, if `pc` is a user breakpoint:
+   - Pop `pc` from `_breakpoints` (saves `(bp_word_addr, bp_orig)`)
+   - Restore original instruction: `monitor mww bp_word_addr bp_orig`
+   - Proceed: `_monitor_mdw` now returns the real instruction; the patching loop
+     reads the true original for the same word when `next_pc` shares a word with
+     `pc`.
+   - After the step (success or timeout): call `_rearm_breakpoint(pc,
+     bp_word_addr, bp_orig)` which writes the patched (C.EBREAK) word back and
+     re-adds `pc` to `_breakpoints`.
+
+   A new `_rearm_breakpoint(addr, word_addr, orig)` helper was added to avoid
+   duplicating the patch-computation logic across the success and error paths.
+
+---
+
 ## 8. Disassembly panel added
 
 A **Disassembly** tab was added to the right-hand tab widget. It shows the

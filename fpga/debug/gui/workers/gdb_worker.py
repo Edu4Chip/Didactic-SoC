@@ -22,6 +22,7 @@
 #                Vladimir Todorov   <vladimir.todorov@logiqworks.io>
 # =============================================================================
 import queue
+import time
 from PySide6.QtCore import QThread, Signal
 from debugger.gdb import GdbClient
 
@@ -59,6 +60,8 @@ class GdbWorker(QThread):
         self._queue: queue.Queue = queue.Queue()
         self._running = False
         self._disasm_cache: list[dict] = []  # pre-built at ELF load; reused on halt/step
+        self._target_is_running: bool = False   # True between run() and halt/step/bp hit
+        self._last_hw_poll: float = 0.0         # timestamp of last monitor-targets poll
 
     # ------------------------------------------------------------------
     # Thread body
@@ -83,6 +86,15 @@ class GdbWorker(QThread):
 
             for msg in self._client.poll_notifications():
                 self._handle_async(msg)
+
+            # Poll target state while the GUI believes the target is running.
+            # GDB doesn't forward unsolicited T05 (breakpoint halt) as *stopped
+            # when monitor resume was used, so we ask OpenOCD directly instead.
+            if self._target_is_running:
+                now = time.time()
+                if now - self._last_hw_poll >= 0.2:
+                    self._last_hw_poll = now
+                    self._poll_target_state()
 
         self._client.disconnect()
         self.disconnected.emit()
@@ -174,6 +186,7 @@ class GdbWorker(QThread):
                 except Exception:
                     pass
                 self._client.run()
+                self._target_is_running = True
                 self.target_running.emit()
 
             elif cmd == "read_mem":
@@ -187,9 +200,11 @@ class GdbWorker(QThread):
 
             elif cmd == "run":
                 self._client.run()
+                self._target_is_running = True
                 self.target_running.emit()
 
             elif cmd == "halt":
+                self._target_is_running = False
                 self._client.halt()
                 pc = self._client.get_pc()
                 self._emit_halted(pc or 0)
@@ -197,11 +212,13 @@ class GdbWorker(QThread):
             elif cmd == "step":
                 self.target_running.emit()
                 pc = self._client.step()
+                self._target_is_running = False
                 self._emit_halted(pc or 0)
 
             elif cmd == "reset":
                 self._client.reset_halt()
                 pc = self._client.get_pc()
+                self._target_is_running = False
                 self._emit_halted(pc or 0)
 
             elif cmd == "toggle_breakpoint":
@@ -262,12 +279,34 @@ class GdbWorker(QThread):
                     pc = int(pc_info, 0)
                 except (ValueError, TypeError):
                     pc = 0
-                # Update UI toolbar state only.  No GDB I/O here — the target
-                # may still be running (stale notification) and sending RSP
-                # packets then causes the "Ignoring packet error" loop.
-                self.target_halted.emit(pc)
+                # _emit_halted is zero GDB I/O (cache only) so it is safe to
+                # call here.  This updates both the toolbar and the disassembly
+                # panel when a breakpoint fires during run — without it the
+                # panel stays frozen at the last halt position.
+                self._emit_halted(pc)
             elif msg.get("message") == "running":
                 self.target_running.emit()
+
+    def _poll_target_state(self) -> None:
+        """Poll OpenOCD for a halt that GDB didn't forward.
+
+        run() uses 'monitor resume' so GDB stays in stopped state.  When
+        C.EBREAK fires, OpenOCD halts the target but the T05 stop reply
+        arrives unsolicited and GDB discards it without emitting *stopped.
+        This method detects the halt via 'monitor targets' and updates the
+        GUI exactly as a normal halt/step would.
+        """
+        try:
+            msgs = self._client.send_console("monitor targets")
+            halted = any("halted" in self._extract_text(m).lower() for m in msgs)
+            if not halted:
+                return
+            self._target_is_running = False
+            # Read PC via OpenOCD directly to bypass GDB's stale register cache.
+            pc = self._client._monitor_reg_pc() or 0
+            self._emit_halted(pc, scroll=True)
+        except Exception:
+            pass
 
     def _query_target_state(self) -> None:
         """Detect initial halt/run state via 'monitor targets' after connect."""
@@ -280,6 +319,7 @@ class GdbWorker(QThread):
                     self.target_halted.emit(pc)   # UI state only; no ELF loaded yet
                     return
                 if "running" in text:
+                    self._target_is_running = True
                     self.target_running.emit()
                     return
         except Exception:
