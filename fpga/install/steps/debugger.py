@@ -15,6 +15,29 @@ import subprocess
 import sys
 from pathlib import Path
 from .base import Step, ProgressCallback
+from .pkgmanager import detect_pkg_manager, install_cmd
+
+# Qt's xcb platform plugin (used by PySide6 on X11) needs libxcb-cursor at
+# runtime since Qt 6.5. It's not a Python package, so pip can't pull it in,
+# and Ubuntu 22.04 doesn't ship it by default — missing it crashes the GUI
+# with "Could not load the Qt platform plugin xcb" instead of failing to
+# import.
+_XCB_CURSOR_PKG = {
+    "apt":    "libxcb-cursor0",
+    "dnf":    "xcb-util-cursor",
+    "pacman": "xcb-util-cursor",
+    "zypper": "xcb-util-cursor",
+}
+
+
+def _xcb_cursor_available() -> bool:
+    try:
+        out = subprocess.run(
+            ["ldconfig", "-p"], capture_output=True, text=True, check=True,
+        ).stdout
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return True  # can't verify (e.g. no ldconfig) — don't block on it
+    return "libxcb-cursor.so" in out
 
 
 class DebuggerStep(Step):
@@ -55,6 +78,8 @@ class DebuggerStep(Step):
             log("info", f"  write {self.launcher}")
             return True
 
+        if not self._check_xcb_cursor(log):
+            return False
         if not self._create_venv(log):
             return False
         if not self._install_packages(log):
@@ -82,6 +107,20 @@ class DebuggerStep(Step):
         return True
 
     # ------------------------------------------------------------------
+
+    def _check_xcb_cursor(self, log: ProgressCallback) -> bool:
+        if _xcb_cursor_available():
+            return True
+        mgr = detect_pkg_manager()
+        pkg = _XCB_CURSOR_PKG.get(mgr)
+        log("error", "libxcb-cursor is missing — the Qt xcb platform plugin "
+            "needs it since Qt 6.5 and the debug GUI will crash on launch.")
+        if pkg:
+            log("error", f"  {install_cmd(mgr)} {pkg}")
+        else:
+            log("error", "  install the xcb-util-cursor / libxcb-cursor "
+                "package for your distribution")
+        return False
 
     def _create_venv(self, log: ProgressCallback) -> bool:
         log("info", f"Creating venv  :  {self.venv_dir}")

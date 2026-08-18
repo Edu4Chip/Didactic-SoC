@@ -19,6 +19,8 @@ from .base import Step, ProgressCallback
 from .links import OPENOCD_REPO, OPENOCD_COMMIT
 
 _DEFAULT_PREFIX = Path.home() / ".local"
+_PATCH_DIR = Path(__file__).resolve().parent.parent / "patches"
+_FT4232HA_PATCH = _PATCH_DIR / "ft4232ha.patch"
 
 
 def _needs_sudo(path: Path) -> bool:
@@ -139,9 +141,7 @@ class OpenOCDStep(Step):
             log("info", f"  git clone {OPENOCD_REPO} {self.clone_dir}")
             log("info", f"  git checkout {OPENOCD_COMMIT}")
             if chip["patch"] == "ft4232ha":
-                log("info",  "  patch src/jtag/drivers/mpsse.h  — add TYPE_FT4232HA enum value")
-                log("info",  "  patch src/jtag/drivers/mpsse.c  — map bcdDevice 0x3600 → TYPE_FT4232HA")
-                log("info",  "  patch contrib/60-openocd.rules  — add PID 0x6048 udev rule")
+                log("info",  f"  git apply {_FT4232HA_PATCH}")
             log("info", f"  ./bootstrap && ./configure --prefix={self.install_prefix} && make -j4 && {install_cmd}")
             return True
 
@@ -192,53 +192,38 @@ class OpenOCDStep(Step):
         log("info", "")
         log("info", "Applying FT4232HA support patches …")
         log("info", "  bcdDevice 0x3600 identifies the HA variant (EEPROM Appendix A)")
+        log("info", f"  patch file: {_FT4232HA_PATCH}")
 
-        h_file = self.clone_dir / "src/jtag/drivers/mpsse.h"
-        text = h_file.read_text()
-        if "TYPE_FT4232HA" in text:
-            log("info", "  [skip]    mpsse.h — already patched")
-        else:
-            text = text.replace(
-                "\tTYPE_FT232H,\n};",
-                "\tTYPE_FT232H,\n\tTYPE_FT4232HA,\n};"
-            )
-            h_file.write_text(text)
-            log("ok",  "  [patched] src/jtag/drivers/mpsse.h — added TYPE_FT4232HA enum value")
+        already_applied = subprocess.run(
+            ["git", "apply", "--check", "--reverse", str(_FT4232HA_PATCH)],
+            cwd=self.clone_dir, capture_output=True, text=True,
+        ).returncode == 0
+        if already_applied:
+            log("info", "  [skip]    ft4232ha.patch — already applied")
+            log("ok", "All patches applied.")
+            return True
 
-        c_file = self.clone_dir / "src/jtag/drivers/mpsse.c"
-        text = c_file.read_text()
-        if "0x3600" in text:
-            log("info", "  [skip]    mpsse.c — already patched")
-        else:
-            insert = (
-                "\t\tcase 0x3600:\n"
-                "\t\t\tctx->type = TYPE_FT4232HA;\n"
-                "\t\t\tbreak;\n"
-            )
-            text = text.replace(
-                "\t\tdefault:\n\t\t\tLOG_ERROR",
-                insert + "\t\tdefault:\n\t\t\tLOG_ERROR"
-            )
-            c_file.write_text(text)
-            log("ok",  "  [patched] src/jtag/drivers/mpsse.c — case 0x3600 → TYPE_FT4232HA")
+        check = subprocess.run(
+            ["git", "apply", "--check", str(_FT4232HA_PATCH)],
+            cwd=self.clone_dir, capture_output=True, text=True,
+        )
+        if check.returncode != 0:
+            log("error", "  ft4232ha.patch does not apply cleanly; "
+                "upstream source may have changed.")
+            log("error", check.stderr.strip())
+            return False
 
-        rules_file = self.clone_dir / "contrib/60-openocd.rules"
-        text = rules_file.read_text()
-        if "6048" in text:
-            log("info", "  [skip]    60-openocd.rules — already patched")
-        else:
-            ha_rule = (
-                "# Original FT4232HA VID:PID\n"
-                'ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6048",'
-                ' MODE="660", GROUP="plugdev", TAG+="uaccess"\n\n'
-            )
-            text = text.replace(
-                "# Original FT4232 VID:PID\n",
-                ha_rule + "# Original FT4232 VID:PID\n"
-            )
-            rules_file.write_text(text)
-            log("ok",  "  [patched] contrib/60-openocd.rules — added PID 0x6048 udev rule")
+        apply = subprocess.run(
+            ["git", "apply", str(_FT4232HA_PATCH)],
+            cwd=self.clone_dir, capture_output=True, text=True,
+        )
+        if apply.returncode != 0:
+            log("error", f"  ft4232ha.patch failed to apply:\n{apply.stderr.strip()}")
+            return False
 
+        log("ok", "  [patched] src/jtag/drivers/mpsse.h — added TYPE_FT4232HA enum value")
+        log("ok", "  [patched] src/jtag/drivers/mpsse.c — case 0x3600 → TYPE_FT4232HA")
+        log("ok", "  [patched] contrib/60-openocd.rules — added PID 0x6048 udev rule")
         log("ok", "All patches applied.")
         return True
 
