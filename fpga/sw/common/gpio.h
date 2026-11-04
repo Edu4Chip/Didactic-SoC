@@ -13,10 +13,22 @@
 
 #include <stdint.h>
 
-#define ADDR 0x01030000
+#define APB_GPIO_BASE 0x01030000
+#define PADDIR_00_31    *(uint32_t *)(APB_GPIO_BASE + 0x00)
+#define GPIOEN_00_31    *(uint32_t *)(APB_GPIO_BASE + 0x04)
+#define PAD_IN          *(uint32_t *)(APB_GPIO_BASE + 0x08)
+#define PAD_OUT         *(uint32_t *)(APB_GPIO_BASE + 0x0C)
+#define PADOUTSET_00_31 *(uint32_t *)(APB_GPIO_BASE + 0x10)
+#define PADOUTCLR_00_31 *(uint32_t *)(APB_GPIO_BASE + 0x14)
+#define INTEN           *(uint32_t *)(APB_GPIO_BASE + 0x18)
+#define INTTYPE0        *(uint32_t *)(APB_GPIO_BASE + 0x1C)
+#define INTTYPE1        *(uint32_t *)(APB_GPIO_BASE + 0x20)
+#define INTSTATUS       *(uint32_t *)(APB_GPIO_BASE + 0x24)
+#define PADCFG0         *(uint32_t *)(APB_GPIO_BASE + 0x28)
+#define PADCFG1         *(uint32_t *)(APB_GPIO_BASE + 0x2C)
+#define PADCFG2         *(uint32_t *)(APB_GPIO_BASE + 0x30)
+#define PADCFG3         *(uint32_t *)(APB_GPIO_BASE + 0x34)
 
-#define PAD_IN  *(uint32_t *)(ADDR+0x08)
-#define PAD_OUT *(uint32_t *)(ADDR+0x0C)
 
 #define CTRL_BASE 0x01040000
 #define PAD_CFG_GPIO0 *(uint32_t*)(CTRL_BASE + 0x4C)
@@ -35,6 +47,37 @@
 #define PAD_CFG_GPIO13 *(uint32_t*)(CTRL_BASE + 0x80)
 #define PAD_CFG_GPIO14 *(uint32_t*)(CTRL_BASE + 0x84)
 #define PAD_CFG_GPIO15 *(uint32_t*)(CTRL_BASE + 0x88)
+
+
+void sysctrl_gpio_enable (uint32_t index){
+  volatile uint32_t mask = 0;
+
+  mask = GPIOEN_00_31;
+  GPIOEN_00_31 = (mask | 1u << index);
+}
+
+void sysctrl_gpio_disable (uint32_t index){
+  volatile uint32_t mask = 0;
+
+  mask = GPIOEN_00_31;
+  GPIOEN_00_31 = mask & ~(1u << index);
+}
+
+void sysctrl_gpio_init_in (uint32_t index){
+  volatile uint32_t mask = 0;
+
+  mask = PADDIR_00_31;
+  PADDIR_00_31 = (mask | 1u << index);
+
+}
+
+void sysctrl_gpio_init_out (uint32_t index){
+  volatile uint32_t mask = 0;
+
+  mask = PADDIR_00_31;
+  PADDIR_00_31 = mask & ~(1u << index);
+
+}
 
 void gpio_init_out(uint32_t index){
   volatile uint32_t mask = 0;

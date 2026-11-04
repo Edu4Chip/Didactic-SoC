@@ -6,6 +6,18 @@
       "description": "",
       "registers": [
         {
+          "name": "PADDIR_00_31",
+          "offset": "0x00",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "GPIOEN_00_31",
+          "offset": "0x04",
+          "access": "R/W",
+          "description": ""
+        },
+        {
           "name": "PAD_IN",
           "offset": "0x08",
           "access": "R",
@@ -14,6 +26,66 @@
         {
           "name": "PAD_OUT",
           "offset": "0x0c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PADOUTSET_00_31",
+          "offset": "0x10",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PADOUTCLR_00_31",
+          "offset": "0x14",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "INTEN",
+          "offset": "0x18",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "INTTYPE0",
+          "offset": "0x1c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "INTTYPE1",
+          "offset": "0x20",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "INTSTATUS",
+          "offset": "0x24",
+          "access": "R",
+          "description": ""
+        },
+        {
+          "name": "PADCFG0",
+          "offset": "0x28",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PADCFG1",
+          "offset": "0x2c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PADCFG2",
+          "offset": "0x30",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "PADCFG3",
+          "offset": "0x34",
           "access": "R/W",
           "description": ""
         }

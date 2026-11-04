@@ -13,36 +13,23 @@
 #include "soc_ctrl.h"
 #include "gpio.h"
 
-#define ADDR 0x01030000
+//#define ADDR 0x01030000
 
 int main() {
 
-    pmod_target(5);
+  pmod_target(5);
 
-  gpio_init_out(0);
-  gpio_init_out(1);
-  gpio_init_out(2);
-  gpio_init_out(3);
-  gpio_init_out(4);
-  gpio_init_out(5);
-  gpio_init_out(6);
-  gpio_init_out(7);
-  gpio_init_out(8);
-  gpio_init_out(9);
-  gpio_init_out(10);
-  gpio_init_out(11);
-  gpio_init_out(12);
-  gpio_init_out(13);
-  gpio_init_out(14);
-  gpio_init_out(15);
+  // PMOD A & B: all output
+  for(volatile uint32_t i=0; i < 15; i++){
+    gpio_init_out(i);
+  }
 
-  volatile uint32_t led_on = 0xFFFFFFFF;
-  volatile uint32_t led_off = 0x00000000;
-
-  *(volatile unsigned int*)(ADDR+0x0C) = led_off;
+  PAD_OUT = 0x00000000;
 
   while(1) {
-    *(volatile unsigned int*)(ADDR+0x0C) ^= 0xFFFFFFFF;
+
+    PAD_OUT ^= 0xFFFFFFFF;
+
     // Wait 100k cycles
     for (int i=0;i<100000;i++) {
       asm("nop");
