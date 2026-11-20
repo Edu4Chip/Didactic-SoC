@@ -23,14 +23,14 @@
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
 					<kactus2:portPosition busRef="high_speed_clk_in" x="110" y="40"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="110"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="70"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="90"/>
-					<kactus2:portPosition busRef="pmod_gpio" x="110" y="110"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
+					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 					<kactus2:adHocVisible portName="irq" x="-110" y="170"/>
 					<kactus2:adHocVisible portName="rst" x="-110" y="80"/>
-					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -51,14 +51,14 @@
 					<kactus2:portPosition busRef="IRQ" x="-110" y="150"/>
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="100"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="100"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="120"/>
-					<kactus2:portPosition busRef="pmod_gpio" x="110" y="100"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
+					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 					<kactus2:adHocVisible portName="irq_1" x="-110" y="170"/>
 					<kactus2:adHocVisible portName="reset_int" x="-110" y="80"/>
-					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -80,14 +80,14 @@
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
 					<kactus2:portPosition busRef="high_speed_clk" x="110" y="40"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="100"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="80"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="100"/>
-					<kactus2:portPosition busRef="pmod_gpio" x="110" y="100"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
+					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 					<kactus2:adHocVisible portName="irq_2" x="-110" y="170"/>
 					<kactus2:adHocVisible portName="reset_int" x="-110" y="80"/>
-					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -109,14 +109,14 @@
 					<kactus2:portPosition busRef="Reset" x="-110" y="60"/>
 					<kactus2:portPosition busRef="SS_Ctrl" x="-110" y="110"/>
 					<kactus2:portPosition busRef="high_speed_clk" x="110" y="40"/>
+					<kactus2:portPosition busRef="pmod_gpio" x="110" y="100"/>
 					<kactus2:portPosition busRef="pmod_gpio_0" x="110" y="60"/>
 					<kactus2:portPosition busRef="pmod_gpio_1" x="110" y="80"/>
-					<kactus2:portPosition busRef="pmod_gpio" x="110" y="100"/>
 				</kactus2:portPositions>
 				<kactus2:adHocVisibilities>
+					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 					<kactus2:adHocVisible portName="irq_3" x="-110" y="170"/>
 					<kactus2:adHocVisible portName="reset_int" x="-110" y="80"/>
-					<kactus2:adHocVisible portName="high_speed_clk" x="110" y="60"/>
 				</kactus2:adHocVisibilities>
 			</ipxact:vendorExtensions>
 		</ipxact:componentInstance>
@@ -622,14 +622,20 @@
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_obi_icn_ss_apb_1_to_Student_SS_1_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="410"/>
+				<kactus2:position x="790" y="410"/>
+				<kactus2:position x="790" y="410"/>
 				<kactus2:position x="810" y="410"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_obi_icn_ss_apb_2_to_Student_SS_2_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="630"/>
+				<kactus2:position x="790" y="630"/>
+				<kactus2:position x="790" y="630"/>
 				<kactus2:position x="810" y="630"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="i_obi_icn_ss_apb_3_to_Student_SS_3_APB" kactus2:offPage="false">
 				<kactus2:position x="710" y="850"/>
+				<kactus2:position x="790" y="850"/>
+				<kactus2:position x="790" y="850"/>
 				<kactus2:position x="810" y="850"/>
 			</kactus2:route>
 			<kactus2:route kactus2:connRef="SystemControl_SS_OBI_to_i_obi_icn_ss_OBI" kactus2:offPage="false">

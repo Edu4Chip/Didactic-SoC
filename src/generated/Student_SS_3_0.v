@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_3_0.v
-// Creation date : 07.04.2025
-// Creation time : 15:38:46
+// Creation date : 19.11.2026
+// Creation time : 15:57:05
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.3 64-bit
+// Tool : Kactus2 3.14.2 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:Student_SS_3:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_3/1.0/Student_SS_3.1.0.xml
+// whose XML file is /home/oinonen2/Edu4Chip/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_3/1.0/Student_SS_3.1.0.xml
 //-----------------------------------------------------------------------------
 
 module Student_SS_3_0 #(
@@ -41,15 +41,10 @@ module Student_SS_3_0 #(
     // Interface: high_speed_clk
     input  logic                        high_speed_clk,
 
-    // Interface: pmod_gpio_0
-    input  logic         [3:0]          pmod_0_gpi,
-    output logic         [3:0]          pmod_0_gpio_oe,
-    output logic         [3:0]          pmod_0_gpo,
-
-    // Interface: pmod_gpio_1
-    input  logic         [3:0]          pmod_1_gpi,
-    output logic         [3:0]          pmod_1_gpio_oe,
-    output logic         [3:0]          pmod_1_gpo
+    // Interface: pmod_gpio
+    input  logic         [15:0]         pmod_gpi,
+    output logic         [15:0]         pmod_gpio_oe,
+    output logic         [15:0]         pmod_gpo
 );
 
     // ss_cg_clk_in_to_Clock wires:
@@ -73,18 +68,14 @@ module Student_SS_3_0 #(
     wire       Student_SS_3_Reset_to_Reset_reset;
     // ss_cg_clk_out_to_Student_SS_3_Clock wires:
     wire       ss_cg_clk_out_to_Student_SS_3_Clock_clk;
-    // Student_SS_3_pmod_gpio_0_to_bus wires:
-    wire [3:0] Student_SS_3_pmod_gpio_0_to_bus_gpi;
-    wire [3:0] Student_SS_3_pmod_gpio_0_to_bus_gpio_oe;
-    wire [3:0] Student_SS_3_pmod_gpio_0_to_bus_gpo;
-    // Student_SS_3_pmod_gpio_1_to_bus_1 wires:
-    wire [3:0] Student_SS_3_pmod_gpio_1_to_bus_1_gpi;
-    wire [3:0] Student_SS_3_pmod_gpio_1_to_bus_1_gpio_oe;
-    wire [3:0] Student_SS_3_pmod_gpio_1_to_bus_1_gpo;
     // ss_high_speed_cg_clk_out_to_Student_SS_3_high_speed_clk wires:
     wire       ss_high_speed_cg_clk_out_to_Student_SS_3_high_speed_clk_clk;
     // ss_high_speed_cg_clk_in_to_high_speed_clk wires:
     wire       ss_high_speed_cg_clk_in_to_high_speed_clk_clk;
+    // Student_SS_3_pmod_gpio_to_pmod_gpio wires:
+    wire [15:0] Student_SS_3_pmod_gpio_to_pmod_gpio_gpi;
+    wire [15:0] Student_SS_3_pmod_gpio_to_pmod_gpio_gpio_oe;
+    wire [15:0] Student_SS_3_pmod_gpio_to_pmod_gpio_gpo;
 
     // Ad-hoc wires:
     wire [7:0] ss_cg_en_to_ss_ctrl_3;
@@ -103,12 +94,9 @@ module Student_SS_3_0 #(
     wire       Student_SS_3_high_speed_clk;
     wire       Student_SS_3_irq_3;
     wire       Student_SS_3_irq_en_3;
-    wire [3:0] Student_SS_3_pmod_0_gpi;
-    wire [3:0] Student_SS_3_pmod_0_gpio_oe;
-    wire [3:0] Student_SS_3_pmod_0_gpo;
-    wire [3:0] Student_SS_3_pmod_1_gpi;
-    wire [3:0] Student_SS_3_pmod_1_gpio_oe;
-    wire [3:0] Student_SS_3_pmod_1_gpo;
+    wire [15:0] Student_SS_3_pmod_gpi;
+    wire [15:0] Student_SS_3_pmod_gpio_oe;
+    wire [15:0] Student_SS_3_pmod_gpo;
     wire       Student_SS_3_reset_int;
     wire [7:0] Student_SS_3_ss_ctrl_3;
     // ss_cg port wires:
@@ -133,12 +121,9 @@ module Student_SS_3_0 #(
     assign ss_high_speed_cg_clk_in_to_high_speed_clk_clk = high_speed_clk;
     assign irq_3 = Student_SS_3_IRQ_to_IRQ_irq;
     assign Student_SS_3_SS_CTRL_to_SS_Ctrl_irq_en = irq_en_3;
-    assign Student_SS_3_pmod_gpio_0_to_bus_gpi = pmod_0_gpi;
-    assign pmod_0_gpio_oe = Student_SS_3_pmod_gpio_0_to_bus_gpio_oe;
-    assign pmod_0_gpo = Student_SS_3_pmod_gpio_0_to_bus_gpo;
-    assign Student_SS_3_pmod_gpio_1_to_bus_1_gpi = pmod_1_gpi;
-    assign pmod_1_gpio_oe = Student_SS_3_pmod_gpio_1_to_bus_1_gpio_oe;
-    assign pmod_1_gpo = Student_SS_3_pmod_gpio_1_to_bus_1_gpo;
+    assign Student_SS_3_pmod_gpio_to_pmod_gpio_gpi = pmod_gpi;
+    assign pmod_gpio_oe = Student_SS_3_pmod_gpio_to_pmod_gpio_gpio_oe;
+    assign pmod_gpo = Student_SS_3_pmod_gpio_to_pmod_gpio_gpo;
     assign Student_SS_3_Reset_to_Reset_reset = reset_int;
     assign Student_SS_3_SS_CTRL_to_SS_Ctrl_clk_ctrl = ss_ctrl_3;
     assign ss_cg_en_to_ss_ctrl_3 = ss_ctrl_3;
@@ -158,12 +143,9 @@ module Student_SS_3_0 #(
     assign Student_SS_3_high_speed_clk = ss_high_speed_cg_clk_out_to_Student_SS_3_high_speed_clk_clk;
     assign Student_SS_3_IRQ_to_IRQ_irq = Student_SS_3_irq_3;
     assign Student_SS_3_irq_en_3 = Student_SS_3_SS_CTRL_to_SS_Ctrl_irq_en;
-    assign Student_SS_3_pmod_0_gpi = Student_SS_3_pmod_gpio_0_to_bus_gpi;
-    assign Student_SS_3_pmod_gpio_0_to_bus_gpio_oe = Student_SS_3_pmod_0_gpio_oe;
-    assign Student_SS_3_pmod_gpio_0_to_bus_gpo = Student_SS_3_pmod_0_gpo;
-    assign Student_SS_3_pmod_1_gpi = Student_SS_3_pmod_gpio_1_to_bus_1_gpi;
-    assign Student_SS_3_pmod_gpio_1_to_bus_1_gpio_oe = Student_SS_3_pmod_1_gpio_oe;
-    assign Student_SS_3_pmod_gpio_1_to_bus_1_gpo = Student_SS_3_pmod_1_gpo;
+    assign Student_SS_3_pmod_gpi = Student_SS_3_pmod_gpio_to_pmod_gpio_gpi;
+    assign Student_SS_3_pmod_gpio_to_pmod_gpio_gpio_oe = Student_SS_3_pmod_gpio_oe;
+    assign Student_SS_3_pmod_gpio_to_pmod_gpio_gpo = Student_SS_3_pmod_gpo;
     assign Student_SS_3_reset_int = Student_SS_3_Reset_to_Reset_reset;
     assign Student_SS_3_ss_ctrl_3 = Student_SS_3_SS_CTRL_to_SS_Ctrl_clk_ctrl;
     // ss_cg assignments:
@@ -197,14 +179,10 @@ module Student_SS_3_0 #(
         .ss_ctrl_3           (Student_SS_3_ss_ctrl_3),
         // Interface: high_speed_clk
         .high_speed_clk      (Student_SS_3_high_speed_clk),
-        // Interface: pmod_gpio_0
-        .pmod_0_gpi          (Student_SS_3_pmod_0_gpi),
-        .pmod_0_gpio_oe      (Student_SS_3_pmod_0_gpio_oe),
-        .pmod_0_gpo          (Student_SS_3_pmod_0_gpo),
-        // Interface: pmod_gpio_1
-        .pmod_1_gpi          (Student_SS_3_pmod_1_gpi),
-        .pmod_1_gpio_oe      (Student_SS_3_pmod_1_gpio_oe),
-        .pmod_1_gpo          (Student_SS_3_pmod_1_gpo));
+        // Interface: pmod_gpio
+        .pmod_gpi            (Student_SS_3_pmod_gpi),
+        .pmod_gpio_oe        (Student_SS_3_pmod_gpio_oe),
+        .pmod_gpo            (Student_SS_3_pmod_gpo));
 
     // IP-XACT VLNV: tuni.fi:tech:tech_cg:1.0
     tech_cg ss_cg(

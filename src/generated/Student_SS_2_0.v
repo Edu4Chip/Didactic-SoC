@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------------------
 // File          : Student_SS_2_0.v
-// Creation date : 07.04.2025
-// Creation time : 15:38:46
+// Creation date : 19.11.2026
+// Creation time : 15:57:05
 // Description   : 
 // Created by    : 
-// Tool : Kactus2 3.13.3 64-bit
+// Tool : Kactus2 3.14.2 64-bit
 // Plugin : Verilog generator 2.4
 // This file was generated based on IP-XACT component tuni.fi:subsystem.wrapper:Student_SS_2:1.0
-// whose XML file is C:/Users/kayra/Documents/repos/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_2/1.0/Student_SS_2.1.0.xml
+// whose XML file is /home/oinonen2/Edu4Chip/Didactic-SoC/ipxact/tuni.fi/subsystem.wrapper/Student_SS_2/1.0/Student_SS_2.1.0.xml
 //-----------------------------------------------------------------------------
 
 module Student_SS_2_0 #(
@@ -41,15 +41,10 @@ module Student_SS_2_0 #(
     // Interface: high_speed_clk
     input  logic                        high_speed_clk,
 
-    // Interface: pmod_gpio_0
-    input  logic         [3:0]          pmod_0_gpi,
-    output logic         [3:0]          pmod_0_gpio_oe,
-    output logic         [3:0]          pmod_0_gpo,
-
-    // Interface: pmod_gpio_1
-    input  logic         [3:0]          pmod_1_gpi,
-    output logic         [3:0]          pmod_1_gpio_oe,
-    output logic         [3:0]          pmod_1_gpo
+    // Interface: pmod_gpio
+    input  logic         [15:0]         pmod_gpi,
+    output logic         [15:0]         pmod_gpio_oe,
+    output logic         [15:0]         pmod_gpo
 );
 
     // ss_cg_clk_in_to_Clock wires:
@@ -73,18 +68,14 @@ module Student_SS_2_0 #(
     wire       student_ss_2_APB_to_APB_PWRITE;
     // student_ss_2_IRQ_to_IRQ wires:
     wire       student_ss_2_IRQ_to_IRQ_irq;
-    // student_ss_2_pmod_gpio_0_to_bus wires:
-    wire [3:0] student_ss_2_pmod_gpio_0_to_bus_gpi;
-    wire [3:0] student_ss_2_pmod_gpio_0_to_bus_gpio_oe;
-    wire [3:0] student_ss_2_pmod_gpio_0_to_bus_gpo;
-    // student_ss_2_pmod_gpio_1_to_bus_1 wires:
-    wire [3:0] student_ss_2_pmod_gpio_1_to_bus_1_gpi;
-    wire [3:0] student_ss_2_pmod_gpio_1_to_bus_1_gpio_oe;
-    wire [3:0] student_ss_2_pmod_gpio_1_to_bus_1_gpo;
     // student_ss_2_high_speed_clock_to_ss_high_speed_cg_clk_out wires:
     wire       student_ss_2_high_speed_clock_to_ss_high_speed_cg_clk_out_clk;
     // ss_high_speed_cg_clk_in_to_high_speed_clk wires:
     wire       ss_high_speed_cg_clk_in_to_high_speed_clk_clk;
+    // student_ss_2_pmod_gpio_to_pmod_gpio wires:
+    wire [15:0] student_ss_2_pmod_gpio_to_pmod_gpio_gpi;
+    wire [15:0] student_ss_2_pmod_gpio_to_pmod_gpio_gpio_oe;
+    wire [15:0] student_ss_2_pmod_gpio_to_pmod_gpio_gpo;
 
     // Ad-hoc wires:
     wire       ss_cg_en_to_ss_ctrl_2;
@@ -111,12 +102,9 @@ module Student_SS_2_0 #(
     wire       student_ss_2_high_speed_clk;
     wire       student_ss_2_irq_2;
     wire       student_ss_2_irq_en_2;
-    wire [3:0] student_ss_2_pmod_0_gpi;
-    wire [3:0] student_ss_2_pmod_0_gpio_oe;
-    wire [3:0] student_ss_2_pmod_0_gpo;
-    wire [3:0] student_ss_2_pmod_1_gpi;
-    wire [3:0] student_ss_2_pmod_1_gpio_oe;
-    wire [3:0] student_ss_2_pmod_1_gpo;
+    wire [15:0] student_ss_2_pmod_gpi;
+    wire [15:0] student_ss_2_pmod_gpio_oe;
+    wire [15:0] student_ss_2_pmod_gpo;
     wire       student_ss_2_reset_int;
     wire [7:0] student_ss_2_ss_ctrl_2;
 
@@ -133,12 +121,9 @@ module Student_SS_2_0 #(
     assign ss_high_speed_cg_clk_in_to_high_speed_clk_clk = high_speed_clk;
     assign irq_2 = student_ss_2_IRQ_to_IRQ_irq;
     assign student_ss_2_SS_Ctrl_to_SS_Ctrl_irq_en = irq_en_2;
-    assign student_ss_2_pmod_gpio_0_to_bus_gpi = pmod_0_gpi;
-    assign pmod_0_gpio_oe = student_ss_2_pmod_gpio_0_to_bus_gpio_oe;
-    assign pmod_0_gpo = student_ss_2_pmod_gpio_0_to_bus_gpo;
-    assign student_ss_2_pmod_gpio_1_to_bus_1_gpi = pmod_1_gpi;
-    assign pmod_1_gpio_oe = student_ss_2_pmod_gpio_1_to_bus_1_gpio_oe;
-    assign pmod_1_gpo = student_ss_2_pmod_gpio_1_to_bus_1_gpo;
+    assign student_ss_2_pmod_gpio_to_pmod_gpio_gpi = pmod_gpi;
+    assign pmod_gpio_oe = student_ss_2_pmod_gpio_to_pmod_gpio_gpio_oe;
+    assign pmod_gpo = student_ss_2_pmod_gpio_to_pmod_gpio_gpo;
     assign student_ss_2_Reset_to_Reset_reset = reset_int;
     assign student_ss_2_SS_Ctrl_to_SS_Ctrl_clk_ctrl = ss_ctrl_2;
     assign ss_cg_en_to_ss_ctrl_2 = ss_ctrl_2[0];
@@ -166,12 +151,9 @@ module Student_SS_2_0 #(
     assign student_ss_2_high_speed_clk = student_ss_2_high_speed_clock_to_ss_high_speed_cg_clk_out_clk;
     assign student_ss_2_IRQ_to_IRQ_irq = student_ss_2_irq_2;
     assign student_ss_2_irq_en_2 = student_ss_2_SS_Ctrl_to_SS_Ctrl_irq_en;
-    assign student_ss_2_pmod_0_gpi = student_ss_2_pmod_gpio_0_to_bus_gpi;
-    assign student_ss_2_pmod_gpio_0_to_bus_gpio_oe = student_ss_2_pmod_0_gpio_oe;
-    assign student_ss_2_pmod_gpio_0_to_bus_gpo = student_ss_2_pmod_0_gpo;
-    assign student_ss_2_pmod_1_gpi = student_ss_2_pmod_gpio_1_to_bus_1_gpi;
-    assign student_ss_2_pmod_gpio_1_to_bus_1_gpio_oe = student_ss_2_pmod_1_gpio_oe;
-    assign student_ss_2_pmod_gpio_1_to_bus_1_gpo = student_ss_2_pmod_1_gpo;
+    assign student_ss_2_pmod_gpi = student_ss_2_pmod_gpio_to_pmod_gpio_gpi;
+    assign student_ss_2_pmod_gpio_to_pmod_gpio_gpio_oe = student_ss_2_pmod_gpio_oe;
+    assign student_ss_2_pmod_gpio_to_pmod_gpio_gpo = student_ss_2_pmod_gpo;
     assign student_ss_2_reset_int = student_ss_2_Reset_to_Reset_reset;
     assign student_ss_2_ss_ctrl_2 = student_ss_2_SS_Ctrl_to_SS_Ctrl_clk_ctrl;
 
@@ -215,14 +197,10 @@ module Student_SS_2_0 #(
         .ss_ctrl_2           (student_ss_2_ss_ctrl_2),
         // Interface: high_speed_clock
         .high_speed_clk      (student_ss_2_high_speed_clk),
-        // Interface: pmod_gpio_0
-        .pmod_0_gpi          (student_ss_2_pmod_0_gpi),
-        .pmod_0_gpio_oe      (student_ss_2_pmod_0_gpio_oe),
-        .pmod_0_gpo          (student_ss_2_pmod_0_gpo),
-        // Interface: pmod_gpio_1
-        .pmod_1_gpi          (student_ss_2_pmod_1_gpi),
-        .pmod_1_gpio_oe      (student_ss_2_pmod_1_gpio_oe),
-        .pmod_1_gpo          (student_ss_2_pmod_1_gpo));
+        // Interface: pmod_gpio
+        .pmod_gpi            (student_ss_2_pmod_gpi),
+        .pmod_gpio_oe        (student_ss_2_pmod_gpio_oe),
+        .pmod_gpo            (student_ss_2_pmod_gpo));
 
 
 endmodule
