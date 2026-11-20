@@ -116,12 +116,15 @@ sources:
 #    - src/rtl/kth_ss_tieoff.sv
 #    - src/rtl/tum_ss_tieoff.sv
 
+    - ../Mystery/subsystem0.sv
     - ../Mystery/subsystem1.sv
+    - ../Mystery/subsystem2.sv
+    - ../Mystery/subsystem3.sv
 
-    - src/rtl/Student_area_0.sv
+#    - src/rtl/Student_area_0.sv
 #    - src/rtl/student_ss_1.sv
-    - src/rtl/Student_SS_2.sv
-    - src/rtl/Student_SS_3.sv
+#    - src/rtl/Student_SS_2.sv
+#    - src/rtl/Student_SS_3.sv
 
     - src/rtl/analog_status_array.sv
     - src/rtl/student_ss_analog.sv

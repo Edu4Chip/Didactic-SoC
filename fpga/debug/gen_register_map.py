@@ -30,6 +30,10 @@ _PERIPHERAL_NAMES = {
     0x01030100: "UART",
     0x01030200: "SPI",
     0x01040000: "SoC Control",
+    0x01050000: "Student SS0",
+    0x01051000: "Student SS1",
+    0x01052000: "Student SS2",
+    0x01053000: "Student SS3",
 }
 
 # Each peripheral occupies at most this many bytes (used for range matching)
@@ -44,6 +48,7 @@ _ACCESS_OVERRIDES = {
     "RXFIFO": "R",
     "INTSTA": "R",
     "TXFIFO": "W",
+    "_RO":    "R",
 }
 
 

@@ -381,6 +381,418 @@
           "description": ""
         }
       ]
+    },
+    {
+      "name": "Student SS0",
+      "base": "0x01050000",
+      "description": "",
+      "registers": [
+        {
+          "name": "SS0_ID",
+          "offset": "0x00",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_IDENTIFY",
+          "offset": "0x04",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG08",
+          "offset": "0x08",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG0C",
+          "offset": "0x0c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG10",
+          "offset": "0x10",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG14",
+          "offset": "0x14",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG18",
+          "offset": "0x18",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG1C",
+          "offset": "0x1c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG20",
+          "offset": "0x20",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG24",
+          "offset": "0x24",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG28",
+          "offset": "0x28",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG2C",
+          "offset": "0x2c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG30",
+          "offset": "0x30",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG34",
+          "offset": "0x34",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_REG38",
+          "offset": "0x38",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS0_END",
+          "offset": "0x3c",
+          "access": "R/W",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Student SS1",
+      "base": "0x01051000",
+      "description": "",
+      "registers": [
+        {
+          "name": "SS1_ID",
+          "offset": "0x00",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_IDENTIFY",
+          "offset": "0x04",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG08",
+          "offset": "0x08",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG0C",
+          "offset": "0x0c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG10",
+          "offset": "0x10",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG14",
+          "offset": "0x14",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG18",
+          "offset": "0x18",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG1C",
+          "offset": "0x1c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG20",
+          "offset": "0x20",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG24",
+          "offset": "0x24",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG28",
+          "offset": "0x28",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG2C",
+          "offset": "0x2c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG30",
+          "offset": "0x30",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG34",
+          "offset": "0x34",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_REG38",
+          "offset": "0x38",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS1_END",
+          "offset": "0x3c",
+          "access": "R/W",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Student SS2",
+      "base": "0x01052000",
+      "description": "",
+      "registers": [
+        {
+          "name": "SS2_ID",
+          "offset": "0x00",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_IDENTIFY",
+          "offset": "0x04",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG08",
+          "offset": "0x08",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG0C",
+          "offset": "0x0c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG10",
+          "offset": "0x10",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG14",
+          "offset": "0x14",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG18",
+          "offset": "0x18",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG1C",
+          "offset": "0x1c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG20",
+          "offset": "0x20",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG24",
+          "offset": "0x24",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG28",
+          "offset": "0x28",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG2C",
+          "offset": "0x2c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG30",
+          "offset": "0x30",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG34",
+          "offset": "0x34",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_REG38",
+          "offset": "0x38",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS2_END",
+          "offset": "0x3c",
+          "access": "R/W",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Student SS3",
+      "base": "0x01053000",
+      "description": "",
+      "registers": [
+        {
+          "name": "SS3_ID",
+          "offset": "0x00",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_IDENTIFY",
+          "offset": "0x04",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG08",
+          "offset": "0x08",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG0C",
+          "offset": "0x0c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG10",
+          "offset": "0x10",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG14",
+          "offset": "0x14",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG18",
+          "offset": "0x18",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG1C",
+          "offset": "0x1c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG20",
+          "offset": "0x20",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG24",
+          "offset": "0x24",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG28",
+          "offset": "0x28",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG2C",
+          "offset": "0x2c",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG30",
+          "offset": "0x30",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG34",
+          "offset": "0x34",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_REG38",
+          "offset": "0x38",
+          "access": "R/W",
+          "description": ""
+        },
+        {
+          "name": "SS3_END",
+          "offset": "0x3c",
+          "access": "R/W",
+          "description": ""
+        }
+      ]
     }
   ]
 }
