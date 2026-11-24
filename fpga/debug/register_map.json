@@ -388,9 +388,9 @@
       "description": "",
       "registers": [
         {
-          "name": "SS0_ID",
+          "name": "SS0_ID_RO",
           "offset": "0x00",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
@@ -412,33 +412,33 @@
           "description": ""
         },
         {
-          "name": "SS0_REG10",
+          "name": "SS0_REG10_RO",
           "offset": "0x10",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS0_REG14",
+          "name": "SS0_REG14_RO",
           "offset": "0x14",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS0_REG18",
+          "name": "SS0_REG18_RO",
           "offset": "0x18",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS0_REG1C",
+          "name": "SS0_REG1C_RO",
           "offset": "0x1c",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS0_REG20",
+          "name": "SS0_REG20_RO",
           "offset": "0x20",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
@@ -478,9 +478,9 @@
           "description": ""
         },
         {
-          "name": "SS0_END",
+          "name": "SS0_END_RO",
           "offset": "0x3c",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         }
       ]
@@ -491,9 +491,9 @@
       "description": "",
       "registers": [
         {
-          "name": "SS1_ID",
+          "name": "SS1_ID_RO",
           "offset": "0x00",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
@@ -521,15 +521,15 @@
           "description": ""
         },
         {
-          "name": "SS1_REG14",
+          "name": "SS1_REG14_RO",
           "offset": "0x14",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS1_REG18",
+          "name": "SS1_REG18_RO",
           "offset": "0x18",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
@@ -581,9 +581,9 @@
           "description": ""
         },
         {
-          "name": "SS1_END",
+          "name": "SS1_END_RO",
           "offset": "0x3c",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         }
       ]
@@ -594,9 +594,9 @@
       "description": "",
       "registers": [
         {
-          "name": "SS2_ID",
+          "name": "SS2_ID_RO",
           "offset": "0x00",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
@@ -618,21 +618,21 @@
           "description": ""
         },
         {
-          "name": "SS2_REG10",
+          "name": "SS2_REG10_RO",
           "offset": "0x10",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS2_REG14",
+          "name": "SS2_REG14_RO",
           "offset": "0x14",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS2_REG18",
+          "name": "SS2_REG18_RO",
           "offset": "0x18",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
@@ -684,9 +684,9 @@
           "description": ""
         },
         {
-          "name": "SS2_END",
+          "name": "SS2_END_RO",
           "offset": "0x3c",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         }
       ]
@@ -697,9 +697,9 @@
       "description": "",
       "registers": [
         {
-          "name": "SS3_ID",
+          "name": "SS3_ID_RO",
           "offset": "0x00",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
@@ -715,45 +715,45 @@
           "description": ""
         },
         {
-          "name": "SS3_REG0C",
+          "name": "SS3_REG0C_RO",
           "offset": "0x0c",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS3_REG10",
+          "name": "SS3_REG10_RO",
           "offset": "0x10",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS3_REG14",
+          "name": "SS3_REG14_RO",
           "offset": "0x14",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS3_REG18",
+          "name": "SS3_REG18_RO",
           "offset": "0x18",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS3_REG1C",
+          "name": "SS3_REG1C_RO",
           "offset": "0x1c",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS3_REG20",
+          "name": "SS3_REG20_RO",
           "offset": "0x20",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
-          "name": "SS3_REG24",
+          "name": "SS3_REG24_RO",
           "offset": "0x24",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         },
         {
@@ -787,9 +787,9 @@
           "description": ""
         },
         {
-          "name": "SS3_END",
+          "name": "SS3_END_RO",
           "offset": "0x3c",
-          "access": "R/W",
+          "access": "R",
           "description": ""
         }
       ]
